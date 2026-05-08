@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/webhook-outbox",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reliable HMAC-signed webhook outbox with retry.",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}

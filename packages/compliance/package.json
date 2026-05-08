@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/compliance",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GDPR/RGPD compliance layer: PII pseudonymization, retention, data-subject rights.",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}

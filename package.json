@@ -1,0 +1,31 @@
+{
+  "name": "kairos-cerebro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "KAIROS — Anti-Fraud Infrastructure (workspace root)",
+  "bin": {
+    "kairos": "bin/kairos.js"
+  },
+  "scripts": {
+    "start": "node bin/kairos.js start",
+    "start:server": "node packages/sniper-api/server.js",
+    "test": "node --test tests/*.test.js",
+    "audit:verify": "node bin/kairos.js audit:verify",
+    "compliance:purge": "node bin/kairos.js compliance:purge",
+    "lint": "echo \"lint upstream config disabled — see ADR-001\" && exit 0",
+    "typecheck": "echo \"no typescript at the root — packages are zero-dep JS\" && exit 0",
+    "lint:upstream": "npm run lint --prefix .aiox-core",
+    "typecheck:upstream": "npm run typecheck --prefix .aiox-core",
+    "test:upstream": "npm run test --prefix .aiox-core",
+    "sync:ide": "node .aiox-core/infrastructure/scripts/ide-sync/index.js sync",
+    "sync:ide:check": "node .aiox-core/infrastructure/scripts/ide-sync/index.js validate --strict",
+    "sync:skills:codex": "node .aiox-core/infrastructure/scripts/codex-skills-sync/index.js",
+    "sync:skills:codex:global": "node .aiox-core/infrastructure/scripts/codex-skills-sync/index.js --global",
+    "validate:structure": "echo \"Structure ready: docs, packages, tests, bin\"",
+    "validate:agents": "node .aiox-core/infrastructure/scripts/validate-agents.js"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

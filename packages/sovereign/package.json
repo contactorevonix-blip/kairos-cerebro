@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/sovereign",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sovereign agent runtime: deterministic orchestrator + decision audit trail.",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,67 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node packages/sniper-api/server.js)",
+      "Bash(Start-Sleep -Seconds 3)",
+      "Bash(Invoke-WebRequest -Uri \"http://localhost:8787/health\" -UseBasicParsing -TimeoutSec 5)",
+      "Bash(Select-Object -ExpandProperty StatusCode)",
+      "Bash(curl *)",
+      "Bash(netstat -ano)",
+      "Bash(awk '{print $5}')",
+      "Bash(kill 22092)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('STATUS:', d['status'], '| v'+d['version']\\)\")",
+      "PowerShell(Stop-Process *)",
+      "PowerShell(Start-Process \"http://localhost:8787/\")",
+      "PowerShell(Start-Sleep -Seconds 2; Start-Process \"http://localhost:8787/dashboard\")",
+      "mcp__composio__COMPOSIO_MANAGE_CONNECTIONS",
+      "mcp__composio__COMPOSIO_SEARCH_TOOLS",
+      "mcp__composio__COMPOSIO_GET_TOOL_SCHEMAS",
+      "mcp__composio__COMPOSIO_MULTI_EXECUTE_TOOL",
+      "mcp__claude_ai_Gmail__create_draft",
+      "WebFetch(domain:www.roadmapdevdeoferta.com)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Start-Process \"http://localhost:8787/\"; Start-Sleep -Seconds 1; Start-Process \"http://localhost:8787/dashboard\")",
+      "PowerShell(Start-Process \"http://localhost:8787/?nocache=1\")",
+      "PowerShell(Out-File *)",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\lealp\\\\KAIROS_CEREBRO\\\\landing-preview.html\"; Start-Sleep -Seconds 1; Start-Process \"http://localhost:8787/\")",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-novo.html\"; Start-Sleep -Seconds 1; Start-Process \"http://localhost:8787/\")",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-novo.html\")",
+      "PowerShell($content = Get-Content \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-novo.html\" -Raw; $hasV72 = $content -match 'v7\\\\.2'; $hasProblem = $content -match 'id=\"problem\"'; $hasStats = $content -match 'k-stats-bar'; $hasUrgency = $content -match 'k-urgency'; Write-Host \"v7.2 badge: $hasV72 | Problem section: $hasProblem | Stats bar: $hasStats | Urgency: $hasUrgency | Tamanho: $\\($content.Length\\) chars\")",
+      "PowerShell(Start-Process \"msedge.exe\" -ArgumentList \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-novo.html\" -ErrorAction SilentlyContinue; Start-Process \"chrome.exe\" -ArgumentList \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-novo.html\" -ErrorAction SilentlyContinue; \"Aberto\")",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-v8.html\")",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\lealp\\\\Desktop\\\\kairos-tesla.html\"; Start-Sleep -Seconds 1; Start-Process \"http://localhost:8787/\")",
+      "WebSearch",
+      "PowerShell(git clone *)",
+      "PowerShell(Join-Path *)",
+      "PowerShell($dest = \"C:\\\\Users\\\\lealp\\\\.claude\\\\skills\"; $base = \"C:\\\\Users\\\\lealp\\\\claude-skills-temp\\\\engineering-team\"; # Extract the zip files we need $zips = @\\(\"senior-architect.zip\",\"senior-security.zip\",\"senior-fullstack.zip\",\"senior-secops.zip\"\\); foreach \\($z in $zips\\) { $src = Join-Path $base $z; $name = $z -replace '\\\\.zip$',''; $out = Join-Path $dest $name; if \\(Test-Path $src\\) { Expand-Archive $src -DestinationPath $out -Force; Write-Host \"Extracted: $name\" } else { Write-Host \"Missing: $z\" } }; Get-ChildItem $dest | Select-Object -ExpandProperty Name)",
+      "Bash(git init *)",
+      "Bash(npm install *)",
+      "Bash(git add *)"
+    ]
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\lealp\\\\KAIROS_CEREBRO\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\lealp\\\\KAIROS_CEREBRO\\\\.claude\\\\hooks\\\\synapse-engine.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

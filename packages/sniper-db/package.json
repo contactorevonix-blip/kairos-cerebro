@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/sniper-db",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Persistent data layer for KAIROS Sniper (zero deps).",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}

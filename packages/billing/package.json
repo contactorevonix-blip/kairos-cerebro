@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/billing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plans, Stripe webhook verification, usage metering for KAIROS.",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}

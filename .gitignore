@@ -1,0 +1,32 @@
+# KAIROS — .gitignore
+
+# Runtime data (never commit)
+.kairos-data/
+*.log
+
+# Vault (NEVER commit)
+.kairos-vault/
+vault.enc
+*.key
+*.pem
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# PM2
+.pm2/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+landing-preview.html
+kairos-novo.html
+kairos-v8.html
+kairos-tesla.html

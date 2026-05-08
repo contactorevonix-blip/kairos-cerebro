@@ -1,0 +1,8 @@
+{
+  "name": "@kairos/sniper-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "URL scraper + HTML signal extractor for the KAIROS scam engine.",
+  "main": "index.js",
+  "license": "UNLICENSED"
+}
