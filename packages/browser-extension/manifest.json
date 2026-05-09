@@ -1,23 +1,28 @@
 {
   "manifest_version": 3,
   "name": "KAIROS — Anti-Fraud Shield",
-  "version": "0.1.0",
-  "description": "Real-time scam detection on every checkout, email and link you visit.",
-  "permissions": ["activeTab", "storage", "scripting"],
+  "short_name": "KAIROS Shield",
+  "version": "0.2.0",
+  "description": "Real-time fraud detection on every page, checkout and link. Powered by KAIROS 8-layer engine.",
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
   "host_permissions": ["http://*/*", "https://*/*"],
   "action": {
-    "default_title": "KAIROS — Verificar página",
+    "default_title": "KAIROS Shield",
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": ["content.js"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "exclude_matches": ["chrome://*/*", "chrome-extension://*/*"]
     }
   ],
   "background": {
     "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
   },
   "icons": {
     "16": "icon.png",

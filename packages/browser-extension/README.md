@@ -1,20 +1,41 @@
-# KAIROS Browser Extension (MV3)
+# KAIROS Shield — Browser Extension v0.2.0
 
-Lightweight Chrome/Edge/Brave extension that captures the visible content of
-the active tab and asks the KAIROS API for a real-time verdict.
+Real-time anti-fraud protection on every page, checkout and link.
 
-## Install (developer mode)
+## Funcionalidades
 
-1. Build the icon (any 128×128 PNG, named `icon.png` in this folder).
-2. Open `chrome://extensions`, enable Developer Mode, click "Load unpacked",
-   select this folder.
-3. Click the puzzle piece, pin KAIROS.
-4. Click the icon → set `API base URL` (e.g. `https://api.kairos.example`)
-   and your `API key` (issued via `kairos key:create`).
-5. Click **Verificar esta página** on any URL.
+- **Auto-scan** — analisa cada página automaticamente ao carregar
+- **Badge icon** — verde ✓ (seguro), laranja ? (atenção), vermelho ! (bloqueado)
+- **Warning overlay** — banner de alerta em páginas de alto risco (score >75%)
+- **Scan manual** — popup com botão para forçar análise imediata
+- **Auto-provisioning** — cria chave API gratuita automaticamente (sem conta necessária)
+- **Zero PII** — só texto da página + URL são enviados, nunca dados pessoais
 
-## Privacy
+## Instalar em modo desenvolvedor
 
-- Only the **summarised text** of the page (≤2 000 chars) is sent.
-- The API key is stored in `chrome.storage.local`, never embedded in pages.
-- Verdict logging happens server-side under your tenant.
+1. Abre `chrome://extensions/` no Chrome/Edge/Brave
+2. Activa **"Modo de programador"** (canto superior direito)
+3. Clica **"Carregar sem compressão"**
+4. Selecciona a pasta `packages/browser-extension/`
+5. Clica no puzzle 🧩 e fixa o KAIROS Shield
+
+## O que é enviado para a API
+
+- Texto visível da página (máx. 16.000 caracteres)
+- URL da página
+- ID de instalação anónimo (gerado localmente, sem PII)
+
+**Nunca é enviado:** cookies, passwords, dados de formulário, histórico, dados pessoais.
+
+## Segurança
+
+- A API key fica em `chrome.storage.local` (isolada, nunca injectada em páginas)
+- O content script NUNCA vê a API key — só o background service worker
+- CSP: `script-src 'self'` — zero scripts externos
+- Toda a comunicação usa HTTPS
+
+## API de produção
+
+`https://kairos-cerebro-production.up.railway.app`
+
+Para usar instância própria: popup → ⚙ → altera o API URL.
