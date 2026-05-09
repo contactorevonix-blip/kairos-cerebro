@@ -963,7 +963,7 @@ function renderLandingPage() {
       </div>
     </div>
     <div style="margin-top:1.5rem;color:var(--dim);font-size:.73rem">
-      © 2026 Kairos Check by Synkra Labs
+      © 2026 Kairos Check
       <span id="geo-pill" style="display:none;margin-left:.5rem" class="k-pill"></span>
     </div>
   </footer>
