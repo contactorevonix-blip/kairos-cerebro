@@ -12,8 +12,8 @@ const { PLANS } = require('../billing');
 /** @type {Record<string, Record<string, string>>} */
 const I18N = {
   en: {
-    metaTitle: 'KAIROS — Global fraud intelligence. One API.',
-    metaDesc: 'OSINT-only anti-fraud engine for banks, platforms, and teams. Eight analysis layers, tamper-evident audit, reputation graph. Start free.',
+    metaTitle: 'Kairos Check — OSINT fraud scoring API for indie devs',
+    metaDesc: 'Self-serve fraud scoring API for SaaS founders and indie devs. 8-layer OSINT engine, GDPR-native, zero external dependencies. Free tier included.',
     navProduct: 'Product',
     navPricing: 'Pricing',
     navApi: 'API',
@@ -93,8 +93,8 @@ const I18N = {
     notForHumans: 'Operational telemetry — not marketing estimates.',
   },
   pt: {
-    metaTitle: 'KAIROS — Inteligência global anti-fraude. Uma API.',
-    metaDesc: 'Motor anti-fraude OSINT para bancos, plataformas e equipas. Oito camadas, auditoria imutável, grafo de reputação. Comece grátis.',
+    metaTitle: 'Kairos Check — API de scoring anti-fraude OSINT',
+    metaDesc: 'API OSINT de scoring de fraude self-serve para devs e founders. Motor de 8 camadas, RGPD-native, zero dependências externas. Tier grátis incluído.',
     navProduct: 'Produto',
     navPricing: 'Preços',
     navApi: 'API',
@@ -174,8 +174,8 @@ const I18N = {
     notForHumans: 'Telemetria operacional — não são números de marketing.',
   },
   es: {
-    metaTitle: 'KAIROS — Inteligencia antifraude global. Una API.',
-    metaDesc: 'Motor OSINT para bancos y plataformas. Ocho capas, auditoría inmutable, grafo de reputación. Empieza gratis.',
+    metaTitle: 'Kairos Check — API de scoring antifraude OSINT',
+    metaDesc: 'API OSINT de scoring de fraude self-serve para devs y founders. Motor de 8 capas, RGPD-nativo, cero dependencias. Capa gratuita incluida.',
     navProduct: 'Producto',
     navPricing: 'Precios',
     navApi: 'API',
@@ -255,8 +255,8 @@ const I18N = {
     notForHumans: 'Telemetría operativa.',
   },
   de: {
-    metaTitle: 'KAIROS — Globale Betrugsabwehr. Eine API.',
-    metaDesc: 'OSINT-Motor für Banken und Plattformen. Acht Schichten, manipulationssicheres Audit, Reputationsgraph. Kostenlos starten.',
+    metaTitle: 'Kairos Check — OSINT Fraud Scoring API',
+    metaDesc: 'Self-serve OSINT Fraud Scoring API für Indie-Devs und SaaS-Gründer. 8-Schichten-Engine, DSGVO-nativ, keine externen Abhängigkeiten. Kostenloses Tier inklusive.',
     navProduct: 'Produkt',
     navPricing: 'Preise',
     navApi: 'API',
@@ -336,8 +336,8 @@ const I18N = {
     notForHumans: 'Betriebsmetriken.',
   },
   fr: {
-    metaTitle: 'KAIROS — Anti-fraude mondiale. Une API.',
-    metaDesc: 'Moteur OSINT pour banques et plateformes. Huit couches, audit inviolable, graphe de réputation. Gratuit pour démarrer.',
+    metaTitle: 'Kairos Check — API de scoring antifraude OSINT',
+    metaDesc: 'API OSINT de scoring antifraude self-serve pour devs et fondateurs SaaS. Moteur 8 couches, RGPD natif, zéro dépendances. Tier gratuit inclus.',
     navProduct: 'Produit',
     navPricing: 'Tarifs',
     navApi: 'API',
@@ -458,10 +458,11 @@ function renderLandingPage() {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>KAIROS — Global fraud intelligence. One API.</title>
-  <meta name="description" content="OSINT-only anti-fraud engine for banks, platforms, and teams. Eight analysis layers, tamper-evident audit, reputation graph. Start free."/>
+  <title>Kairos Check — OSINT fraud scoring API for indie devs</title>
+  <meta name="description" content="Kairos Check: self-serve OSINT fraud scoring API for indie devs and SaaS founders. 8-layer engine, GDPR-native, zero external dependencies. Free tier included."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="KAIROS — Global fraud intelligence"/>
+  <meta property="og:site_name" content="Kairos Check"/>
+  <meta property="og:title" content="Kairos Check — OSINT fraud scoring API"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -682,7 +683,7 @@ function renderLandingPage() {
           <circle cx="16" cy="31" r="1.5" fill="#3ceabb" opacity="0.4"/>
           <circle cx="1" cy="16" r="1.5" fill="#7c6ff7" opacity="0.7"/>
         </svg>
-        <span class="kn-name">KAIROS</span>
+        <span class="kn-name">Kairos Check</span>
       </a>
       <div class="kn-links">
         <a href="#problem">Problema</a>
@@ -962,7 +963,7 @@ function renderLandingPage() {
       </div>
     </div>
     <div style="margin-top:1.5rem;color:var(--dim);font-size:.73rem">
-      © 2026 KAIROS · OSINT-only anti-fraud infrastructure
+      © 2026 Kairos Check by Synkra Labs
       <span id="geo-pill" style="display:none;margin-left:.5rem" class="k-pill"></span>
     </div>
   </footer>

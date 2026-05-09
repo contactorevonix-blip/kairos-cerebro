@@ -61,7 +61,6 @@ const SECURITY_HEADERS = {
   'cross-origin-opener-policy': 'same-origin',
   'cross-origin-resource-policy': 'same-origin',
   'permissions-policy': 'geolocation=(), microphone=(), camera=(), payment=()',
-  'x-powered-by': 'KAIROS-SNIPER/7.1',
 };
 
 function readJsonBody(req, maxBytes = 1_000_000) {

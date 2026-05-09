@@ -6,7 +6,7 @@
 'use strict';
 
 const DEFAULTS = {
-  apiBaseUrl: 'https://kairos-cerebro-production.up.railway.app',
+  apiBaseUrl: 'https://kairoscheck.net',
   apiKey: '',
 };
 
