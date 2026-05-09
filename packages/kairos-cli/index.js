@@ -12,6 +12,7 @@ Usage:
   kairos tenant:create --id <tenantId> [--name "Display"] [--plan pilot] [--rate 120]
   kairos key:create --tenant <tenantId> [--label main]
   kairos key:revoke --key <rawKey>
+  kairos key:rotate --tenant <tenantId> [--label rotated]
   kairos vault:init
   kairos vault:set --name <secret> --value <plain>
   kairos vault:get --name <secret>
@@ -113,6 +114,37 @@ function keyRevoke(params, io = { log: console.log, error: console.error }) {
   const ok = db.revokeApiKey(params.key);
   if (!ok) throw new Error('Key not found.');
   io.log('Key revoked.');
+}
+
+function keyHashPreview(hash) {
+  return `${hash.slice(0, 8)}...${hash.slice(-4)}`;
+}
+
+function keyRotate(params, io = { log: console.log, error: console.error }) {
+  const tenantId = params.tenantId;
+  if (!tenantId) throw new Error('Missing --tenant <tenantId>');
+  const db = require('../sniper-db');
+  const { rawKey, newRecord, oldRecord } = db.rotateApiKey(tenantId, params.label || 'rotated');
+
+  const auditEntry = {
+    event: 'tenant.key.rotated',
+    tenant_id: tenantId,
+    old_key_hash_preview: keyHashPreview(oldRecord.keyHash),
+    new_key_hash_preview: keyHashPreview(newRecord.keyHash),
+    timestamp: newRecord.createdAt,
+  };
+
+  const fs = require('fs');
+  const path = require('path');
+  const auditFile = path.join(db.DEFAULT_DB_DIR, 'key-rotation-audit.jsonl');
+  fs.mkdirSync(path.dirname(auditFile), { recursive: true });
+  fs.appendFileSync(auditFile, `${JSON.stringify(auditEntry)}\n`, 'utf8');
+
+  io.log(`API key rotated for ${tenantId}:`);
+  io.log(`  ${rawKey}`);
+  io.log('  Save this NOW. It is shown only once and stored hashed.');
+  io.log('');
+  io.log(`Audit: ${JSON.stringify(auditEntry)}`);
 }
 
 function vaultInit(_, io = { log: console.log }) {
@@ -257,7 +289,7 @@ async function runCli(argv = process.argv, io = { log: console.log, error: conso
   const known = [
     'start',
     'init-story', 'validate-story',
-    'tenant:create', 'key:create', 'key:revoke',
+    'tenant:create', 'key:create', 'key:revoke', 'key:rotate',
     'vault:init', 'vault:set', 'vault:get', 'vault:list', 'vault:delete', 'vault:rotate',
     'agents:list', 'taskforce:list', 'sovereign:decide',
     'audit:verify',
@@ -298,6 +330,12 @@ async function runCli(argv = process.argv, io = { log: console.log, error: conso
     }
     if (parsed.command === 'key:revoke') {
       keyRevoke({ key: parsed.key || parsed.positionals[0] }, io);
+    }
+    if (parsed.command === 'key:rotate') {
+      keyRotate({
+        tenantId: parsed.tenant || parsed.positionals[0],
+        label: parsed.label,
+      }, io);
     }
     if (parsed.command === 'vault:init') vaultInit({}, io);
     if (parsed.command === 'vault:set') vaultSet({ name: parsed.name, value: parsed.value }, io);
@@ -442,4 +480,5 @@ module.exports = {
   tenantCreate,
   keyCreate,
   keyRevoke,
+  keyRotate,
 };

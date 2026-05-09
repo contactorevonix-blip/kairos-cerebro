@@ -155,6 +155,39 @@ function touchApiKey(rawKey, dir = DEFAULT_DB_DIR) {
   writeJsonAtomic(dbPath('apiKeys', dir), keys);
 }
 
+function rotateApiKey(tenantId, label = 'rotated', dir = DEFAULT_DB_DIR) {
+  if (!tenantId) throw new Error('tenantId is required');
+  const tenant = getTenant(tenantId, dir);
+  if (!tenant) throw new Error(`Tenant not found: ${tenantId}`);
+
+  const keys = listApiKeys(dir);
+  const activeKeys = keys
+    .filter((k) => k.tenantId === tenantId && !k.revokedAt)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (activeKeys.length === 0) throw new Error(`No active keys found for tenant: ${tenantId}`);
+
+  const oldKey = activeKeys[0];
+  const rawKey = generateRawApiKey();
+  const now = nowIso();
+  const newRecord = {
+    keyHash: hashApiKey(rawKey),
+    tenantId,
+    label,
+    createdAt: now,
+    lastUsedAt: null,
+    revokedAt: null,
+  };
+
+  const updated = keys.map((k) =>
+    k.keyHash === oldKey.keyHash ? { ...k, revokedAt: now } : k,
+  );
+  updated.push(newRecord);
+  writeJsonAtomic(dbPath('apiKeys', dir), updated);
+
+  return { rawKey, newRecord, oldRecord: oldKey };
+}
+
 // ─── VERIFICATIONS (audit trail, tamper-evident chain) ───────────────────────
 //
 // Every record carries a SHA-256 link to the previous record's hash, forming a
@@ -312,6 +345,7 @@ module.exports = {
   listApiKeys,
   createApiKey,
   revokeApiKey,
+  rotateApiKey,
   findApiKey,
   touchApiKey,
   hashApiKey,
