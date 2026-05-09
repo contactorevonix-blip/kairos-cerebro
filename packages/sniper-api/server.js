@@ -132,8 +132,16 @@ function clientIp(req) {
 }
 
 const server = http.createServer(async (req, res) => {
-  const { method, url } = req;
+  const isHead = req.method === 'HEAD';
+  const method = isHead ? 'GET' : req.method;
+  const { url } = req;
   const start = Date.now();
+
+  // HEAD: same headers as GET, no body (RFC 9110 §9.3.2)
+  if (isHead) {
+    const _end = res.end.bind(res);
+    res.end = (_body, ...rest) => _end(undefined, ...rest);
+  }
 
   try {
     if (method === 'GET' && url === '/') {
