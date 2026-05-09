@@ -37,7 +37,16 @@
       "PowerShell($dest = \"C:\\\\Users\\\\lealp\\\\.claude\\\\skills\"; $base = \"C:\\\\Users\\\\lealp\\\\claude-skills-temp\\\\engineering-team\"; # Extract the zip files we need $zips = @\\(\"senior-architect.zip\",\"senior-security.zip\",\"senior-fullstack.zip\",\"senior-secops.zip\"\\); foreach \\($z in $zips\\) { $src = Join-Path $base $z; $name = $z -replace '\\\\.zip$',''; $out = Join-Path $dest $name; if \\(Test-Path $src\\) { Expand-Archive $src -DestinationPath $out -Force; Write-Host \"Extracted: $name\" } else { Write-Host \"Missing: $z\" } }; Get-ChildItem $dest | Select-Object -ExpandProperty Name)",
       "Bash(git init *)",
       "Bash(npm install *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git config *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh auth *)",
+      "PowerShell(gh auth *)",
+      "PowerShell(winget install *)",
+      "PowerShell(refreshenv *)",
+      "Bash(npm i *)",
+      "Bash(claude --version)",
+      "PowerShell(claude *)"
     ]
   },
   "hooks": {
