@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "KAIROS — Anti-Fraud Shield",
-  "short_name": "KAIROS Shield",
+  "name": "Kairos Check",
+  "short_name": "Kairos Check",
   "version": "0.2.0",
-  "description": "Real-time fraud detection on every page, checkout and link. Powered by KAIROS 8-layer engine.",
+  "description": "Verifica em segundos se um site é fraude. Powered by Kairos Check API.",
   "permissions": ["activeTab", "storage", "scripting", "tabs"],
   "host_permissions": ["http://*/*", "https://*/*"],
   "action": {
-    "default_title": "KAIROS Shield",
+    "default_title": "Kairos Check",
     "default_popup": "popup.html"
   },
   "content_scripts": [

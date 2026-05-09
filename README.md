@@ -1,8 +1,8 @@
-# KAIROS — Anti-Fraud Infrastructure
+# Kairos Check
 
-> Press start. Stop fraud. The rest takes care of itself.
+> OSINT-first fraud scoring API. Self-serve, GDPR-native, zero external dependencies.
 
-KAIROS is an OSINT-only fraud detection service: an 8-layer scoring engine, a
+Kairos Check is an OSINT-only fraud scoring service: an 8-layer scoring engine, a
 cross-tenant reputation graph, a tamper-evident audit chain, an encrypted
 secret vault, a billing pipeline wired to Stripe, a GDPR/RGPD compliance
 layer, a browser extension, and a deterministic sovereign agent that gates

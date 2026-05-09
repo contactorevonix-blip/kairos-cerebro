@@ -1,4 +1,4 @@
-# KAIROS Shield — Browser Extension v0.2.0
+# Kairos Check — Browser Extension v0.2.0
 
 Real-time anti-fraud protection on every page, checkout and link.
 
@@ -17,7 +17,7 @@ Real-time anti-fraud protection on every page, checkout and link.
 2. Activa **"Modo de programador"** (canto superior direito)
 3. Clica **"Carregar sem compressão"**
 4. Selecciona a pasta `packages/browser-extension/`
-5. Clica no puzzle 🧩 e fixa o KAIROS Shield
+5. Clica no puzzle 🧩 e fixa o Kairos Check
 
 ## O que é enviado para a API
 
@@ -36,6 +36,6 @@ Real-time anti-fraud protection on every page, checkout and link.
 
 ## API de produção
 
-`https://kairos-cerebro-production.up.railway.app`
+`https://kairoscheck.net`
 
 Para usar instância própria: popup → ⚙ → altera o API URL.

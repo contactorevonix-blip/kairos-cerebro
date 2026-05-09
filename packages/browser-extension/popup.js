@@ -1,6 +1,6 @@
 'use strict';
 
-const PRODUCTION_URL = 'https://kairos-cerebro-production.up.railway.app';
+const PRODUCTION_URL = 'https://kairoscheck.net';
 
 async function getCurrentTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

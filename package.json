@@ -2,7 +2,7 @@
   "name": "kairos-cerebro",
   "version": "0.1.0",
   "private": true,
-  "description": "KAIROS — Anti-Fraud Infrastructure (workspace root)",
+  "description": "Kairos Check — OSINT fraud scoring API",
   "bin": {
     "kairos": "bin/kairos.js"
   },
