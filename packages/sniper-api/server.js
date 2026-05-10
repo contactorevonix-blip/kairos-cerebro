@@ -7,6 +7,7 @@
 const http = require('http');
 const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./app');
 const { renderLandingPage, renderDashboard } = require('./ui');
+const { renderPricingPage } = require('./pricing-page');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -41,8 +42,8 @@ const VERSION = '7.1.0';
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com data:",
+  "style-src 'self' 'unsafe-inline' https://fonts.bunny.net",
+  "font-src 'self' https://fonts.bunny.net data:",
   "img-src 'self' data:",
   "connect-src 'self'",
   "frame-ancestors 'none'",
@@ -145,6 +146,10 @@ const server = http.createServer(async (req, res) => {
   try {
     if (method === 'GET' && url === '/') {
       sendHtml(res, renderLandingPage());
+      return;
+    }
+    if (method === 'GET' && url === '/pricing') {
+      sendHtml(res, renderPricingPage(), { 'cache-control': 'public, max-age=300' });
       return;
     }
     if (method === 'GET' && url === '/dashboard') {
