@@ -570,6 +570,39 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (method === 'POST' && url === '/api/check-public') {
+      const ip = clientIp(req);
+      // 10 checks per hour per IP — bucket key rotates every hour
+      const hourBucket = Math.floor(Date.now() / 3_600_000);
+      const limit = consume(`check-public:${ip}:${hourBucket}`, 10);
+      if (!limit.allowed) {
+        sendJson(res, 429, { error: 'Demo rate limit reached (10/hour). Get an API key for unlimited access.', upgrade: '/pricing' });
+        return;
+      }
+      const payload = await readJsonBody(req);
+      const domain = payload.domain ? String(payload.domain).trim().replace(/^https?:\/\//, '').split('/')[0] : null;
+      if (!domain || domain.length < 3 || domain.length > 128) {
+        sendJson(res, 400, { error: 'Provide a valid domain (3–128 chars).' });
+        return;
+      }
+      const text = domain;
+      const urls = [`https://${domain}`];
+      const engineResult = verifyPayload({
+        text, urls,
+        channel: 'landing-demo',
+        tenantId: 'public-demo',
+        networkResolver: ({ text: t, urls: u }) => repGraph.queryPreVerdict({ text: t, urls: u }),
+      });
+      const { score, decision, reasons } = engineResult.verdict;
+      // Surface top 5 reason keys (strip score suffix for readability)
+      const signals = (reasons || [])
+        .map((r) => r.split(':')[0])
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .slice(0, 5);
+      sendJson(res, 200, { domain, score, verdict: decision.toUpperCase(), signals, demo: true });
+      return;
+    }
+
     if (method === 'POST' && url === '/api/checkout') {
       const ip = clientIp(req);
       const limit = consume(`checkout:${ip}`, 5); // 5/min per IP — abuse guard
