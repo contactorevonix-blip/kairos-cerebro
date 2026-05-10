@@ -7,6 +7,14 @@
 const http = require('http');
 const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./app');
 const { renderLandingPage, renderDashboard } = require('./ui');
+const { renderPricingPage } = require('./pricing-page');
+const { createCheckoutSession } = require('./stripe-checkout');
+const { handleWebhook } = require('./stripe-webhook');
+const { handleSuccess } = require('./success-page');
+const { handleApiCheck } = require('./api-check');
+const { handlePortal } = require('./stripe-portal');
+const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
+const { renderPrivacy, renderTerms } = require('./legal-pages');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -41,8 +49,8 @@ const VERSION = '7.1.0';
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com data:",
+  "style-src 'self' 'unsafe-inline' https://fonts.bunny.net",
+  "font-src 'self' https://fonts.bunny.net data:",
   "img-src 'self' data:",
   "connect-src 'self'",
   "frame-ancestors 'none'",
@@ -145,6 +153,43 @@ const server = http.createServer(async (req, res) => {
   try {
     if (method === 'GET' && url === '/') {
       sendHtml(res, renderLandingPage());
+      return;
+    }
+    if (method === 'GET' && url === '/privacy') {
+      sendHtml(res, renderPrivacy(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && url === '/terms') {
+      sendHtml(res, renderTerms(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && (url === '/docs' || url.startsWith('/docs/'))) {
+      const html = renderDocs(url);
+      if (!html) { sendJson(res, 404, { error: 'Not found' }); return; }
+      sendHtml(res, html, { 'cache-control': 'public, max-age=300' });
+      return;
+    }
+    if (method === 'POST' && url === '/api/portal') {
+      const result = await handlePortal(req.headers);
+      sendJson(res, result.status, result.body);
+      return;
+    }
+    if (method === 'GET' && url.startsWith('/success')) {
+      const u = new URL(url, 'http://x');
+      const sessionId = u.searchParams.get('session_id') || '';
+      const result = await handleSuccess(sessionId);
+      res.writeHead(result.status, {
+        ...SECURITY_HEADERS,
+        'content-type': 'text/html; charset=utf-8',
+        'x-frame-options': 'SAMEORIGIN',
+        'cache-control': 'no-store',
+        'x-robots-tag': 'noindex',
+      });
+      res.end(result.html);
+      return;
+    }
+    if (method === 'GET' && url === '/pricing') {
+      sendHtml(res, renderPricingPage(), { 'cache-control': 'public, max-age=300' });
       return;
     }
     if (method === 'GET' && url === '/dashboard') {
@@ -507,6 +552,43 @@ const server = http.createServer(async (req, res) => {
         compliance: verdict.compliance,
         audit: { requestId: audit.requestId },
       });
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/stripe/webhook') {
+      const rawBody = await readRawBody(req);
+      const sig = req.headers['stripe-signature'] || '';
+      const result = await handleWebhook({ rawBody, signature: sig, logEvent });
+      sendJson(res, result.status, result.body);
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/check') {
+      const payload = await readJsonBody(req);
+      const result = await handleApiCheck(req.headers, payload);
+      sendJson(res, result.status, result.body);
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/checkout') {
+      const ip = clientIp(req);
+      const limit = consume(`checkout:${ip}`, 5); // 5/min per IP — abuse guard
+      if (!limit.allowed) {
+        sendJson(res, 429, { error: 'Too many requests. Try again shortly.' });
+        return;
+      }
+      const payload = await readJsonBody(req);
+      const tier = String(payload.tier || '').toLowerCase();
+      const result = await createCheckoutSession({ tier });
+      if (result.error) {
+        if (result._internal) {
+          logEvent('checkout.error', { tier, detail: result._internal });
+        }
+        sendJson(res, result.status || 500, { error: result.error });
+        return;
+      }
+      logEvent('checkout.created', { tier, sessionId: result.sessionId });
+      sendJson(res, 200, { url: result.url });
       return;
     }
 

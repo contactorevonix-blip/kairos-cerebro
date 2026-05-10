@@ -24,6 +24,9 @@
     "validate:structure": "echo \"Structure ready: docs, packages, tests, bin\"",
     "validate:agents": "node .aiox-core/infrastructure/scripts/validate-agents.js"
   },
+  "dependencies": {
+    "stripe": "^16.0.0"
+  },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
