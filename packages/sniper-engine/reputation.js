@@ -177,6 +177,44 @@ function parseDomainParts(text) {
   };
 }
 
+// Abused TLDs heavily used for malware C2 and phishing hosting.
+// Signal: 3-level domain on these TLDs = high confidence malware/phishing infra.
+const ABUSED_TLDS = new Set([
+  '.pics', '.ink', '.lat', '.cyou', '.icu', '.buzz', '.cfd', '.hair',
+  '.tk', '.ml', '.cf', '.ga', '.gq', // free TLDs historically abused
+]);
+
+function suspiciousTldCheck(text) {
+  const cleaned = text.trim().replace(/^https?:\/\//, '').split(/[/?#]/)[0].toLowerCase();
+  if (cleaned.includes(' ') || !cleaned.includes('.')) return { score: 0, reasons: [] };
+
+  const parts = cleaned.replace(/^www\./, '').split('.');
+  if (parts.length < 2) return { score: 0, reasons: [] };
+
+  const tld = '.' + parts[parts.length - 1];
+  if (!ABUSED_TLDS.has(tld)) return { score: 0, reasons: [] };
+
+  // 3+ levels on abused TLD = C2/malware infra pattern (URLhaus-confirmed)
+  if (parts.length >= 3) {
+    return {
+      score: 80,
+      reasons: [`suspicious-tld-infra:3level+${tld}:${cleaned.slice(0, 50)}`],
+    };
+  }
+
+  // 2-level on abused TLD + very low vowel ratio (random hostname)
+  const sld = parts[0];
+  const vowelRatio = (sld.match(/[aeiou]/gi) || []).length / Math.max(sld.length, 1);
+  if (vowelRatio < 0.15 || /^\d/.test(sld)) {
+    return {
+      score: 60,
+      reasons: [`suspicious-tld-random:${tld}:${sld}`],
+    };
+  }
+
+  return { score: 15, reasons: [`suspicious-tld:${tld}`] };
+}
+
 function brandImpersonationCheck(text) {
   const parsed = parseDomainParts(text);
   if (!parsed) return { score: 0, reasons: [] };
@@ -296,7 +334,14 @@ function scoreReputation(text = '') {
     brandImpersonation: 0,
   };
 
-  // Brand impersonation check (Fix 1) — runs first, domain-aware
+  // Suspicious TLD heuristic (Fix 2) — C2/malware infra pattern
+  const tldCheck = suspiciousTldCheck(source);
+  if (tldCheck.score > 0) {
+    score += tldCheck.score;
+    reasons.push(...tldCheck.reasons);
+  }
+
+  // Brand impersonation check (Fix 1) — domain-aware typosquat detection
   const impersonation = brandImpersonationCheck(source);
   if (impersonation.score > 0) {
     score += impersonation.score;
