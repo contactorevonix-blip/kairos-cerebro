@@ -70,6 +70,17 @@ function isTombstoned(customerHash) {
   catch { return false; }
 }
 
+function loadTombstoneHashes() {
+  const hashes = new Set();
+  if (!fs.existsSync(GRAPH_TOMBSTONE_DIR)) return hashes;
+  try {
+    for (const f of fs.readdirSync(GRAPH_TOMBSTONE_DIR)) {
+      if (f.endsWith('.json')) hashes.add(f.replace('.json', ''));
+    }
+  } catch { /* best-effort */ }
+  return hashes;
+}
+
 function addTombstone(customerId) {
   const customerHash = hashCustomer(customerId);
   const tPath = tombstonePath(customerHash);
@@ -220,7 +231,9 @@ function queryEntity({ entity, type }) {
     const lines = fs.readFileSync(rawFile, 'utf8').split('\n').filter(Boolean);
     if (lines.length === 0) return null;
 
-    const agg = aggregate(lines);
+    // Include tombstone exclusion on cache-miss path
+    const tombstones = loadTombstoneHashes();
+    const agg = aggregate(lines, tombstones);
     if (!agg) return null;
 
     // Write aggregated cache async (non-blocking, best-effort)
@@ -268,6 +281,7 @@ module.exports = {
   addTombstone,
   removeTombstone,
   isTombstoned,
+  loadTombstoneHashes,
   hashCustomer,
   hashEntity,
   aggregate,
