@@ -15,6 +15,7 @@ const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
 const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
 const { renderPrivacy, renderTerms } = require('./legal-pages');
+const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift } = require('./trust-pages');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -153,6 +154,26 @@ const server = http.createServer(async (req, res) => {
   try {
     if (method === 'GET' && url === '/') {
       sendHtml(res, renderLandingPage());
+      return;
+    }
+    if (method === 'GET' && url === '/status') {
+      sendHtml(res, renderStatus(), { 'cache-control': 'no-store' });
+      return;
+    }
+    if (method === 'GET' && url === '/changelog') {
+      sendHtml(res, renderChangelog(), { 'cache-control': 'public, max-age=300' });
+      return;
+    }
+    if (method === 'GET' && url === '/examples') {
+      sendHtml(res, renderExamples(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && url === '/compare/stripe-radar') {
+      sendHtml(res, renderCompareStripeRadar(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && url === '/compare/sift') {
+      sendHtml(res, renderCompareSift(), { 'cache-control': 'public, max-age=3600' });
       return;
     }
     if (method === 'GET' && url === '/privacy') {
