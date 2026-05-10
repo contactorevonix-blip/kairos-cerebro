@@ -8,6 +8,7 @@ const http = require('http');
 const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./app');
 const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
+const { createCheckoutSession } = require('./stripe-checkout');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -512,6 +513,28 @@ const server = http.createServer(async (req, res) => {
         compliance: verdict.compliance,
         audit: { requestId: audit.requestId },
       });
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/checkout') {
+      const ip = clientIp(req);
+      const limit = consume(`checkout:${ip}`, 5); // 5/min per IP — abuse guard
+      if (!limit.allowed) {
+        sendJson(res, 429, { error: 'Too many requests. Try again shortly.' });
+        return;
+      }
+      const payload = await readJsonBody(req);
+      const tier = String(payload.tier || '').toLowerCase();
+      const result = await createCheckoutSession({ tier });
+      if (result.error) {
+        if (result._internal) {
+          logEvent('checkout.error', { tier, detail: result._internal });
+        }
+        sendJson(res, result.status || 500, { error: result.error });
+        return;
+      }
+      logEvent('checkout.created', { tier, sessionId: result.sessionId });
+      sendJson(res, 200, { url: result.url });
       return;
     }
 
