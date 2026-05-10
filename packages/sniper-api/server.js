@@ -9,6 +9,7 @@ const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./a
 const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession } = require('./stripe-checkout');
+const { handleWebhook } = require('./stripe-webhook');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -513,6 +514,14 @@ const server = http.createServer(async (req, res) => {
         compliance: verdict.compliance,
         audit: { requestId: audit.requestId },
       });
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/stripe/webhook') {
+      const rawBody = await readRawBody(req);
+      const sig = req.headers['stripe-signature'] || '';
+      const result = await handleWebhook({ rawBody, signature: sig, logEvent });
+      sendJson(res, result.status, result.body);
       return;
     }
 
