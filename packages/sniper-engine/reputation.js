@@ -112,6 +112,135 @@ const FAKE_URGENCY_REPUTATION_PATTERNS = [
   /sua\s+(vaga|lugar)\s+(est[aá]\s+reservada\s+por\s+apenas\s+\d+\s+(minutos?|horas?)|prestes\s+a\s+expirar)/i,
 ];
 
+// ─── BRAND IMPERSONATION DETECTION (Fix 1) ────────────────────────────────────
+// Detects domains that impersonate known brands via typosquatting or
+// brand + suspicious-keyword combos (paypa1-secure.com, apple-id-verify.net).
+
+const IMPERSONATION_BRANDS = [
+  'paypal', 'apple', 'google', 'amazon', 'microsoft', 'facebook', 'instagram',
+  'whatsapp', 'netflix', 'stripe', 'shopify', 'mercadolivre', 'mbway', 'bcp',
+  'santander', 'novobanco', 'cgd', 'montepio', 'ebay', 'twitter', 'linkedin',
+  'dropbox', 'icloud', 'steam', 'spotify', 'youtube', 'tiktok', 'snapchat',
+  'chase', 'wellsfargo', 'citibank', 'hsbc', 'barclays', 'bankofamerica',
+  // Microsoft product brands
+  'office365', 'outlook', 'onedrive', 'sharepoint', 'teams',
+  // Other common targets
+  'coinbase', 'binance', 'kraken', 'metamask', 'opensea',
+];
+
+const SUSPICIOUS_COMBO_KEYWORDS = new Set([
+  'login', 'secure', 'verify', 'update', 'auth', 'signin', 'account',
+  'password', 'confirm', 'validation', 'alert', 'suspended', 'unlock',
+  'recover', 'reset', 'support', 'helpdesk', 'service', 'wallet', 'id',
+]);
+
+// Minimal Levenshtein for short strings — no deps.
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  if (Math.abs(a.length - b.length) > 2) return 99;
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = i;
+    for (let j = 1; j <= b.length; j++) {
+      const val = a[i - 1] === b[j - 1]
+        ? row[j - 1]
+        : Math.min(row[j - 1], row[j], prev) + 1;
+      row[j - 1] = prev;
+      prev = val;
+    }
+    row[b.length] = prev;
+  }
+  return row[b.length];
+}
+
+// Extract SLD components from domain string or URL.
+// "paypa1-secure.com"  → { sldParts: ['paypa1','secure'], subParts: [] }
+// "paypal.com.br"      → { sldParts: ['paypal'],           subParts: [] }
+// "paypal.secure.com"  → { sldParts: ['secure'],           subParts: ['paypal'] }
+function parseDomainParts(text) {
+  const cleaned = text.trim()
+    .replace(/^https?:\/\//, '')
+    .split(/[/?#]/)[0]
+    .replace(/^www\./, '')
+    .toLowerCase();
+  if (cleaned.includes(' ') || !cleaned.includes('.')) return null;
+  const parts = cleaned.split('.');
+  if (parts.length < 2) return null;
+  // Detect ccSLD (com.br, co.uk, org.pt, etc.)
+  const CC_SLD = new Set(['com', 'co', 'org', 'net', 'edu', 'gov', 'ac']);
+  const tldLen = (parts.length >= 3 && CC_SLD.has(parts[parts.length - 2])) ? 2 : 1;
+  const sld = parts[parts.length - tldLen - 1];
+  if (!sld) return null;
+  return {
+    sldParts: sld.split('-').filter(Boolean),
+    subParts: parts.slice(0, parts.length - tldLen - 1),
+  };
+}
+
+function brandImpersonationCheck(text) {
+  const parsed = parseDomainParts(text);
+  if (!parsed) return { score: 0, reasons: [] };
+  const { sldParts, subParts } = parsed;
+
+  let matchedBrand = null;
+  let matchedComp = null;
+  let isExact = false;
+  let brandInSubdomain = false;
+
+  // 1. Look for brand in SLD components
+  outer:
+  for (const comp of sldParts) {
+    if (comp.length < 3) continue;
+    for (const brand of IMPERSONATION_BRANDS) {
+      if (comp === brand) { matchedBrand = brand; matchedComp = comp; isExact = true; break outer; }
+      if (brand.length >= 4 && Math.abs(comp.length - brand.length) <= 2) {
+        if (levenshtein(comp, brand) <= 2) { matchedBrand = brand; matchedComp = comp; break outer; }
+      }
+    }
+  }
+
+  // 2. Look for exact brand in subdomains (paypal.evil.com)
+  if (!matchedBrand) {
+    for (const sub of subParts) {
+      for (const brand of IMPERSONATION_BRANDS) {
+        if (sub === brand) { matchedBrand = brand; matchedComp = sub; isExact = true; brandInSubdomain = true; break; }
+      }
+      if (matchedBrand) break;
+    }
+  }
+
+  if (!matchedBrand) return { score: 0, reasons: [] };
+
+  // 3. Legit base-domain guard: "paypal.com" or "paypal.com.br" → skip
+  if (sldParts.length === 1 && isExact && !brandInSubdomain) {
+    return { score: 0, reasons: [] };
+  }
+
+  // 4. Check for suspicious keyword
+  const hasSuspKw = sldParts.some(c => SUSPICIOUS_COMBO_KEYWORDS.has(c))
+    || (brandInSubdomain && subParts.some(c => SUSPICIOUS_COMBO_KEYWORDS.has(c)));
+
+  let score = 0;
+  const reasons = [];
+  const sld = sldParts.join('-');
+
+  if (isExact && hasSuspKw && !brandInSubdomain) {
+    // paypal-login.com, apple-id-verify.net
+    score = 80;
+    reasons.push(`brand-impersonation:exact:${matchedBrand}+suspicious-sld:${sld}`);
+  } else if (!isExact && hasSuspKw) {
+    // paypa1-secure.com, arnazon-login.net
+    score = 87;
+    reasons.push(`brand-impersonation:typosquat:${matchedComp}≈${matchedBrand}+suspicious-sld:${sld}`);
+  } else if (brandInSubdomain && hasSuspKw) {
+    // paypal.secure-login.com
+    score = 75;
+    reasons.push(`brand-impersonation:brand-subdomain:${matchedBrand}+suspicious-sld:${sld}`);
+  }
+
+  return { score, reasons };
+}
+
 // ─── LAYER 3: REPUTATION CONTEXT SCORING ─────────────────────────────────────
 
 function extractEntities(text) {
@@ -164,7 +293,16 @@ function scoreReputation(text = '') {
     fakeUrgency: 0,
     knownScamBrand: 0,
     suspiciousDomain: 0,
+    brandImpersonation: 0,
   };
+
+  // Brand impersonation check (Fix 1) — runs first, domain-aware
+  const impersonation = brandImpersonationCheck(source);
+  if (impersonation.score > 0) {
+    score += impersonation.score;
+    reputationFlags.brandImpersonation++;
+    reasons.push(...impersonation.reasons);
+  }
 
   // Check known scam brand patterns
   const brandHits = checkKnownScamBrands(source);
