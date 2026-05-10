@@ -12,6 +12,9 @@ const { createCheckoutSession } = require('./stripe-checkout');
 const { handleWebhook } = require('./stripe-webhook');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
+const { handlePortal } = require('./stripe-portal');
+const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
+const { renderPrivacy, renderTerms } = require('./legal-pages');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -150,6 +153,25 @@ const server = http.createServer(async (req, res) => {
   try {
     if (method === 'GET' && url === '/') {
       sendHtml(res, renderLandingPage());
+      return;
+    }
+    if (method === 'GET' && url === '/privacy') {
+      sendHtml(res, renderPrivacy(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && url === '/terms') {
+      sendHtml(res, renderTerms(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && (url === '/docs' || url.startsWith('/docs/'))) {
+      const html = renderDocs(url);
+      if (!html) { sendJson(res, 404, { error: 'Not found' }); return; }
+      sendHtml(res, html, { 'cache-control': 'public, max-age=300' });
+      return;
+    }
+    if (method === 'POST' && url === '/api/portal') {
+      const result = await handlePortal(req.headers);
+      sendJson(res, result.status, result.body);
       return;
     }
     if (method === 'GET' && url.startsWith('/success')) {
