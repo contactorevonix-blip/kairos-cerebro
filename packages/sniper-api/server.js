@@ -10,6 +10,7 @@ const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession } = require('./stripe-checkout');
 const { handleWebhook } = require('./stripe-webhook');
+const { handleSuccess } = require('./success-page');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -148,6 +149,13 @@ const server = http.createServer(async (req, res) => {
   try {
     if (method === 'GET' && url === '/') {
       sendHtml(res, renderLandingPage());
+      return;
+    }
+    if (method === 'GET' && url.startsWith('/success')) {
+      const u = new URL(url, 'http://x');
+      const sessionId = u.searchParams.get('session_id') || '';
+      const result = await handleSuccess(sessionId);
+      sendHtml(res, result.html, { 'cache-control': 'no-store', 'x-robots-tag': 'noindex' });
       return;
     }
     if (method === 'GET' && url === '/pricing') {
