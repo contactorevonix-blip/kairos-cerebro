@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const Stripe = require('stripe');
+const { sendApiKeyEmail, keyPreview } = require('./email-sender');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
 const KEYS_FILE = path.join(DB_DIR, 'api-keys.jsonl');
@@ -161,7 +162,41 @@ async function handleCheckoutCompleted(stripe, session) {
     success: true,
   });
 
-  // Return raw key so /success can retrieve it — stored encrypted in memory only
+  // Send API key via email — errors are non-fatal (customer can get key from /success)
+  const toEmail = session.customer_details?.email || session.customer_email || null;
+  if (toEmail) {
+    sendApiKeyEmail({ toEmail, apiKey: key.raw, tier, customerId: session.customer })
+      .then((emailResult) => {
+        if (emailResult.ok) {
+          appendAudit({
+            timestamp: new Date().toISOString(),
+            event: 'email.sent',
+            customer_email: toEmail,
+            api_key_preview: keyPreview(key.raw),
+            resend_message_id: emailResult.resendId,
+          });
+        } else {
+          appendAudit({
+            timestamp: new Date().toISOString(),
+            event: 'email.send.failed',
+            customer_email: toEmail,
+            api_key_preview: keyPreview(key.raw),
+            error_message: emailResult.error,
+          });
+        }
+      })
+      .catch((err) => {
+        appendAudit({
+          timestamp: new Date().toISOString(),
+          event: 'email.send.failed',
+          customer_email: toEmail,
+          api_key_preview: keyPreview(key.raw),
+          error_message: err.message,
+        });
+      });
+  }
+
+  // Return raw key so /success can retrieve it — stored in memory only
   // The raw key is NOT persisted; /success reads it from a short-lived in-memory map
   return { ok: true, tier, rawKey: key.raw, subscriptionId: session.subscription };
 }

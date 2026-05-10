@@ -25,6 +25,7 @@
     "validate:agents": "node .aiox-core/infrastructure/scripts/validate-agents.js"
   },
   "dependencies": {
+    "resend": "^6.12.3",
     "stripe": "^16.0.0"
   },
   "engines": {
