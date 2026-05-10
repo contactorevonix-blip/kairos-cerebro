@@ -178,7 +178,14 @@ const server = http.createServer(async (req, res) => {
       const u = new URL(url, 'http://x');
       const sessionId = u.searchParams.get('session_id') || '';
       const result = await handleSuccess(sessionId);
-      sendHtml(res, result.html, { 'cache-control': 'no-store', 'x-robots-tag': 'noindex' });
+      res.writeHead(result.status, {
+        ...SECURITY_HEADERS,
+        'content-type': 'text/html; charset=utf-8',
+        'x-frame-options': 'SAMEORIGIN',
+        'cache-control': 'no-store',
+        'x-robots-tag': 'noindex',
+      });
+      res.end(result.html);
       return;
     }
     if (method === 'GET' && url === '/pricing') {

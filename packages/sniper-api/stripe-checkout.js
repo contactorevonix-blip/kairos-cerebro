@@ -23,9 +23,12 @@ function resolvePrice(tier) {
 }
 
 async function createCheckoutSession({ tier, baseUrl }) {
+  if (!TIER_TO_ENV[tier]) {
+    return { error: `Invalid tier: ${tier}`, status: 400 };
+  }
   const priceId = resolvePrice(tier);
   if (!priceId) {
-    return { error: `Invalid tier: ${tier}`, status: 400 };
+    return { error: 'checkout_unavailable', status: 503, _internal: `${TIER_TO_ENV[tier]} not configured` };
   }
 
   const origin = baseUrl || process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
