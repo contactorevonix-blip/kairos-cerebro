@@ -719,6 +719,12 @@ const server = http.createServer(async (req, res) => {
 
 setInterval(purgeStale, 300_000).unref();
 
+// Graph aggregator — hourly background worker (graceful if unavailable)
+try {
+  const { graphAggregator } = require('../sniper-engine');
+  graphAggregator.start();
+} catch { /* graph optional — server runs without it */ }
+
 if (require.main === module) {
   const boot = bootstrapIfEmpty();
   server.listen(PORT, () => {

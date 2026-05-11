@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { verifyPayload } = require('../sniper-engine');
+const { verifyPayloadWithGraph } = require('../sniper-engine');
 const { readKeys } = require('./stripe-webhook');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
@@ -142,15 +142,17 @@ async function handleApiCheck(headers, body) {
     };
   }
 
-  // 5. Score with existing engine
+  // 5. Score with graph-aware engine
   const ref = auditId();
   let result;
   try {
-    result = verifyPayload({
+    result = await verifyPayloadWithGraph({
       text: engineInput.text,
       urls: engineInput.urls,
       channel: engineInput.type,
       region: body.region || { country: 'EU' },
+      customerId: keyRecord.customer_id || null,
+      _graphType: engineInput.type,
     });
   } catch (err) {
     appendCheckAudit({
@@ -187,6 +189,7 @@ async function handleApiCheck(headers, body) {
       dominant_threat: result.verdict.dominantThreat || null,
       type: engineInput.type,
       query: engineInput.query,
+      graph_intelligence: result.graph_intelligence || null,
       timestamp: nowIso(),
       ref,
     },
