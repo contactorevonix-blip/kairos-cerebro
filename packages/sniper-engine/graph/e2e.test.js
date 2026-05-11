@@ -221,6 +221,18 @@ async function run() {
     }
   });
 
+  // ── 6. HIGH-3: graph_intelligence non-null for entity with history ────────
+  console.log('\n6. HIGH-3 fix: graph_intelligence reaches API response');
+
+  await test('graph_intelligence is non-null for entity with prior history', async () => {
+    const entity = `hi3-${Date.now()}.com`;
+    await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: 'hi3_c', _graphType: 'domain' });
+    await new Promise(r => setTimeout(r, 100));
+    const result = await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: 'hi3_c', _graphType: 'domain' });
+    assert.ok(result.graph_intelligence !== null,
+      'graph_intelligence must be non-null when entity has history');
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
   try { fs.rmSync(TEST_DIR, { recursive: true, force: true }); } catch { /* best-effort */ }

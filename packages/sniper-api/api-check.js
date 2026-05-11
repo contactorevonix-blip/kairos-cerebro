@@ -189,6 +189,7 @@ async function handleApiCheck(headers, body) {
       dominant_threat: result.verdict.dominantThreat || null,
       type: engineInput.type,
       query: engineInput.query,
+      graph_intelligence: result.graph_intelligence || null,
       timestamp: nowIso(),
       ref,
     },
