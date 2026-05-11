@@ -116,3 +116,55 @@ downgrade a HIGH issue without Pedro explicitly agreeing.
 - Recording a modified value (boosted score) instead of the source truth
 - Deleting erasure markers (tombstones) before verifying erasure completed
 - Validating input in callers but not in the function that uses it (path traversal)
+
+---
+
+## Anti-pattern: Happy-path-only testing
+
+**Sintoma**: All tests pass, but the bug the fix addresses
+can recur silently without detection.
+
+**Origem**: When adding a test for a bug fix, the test
+exercises the success path (which always worked) instead
+of the failure path (which was broken). The test would
+pass identically before and after the fix.
+
+**Detection heuristic** — for every test added alongside
+a fix, ask three questions:
+1. What specific failure mode did the fix address?
+2. Does this test trigger that exact failure mode?
+3. If the fix were silently reverted right now, would
+   this test fail?
+
+If any answer is "no" or unclear → test is insufficient
+and the fix is unverified.
+
+**Real cases — V2 graph fixes (May 2026)**:
+
+- MEDIUM-4 (tombstone compaction GDPR safety):
+  Initial test:    "compaction removes JSONL of tombstoned
+                    customer" — happy path, tests success
+  Strengthened:    "compaction preserves tombstone if rewrite
+                    fails partially" — tests the actual
+                    failure mode the fix addressed
+  Bug addressed:   silent GDPR erasure failure when partial
+                    file rewrite leaves data behind but
+                    tombstone gets removed anyway
+
+- MEDIUM-3 (score amplification across checks):
+  Initial test:    "stored score is raw, not boosted" —
+                    single-shot, doesn't exercise compounding
+  Strengthened:    "5 sequential checks: boost stays linear,
+                    not exponential" — tests the compounding
+                    bug symptom across multiple invocations
+  Bug addressed:   boosted score being stored in graph caused
+                    each subsequent check to amplify on top
+                    of an already-amplified base
+
+**Rule for all future fixes**: For every fix, the test must
+be one where reverting the fix causes the test to fail. If
+the test passes regardless of whether the fix is applied,
+it tests something else — not the fix.
+
+This rule is non-negotiable. Add it to the audit checklist
+during any "ready to merge" review.
