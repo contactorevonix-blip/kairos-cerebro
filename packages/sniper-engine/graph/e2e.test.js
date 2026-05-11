@@ -233,6 +233,85 @@ async function run() {
       'graph_intelligence must be non-null when entity has history');
   });
 
+  // ── 7. MEDIUM-3: raw score stored, not boosted ───────────────────────────
+  console.log('\n7. MEDIUM-3 fix: record raw score, not boosted');
+
+  await test('MEDIUM-3a: JSONL stores raw engine score when boost applies', async () => {
+    const entity = `m3a-${Date.now()}.com`;
+    const { recordCheck: rc3a, hashCustomer: hc3a, hashEntity: he3a, rawPath: rp3a } = require('./storage');
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 10; j++) {
+        await rc3a({ entity, type: 'domain', score: 90, verdict: 'block', signals: [], customerId: `m3a_s${i}` });
+      }
+    }
+    runCycle();
+
+    const noBoost = await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: 'ref', _graphType: 'domain', skipGraph: true });
+    const rawScore = noBoost.verdict.score;
+
+    const withBoost = await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: 'm3a_t', _graphType: 'domain' });
+    await new Promise(r => setTimeout(r, 100));
+
+    if (withBoost.verdict.score > rawScore) {
+      const tHash = hc3a('m3a_t');
+      const lines = fs.readFileSync(rp3a('domain', he3a('domain', entity)), 'utf8').split('\n').filter(Boolean);
+      const stored = lines
+        .filter(l => { try { return JSON.parse(l).c === tHash; } catch { return false; } })
+        .map(l => JSON.parse(l).score);
+      assert.ok(stored.length > 0, 'stored line found for m3a_t');
+      assert.strictEqual(stored[stored.length - 1], rawScore,
+        `stored (${stored[stored.length - 1]}) must equal raw (${rawScore}), not boosted (${withBoost.verdict.score})`);
+    }
+  });
+
+  await test('MEDIUM-3b: 5 sequential checks: scores stay equal, stored = raw (no amplification)', async () => {
+    const entity = `m3b-${Date.now()}.com`;
+    const tCust  = `m3b_t_${Date.now()}`;
+    const { recordCheck: rc3b, hashCustomer: hc3b, hashEntity: he3b, rawPath: rp3b } = require('./storage');
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 10; j++) {
+        await rc3b({ entity, type: 'domain', score: 90, verdict: 'block', signals: [], customerId: `m3b_s${i}` });
+      }
+    }
+    runCycle();
+
+    // Baseline: raw engine score with no graph influence
+    const refResult = await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: 'ref_skip', _graphType: 'domain', skipGraph: true });
+    const rawEngineScore = refResult.verdict.score;
+
+    // 5 sequential checks with runCycle between each (graph feedback loop)
+    const scores = [];
+    for (let k = 0; k < 5; k++) {
+      const r = await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: tCust, _graphType: 'domain' });
+      scores.push(r.verdict.score);
+      await new Promise(res => setTimeout(res, 50));
+      runCycle();
+    }
+    await new Promise(r => setTimeout(r, 100));
+
+    // Option A: all 5 scores must be identical (linear, stable boost)
+    // With fix: raw stored → avg stable → boost consistent → scores[i] === scores[0]
+    // If reverted: boosted stored → avg shifts → scores may diverge (Option A fails)
+    for (let i = 1; i < 5; i++) {
+      assert.strictEqual(scores[i], scores[0],
+        `score[${i}] (${scores[i]}) !== score[0] (${scores[0]}) — amplification detected`);
+    }
+
+    // Double-belt (revert-sensitive): stored JSONL = raw engine score, not boosted
+    const tHash = hc3b(tCust);
+    const rp = rp3b('domain', he3b('domain', entity));
+    const lines = fs.readFileSync(rp, 'utf8').split('\n').filter(Boolean);
+    const tLines = lines.filter(l => { try { return JSON.parse(l).c === tHash; } catch { return false; } });
+    const storedScores = tLines.map(l => JSON.parse(l).score);
+    assert.strictEqual(tLines.length, 5, `Expected 5 stored records, got ${tLines.length}`);
+    assert.ok(storedScores.every(s => s === storedScores[0]),
+      `Stored scores must all be equal (deterministic raw engine): ${JSON.stringify(storedScores)}`);
+    // Key assertion: if boost applied, stored < returned; always stored === rawEngineScore
+    assert.strictEqual(storedScores[0], rawEngineScore,
+      `Stored (${storedScores[0]}) must equal raw engine score (${rawEngineScore}), not boosted (${scores[0]})`);
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
   try { fs.rmSync(TEST_DIR, { recursive: true, force: true }); } catch { /* best-effort */ }

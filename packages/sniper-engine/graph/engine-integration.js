@@ -66,10 +66,12 @@ async function verifyPayloadWithGraph(payload = {}) {
 
   // ── 2. Run engine (synchronous, unchanged) ────────────────────────────────
   const result = verifyPayload(enginePayload);
+  const rawScore    = result.verdict.score;    // capture BEFORE boost mutation
+  const rawDecision = result.verdict.decision; // capture BEFORE boost mutation
 
   // ── 3. Apply boost to composite score ─────────────────────────────────────
   if (boost !== 0) {
-    const boosted = Math.max(0, Math.min(result.verdict.score + boost, 100));
+    const boosted = Math.max(0, Math.min(rawScore + boost, 100));
     result.verdict.score = boosted;
     // Re-evaluate decision with boosted score
     const { riskDecision } = require('../core');
@@ -79,13 +81,14 @@ async function verifyPayloadWithGraph(payload = {}) {
   // ── 4. Attach graph_intelligence to response ──────────────────────────────
   result.graph_intelligence = formatGraphIntelligence(graphData, boost);
 
-  // ── 5. Fire-and-forget: record this check in the graph ───────────────────
+  // ── 5. Fire-and-forget: record RAW score in graph (not boosted)
+  //    Recording boosted score would create a feedback amplification loop.
   if (!skipGraph && entity && customerId) {
     recordCheck({
       entity,
       type,
-      score:      result.verdict.score,
-      verdict:    result.verdict.decision,
+      score:      rawScore,    // raw engine score, never boosted
+      verdict:    rawDecision, // raw decision before boost
       signals:    result.verdict.reasons || [],
       customerId,
     }).catch(() => {}); // errors must never propagate to caller
