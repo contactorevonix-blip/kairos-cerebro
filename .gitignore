@@ -30,3 +30,13 @@ landing-preview.html
 kairos-novo.html
 kairos-v8.html
 kairos-tesla.html
+
+# Backup volumes locais
+.backup-volume/
+
+# Inventários gerados (regenerar via inventory-agent)
+estrutura.txt
+ficheiros.csv
+inventario.txt
+/inventory-*.txt
+/inventory-*.csv
