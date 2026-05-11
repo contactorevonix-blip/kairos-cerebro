@@ -379,6 +379,54 @@ async function run() {
       'Tombstone must be removed after successful second compaction run');
   });
 
+  // ── 9. HIGH-3 contract: handleApiCheck (API boundary) ────────────────────
+  console.log('\n9. HIGH-3 contract: handleApiCheck response shape');
+
+  await test('handleApiCheck contract: response includes graph_intelligence for entity with prior history', async () => {
+    // Deterministic test key: format matches kc_[a-z]+_[0-9a-f]{48}
+    const rawKey  = `kc_test_${'a'.repeat(48)}`;
+    const keyHash = crypto.createHash('sha256').update(rawKey).digest('hex');
+    const keyCustId = `contract_cust_${Date.now()}`;
+
+    // Write key record to TEST_DIR/api-keys.jsonl (KAIROS_DB_DIR = TEST_DIR)
+    const keysFile = path.join(TEST_DIR, 'api-keys.jsonl');
+    fs.writeFileSync(keysFile,
+      JSON.stringify({ api_key_hash: keyHash, status: 'active', quota_per_month: 10000, customer_id: keyCustId, tier: 'starter' }) + '\n',
+      'utf8'
+    );
+
+    // Seed entity with prior history via recordCheck
+    const entity = `hi3-contract-${Date.now()}.com`;
+    const { recordCheck: rcC } = require('./storage');
+    await rcC({ entity, type: 'domain', score: 80, verdict: 'block', signals: [], customerId: keyCustId });
+    await new Promise(r => setTimeout(r, 100));
+
+    // Call handleApiCheck directly — the actual API boundary where HIGH-3 fix lives
+    const { handleApiCheck } = require('../../sniper-api/api-check');
+    const response = await handleApiCheck(
+      { authorization: `Bearer ${rawKey}` },
+      { domain: entity }
+    );
+
+    assert.strictEqual(response.status, 200, `Expected 200, got ${response.status}: ${JSON.stringify(response.body)}`);
+
+    // HIGH-3 regression assertion: field must be present in the response body
+    assert.ok('graph_intelligence' in response.body,
+      'graph_intelligence key must exist in handleApiCheck response body — removing api-check.js:192 breaks this');
+    assert.ok(response.body.graph_intelligence !== undefined,
+      'graph_intelligence must not be undefined');
+    assert.ok(response.body.graph_intelligence !== null,
+      'graph_intelligence must not be null for entity with prior history');
+
+    // Verify expected contract shape from formatGraphIntelligence
+    const gi = response.body.graph_intelligence;
+    assert.ok('first_seen' in gi, 'first_seen field present in graph_intelligence');
+    assert.ok('trend' in gi, 'trend field present');
+    assert.ok('confidence_boost' in gi, 'confidence_boost field present');
+    assert.ok(['rising', 'stable', 'declining'].includes(gi.trend), `trend "${gi.trend}" is valid`);
+    assert.ok(typeof gi.confidence_boost === 'number', 'confidence_boost is a number');
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
   try { fs.rmSync(TEST_DIR, { recursive: true, force: true }); } catch { /* best-effort */ }
