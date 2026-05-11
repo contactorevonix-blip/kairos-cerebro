@@ -316,6 +316,20 @@ async function run() {
     assert.strictEqual(computeBoost(agg), 0, 'Single customer must not trigger +20 boost');
   });
 
+  // ── 9. Stack-safety: HIGH-1 fix ──────────────────────────────────────────
+  console.log('\n9. Stack-safety (HIGH-1 fix)');
+
+  await asyncTest('aggregate 100K entries: reduce() does not throw', async () => {
+    const now = Date.now();
+    const lines = Array.from({ length: 100000 }, (_, i) =>
+      JSON.stringify({ score: 70, verdict: 'block', signals_top3: [], ts: now - i * 100, c: 'abc' })
+    );
+    const agg = aggregate(lines);
+    assert.ok(agg, 'aggregate returns non-null for 100K lines');
+    assert.strictEqual(agg.check_count_24h, 100000);
+    assert.ok(agg.first_seen < agg.last_seen, 'first_seen < last_seen');
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
 

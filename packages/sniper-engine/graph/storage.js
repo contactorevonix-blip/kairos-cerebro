@@ -166,8 +166,9 @@ function aggregate(rawLines, tombstonedHashes = new Set(), now = Date.now()) {
     avg_score_24h: Math.round(avg24 * 10) / 10,
     avg_score_7d: Math.round(avg7 * 10) / 10,
     score_dist: dist,
-    first_seen: allTs.length ? Math.min(...allTs) : now,
-    last_seen: allTs.length ? Math.max(...allTs) : now,
+    // reduce() instead of Math.min/max spread — spread crashes at ~500K entries
+    first_seen: allTs.length ? allTs.reduce((a, b) => b < a ? b : a) : now,
+    last_seen:  allTs.length ? allTs.reduce((a, b) => b > a ? b : a) : now,
     trend,
   };
 }
