@@ -330,6 +330,25 @@ async function run() {
     assert.ok(agg.first_seen < agg.last_seen, 'first_seen < last_seen');
   });
 
+  // ── 10. Type allowlist: HIGH-2 fix ───────────────────────────────────────
+  console.log('\n10. Type allowlist (HIGH-2 fix)');
+
+  test('rawPath throws on invalid entity type (path traversal defence)', () => {
+    const { rawPath } = require('./storage');
+    const h = 'a'.repeat(64);
+    assert.throws(() => rawPath('../etc/passwd', h), /Invalid entity type/);
+    assert.throws(() => rawPath('ip', h), /Invalid entity type/);
+    assert.throws(() => rawPath('', h), /Invalid entity type/);
+  });
+
+  test('aggPath throws on invalid entity type (parametrised)', () => {
+    const { aggPath } = require('./storage');
+    const h = 'a'.repeat(64);
+    assert.throws(() => aggPath('../etc', h), /Invalid entity type/);
+    assert.throws(() => aggPath('DOMAIN', h), /Invalid entity type/);
+    assert.throws(() => aggPath('email\nfoo', h), /Invalid entity type/);
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
 

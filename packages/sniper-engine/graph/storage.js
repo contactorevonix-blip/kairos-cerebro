@@ -44,13 +44,25 @@ function hashEntity(type, entity) {
   return crypto.createHash('sha256').update(`${type}:${String(entity).toLowerCase()}`).digest('hex');
 }
 
+// ─── type allowlist (path traversal defence) ─────────────────────────────────
+
+const ALLOWED_TYPES = new Set(['domain', 'email', 'phone', 'iban']);
+
+function validateType(type) {
+  if (!ALLOWED_TYPES.has(type)) {
+    throw new Error(`Invalid entity type: "${type}". Allowed: ${[...ALLOWED_TYPES].join(', ')}`);
+  }
+}
+
 // ─── paths ────────────────────────────────────────────────────────────────────
 
 function rawPath(type, entityHash) {
+  validateType(type);
   return path.join(GRAPH_RAW_DIR, type, entityHash.slice(0, 2), `${entityHash}.jsonl`);
 }
 
 function aggPath(type, entityHash) {
+  validateType(type);
   return path.join(GRAPH_AGG_DIR, type, entityHash.slice(0, 2), `${entityHash}.json`);
 }
 
