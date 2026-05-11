@@ -121,36 +121,64 @@ function runCycle() {
 
 function runCompaction() {
   const tombstones = loadTombstoneHashes();
-  if (tombstones.size === 0) return { compacted: 0, duration_ms: 0 };
+  if (tombstones.size === 0) return { compacted: 0, failed: 0, duration_ms: 0 };
 
   const started = Date.now();
   let compacted = 0;
+  let failed = 0;
 
-  walkJsonl(GRAPH_RAW_DIR, ({ fullPath }) => {
-    try {
-      const lines = fs.readFileSync(fullPath, 'utf8').split('\n').filter(Boolean);
-      const clean = lines.filter(line => {
-        try { return !tombstones.has(JSON.parse(line).c); }
-        catch { return true; } // keep unparseable lines
-      });
+  // Two-phase commit: rewrite files, verify, then remove tombstone per-customer.
+  // A tombstone is only removed when ALL files no longer contain that customer's data.
+  // If any rewrite fails, the tombstone is preserved for the next compaction run.
 
-      if (clean.length === lines.length) return; // nothing to compact
+  for (const customerHash of tombstones) {
+    let filesFailed = 0;
+    let filesProcessed = 0;
 
-      const tmp = `${fullPath}.compact.${process.pid}.tmp`;
-      fs.writeFileSync(tmp, clean.join('\n') + (clean.length ? '\n' : ''), 'utf8');
-      fs.renameSync(tmp, fullPath);
-      compacted++;
-    } catch { /* best-effort */ }
-  });
+    walkJsonl(GRAPH_RAW_DIR, ({ fullPath }) => {
+      try {
+        const content = fs.readFileSync(fullPath, 'utf8');
+        if (!content.includes(customerHash)) return; // fast path: skip unaffected files
 
-  // After compaction, remove tombstone files (erasure complete)
-  if (fs.existsSync(GRAPH_TOMBSTONE_DIR)) {
-    for (const f of fs.readdirSync(GRAPH_TOMBSTONE_DIR)) {
-      try { fs.unlinkSync(path.join(GRAPH_TOMBSTONE_DIR, f)); } catch { /* best-effort */ }
+        const lines = content.split('\n').filter(Boolean);
+        const clean = lines.filter(line => {
+          try { return JSON.parse(line).c !== customerHash; }
+          catch { return true; }
+        });
+
+        if (clean.length === lines.length) return; // nothing to remove for this customer
+
+        // Phase 1: atomic rewrite
+        const tmp = `${fullPath}.compact.${process.pid}.tmp`;
+        fs.writeFileSync(tmp, clean.join('\n') + (clean.length ? '\n' : ''), 'utf8');
+        fs.renameSync(tmp, fullPath);
+        filesProcessed++;
+
+        // Phase 2: verify erasure (re-read and confirm hash absent)
+        const verified = fs.readFileSync(fullPath, 'utf8');
+        if (verified.includes(customerHash)) {
+          // Rewrite succeeded but data still present — should never happen, but guard
+          filesFailed++;
+        }
+      } catch {
+        filesFailed++;
+      }
+    });
+
+    if (filesFailed === 0) {
+      // All rewrites verified — safe to remove tombstone
+      try {
+        const tPath = path.join(GRAPH_TOMBSTONE_DIR, `${customerHash}.json`);
+        if (fs.existsSync(tPath)) fs.unlinkSync(tPath);
+        compacted++;
+      } catch { failed++; }
+    } else {
+      // Partial failure: preserve tombstone for next run
+      failed++;
     }
   }
 
-  return { compacted, duration_ms: Date.now() - started };
+  return { compacted, failed, duration_ms: Date.now() - started };
 }
 
 // ─── scheduler ────────────────────────────────────────────────────────────────

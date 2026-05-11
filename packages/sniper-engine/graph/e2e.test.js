@@ -312,6 +312,73 @@ async function run() {
       `Stored (${storedScores[0]}) must equal raw engine score (${rawEngineScore}), not boosted (${scores[0]})`);
   });
 
+  // ── 8. MEDIUM-4: two-phase compaction ────────────────────────────────────
+  console.log('\n8. MEDIUM-4 fix: two-phase tombstone compaction');
+
+  await test('MEDIUM-4a: compaction physically removes tombstoned customer data from JSONL', async () => {
+    const custM4a = `m4a_${Date.now()}`;
+    const entity  = `m4a-${Date.now()}.com`;
+    for (let i = 0; i < 3; i++) {
+      await verifyPayloadWithGraph({ text: entity, urls: [], channel: 'e2e', customerId: custM4a, _graphType: 'domain' });
+    }
+    await new Promise(r => setTimeout(r, 100));
+    addTombstone(custM4a);
+    const { hashCustomer: hc4a, hashEntity: he4a, rawPath: rp4a } = require('./storage');
+    const custHash4a = hc4a(custM4a);
+    runCompaction();
+    const rawFile = rp4a('domain', he4a('domain', entity));
+    const content = fs.existsSync(rawFile) ? fs.readFileSync(rawFile, 'utf8') : '';
+    assert.ok(!content.includes(custHash4a),
+      'JSONL must not contain tombstoned customer hash after compaction');
+  });
+
+  await test('MEDIUM-4b: compaction preserves tombstone if partial rewrite fails', async () => {
+    const custM4b = `m4b_${Date.now()}`;
+    const ent1 = `m4b1-${Date.now()}.com`;
+    const ent2 = `m4b2-${Date.now()}.com`;
+
+    // Same customer writing to 2 different entities → 2 separate JSONL files to compact
+    for (let i = 0; i < 3; i++) {
+      await verifyPayloadWithGraph({ text: ent1, urls: [], channel: 'e2e', customerId: custM4b, _graphType: 'domain' });
+      await verifyPayloadWithGraph({ text: ent2, urls: [], channel: 'e2e', customerId: custM4b, _graphType: 'domain' });
+    }
+    await new Promise(r => setTimeout(r, 100));
+
+    addTombstone(custM4b);
+    const { hashCustomer: hc4b } = require('./storage');
+    const custHash4b = hc4b(custM4b);
+
+    // Monkey-patch fs.renameSync: succeed on rename #1, throw on rename #2
+    // Simulates partial disk failure (file 1 rewritten, file 2 fails)
+    let compactRenameCount = 0;
+    const origRename = fs.renameSync;
+    fs.renameSync = function(src, dest) {
+      if (typeof src === 'string' && src.endsWith('.tmp')) {
+        compactRenameCount++;
+        if (compactRenameCount === 2) throw new Error('simulated partial disk failure');
+      }
+      return origRename.apply(this, arguments);
+    };
+
+    let r1;
+    try {
+      r1 = runCompaction();
+    } finally {
+      fs.renameSync = origRename; // always restore — even on unexpected throws
+    }
+
+    const tombPath = path.join(TEST_DIR, 'graph-tombstones', `${custHash4b}.json`);
+    assert.ok(r1.failed > 0, `Expected failed > 0, got ${r1.failed}`);
+    assert.ok(fs.existsSync(tombPath),
+      'Tombstone must be preserved when partial rewrite failed (two-phase guard)');
+
+    // Second run (no mock): must compact successfully and remove the tombstone
+    const r2 = runCompaction();
+    assert.ok(r2.compacted >= 1, `Expected compacted >= 1 on second run, got ${r2.compacted}`);
+    assert.ok(!fs.existsSync(tombPath),
+      'Tombstone must be removed after successful second compaction run');
+  });
+
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log(`\n=== ${passed + failed} tests: ${passed} passed, ${failed} failed ===\n`);
   try { fs.rmSync(TEST_DIR, { recursive: true, force: true }); } catch { /* best-effort */ }
