@@ -1,0 +1,62 @@
+# Railway upload exclusions (mirror of .dockerignore for parity).
+# Kept identical so `railway up` and `docker build` ship the same context.
+
+# VCS
+.git/
+.gitignore
+.gitattributes
+
+# CI / build automation
+.github/
+
+# AI workspace + audits + plans
+.ai/
+
+# AIOX framework (dev-only, never runs in prod)
+.aiox-core/
+.claude/
+
+# Institutional brain + documentation
+Memoria_Elefante/
+docs/
+
+# Tests (not shipped; npm test runs in CI before deploy)
+tests/
+*.test.js
+*.test.ts
+
+# Local Node artefacts (deps are reinstalled in the deps stage)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data (must come from mounted volume, never bake into image)
+.kairos-data/
+.kairos-vault/
+*.log
+logs/
+
+# Env files (secrets come from Railway dashboard at runtime)
+.env
+.env.*
+!.env.example
+
+# Editor / OS metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Cleanup cruft
+landing-preview.html
+kairos-novo.html
+kairos-v8.html
+kairos-tesla.html
+estrutura.txt
+ficheiros.csv
+inventario.txt
+/inventory-*.txt
+/inventory-*.csv
+.backup-volume/

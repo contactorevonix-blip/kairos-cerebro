@@ -1,0 +1,35 @@
+# ============================================
+# Kairos Check — Railway deployment config
+# Fase 2.1 (Ataque #2)
+#
+# Plan: .ai/plans/2026-05-11-ataque-2-railway-cicd.md §2.1
+# Architecture decision: Dockerfile builder (not nixpacks) for
+#   zero-dep sovereignty + portability + deterministic builds.
+# ============================================
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Entry command is also defined as the Dockerfile CMD; keeping it here
+# explicit so Railway dashboard shows it without inspecting the image.
+startCommand = "node packages/sniper-api/server.js"
+
+# Health check hits the deep probe (db writable + audit chain valid +
+# vault initialized + optional redis reachable when adapter=redis).
+healthcheckPath = "/health"
+healthcheckTimeout = 10
+
+# Restart policy: bounded retries to avoid masking real failures.
+# Exhausted retries surface to Railway dashboard for human triage.
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+
+# Single replica in Fase 2. Horizontal scaling deferred to Ataque #3
+# once we have real load metrics from production traffic.
+numReplicas = 1
+
+[regions]
+# Frankfurt — closest EU region to Lisbon (< 30ms RTT) and ICP base.
+primary = "europe-west4"
