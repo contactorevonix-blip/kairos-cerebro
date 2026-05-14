@@ -19,7 +19,7 @@ startCommand = "node packages/sniper-api/server.js"
 # Health check hits the deep probe (db writable + audit chain valid +
 # vault initialized + optional redis reachable when adapter=redis).
 healthcheckPath = "/health"
-healthcheckTimeout = 10
+healthcheckTimeout = 30
 
 # Restart policy: bounded retries to avoid masking real failures.
 # Exhausted retries surface to Railway dashboard for human triage.

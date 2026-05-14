@@ -727,7 +727,7 @@ try {
 
 if (require.main === module) {
   const boot = bootstrapIfEmpty();
-  server.listen(PORT, () => {
+  server.listen(PORT, '0.0.0.0', () => {
     logEvent('server.boot', {
       port: PORT,
       version: VERSION,
