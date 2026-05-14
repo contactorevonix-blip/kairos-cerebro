@@ -1,0 +1,65 @@
+name: Volume Backup
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 02:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  backup:
+    name: Backup .kairos-data to R2
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Railway CLI
+        run: curl -fsSL https://railway.app/install.sh | sh
+
+      - name: Run backup inside Railway container
+        id: run_backup
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          set -euo pipefail
+          railway run --service kairos-api -- node bin/backup-volume.js | tee /tmp/backup-log.json
+        continue-on-error: true
+
+      - name: Upload backup log
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-log-${{ github.run_id }}
+          path: /tmp/backup-log.json
+          retention-days: 30
+        if: always()
+
+      - name: Alert on failure
+        if: steps.run_backup.outcome == 'failure'
+        run: |
+          echo "::error title=Volume Backup Failed::Daily backup failed at $(date -u +%Y-%m-%dT%H:%M:%SZ). Check R2 credentials and Railway logs."
+          echo "## ❌ Backup FAILED" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check: \`railway logs --service kairos-api\` and R2 credentials in env vars." >> $GITHUB_STEP_SUMMARY
+          echo "See DR runbook: \`docs/operations/disaster-recovery.md\`" >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+      - name: Write success summary
+        if: steps.run_backup.outcome == 'success'
+        run: |
+          SHA=$(jq -r '.sha'  /tmp/backup-log.json 2>/dev/null || echo 'unknown')
+          SZ=$(jq  -r '.size' /tmp/backup-log.json 2>/dev/null || echo 'unknown')
+          DEST=$(jq -r '.destination' /tmp/backup-log.json 2>/dev/null || echo 'unknown')
+          TS=$(jq  -r '.ts'   /tmp/backup-log.json 2>/dev/null || echo 'unknown')
+          echo "## ✅ Backup OK" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Timestamp | \`${TS}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Destination | \`${DEST}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Size (bytes) | ${SZ} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SHA-256 | \`${SHA}\` |" >> $GITHUB_STEP_SUMMARY

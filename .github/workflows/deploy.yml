@@ -1,0 +1,105 @@
+# Required GitHub Secret: RAILWAY_TOKEN
+# Get it at: Railway Dashboard → Account Settings → Tokens → New Token
+# Add at: GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run audit:verify
+
+  deploy:
+    name: Deploy to Railway
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: curl -fsSL https://railway.app/install.sh | sh
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up --service kairos-api --detach
+
+      - name: Wait for boot
+        run: sleep 30
+
+  smoke:
+    name: Smoke Tests
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Run smoke checks against production
+        run: |
+          set -e
+          BASE=https://kairoscheck.net
+
+          echo "→ Health check"
+          curl -fsSL "$BASE/health" | tee /tmp/health.json
+          jq -e '.status == "OPERATIONAL"' /tmp/health.json
+
+          echo "→ Landing page"
+          curl -fsSL -o /dev/null -w "%{http_code}" "$BASE/" | grep -q "200"
+
+          echo "→ Pricing page"
+          curl -fsSL -o /dev/null -w "%{http_code}" "$BASE/pricing" | grep -q "200"
+
+          echo "→ Billing plans"
+          curl -fsSL -o /dev/null -w "%{http_code}" "$BASE/api/billing/plans" | grep -q "200"
+
+          echo "→ All smoke checks passed"
+
+      - name: Upload smoke artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ github.sha }}
+          path: /tmp/health.json
+          retention-days: 7
+
+  rollback:
+    name: Rollback on Smoke Failure
+    needs: smoke
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Railway CLI
+        run: curl -fsSL https://railway.app/install.sh | sh
+
+      - name: Rollback to previous deployment
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway rollback --service kairos-api --yes
+
+      - name: Alert on rollback
+        run: |
+          echo "::error title=Production Rollback::Smoke tests failed for SHA ${{ github.sha }}. Auto-rollback triggered."
+          echo "## ❌ Rollback triggered" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**SHA:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Investigate: check Railway logs and the smoke artifact above." >> $GITHUB_STEP_SUMMARY

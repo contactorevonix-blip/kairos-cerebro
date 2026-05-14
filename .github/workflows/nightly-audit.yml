@@ -1,0 +1,52 @@
+name: Nightly Audit
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 03:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  remote-health:
+    name: Probe Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Health check — kairoscheck.net
+        run: |
+          set -e
+          BASE=https://kairoscheck.net
+
+          curl -fsSL "$BASE/health" > health.json
+          cat health.json
+
+          jq -e '.status == "OPERATIONAL"' health.json
+          jq -e '.probes.auditChain.valid == true' health.json
+          jq -e '.probes.dbWritable == true' health.json
+
+          echo "## Nightly Audit — PASS" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Time:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          STATUS=$(jq -r '.status' health.json)
+          VERSION=$(jq -r '.version // "unknown"' health.json)
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | \`$STATUS\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | \`$VERSION\` |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Archive health snapshot
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nightly-${{ github.run_id }}
+          path: health.json
+          retention-days: 30
+
+      - name: Alert on failure
+        if: failure()
+        run: |
+          echo "::error title=Nightly Audit Failed::Production health check failed at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "## ❌ Nightly Audit — FAIL" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check Railway logs: \`railway logs --service kairos-api\`" >> $GITHUB_STEP_SUMMARY
