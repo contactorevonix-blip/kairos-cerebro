@@ -14,23 +14,19 @@ FROM node:20-alpine AS runtime
 WORKDIR /app
 
 # tini = proper signal handling (PID 1 reaping); curl = HEALTHCHECK probe
-RUN apk add --no-cache curl tini && \
-    addgroup -g 1001 kairos && \
-    adduser -u 1001 -G kairos -s /bin/sh -D kairos
+RUN apk add --no-cache curl tini
 
 # Production dependencies only (stripe + resend)
 COPY --from=deps /app/node_modules ./node_modules
 
-# Application source — owned by non-root user
-COPY --chown=kairos:kairos bin ./bin
-COPY --chown=kairos:kairos packages ./packages
-COPY --chown=kairos:kairos package.json ./
+# Application source
+COPY bin ./bin
+COPY packages ./packages
+COPY package.json ./
 
 # Volume mount point for persistent state (DB + vault + audit chain).
 # Railway mounts the persistent volume here at runtime.
-RUN mkdir -p /app/.kairos-data && chown -R kairos:kairos /app/.kairos-data
-
-USER kairos
+RUN mkdir -p /app/.kairos-data
 
 ENV NODE_ENV=production \
     PORT=8787 \
