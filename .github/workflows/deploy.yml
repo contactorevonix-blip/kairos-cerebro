@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --service kairos-api --detach
+        run: railway up --service kairos-cerebro --detach
 
       - name: Wait for boot
         run: sleep 30
@@ -93,7 +93,7 @@ jobs:
       - name: Rollback to previous deployment
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway rollback --service kairos-api --yes
+        run: railway rollback --service kairos-cerebro --yes
 
       - name: Alert on rollback
         run: |
@@ -103,3 +103,4 @@ jobs:
           echo "**SHA:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Investigate: check Railway logs and the smoke artifact above." >> $GITHUB_STEP_SUMMARY
+

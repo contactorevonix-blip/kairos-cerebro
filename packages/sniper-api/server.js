@@ -298,9 +298,14 @@ const server = http.createServer(async (req, res) => {
         const v = require('../vault');
         probes.vaultInitialized = v.isVaultInitialized ? v.isVaultInitialized() : null;
       } catch { probes.vaultInitialized = null; }
-      const ready = probes.dbWritable && (probes.auditChain && probes.auditChain.valid);
+      // Railway healthcheck only needs the server alive + db writable.
+      // Audit chain validity is reported as a probe but never blocks startup —
+      // a broken chain on first deploy (empty volume) must not prevent the
+      // service from being marked healthy by the load balancer.
+      const ready = probes.dbWritable;
+      const fullyHealthy = ready && (probes.auditChain && probes.auditChain.valid);
       sendJson(res, ready ? 200 : 503, {
-        status: ready ? 'OPERATIONAL' : 'DEGRADED',
+        status: fullyHealthy ? 'OPERATIONAL' : (ready ? 'DEGRADED' : 'DOWN'),
         uptime: process.uptime(),
         version: VERSION,
         probes,
