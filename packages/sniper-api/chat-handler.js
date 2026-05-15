@@ -7,7 +7,7 @@
 const https = require('https');
 const crypto = require('crypto');
 
-const FREE_MSG_LIMIT = 10;
+const FREE_MSG_LIMIT = 5;
 const TOKENS_PER_MSG = 5;
 const MAX_INPUT_CHARS = 800;
 const MAX_HISTORY = 6; // last 3 turns (user + assistant pairs)
