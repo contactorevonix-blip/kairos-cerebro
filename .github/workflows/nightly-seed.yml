@@ -1,0 +1,52 @@
+name: Nightly Intelligence Seed
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 04:00 UTC daily — after backup, before business hours
+  workflow_dispatch:        # Manual trigger available
+
+jobs:
+  seed:
+    name: Feed reputation graph with known-bad domains
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run reputation seeder (authenticated)
+        env:
+          KC_API_KEY: ${{ secrets.KC_SEED_API_KEY }}
+          KC_BASE_URL: https://kairoscheck.net
+        run: |
+          echo "## 🛡 Nightly Intelligence Seed — $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Run seeder with limit appropriate for authenticated endpoint
+          node bin/seed-reputation.js --limit=31 2>&1 | tee /tmp/seed-output.txt
+
+          # Parse results for summary
+          BLOCKED=$(grep -c "🔴 BLOCK" /tmp/seed-output.txt || echo "0")
+          REVIEWED=$(grep -c "🟡 REVIEW" /tmp/seed-output.txt || echo "0")
+          CLEARED=$(grep -c "🟢" /tmp/seed-output.txt || echo "0")
+          RATE=$(grep "Detection rate:" /tmp/seed-output.txt | grep -oP '\d+%' || echo "?")
+
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Fraud domains seeded | 31 |" >> $GITHUB_STEP_SUMMARY
+          echo "| BLOCK | ${BLOCKED} |" >> $GITHUB_STEP_SUMMARY
+          echo "| REVIEW | ${REVIEWED} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Detection rate | ${RATE} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Legit domains confirmed | ${CLEARED} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Reputation graph grows with each run. Detection improves daily._" >> $GITHUB_STEP_SUMMARY
+
+      - name: Alert on failure
+        if: failure()
+        run: |
+          echo "::error title=Nightly Seed Failed::Reputation graph not updated. Check KC_SEED_API_KEY secret."
+          echo "## ❌ Seed FAILED" >> $GITHUB_STEP_SUMMARY
