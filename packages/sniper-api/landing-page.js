@@ -113,30 +113,47 @@ function renderLandingPage() {
     }
     .hero .container { position: relative; z-index: 1; }
 
+    /* AURORA MESH — premium depth layer */
+    .hero-aurora {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 120% 80% at 20% -20%, rgba(0,217,126,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 60% at 80% 10%, rgba(0,100,255,0.08) 0%, transparent 45%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,217,126,0.06) 0%, transparent 50%);
+    }
+
     /* ORBS — gradient depth spheres (like Anthropic, Vercel, Claude.ai) */
     .hero-orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
     .orb-1 {
       position: absolute;
-      width: 900px; height: 900px; border-radius: 50%;
-      background: radial-gradient(circle at center, rgba(0,217,126,0.2) 0%, rgba(0,217,126,0.05) 40%, transparent 70%);
-      top: -500px; left: -250px;
-      filter: blur(60px);
+      width: 1100px; height: 1100px; border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(0,217,126,0.28) 0%,
+        rgba(0,217,126,0.12) 35%,
+        transparent 65%);
+      top: -600px; left: -350px;
+      filter: blur(50px);
       animation: orb-drift 20s ease-in-out infinite alternate;
     }
     .orb-2 {
       position: absolute;
-      width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle at center, rgba(0,160,255,0.1) 0%, transparent 65%);
-      top: -200px; right: -200px;
-      filter: blur(80px);
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(0,140,255,0.15) 0%,
+        rgba(0,80,255,0.05) 40%,
+        transparent 65%);
+      top: -200px; right: -250px;
+      filter: blur(70px);
       animation: orb-drift 25s ease-in-out infinite alternate-reverse;
     }
     .orb-3 {
       position: absolute;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle at center, rgba(0,217,126,0.08) 0%, transparent 65%);
-      bottom: -150px; left: 35%;
-      filter: blur(70px);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(0,217,126,0.12) 0%,
+        transparent 60%);
+      bottom: -100px; left: 30%;
+      filter: blur(80px);
     }
     @keyframes orb-drift {
       from { transform: translate(0,0) scale(1); }
@@ -249,7 +266,10 @@ function renderLandingPage() {
       background: #0d0d0d;
       border: 1px solid var(--border-strong);
       border-radius: 14px; overflow: hidden;
-      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      box-shadow:
+        0 0 0 1px rgba(0,217,126,0.1),
+        0 40px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(0,217,126,0.06);
     }
     .demo-header {
       background: #161616; border-bottom: 1px solid var(--border);
@@ -750,6 +770,7 @@ function renderLandingPage() {
 
     <!-- ── HERO ─────────────────────────────────────────────────── -->
     <section class="hero" aria-labelledby="hero-h1">
+      <div class="hero-aurora" aria-hidden="true"></div>
       <!-- 3D background orbs -->
       <div class="hero-orbs" aria-hidden="true">
         <div class="orb-1"></div>
