@@ -686,6 +686,24 @@ function renderLandingPage() {
     .footer-links { display: flex; flex-wrap: wrap; gap: 0.25rem; }
     .footer-link { color: var(--text-tertiary); text-decoration: none; font-size: var(--text-xs); padding: 0.25rem 0.5rem; border-radius: 4px; transition: color 150ms; }
     .footer-link:hover { color: var(--text-secondary); }
+    .kicker-sep { color: var(--border-strong); margin: 0 0.125rem; }
+    .hero-cli {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.875rem;
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--text-tertiary); margin-top: 1rem;
+      cursor: default; max-width: 100%; overflow: hidden;
+    }
+    .hero-cli-prompt { color: var(--accent); font-weight: 700; }
+    .hero-cli-cmd { color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex:1; }
+    .hero-cli-copy {
+      background: none; border: 1px solid var(--border-strong);
+      color: var(--text-tertiary); font-family: var(--font-sans);
+      font-size: 0.625rem; padding: 0.15rem 0.5rem; border-radius: 4px;
+      cursor: pointer; flex-shrink: 0; transition: all 150ms;
+    }
+    .hero-cli-copy:hover { color: var(--text); border-color: var(--text-tertiary); }
   </style>
 
   <!-- Schema.org JSON-LD -->
@@ -741,7 +759,16 @@ function renderLandingPage() {
       <div class="hero-noise" aria-hidden="true"></div>
 
       <div class="container">
-        <div class="hero-kicker fade-up"><span class="live-dot" aria-hidden="true"></span>Fraud API · Self-serve · GDPR-native</div>
+        <div class="hero-kicker fade-up">
+  <span class="live-dot" aria-hidden="true"></span>
+  <span>Fraud API</span>
+  <span class="kicker-sep">·</span>
+  <span style="font-family:var(--font-mono)">138ms avg</span>
+  <span class="kicker-sep">·</span>
+  <span>8 OSINT layers</span>
+  <span class="kicker-sep">·</span>
+  <span>GDPR Art.5</span>
+</div>
         <div class="hero-layout">
           <div>
             <h1 id="hero-h1" class="fade-up-2">Stop fraud before it costs you a <span class="gradient-text">customer</span></h1>
@@ -749,6 +776,11 @@ function renderLandingPage() {
             <div class="hero-ctas">
               <a href="/pricing" class="btn-primary">Get API key — €29 <span aria-hidden="true">→</span></a>
               <a href="/docs/quickstart" class="btn-secondary">Try free (50/month)</a>
+            </div>
+            <div class="hero-cli" aria-label="Quick start command">
+              <span class="hero-cli-prompt" aria-hidden="true">$</span>
+              <span class="hero-cli-cmd">curl -X POST kairoscheck.net/api/check \\</span>
+              <button class="hero-cli-copy" id="cli-copy" aria-label="Copy curl command">copy</button>
             </div>
             ${showProofBar ? `
             <div class="hero-proof" aria-label="Live usage stats">
@@ -799,7 +831,7 @@ function renderLandingPage() {
                 </div>
               </div>
               <div class="demo-body">
-                <p class="demo-label">Try it — no account required</p>
+                <p class="demo-label"><span style="font-family:var(--font-mono);color:var(--accent)">POST</span> /api/check — no key required</p>
                 <div class="demo-input-row">
                   <input
                     type="text"
@@ -1185,11 +1217,11 @@ function renderLandingPage() {
           </div>
           <div class="trust-item" role="listitem">
             <div class="trust-number">${avgMsDisplay}</div>
-            <div class="trust-desc">Avg response time</div>
+            <div class="trust-desc">Median latency</div>
           </div>
           <div class="trust-item" role="listitem">
-            <div class="trust-number">99.9%</div>
-            <div class="trust-desc">Uptime target &middot; <a href="/status" style="color:var(--accent);text-decoration:none;">live →</a></div>
+            <div class="trust-number">8</div>
+            <div class="trust-desc">OSINT signal layers</div>
           </div>
         </div>
         <div class="trust-badges" role="list" aria-label="Compliance signals">
@@ -1507,6 +1539,17 @@ function renderLandingPage() {
           var isOpen = item.classList.contains('open');
           items.forEach(function(i) { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded', 'false'); });
           if (!isOpen) { item.classList.add('open'); q.setAttribute('aria-expanded', 'true'); }
+        });
+      });
+    })();
+
+    (function() {
+      var btn = document.getElementById('cli-copy');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        navigator.clipboard.writeText("curl -X POST https://kairoscheck.net/api/check -H 'Authorization: Bearer YOUR_KEY' -H 'Content-Type: application/json' -d '{\"domain\":\"suspicious.io\"}'").then(function() {
+          btn.textContent = 'copied ✓';
+          setTimeout(function() { btn.textContent = 'copy'; }, 2000);
         });
       });
     })();
