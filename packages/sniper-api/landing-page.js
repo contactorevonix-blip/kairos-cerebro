@@ -2025,7 +2025,7 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var btn = document.getElementById('cli-copy');
       if (!btn) return;
       btn.addEventListener('click', function() {
-        navigator.clipboard.writeText("curl -X POST https://kairoscheck.net/api/check -H 'Authorization: Bearer YOUR_KEY' -H 'Content-Type: application/json' -d '{\"domain\":\"suspicious.io\"}'").then(function() {
+        navigator.clipboard.writeText(\`curl -X POST https://kairoscheck.net/api/check -H 'Authorization: Bearer YOUR_KEY' -H 'Content-Type: application/json' -d '{"domain":"suspicious.io"}'\`).then(function() {
           btn.textContent = 'copied ✓';
           setTimeout(function() { btn.textContent = 'copy'; }, 2000);
         });
