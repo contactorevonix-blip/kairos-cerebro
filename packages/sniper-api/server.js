@@ -45,16 +45,17 @@ const PUBLIC_VERIFY_MAX_CHARS = Number(process.env.KAIROS_PUBLIC_VERIFY_MAX_CHAR
 const VERSION = '7.1.0';
 const ADMIN_TOKEN = process.env.KAIROS_ADMIN_TOKEN || '';
 
-/**
- * Checks admin token from Authorization header or ?token= query param.
- * If KAIROS_ADMIN_TOKEN is not set, dashboard is OPEN — only safe in dev.
- */
+// Audit MEDIUM-2: fail-closed in production — dashboard must not be open if env var missing
+if (!ADMIN_TOKEN && process.env.NODE_ENV === 'production') {
+  console.error('FATAL: KAIROS_ADMIN_TOKEN must be set in production. Refusing to start.');
+  process.exit(1);
+}
+
+// Audit MEDIUM-1: token accepted only via Authorization header (not ?token= — leaks in logs)
 function checkAdminAuth(req) {
-  if (!ADMIN_TOKEN) return true;
+  if (!ADMIN_TOKEN) return true; // dev mode only — production exits above if unset
   const auth = (req.headers['authorization'] || '');
-  if (auth.startsWith('Bearer ') && auth.slice(7) === ADMIN_TOKEN) return true;
-  const qs = (req.url || '').split('?')[1] || '';
-  return new URLSearchParams(qs).get('token') === ADMIN_TOKEN;
+  return auth.startsWith('Bearer ') && auth.slice(7) === ADMIN_TOKEN;
 }
 
 // Security headers applied to every response. CSP allows inline JS/CSS only
@@ -249,7 +250,7 @@ const server = http.createServer(async (req, res) => {
           'www-authenticate': 'Bearer realm="KAIROS Admin"',
           'content-type': 'text/html; charset=utf-8',
         });
-        res.end('<h1>401 Unauthorized</h1><p>Admin access required. Provide <code>Authorization: Bearer &lt;KAIROS_ADMIN_TOKEN&gt;</code> or <code>?token=&lt;value&gt;</code>.</p>');
+        res.end('<h1>401 Unauthorized</h1><p>Admin access required. Provide the header: <code>Authorization: Bearer &lt;KAIROS_ADMIN_TOKEN&gt;</code></p>');
         return;
       }
       sendHtml(res, renderDashboard(readGlobalMetrics(), {

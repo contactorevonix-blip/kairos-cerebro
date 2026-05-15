@@ -776,8 +776,9 @@ function renderLandingPage() {
     .testimonials-outer::before { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); width: 140px; }
     .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); width: 140px; }
     .testimonials-track {
-      display: flex; gap: 1.25rem; width: max-content;
+      display: flex; gap: 0; width: max-content;
       animation: scroll-left 220s linear infinite;
+      will-change: transform;
     }
     .testimonials-track:hover { animation-play-state: paused; }
     @keyframes scroll-left {
@@ -788,6 +789,7 @@ function renderLandingPage() {
       background: var(--surface); border: 1px solid var(--border-strong);
       border-radius: 14px; padding: 1.625rem; width: 340px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 1rem;
+      margin-right: 1.25rem;
       transition: border-color 300ms, box-shadow 300ms;
     }
     .tcard:hover {
@@ -810,8 +812,9 @@ function renderLandingPage() {
     .activity-feed { padding: 2rem 0; border-top: 1px solid var(--border); overflow: hidden; }
     .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
     .activity-track {
-      display: flex; gap: 0.75rem; width: max-content;
+      display: flex; gap: 0; width: max-content;
       animation: scroll-left 100s linear infinite;
+      will-change: transform;
     }
     .activity-track:hover { animation-play-state: paused; }
     .activity-pill {
@@ -819,7 +822,7 @@ function renderLandingPage() {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 999px; padding: 0.375rem 1rem;
       font-family: var(--font-mono); font-size: 0.75rem; white-space: nowrap;
-      color: var(--text-secondary);
+      color: var(--text-secondary); margin-right: 0.75rem;
     }
     .activity-pill-verdict { font-weight: 700; }
     .activity-pill-verdict.block { color: #ef4444; }
