@@ -513,6 +513,41 @@ function renderLandingPage() {
     .trust-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
     /* PRICING */
+    /* ANNUAL TOGGLE */
+    .pricing-toggle { display: flex; align-items: center; justify-content: center; gap: .875rem; margin-bottom: 2rem; }
+    .toggle-label { font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
+    .toggle-label.active { color: var(--text); font-weight: 600; }
+    .toggle-switch { width: 44px; height: 24px; border-radius: 12px; background: var(--border-strong); border: none; cursor: pointer; position: relative; transition: background 200ms; flex-shrink: 0; }
+    .toggle-switch.annual { background: var(--accent); }
+    .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left 200ms; }
+    .toggle-switch.annual::after { left: 23px; }
+    .toggle-save { font-size: .6875rem; font-weight: 700; color: var(--accent); background: rgba(0,217,126,.12); border: 1px solid rgba(0,217,126,.2); border-radius: 999px; padding: .1rem .5rem; }
+    .price-monthly { display: block; }
+    .price-annual { display: none; }
+    .annual-mode .price-monthly { display: none; }
+    .annual-mode .price-annual { display: block; }
+
+    /* ROI CALCULATOR */
+    .roi-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 3rem; }
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    @media (max-width: 700px) { .roi-grid { grid-template-columns: 1fr; } }
+    .roi-field { display: flex; flex-direction: column; gap: .375rem; }
+    .roi-label { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-tertiary); }
+    .roi-input-wrap { position: relative; }
+    .roi-prefix { position: absolute; left: .875rem; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--text-sm); pointer-events: none; }
+    .roi-input { width: 100%; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 8px; padding: .625rem .875rem .625rem 1.75rem; font-family: var(--font-mono); font-size: var(--text-sm); color: var(--text); transition: border-color 150ms; }
+    .roi-input:focus { outline: none; border-color: var(--accent); }
+    .roi-slider { width: 100%; accent-color: var(--accent); }
+    .roi-slider-labels { display: flex; justify-content: space-between; font-size: .6875rem; color: var(--text-tertiary); margin-top: .2rem; }
+    .roi-results { display: flex; flex-direction: column; gap: .875rem; }
+    .roi-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.125rem; }
+    .roi-card.roi-card-win { border-color: rgba(0,217,126,.3); background: rgba(0,217,126,.04); }
+    .roi-card-label { font-size: .6875rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-tertiary); font-weight: 600; margin-bottom: .25rem; }
+    .roi-card-value { font-size: 1.75rem; font-weight: 800; letter-spacing: -.04em; font-family: var(--font-mono); }
+    .roi-card-value.red { color: #ef4444; }
+    .roi-card-value.green { color: var(--accent); }
+    .roi-card-sub { font-size: .75rem; color: var(--text-secondary); margin-top: .25rem; line-height: 1.4; }
+
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
     .pricing-card {
       background: var(--surface);
@@ -840,11 +875,11 @@ function renderLandingPage() {
       border-radius: 8px; padding: 0.625rem 1rem;
       font-family: var(--font-mono); font-size: 0.75rem;
       color: var(--text-secondary);
-      animation: entry-in 0.4s ease-out both;
+      animation: entry-in 0.35s ease-out;
     }
     @keyframes entry-in {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0.15; transform: translateY(-8px); }
+      to   { opacity: 1;    transform: translateY(0); }
     }
     .activity-entry-flag { font-size: 1rem; flex-shrink: 0; }
     .activity-entry-domain { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1150,6 +1185,57 @@ function renderLandingPage() {
       </div>
     </section>
 
+    <!-- ── ROI CALCULATOR ────────────────────────────────────────── -->
+    <section aria-labelledby="roi-h2">
+      <div class="container">
+        <p class="section-label">ROI Calculator</p>
+        <h2 class="section-title" id="roi-h2">How much is fraud <span class="gradient-text">costing you?</span></h2>
+        <p class="section-lead">Type your numbers. See the payback period in real time.</p>
+        <div class="roi-wrap">
+          <div class="roi-grid">
+            <div style="display:flex;flex-direction:column;gap:1.25rem;">
+              <div class="roi-field">
+                <label class="roi-label" for="roi-revenue">Monthly revenue</label>
+                <div class="roi-input-wrap">
+                  <span class="roi-prefix">€</span>
+                  <input class="roi-input" id="roi-revenue" type="number" value="10000" min="100" max="10000000" step="500">
+                </div>
+              </div>
+              <div class="roi-field">
+                <label class="roi-label" for="roi-rate">Estimated fraud rate — <span id="roi-rate-pct">2.0%</span></label>
+                <input class="roi-slider" id="roi-rate" type="range" min="0.1" max="10" step="0.1" value="2">
+                <div class="roi-slider-labels"><span>0.1%</span><span>5%</span><span>10%</span></div>
+              </div>
+              <div class="roi-field">
+                <label class="roi-label" for="roi-cbs">Chargebacks per month</label>
+                <div class="roi-input-wrap">
+                  <input class="roi-input" id="roi-cbs" type="number" value="3" min="0" max="500" step="1" style="padding-left:.875rem;">
+                </div>
+              </div>
+            </div>
+            <div class="roi-results">
+              <div class="roi-card">
+                <div class="roi-card-label">Monthly fraud loss</div>
+                <div class="roi-card-value red" id="roi-loss">€425</div>
+                <div class="roi-card-sub">Revenue lost to fraud + chargebacks (avg €75 each)</div>
+              </div>
+              <div class="roi-card">
+                <div class="roi-card-label">Kairos Check cost</div>
+                <div class="roi-card-value" id="roi-cost">€29</div>
+                <div class="roi-card-sub" id="roi-plan-desc">Starter plan — 5,000 checks/month</div>
+              </div>
+              <div class="roi-card roi-card-win">
+                <div class="roi-card-label">Net savings per month</div>
+                <div class="roi-card-value green" id="roi-savings">€332</div>
+                <div class="roi-card-sub" id="roi-payback">Payback in <strong>2 days</strong> · ROI <strong>1145%</strong></div>
+              </div>
+              <a href="/pricing" class="btn-primary" style="display:block;text-align:center;margin-top:.5rem;">Start saving — €29/month →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── NETWORK INTELLIGENCE ─────────────────────────────────── -->
 
     <section class="network-section reveal" aria-labelledby="network-h2">
@@ -1375,6 +1461,7 @@ function renderLandingPage() {
         </div>
 
         <!-- JavaScript -->
+        <!-- JavaScript -->
         <div class="tab-panel active" id="tab-js" role="tabpanel" aria-labelledby="btn-js">
           <div class="integration-code">
             <div class="integration-code-header">
@@ -1382,24 +1469,41 @@ function renderLandingPage() {
               <button class="integration-copy" data-copy-target="code-js">Copy</button>
             </div>
             <div class="integration-body">
-              <pre id="code-js"><span style="color:var(--text-tertiary)">// Block fraudulent signups in Node.js / browser</span>
+              <pre id="code-js"><span style="color:var(--text-tertiary)">// STEP 1 — Buy your key at kairoscheck.net/pricing (60 seconds, no KYC)</span>
+<span style="color:var(--text-tertiary)">// STEP 2 — No install. No npm. Uses native fetch() — zero dependencies.</span>
+<span style="color:var(--text-tertiary)">// STEP 3 — Add one call at signup or checkout:</span>
+
+<span style="color:#c084fc">const</span> KC_API_KEY = <span style="color:#fbbf24">'kc_live_your_key_here'</span>;
+
 <span style="color:#c084fc">async function</span> <span style="color:#60a5fa">checkFraud</span>(domain) {
   <span style="color:#c084fc">const</span> res = <span style="color:#c084fc">await</span> <span style="color:#60a5fa">fetch</span>(<span style="color:#fbbf24">'https://kairoscheck.net/api/check'</span>, {
     method: <span style="color:#fbbf24">'POST'</span>,
     headers: {
       <span style="color:#fbbf24">'Authorization'</span>: <span style="color:#fbbf24">\`Bearer \${KC_API_KEY}\`</span>,
-      <span style="color:#fbbf24">'Content-Type'</span>:  <span style="color:#fbbf24">'application/json'</span>,
+      <span style="color:#fbbf24">'Content-Type'</span>: <span style="color:#fbbf24">'application/json'</span>,
     },
     body: <span style="color:#60a5fa">JSON.stringify</span>({ domain }),
   });
-
   <span style="color:#c084fc">const</span> { verdict, score, signals } = <span style="color:#c084fc">await</span> res.<span style="color:#60a5fa">json</span>();
 
-  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'BLOCK'</span>) <span style="color:#c084fc">throw new</span> <span style="color:#60a5fa">Error</span>(<span style="color:#fbbf24">'Signup denied'</span>);
-  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'REVIEW'</span>) <span style="color:#60a5fa">flagForReview</span>(domain, score);
+<span style="color:var(--text-tertiary)">  // STEP 4 — Handle the 3 possible verdicts:</span>
+  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'BLOCK'</span>)  <span style="color:#c084fc">throw new</span> <span style="color:#60a5fa">Error</span>(<span style="color:#fbbf24">'Signup denied — fraud detected'</span>);
+  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'REVIEW'</span>) <span style="color:#60a5fa">flagForManualReview</span>(domain, score, signals);
+  <span style="color:#c084fc">return</span> verdict; <span style="color:var(--text-tertiary)">// 'CLEAR' — allow the user through</span>
+}
 
-  <span style="color:#c084fc">return</span> { verdict, score, signals };
-}</pre>
+<span style="color:var(--text-tertiary)">// Response: { verdict:'BLOCK'|'CLEAR'|'REVIEW', score:0-100,
+//   signals:{ disposable, newDomain, asnRisk, ... }, ms:138 }</span></pre>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:1rem;">
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Zero dependencies</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">No npm install. Uses the Fetch API built into every modern browser and Node.js 18+. Nothing to maintain.</p>
+            </div>
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Under 200ms</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">Fast enough for every signup flow. Your users won't notice — but fraudsters will.</p>
             </div>
           </div>
         </div>
@@ -1412,8 +1516,13 @@ function renderLandingPage() {
               <button class="integration-copy" data-copy-target="code-python">Copy</button>
             </div>
             <div class="integration-body">
-              <pre id="code-python"><span style="color:var(--text-tertiary)"># Block fraudulent signups in Python</span>
+              <pre id="code-python"><span style="color:var(--text-tertiary)"># STEP 1 — Get your key at kairoscheck.net/pricing</span>
+<span style="color:var(--text-tertiary)"># STEP 2 — One dependency: requests (already in your venv)</span>
+<span style="color:var(--text-tertiary)"># STEP 3 — One function at signup:</span>
+
 <span style="color:#c084fc">import</span> requests
+
+KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
 
 <span style="color:#c084fc">def</span> <span style="color:#60a5fa">check_fraud</span>(domain: str) -> dict:
     resp = requests.<span style="color:#60a5fa">post</span>(
@@ -1428,10 +1537,22 @@ function renderLandingPage() {
     resp.<span style="color:#60a5fa">raise_for_status</span>()
     data = resp.<span style="color:#60a5fa">json</span>()
 
+<span style="color:var(--text-tertiary)">    # STEP 4 — Handle the verdict:</span>
     <span style="color:#c084fc">if</span> data[<span style="color:#fbbf24">"verdict"</span>] == <span style="color:#fbbf24">"BLOCK"</span>:
         <span style="color:#c084fc">raise</span> <span style="color:#60a5fa">ValueError</span>(<span style="color:#fbbf24">"Signup denied"</span>)
-
-    <span style="color:#c084fc">return</span> data  <span style="color:var(--text-tertiary)"># verdict, score, signals</span></pre>
+    <span style="color:#c084fc">if</span> data[<span style="color:#fbbf24">"verdict"</span>] == <span style="color:#fbbf24">"REVIEW"</span>:
+        <span style="color:#60a5fa">flag_for_review</span>(domain, data[<span style="color:#fbbf24">"score"</span>])
+    <span style="color:#c084fc">return</span> data  <span style="color:var(--text-tertiary)"># CLEAR — allow through</span></pre>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:1rem;">
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Django / FastAPI ready</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">Drop into any view, signal, or middleware. For async use httpx instead of requests — same interface.</p>
+            </div>
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">pip install requests</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">Already in every Python project. No extra requirements.txt entries. No version conflicts.</p>
             </div>
           </div>
         </div>
@@ -1444,19 +1565,37 @@ function renderLandingPage() {
               <button class="integration-copy" data-copy-target="code-curl">Copy</button>
             </div>
             <div class="integration-body">
-              <pre id="code-curl"><span style="color:var(--text-tertiary)"># Quick test from your terminal</span>
-<span style="color:#60a5fa">curl</span> https://kairoscheck.net/api/check <span style="color:#fbbf24">\\</span>
-  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Authorization: Bearer kc_live_YOUR_KEY"</span> <span style="color:#fbbf24">\\</span>
-  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Content-Type: application/json"</span> <span style="color:#fbbf24">\\</span>
-  <span style="color:#60a5fa">-d</span> <span style="color:#fbbf24">'{"domain":"suspicious-shop.io"}'</span>
+              <pre id="code-curl"><span style="color:var(--text-tertiary)"># STEP 1 — Get your key at kairoscheck.net/pricing</span>
+<span style="color:var(--text-tertiary)"># STEP 2 — No install. cURL ships with every OS.</span>
+<span style="color:var(--text-tertiary)"># STEP 3 — Test in 10 seconds:</span>
 
-<span style="color:var(--text-tertiary)"># Response</span>
+<span style="color:#60a5fa">curl</span> -X POST https://kairoscheck.net/api/check \
+  -H <span style="color:#fbbf24">"Authorization: Bearer kc_live_your_key"</span> \
+  -H <span style="color:#fbbf24">"Content-Type: application/json"</span> \
+  -d <span style="color:#fbbf24">'{"domain":"suspicious-shop.io"}'</span>
+
+<span style="color:var(--text-tertiary)"># STEP 4 — Response:</span>
 {
-  <span style="color:#60a5fa">"verdict"</span>:  <span style="color:var(--danger)">"BLOCK"</span>,
-  <span style="color:#60a5fa">"score"</span>:   <span style="color:var(--accent)">94</span>,
-  <span style="color:#60a5fa">"signals"</span>: [<span style="color:#fbbf24">"newly-registered"</span>, <span style="color:#fbbf24">"checkout-dna"</span>],
-  <span style="color:#60a5fa">"ms"</span>:      <span style="color:#fbbf24">138</span>
-}</pre>
+  <span style="color:#fbbf24">"verdict"</span>:  <span style="color:#ef4444">"BLOCK"</span>,
+  <span style="color:#fbbf24">"score"</span>:    <span style="color:#60a5fa">94</span>,
+  <span style="color:#fbbf24">"signals"</span>:  { <span style="color:#fbbf24">"newDomain"</span>: <span style="color:#c084fc">true</span>, <span style="color:#fbbf24">"disposable"</span>: <span style="color:#c084fc">true</span> },
+  <span style="color:#fbbf24">"ms"</span>:       <span style="color:#60a5fa">89</span>
+}
+
+<span style="color:var(--text-tertiary)"># No key? Try the public demo (10 free/hour):
+# curl -X POST https://kairoscheck.net/api/check-public \
+#   -H "Content-Type: application/json" \
+#   -d '{"domain":"test.io"}'</span></pre>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:1rem;">
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Any language</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">Go, Ruby, Rust, Elixir, Java — if it makes HTTP POST requests, it works with Kairos Check.</p>
+            </div>
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Try before you buy</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">/api/check-public — 10 free checks per hour, no key, no signup. See real results instantly.</p>
             </div>
           </div>
         </div>
@@ -1469,24 +1608,44 @@ function renderLandingPage() {
               <button class="integration-copy" data-copy-target="code-php">Copy</button>
             </div>
             <div class="integration-body">
-              <pre id="code-php"><span style="color:var(--text-tertiary)">// Block fraudulent signups in PHP</span>
-<span style="color:#c084fc">function</span> <span style="color:#60a5fa">checkFraud</span>(<span style="color:#fbbf24">string</span> $domain): array {
-    $resp = <span style="color:#60a5fa">json_decode</span>(<span style="color:#60a5fa">file_get_contents</span>(
-        <span style="color:#fbbf24">'https://kairoscheck.net/api/check'</span>,
-        <span style="color:#c084fc">false</span>,
-        <span style="color:#60a5fa">stream_context_create</span>([<span style="color:#fbbf24">'http'</span> => [
-            <span style="color:#fbbf24">'method'</span>  => <span style="color:#fbbf24">'POST'</span>,
-            <span style="color:#fbbf24">'header'</span>  => <span style="color:#fbbf24">"Authorization: Bearer "</span> . KC_API_KEY . <span style="color:#fbbf24">"\r\n"</span>
-                       . <span style="color:#fbbf24">"Content-Type: application/json\r\n"</span>,
-            <span style="color:#fbbf24">'content'</span> => <span style="color:#60a5fa">json_encode</span>([<span style="color:#fbbf24">'domain'</span> => $domain]),
-        ]])
-    ), <span style="color:#c084fc">true</span>);
+              <pre id="code-php"><span style="color:var(--text-tertiary)">// STEP 1 — Get your key at kairoscheck.net/pricing</span>
+<span style="color:var(--text-tertiary)">// STEP 2 — Uses PHP curl — enabled by default, zero Composer deps</span>
+<span style="color:var(--text-tertiary)">// STEP 3 — One function at registration:</span>
 
-    <span style="color:#c084fc">if</span> ($resp[<span style="color:#fbbf24">'verdict'</span>] === <span style="color:#fbbf24">'BLOCK'</span>) {
+<span style="color:#c084fc">define</span>(<span style="color:#fbbf24">'KC_API_KEY'</span>, <span style="color:#fbbf24">'kc_live_your_key_here'</span>);
+
+<span style="color:#c084fc">function</span> <span style="color:#60a5fa">checkFraud</span>(<span style="color:#fbbf24">string</span> $domain): array {
+    $ch = <span style="color:#60a5fa">curl_init</span>(<span style="color:#fbbf24">'https://kairoscheck.net/api/check'</span>);
+    <span style="color:#60a5fa">curl_setopt_array</span>($ch, [
+        CURLOPT_POST           => <span style="color:#c084fc">true</span>,
+        CURLOPT_RETURNTRANSFER => <span style="color:#c084fc">true</span>,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            <span style="color:#fbbf24">'Authorization: Bearer '</span> . KC_API_KEY,
+            <span style="color:#fbbf24">'Content-Type: application/json'</span>,
+        ],
+        CURLOPT_POSTFIELDS => <span style="color:#60a5fa">json_encode</span>([<span style="color:#fbbf24">'domain'</span> => $domain]),
+    ]);
+    $data = <span style="color:#60a5fa">json_decode</span>(<span style="color:#60a5fa">curl_exec</span>($ch), <span style="color:#c084fc">true</span>);
+    <span style="color:#60a5fa">curl_close</span>($ch);
+
+<span style="color:var(--text-tertiary)">    // STEP 4 — Handle verdict:</span>
+    <span style="color:#c084fc">if</span> ($data[<span style="color:#fbbf24">'verdict'</span>] === <span style="color:#fbbf24">'BLOCK'</span>)
         <span style="color:#c084fc">throw new</span> \<span style="color:#60a5fa">RuntimeException</span>(<span style="color:#fbbf24">'Signup denied'</span>);
-    }
-    <span style="color:#c084fc">return</span> $resp;
-}</pre>
+    <span style="color:#c084fc">return</span> $data;
+}
+
+<span style="color:var(--text-tertiary)">// Works with Laravel, Symfony, WooCommerce, Magento — any PHP stack.</span></pre>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:1rem;">
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Laravel / WooCommerce</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">Drop in a Service Provider or WooCommerce hook. Pure PHP curl — no Composer package needed.</p>
+            </div>
+            <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+              <p style="font-size:.6875rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.375rem;">Zero Composer deps</p>
+              <p style="font-size:.8125rem;color:var(--text-secondary);line-height:1.5;">curl_init() ships with PHP since 4.0.2. It just works. No vendor bloat, no lock-in.</p>
             </div>
           </div>
         </div>
@@ -1533,7 +1692,12 @@ function renderLandingPage() {
         <p class="section-label">Pricing</p>
         <h2 class="section-title" id="pricing-h2">Simple, honest <span class="gradient-text">pricing</span></h2>
         <p class="section-lead">No contracts. No calls. Cancel anytime. One chargeback avoided pays for months.</p>
-        <div class="pricing-grid">
+        <div class="pricing-toggle" role="group" aria-label="Billing period">
+          <span class="toggle-label active" id="lbl-mo">Monthly</span>
+          <button class="toggle-switch" id="billing-toggle" aria-pressed="false" aria-label="Switch to annual billing"></button>
+          <span class="toggle-label" id="lbl-yr">Annual <span class="toggle-save">Save 20%</span></span>
+        </div>
+        <div class="pricing-grid" id="pricing-grid">
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">€0</div>
@@ -1547,8 +1711,8 @@ function renderLandingPage() {
           </div>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Starter</div>
-            <div class="pricing-price">€29</div>
-            <div class="pricing-price-sub">/month · 5,000 checks + VAT</div>
+            <div class="pricing-price"><span class="price-monthly">€29</span><span class="price-annual">€23</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 5,000 checks + VAT</span><span class="price-annual">/month · billed €276/year + VAT</span></div>
             <ul class="pricing-features" aria-label="Starter tier features">
               <li>5,000 checks/month</li>
               <li>Domain, email, phone, IBAN</li>
@@ -1561,8 +1725,8 @@ function renderLandingPage() {
           <div class="pricing-card featured tilt-card" aria-label="Most popular plan">
             <div class="pricing-badge">Most Popular</div>
             <div class="pricing-tier">Pro</div>
-            <div class="pricing-price">€79</div>
-            <div class="pricing-price-sub">/month · 25,000 checks + VAT</div>
+            <div class="pricing-price"><span class="price-monthly">€79</span><span class="price-annual">€63</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 25,000 checks + VAT</span><span class="price-annual">/month · billed €756/year + VAT</span></div>
             <ul class="pricing-features" aria-label="Pro tier features">
               <li>25,000 checks/month</li>
               <li>All Starter features</li>
@@ -1898,7 +2062,8 @@ function renderLandingPage() {
 
       function goTo(idx) {
         current = (idx + maxSlide + 1) % (maxSlide + 1);
-        var cardW = track.scrollWidth / total;
+        var gap = parseFloat(getComputedStyle(track).gap) || 20;
+        var cardW = cards[0].getBoundingClientRect().width + gap;
         track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
         dotsEl.querySelectorAll('.tslider-dot').forEach(function(d, i) {
           d.classList.toggle('active', i === current);
@@ -2027,6 +2192,62 @@ function renderLandingPage() {
 
       setInterval(addEntry, 4000);
       setInterval(updateAges, 1000);
+    })();
+
+    // ROI Calculator
+    (function() {
+      var revEl = document.getElementById('roi-revenue');
+      var rateEl = document.getElementById('roi-rate');
+      var ratePctEl = document.getElementById('roi-rate-pct');
+      var cbEl = document.getElementById('roi-cbs');
+      var lossEl = document.getElementById('roi-loss');
+      var costEl = document.getElementById('roi-cost');
+      var planEl = document.getElementById('roi-plan-desc');
+      var savEl = document.getElementById('roi-savings');
+      var pbEl = document.getElementById('roi-payback');
+      if (!revEl) return;
+      function fmt(n) { return '€' + Math.round(n).toLocaleString('en'); }
+      function calc() {
+        var rev = parseFloat(revEl.value) || 0;
+        var rate = parseFloat(rateEl.value) || 0;
+        var cbs = parseInt(cbEl.value) || 0;
+        if (ratePctEl) ratePctEl.textContent = rate.toFixed(1) + '%';
+        var loss = rev * (rate / 100) + cbs * 75;
+        var kairosCost = rev < 5000 ? 29 : rev < 20000 ? 79 : 199;
+        var plan = kairosCost === 29 ? 'Starter — 5,000 checks/month' : kairosCost === 79 ? 'Pro — 25,000 checks/month' : 'Scale — unlimited';
+        var sav = Math.max(0, loss * 0.87 - kairosCost);
+        var roi = kairosCost > 0 ? Math.round((sav / kairosCost) * 100) : 0;
+        var pbDays = loss > 0 ? Math.max(1, Math.round(kairosCost / (loss / 30))) : 0;
+        if (lossEl) lossEl.textContent = fmt(loss);
+        if (costEl) costEl.textContent = fmt(kairosCost);
+        if (planEl) planEl.textContent = plan;
+        if (savEl) savEl.textContent = fmt(sav);
+        if (pbEl) pbEl.innerHTML = sav > 0
+          ? 'Payback in <strong>' + pbDays + ' day' + (pbDays !== 1 ? 's' : '') + '</strong> \xb7 ROI <strong>' + roi + '%</strong>'
+          : 'Your fraud exposure is lower than average — Kairos still protects future growth.';
+      }
+      revEl.addEventListener('input', calc);
+      rateEl.addEventListener('input', calc);
+      cbEl.addEventListener('input', calc);
+      calc();
+    })();
+
+    // Annual billing toggle
+    (function() {
+      var btn = document.getElementById('billing-toggle');
+      var lblM = document.getElementById('lbl-mo');
+      var lblA = document.getElementById('lbl-yr');
+      var grid = document.getElementById('pricing-grid');
+      if (!btn || !grid) return;
+      var annual = false;
+      btn.addEventListener('click', function() {
+        annual = !annual;
+        btn.classList.toggle('annual', annual);
+        btn.setAttribute('aria-pressed', String(annual));
+        grid.classList.toggle('annual-mode', annual);
+        if (lblM) lblM.classList.toggle('active', !annual);
+        if (lblA) lblA.classList.toggle('active', annual);
+      });
     })();
   </script>
 </body>
