@@ -994,6 +994,7 @@ function renderLandingPage() {
         <a href="/docs" class="nav-link">Docs</a>
         <a href="/pricing" class="nav-link">Pricing</a>
         <a href="/status" class="nav-link">Status</a>
+        <a href="/account" class="nav-link">Account</a>
         <a href="/pricing" class="nav-cta">Get API key</a>
       </div>
     </div>

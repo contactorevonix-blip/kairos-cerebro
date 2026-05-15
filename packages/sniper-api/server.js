@@ -12,6 +12,7 @@ const { createCheckoutSession, createTopupSession, TOKEN_PACKS } = require('./st
 const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
 const { handleChat } = require('./chat-handler');
 const { sendFollowupEmail } = require('./email-sender');
+const { renderAccountPage } = require('./account-page');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
@@ -514,6 +515,10 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         'x-robots-tag': 'noindex',
       });
       res.end(result.html);
+      return;
+    }
+    if (method === 'GET' && url === '/account') {
+      sendHtml(res, renderAccountPage(), { 'cache-control': 'no-store', 'x-robots-tag': 'noindex' });
       return;
     }
     if (method === 'GET' && url === '/pricing') {
