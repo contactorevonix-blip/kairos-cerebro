@@ -11,6 +11,7 @@ const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession, createTopupSession, TOKEN_PACKS } = require('./stripe-checkout');
 const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
 const { handleChat } = require('./chat-handler');
+const { sendFollowupEmail } = require('./email-sender');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
@@ -358,6 +359,30 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 </urlset>`;
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=86400' });
       res.end(xml);
+      return;
+    }
+
+    // ─── Onboarding follow-up emails ──────────────────────────────────────────
+    if (method === 'POST' && url === '/api/admin/send-followups') {
+      if (!checkAdminAuth(req)) { sendJson(res, 401, { error: 'unauthorized' }); return; }
+      const keys = readKeys().filter(k => isKeyActive(k) && k.email && k.created_at);
+      const now = Date.now();
+      const H24 = 24 * 3600 * 1000;
+      const D7  = 7 * 24 * 3600 * 1000;
+      let sent24 = 0, sent7 = 0, errors = 0;
+      for (const k of keys) {
+        const age = now - new Date(k.created_at).getTime();
+        const sentFlag = k.followup_sent || '';
+        if (age >= H24 && age < H24 * 2 && !sentFlag.includes('24h')) {
+          const r = await sendFollowupEmail({ toEmail: k.email, keyPreviewStr: k.raw_key_preview || 'kc_live', tier: k.tier, emailType: '24h' });
+          if (r.ok) { sent24++; } else { errors++; }
+        }
+        if (age >= D7 && age < D7 + H24 && !sentFlag.includes('7d')) {
+          const r = await sendFollowupEmail({ toEmail: k.email, keyPreviewStr: k.raw_key_preview || 'kc_live', tier: k.tier, emailType: '7d' });
+          if (r.ok) { sent7++; } else { errors++; }
+        }
+      }
+      sendJson(res, 200, { sent_24h: sent24, sent_7d: sent7, errors, total_keys: keys.length });
       return;
     }
 

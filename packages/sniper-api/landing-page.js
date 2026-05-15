@@ -1902,6 +1902,37 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         <div class="pricing-full-link">
           <a href="/pricing">All plans + Scale (€249) + Enterprise →</a>
         </div>
+
+        <!-- Guarantee badge -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.625rem;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 1L2 4V9C2 12.9 5.2 16.4 9 17C12.8 16.4 16 12.9 16 9V4Z" fill="rgba(0,217,126,0.15)" stroke="#00d97e" stroke-width="1.25"/>
+              <path d="M6 9l2 2 4-4" stroke="#00d97e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="font-size:var(--text-sm);color:var(--text-secondary);">
+              <strong style="color:var(--text);">14-day money back</strong> — if it doesn't work for you, full refund. No questions.
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.625rem;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="7.5" stroke="#00d97e" stroke-width="1.25" fill="rgba(0,217,126,0.1)"/>
+              <path d="M6 9l2 2 4-4" stroke="#00d97e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="font-size:var(--text-sm);color:var(--text-secondary);">
+              <strong style="color:var(--text);">Cancel anytime</strong> — no contract, no lock-in, no calls.
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.625rem;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="15" height="15" rx="4" stroke="#00d97e" stroke-width="1.25" fill="rgba(0,217,126,0.1)"/>
+              <path d="M6 9l2 2 4-4" stroke="#00d97e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="font-size:var(--text-sm);color:var(--text-secondary);">
+              <strong style="color:var(--text);">Founding rate locked</strong> — your price never increases.
+            </span>
+          </div>
+        </div>
       </div>
     </section>
 
