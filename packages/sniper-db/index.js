@@ -334,6 +334,26 @@ function bootstrapIfEmpty(dir = DEFAULT_DB_DIR) {
   };
 }
 
+// ─── REFERRAL SYSTEM ──────────────────────────────────────────────────────────
+const REFERRALS_FILE = (dir = DEFAULT_DB_DIR) => path.join(dir, 'referrals.jsonl');
+const REFERRAL_TOKENS = 500; // tokens credited to both parties
+
+function saveReferral(record, dir = DEFAULT_DB_DIR) {
+  ensureDir(dir);
+  appendJsonl(REFERRALS_FILE(dir), { ...record, ts: nowIso() });
+}
+
+function listReferrals(dir = DEFAULT_DB_DIR) {
+  const file = REFERRALS_FILE(dir);
+  if (!fs.existsSync(file)) return [];
+  return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean)
+    .map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+}
+
+function getReferralByCode(code, dir = DEFAULT_DB_DIR) {
+  return listReferrals(dir).filter(r => r.code === code);
+}
+
 // ─── TOKEN ECONOMY ────────────────────────────────────────────────────────────
 // Append-only ledger per tenant. Balance = sum of credits - sum of debits.
 // Monthly subscription grants tokens at first check of each billing month.
@@ -437,6 +457,10 @@ module.exports = {
   updateGlobalMetrics,
   // bootstrap
   bootstrapIfEmpty,
+  // referrals
+  saveReferral,
+  getReferralByCode,
+  listReferrals,
   // token economy
   TOKEN_COSTS,
   MONTHLY_TOKENS,

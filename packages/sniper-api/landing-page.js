@@ -2444,6 +2444,18 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       });
     })();
 
+    // ── REFERRAL BANNER — shows when ?ref= in URL ─────────────────────────────
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (!ref || ref.length < 4) return;
+      localStorage.setItem('kc_ref', ref);
+      var banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:8888;background:rgba(0,217,126,0.12);border-bottom:1px solid rgba(0,217,126,0.25);padding:.625rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:.75rem;';
+      banner.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 3.5V7.5C2 10.8 4.7 13.6 8 14.5C11.3 13.6 14 10.8 14 7.5V3.5Z" fill="#00d97e"/></svg><span style="font-size:.8125rem;color:#f0f0f0;"><strong style="color:#00d97e;">+500 bonus tokens</strong> applied — you were referred! Both you and your friend earn 500 tokens when you subscribe.</span><a href="/pricing" style="background:#00d97e;color:#000;font-size:.75rem;font-weight:700;padding:.25rem .75rem;border-radius:6px;text-decoration:none;flex-shrink:0;">Claim now →</a><button onclick="this.parentElement.remove()" style="background:none;border:none;color:#737373;cursor:pointer;font-size:1.125rem;line-height:1;margin-left:.5rem;">×</button>';
+      document.body.insertBefore(banner, document.body.firstChild);
+    })();
+
     // ── EXIT INTENT ───────────────────────────────────────────────────────────
     (function() {
       if (sessionStorage.getItem('kc_exit_seen')) return;

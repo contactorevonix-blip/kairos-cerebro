@@ -217,6 +217,32 @@ async function handleCheckoutCompleted(stripe, session) {
       });
   }
 
+  // Referral: credit tokens to both referrer and new customer
+  const refCode = session.metadata?.ref_code || session.client_reference_id || null;
+  if (refCode) {
+    try {
+      const { creditTokens, saveReferral, getReferralByCode } = require('../sniper-db');
+      const tenantId = record.customer_id;
+      const existing = getReferralByCode(refCode);
+      const alreadyDone = existing.some(r => r.referred_tenant === tenantId);
+      if (!alreadyDone) {
+        // Credit new customer 500 bonus tokens
+        creditTokens(tenantId, 500, 'referral_bonus', refCode);
+        // Credit referrer 500 tokens (referrer code = their tenant ID prefix)
+        const referrers = readKeys().filter(k => {
+          const t = k.tenant_id || k.customer_id || k.api_key_hash;
+          return t && t.replace(/[^a-z0-9]/gi, '').slice(0, 10).toLowerCase() === refCode;
+        });
+        if (referrers.length > 0) {
+          const referrerTenant = referrers[0].tenant_id || referrers[0].customer_id || referrers[0].api_key_hash;
+          creditTokens(referrerTenant, 500, 'referral_reward', tenantId);
+        }
+        saveReferral({ code: refCode, referrer: refCode, referred_tenant: tenantId, status: 'confirmed' });
+        appendAudit({ timestamp: new Date().toISOString(), event: 'referral.confirmed', ref_code: refCode, tenant_id: tenantId });
+      }
+    } catch (e) { /* referral errors are non-fatal */ }
+  }
+
   // Return raw key so /success can retrieve it — stored in memory only
   // The raw key is NOT persisted; /success reads it from a short-lived in-memory map
   return { ok: true, tier, rawKey: key.raw, subscriptionId: session.subscription };

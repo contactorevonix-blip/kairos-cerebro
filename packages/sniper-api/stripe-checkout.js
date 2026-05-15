@@ -30,7 +30,7 @@ function resolvePrice(tier) {
   return process.env[envVar] || null;
 }
 
-async function createCheckoutSession({ tier, baseUrl }) {
+async function createCheckoutSession({ tier, baseUrl, refCode }) {
   if (!TIER_TO_ENV[tier]) {
     return { error: `Invalid tier: ${tier}`, status: 400 };
   }
@@ -54,6 +54,7 @@ async function createCheckoutSession({ tier, baseUrl }) {
       subscription_data: {
         metadata: { tier, source: 'pricing-page' },
       },
+      ...(refCode ? { metadata: { ref_code: refCode } } : {}),
     });
   } catch (err) {
     return { error: 'checkout_failed', status: 500, _internal: err.message };

@@ -37,6 +37,9 @@ const {
   ensureMonthlyTokens,
   creditTokens,
   MONTHLY_TOKENS,
+  saveReferral,
+  listReferrals,
+  getReferralByCode,
 } = require('../sniper-db');
 const repGraph = require('../reputation-graph');
 const sovereign = require('../sovereign');
@@ -298,6 +301,30 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, html, { 'cache-control': 'public, max-age=300' });
       return;
     }
+    // ─── Referral endpoints ───────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/referral/code') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const cr = require('crypto');
+      const hash = cr.createHash('sha256').update(raw).digest('hex');
+      const keyRecord = readKeys().find(k => k.api_key_hash === hash);
+      if (!keyRecord || !isKeyActive(keyRecord)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      const tenantId = keyRecord.tenant_id || keyRecord.customer_id || keyRecord.api_key_hash;
+      const code = tenantId.replace(/[^a-z0-9]/gi, '').slice(0, 10).toLowerCase();
+      const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+      const referrals = listReferrals().filter(r => r.referrer === tenantId && r.status === 'confirmed');
+      const earned = referrals.length * 500;
+      sendJson(res, 200, {
+        code,
+        link: `${base}/pricing?ref=${code}`,
+        reward_tokens: 500,
+        referred_count: referrals.length,
+        tokens_earned: earned,
+        message: 'Share this link. Both you and your referral get 500 tokens when they subscribe.',
+      });
+      return;
+    }
+
     // ─── Key management endpoints ─────────────────────────────────────────────
     if (method === 'GET' && url === '/api/keys') {
       const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
