@@ -56,7 +56,7 @@ function renderLandingPage() {
       --text-lg: 1.125rem; --text-xl: 1.5rem; --text-2xl: 2.5rem; --text-3xl: 3.5rem;
       --radius: 14px;
     }
-    html { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    html { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 0.9375rem; -webkit-font-smoothing: antialiased; }
     body { min-height: 100vh; }
 
     .skip-link {
@@ -150,58 +150,8 @@ function renderLandingPage() {
       background-repeat: repeat; background-size: 200px 200px;
     }
 
-    /* 3D PERSPECTIVE on hero visual */
-    .hero-visual-wrap {
-      position: relative;
-      perspective: 1200px;
-    }
-    .hero-visual-3d {
-      transform: perspective(1200px) rotateX(5deg) rotateY(-12deg) rotateZ(1deg);
-      transform-origin: center center;
-      transition: transform 500ms ease;
-      box-shadow:
-        0 70px 140px -30px rgba(0,0,0,0.8),
-        0 30px 60px -15px rgba(0,0,0,0.5),
-        0 0 60px rgba(0,217,126,0.07);
-      border-radius: 14px;
-    }
-    .hero-visual-3d:hover {
-      transform: perspective(1200px) rotateX(2deg) rotateY(-6deg) rotateZ(0.5deg);
-    }
-
-    /* Floating verdict badge */
-    .float-verdict {
-      position: absolute; bottom: -16px; right: -16px;
-      background: var(--surface-2); border: 1px solid var(--border-strong);
-      border-radius: 10px; padding: 0.625rem 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
-      z-index: 3; font-size: var(--text-xs);
-      animation: float-up 4s ease-in-out infinite;
-    }
-    .float-block { color: var(--danger); font-weight: 700; letter-spacing: 0.04em; }
-    .float-score { color: var(--text-tertiary); }
-    @keyframes float-up {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-6px); }
-    }
-
-    /* Floating latency badge */
-    .float-latency {
-      position: absolute; top: -14px; left: -14px;
-      background: var(--surface-2); border: 1px solid var(--border-strong);
-      border-radius: 10px; padding: 0.5rem 0.875rem;
-      display: flex; align-items: center; gap: 0.375rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      z-index: 3; font-size: var(--text-xs);
-      animation: float-up 4s 2s ease-in-out infinite;
-    }
-    .float-ms { color: var(--accent); font-family: var(--font-mono); font-weight: 600; }
-
     @media (prefers-reduced-motion: reduce) {
       .orb-1, .orb-2, .orb-3 { animation: none; }
-      .float-verdict, .float-latency { animation: none; }
-      .hero-visual-3d { transform: none; }
     }
 
     /* GRADIENT TEXT */
@@ -254,9 +204,9 @@ function renderLandingPage() {
     }
     .hero-kicker::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     .hero h1 {
-      font-size: clamp(2.75rem, 7vw, 5.25rem); font-weight: 800;
-      letter-spacing: -0.045em; line-height: 1.05; margin-bottom: 1.5rem;
-      max-width: 820px;
+      font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 1.5rem;
+      max-width: 620px;
     }
     .hero-lead {
       font-size: 1.1875rem; color: #b0b0b0;
@@ -291,9 +241,9 @@ function renderLandingPage() {
     .c-yellow { color: #fbbf24; }
     .c-dim { color: var(--text-tertiary); }
 
-    /* LIVE DEMO — premium AI interface */
+    /* LIVE DEMO — hero right column */
     .demo-wrap {
-      max-width: 680px; margin: 3rem auto 0;
+      width: 100%;
     }
     .demo-card {
       background: #0d0d0d;
@@ -834,78 +784,40 @@ function renderLandingPage() {
               </span>
             </div>`}
           </div>
-          <!-- 3D perspective code block -->
-          <div class="hero-visual-wrap">
-            <div class="float-latency" aria-hidden="true">
-              <span class="live-dot"></span>
-              <span class="float-ms">138ms</span>
-              <span style="color:var(--text-tertiary)">response</span>
-            </div>
-            <div class="hero-visual-3d tilt-card browser-frame" role="region" aria-label="API quickstart example">
-              <div class="browser-bar" aria-hidden="true">
-                <div class="browser-dots">
-                  <div class="browser-dot dot-red"></div>
-                  <div class="browser-dot dot-amber"></div>
-                  <div class="browser-dot dot-green"></div>
+          <!-- Live demo — hero right column, visible immediately -->
+          <div class="demo-wrap" style="margin:0;">
+            <div class="demo-card" role="region" aria-label="Live domain fraud check">
+              <div class="demo-header" aria-hidden="true">
+                <div class="demo-dots">
+                  <div class="demo-dot r"></div>
+                  <div class="demo-dot a"></div>
+                  <div class="demo-dot g"></div>
                 </div>
-                <div class="browser-url">kairoscheck.net/<span>api/check</span></div>
-                <button class="code-copy-btn" id="hero-copy-btn" aria-label="Copy curl example to clipboard">Copy</button>
+                <div class="demo-title-bar">
+                  <span class="live-dot"></span>
+                  kairos check — live fraud scoring
+                </div>
               </div>
-              <div class="code-body">
-                <pre id="hero-code"><span class="c-dim">$ </span><span class="c-green">curl</span> https://kairoscheck.net/api/check <span class="c-dim">\\</span>
-  <span class="c-blue">-H</span> <span class="c-yellow">"Authorization: Bearer kc_live_&lt;your_key&gt;"</span> <span class="c-dim">\\</span>
-  <span class="c-blue">-H</span> <span class="c-yellow">"Content-Type: application/json"</span> <span class="c-dim">\\</span>
-  <span class="c-blue">-d</span> <span class="c-yellow">'{"domain":"suspicious-shop.io"}'</span>
-
-<span class="c-dim">// Response</span>
-{
-  <span class="c-blue">"score"</span>: 73,
-  <span class="c-blue">"verdict"</span>: <span class="c-yellow">"BLOCK"</span>,
-  <span class="c-blue">"signals"</span>: [<span class="c-yellow">"reputation-complaint"</span>, <span class="c-yellow">"checkout-dna"</span>]
-}</pre>
+              <div class="demo-body">
+                <p class="demo-label">Try it — no account required</p>
+                <div class="demo-input-row">
+                  <input
+                    type="text"
+                    class="demo-input"
+                    id="demo-domain"
+                    placeholder="e.g. suspicious-shop.io"
+                    aria-label="Domain to check for fraud"
+                    maxlength="128"
+                    autocomplete="off"
+                    spellcheck="false"
+                  >
+                  <button class="demo-btn" id="demo-btn">Check now</button>
+                </div>
+                <div class="demo-result" id="demo-result" aria-live="polite" aria-atomic="true">
+                  <p class="demo-placeholder">Enter any domain to see a real fraud score.</p>
+                </div>
+                <p class="demo-note">10 free checks/hour per IP · Domain checks only in demo · Full API unlocks all entity types</p>
               </div>
-            </div>
-            </div><!-- end hero-visual-3d -->
-            <div class="float-verdict" aria-hidden="true">
-              <span class="float-block">BLOCK</span>
-              <span class="float-score">score: 94/100</span>
-            </div>
-          </div><!-- end hero-visual-wrap -->
-        </div>
-
-        <!-- Live demo — centred, premium AI interface -->
-        <div class="demo-wrap">
-          <div class="demo-card" role="region" aria-label="Live domain fraud check">
-            <div class="demo-header" aria-hidden="true">
-              <div class="demo-dots">
-                <div class="demo-dot r"></div>
-                <div class="demo-dot a"></div>
-                <div class="demo-dot g"></div>
-              </div>
-              <div class="demo-title-bar">
-                <span class="live-dot"></span>
-                kairos check — live fraud scoring
-              </div>
-            </div>
-            <div class="demo-body">
-              <p class="demo-label">Try it — no account required</p>
-              <div class="demo-input-row">
-                <input
-                  type="text"
-                  class="demo-input"
-                  id="demo-domain"
-                  placeholder="Enter any domain, e.g. suspicious-shop.io"
-                  aria-label="Domain to check for fraud"
-                  maxlength="128"
-                  autocomplete="off"
-                  spellcheck="false"
-                >
-                <button class="demo-btn" id="demo-btn">Check now</button>
-              </div>
-              <div class="demo-result" id="demo-result" aria-live="polite" aria-atomic="true">
-                <p class="demo-placeholder">Enter any domain to see a real fraud score.</p>
-              </div>
-              <p class="demo-note">10 free checks/hour per IP · Domain checks only in demo · Full API unlocks all entity types</p>
             </div>
           </div>
         </div>
@@ -950,13 +862,21 @@ function renderLandingPage() {
                 <div class="step-term-dot" style="background:#28c840"></div>
               </div>
               <span class="step-num-badge">STEP 02</span>
+              <button class="code-copy-btn" id="hero-copy-btn" style="margin-left:auto;" aria-label="Copy curl example to clipboard">Copy</button>
             </div>
             <div class="step-term-body">
               <div class="step-term-title">One POST call</div>
               <div class="step-term-desc">Domain, email, phone or IBAN. No SDK. Works with any language or platform.</div>
-              <div class="step-term-code"><pre><span style="color:var(--text-tertiary)">POST</span> <span style="color:#60a5fa">/api/check</span>
+              <div class="step-term-code"><pre id="hero-code"><span style="color:var(--text-tertiary)">$</span> <span style="color:var(--accent)">curl</span> https://kairoscheck.net/api/check <span style="color:var(--text-tertiary)">\\</span>
+  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Authorization: Bearer kc_live_&lt;key&gt;"</span> <span style="color:var(--text-tertiary)">\\</span>
+  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Content-Type: application/json"</span> <span style="color:var(--text-tertiary)">\\</span>
+  <span style="color:#60a5fa">-d</span> <span style="color:#fbbf24">'{"domain":"suspicious-shop.io"}'</span>
+
+<span style="color:var(--text-tertiary)">// Response</span>
 <span style="color:var(--text-tertiary)">{</span>
-  <span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"suspicious.io"</span>
+  <span style="color:#60a5fa">"score"</span>:   <span style="color:var(--accent)">73</span>,
+  <span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>,
+  <span style="color:#60a5fa">"signals"</span>: [<span style="color:#fbbf24">"reputation-complaint"</span>, <span style="color:#fbbf24">"checkout-dna"</span>]
 <span style="color:var(--text-tertiary)">}</span></pre></div>
             </div>
           </div>
