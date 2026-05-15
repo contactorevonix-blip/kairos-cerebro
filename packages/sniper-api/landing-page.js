@@ -2460,7 +2460,7 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
 
     // ── KAIROS CHAT WIDGET ────────────────────────────────────────────────────
     (function() {
-      var FREE_LIMIT = 5;
+      var FREE_LIMIT = 10;
       var TOKENS_PER_MSG = 5;
       var history = [];
       var freeUsed = parseInt(localStorage.getItem('kc_chat_free') || '0', 10);
