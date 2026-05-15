@@ -1,0 +1,65 @@
+name: Smoke Test
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'   # every 10 minutes, 24/7
+  workflow_dispatch:          # can also be triggered manually
+
+jobs:
+  smoke:
+    name: Endpoint health check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run smoke tests
+        id: smoke
+        env:
+          KAIROS_PUBLIC_BASE_URL: https://kairoscheck.net
+        run: node bin/smoke-test.js | tee /tmp/smoke-results.json
+        continue-on-error: true
+
+      - name: Write summary
+        if: always()
+        run: |
+          PASSED=$(jq -r '.passed' /tmp/smoke-results.json 2>/dev/null || echo '?')
+          FAILED=$(jq -r '.failed' /tmp/smoke-results.json 2>/dev/null || echo '?')
+          TOTAL=$(jq  -r '.total'  /tmp/smoke-results.json 2>/dev/null || echo '?')
+          ALL=$(jq    -r '.allPassed' /tmp/smoke-results.json 2>/dev/null || echo 'false')
+          TS=$(jq     -r '.ts'     /tmp/smoke-results.json 2>/dev/null || echo 'unknown')
+
+          if [ "$ALL" = "true" ]; then
+            echo "## ✅ Smoke Tests PASSED — ${PASSED}/${TOTAL} checks OK" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ❌ Smoke Tests FAILED — ${FAILED}/${TOTAL} checks failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Result | Latency |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+
+          jq -r '.checks[] | "| \(.desc) | \(if .passed then "✅ OK" else "❌ \(.failure)" end) | \(.latencyMs)ms |"' \
+            /tmp/smoke-results.json 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Last checked: ${TS}_" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-results-${{ github.run_id }}
+          path: /tmp/smoke-results.json
+          retention-days: 7
+
+      - name: Fail on smoke test failure
+        if: steps.smoke.outcome == 'failure'
+        run: |
+          echo "::error title=Smoke Test Failed::One or more endpoints are down. Check https://kairoscheck.net/health"
+          exit 1

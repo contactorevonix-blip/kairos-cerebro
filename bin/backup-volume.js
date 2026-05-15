@@ -35,10 +35,16 @@ function die(msg) {
   process.exit(1);
 }
 
-if (!R2_BUCKET)       die('R2_BACKUP_BUCKET is not set');
-if (!R2_ENDPOINT_RAW) die('R2_ENDPOINT is not set');
-if (!ACCESS_KEY_ID)   die('R2_ACCESS_KEY_ID is not set');
-if (!SECRET_ACCESS)   die('R2_SECRET_ACCESS_KEY is not set');
+const R2_CONFIGURED = R2_BUCKET && R2_ENDPOINT_RAW && ACCESS_KEY_ID && SECRET_ACCESS;
+if (!R2_CONFIGURED) {
+  process.stderr.write('[backup] SKIP — R2 not configured. Add R2_BACKUP_BUCKET, R2_ENDPOINT, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY to Railway env vars to enable backups.\n');
+  process.stdout.write(JSON.stringify({
+    ts: new Date().toISOString(),
+    status: 'NOT_CONFIGURED',
+    reason: 'R2 credentials missing. Set Railway env vars to enable backups.',
+  }) + '\n');
+  process.exit(0);
+}
 if (!fs.existsSync(DB_DIR)) die('KAIROS_DB_DIR does not exist: ' + DB_DIR);
 
 const now         = new Date();

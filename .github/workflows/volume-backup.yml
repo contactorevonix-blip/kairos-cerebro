@@ -38,8 +38,26 @@ jobs:
           retention-days: 30
         if: always()
 
+      - name: Check backup status
+        id: check_status
+        if: always()
+        run: |
+          STATUS=$(jq -r '.status // "unknown"' /tmp/backup-log.json 2>/dev/null || echo "unknown")
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+
+      - name: Write not-configured summary
+        if: steps.check_status.outputs.status == 'NOT_CONFIGURED'
+        run: |
+          echo "## ⚠️ Backup SKIPPED — R2 not configured" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Backups are disabled until R2 credentials are added to Railway env vars:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`R2_BACKUP_BUCKET\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`R2_ENDPOINT\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`R2_ACCESS_KEY_ID\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`R2_SECRET_ACCESS_KEY\`" >> $GITHUB_STEP_SUMMARY
+
       - name: Alert on failure
-        if: steps.run_backup.outcome == 'failure'
+        if: steps.run_backup.outcome == 'failure' && steps.check_status.outputs.status != 'NOT_CONFIGURED'
         run: |
           echo "::error title=Volume Backup Failed::Daily backup failed at $(date -u +%Y-%m-%dT%H:%M:%SZ). Check R2 credentials and Railway logs."
           echo "## ❌ Backup FAILED" >> $GITHUB_STEP_SUMMARY
@@ -49,7 +67,7 @@ jobs:
           exit 1
 
       - name: Write success summary
-        if: steps.run_backup.outcome == 'success'
+        if: steps.run_backup.outcome == 'success' && steps.check_status.outputs.status != 'NOT_CONFIGURED'
         run: |
           SHA=$(jq -r '.sha'  /tmp/backup-log.json 2>/dev/null || echo 'unknown')
           SZ=$(jq  -r '.size' /tmp/backup-log.json 2>/dev/null || echo 'unknown')
