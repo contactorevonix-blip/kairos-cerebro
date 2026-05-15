@@ -29,23 +29,18 @@ jobs:
       - run: npm run audit:verify
 
   deploy:
-    name: Deploy to Railway
+    name: Wait for Railway auto-deploy
     needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Railway CLI
-        run: curl -fsSL https://railway.app/install.sh | sh
-
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --service kairos-cerebro --detach
-
-      - name: Wait for boot
-        run: sleep 30
+      - name: Wait for Railway to build and deploy
+        # Railway auto-deploys on every push via GitHub integration.
+        # We just wait for it to finish before running smoke tests.
+        run: |
+          echo "Railway auto-deploy triggered by git push. Waiting 90s for build + boot..."
+          sleep 90
+          echo "Ready to smoke-test."
 
   smoke:
     name: Smoke Tests
@@ -90,25 +85,19 @@ jobs:
           retention-days: 7
 
   rollback:
-    name: Rollback on Smoke Failure
+    name: Alert on Smoke Failure
     needs: smoke
     if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Install Railway CLI
-        run: curl -fsSL https://railway.app/install.sh | sh
-
-      - name: Rollback to previous deployment
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway rollback --service kairos-cerebro --yes
-
-      - name: Alert on rollback
+      - name: Alert — manual rollback needed
         run: |
-          echo "::error title=Production Rollback::Smoke tests failed for SHA ${{ github.sha }}. Auto-rollback triggered."
-          echo "## ❌ Rollback triggered" >> $GITHUB_STEP_SUMMARY
+          echo "::error title=Smoke Tests Failed::Production smoke tests failed for SHA ${{ github.sha }}. Manual rollback may be needed."
+          echo "## ❌ Smoke Tests Failed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**SHA:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Investigate: check Railway logs and the smoke artifact above." >> $GITHUB_STEP_SUMMARY
+          echo "**To rollback manually:** Railway Dashboard → Deployments → previous deploy → Rollback" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check Railway logs: \`railway logs --service kairos-cerebro\`" >> $GITHUB_STEP_SUMMARY
 
