@@ -334,6 +334,39 @@ function bootstrapIfEmpty(dir = DEFAULT_DB_DIR) {
   };
 }
 
+// ─── ALLOWLIST / DENYLIST ─────────────────────────────────────────────────────
+function listFilePath(tenantId, dir = DEFAULT_DB_DIR) {
+  return path.join(dir, 'lists', `${String(tenantId).replace(/[^a-z0-9_-]/gi, '_')}.json`);
+}
+
+function getAllowDenyList(tenantId, dir = DEFAULT_DB_DIR) {
+  const file = listFilePath(tenantId, dir);
+  if (!fs.existsSync(file)) return { allow: [], deny: [] };
+  try { return JSON.parse(fs.readFileSync(file, 'utf8')); }
+  catch { return { allow: [], deny: [] }; }
+}
+
+function addToList(tenantId, listType, entity, dir = DEFAULT_DB_DIR) {
+  if (!['allow', 'deny'].includes(listType)) throw new Error('listType must be allow or deny');
+  const lists = getAllowDenyList(tenantId, dir);
+  const normalized = String(entity).toLowerCase().trim();
+  if (!lists[listType].includes(normalized)) {
+    lists[listType].push(normalized);
+    ensureDir(path.dirname(listFilePath(tenantId, dir)));
+    writeJsonAtomic(listFilePath(tenantId, dir), lists);
+  }
+  return lists;
+}
+
+function removeFromList(tenantId, listType, entity, dir = DEFAULT_DB_DIR) {
+  if (!['allow', 'deny'].includes(listType)) throw new Error('listType must be allow or deny');
+  const lists = getAllowDenyList(tenantId, dir);
+  const normalized = String(entity).toLowerCase().trim();
+  lists[listType] = lists[listType].filter(e => e !== normalized);
+  writeJsonAtomic(listFilePath(tenantId, dir), lists);
+  return lists;
+}
+
 // ─── REFERRAL SYSTEM ──────────────────────────────────────────────────────────
 const REFERRALS_FILE = (dir = DEFAULT_DB_DIR) => path.join(dir, 'referrals.jsonl');
 const REFERRAL_TOKENS = 500; // tokens credited to both parties
@@ -457,6 +490,10 @@ module.exports = {
   updateGlobalMetrics,
   // bootstrap
   bootstrapIfEmpty,
+  // allowlist/denylist
+  getAllowDenyList,
+  addToList,
+  removeFromList,
   // referrals
   saveReferral,
   getReferralByCode,

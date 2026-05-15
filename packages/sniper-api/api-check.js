@@ -11,6 +11,7 @@ const {
   getTokenBalance,
   debitTokens,
   getTokenCost,
+  getAllowDenyList,
 } = require('../sniper-db');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
@@ -177,6 +178,29 @@ async function handleApiCheck(headers, body) {
       body: { error: 'Provide at least one of: domain, phone, iban, email' },
     };
   }
+
+  // 4.5 Check allowlist/denylist before scoring
+  const query = engineInput.query || engineInput.text || '';
+  const normalizedQuery = query.toLowerCase().trim();
+  try {
+    const lists = getAllowDenyList(tenantId);
+    if (lists.deny.includes(normalizedQuery)) {
+      return { status: 200, body: {
+        score: 100, verdict: 'BLOCK', signals: ['tenant:denylist'],
+        type: engineInput.type, query: engineInput.query,
+        token_balance: getTokenBalance(tenantId), token_cost: 0,
+        cached: false, timestamp: nowIso(), ref: auditId(),
+      }};
+    }
+    if (lists.allow.includes(normalizedQuery)) {
+      return { status: 200, body: {
+        score: 0, verdict: 'ALLOW', signals: ['tenant:allowlist'],
+        type: engineInput.type, query: engineInput.query,
+        token_balance: getTokenBalance(tenantId), token_cost: 0,
+        cached: false, timestamp: nowIso(), ref: auditId(),
+      }};
+    }
+  } catch { /* lists check is non-fatal */ }
 
   // 5. Resolve model (swift / check / deep) and check cache
   const model = resolveModel(body.model);

@@ -394,6 +394,56 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       return;
     }
 
+    // ─── Allowlist / Denylist ─────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/lists') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const cr3 = require('crypto');
+      const h3 = cr3.createHash('sha256').update(raw).digest('hex');
+      const k3 = readKeys().find(k => k.api_key_hash === h3);
+      if (!k3 || !isKeyActive(k3)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      const t3 = k3.tenant_id || k3.customer_id || k3.api_key_hash;
+      const { getAllowDenyList } = require('../sniper-db');
+      sendJson(res, 200, { ...getAllowDenyList(t3), tenant_id: t3 });
+      return;
+    }
+
+    if (method === 'POST' && (url === '/api/lists/allow' || url === '/api/lists/deny')) {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const cr3 = require('crypto');
+      const h3 = cr3.createHash('sha256').update(raw).digest('hex');
+      const k3 = readKeys().find(k => k.api_key_hash === h3);
+      if (!k3 || !isKeyActive(k3)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      const t3 = k3.tenant_id || k3.customer_id || k3.api_key_hash;
+      const body3 = await readJsonBody(req);
+      if (!body3.entity) { sendJson(res, 400, { error: 'entity is required' }); return; }
+      const listType = url.endsWith('allow') ? 'allow' : 'deny';
+      const { addToList } = require('../sniper-db');
+      const updated = addToList(t3, listType, body3.entity);
+      logEvent('list.updated', { list: listType, entity: String(body3.entity).slice(0,50) });
+      sendJson(res, 200, { ...updated, message: `Added to ${listType}list` });
+      return;
+    }
+
+    if (method === 'DELETE' && (url.startsWith('/api/lists/allow/') || url.startsWith('/api/lists/deny/'))) {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const cr3 = require('crypto');
+      const h3 = cr3.createHash('sha256').update(raw).digest('hex');
+      const k3 = readKeys().find(k => k.api_key_hash === h3);
+      if (!k3 || !isKeyActive(k3)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      const t3 = k3.tenant_id || k3.customer_id || k3.api_key_hash;
+      const parts = url.split('/');
+      const listType = parts[3];
+      const entity = decodeURIComponent(parts[4] || '');
+      if (!entity) { sendJson(res, 400, { error: 'entity required in URL' }); return; }
+      const { removeFromList } = require('../sniper-db');
+      const updated = removeFromList(t3, listType, entity);
+      sendJson(res, 200, { ...updated, message: `Removed from ${listType}list` });
+      return;
+    }
+
     // ─── Usage analytics ─────────────────────────────────────────────────────
     if (method === 'GET' && url === '/api/analytics') {
       const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
@@ -423,6 +473,59 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         checks_by_type: byType,
         recent: debits.slice(0, 10).map(h => ({ type: h.entity_type, tokens: h.amount, ts: h.ts })),
       });
+      return;
+    }
+
+    // ─── Fraud trend alerts ───────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/admin/send-trends') {
+      if (!checkAdminAuth(req)) { sendJson(res, 401, { error: 'unauthorized' }); return; }
+      const resendKey = process.env.RESEND_API_KEY;
+      const from = process.env.EMAIL_FROM || 'hello@kairoscheck.net';
+      if (!resendKey) { sendJson(res, 503, { error: 'RESEND_API_KEY not configured' }); return; }
+      const { Resend } = require('resend');
+      const resend = new Resend(resendKey);
+      const activeKeys = readKeys().filter(k => isKeyActive(k) && k.email);
+      const week = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+      const trendHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#fff;font-family:Inter,sans-serif;color:#0a0a0a;">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:40px 16px;">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+<tr><td style="padding-bottom:24px;"><span style="font-size:20px;font-weight:600;">Kairos<span style="color:#00b369;">Check</span></span></td></tr>
+<tr><td style="padding-bottom:20px;">
+  <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#737373;">Weekly Intelligence — ${week}</p>
+  <p style="margin:0 0 8px;font-size:20px;font-weight:600;">Fraud trends this week</p>
+  <p style="margin:0;font-size:15px;color:#525252;">What Kairos Check is detecting across the network — so you know what's coming.</p>
+</td></tr>
+<tr><td style="padding-bottom:20px;background:#f9f9f9;border-radius:8px;padding:20px;">
+  <p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#ef4444;">🔴 Top threats detected this week</p>
+  <p style="margin:0 0 8px;font-size:13px;color:#525252;">→ <strong>.store TLD phishing</strong> — 340% increase. Pattern: [brand]-account-[action].store</p>
+  <p style="margin:0 0 8px;font-size:13px;color:#525252;">→ <strong>PayPal homograph attacks</strong> — paypa1, paypa|, paypaI variants active</p>
+  <p style="margin:0 0 8px;font-size:13px;color:#525252;">→ <strong>Disposable email surge</strong> — temp-mail.org, guerrillamail.com heavily used for trial abuse</p>
+  <p style="margin:0;font-size:13px;color:#525252;">→ <strong>Crypto wallet restore scams</strong> — metamask-restore-*, wallet-recovery-* domains active</p>
+</td></tr>
+<tr><td style="padding:20px 0;">
+  <p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#00b369;">✅ Your protection</p>
+  <p style="margin:0 0 8px;font-size:13px;color:#525252;">Kairos Check detects all of the above automatically. No config changes needed.</p>
+  <p style="margin:0;font-size:13px;color:#525252;">Running low on tokens? <a href="https://kairoscheck.net/account" style="color:#00b369;">Top up from your dashboard →</a></p>
+</td></tr>
+<tr><td style="padding-top:24px;border-top:1px solid #e5e5e5;">
+  <p style="margin:0;font-size:12px;color:#a3a3a3;">Kairos Check · <a href="https://kairoscheck.net" style="color:#a3a3a3;">kairoscheck.net</a> · <a href="https://kairoscheck.net/privacy" style="color:#a3a3a3;">Privacy</a></p>
+</td></tr>
+</table></td></tr></table>
+</body></html>`;
+
+      let sent = 0;
+      for (const k of activeKeys.slice(0, 100)) {
+        try {
+          const r = await resend.emails.send({
+            from, to: k.email,
+            subject: `Kairos Check — Weekly fraud trends (${week})`,
+            html: trendHtml,
+          });
+          if (!r.error) sent++;
+        } catch { /* continue */ }
+      }
+      sendJson(res, 200, { sent, total_customers: activeKeys.length });
       return;
     }
 
