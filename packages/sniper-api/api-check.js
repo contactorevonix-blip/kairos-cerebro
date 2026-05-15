@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { verifyPayloadWithGraph } = require('../sniper-engine');
+const { scoreDomainName } = require('../sniper-engine/domain-heuristic');
 const { readKeys } = require('./stripe-webhook');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
@@ -144,6 +145,16 @@ async function handleApiCheck(headers, body) {
 
   // 5. Score with graph-aware engine
   const ref = auditId();
+
+  // Layer 0: Domain-specific heuristic (runs before content engine for domain checks)
+  let domainBoost = 0;
+  let domainReasons = [];
+  if (engineInput.type === 'domain') {
+    const domainResult = scoreDomainName(engineInput.text);
+    domainBoost   = domainResult.score;
+    domainReasons = domainResult.reasons;
+  }
+
   let result;
   try {
     result = await verifyPayloadWithGraph({
@@ -179,13 +190,25 @@ async function handleApiCheck(headers, body) {
     ref,
   });
 
-  // 7. Response
+  // 7. Merge domain-heuristic score into final result
+  let finalScore = result.verdict.score;
+  let finalSignals = result.verdict.reasons || [];
+  if (domainBoost > 0) {
+    // Weighted merge: take the max, biased toward the higher signal
+    finalScore = Math.min(100, Math.round(Math.max(finalScore, domainBoost) * 0.6 + Math.min(finalScore, domainBoost) * 0.4));
+    finalSignals = [...domainReasons, ...finalSignals];
+  }
+
+  // Re-apply decision thresholds after merge
+  const finalVerdict = finalScore >= 60 ? 'BLOCK' : finalScore >= 30 ? 'REVIEW' : 'ALLOW';
+
+  // 8. Response
   return {
     status: 200,
     body: {
-      score: result.verdict.score,
-      verdict: result.verdict.decision,
-      signals: result.verdict.reasons || [],
+      score: finalScore,
+      verdict: finalVerdict,
+      signals: finalSignals,
       dominant_threat: result.verdict.dominantThreat || null,
       type: engineInput.type,
       query: engineInput.query,
