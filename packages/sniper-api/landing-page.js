@@ -2344,6 +2344,51 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       });
     })();
 
+    // ── EXIT INTENT ───────────────────────────────────────────────────────────
+    (function() {
+      if (sessionStorage.getItem('kc_exit_seen')) return;
+      var shown = false;
+      function show() {
+        if (shown) return;
+        shown = true;
+        sessionStorage.setItem('kc_exit_seen', '1');
+        var overlay = document.createElement('div');
+        overlay.id = 'kc-exit';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-labelledby', 'kc-exit-h');
+        overlay.innerHTML = [
+          '<div id="kc-exit-box">',
+            '<button id="kc-exit-close" aria-label="Close">&times;</button>',
+            '<div style="font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:#737373;margin-bottom:.75rem;font-weight:600;">Wait — before you go</div>',
+            '<h2 id="kc-exit-h" style="font-size:1.375rem;font-weight:700;letter-spacing:-.025em;margin-bottom:.75rem;color:#f0f0f0;">You have <span style="color:#00d97e;">50 free checks</span> waiting.</h2>',
+            '<p style="font-size:.875rem;color:#a0a0a0;line-height:1.6;margin-bottom:1.5rem;">No credit card. No contract. Integrate in 5 minutes and see real fraud scores for your domains, emails, and phones.</p>',
+            '<a href="/pricing" id="kc-exit-cta" style="display:block;background:#00d97e;color:#000;text-align:center;padding:.875rem;border-radius:8px;font-weight:700;font-size:.9375rem;text-decoration:none;margin-bottom:.875rem;">Start free — 50 checks/month forever</a>',
+            '<button id="kc-exit-dismiss" style="display:block;width:100%;background:none;border:none;color:#555;font-size:.8125rem;cursor:pointer;padding:.25rem;">No thanks, I have no fraud problems</button>',
+          '</div>'
+        ].join('');
+        var style = document.createElement('style');
+        style.textContent = '#kc-exit{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}#kc-exit-box{background:#111;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:2rem;max-width:420px;width:100%;position:relative;animation:kc-fade-in .25s ease-out;}@keyframes kc-fade-in{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}#kc-exit-close{position:absolute;top:.75rem;right:.875rem;background:none;border:none;color:#555;font-size:1.375rem;cursor:pointer;line-height:1;}#kc-exit-close:hover{color:#f0f0f0;}#kc-exit-dismiss:hover{color:#a0a0a0;}';
+        document.head.appendChild(style);
+        document.body.appendChild(overlay);
+        document.getElementById('kc-exit-close').onclick = function() { overlay.remove(); };
+        document.getElementById('kc-exit-dismiss').onclick = function() { overlay.remove(); };
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+      }
+      // Desktop: mouse leaves viewport upward
+      document.addEventListener('mouseleave', function(e) {
+        if (e.clientY <= 0) show();
+      });
+      // Mobile: scroll to bottom then back up quickly
+      var lastY = 0, maxY = 0;
+      window.addEventListener('scroll', function() {
+        var y = window.scrollY;
+        maxY = Math.max(maxY, y);
+        if (maxY > 600 && y < lastY - 200) show();
+        lastY = y;
+      });
+    })();
+
     // ── KAIROS CHAT WIDGET ────────────────────────────────────────────────────
     (function() {
       var FREE_LIMIT = 5;
