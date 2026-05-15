@@ -99,70 +99,70 @@ function renderLandingPage() {
     /* HERO */
     .hero { padding: 6rem 0 5rem; position: relative; overflow: hidden; }
 
-    /* Grid overlay */
+    /* Grid overlay — @architect calibrated */
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
       background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 20%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 20%, transparent 100%);
+      mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 40%, transparent 100%);
       pointer-events: none;
     }
     .hero .container { position: relative; z-index: 1; }
 
-    /* AURORA MESH — premium depth layer */
+    /* AURORA MESH — @architect reformulated for dark bg threshold */
     .hero-aurora {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 120% 80% at 20% -20%, rgba(0,217,126,0.12) 0%, transparent 50%),
-        radial-gradient(ellipse 80% 60% at 80% 10%, rgba(0,100,255,0.08) 0%, transparent 45%),
-        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,217,126,0.06) 0%, transparent 50%);
+        radial-gradient(ellipse 140% 70% at 15% 0%, rgba(0,217,126,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 90% 50% at 85% 5%, rgba(0,80,255,0.14) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 30% at 50% 110%, rgba(0,217,126,0.10) 0%, transparent 50%);
     }
 
-    /* ORBS — gradient depth spheres (like Anthropic, Vercel, Claude.ai) */
+    /* ORBS — @architect calibrated opacities (2-3x increase for dark bg perception) */
     .hero-orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
     .orb-1 {
       position: absolute;
-      width: 1100px; height: 1100px; border-radius: 50%;
+      width: 900px; height: 900px; border-radius: 50%;
       background: radial-gradient(circle at center,
-        rgba(0,217,126,0.28) 0%,
-        rgba(0,217,126,0.12) 35%,
-        transparent 65%);
-      top: -600px; left: -350px;
-      filter: blur(50px);
+        rgba(0,217,126,0.45) 0%,
+        rgba(0,217,126,0.18) 40%,
+        transparent 70%);
+      top: -300px; left: -200px;
+      filter: blur(40px);
       animation: orb-drift 20s ease-in-out infinite alternate;
     }
     .orb-2 {
       position: absolute;
-      width: 800px; height: 800px; border-radius: 50%;
+      width: 700px; height: 700px; border-radius: 50%;
       background: radial-gradient(circle at center,
-        rgba(0,140,255,0.15) 0%,
-        rgba(0,80,255,0.05) 40%,
-        transparent 65%);
-      top: -200px; right: -250px;
-      filter: blur(70px);
+        rgba(0,100,255,0.28) 0%,
+        rgba(0,60,200,0.08) 45%,
+        transparent 70%);
+      top: -100px; right: -150px;
+      filter: blur(50px);
       animation: orb-drift 25s ease-in-out infinite alternate-reverse;
     }
     .orb-3 {
       position: absolute;
-      width: 600px; height: 600px; border-radius: 50%;
+      width: 500px; height: 500px; border-radius: 50%;
       background: radial-gradient(circle at center,
-        rgba(0,217,126,0.12) 0%,
+        rgba(0,217,126,0.20) 0%,
         transparent 60%);
-      bottom: -100px; left: 30%;
-      filter: blur(80px);
+      bottom: -50px; left: 35%;
+      filter: blur(60px);
     }
     @keyframes orb-drift {
       from { transform: translate(0,0) scale(1); }
       to   { transform: translate(30px,20px) scale(1.06); }
     }
 
-    /* Noise grain overlay — adds tactile depth */
+    /* Noise grain overlay — @architect: 0.05 minimum perceptible threshold */
     .hero-noise {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat: repeat; background-size: 200px 200px;
     }
@@ -563,7 +563,6 @@ function renderLandingPage() {
     .tilt-card {
       transform-style: preserve-3d;
       transition: transform 400ms ease, box-shadow 400ms ease;
-      will-change: transform;
     }
     .tilt-card:hover {
       box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(0,217,126,0.06);
