@@ -796,10 +796,10 @@ function renderLandingPage() {
     .tcard-quote { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
     .tcard-author { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.875rem; border-top: 1px solid var(--border); }
     .tcard-avatar {
-      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8125rem; font-weight: 700; color: #fff;
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      overflow: hidden; position: relative;
     }
+    .tcard-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .tcard-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
     .tcard-role { font-size: 0.75rem; color: var(--text-tertiary); }
     .tcard-product { font-size: 0.6875rem; color: var(--accent); font-family: var(--font-mono); margin-top: 1px; }
@@ -829,27 +829,30 @@ function renderLandingPage() {
     }
     .tslider-progress-bar.running { width: 100%; }
 
-    /* ACTIVITY FEED */
-    .activity-feed { padding: 2rem 0; border-top: 1px solid var(--border); overflow: hidden; }
-    .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-    .activity-track {
-      display: flex; gap: 0; width: max-content;
-      animation: scroll-left 100s linear infinite;
-      will-change: transform;
-    }
-    .activity-track:hover { animation-play-state: paused; }
-    .activity-pill {
-      display: inline-flex; align-items: center; gap: 0.625rem;
+    /* ACTIVITY FEED — vertical live log */
+    .activity-feed { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .activity-feed-inner { max-width: 680px; margin: 0 auto; padding: 0 1.5rem; }
+    .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .activity-log { display: flex; flex-direction: column; gap: 0.5rem; }
+    .activity-entry {
+      display: flex; align-items: center; gap: 0.875rem;
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 999px; padding: 0.375rem 1rem;
-      font-family: var(--font-mono); font-size: 0.75rem; white-space: nowrap;
-      color: var(--text-secondary); margin-right: 0.75rem;
+      border-radius: 8px; padding: 0.625rem 1rem;
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--text-secondary);
+      animation: entry-in 0.4s ease-out both;
     }
-    .activity-pill-verdict { font-weight: 700; }
-    .activity-pill-verdict.block { color: #ef4444; }
-    .activity-pill-verdict.clear { color: var(--accent); }
-    .activity-pill-ms { color: var(--text-tertiary); }
-    .activity-pill-flag { font-size: 0.875rem; }
+    @keyframes entry-in {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .activity-entry-flag { font-size: 1rem; flex-shrink: 0; }
+    .activity-entry-domain { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .activity-entry-verdict { font-weight: 700; font-size: 0.6875rem; padding: 0.125rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+    .activity-entry-verdict.block { color: #ef4444; background: rgba(239,68,68,0.1); }
+    .activity-entry-verdict.clear { color: var(--accent); background: rgba(0,217,126,0.1); }
+    .activity-entry-ms { color: var(--text-tertiary); flex-shrink: 0; }
+    .activity-entry-ago { color: var(--text-tertiary); font-size: 0.6875rem; flex-shrink: 0; min-width: 48px; text-align: right; }
   </style>
 
   <!-- Schema.org JSON-LD -->
@@ -1005,29 +1008,14 @@ function renderLandingPage() {
 
     <!-- ── ACTIVITY FEED ───────────────────────────────────────────── -->
     <div class="activity-feed" aria-label="Live fraud check activity">
-      <p class="activity-feed-label"><span class="live-dot" aria-hidden="true"></span> Live fraud checks — right now</p>
-      <div class="activity-track" aria-hidden="true">
-        <span class="activity-pill"><span class="activity-pill-flag">🇬🇧</span> shopify-reseller-uk.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">89ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇩🇪</span> freelancer-web-de.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">134ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇫🇷</span> temp-checkout-99.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">67ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇵🇹</span> saas-founder-pt.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">112ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇳🇱</span> marketplace-seller.nl <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">78ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇸🇪</span> dev-studio-sthlm.io <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">95ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇪🇸</span> disposable-mx-01.es <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">71ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇮🇳</span> startup-api-check.in <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">188ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇵🇱</span> fake-store-pl.shop <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">56ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇨🇭</span> saas-b2b-ch.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">102ms</span></span>
-        <!-- duplicate for seamless loop -->
-        <span class="activity-pill"><span class="activity-pill-flag">🇬🇧</span> shopify-reseller-uk.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">89ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇩🇪</span> freelancer-web-de.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">134ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇫🇷</span> temp-checkout-99.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">67ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇵🇹</span> saas-founder-pt.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">112ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇳🇱</span> marketplace-seller.nl <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">78ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇸🇪</span> dev-studio-sthlm.io <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">95ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇪🇸</span> disposable-mx-01.es <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">71ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇮🇳</span> startup-api-check.in <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">188ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇵🇱</span> fake-store-pl.shop <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">56ms</span></span>
-        <span class="activity-pill"><span class="activity-pill-flag">🇨🇭</span> saas-b2b-ch.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">102ms</span></span>
+      <div class="activity-feed-inner">
+        <p class="activity-feed-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          Live fraud checks
+          <span id="activity-count" style="font-family:var(--font-mono);color:var(--accent);margin-left:0.5rem;"></span>
+        </p>
+        <div class="activity-log" id="activity-log" aria-live="polite" aria-label="Recent fraud checks">
+        </div>
       </div>
     </div>
 
@@ -1288,7 +1276,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%2300b369'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%231a1a1a' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="Miguel R." width="42" height="42"></div>
                 <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
               </div>
             </div>
@@ -1296,7 +1284,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%236366f1'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='11' rx='10' ry='8' fill='%231a1a1a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Ana K." width="42" height="42"></div>
                 <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
               </div>
             </div>
@@ -1304,7 +1292,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23d97706'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='11' rx='9' ry='6' fill='%23c9a96e' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Tom S." width="42" height="42"></div>
                 <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
               </div>
             </div>
@@ -1312,7 +1300,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%231d4ed8'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='12' rx='8' ry='5' fill='%23a0856a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Lucas M." width="42" height="42"></div>
                 <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
               </div>
             </div>
@@ -1320,7 +1308,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23db2777'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='10' rx='11' ry='8' fill='%23c0392b' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="Sarah O." width="42" height="42"></div>
                 <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
               </div>
             </div>
@@ -1328,7 +1316,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23059669'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23d4a574'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23d4a574'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%231a0f00' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="João F." width="42" height="42"></div>
                 <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
               </div>
             </div>
@@ -1336,7 +1324,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23ea580c'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23c68642'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23c68642'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%230a0a0a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Priya N." width="42" height="42"></div>
                 <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
               </div>
             </div>
@@ -1344,7 +1332,7 @@ function renderLandingPage() {
               <div class="tcard-stars">★★★★★</div>
               <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
               <div class="tcard-author">
-                <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
+                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%237c3aed'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='12' rx='9' ry='6' fill='%23704214' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Marc D." width="42" height="42"></div>
                 <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
               </div>
             </div>
@@ -1910,7 +1898,7 @@ function renderLandingPage() {
 
       function goTo(idx) {
         current = (idx + maxSlide + 1) % (maxSlide + 1);
-        var cardW = cards[0].offsetWidth + 20; // card + gap
+        var cardW = track.scrollWidth / total;
         track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
         dotsEl.querySelectorAll('.tslider-dot').forEach(function(d, i) {
           d.classList.toggle('active', i === current);
@@ -1937,8 +1925,7 @@ function renderLandingPage() {
         if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
       });
 
-      goTo(0);
-      resetAuto();
+      setTimeout(function() { goTo(0); resetAuto(); }, 50);
     })();
 
     // Counter animation for fraud stats
@@ -1971,20 +1958,75 @@ function renderLandingPage() {
       counters.forEach(function(el) { cio.observe(el); });
     })();
 
-    // Live activity feed counter — increments to feel real-time
+    // Live activity feed — vertical log, new entry every 3s
     (function() {
-      var label = document.querySelector('.activity-feed-label');
-      if (!label) return;
-      var count = Math.floor(Math.random() * 120) + 80;
-      var counter = document.createElement('span');
-      counter.style.cssText = 'font-family:var(--font-mono);color:var(--accent);margin-left:0.75rem;font-size:0.6875rem;';
-      counter.setAttribute('aria-live', 'polite');
-      counter.textContent = count + ' in the last hour';
-      label.appendChild(counter);
-      setInterval(function() {
-        count += Math.floor(Math.random() * 4) + 1;
-        counter.textContent = count + ' in the last hour';
-      }, 6000);
+      var log = document.getElementById('activity-log');
+      var countEl = document.getElementById('activity-count');
+      if (!log) return;
+
+      var entries = [
+        { flag: '🇬🇧', domain: 'shopify-reseller-uk.io',   verdict: 'block', ms: 89  },
+        { flag: '🇩🇪', domain: 'freelancer-web-de.com',    verdict: 'clear', ms: 134 },
+        { flag: '🇫🇷', domain: 'temp-checkout-99.io',      verdict: 'block', ms: 67  },
+        { flag: '🇵🇹', domain: 'saas-founder-pt.com',      verdict: 'clear', ms: 112 },
+        { flag: '🇳🇱', domain: 'marketplace-seller.nl',    verdict: 'block', ms: 78  },
+        { flag: '🇸🇪', domain: 'dev-studio-sthlm.io',      verdict: 'clear', ms: 95  },
+        { flag: '🇪🇸', domain: 'disposable-mx-01.es',      verdict: 'block', ms: 71  },
+        { flag: '🇮🇳', domain: 'startup-api-check.in',     verdict: 'clear', ms: 188 },
+        { flag: '🇵🇱', domain: 'fake-store-pl.shop',       verdict: 'block', ms: 56  },
+        { flag: '🇨🇭', domain: 'saas-b2b-ch.com',          verdict: 'clear', ms: 102 },
+        { flag: '🇮🇹', domain: 'promo-scam-it.store',      verdict: 'block', ms: 63  },
+        { flag: '🇧🇷', domain: 'dev-indie-br.io',           verdict: 'clear', ms: 144 },
+      ];
+
+      var count = Math.floor(Math.random() * 200) + 150;
+      var idx = 0;
+      var ages = []; // seconds ago for each visible entry
+
+      function updateAges() {
+        var items = log.querySelectorAll('.activity-entry-ago');
+        ages = ages.map(function(a) { return a + 1; });
+        items.forEach(function(el, i) {
+          var a = ages[i] || 0;
+          el.textContent = a < 60 ? a + 's ago' : Math.floor(a / 60) + 'm ago';
+        });
+      }
+
+      function addEntry() {
+        var e = entries[idx % entries.length];
+        idx++;
+        count += Math.floor(Math.random() * 3) + 1;
+        if (countEl) countEl.textContent = count + ' today';
+
+        ages.unshift(0); // new entry is 0s ago
+        if (ages.length > 5) ages.pop();
+
+        var el = document.createElement('div');
+        el.className = 'activity-entry';
+        el.innerHTML =
+          '<span class="activity-entry-flag">' + e.flag + '</span>' +
+          '<span class="activity-entry-domain">' + e.domain + '</span>' +
+          '<span class="activity-entry-verdict ' + e.verdict + '">' + e.verdict.toUpperCase() + '</span>' +
+          '<span class="activity-entry-ms">' + e.ms + 'ms</span>' +
+          '<span class="activity-entry-ago">just now</span>';
+
+        log.insertBefore(el, log.firstChild);
+        if (log.children.length > 5) log.removeChild(log.lastChild);
+      }
+
+      // Populate initial 4 entries immediately
+      for (var i = 0; i < 4; i++) {
+        addEntry();
+        ages[i] = Math.floor(Math.random() * 45) + 5;
+      }
+      // Overwrite the "just now" text with realistic ages
+      var initialItems = log.querySelectorAll('.activity-entry-ago');
+      initialItems.forEach(function(el, i) {
+        el.textContent = ages[i] + 's ago';
+      });
+
+      setInterval(addEntry, 4000);
+      setInterval(updateAges, 1000);
     })();
   </script>
 </body>
