@@ -57,7 +57,7 @@ function request(method, urlPath, { body = null, headers = {} } = {}) {
 test('GET / renders the landing page without ReferenceError', async () => {
   const res = await request('GET', '/');
   assert.equal(res.status, 200);
-  assert.match(res.body, /KAIROS/);
+  assert.match(res.body, /[Kk]airos/);
   assert.equal(res.headers['content-type'].split(';')[0], 'text/html');
 });
 

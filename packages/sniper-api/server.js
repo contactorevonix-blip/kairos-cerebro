@@ -184,6 +184,22 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, renderTerms(), { 'cache-control': 'public, max-age=3600' });
       return;
     }
+    if (method === 'GET' && url === '/docs/legal/privacy-policy.md') {
+      const docPath = pathModule.join(process.cwd(), 'docs', 'legal', 'privacy-policy.md');
+      try {
+        const md = fsModule.readFileSync(docPath, 'utf8');
+        res.writeHead(200, {
+          ...SECURITY_HEADERS,
+          'content-type': 'text/markdown; charset=utf-8',
+          'cache-control': 'public, max-age=3600',
+        });
+        res.end(md);
+      } catch {
+        res.writeHead(404, { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' });
+        res.end('Not found\n');
+      }
+      return;
+    }
     if (method === 'GET' && (url === '/docs' || url.startsWith('/docs/'))) {
       const html = renderDocs(url);
       if (!html) { sendJson(res, 404, { error: 'Not found' }); return; }
@@ -355,23 +371,6 @@ const server = http.createServer(async (req, res) => {
       ].join('\n') + '\n');
       return;
     }
-    if (method === 'GET' && url === '/docs/legal/privacy-policy.md') {
-      const docPath = pathModule.join(process.cwd(), 'docs', 'legal', 'privacy-policy.md');
-      try {
-        const md = fsModule.readFileSync(docPath, 'utf8');
-        res.writeHead(200, {
-          ...SECURITY_HEADERS,
-          'content-type': 'text/markdown; charset=utf-8',
-          'cache-control': 'public, max-age=3600',
-        });
-        res.end(md);
-      } catch {
-        res.writeHead(404, { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' });
-        res.end('Not found\n');
-      }
-      return;
-    }
-
     if (method === 'POST' && url === '/verify') {
       const payload = await readJsonBody(req);
       const result = handleVerifyRequest(req.headers, payload);
