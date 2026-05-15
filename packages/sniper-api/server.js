@@ -370,10 +370,17 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         const result = await handleChat(ip, rawKey || null, body);
         sendJson(res, result.status, result.body);
       } catch (err) {
-        const isConfig = err.message && err.message.includes('ANTHROPIC_API_KEY');
-        sendJson(res, isConfig ? 503 : 500, {
-          error: isConfig ? 'Chat temporarily unavailable' : 'Chat error',
-        });
+        const msg = err.message || '';
+        console.error('[chat] Error:', msg);
+        if (msg.includes('ANTHROPIC_API_KEY')) {
+          sendJson(res, 503, { error: 'Chat temporarily unavailable — API key not configured' });
+        } else if (msg.includes('401') || msg.includes('403')) {
+          sendJson(res, 503, { error: 'Chat unavailable — check ANTHROPIC_API_KEY in Railway' });
+        } else if (msg.includes('timeout')) {
+          sendJson(res, 504, { error: 'Chat timed out — Claude API took too long' });
+        } else {
+          sendJson(res, 500, { error: 'Chat error: ' + msg.slice(0, 100) });
+        }
       }
       return;
     }

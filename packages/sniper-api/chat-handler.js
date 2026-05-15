@@ -95,14 +95,29 @@ async function callClaude(messages) {
       res.on('end', () => {
         try {
           const data = JSON.parse(raw);
-          if (data.error) return reject(new Error(data.error.message || 'Claude error'));
+          if (res.statusCode !== 200) {
+            const errMsg = data.error?.message || data.error?.type || `HTTP ${res.statusCode}`;
+            console.error('[chat] Anthropic API error:', res.statusCode, errMsg, raw.slice(0, 200));
+            return reject(new Error(`Anthropic ${res.statusCode}: ${errMsg}`));
+          }
+          if (data.error) {
+            console.error('[chat] Claude error in body:', JSON.stringify(data.error));
+            return reject(new Error(data.error.message || 'Claude error'));
+          }
           const text = data.content?.[0]?.text || '';
+          if (!text) {
+            console.error('[chat] Empty response from Claude:', raw.slice(0, 200));
+            return reject(new Error('Empty response from Claude'));
+          }
           resolve(text);
-        } catch (e) { reject(e); }
+        } catch (e) {
+          console.error('[chat] Parse error:', e.message, raw.slice(0, 100));
+          reject(e);
+        }
       });
     });
-    req.on('error', reject);
-    req.on('timeout', () => { req.destroy(); reject(new Error('Claude timeout')); });
+    req.on('error', (e) => { console.error('[chat] Network error:', e.message); reject(e); });
+    req.on('timeout', () => { req.destroy(); reject(new Error('Claude timeout after 15s')); });
     req.write(body);
     req.end();
   });
