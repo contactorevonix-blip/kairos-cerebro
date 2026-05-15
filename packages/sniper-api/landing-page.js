@@ -69,8 +69,10 @@ function renderLandingPage() {
       max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
       height: 56px; display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-logo { font-size: var(--text-base); font-weight: 600; color: var(--text); text-decoration: none; }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo-mark { flex-shrink: 0; display: block; }
+    .nav-logo-text { font-size: var(--text-base); font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .nav-logo-text span { color: var(--accent); }
     .nav-links { display: flex; align-items: center; gap: 0.25rem; }
     .nav-link { color: var(--text-secondary); text-decoration: none; font-size: var(--text-sm); padding: 0.375rem 0.75rem; border-radius: 6px; transition: color 150ms; }
     .nav-link:hover { color: var(--text); }
@@ -87,7 +89,30 @@ function renderLandingPage() {
     section + section { border-top: 1px solid var(--border); }
 
     /* HERO */
-    .hero { padding: 5rem 0 4rem; }
+    .hero { padding: 5rem 0 4rem; position: relative; overflow: hidden; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse at 50% 20%, rgba(0,217,126,0.07) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero .container { position: relative; z-index: 1; }
+
+    /* SOCIAL PROOF BAR */
+    .hero-proof {
+      display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+      margin-top: 1.75rem;
+    }
+    .hero-proof-item { display: flex; align-items: center; gap: 0.375rem; }
+    .hero-proof-num {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      font-weight: 500; color: var(--text);
+    }
+    .hero-proof-label { font-size: var(--text-xs); color: var(--text-tertiary); }
+    .hero-proof-sep { color: var(--border-strong); font-size: var(--text-xs); }
     .hero-kicker {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: rgba(0,217,126,0.08); border: 1px solid rgba(0,217,126,0.2);
@@ -341,7 +366,13 @@ function renderLandingPage() {
 
   <nav aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Kairos Check home">Kairos<span>Check</span></a>
+      <a href="/" class="nav-logo" aria-label="Kairos Check home">
+        <svg class="nav-logo-mark" width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true">
+          <path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/>
+          <path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">Kairos<span>Check</span></span>
+      </a>
       <div class="nav-links">
         <a href="/docs" class="nav-link">Docs</a>
         <a href="/pricing" class="nav-link">Pricing</a>
@@ -359,11 +390,27 @@ function renderLandingPage() {
         <div class="hero-kicker">API · Self-serve · GDPR-native</div>
         <div class="hero-layout">
           <div>
-            <h1 id="hero-h1">Fraud detection that fits in 5 minutes of code</h1>
+            <h1 id="hero-h1">Stop fraud before it costs you a customer</h1>
             <p class="hero-lead">OSINT-first. GDPR-native. Self-serve. €29/month.<br>One POST call. No SDK required. No sales call.</p>
             <div class="hero-ctas">
               <a href="/pricing" class="btn-primary">Get API key — €29 <span aria-hidden="true">→</span></a>
               <a href="/docs/quickstart" class="btn-secondary">Try free (50/month)</a>
+            </div>
+            <div class="hero-proof" aria-label="Live usage stats">
+              <span class="hero-proof-item">
+                <span class="hero-proof-num">${domainsScored || '0'}</span>
+                <span class="hero-proof-label">domains scored</span>
+              </span>
+              <span class="hero-proof-sep" aria-hidden="true">·</span>
+              <span class="hero-proof-item">
+                <span class="hero-proof-num">${threatsBlocked || '0'}</span>
+                <span class="hero-proof-label">threats blocked</span>
+              </span>
+              <span class="hero-proof-sep" aria-hidden="true">·</span>
+              <span class="hero-proof-item">
+                <span class="hero-proof-num">${avgMsDisplay}</span>
+                <span class="hero-proof-label">avg latency</span>
+              </span>
             </div>
           </div>
           <div>
