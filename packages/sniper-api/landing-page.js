@@ -549,6 +549,37 @@ function renderLandingPage() {
       </div>
     </section>
 
+    <!-- ── HOW IT WORKS ─────────────────────────────────────────── -->
+    <section aria-labelledby="how-h2">
+      <div class="container">
+        <p class="section-label">How it works</p>
+        <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
+        <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01 — Get your key</div>
+            <h3 class="step-title">Subscribe and get an API key instantly</h3>
+            <p class="step-desc">Choose a plan, pay with card, receive your key by email. No waiting, no approval, no KYC.</p>
+            <div class="step-code"><pre><span style="color:var(--accent)">x-api-key</span>: kc_live_xxxxxxxxxxxx</pre></div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02 — One POST call</div>
+            <h3 class="step-title">Send the domain, email, phone or IBAN</h3>
+            <p class="step-desc">No SDK required. Works with any language that can make an HTTP request.</p>
+            <div class="step-code"><pre><span style="color:var(--text-tertiary)">POST</span> /api/check
+<span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"susp.io"</span></pre></div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03 — Act on the score</div>
+            <h3 class="step-title">Block, flag for review, or allow</h3>
+            <p class="step-desc">Every response includes a score (0–100), a verdict, and the exact signals that triggered it.</p>
+            <div class="step-code"><pre><span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>
+<span style="color:#60a5fa">"score"</span>: <span style="color:var(--accent)">94</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── COMPARISON ────────────────────────────────────────────── -->
     <section aria-labelledby="compare-h2">
       <div class="container">
@@ -579,37 +610,6 @@ function renderLandingPage() {
         <p style="margin-top:1.25rem; font-size:var(--text-sm); color:var(--text-tertiary);">
           Use Stripe Radar for card fraud. Use Kairos Check for everything before the card. <a href="/compare/stripe-radar" style="color:var(--accent); text-decoration:none;">Full comparison →</a>
         </p>
-      </div>
-    </section>
-
-    <!-- ── HOW IT WORKS ─────────────────────────────────────────── -->
-    <section aria-labelledby="how-h2">
-      <div class="container">
-        <p class="section-label">How it works</p>
-        <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
-        <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-number">01 — Get your key</div>
-            <h3 class="step-title">Subscribe and get an API key instantly</h3>
-            <p class="step-desc">Choose a plan, pay with card, receive your key by email. No waiting, no approval, no KYC.</p>
-            <div class="step-code"><pre><span style="color:var(--accent)">x-api-key</span>: kc_live_xxxxxxxxxxxx</pre></div>
-          </div>
-          <div class="step-card">
-            <div class="step-number">02 — One POST call</div>
-            <h3 class="step-title">Send the domain, email, phone or IBAN</h3>
-            <p class="step-desc">No SDK required. Works with any language that can make an HTTP request.</p>
-            <div class="step-code"><pre><span style="color:var(--text-tertiary)">POST</span> /api/check
-<span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"susp.io"</span></pre></div>
-          </div>
-          <div class="step-card">
-            <div class="step-number">03 — Act on the score</div>
-            <h3 class="step-title">Block, flag for review, or allow</h3>
-            <p class="step-desc">Every response includes a score (0–100), a verdict, and the exact signals that triggered it.</p>
-            <div class="step-code"><pre><span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>
-<span style="color:#60a5fa">"score"</span>: <span style="color:var(--accent)">94</span></pre></div>
-          </div>
-        </div>
       </div>
     </section>
 
