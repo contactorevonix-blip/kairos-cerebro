@@ -1751,8 +1751,26 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
     <section aria-labelledby="pricing-h2">
       <div class="container">
         <p class="section-label">Pricing</p>
-        <h2 class="section-title" id="pricing-h2">Simple, honest <span class="gradient-text">pricing</span></h2>
-        <p class="section-lead">No contracts. No calls. Cancel anytime. One chargeback avoided pays for months.</p>
+        <h2 class="section-title" id="pricing-h2">Founding member <span class="gradient-text">pricing</span></h2>
+        <p class="section-lead">You're not buying a monthly subscription. You're locking in the founding rate — permanently — before we raise prices as the network grows.</p>
+
+        <!-- Founder pricing banner -->
+        <div style="background:rgba(0,217,126,0.05);border:1px solid rgba(0,217,126,0.2);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;box-shadow:0 0 8px rgba(0,217,126,0.5);"></div>
+            <div>
+              <p style="font-size:var(--text-sm);font-weight:600;color:var(--text);margin-bottom:0.125rem;">Founding member pricing — rate locked forever</p>
+              <p style="font-size:var(--text-xs);color:var(--text-secondary);">When Kairos Check adds more intelligence layers and raises prices, founding members keep this rate. No exceptions.</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+            <div style="text-align:right;">
+              <p style="font-size:var(--text-xs);color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Founding spots</p>
+              <p style="font-family:var(--font-mono);font-size:1.125rem;font-weight:700;color:var(--text);">50 <span style="font-size:var(--text-xs);color:var(--text-tertiary);font-weight:400;">available</span></p>
+            </div>
+          </div>
+        </div>
+
         <div class="pricing-toggle" role="group" aria-label="Billing period">
           <span class="toggle-label active" id="lbl-mo">Monthly</span>
           <button class="toggle-switch" id="billing-toggle" aria-pressed="false" aria-label="Switch to annual billing"></button>

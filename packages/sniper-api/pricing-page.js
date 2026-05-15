@@ -299,9 +299,24 @@ function renderPricingPage() {
 
     <!-- HERO -->
     <section class="pricing-hero" aria-labelledby="pricing-h1">
-      <h1 id="pricing-h1">Simple pricing.<br><span class="gradient-text">No surprises.</span></h1>
-      <p>Start free. Upgrade when you need more checks. Cancel anytime with one click.</p>
+      <h1 id="pricing-h1">Founding member pricing.<br><span class="gradient-text">Rate locked forever.</span></h1>
+      <p>You're not buying a monthly plan. You're locking in the rate before prices go up — permanently. Cancel anytime, keep the rate if you come back within 30 days.</p>
     </section>
+
+    <!-- FOUNDER BANNER -->
+    <div style="max-width:860px;margin:0 auto 2rem;padding:0 1.5rem;">
+      <div style="background:rgba(0,217,126,0.05);border:1px solid rgba(0,217,126,0.2);border-radius:12px;padding:1.125rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--accent,#00d97e);flex-shrink:0;box-shadow:0 0 10px rgba(0,217,126,0.5);"></div>
+        <div style="flex:1;">
+          <p style="font-size:0.875rem;font-weight:600;color:#f5f5f5;margin-bottom:0.125rem;">Founding member programme — 50 spots</p>
+          <p style="font-size:0.75rem;color:#a3a3a3;">As our network grows and detection improves, prices will reflect that. Founding members keep today's rate — forever. This is not a promotion. It's a price lock.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <p style="font-size:0.6875rem;color:#737373;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:0.25rem;">Spots remaining</p>
+          <p style="font-family:monospace;font-size:1.25rem;font-weight:700;color:#f5f5f5;line-height:1;">50</p>
+        </div>
+      </div>
+    </div>
 
     <!-- BILLING TOGGLE -->
     <div class="billing-toggle" role="group" aria-label="Billing period">
