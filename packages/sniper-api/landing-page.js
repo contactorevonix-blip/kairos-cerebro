@@ -777,7 +777,7 @@ function renderLandingPage() {
     .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); width: 140px; }
     .testimonials-track {
       display: flex; gap: 1.25rem; width: max-content;
-      animation: scroll-left 110s linear infinite;
+      animation: scroll-left 220s linear infinite;
     }
     .testimonials-track:hover { animation-play-state: paused; }
     @keyframes scroll-left {
@@ -811,7 +811,7 @@ function renderLandingPage() {
     .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
     .activity-track {
       display: flex; gap: 0.75rem; width: max-content;
-      animation: scroll-left 60s linear infinite;
+      animation: scroll-left 100s linear infinite;
     }
     .activity-track:hover { animation-play-state: paused; }
     .activity-pill {
@@ -1262,7 +1262,7 @@ function renderLandingPage() {
       <div class="testimonials-outer" aria-label="Testimonials carousel">
         <div class="testimonials-track" role="list">
           <!-- === SET 1 (8 cards) === -->
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
             <div class="tcard-author">
@@ -1270,7 +1270,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
             <div class="tcard-author">
@@ -1278,7 +1278,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
             <div class="tcard-author">
@@ -1286,7 +1286,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
             <div class="tcard-author">
@@ -1294,7 +1294,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
             <div class="tcard-author">
@@ -1302,7 +1302,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
             <div class="tcard-author">
@@ -1310,7 +1310,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
             <div class="tcard-author">
@@ -1318,7 +1318,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem">
+          <div class="tcard" role="listitem">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
             <div class="tcard-author">
@@ -1327,7 +1327,7 @@ function renderLandingPage() {
             </div>
           </div>
           <!-- === SET 2 (exact duplicate for infinite loop) === -->
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
             <div class="tcard-author">
@@ -1335,7 +1335,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
             <div class="tcard-author">
@@ -1343,7 +1343,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
             <div class="tcard-author">
@@ -1351,7 +1351,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
             <div class="tcard-author">
@@ -1359,7 +1359,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
             <div class="tcard-author">
@@ -1367,7 +1367,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
             <div class="tcard-author">
@@ -1375,7 +1375,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
             <div class="tcard-author">
@@ -1383,7 +1383,7 @@ function renderLandingPage() {
               <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
             </div>
           </div>
-          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+          <div class="tcard" role="listitem" aria-hidden="true">
             <div class="tcard-stars">★★★★★</div>
             <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
             <div class="tcard-author">
