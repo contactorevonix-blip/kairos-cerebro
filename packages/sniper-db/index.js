@@ -339,7 +339,14 @@ function bootstrapIfEmpty(dir = DEFAULT_DB_DIR) {
 // Monthly subscription grants tokens at first check of each billing month.
 
 const TOKEN_COSTS  = { domain: 1, email: 1, phone: 2, iban: 3 };
-const MONTHLY_TOKENS = { free: 50, starter: 500, pro: 2500, scale: 10000 };
+const MONTHLY_TOKENS = {
+  free:       50,     // €0    — integrar e testar
+  starter:    300,    // €29   — projecto pequeno (~150 signups/mês)
+  growth:     1000,   // €59   — negócio a crescer (~500 signups/mês)
+  pro:        3000,   // €99   — SaaS sério (~1500 signups/mês)
+  scale:      15000,  // €249  — alto volume
+  enterprise: 100000, // €800+ — grafo dedicado, custom
+};
 
 function tokenFilePath(tenantId, dir = DEFAULT_DB_DIR) {
   return path.join(dir, 'tokens', `${String(tenantId).replace(/[^a-z0-9_-]/gi, '_')}.jsonl`);

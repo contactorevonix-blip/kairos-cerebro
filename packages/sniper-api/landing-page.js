@@ -1780,44 +1780,58 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">€0</div>
-            <div class="pricing-price-sub">50 checks/month · forever</div>
+            <div class="pricing-price-sub">50 tokens/month · forever</div>
             <ul class="pricing-features" aria-label="Free tier features">
-              <li>Domain + email checks</li>
+              <li>50 domain or email checks</li>
               <li>Score + verdict + signals</li>
+              <li>SWIFT model included</li>
               <li>No credit card</li>
             </ul>
-            <a href="/docs/quickstart" class="pricing-cta-ghost">Read the docs →</a>
+            <a href="/docs/quickstart" class="pricing-cta-ghost">Start for free →</a>
           </div>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Starter</div>
             <div class="pricing-price"><span class="price-monthly">€29</span><span class="price-annual">€23</span></div>
-            <div class="pricing-price-sub"><span class="price-monthly">/month · 5,000 checks + VAT</span><span class="price-annual">/month · billed €276/year + VAT</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 300 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
             <ul class="pricing-features" aria-label="Starter tier features">
-              <li>5,000 checks/month</li>
+              <li>300 tokens (~150 signups/month)</li>
               <li>Domain, email, phone, IBAN</li>
-              <li>Webhook on BLOCK</li>
-              <li>Audit trail (CSV export)</li>
+              <li>SWIFT + CHECK models</li>
+              <li>Webhook on BLOCK/REVIEW</li>
               <li>Cancel anytime</li>
             </ul>
             <a href="/pricing" class="pricing-cta-ghost">Get started →</a>
           </div>
           <div class="pricing-card featured tilt-card" aria-label="Most popular plan">
             <div class="pricing-badge">Most Popular</div>
-            <div class="pricing-tier">Pro</div>
-            <div class="pricing-price"><span class="price-monthly">€79</span><span class="price-annual">€63</span></div>
-            <div class="pricing-price-sub"><span class="price-monthly">/month · 25,000 checks + VAT</span><span class="price-annual">/month · billed €756/year + VAT</span></div>
-            <ul class="pricing-features" aria-label="Pro tier features">
-              <li>25,000 checks/month</li>
+            <div class="pricing-tier">Growth</div>
+            <div class="pricing-price"><span class="price-monthly">€59</span><span class="price-annual">€47</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 1,000 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
+            <ul class="pricing-features" aria-label="Growth tier features">
+              <li>1,000 tokens (~500 signups/month)</li>
               <li>All Starter features</li>
-              <li>GDPR Art.15/17 endpoints</li>
-              <li>Batch API (up to 100/call)</li>
-              <li>SLA 99.9% · Priority support</li>
+              <li>DEEP model (9 layers + graph)</li>
+              <li>Audit trail CSV export</li>
+              <li>24h cache (0.1 tokens/hit)</li>
             </ul>
             <a href="/pricing" class="pricing-cta-link">Get API key →</a>
           </div>
+          <div class="pricing-card tilt-card">
+            <div class="pricing-tier">Pro</div>
+            <div class="pricing-price"><span class="price-monthly">€99</span><span class="price-annual">€79</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 3,000 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
+            <ul class="pricing-features" aria-label="Pro tier features">
+              <li>3,000 tokens (~1,500 signups/month)</li>
+              <li>All Growth features</li>
+              <li>Batch API (up to 100/call)</li>
+              <li>GDPR Art.15/17/22 endpoints</li>
+              <li>SLA 99.9% · Priority support</li>
+            </ul>
+            <a href="/pricing" class="pricing-cta-ghost">Get started →</a>
+          </div>
         </div>
         <div class="pricing-full-link">
-          <a href="/pricing">Full pricing and comparison →</a>
+          <a href="/pricing">All plans + Scale (€249) + Enterprise →</a>
         </div>
       </div>
     </section>
