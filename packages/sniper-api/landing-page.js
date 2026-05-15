@@ -1003,21 +1003,27 @@ function renderLandingPage() {
             <p class="section-lead">Every verification you run contributes to a shared reputation graph. The more we see, the more accurately we score — for everyone.</p>
             <div class="network-stat-row">
               <div class="network-stat tilt-card">
-                <div class="network-stat-icon" aria-hidden="true">🔗</div>
+                <div class="network-stat-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="2.5" stroke="#00d97e" stroke-width="1.25"/><circle cx="12" cy="4" r="2.5" stroke="#00d97e" stroke-width="1.25"/><circle cx="12" cy="12" r="2.5" stroke="#00d97e" stroke-width="1.25"/><line x1="6.5" y1="7" x2="9.5" y2="5" stroke="#00d97e" stroke-width="1.25"/><line x1="6.5" y1="9" x2="9.5" y2="11" stroke="#00d97e" stroke-width="1.25"/></svg>
+                </div>
                 <div class="network-stat-text">
                   <strong>Shared reputation graph</strong>
                   Each domain, email and IBAN scored updates the collective intelligence. Your competitors' fraud becomes your protection.
                 </div>
               </div>
               <div class="network-stat tilt-card">
-                <div class="network-stat-icon" aria-hidden="true">🧬</div>
+                <div class="network-stat-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M5 4l6 2M5 10l6-2M3 6l10 4M3 10l10-4" stroke="#00d97e" stroke-width="1.25" stroke-linecap="round"/></svg>
+                </div>
                 <div class="network-stat-text">
                   <strong>Scam DNA fingerprinting</strong>
                   Fraud patterns are clustered into families. When a new variant appears, we recognise the family instantly — even on first sight.
                 </div>
               </div>
               <div class="network-stat tilt-card">
-                <div class="network-stat-icon" aria-hidden="true">🛡️</div>
+                <div class="network-stat-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4v5c0 3.3 2.7 5.8 6 6.5 3.3-.7 6-3.2 6-6.5V4L8 1.5z" stroke="#00d97e" stroke-width="1.25" stroke-linejoin="round"/><path d="M5.5 8l2 2 3-3" stroke="#00d97e" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
                 <div class="network-stat-text">
                   <strong>OSINT — zero PII shared</strong>
                   The graph learns from public signals only. No customer data is pooled. GDPR-compliant by design, not by policy.
