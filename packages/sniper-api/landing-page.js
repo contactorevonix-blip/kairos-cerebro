@@ -378,22 +378,24 @@ function renderLandingPage() {
     .demo-note { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
     /* HOW IT WORKS — elite terminal style */
-    .steps-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: start; margin-top: 3rem; gap: 0; }
+    .steps-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: stretch; margin-top: 3rem; gap: 0; }
     @media (max-width: 900px) { .steps-flow { grid-template-columns: 1fr; gap: 1.5rem; } .step-arrow { display: none !important; } }
     .step-terminal {
       background: #0d0d0d; border: 1px solid var(--border-strong);
       border-radius: 12px; overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
-      transition: box-shadow 300ms, transform 300ms;
+      transition: box-shadow 300ms;
+      display: flex; flex-direction: column; height: 100%;
     }
     .step-terminal:hover {
       box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(0,217,126,0.07);
-      transform: translateY(-3px);
+      /* NO transform here — JS tilt handles it */
     }
     .step-term-header {
       background: #1a1a1a; border-bottom: 1px solid var(--border);
       padding: 0.625rem 1rem;
       display: flex; align-items: center; gap: 0.75rem;
+      flex-shrink: 0;
     }
     .step-term-dots { display: flex; gap: 5px; }
     .step-term-dot { width: 9px; height: 9px; border-radius: 50%; }
@@ -403,7 +405,8 @@ function renderLandingPage() {
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.06em;
       padding: 0.125rem 0.5rem; border-radius: 4px;
     }
-    .step-term-body { padding: 1.25rem; }
+    .step-term-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .step-term-code { margin-top: auto; }
     .step-term-title { font-size: var(--text-base); font-weight: 600; margin-bottom: 0.375rem; color: var(--text); }
     .step-term-desc { font-size: var(--text-sm); color: var(--text-tertiary); line-height: 1.55; margin-bottom: 1rem; }
     .step-term-code {
@@ -1466,19 +1469,25 @@ function renderLandingPage() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var cards = document.querySelectorAll('.tilt-card');
       cards.forEach(function(card) {
+        // Store original transform to restore on leave
+        var origTransform = getComputedStyle(card).transform;
+        card.addEventListener('mouseenter', function() {
+          origTransform = getComputedStyle(card).transform;
+        });
         card.addEventListener('mousemove', function(e) {
           var r = card.getBoundingClientRect();
           var x = e.clientX - r.left;
           var y = e.clientY - r.top;
-          var cx = r.width / 2;
+          var cx = r.width  / 2;
           var cy = r.height / 2;
-          var rY =  ((x - cx) / cx) * 8;
-          var rX = -((y - cy) / cy) * 5;
-          card.style.transform = 'perspective(800px) rotateX(' + rX + 'deg) rotateY(' + rY + 'deg) scale(1.02)';
+          // Higher angles = more visible tilt; no scale so it doesn't look like zoom
+          var rY =  ((x - cx) / cx) * 12;
+          var rX = -((y - cy) / cy) * 8;
+          card.style.transform = 'perspective(900px) rotateX(' + rX + 'deg) rotateY(' + rY + 'deg)';
           card.style.transition = 'transform 0ms';
         });
         card.addEventListener('mouseleave', function() {
-          card.style.transition = 'transform 450ms ease';
+          card.style.transition = 'transform 500ms cubic-bezier(0.23, 1, 0.32, 1)';
           card.style.transform = '';
         });
       });
