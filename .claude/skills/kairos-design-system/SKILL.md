@@ -429,6 +429,27 @@ ALWAYS include:
 - Form labels associated with inputs (label[for] or aria-label)
 - Icons without text: aria-label or aria-hidden="true" with adjacent text
 
+## Layout Rules — CRITICAL (violations cause alignment bugs)
+
+1. **NEVER** use `style="max-width:Xpx"` without `margin: 0 auto` on centred elements.
+   Always use a CSS class with explicit `margin: 0 auto` for centred content.
+
+2. **NEVER** place important UI elements (demo, CTA, form) with inline styles.
+   Define a CSS class. Inline styles are allowed ONLY for one-off overrides.
+
+3. **ALWAYS** verify alignment at 3 breakpoints: 1200px, 768px, 375px.
+   Left-aligned content on desktop = broken layout. Check in the mental model before shipping.
+
+4. **Demo / interactive elements** MUST:
+   - Be max-width centred with `margin: 0 auto`
+   - Have the browser-frame treatment (looks like a real product)
+   - Have an AI-feel: "processing" state, animated result, verdict badge
+
+5. **Code blocks inside sections** MUST:
+   - Use the browser-frame pattern (coloured dots + URL/filename bar)
+   - Have a copy-to-clipboard button
+   - Use colour syntax highlighting via `<span>` classes
+
 ## Anti-patterns (auto-reject, no exceptions)
 - Inline styles (only CSS classes)
 - !important (only for prefers-reduced-motion)

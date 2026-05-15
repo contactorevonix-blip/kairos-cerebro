@@ -287,52 +287,172 @@ function renderLandingPage() {
     .c-yellow { color: #fbbf24; }
     .c-dim { color: var(--text-tertiary); }
 
-    /* LIVE DEMO */
-    .demo-card {
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 10px; padding: 1.5rem;
+    /* LIVE DEMO — premium AI interface */
+    .demo-wrap {
+      max-width: 680px; margin: 3rem auto 0;
     }
+    .demo-card {
+      background: #0d0d0d;
+      border: 1px solid var(--border-strong);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+    }
+    .demo-header {
+      background: #161616; border-bottom: 1px solid var(--border);
+      padding: 0.625rem 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .demo-dots { display: flex; gap: 6px; }
+    .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .demo-dot.r { background: #ff5f57; }
+    .demo-dot.a { background: #ffbd2e; }
+    .demo-dot.g { background: #28c840; }
+    .demo-title-bar {
+      flex: 1; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; padding: 0.2rem 0.75rem;
+      font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-tertiary);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .demo-title-bar .live-dot { width: 5px; height: 5px; }
+    .demo-body { padding: 1.5rem; }
     .demo-label {
       font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 1rem;
+      letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem;
     }
-    .demo-input-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .demo-input-row {
+      display: flex; gap: 0.5rem; margin-bottom: 1rem;
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: 8px; padding: 0.375rem 0.375rem 0.375rem 1rem;
+      transition: border-color 200ms;
+    }
+    .demo-input-row:focus-within { border-color: rgba(0,217,126,0.4); }
     .demo-input {
-      flex: 1; background: var(--surface-2); border: 1px solid var(--border-strong);
+      flex: 1; background: none; border: none;
       color: var(--text); font-family: var(--font-mono); font-size: var(--text-sm);
-      padding: 0.625rem 0.875rem; border-radius: 6px; outline: none;
-      transition: border-color 150ms;
+      outline: none; padding: 0.25rem 0;
     }
-    .demo-input:focus { border-color: var(--accent); }
     .demo-input::placeholder { color: var(--text-tertiary); }
     .demo-btn {
       background: var(--accent); color: #000; border: none; font-size: var(--text-sm);
-      font-weight: 600; font-family: var(--font-sans); padding: 0.625rem 1.25rem;
-      border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background 150ms;
+      font-weight: 700; font-family: var(--font-sans); padding: 0.5rem 1.25rem;
+      border-radius: 6px; cursor: pointer; white-space: nowrap;
+      transition: background 150ms, transform 100ms;
       flex-shrink: 0;
     }
     .demo-btn:hover:not(:disabled) { background: var(--accent-hover); }
+    .demo-btn:active:not(:disabled) { transform: scale(0.97); }
     .demo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .demo-result { min-height: 80px; display: flex; align-items: center; justify-content: center; }
-    .demo-placeholder { font-size: var(--text-sm); color: var(--text-tertiary); font-style: italic; }
+    .demo-result { min-height: 90px; display: flex; align-items: center; justify-content: center; }
+    .demo-placeholder { font-size: var(--text-sm); color: var(--text-tertiary); }
+    .demo-thinking {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: var(--text-sm); color: var(--text-tertiary); font-family: var(--font-mono);
+    }
+    .thinking-dots span {
+      display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); opacity: 0.4; margin: 0 1px;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    .thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
     .verdict-card { width: 100%; }
-    .verdict-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .verdict-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem; }
     .verdict-domain { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--text-secondary); }
     .verdict-badge {
       font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em;
-      padding: 0.25rem 0.625rem; border-radius: 4px;
+      padding: 0.3rem 0.75rem; border-radius: 999px;
     }
-    .verdict-ALLOW { background: rgba(0,217,126,0.15); color: var(--accent); }
-    .verdict-REVIEW { background: rgba(245,158,11,0.15); color: var(--warning); }
-    .verdict-BLOCK { background: rgba(239,68,68,0.15); color: var(--danger); }
-    .verdict-score { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+    .verdict-ALLOW { background: rgba(0,217,126,0.15); color: var(--accent); border: 1px solid rgba(0,217,126,0.25); }
+    .verdict-REVIEW { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid rgba(245,158,11,0.25); }
+    .verdict-BLOCK { background: rgba(239,68,68,0.15); color: var(--danger); border: 1px solid rgba(239,68,68,0.25); }
+    .verdict-score-row { display: flex; align-items: baseline; gap: 0.375rem; margin-bottom: 0.75rem; }
+    .verdict-score { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+    .verdict-score-max { font-size: var(--text-sm); color: var(--text-tertiary); font-weight: 400; }
     .verdict-signals { display: flex; flex-wrap: wrap; gap: 0.375rem; }
     .signal-chip {
       font-size: 0.6875rem; font-family: var(--font-mono);
       background: var(--surface-2); border: 1px solid var(--border);
-      color: var(--text-tertiary); padding: 0.2rem 0.5rem; border-radius: 4px;
+      color: var(--text-tertiary); padding: 0.2rem 0.625rem; border-radius: 4px;
     }
-    .demo-note { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 0.875rem; }
+    .demo-note { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    /* HOW IT WORKS — elite terminal style */
+    .steps-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: start; margin-top: 3rem; gap: 0; }
+    @media (max-width: 900px) { .steps-flow { grid-template-columns: 1fr; gap: 1.5rem; } .step-arrow { display: none !important; } }
+    .step-terminal {
+      background: #0d0d0d; border: 1px solid var(--border-strong);
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      transition: box-shadow 300ms, transform 300ms;
+    }
+    .step-terminal:hover {
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(0,217,126,0.07);
+      transform: translateY(-3px);
+    }
+    .step-term-header {
+      background: #1a1a1a; border-bottom: 1px solid var(--border);
+      padding: 0.625rem 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .step-term-dots { display: flex; gap: 5px; }
+    .step-term-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .step-num-badge {
+      margin-left: auto; background: rgba(0,217,126,0.1); border: 1px solid rgba(0,217,126,0.2);
+      color: var(--accent); font-family: var(--font-mono);
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 0.125rem 0.5rem; border-radius: 4px;
+    }
+    .step-term-body { padding: 1.25rem; }
+    .step-term-title { font-size: var(--text-base); font-weight: 600; margin-bottom: 0.375rem; color: var(--text); }
+    .step-term-desc { font-size: var(--text-sm); color: var(--text-tertiary); line-height: 1.55; margin-bottom: 1rem; }
+    .step-term-code {
+      background: rgba(0,0,0,0.4); border-radius: 6px;
+      padding: 0.875rem 1rem; overflow-x: auto;
+    }
+    .step-term-code pre { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.7; color: var(--text-secondary); white-space: pre; }
+    .step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 3rem; color: var(--border-strong); font-size: 1.25rem;
+    }
+
+    /* INTEGRATION — language tabs */
+    .integration-tabs { display: flex; gap: 0; margin-top: 2.5rem; border-bottom: 1px solid var(--border); }
+    .tab-btn {
+      background: none; border: none; cursor: pointer; font-family: var(--font-sans);
+      font-size: var(--text-sm); color: var(--text-tertiary);
+      padding: 0.625rem 1.25rem; border-bottom: 2px solid transparent;
+      transition: color 150ms, border-color 150ms; margin-bottom: -1px;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .integration-code {
+      background: #0d0d0d; border: 1px solid var(--border-strong); border-top: none;
+      border-radius: 0 0 12px 12px; overflow: hidden;
+    }
+    .integration-code-header {
+      background: #161616; border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .integration-filename { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-tertiary); }
+    .integration-copy {
+      background: none; border: 1px solid var(--border-strong); color: var(--text-secondary);
+      font-size: 0.6875rem; font-family: var(--font-sans);
+      padding: 0.2rem 0.625rem; border-radius: 4px; cursor: pointer; transition: all 150ms;
+    }
+    .integration-copy:hover { border-color: var(--text-secondary); color: var(--text); }
+    .integration-body { padding: 1.5rem; overflow-x: auto; }
+    .integration-body pre {
+      font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.75;
+      color: var(--text-secondary); white-space: pre;
+      counter-reset: line;
+    }
+    .line { display: flex; }
+    .line-num { user-select: none; color: var(--border-strong); width: 2rem; flex-shrink: 0; text-align: right; margin-right: 1.5rem; font-size: 0.6875rem; padding-top: 0.125rem; }
 
     /* HERO CTAS */
     .hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
@@ -704,27 +824,40 @@ function renderLandingPage() {
           </div><!-- end hero-visual-wrap -->
         </div>
 
-        <!-- Live demo -->
-        <div style="max-width:560px; margin-top:2rem;">
-          <div class="demo-card" role="region" aria-label="Live domain check demo">
-            <p class="demo-label">Live demo — no account required</p>
-            <div class="demo-input-row">
-              <input
-                type="text"
-                class="demo-input"
-                id="demo-domain"
-                placeholder="e.g. suspicious-site.io"
-                aria-label="Domain to check"
-                maxlength="128"
-                autocomplete="off"
-                spellcheck="false"
-              >
-              <button class="demo-btn" id="demo-btn" aria-live="polite">Check now</button>
+        <!-- Live demo — centred, premium AI interface -->
+        <div class="demo-wrap">
+          <div class="demo-card" role="region" aria-label="Live domain fraud check">
+            <div class="demo-header" aria-hidden="true">
+              <div class="demo-dots">
+                <div class="demo-dot r"></div>
+                <div class="demo-dot a"></div>
+                <div class="demo-dot g"></div>
+              </div>
+              <div class="demo-title-bar">
+                <span class="live-dot"></span>
+                kairos check — live fraud scoring
+              </div>
             </div>
-            <div class="demo-result" id="demo-result" aria-live="polite" aria-atomic="true">
-              <p class="demo-placeholder">Enter any domain to see a real score.</p>
+            <div class="demo-body">
+              <p class="demo-label">Try it — no account required</p>
+              <div class="demo-input-row">
+                <input
+                  type="text"
+                  class="demo-input"
+                  id="demo-domain"
+                  placeholder="Enter any domain, e.g. suspicious-shop.io"
+                  aria-label="Domain to check for fraud"
+                  maxlength="128"
+                  autocomplete="off"
+                  spellcheck="false"
+                >
+                <button class="demo-btn" id="demo-btn">Check now</button>
+              </div>
+              <div class="demo-result" id="demo-result" aria-live="polite" aria-atomic="true">
+                <p class="demo-placeholder">Enter any domain to see a real fraud score.</p>
+              </div>
+              <p class="demo-note">10 free checks/hour per IP · Domain checks only in demo · Full API unlocks all entity types</p>
             </div>
-            <p class="demo-note">Rate-limited to 10 checks/hour per IP. Domain checks only in demo.</p>
           </div>
         </div>
       </div>
@@ -736,27 +869,72 @@ function renderLandingPage() {
         <p class="section-label">How it works</p>
         <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
         <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
-        <div class="steps-grid">
-          <div class="step-card tilt-card">
-            <div class="step-number">01 — Get your key</div>
-            <h3 class="step-title">Subscribe and get an API key instantly</h3>
-            <p class="step-desc">Choose a plan, pay with card, receive your key by email. No waiting, no approval, no KYC.</p>
-            <div class="step-code"><pre><span style="color:var(--accent)">x-api-key</span>: kc_live_xxxxxxxxxxxx</pre></div>
+        <div class="steps-flow">
+
+          <!-- Step 1 -->
+          <div class="step-terminal tilt-card">
+            <div class="step-term-header" aria-hidden="true">
+              <div class="step-term-dots">
+                <div class="step-term-dot" style="background:#ff5f57"></div>
+                <div class="step-term-dot" style="background:#ffbd2e"></div>
+                <div class="step-term-dot" style="background:#28c840"></div>
+              </div>
+              <span class="step-num-badge">STEP 01</span>
+            </div>
+            <div class="step-term-body">
+              <div class="step-term-title">Get your API key</div>
+              <div class="step-term-desc">Subscribe, pay with card, receive your key by email. Under 60 seconds. No KYC, no approval.</div>
+              <div class="step-term-code"><pre><span style="color:var(--text-tertiary)">~</span> <span style="color:#28c840">✓</span> Subscription activated
+<span style="color:var(--text-tertiary)">~</span> <span style="color:#28c840">✓</span> API key generated
+<span style="color:var(--text-tertiary)">~</span> Key: <span style="color:var(--accent)">kc_live_</span><span style="color:var(--text-tertiary)">••••••••••••</span></pre></div>
+            </div>
           </div>
-          <div class="step-card tilt-card">
-            <div class="step-number">02 — One POST call</div>
-            <h3 class="step-title">Send the domain, email, phone or IBAN</h3>
-            <p class="step-desc">No SDK required. Works with any language that can make an HTTP request.</p>
-            <div class="step-code"><pre><span style="color:var(--text-tertiary)">POST</span> /api/check
-<span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"susp.io"</span></pre></div>
+
+          <div class="step-arrow" aria-hidden="true">→</div>
+
+          <!-- Step 2 -->
+          <div class="step-terminal tilt-card">
+            <div class="step-term-header" aria-hidden="true">
+              <div class="step-term-dots">
+                <div class="step-term-dot" style="background:#ff5f57"></div>
+                <div class="step-term-dot" style="background:#ffbd2e"></div>
+                <div class="step-term-dot" style="background:#28c840"></div>
+              </div>
+              <span class="step-num-badge">STEP 02</span>
+            </div>
+            <div class="step-term-body">
+              <div class="step-term-title">One POST call</div>
+              <div class="step-term-desc">Domain, email, phone or IBAN. No SDK. Works with any language or platform.</div>
+              <div class="step-term-code"><pre><span style="color:var(--text-tertiary)">POST</span> <span style="color:#60a5fa">/api/check</span>
+<span style="color:var(--text-tertiary)">{</span>
+  <span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"suspicious.io"</span>
+<span style="color:var(--text-tertiary)">}</span></pre></div>
+            </div>
           </div>
-          <div class="step-card tilt-card">
-            <div class="step-number">03 — Act on the score</div>
-            <h3 class="step-title">Block, flag for review, or allow</h3>
-            <p class="step-desc">Every response includes a score (0–100), a verdict, and the exact signals that triggered it.</p>
-            <div class="step-code"><pre><span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>
-<span style="color:#60a5fa">"score"</span>: <span style="color:var(--accent)">94</span></pre></div>
+
+          <div class="step-arrow" aria-hidden="true">→</div>
+
+          <!-- Step 3 -->
+          <div class="step-terminal tilt-card">
+            <div class="step-term-header" aria-hidden="true">
+              <div class="step-term-dots">
+                <div class="step-term-dot" style="background:#ff5f57"></div>
+                <div class="step-term-dot" style="background:#ffbd2e"></div>
+                <div class="step-term-dot" style="background:#28c840"></div>
+              </div>
+              <span class="step-num-badge">STEP 03</span>
+            </div>
+            <div class="step-term-body">
+              <div class="step-term-title">Instant verdict</div>
+              <div class="step-term-desc">Score 0–100, verdict, and the exact signals behind it. Explainable by design.</div>
+              <div class="step-term-code"><pre><span style="color:var(--text-tertiary)">{</span>
+  <span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>,
+  <span style="color:#60a5fa">"score"</span>:   <span style="color:var(--accent)">94</span>,
+  <span style="color:#60a5fa">"ms"</span>:      <span style="color:#fbbf24">138</span>
+<span style="color:var(--text-tertiary)">}</span></pre></div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -868,80 +1046,150 @@ function renderLandingPage() {
       </div>
     </section>
 
-    <!-- ── USE CASES ─────────────────────────────────────────────── -->
-    <section aria-labelledby="usecases-h2">
+    <!-- ── INTEGRATION ───────────────────────────────────────────── -->
+    <section aria-labelledby="integration-h2">
       <div class="container">
         <p class="section-label">Integration</p>
-        <h2 class="section-title" id="usecases-h2">Three integrations, 10 lines each</h2>
-        <p class="section-lead">Drop into any auth flow, checkout hook, or scheduled job.</p>
-        <div class="usecase-grid">
-          <article class="usecase-card tilt-card">
-            <div class="usecase-header">
-              <p class="usecase-tag">Signup flow</p>
-              <h3 class="usecase-title">Block fraudulent signups</h3>
-              <p class="usecase-desc">Check a new user's email domain before creating an account.</p>
+        <h2 class="section-title" id="integration-h2">Works with any stack</h2>
+        <p class="section-lead">One REST endpoint. No SDK required. Copy, paste, ship.</p>
+
+        <!-- Language tabs -->
+        <div class="integration-tabs" role="tablist" aria-label="Code examples by language">
+          <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-js" id="btn-js">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect width="14" height="14" rx="2" fill="#f7df1e"/><path d="M3.5 10.5l.875-.53c.17.3.325.555.7.555.357 0 .583-.14.583-.686V5.833h1.075v4.03c0 1.13-.661 1.644-1.627 1.644-.873 0-1.379-.452-1.64-.977l.034.97zm4.067-.14l.875-.507c.23.375.528.651 1.056.651.443 0 .727-.222.727-.527 0-.366-.292-.496-.783-.71l-.27-.116c-.777-.33-1.293-.745-1.293-1.62 0-.805.614-1.418 1.573-1.418.683 0 1.173.237 1.527.857l-.838.537c-.184-.33-.383-.46-.69-.46-.313 0-.512.198-.512.46 0 .322.199.452.659.652l.27.115c.914.392 1.43.792 1.43 1.69 0 .968-.76 1.496-1.782 1.496-.999 0-1.645-.477-1.96-1.1l.001-.013z" fill="#000"/></svg>
+            JavaScript
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-python" id="btn-python">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect width="14" height="14" rx="2" fill="#3776ab"/><path d="M7 2C5.3 2 4.5 2.7 4.5 3.5v.5h5v.5H4.5c-.8 0-1.5.7-1.5 1.5v2c0 .8.7 1.5 1.5 1.5h.5v-.5c0-.8.7-1.5 1.5-1.5h2c.8 0 1.5.7 1.5 1.5V11c0 .8-.7 1.5-1.5 1.5H7C5.3 12.5 4.5 11.8 4.5 11v-.5h-2V11c0 1.7 1.3 2.5 4.5 2.5S11 12.7 11 11V9.5c0-1.7-1.3-2.5-4.5-2.5z" fill="#fff" opacity=".8"/></svg>
+            Python
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-curl" id="btn-curl">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect width="14" height="14" rx="2" fill="#2d2d2d"/><path d="M2 7h10M7 2v10" stroke="#00d97e" stroke-width="1.5" stroke-linecap="round"/></svg>
+            cURL
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-php" id="btn-php">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect width="14" height="14" rx="2" fill="#777bb4"/><text x="3" y="10" font-family="monospace" font-size="7" font-weight="bold" fill="#fff">PHP</text></svg>
+            PHP
+          </button>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="tab-panel active" id="tab-js" role="tabpanel" aria-labelledby="btn-js">
+          <div class="integration-code">
+            <div class="integration-code-header">
+              <span class="integration-filename">fraud-check.js</span>
+              <button class="integration-copy" data-copy-target="code-js">Copy</button>
             </div>
-            <div class="usecase-code">
-              <pre>const res = await fetch(
-  'https://kairoscheck.net/api/check',
-  {
-    method: 'POST',
+            <div class="integration-body">
+              <pre id="code-js"><span style="color:var(--text-tertiary)">// Block fraudulent signups in Node.js / browser</span>
+<span style="color:#c084fc">async function</span> <span style="color:#60a5fa">checkFraud</span>(domain) {
+  <span style="color:#c084fc">const</span> res = <span style="color:#c084fc">await</span> <span style="color:#60a5fa">fetch</span>(<span style="color:#fbbf24">'https://kairoscheck.net/api/check'</span>, {
+    method: <span style="color:#fbbf24">'POST'</span>,
     headers: {
-      'Authorization': 'Bearer ' + KC_KEY,
-      'Content-Type': 'application/json'
+      <span style="color:#fbbf24">'Authorization'</span>: <span style="color:#fbbf24">\`Bearer \${KC_API_KEY}\`</span>,
+      <span style="color:#fbbf24">'Content-Type'</span>:  <span style="color:#fbbf24">'application/json'</span>,
     },
-    body: JSON.stringify({
-      domain: email.split('@')[1]
-    })
-  }
-);
-const { verdict } = await res.json();
-if (verdict === 'BLOCK') throw new Error('Signup denied');</pre>
-            </div>
-          </article>
-          <article class="usecase-card tilt-card">
-            <div class="usecase-header">
-              <p class="usecase-tag">E-commerce</p>
-              <h3 class="usecase-title">Pre-validate before checkout</h3>
-              <p class="usecase-desc">Score the customer's domain before accepting a Stripe charge.</p>
-            </div>
-            <div class="usecase-code">
-              <pre>// Shopify / Stripe webhook handler
-app.post('/checkout/validate', async (req, res) => {
-  const { email, domain } = req.body;
-  const check = await kairosCheck({ domain });
+    body: <span style="color:#60a5fa">JSON.stringify</span>({ domain }),
+  });
 
-  if (check.verdict === 'BLOCK') {
-    return res.status(400).json({
-      error: 'Order rejected by fraud check',
-      ref: check.audit_id
-    });
-  }
-  // proceed with payment...
-});</pre>
-            </div>
-          </article>
-          <article class="usecase-card tilt-card">
-            <div class="usecase-header">
-              <p class="usecase-tag">Monitoring</p>
-              <h3 class="usecase-title">Scan your customer base daily</h3>
-              <p class="usecase-desc">Run a cron job to flag high-risk accounts before they charge back.</p>
-            </div>
-            <div class="usecase-code">
-              <pre>// cron.js — runs daily at 2am
-const customers = await db.getActiveCustomers();
-for (const c of customers) {
-  const { score, verdict } =
-    await kairosCheck({ domain: c.domain });
+  <span style="color:#c084fc">const</span> { verdict, score, signals } = <span style="color:#c084fc">await</span> res.<span style="color:#60a5fa">json</span>();
 
-  if (verdict === 'BLOCK' && c.riskScore < 70) {
-    await db.flagForReview(c.id, { score });
-    await notify.slack(c.id, score);
-  }
+  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'BLOCK'</span>) <span style="color:#c084fc">throw new</span> <span style="color:#60a5fa">Error</span>(<span style="color:#fbbf24">'Signup denied'</span>);
+  <span style="color:#c084fc">if</span> (verdict === <span style="color:#fbbf24">'REVIEW'</span>) <span style="color:#60a5fa">flagForReview</span>(domain, score);
+
+  <span style="color:#c084fc">return</span> { verdict, score, signals };
 }</pre>
             </div>
-          </article>
+          </div>
         </div>
+
+        <!-- Python -->
+        <div class="tab-panel" id="tab-python" role="tabpanel" aria-labelledby="btn-python">
+          <div class="integration-code">
+            <div class="integration-code-header">
+              <span class="integration-filename">fraud_check.py</span>
+              <button class="integration-copy" data-copy-target="code-python">Copy</button>
+            </div>
+            <div class="integration-body">
+              <pre id="code-python"><span style="color:var(--text-tertiary)"># Block fraudulent signups in Python</span>
+<span style="color:#c084fc">import</span> requests
+
+<span style="color:#c084fc">def</span> <span style="color:#60a5fa">check_fraud</span>(domain: str) -> dict:
+    resp = requests.<span style="color:#60a5fa">post</span>(
+        <span style="color:#fbbf24">"https://kairoscheck.net/api/check"</span>,
+        headers={
+            <span style="color:#fbbf24">"Authorization"</span>: <span style="color:#fbbf24">f"Bearer {KC_API_KEY}"</span>,
+            <span style="color:#fbbf24">"Content-Type"</span>:  <span style="color:#fbbf24">"application/json"</span>,
+        },
+        json={<span style="color:#fbbf24">"domain"</span>: domain},
+        timeout=<span style="color:#fbbf24">10</span>,
+    )
+    resp.<span style="color:#60a5fa">raise_for_status</span>()
+    data = resp.<span style="color:#60a5fa">json</span>()
+
+    <span style="color:#c084fc">if</span> data[<span style="color:#fbbf24">"verdict"</span>] == <span style="color:#fbbf24">"BLOCK"</span>:
+        <span style="color:#c084fc">raise</span> <span style="color:#60a5fa">ValueError</span>(<span style="color:#fbbf24">"Signup denied"</span>)
+
+    <span style="color:#c084fc">return</span> data  <span style="color:var(--text-tertiary)"># verdict, score, signals</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- cURL -->
+        <div class="tab-panel" id="tab-curl" role="tabpanel" aria-labelledby="btn-curl">
+          <div class="integration-code">
+            <div class="integration-code-header">
+              <span class="integration-filename">terminal</span>
+              <button class="integration-copy" data-copy-target="code-curl">Copy</button>
+            </div>
+            <div class="integration-body">
+              <pre id="code-curl"><span style="color:var(--text-tertiary)"># Quick test from your terminal</span>
+<span style="color:#60a5fa">curl</span> https://kairoscheck.net/api/check <span style="color:#fbbf24">\\</span>
+  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Authorization: Bearer kc_live_YOUR_KEY"</span> <span style="color:#fbbf24">\\</span>
+  <span style="color:#60a5fa">-H</span> <span style="color:#fbbf24">"Content-Type: application/json"</span> <span style="color:#fbbf24">\\</span>
+  <span style="color:#60a5fa">-d</span> <span style="color:#fbbf24">'{"domain":"suspicious-shop.io"}'</span>
+
+<span style="color:var(--text-tertiary)"># Response</span>
+{
+  <span style="color:#60a5fa">"verdict"</span>:  <span style="color:var(--danger)">"BLOCK"</span>,
+  <span style="color:#60a5fa">"score"</span>:   <span style="color:var(--accent)">94</span>,
+  <span style="color:#60a5fa">"signals"</span>: [<span style="color:#fbbf24">"newly-registered"</span>, <span style="color:#fbbf24">"checkout-dna"</span>],
+  <span style="color:#60a5fa">"ms"</span>:      <span style="color:#fbbf24">138</span>
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHP -->
+        <div class="tab-panel" id="tab-php" role="tabpanel" aria-labelledby="btn-php">
+          <div class="integration-code">
+            <div class="integration-code-header">
+              <span class="integration-filename">FraudCheck.php</span>
+              <button class="integration-copy" data-copy-target="code-php">Copy</button>
+            </div>
+            <div class="integration-body">
+              <pre id="code-php"><span style="color:var(--text-tertiary)">// Block fraudulent signups in PHP</span>
+<span style="color:#c084fc">function</span> <span style="color:#60a5fa">checkFraud</span>(<span style="color:#fbbf24">string</span> $domain): array {
+    $resp = <span style="color:#60a5fa">json_decode</span>(<span style="color:#60a5fa">file_get_contents</span>(
+        <span style="color:#fbbf24">'https://kairoscheck.net/api/check'</span>,
+        <span style="color:#c084fc">false</span>,
+        <span style="color:#60a5fa">stream_context_create</span>([<span style="color:#fbbf24">'http'</span> => [
+            <span style="color:#fbbf24">'method'</span>  => <span style="color:#fbbf24">'POST'</span>,
+            <span style="color:#fbbf24">'header'</span>  => <span style="color:#fbbf24">"Authorization: Bearer "</span> . KC_API_KEY . <span style="color:#fbbf24">"\r\n"</span>
+                       . <span style="color:#fbbf24">"Content-Type: application/json\r\n"</span>,
+            <span style="color:#fbbf24">'content'</span> => <span style="color:#60a5fa">json_encode</span>([<span style="color:#fbbf24">'domain'</span> => $domain]),
+        ]])
+    ), <span style="color:#c084fc">true</span>);
+
+    <span style="color:#c084fc">if</span> ($resp[<span style="color:#fbbf24">'verdict'</span>] === <span style="color:#fbbf24">'BLOCK'</span>) {
+        <span style="color:#c084fc">throw new</span> \<span style="color:#60a5fa">RuntimeException</span>(<span style="color:#fbbf24">'Signup denied'</span>);
+    }
+    <span style="color:#c084fc">return</span> $resp;
+}</pre>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1140,8 +1388,8 @@ for (const c of customers) {
           return;
         }
         btn.disabled = true;
-        btn.textContent = 'Checking...';
-        setResult('<p class="demo-placeholder">Scoring ' + domain + '…</p>');
+        btn.textContent = 'Analysing…';
+        setResult('<div class="demo-thinking"><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-tertiary)">Scoring ' + domain + '</span><span class="thinking-dots"><span></span><span></span><span></span></span></div>');
 
         try {
           var res = await fetch('/api/check-public', {
@@ -1168,7 +1416,10 @@ for (const c of customers) {
                 '<span class="verdict-domain">' + domain + '</span>' +
                 '<span class="verdict-badge verdict-' + data.verdict + '">' + data.verdict + '</span>' +
               '</div>' +
-              '<div class="verdict-score" style="color:' + verdictColor(data.verdict) + '">' + data.score + '<span style="font-size:var(--text-base);color:var(--text-tertiary);font-weight:400"> /100</span></div>' +
+              '<div class="verdict-score-row">' +
+                '<span class="verdict-score" style="color:' + verdictColor(data.verdict) + '">' + data.score + '</span>' +
+                '<span class="verdict-score-max">/100</span>' +
+              '</div>' +
               '<div class="verdict-signals">' + chipsHtml + '</div>' +
             '</div>'
           );
@@ -1182,6 +1433,32 @@ for (const c of customers) {
 
       btn.addEventListener('click', runCheck);
       input.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCheck(); });
+    })();
+
+    // Integration language tabs
+    (function() {
+      var tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          tabs.forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+          var target = document.getElementById(btn.getAttribute('aria-controls'));
+          if (target) target.classList.add('active');
+        });
+      });
+      // Copy buttons
+      document.querySelectorAll('.integration-copy').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var pre = document.getElementById(btn.dataset.copyTarget);
+          if (!pre) return;
+          navigator.clipboard.writeText(pre.innerText || pre.textContent || '').then(function() {
+            btn.textContent = 'Copied ✓';
+            setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+          }).catch(function() { btn.textContent = 'Failed'; setTimeout(function() { btn.textContent = 'Copy'; }, 2000); });
+        });
+      });
     })();
 
     // Tilt effect on all cards
