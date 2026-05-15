@@ -46,7 +46,8 @@
       "PowerShell(refreshenv *)",
       "Bash(npm i *)",
       "Bash(claude --version)",
-      "PowerShell(claude *)"
+      "PowerShell(claude *)",
+      "Bash(npm test *)"
     ]
   },
   "hooks": {
