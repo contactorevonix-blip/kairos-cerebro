@@ -18,7 +18,7 @@ const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
 const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
 const { renderPrivacy, renderTerms } = require('./legal-pages');
-const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift, renderCompareSeon, renderCompareMaxmind } = require('./trust-pages');
+const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift, renderCompareSeon, renderCompareMaxmind, renderFraudDetectionApi } = require('./trust-pages');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -201,6 +201,10 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, renderCompareSift(), { 'cache-control': 'public, max-age=3600' });
       return;
     }
+    if (method === 'GET' && (url === '/fraud-detection-api' || url === '/fraud-detection-api/')) {
+      sendHtml(res, renderFraudDetectionApi(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
     if (method === 'GET' && url === '/compare/seon') {
       sendHtml(res, renderCompareSeon(), { 'cache-control': 'public, max-age=3600' });
       return;
@@ -378,7 +382,7 @@ const server = http.createServer(async (req, res) => {
         '/docs/api/authentication', '/docs/api/batch', '/docs/api/webhooks',
         '/docs/api/errors', '/docs/guides/how-it-works', '/docs/guides/gdpr',
         '/compare/stripe-radar', '/compare/sift', '/compare/seon', '/compare/maxmind',
-        '/examples', '/changelog', '/status',
+        '/fraud-detection-api', '/examples', '/changelog', '/status',
       ];
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -387,6 +391,38 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 </urlset>`;
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=86400' });
       res.end(xml);
+      return;
+    }
+
+    // ─── Usage analytics ─────────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/analytics') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const cr2 = require('crypto');
+      const hash2 = cr2.createHash('sha256').update(raw).digest('hex');
+      const keyRec = readKeys().find(k => k.api_key_hash === hash2);
+      if (!keyRec || !isKeyActive(keyRec)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      const tenantId = keyRec.tenant_id || keyRec.customer_id || keyRec.api_key_hash;
+      const { getTokenHistory, getTokenBalance } = require('../sniper-db');
+      const history = getTokenHistory(tenantId, 100);
+      const debits = history.filter(h => h.type === 'debit');
+      const credits = history.filter(h => h.type === 'credit');
+      const byType = debits.reduce((acc, h) => {
+        const t = h.entity_type || 'unknown';
+        acc[t] = (acc[t] || 0) + 1;
+        return acc;
+      }, {});
+      const totalChecks = debits.length;
+      const totalTokensUsed = debits.reduce((s, h) => s + (h.amount || 0), 0);
+      const totalTokensAdded = credits.reduce((s, h) => s + (h.amount || 0), 0);
+      sendJson(res, 200, {
+        balance: getTokenBalance(tenantId),
+        total_checks: totalChecks,
+        total_tokens_used: totalTokensUsed,
+        total_tokens_added: totalTokensAdded,
+        checks_by_type: byType,
+        recent: debits.slice(0, 10).map(h => ({ type: h.entity_type, tokens: h.amount, ts: h.ts })),
+      });
       return;
     }
 

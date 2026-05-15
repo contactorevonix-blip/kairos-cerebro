@@ -1367,6 +1367,37 @@ function renderLandingPage() {
       </div>
     </section>
 
+    <!-- ── HOW THE INTELLIGENCE WORKS ──────────────────────────── -->
+    <section aria-labelledby="intel-h2">
+      <div class="container">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title" id="intel-h2">How the intelligence <span class="gradient-text">works</span></h2>
+        <p class="section-lead">Every check runs through 9 layers in under 200ms. Here's exactly what happens when you call the API.</p>
+        <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr;gap:0;">
+          ${[
+            { n:'0', color:'#00d97e', label:'Layer 0 — Domain Heuristic', desc:'Brand impersonation (37 brands), homograph attacks (paypa1→paypal), high-risk TLDs (.store .shop .xyz). Runs in <10ms before any OSINT.', tag:'<span style="background:rgba(0,217,126,.15);color:#00d97e;font-size:.6875rem;font-weight:700;padding:.125rem .5rem;border-radius:4px;font-family:monospace;">~10ms</span>' },
+            { n:'1-4', color:'#60a5fa', label:'Layers 1–4 — OSINT Signals', desc:'DNS/WHOIS history, ASN reputation, scam pattern NLP (6 languages), checkout funnel analysis. Public signals only — no PII required.', tag:'<span style="background:rgba(96,165,250,.12);color:#60a5fa;font-size:.6875rem;font-weight:700;padding:.125rem .5rem;border-radius:4px;font-family:monospace;">~80ms</span>' },
+            { n:'5-8', color:'#c084fc', label:'Layers 5–8 — Deep Intelligence', desc:'Reputation evasion detection, n-gram similarity against confirmed scam corpus, live reputation data, and the cross-tenant reputation graph.', tag:'<span style="background:rgba(192,132,252,.12);color:#c084fc;font-size:.6875rem;font-weight:700;padding:.125rem .5rem;border-radius:4px;font-family:monospace;">~100ms</span>' },
+            { n:'∑', color:'#f59e0b', label:'Fusion — Composite Score', desc:'All layer scores are weighted and fused into a single verdict: BLOCK (≥60), REVIEW (30–59), or ALLOW (<30). Each signal is explainable.', tag:'<span style="background:rgba(245,158,11,.12);color:#f59e0b;font-size:.6875rem;font-weight:700;padding:.125rem .5rem;border-radius:4px;font-family:monospace;"><200ms total</span>' },
+          ].map(({n,color,label,desc,tag},i,arr) => `
+          <div style="display:flex;gap:1.25rem;padding:1.25rem 0;${i < arr.length-1 ? 'border-bottom:1px solid var(--border);' : ''}">
+            <div style="flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.875rem;font-weight:700;color:${color};">${n}</div>
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:.625rem;margin-bottom:.375rem;flex-wrap:wrap;">
+                <span style="font-size:.9375rem;font-weight:600;color:var(--text);">${label}</span>
+                ${tag}
+              </div>
+              <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.6;margin:0;">${desc}</p>
+            </div>
+          </div>`).join('')}
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem 1.5rem;background:rgba(0,217,126,.05);border:1px solid rgba(0,217,126,.15);border-radius:10px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <p style="font-size:.875rem;color:var(--text-secondary);flex:1;margin:0;"><strong style="color:var(--text);">Zero PII required.</strong> We analyse only publicly available signals — domain registration, DNS records, ASN reputation, scam patterns. Your users' personal data never leaves your server.</p>
+          <a href="/docs/guides/how-it-works" style="background:var(--accent);color:#000;font-size:.8125rem;font-weight:700;padding:.625rem 1.125rem;border-radius:7px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Full technical guide →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── NETWORK INTELLIGENCE ─────────────────────────────────── -->
 
     <section class="network-section reveal" aria-labelledby="network-h2">

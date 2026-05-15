@@ -997,6 +997,126 @@ function renderCompareMaxmind() {
   </main>`);
 }
 
+// ─── /fraud-detection-api ─────────────────────────────────────────────────────
+// Targets: "fraud detection api", "fraud detection api nodejs", "fraud api europe"
+
+function renderFraudDetectionApi() {
+  const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fraud Detection API for Developers — Kairos Check</title>
+  <meta name="description" content="The simplest fraud detection API for indie devs. One POST call. Zero dependencies. Detects domain fraud, disposable emails, phone fraud, IBAN fraud. GDPR-native. Starts free.">
+  <link rel="canonical" href="${base}/fraud-detection-api">
+  <meta property="og:title" content="Fraud Detection API — Kairos Check">
+  <meta property="og:description" content="One POST call. Zero dependencies. OSINT-first fraud scoring for domains, emails, phones, IBANs. GDPR Art.22 native. EU-hosted. Starts free.">
+  ${FONTS}
+  <style>${BASE_CSS}
+  .hero{max-width:900px;margin:0 auto;padding:5rem 1.5rem 4rem;}
+  .hero h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.035em;line-height:1.1;margin-bottom:1rem;}
+  .hero p{font-size:1.0625rem;color:var(--text-secondary);line-height:1.65;margin-bottom:2rem;max-width:640px;}
+  .code-block{background:#0d0d0d;border:1px solid var(--border-strong);border-radius:10px;overflow:hidden;margin:2rem 0;}
+  .code-header{background:#161616;border-bottom:1px solid var(--border);padding:.625rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+  .code-label{font-family:monospace;font-size:.6875rem;color:var(--text-tertiary);}
+  .code-body{padding:1.25rem;font-family:monospace;font-size:.8125rem;line-height:1.7;color:var(--text-secondary);white-space:pre;overflow-x:auto;}
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin:3rem 0;}
+  .feature-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;}
+  .feature-icon{font-size:1.5rem;margin-bottom:.75rem;}
+  .feature-title{font-size:1rem;font-weight:600;margin-bottom:.5rem;}
+  .feature-desc{font-size:.875rem;color:var(--text-secondary);line-height:1.55;}
+  .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin:2rem 0;}
+  .btn-accent{display:inline-flex;background:var(--accent);color:#000;text-decoration:none;font-size:.875rem;font-weight:600;padding:.75rem 1.5rem;border-radius:7px;}
+  .btn-ghost{display:inline-flex;border:1px solid var(--border-strong);color:var(--text);text-decoration:none;font-size:.875rem;font-weight:500;padding:.75rem 1.5rem;border-radius:7px;}
+  .faq{max-width:900px;margin:0 auto;padding:0 1.5rem 5rem;}
+  .faq h2{font-size:1.5rem;font-weight:700;margin-bottom:2rem;}
+  .faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0;}
+  .faq-q{font-size:.9375rem;font-weight:600;margin-bottom:.5rem;}
+  .faq-a{font-size:.875rem;color:var(--text-secondary);line-height:1.6;}
+  </style>
+</head>
+<body>
+  <nav style="position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(12px);">
+    <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="/" style="font-size:1rem;font-weight:600;color:#f5f5f5;text-decoration:none;">Kairos<span style="color:#00d97e;">Check</span></a>
+      <div style="display:flex;gap:1rem;align-items:center;">
+        <a href="/docs" style="color:#a3a3a3;font-size:.875rem;text-decoration:none;">Docs</a>
+        <a href="/pricing" style="background:#00d97e;color:#000;font-size:.875rem;font-weight:600;padding:.5rem 1rem;border-radius:6px;text-decoration:none;">Get API key</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <p style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#737373;margin-bottom:.75rem;font-weight:600;">Fraud Detection API</p>
+    <h1>The fraud detection API<br>indie devs actually use</h1>
+    <p>One POST call. Zero SDK. Zero dependencies. Detects domain fraud, disposable emails, phone fraud, and IBAN fraud in under 200ms. GDPR Art.22 native. EU-hosted. Starts free.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-label">fraud-check.js — Node.js</span></div>
+      <div class="code-body"><span style="color:#a3a3a3">// Check if a domain is fraudulent — one line</span>
+const res = await fetch('https://kairoscheck.net/api/check', {
+  method: 'POST',
+  headers: { 'Authorization': 'Bearer kc_live_your_key',
+             'Content-Type': 'application/json' },
+  body: JSON.stringify({ domain: 'suspicious-shop.io' })
+});
+const { verdict, score, signals } = await res.json();
+<span style="color:#a3a3a3">// → { verdict: "BLOCK", score: 87, signals: ["high-risk-tld", "new-domain"] }</span>
+if (verdict === 'BLOCK') throw new Error('Signup denied');</div>
+    </div>
+
+    <div class="cta-row">
+      <a href="/pricing" class="btn-accent">Start free — 50 checks/month →</a>
+      <a href="/docs/quickstart" class="btn-ghost">Read the docs</a>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">OSINT-first scoring</div>
+        <div class="feature-desc">Layer 0 + 8 OSINT signal layers. Checks domain reputation, DNS history, ASN risk, scam patterns, and more. No black box.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Zero dependencies</div>
+        <div class="feature-desc">One REST endpoint. Works with Node.js, Python, PHP, Go, Ruby, cURL — any language that makes HTTP requests. Nothing to install.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🇪🇺</div>
+        <div class="feature-title">GDPR Art.22 native</div>
+        <div class="feature-desc">Explainable decisions, human oversight built in. EU-hosted (Ireland). Zero data leaves the EU. Approved by DPOs.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🕵️</div>
+        <div class="feature-title">Homograph detection</div>
+        <div class="feature-desc">Catches paypa1.com (where 1 replaces l). Zero competitors catch homograph attacks. Score: 75. BLOCK.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Cross-tenant graph</div>
+        <div class="feature-desc">Every check feeds a shared reputation graph. The more customers use it, the smarter it gets — for everyone.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💶</div>
+        <div class="feature-title">Starts at €29/month</div>
+        <div class="feature-desc">Free tier: 50 checks/month. Starter: €29. One avoided chargeback (avg €75) pays for 2.5 months.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2>Common questions</h2>
+    <div class="faq-item"><div class="faq-q">What entities can Kairos Check score?</div><div class="faq-a">Domains, email addresses, phone numbers, and IBANs. Each costs 1-3 tokens depending on the entity type and scoring depth.</div></div>
+    <div class="faq-item"><div class="faq-q">How fast is the API?</div><div class="faq-a">Under 200ms for standard checks. Under 50ms for SWIFT model (Layer 0 only). Fast enough for every signup flow without UX impact.</div></div>
+    <div class="faq-item"><div class="faq-q">Is there a free trial?</div><div class="faq-a">Yes — 50 checks per month, forever free. No credit card required. Test in production before committing to a paid plan.</div></div>
+    <div class="faq-item"><div class="faq-q">How is this different from Stripe Radar?</div><div class="faq-a">Stripe Radar only works inside Stripe and only on card transactions. Kairos Check works anywhere — before a payment is initiated, at signup, on emails and domains you receive. See <a href="/compare/stripe-radar" style="color:var(--accent);">full comparison →</a></div></div>
+    <div class="faq-item"><div class="faq-q">Is it GDPR compliant?</div><div class="faq-a">Yes, by design. GDPR Art.22 human oversight is built in. EU-hosted (Railway Ireland). Zero PII stored in plaintext. Full erasure endpoint available. <a href="/docs/guides/gdpr" style="color:var(--accent);">Read the GDPR guide →</a></div></div>
+    <div class="faq-item"><div class="faq-q">Can I cancel anytime?</div><div class="faq-a">Yes. No contract, no lock-in, no cancellation fee. Founding member pricing is locked — if you come back within 30 days you keep your rate.</div></div>
+  </div>
+</body>
+</html>`;
+}
+
 module.exports = {
   renderStatus,
   renderChangelog,
@@ -1005,4 +1125,5 @@ module.exports = {
   renderCompareSift,
   renderCompareSeon,
   renderCompareMaxmind,
+  renderFraudDetectionApi,
 };
