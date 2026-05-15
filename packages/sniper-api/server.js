@@ -43,6 +43,19 @@ const PUBLIC_RATE_PER_MIN = Number(process.env.KAIROS_PUBLIC_RATE_PER_MIN || 10)
 /** Public demo: enough chars for hero + checkout cues + footer disclaimers / complaint-evasion copy */
 const PUBLIC_VERIFY_MAX_CHARS = Number(process.env.KAIROS_PUBLIC_VERIFY_MAX_CHARS || 16000);
 const VERSION = '7.1.0';
+const ADMIN_TOKEN = process.env.KAIROS_ADMIN_TOKEN || '';
+
+/**
+ * Checks admin token from Authorization header or ?token= query param.
+ * If KAIROS_ADMIN_TOKEN is not set, dashboard is OPEN — only safe in dev.
+ */
+function checkAdminAuth(req) {
+  if (!ADMIN_TOKEN) return true;
+  const auth = (req.headers['authorization'] || '');
+  if (auth.startsWith('Bearer ') && auth.slice(7) === ADMIN_TOKEN) return true;
+  const qs = (req.url || '').split('?')[1] || '';
+  return new URLSearchParams(qs).get('token') === ADMIN_TOKEN;
+}
 
 // Security headers applied to every response. CSP allows inline JS/CSS only
 // because the landing page and dashboard ship as a single self-contained HTML
@@ -229,7 +242,16 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, renderPricingPage(), { 'cache-control': 'public, max-age=300' });
       return;
     }
-    if (method === 'GET' && url === '/dashboard') {
+    if (method === 'GET' && url.split('?')[0] === '/dashboard') {
+      if (!checkAdminAuth(req)) {
+        res.writeHead(401, {
+          ...SECURITY_HEADERS,
+          'www-authenticate': 'Bearer realm="KAIROS Admin"',
+          'content-type': 'text/html; charset=utf-8',
+        });
+        res.end('<h1>401 Unauthorized</h1><p>Admin access required. Provide <code>Authorization: Bearer &lt;KAIROS_ADMIN_TOKEN&gt;</code> or <code>?token=&lt;value&gt;</code>.</p>');
+        return;
+      }
       sendHtml(res, renderDashboard(readGlobalMetrics(), {
         recent: readVerifications(50),
         tenants: listTenants(),
@@ -237,6 +259,10 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     if (method === 'GET' && url === '/api/dashboard') {
+      if (!checkAdminAuth(req)) {
+        sendJson(res, 401, { error: 'unauthorized', hint: 'Provide Authorization: Bearer <KAIROS_ADMIN_TOKEN>' });
+        return;
+      }
       sendJson(res, 200, {
         ...readGlobalMetrics(),
         timestamp: Date.now(),
@@ -438,8 +464,12 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // ─── Stripe webhook receiver (HMAC-verified) ────────────────────────────
+    // ─── Stripe webhook — DEPRECATED endpoint ───────────────────────────────
+    // Use /api/stripe/webhook. Update your Stripe dashboard to stop sending here.
     if (method === 'POST' && url === '/billing/stripe/webhook') {
+      logEvent('billing.webhook.deprecated-endpoint', {
+        warning: 'Update Stripe dashboard: replace /billing/stripe/webhook with /api/stripe/webhook',
+      });
       const rawBody = await readRawBody(req);
       const secret = process.env.KAIROS_STRIPE_WEBHOOK_SECRET || '';
       const verification = billing.verifyStripeSignature({
@@ -746,6 +776,9 @@ if (require.main === module) {
       console.log(`    store:    ${boot.bootstrapKeys.store}`);
       console.log('  These appear ONLY ONCE. Use them in x-api-key.');
       console.log('');
+    }
+    if (!ADMIN_TOKEN) {
+      console.warn('  ⚠  KAIROS_ADMIN_TOKEN not set — /dashboard is OPEN (set it in Railway env vars)');
     }
     console.log(`  ► http://localhost:${PORT}`);
     console.log(`  ► http://localhost:${PORT}/dashboard`);
