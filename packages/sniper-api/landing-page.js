@@ -458,12 +458,67 @@ function renderLandingPage() {
     .pricing-full-link a { color: var(--text-secondary); font-size: var(--text-sm); text-decoration: none; }
     .pricing-full-link a:hover { color: var(--text); }
 
+    /* TILT — applied via JS to all tiltable cards */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 400ms ease, box-shadow 400ms ease;
+      will-change: transform;
+    }
+    .tilt-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(0,217,126,0.06);
+    }
+
+    /* BROWSER FRAME — makes code look like a real screen */
+    .browser-frame {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+    }
+    .browser-bar {
+      background: #1a1a1a; border-bottom: 1px solid var(--border);
+      padding: 0.625rem 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red    { background: #ff5f57; }
+    .dot-amber  { background: #ffbd2e; }
+    .dot-green  { background: #28c840; }
+    .browser-url {
+      flex: 1; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; padding: 0.2rem 0.625rem;
+      font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-tertiary);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .browser-url span { color: var(--accent); }
+
+    /* NETWORK INTELLIGENCE SECTION */
+    .network-section { padding: 5rem 0; }
+    .network-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    @media (max-width: 768px) { .network-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .network-stat-row { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .network-stat {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      transition: border-color 150ms, transform 200ms;
+    }
+    .network-stat:hover { border-color: rgba(0,217,126,0.3); transform: translateX(4px); }
+    .network-stat-icon {
+      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(0,217,126,0.1); border: 1px solid rgba(0,217,126,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .network-stat-text { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; }
+    .network-stat-text strong { color: var(--text); display: block; margin-bottom: 0.125rem; }
+
     /* HOW IT WORKS */
     .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
     @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr; } }
     .step-card {
       background: var(--surface); border: 1px solid var(--border-strong);
       border-radius: 12px; padding: 1.75rem;
+      cursor: default;
     }
     .step-number {
       font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 600;
@@ -617,13 +672,14 @@ function renderLandingPage() {
               <span class="float-ms">138ms</span>
               <span style="color:var(--text-tertiary)">response</span>
             </div>
-            <div class="hero-visual-3d">
-            <div class="code-block" role="region" aria-label="API quickstart example">
-              <div class="code-header">
-                <div class="code-dots" aria-hidden="true">
-                  <div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div>
+            <div class="hero-visual-3d tilt-card browser-frame" role="region" aria-label="API quickstart example">
+              <div class="browser-bar" aria-hidden="true">
+                <div class="browser-dots">
+                  <div class="browser-dot dot-red"></div>
+                  <div class="browser-dot dot-amber"></div>
+                  <div class="browser-dot dot-green"></div>
                 </div>
-                <span class="code-label">quickstart.sh</span>
+                <div class="browser-url">kairoscheck.net/<span>api/check</span></div>
                 <button class="code-copy-btn" id="hero-copy-btn" aria-label="Copy curl example to clipboard">Copy</button>
               </div>
               <div class="code-body">
@@ -681,25 +737,99 @@ function renderLandingPage() {
         <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
         <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
         <div class="steps-grid">
-          <div class="step-card">
+          <div class="step-card tilt-card">
             <div class="step-number">01 — Get your key</div>
             <h3 class="step-title">Subscribe and get an API key instantly</h3>
             <p class="step-desc">Choose a plan, pay with card, receive your key by email. No waiting, no approval, no KYC.</p>
             <div class="step-code"><pre><span style="color:var(--accent)">x-api-key</span>: kc_live_xxxxxxxxxxxx</pre></div>
           </div>
-          <div class="step-card">
+          <div class="step-card tilt-card">
             <div class="step-number">02 — One POST call</div>
             <h3 class="step-title">Send the domain, email, phone or IBAN</h3>
             <p class="step-desc">No SDK required. Works with any language that can make an HTTP request.</p>
             <div class="step-code"><pre><span style="color:var(--text-tertiary)">POST</span> /api/check
 <span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"susp.io"</span></pre></div>
           </div>
-          <div class="step-card">
+          <div class="step-card tilt-card">
             <div class="step-number">03 — Act on the score</div>
             <h3 class="step-title">Block, flag for review, or allow</h3>
             <p class="step-desc">Every response includes a score (0–100), a verdict, and the exact signals that triggered it.</p>
             <div class="step-code"><pre><span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>
 <span style="color:#60a5fa">"score"</span>: <span style="color:var(--accent)">94</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NETWORK INTELLIGENCE ─────────────────────────────────── -->
+    <section class="network-section" aria-labelledby="network-h2">
+      <div class="container">
+        <div class="network-grid">
+          <div>
+            <p class="section-label">Collective intelligence</p>
+            <h2 class="section-title" id="network-h2">Gets smarter with<br>every customer</h2>
+            <p class="section-lead">Every verification you run contributes to a shared reputation graph. The more we see, the more accurately we score — for everyone.</p>
+            <div class="network-stat-row">
+              <div class="network-stat tilt-card">
+                <div class="network-stat-icon" aria-hidden="true">🔗</div>
+                <div class="network-stat-text">
+                  <strong>Shared reputation graph</strong>
+                  Each domain, email and IBAN scored updates the collective intelligence. Your competitors' fraud becomes your protection.
+                </div>
+              </div>
+              <div class="network-stat tilt-card">
+                <div class="network-stat-icon" aria-hidden="true">🧬</div>
+                <div class="network-stat-text">
+                  <strong>Scam DNA fingerprinting</strong>
+                  Fraud patterns are clustered into families. When a new variant appears, we recognise the family instantly — even on first sight.
+                </div>
+              </div>
+              <div class="network-stat tilt-card">
+                <div class="network-stat-icon" aria-hidden="true">🛡️</div>
+                <div class="network-stat-text">
+                  <strong>OSINT — zero PII shared</strong>
+                  The graph learns from public signals only. No customer data is pooled. GDPR-compliant by design, not by policy.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div aria-hidden="true">
+            <!-- Network graph SVG visualization -->
+            <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;">
+              <!-- Connection lines -->
+              <line x1="200" y1="160" x2="80"  y2="80"  stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="200" y1="160" x2="320" y2="80"  stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="200" y1="160" x2="80"  y2="240" stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="200" y1="160" x2="320" y2="240" stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="200" y1="160" x2="200" y2="40"  stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="200" y1="160" x2="200" y2="280" stroke="rgba(0,217,126,0.15)" stroke-width="1.5"/>
+              <line x1="80"  y1="80"  x2="320" y2="80"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <line x1="80"  y1="240" x2="320" y2="240" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <!-- Outer nodes -->
+              <circle cx="80"  cy="80"  r="28" fill="rgba(0,217,126,0.06)" stroke="rgba(0,217,126,0.2)" stroke-width="1"/>
+              <circle cx="320" cy="80"  r="28" fill="rgba(0,217,126,0.06)" stroke="rgba(0,217,126,0.2)" stroke-width="1"/>
+              <circle cx="80"  cy="240" r="28" fill="rgba(0,217,126,0.06)" stroke="rgba(0,217,126,0.2)" stroke-width="1"/>
+              <circle cx="320" cy="240" r="28" fill="rgba(0,217,126,0.06)" stroke="rgba(0,217,126,0.2)" stroke-width="1"/>
+              <circle cx="200" cy="40"  r="20" fill="rgba(0,160,255,0.06)" stroke="rgba(0,160,255,0.2)" stroke-width="1"/>
+              <circle cx="200" cy="280" r="20" fill="rgba(0,160,255,0.06)" stroke="rgba(0,160,255,0.2)" stroke-width="1"/>
+              <!-- Node labels -->
+              <text x="80"  y="84"  text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(0,217,126,0.7)">DEV A</text>
+              <text x="320" y="84"  text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(0,217,126,0.7)">DEV B</text>
+              <text x="80"  y="244" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(0,217,126,0.7)">DEV C</text>
+              <text x="320" y="244" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(0,217,126,0.7)">DEV D</text>
+              <text x="200" y="43"  text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(0,160,255,0.7)">API</text>
+              <text x="200" y="283" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(0,160,255,0.7)">API</text>
+              <!-- Central node — the intelligence core -->
+              <circle cx="200" cy="160" r="44" fill="rgba(0,217,126,0.08)" stroke="rgba(0,217,126,0.3)" stroke-width="1.5"/>
+              <circle cx="200" cy="160" r="32" fill="rgba(0,217,126,0.1)" stroke="rgba(0,217,126,0.25)" stroke-width="1"/>
+              <text x="200" y="155" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="rgba(0,217,126,0.9)">KAIROS</text>
+              <text x="200" y="169" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(0,217,126,0.6)">GRAPH</text>
+              <!-- Pulsing ring animation -->
+              <circle cx="200" cy="160" r="55" fill="none" stroke="rgba(0,217,126,0.08)" stroke-width="1">
+                <animate attributeName="r" values="44;65;44" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
           </div>
         </div>
       </div>
@@ -745,7 +875,7 @@ function renderLandingPage() {
         <h2 class="section-title" id="usecases-h2">Three integrations, 10 lines each</h2>
         <p class="section-lead">Drop into any auth flow, checkout hook, or scheduled job.</p>
         <div class="usecase-grid">
-          <article class="usecase-card">
+          <article class="usecase-card tilt-card">
             <div class="usecase-header">
               <p class="usecase-tag">Signup flow</p>
               <h3 class="usecase-title">Block fraudulent signups</h3>
@@ -769,7 +899,7 @@ const { verdict } = await res.json();
 if (verdict === 'BLOCK') throw new Error('Signup denied');</pre>
             </div>
           </article>
-          <article class="usecase-card">
+          <article class="usecase-card tilt-card">
             <div class="usecase-header">
               <p class="usecase-tag">E-commerce</p>
               <h3 class="usecase-title">Pre-validate before checkout</h3>
@@ -791,7 +921,7 @@ app.post('/checkout/validate', async (req, res) => {
 });</pre>
             </div>
           </article>
-          <article class="usecase-card">
+          <article class="usecase-card tilt-card">
             <div class="usecase-header">
               <p class="usecase-tag">Monitoring</p>
               <h3 class="usecase-title">Scan your customer base daily</h3>
@@ -855,7 +985,7 @@ for (const c of customers) {
         <h2 class="section-title" id="pricing-h2">Simple, honest pricing</h2>
         <p class="section-lead">No contracts. No calls. Cancel anytime. One chargeback avoided pays for months.</p>
         <div class="pricing-grid">
-          <div class="pricing-card">
+          <div class="pricing-card tilt-card">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">€0</div>
             <div class="pricing-price-sub">50 checks/month · forever</div>
@@ -866,7 +996,7 @@ for (const c of customers) {
             </ul>
             <a href="/docs/quickstart" class="pricing-cta-ghost">Read the docs →</a>
           </div>
-          <div class="pricing-card">
+          <div class="pricing-card tilt-card">
             <div class="pricing-tier">Starter</div>
             <div class="pricing-price">€29</div>
             <div class="pricing-price-sub">/month · 5,000 checks + VAT</div>
@@ -879,7 +1009,7 @@ for (const c of customers) {
             </ul>
             <a href="/pricing" class="pricing-cta-ghost">Get started →</a>
           </div>
-          <div class="pricing-card featured" aria-label="Most popular plan">
+          <div class="pricing-card featured tilt-card" aria-label="Most popular plan">
             <div class="pricing-badge">Most Popular</div>
             <div class="pricing-tier">Pro</div>
             <div class="pricing-price">€79</div>
@@ -1052,6 +1182,29 @@ for (const c of customers) {
 
       btn.addEventListener('click', runCheck);
       input.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCheck(); });
+    })();
+
+    // Tilt effect on all cards
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var cards = document.querySelectorAll('.tilt-card');
+      cards.forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var r = card.getBoundingClientRect();
+          var x = e.clientX - r.left;
+          var y = e.clientY - r.top;
+          var cx = r.width / 2;
+          var cy = r.height / 2;
+          var rY =  ((x - cx) / cx) * 8;
+          var rX = -((y - cy) / cy) * 5;
+          card.style.transform = 'perspective(800px) rotateX(' + rX + 'deg) rotateY(' + rY + 'deg) scale(1.02)';
+          card.style.transition = 'transform 0ms';
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transition = 'transform 450ms ease';
+          card.style.transform = '';
+        });
+      });
     })();
 
     // FAQ accordion
