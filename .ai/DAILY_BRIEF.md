@@ -1,6 +1,6 @@
 # KAIROS — Diário de Bordo
 
-> Última actualização: 2026-05-15 | Sessão: Landing bilionária + 4 HIGH risks resolvidos + 3 deploys
+> Última actualização: 2026-05-15 | Sessão: MEGA SPRINT — 15+ features + chat AI + token economy + key rotation
 
 ---
 
@@ -8,7 +8,8 @@
 
 - URL: `https://kairoscheck.net`
 - Status Railway: **ONLINE** ✅
-- Último deploy: 2026-05-15 — 3 commits hoje (landing + security + CI)
+- Último deploy: 2026-05-15 — 15+ commits hoje (mega sprint)
+- ANTHROPIC_API_KEY: configurada ✅ (Railway, chat activo)
 - Cloudflare SSL: Full (não Strict) — correcto por agora
 - Bot Fight Mode: ON (re-activado)
 
@@ -114,7 +115,20 @@
 
 ---
 
-## Pedro tem de fazer (URGENTE — SEM SQUAD PODER FAZER)
+## Pedro tem de fazer (URGENTE — PRÓXIMA SESSÃO)
+
+### 🔴 Esta semana — Stripe (30 min total)
+1. **Criar Growth tier no Stripe** → €59/mês → copiar price ID → Railway: `STRIPE_PRICE_GROWTH`
+2. **Criar Token Pack 100** → one-time €5 → Railway: `STRIPE_PRICE_TOKENS_100`
+3. **Criar Token Pack 380** → one-time €15 → Railway: `STRIPE_PRICE_TOKENS_380`
+4. **Criar Token Pack 1500** → one-time €50 → Railway: `STRIPE_PRICE_TOKENS_1500`
+5. **Aplicar ao Stripe Issuing** → dashboard.stripe.com → Issuing → Apply (Kairos Card futuro)
+
+### 🟡 Já feito hoje — confirmar funcionamento
+- ANTHROPIC_API_KEY: ✅ configurada — chat activo
+- KAIROS_ADMIN_TOKEN: confirmar que está a bloquear /dashboard
+
+## Pedro tem de fazer (histórico — URGENTE — SEM SQUAD PODER FAZER)
 
 ### 🔴 HOJE
 
