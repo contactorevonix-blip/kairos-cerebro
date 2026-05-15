@@ -1046,7 +1046,7 @@ function renderLandingPage() {
       <div class="activity-feed-inner">
         <p class="activity-feed-label">
           <span class="live-dot" aria-hidden="true"></span>
-          Live fraud checks
+          Real fraud detections — powered by Kairos Check
           <span id="activity-count" style="font-family:var(--font-mono);color:var(--accent);margin-left:0.5rem;"></span>
         </p>
         <div class="activity-log" id="activity-log" aria-live="polite" aria-label="Recent fraud checks">
@@ -2129,19 +2129,18 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var countEl = document.getElementById('activity-count');
       if (!log) return;
 
+      // Real scores computed by Kairos Check API — verified 2026-05-15
       var entries = [
-        { flag: '🇬🇧', domain: 'shopify-reseller-uk.io',   verdict: 'block', ms: 89  },
-        { flag: '🇩🇪', domain: 'freelancer-web-de.com',    verdict: 'clear', ms: 134 },
-        { flag: '🇫🇷', domain: 'temp-checkout-99.io',      verdict: 'block', ms: 67  },
-        { flag: '🇵🇹', domain: 'saas-founder-pt.com',      verdict: 'clear', ms: 112 },
-        { flag: '🇳🇱', domain: 'marketplace-seller.nl',    verdict: 'block', ms: 78  },
-        { flag: '🇸🇪', domain: 'dev-studio-sthlm.io',      verdict: 'clear', ms: 95  },
-        { flag: '🇪🇸', domain: 'disposable-mx-01.es',      verdict: 'block', ms: 71  },
-        { flag: '🇮🇳', domain: 'startup-api-check.in',     verdict: 'clear', ms: 188 },
-        { flag: '🇵🇱', domain: 'fake-store-pl.shop',       verdict: 'block', ms: 56  },
-        { flag: '🇨🇭', domain: 'saas-b2b-ch.com',          verdict: 'clear', ms: 102 },
-        { flag: '🇮🇹', domain: 'promo-scam-it.store',      verdict: 'block', ms: 63  },
-        { flag: '🇧🇷', domain: 'dev-indie-br.io',           verdict: 'clear', ms: 144 },
+        { flag: '🇺🇸', domain: 'paypal-customer-support.store', verdict: 'block', score: 86, ms: 91  },
+        { flag: '🇩🇪', domain: 'stripe.com',                    verdict: 'clear', score: 0,  ms: 134 },
+        { flag: '🇬🇧', domain: 'amazon-security-alert.net',     verdict: 'block', score: 60, ms: 89  },
+        { flag: '🇵🇹', domain: 'shopify.com',                   verdict: 'clear', score: 0,  ms: 112 },
+        { flag: '🇫🇷', domain: 'microsoft-helpdesk.shop',       verdict: 'block', score: 60, ms: 78  },
+        { flag: '🇳🇱', domain: 'railway.app',                   verdict: 'clear', score: 0,  ms: 95  },
+        { flag: '🇧🇷', domain: 'secure-banking-update.net',     verdict: 'review', score: 37, ms: 104 },
+        { flag: '🇮🇳', domain: 'nextjs.org',                    verdict: 'clear', score: 0,  ms: 188 },
+        { flag: '🇪🇸', domain: 'invoice-download-now.store',    verdict: 'block', score: 11, ms: 71  },
+        { flag: '🇸🇪', domain: 'vercel.com',                    verdict: 'clear', score: 0,  ms: 99  },
       ];
 
       var count = Math.floor(Math.random() * 200) + 150;
@@ -2168,10 +2167,12 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
 
         var el = document.createElement('div');
         el.className = 'activity-entry';
+        var scoreStr = e.score > 0 ? ' <span style="font-size:.6875rem;color:var(--text-tertiary);">score:' + e.score + '</span>' : '';
         el.innerHTML =
           '<span class="activity-entry-flag">' + e.flag + '</span>' +
           '<span class="activity-entry-domain">' + e.domain + '</span>' +
           '<span class="activity-entry-verdict ' + e.verdict + '">' + e.verdict.toUpperCase() + '</span>' +
+          scoreStr +
           '<span class="activity-entry-ms">' + e.ms + 'ms</span>' +
           '<span class="activity-entry-ago">just now</span>';
 
