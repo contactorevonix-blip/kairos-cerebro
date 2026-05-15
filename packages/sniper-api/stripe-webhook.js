@@ -318,4 +318,63 @@ function claimPendingKey(subscriptionId) {
   return raw || null;
 }
 
-module.exports = { handleWebhook, claimPendingKey, readKeys, findKeyBySubscription, QUOTA };
+// ─── KEY ROTATION (Stripe-model: new key immediately, old valid 24h) ──────────
+
+const GRACE_PERIOD_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+function rotateKey(rawKey) {
+  const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
+  const keys = readKeys();
+  const idx = keys.findIndex((k) => k.api_key_hash === hash && k.status === 'active');
+  if (idx < 0) return { ok: false, error: 'Key not found or already inactive' };
+
+  const now = new Date().toISOString();
+  const graceExpiresAt = new Date(Date.now() + GRACE_PERIOD_MS).toISOString();
+
+  // Generate new key
+  const newRaw = `kc_live_${crypto.randomBytes(24).toString('hex')}`;
+  const newHash = crypto.createHash('sha256').update(newRaw).digest('hex');
+
+  // Mark old key as rotating (24h grace)
+  keys[idx] = { ...keys[idx], status: 'rotating', rotating_at: now, grace_expires_at: graceExpiresAt };
+
+  // Add new key record (inherits tier, tenant, subscription from old key)
+  const newRecord = {
+    ...keys[idx],
+    api_key_hash: newHash,
+    raw_key_preview: keyPreview(newRaw),
+    status: 'active',
+    created_at: now,
+    last_used_at: null,
+    rotating_at: undefined,
+    grace_expires_at: undefined,
+    rotated_from: hash.slice(0, 8),
+  };
+  delete newRecord.rotating_at;
+  delete newRecord.grace_expires_at;
+  keys.push(newRecord);
+
+  // Atomic rewrite
+  const tmp = `${KEYS_FILE}.${process.pid}.${Date.now()}.tmp`;
+  fs.writeFileSync(tmp, keys.map((r) => JSON.stringify(r)).join('\n') + '\n', 'utf8');
+  fs.renameSync(tmp, KEYS_FILE);
+
+  return {
+    ok: true,
+    new_key: newRaw,
+    new_key_preview: keyPreview(newRaw),
+    old_key_expires_at: graceExpiresAt,
+    message: 'New key active immediately. Old key valid for 24 hours.',
+  };
+}
+
+function isKeyActive(record) {
+  if (!record) return false;
+  if (record.status === 'active') return true;
+  if (record.status === 'rotating' && record.grace_expires_at) {
+    return new Date(record.grace_expires_at) > new Date();
+  }
+  return false;
+}
+
+module.exports = { handleWebhook, claimPendingKey, readKeys, findKeyBySubscription, rotateKey, isKeyActive, QUOTA };

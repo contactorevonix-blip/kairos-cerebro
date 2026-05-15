@@ -5,7 +5,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { verifyPayloadWithGraph } = require('../sniper-engine');
 const { scoreDomainName } = require('../sniper-engine/domain-heuristic');
-const { readKeys } = require('./stripe-webhook');
+const { readKeys, isKeyActive } = require('./stripe-webhook');
 const {
   ensureMonthlyTokens,
   getTokenBalance,
@@ -71,7 +71,10 @@ function extractBearer(authHeader) {
 
 function lookupKey(rawKey) {
   const hash = hashKey(rawKey);
-  return readKeys().find((k) => k.api_key_hash === hash) || null;
+  const record = readKeys().find((k) => k.api_key_hash === hash);
+  if (!record) return null;
+  if (!isKeyActive(record)) return null; // revoked or grace period expired
+  return record;
 }
 
 // ─── quota ────────────────────────────────────────────────────────────────────

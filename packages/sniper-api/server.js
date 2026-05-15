@@ -9,7 +9,7 @@ const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./a
 const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession } = require('./stripe-checkout');
-const { handleWebhook } = require('./stripe-webhook');
+const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
@@ -296,6 +296,70 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, html, { 'cache-control': 'public, max-age=300' });
       return;
     }
+    // ─── Key management endpoints ─────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/keys') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const crypto2 = require('crypto');
+      const hash = crypto2.createHash('sha256').update(raw).digest('hex');
+      const record = readKeys().find((k) => k.api_key_hash === hash);
+      if (!record || !isKeyActive(record)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      sendJson(res, 200, {
+        status: record.status,
+        tier: record.tier,
+        preview: record.raw_key_preview || 'kc_live_••••••••',
+        created_at: record.created_at,
+        last_used_at: record.last_used_at || null,
+        grace_expires_at: record.grace_expires_at || null,
+        rotate_url: 'POST /api/keys/rotate',
+      });
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/keys/rotate') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const result = rotateKey(raw);
+      if (!result.ok) { sendJson(res, 400, { error: result.error }); return; }
+      logEvent('key.rotated', { preview: result.new_key_preview });
+      sendJson(res, 200, {
+        message: result.message,
+        new_key: result.new_key,
+        new_key_preview: result.new_key_preview,
+        old_key_expires_at: result.old_key_expires_at,
+        warning: 'Store your new key immediately — it is shown only once.',
+      });
+      return;
+    }
+
+    // ─── Sitemap ──────────────────────────────────────────────────────────────
+    if (method === 'GET' && url === '/sitemap.xml') {
+      const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+      const now = new Date().toISOString().slice(0, 10);
+      const fraudDomains = [
+        'paypal-account-suspended.store', 'amazon-security-alert.net',
+        'microsoft-helpdesk.shop', 'paypa1-verify.com', 'metamask-wallet-restore.com',
+        'coinbase-security-alert.net', 'secure-banking-update.net',
+        'crypto-refund-portal.com', 'invoice-download-now.store',
+        'amazon-account-update.store', 'paypal-customer-support.store',
+      ];
+      const staticUrls = [
+        '/', '/pricing', '/docs', '/docs/quickstart', '/docs/api/check',
+        '/docs/api/authentication', '/docs/api/batch', '/docs/api/webhooks',
+        '/docs/api/errors', '/docs/guides/how-it-works', '/docs/guides/gdpr',
+        '/compare/stripe-radar', '/compare/sift', '/compare/seon', '/compare/maxmind',
+        '/examples', '/changelog', '/status',
+      ];
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticUrls.map(p => `  <url><loc>${base}${p}</loc><lastmod>${now}</lastmod><priority>${p === '/' || p === '/pricing' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
+${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</lastmod><priority>0.6</priority></url>`).join('\n')}
+</urlset>`;
+      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=86400' });
+      res.end(xml);
+      return;
+    }
+
     // ─── Token economy endpoints ─────────────────────────────────────────────
     if (method === 'GET' && url === '/api/tokens/balance') {
       const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
