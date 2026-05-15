@@ -765,6 +765,75 @@ function renderLandingPage() {
     }
     .hero-cli-copy:hover { color: var(--text); border-color: var(--text-tertiary); }
 
+    /* ── MOBILE OPTIMIZATIONS ────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      /* General spacing */
+      section { padding: 4rem 0; }
+      .container { padding: 0 1rem; }
+
+      /* Hero */
+      .hero { padding: 3.5rem 0 3rem; }
+      .hero h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+      .hero-lead { font-size: 1rem; }
+      .hero-ctas { flex-direction: column; gap: 0.75rem; }
+      .hero-ctas a { text-align: center; }
+      .hero-kicker { font-size: 0.6875rem; flex-wrap: wrap; justify-content: center; }
+
+      /* Integration tabs — scroll horizontally, never wrap */
+      .integration-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+      .tab-btn { white-space: nowrap; padding: 0.625rem 0.875rem; font-size: 0.8125rem; }
+      .tab-btn svg { display: none; }
+
+      /* Compare table — horizontal scroll */
+      .compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      /* Proof section grid */
+      .proof-grid-2col { grid-template-columns: 1fr !important; }
+
+      /* Fraud stats */
+      .fraud-stat-num { font-size: 2rem; }
+
+      /* ROI calculator */
+      .roi-wrap { padding: 1.5rem 1rem; }
+
+      /* Pricing grid on landing */
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: none; }
+
+      /* Testimonials slider */
+      .tcard { flex: 0 0 100% !important; }
+
+      /* Section titles */
+      .section-title { font-size: clamp(1.5rem, 6vw, 2.25rem); }
+
+      /* Trust grid */
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Urgency strip */
+      .urgency-strip { flex-direction: column; text-align: center; }
+    }
+
+    /* ── MOBILE CHAT — bottom sheet ──────────────────────────────────────── */
+    @media (max-width: 640px) {
+      #kc-chat-widget { bottom: 1rem; right: 1rem; }
+      #kc-panel {
+        position: fixed !important;
+        bottom: 0 !important; right: 0 !important; left: 0 !important;
+        width: 100% !important;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0 !important;
+        border-left: none; border-right: none; border-bottom: none;
+      }
+      #kc-messages { max-height: 45vh; }
+      #kc-input { font-size: 16px; } /* prevents iOS zoom on focus */
+    }
+
+    /* ── MOBILE EXIT INTENT ──────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      #kc-exit-box { padding: 1.5rem; border-radius: 16px 16px 0 0; }
+      #kc-exit { align-items: flex-end; padding: 0; }
+    }
+
     /* ── STACK LOGOS BAR ─────────────────────────────────────── */
     .logos-bar { padding: 2.5rem 0; border-top: 1px solid var(--border); }
     .logos-bar-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1.5rem; }
@@ -1161,7 +1230,7 @@ function renderLandingPage() {
         <p class="section-label">Live intelligence — verified ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}</p>
         <h2 class="section-title" id="proof-h2">We tested it.<br><span class="gradient-text">Here are the real scores.</span></h2>
         <p class="section-lead">These are actual results from the Kairos Check API — not simulated. Tested against known phishing domains and verified legitimate services.</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2.5rem;">
+        <div class="proof-grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2.5rem;">
           <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
             <div style="padding:.75rem 1.25rem;background:rgba(239,68,68,.06);border-bottom:1px solid rgba(239,68,68,.12);display:flex;align-items:center;gap:.5rem;">
               <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block;flex-shrink:0;"></span>
