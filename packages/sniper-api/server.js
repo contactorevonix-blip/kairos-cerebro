@@ -30,6 +30,11 @@ const {
   createApiKey,
   listTenants,
   verifyAuditChain,
+  getTokenBalance,
+  getTokenHistory,
+  ensureMonthlyTokens,
+  creditTokens,
+  MONTHLY_TOKENS,
 } = require('../sniper-db');
 const repGraph = require('../reputation-graph');
 const sovereign = require('../sovereign');
@@ -220,6 +225,31 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, html, { 'cache-control': 'public, max-age=300' });
       return;
     }
+    // ─── Token economy endpoints ─────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/tokens/balance') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      const { findApiKey } = require('../sniper-db');
+      const keyRecord = raw ? findApiKey(raw) : null;
+      if (!keyRecord || keyRecord.status !== 'active') {
+        sendJson(res, 401, { error: 'Invalid API key' });
+        return;
+      }
+      const tenantId = keyRecord.tenant_id || keyRecord.customer_id || keyRecord.api_key_hash;
+      const tier = keyRecord.tier || 'free';
+      ensureMonthlyTokens(tenantId, tier);
+      const balance = getTokenBalance(tenantId);
+      const history = getTokenHistory(tenantId, 20);
+      sendJson(res, 200, {
+        balance,
+        tier,
+        monthly_grant: MONTHLY_TOKENS[tier] || MONTHLY_TOKENS.free,
+        costs: { domain: 1, email: 1, phone: 2, iban: 3 },
+        history,
+        top_up_url: 'https://kairoscheck.net/pricing',
+      });
+      return;
+    }
+
     if (method === 'POST' && url === '/api/portal') {
       const result = await handlePortal(req.headers);
       sendJson(res, result.status, result.body);

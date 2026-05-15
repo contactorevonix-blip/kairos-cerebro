@@ -6,6 +6,12 @@ const crypto = require('crypto');
 const { verifyPayloadWithGraph } = require('../sniper-engine');
 const { scoreDomainName } = require('../sniper-engine/domain-heuristic');
 const { readKeys } = require('./stripe-webhook');
+const {
+  ensureMonthlyTokens,
+  getTokenBalance,
+  debitTokens,
+  getTokenCost,
+} = require('../sniper-db');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
 const CHECK_AUDIT = path.join(DB_DIR, 'check-audit.jsonl');
@@ -120,19 +126,12 @@ async function handleApiCheck(headers, body) {
     return { status: 401, body: { error: 'Invalid API key' } };
   }
 
-  // 3. Quota check
-  const usage = countUsageThisMonth(keyRecord.api_key_hash);
-  if (usage >= keyRecord.quota_per_month) {
-    return {
-      status: 429,
-      body: {
-        error: `Monthly quota exceeded. Resets on ${firstOfNextMonth().split('T')[0]}`,
-        quota_per_month: keyRecord.quota_per_month,
-        used: usage,
-        reset_at: firstOfNextMonth(),
-      },
-    };
-  }
+  // 3. Token economy — grant monthly tokens if needed, then check balance
+  const tenantId = keyRecord.tenant_id || keyRecord.customer_id || keyRecord.api_key_hash;
+  const tier = keyRecord.tier || 'free';
+  try {
+    ensureMonthlyTokens(tenantId, tier);
+  } catch { /* non-fatal — legacy keys without tier fall back to quota */ }
 
   // 4. Validate input
   const engineInput = buildEnginePayload(body);
@@ -143,7 +142,23 @@ async function handleApiCheck(headers, body) {
     };
   }
 
-  // 5. Score with graph-aware engine
+  // 5. Token balance check
+  const tokenCost = getTokenCost(engineInput.type);
+  const tokenBalance = getTokenBalance(tenantId);
+  if (tokenBalance < tokenCost) {
+    return {
+      status: 429,
+      body: {
+        error: 'Token balance exhausted. Top up at kairoscheck.net/pricing',
+        token_balance: tokenBalance,
+        token_cost: tokenCost,
+        entity_type: engineInput.type,
+        top_up_url: 'https://kairoscheck.net/pricing',
+      },
+    };
+  }
+
+  // 6. Score with graph-aware engine
   const ref = auditId();
 
   // Layer 0: Domain-specific heuristic (runs before content engine for domain checks)
@@ -190,7 +205,10 @@ async function handleApiCheck(headers, body) {
     ref,
   });
 
-  // 7. Merge domain-heuristic score into final result
+  // 7. Debit tokens (check succeeded)
+  try { debitTokens(tenantId, tokenCost, engineInput.type, ref); } catch { /* non-fatal */ }
+
+  // 8. Merge domain-heuristic score into final result
   let finalScore = result.verdict.score;
   let finalSignals = result.verdict.reasons || [];
   if (domainBoost > 0) {
@@ -201,8 +219,9 @@ async function handleApiCheck(headers, body) {
 
   // Re-apply decision thresholds after merge
   const finalVerdict = finalScore >= 60 ? 'BLOCK' : finalScore >= 30 ? 'REVIEW' : 'ALLOW';
+  const newTokenBalance = getTokenBalance(tenantId);
 
-  // 8. Response
+  // 9. Response
   return {
     status: 200,
     body: {
@@ -213,6 +232,8 @@ async function handleApiCheck(headers, body) {
       type: engineInput.type,
       query: engineInput.query,
       graph_intelligence: result.graph_intelligence || null,
+      token_balance: newTokenBalance,
+      token_cost: tokenCost,
       timestamp: nowIso(),
       ref,
     },

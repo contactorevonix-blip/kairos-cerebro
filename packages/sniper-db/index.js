@@ -334,6 +334,77 @@ function bootstrapIfEmpty(dir = DEFAULT_DB_DIR) {
   };
 }
 
+// ─── TOKEN ECONOMY ────────────────────────────────────────────────────────────
+// Append-only ledger per tenant. Balance = sum of credits - sum of debits.
+// Monthly subscription grants tokens at first check of each billing month.
+
+const TOKEN_COSTS  = { domain: 1, email: 1, phone: 2, iban: 3 };
+const MONTHLY_TOKENS = { free: 50, starter: 5000, pro: 25000, scale: 100000 };
+
+function tokenFilePath(tenantId, dir = DEFAULT_DB_DIR) {
+  return path.join(dir, 'tokens', `${String(tenantId).replace(/[^a-z0-9_-]/gi, '_')}.jsonl`);
+}
+
+function readTokenLedger(tenantId, dir = DEFAULT_DB_DIR) {
+  const file = tokenFilePath(tenantId, dir);
+  if (!fs.existsSync(file)) return [];
+  const raw = fs.readFileSync(file, 'utf8').trim();
+  if (!raw) return [];
+  return raw.split('\n').filter(Boolean).map(l => {
+    try { return JSON.parse(l); } catch { return null; }
+  }).filter(Boolean);
+}
+
+function getTokenBalance(tenantId, dir = DEFAULT_DB_DIR) {
+  return readTokenLedger(tenantId, dir).reduce((sum, e) => {
+    if (e.type === 'credit') return sum + (e.amount || 0);
+    if (e.type === 'debit')  return sum - (e.amount || 0);
+    return sum;
+  }, 0);
+}
+
+function creditTokens(tenantId, amount, source, ref, dir = DEFAULT_DB_DIR) {
+  if (!Number.isFinite(amount) || amount <= 0) throw new Error('Token amount must be positive');
+  const balance = getTokenBalance(tenantId, dir);
+  const newBalance = balance + amount;
+  appendJsonl(tokenFilePath(tenantId, dir), {
+    ts: nowIso(), type: 'credit', amount, balance: newBalance, source, ref,
+  });
+  return newBalance;
+}
+
+function debitTokens(tenantId, amount, entityType, ref, dir = DEFAULT_DB_DIR) {
+  if (!Number.isFinite(amount) || amount <= 0) throw new Error('Token amount must be positive');
+  const balance = getTokenBalance(tenantId, dir);
+  if (balance < amount) return { ok: false, balance, needed: amount };
+  const newBalance = balance - amount;
+  appendJsonl(tokenFilePath(tenantId, dir), {
+    ts: nowIso(), type: 'debit', amount, balance: newBalance, entity_type: entityType, ref,
+  });
+  return { ok: true, balance: newBalance };
+}
+
+function ensureMonthlyTokens(tenantId, tier, dir = DEFAULT_DB_DIR) {
+  const monthKey = nowIso().slice(0, 7); // YYYY-MM
+  const ledger = readTokenLedger(tenantId, dir);
+  // Idempotent: only grant once per billing month
+  if (ledger.some(e => e.type === 'credit' && e.source === 'monthly_grant' && e.ref === monthKey)) {
+    return false; // already granted this month
+  }
+  const amount = MONTHLY_TOKENS[tier] || MONTHLY_TOKENS.free;
+  creditTokens(tenantId, amount, 'monthly_grant', monthKey, dir);
+  return true; // newly granted
+}
+
+function getTokenCost(entityType) {
+  return TOKEN_COSTS[String(entityType).toLowerCase()] || 1;
+}
+
+function getTokenHistory(tenantId, limit = 50, dir = DEFAULT_DB_DIR) {
+  const ledger = readTokenLedger(tenantId, dir);
+  return ledger.slice(-limit).reverse();
+}
+
 module.exports = {
   // path
   DEFAULT_DB_DIR,
@@ -359,4 +430,14 @@ module.exports = {
   updateGlobalMetrics,
   // bootstrap
   bootstrapIfEmpty,
+  // token economy
+  TOKEN_COSTS,
+  MONTHLY_TOKENS,
+  readTokenLedger,
+  getTokenBalance,
+  creditTokens,
+  debitTokens,
+  ensureMonthlyTokens,
+  getTokenCost,
+  getTokenHistory,
 };
