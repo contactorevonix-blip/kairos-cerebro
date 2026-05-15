@@ -205,6 +205,132 @@ Show numbers large, in monospace, with accent color for emphasis:
 .trust-pill svg { color: var(--accent); flex-shrink: 0; }
 ```
 
+### 11. Gradient Orbs — Background depth (like Anthropic, Vercel, Claude.ai)
+ALWAYS add orbs to hero sections. This is what makes sites look "premium" and "3D".
+Multiple large blurred radial gradients create depth without any images.
+
+```css
+/* Orb container — sits behind everything */
+.hero-orbs {
+  position: absolute; inset: 0; overflow: hidden;
+  pointer-events: none; z-index: 0;
+}
+/* Large primary orb — top left, brand colour */
+.orb-1 {
+  position: absolute;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0,217,126,0.18) 0%, transparent 65%);
+  top: -400px; left: -200px;
+  filter: blur(80px);
+  animation: orb-drift 18s ease-in-out infinite alternate;
+}
+/* Secondary orb — right side, cooler tone */
+.orb-2 {
+  position: absolute;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0,140,255,0.09) 0%, transparent 65%);
+  top: -100px; right: -150px;
+  filter: blur(100px);
+  animation: orb-drift 22s ease-in-out infinite alternate-reverse;
+}
+/* Accent orb — bottom centre */
+.orb-3 {
+  position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0,217,126,0.07) 0%, transparent 65%);
+  bottom: -200px; left: 30%;
+  filter: blur(90px);
+}
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb-1, .orb-2, .orb-3 { animation: none; }
+}
+```
+
+Usage in HTML:
+```html
+<section class="hero">
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+    <div class="orb-3"></div>
+  </div>
+  <div class="container">...</div>
+</section>
+```
+
+### 12. 3D Perspective Card (like Linear, Vercel product screenshots)
+Makes any card/code block look like it's floating in 3D space.
+Use for the hero visual element — code block, screenshot, dashboard preview.
+
+```css
+.card-3d {
+  transform: perspective(1200px) rotateX(6deg) rotateY(-10deg) rotateZ(1deg);
+  transform-origin: center center;
+  transition: transform 400ms ease;
+  box-shadow:
+    0 60px 120px -20px rgba(0,0,0,0.7),
+    0 30px 60px -15px rgba(0,0,0,0.4),
+    0 0 40px rgba(0,217,126,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.card-3d:hover {
+  transform: perspective(1200px) rotateX(3deg) rotateY(-5deg) rotateZ(0.5deg);
+}
+
+/* Floating badge / verdict chip that hovers near the 3D card */
+.float-badge {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 0.5rem 0.875rem;
+  font-size: var(--text-xs); font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  animation: float 4s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+```
+
+### 13. Noise Texture Overlay (grain for depth — like Stripe, Loom)
+Adds subtle film grain that makes the design feel more tactile and less flat.
+
+```css
+/* Add to :root or body */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+```
+
+### 14. Glowing Border (animated) — for premium CTA sections
+```css
+.glow-border {
+  position: relative; border-radius: 12px;
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+              linear-gradient(135deg, rgba(0,217,126,0.5), rgba(0,140,255,0.3), rgba(0,217,126,0.5)) border-box;
+  border: 1px solid transparent;
+}
+```
+
+### CRITICAL RULE — Always add orbs to hero sections
+Every hero section MUST have gradient orbs. Without them the page looks flat.
+This is NON-OPTIONAL on landing pages, pricing pages, and any hero section.
+A page without orbs = a page that doesn't convert.
+
 ---
 
 ## Hero Section Template (HIGH CONVERSION)

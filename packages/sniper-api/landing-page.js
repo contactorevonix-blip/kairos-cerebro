@@ -89,28 +89,112 @@ function renderLandingPage() {
     section + section { border-top: 1px solid var(--border); }
 
     /* HERO */
-    .hero { padding: 6rem 0 4rem; position: relative; overflow: hidden; }
+    .hero { padding: 6rem 0 5rem; position: relative; overflow: hidden; }
+
+    /* Grid overlay */
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
       background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 20%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 20%, transparent 100%);
       pointer-events: none;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -100px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 500px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,217,126,0.09) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-    }
     .hero .container { position: relative; z-index: 1; }
+
+    /* ORBS — gradient depth spheres (like Anthropic, Vercel, Claude.ai) */
+    .hero-orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .orb-1 {
+      position: absolute;
+      width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(0,217,126,0.2) 0%, rgba(0,217,126,0.05) 40%, transparent 70%);
+      top: -500px; left: -250px;
+      filter: blur(60px);
+      animation: orb-drift 20s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(0,160,255,0.1) 0%, transparent 65%);
+      top: -200px; right: -200px;
+      filter: blur(80px);
+      animation: orb-drift 25s ease-in-out infinite alternate-reverse;
+    }
+    .orb-3 {
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(0,217,126,0.08) 0%, transparent 65%);
+      bottom: -150px; left: 35%;
+      filter: blur(70px);
+    }
+    @keyframes orb-drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.06); }
+    }
+
+    /* Noise grain overlay — adds tactile depth */
+    .hero-noise {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 200px 200px;
+    }
+
+    /* 3D PERSPECTIVE on hero visual */
+    .hero-visual-wrap {
+      position: relative;
+      perspective: 1200px;
+    }
+    .hero-visual-3d {
+      transform: perspective(1200px) rotateX(5deg) rotateY(-12deg) rotateZ(1deg);
+      transform-origin: center center;
+      transition: transform 500ms ease;
+      box-shadow:
+        0 70px 140px -30px rgba(0,0,0,0.8),
+        0 30px 60px -15px rgba(0,0,0,0.5),
+        0 0 60px rgba(0,217,126,0.07);
+      border-radius: 14px;
+    }
+    .hero-visual-3d:hover {
+      transform: perspective(1200px) rotateX(2deg) rotateY(-6deg) rotateZ(0.5deg);
+    }
+
+    /* Floating verdict badge */
+    .float-verdict {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+      border-radius: 10px; padding: 0.625rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+      z-index: 3; font-size: var(--text-xs);
+      animation: float-up 4s ease-in-out infinite;
+    }
+    .float-block { color: var(--danger); font-weight: 700; letter-spacing: 0.04em; }
+    .float-score { color: var(--text-tertiary); }
+    @keyframes float-up {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    /* Floating latency badge */
+    .float-latency {
+      position: absolute; top: -14px; left: -14px;
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+      border-radius: 10px; padding: 0.5rem 0.875rem;
+      display: flex; align-items: center; gap: 0.375rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 3; font-size: var(--text-xs);
+      animation: float-up 4s 2s ease-in-out infinite;
+    }
+    .float-ms { color: var(--accent); font-family: var(--font-mono); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .orb-1, .orb-2, .orb-3 { animation: none; }
+      .float-verdict, .float-latency { animation: none; }
+      .hero-visual-3d { transform: none; }
+    }
 
     /* GRADIENT TEXT */
     .gradient-text {
@@ -470,6 +554,14 @@ function renderLandingPage() {
 
     <!-- ── HERO ─────────────────────────────────────────────────── -->
     <section class="hero" aria-labelledby="hero-h1">
+      <!-- 3D background orbs -->
+      <div class="hero-orbs" aria-hidden="true">
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <div class="orb-3"></div>
+      </div>
+      <div class="hero-noise" aria-hidden="true"></div>
+
       <div class="container">
         <div class="hero-kicker fade-up"><span class="live-dot" aria-hidden="true"></span>Fraud API · Self-serve · GDPR-native</div>
         <div class="hero-layout">
@@ -497,7 +589,14 @@ function renderLandingPage() {
               </span>
             </div>
           </div>
-          <div>
+          <!-- 3D perspective code block -->
+          <div class="hero-visual-wrap">
+            <div class="float-latency" aria-hidden="true">
+              <span class="live-dot"></span>
+              <span class="float-ms">138ms</span>
+              <span style="color:var(--text-tertiary)">response</span>
+            </div>
+            <div class="hero-visual-3d">
             <div class="code-block" role="region" aria-label="API quickstart example">
               <div class="code-header">
                 <div class="code-dots" aria-hidden="true">
@@ -520,7 +619,12 @@ function renderLandingPage() {
 }</pre>
               </div>
             </div>
-          </div>
+            </div><!-- end hero-visual-3d -->
+            <div class="float-verdict" aria-hidden="true">
+              <span class="float-block">BLOCK</span>
+              <span class="float-score">score: 94/100</span>
+            </div>
+          </div><!-- end hero-visual-wrap -->
         </div>
 
         <!-- Live demo -->
