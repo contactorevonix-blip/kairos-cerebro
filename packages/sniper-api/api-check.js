@@ -18,6 +18,41 @@ const CHECK_AUDIT = path.join(DB_DIR, 'check-audit.jsonl');
 
 function nowIso() { return new Date().toISOString(); }
 
+// ─── SCORING MODELS (like Claude's Haiku/Sonnet/Opus) ─────────────────────────
+const MODELS = {
+  swift:    { tokenCost: 0.5, layers: 'layer0_only',  maxMs: 50  },
+  check:    { tokenCost: 1,   layers: 'standard',      maxMs: 200 }, // default
+  deep:     { tokenCost: 3,   layers: 'full_plus_graph', maxMs: 500 },
+};
+
+function resolveModel(requestedModel) {
+  return MODELS[String(requestedModel || 'check').toLowerCase()] || MODELS.check;
+}
+
+// ─── CHECK CACHE (24h — 0.1 tokens for cache hits) ────────────────────────────
+// In-memory cache per process. Simple, zero-dep, resets on redeploy.
+// For multi-instance: replace with Redis adapter (planned for Scale tier).
+const _cache = new Map();
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TOKEN_COST = 0.1;
+
+function cacheKey(tenantId, entityType, query) {
+  return `${tenantId}:${entityType}:${crypto.createHash('sha256').update(query).digest('hex').slice(0, 16)}`;
+}
+
+function getCached(tenantId, entityType, query) {
+  const k = cacheKey(tenantId, entityType, query);
+  const hit = _cache.get(k);
+  if (!hit) return null;
+  if (Date.now() - hit.ts > CACHE_TTL_MS) { _cache.delete(k); return null; }
+  return hit.result;
+}
+
+function setCache(tenantId, entityType, query, result) {
+  const k = cacheKey(tenantId, entityType, query);
+  _cache.set(k, { ts: Date.now(), result });
+}
+
 function hashKey(raw) {
   return crypto.createHash('sha256').update(raw).digest('hex');
 }
@@ -126,14 +161,12 @@ async function handleApiCheck(headers, body) {
     return { status: 401, body: { error: 'Invalid API key' } };
   }
 
-  // 3. Token economy — grant monthly tokens if needed, then check balance
+  // 3. Token economy — grant monthly tokens if needed
   const tenantId = keyRecord.tenant_id || keyRecord.customer_id || keyRecord.api_key_hash;
   const tier = keyRecord.tier || 'free';
-  try {
-    ensureMonthlyTokens(tenantId, tier);
-  } catch { /* non-fatal — legacy keys without tier fall back to quota */ }
+  try { ensureMonthlyTokens(tenantId, tier); } catch { /* non-fatal */ }
 
-  // 4. Validate input
+  // 4. Validate input + resolve model
   const engineInput = buildEnginePayload(body);
   if (!engineInput) {
     return {
@@ -142,8 +175,27 @@ async function handleApiCheck(headers, body) {
     };
   }
 
-  // 5. Token balance check
-  const tokenCost = getTokenCost(engineInput.type);
+  // 5. Resolve model (swift / check / deep) and check cache
+  const model = resolveModel(body.model);
+  const modelName = Object.keys(MODELS).find(k => MODELS[k] === model) || 'check';
+  const cached = getCached(tenantId, engineInput.type, engineInput.query);
+
+  // Cache hit: charge 0.1 tokens, return immediately
+  if (cached) {
+    const cacheTokenCost = CACHE_TOKEN_COST;
+    const balanceForCache = getTokenBalance(tenantId);
+    if (balanceForCache >= cacheTokenCost) {
+      try { debitTokens(tenantId, cacheTokenCost, engineInput.type, `cache:${cached.ref}`); } catch {}
+    }
+    return {
+      status: 200,
+      body: { ...cached, cached: true, token_cost: cacheTokenCost,
+              token_balance: getTokenBalance(tenantId), model: modelName },
+    };
+  }
+
+  // 6. Token balance check
+  const tokenCost = model.tokenCost;
   const tokenBalance = getTokenBalance(tenantId);
   if (tokenBalance < tokenCost) {
     return {
@@ -152,13 +204,13 @@ async function handleApiCheck(headers, body) {
         error: 'Token balance exhausted. Top up at kairoscheck.net/pricing',
         token_balance: tokenBalance,
         token_cost: tokenCost,
-        entity_type: engineInput.type,
+        model: modelName,
         top_up_url: 'https://kairoscheck.net/pricing',
       },
     };
   }
 
-  // 6. Score with graph-aware engine
+  // 7. Score with graph-aware engine
   const ref = auditId();
 
   // Layer 0: Domain-specific heuristic (runs before content engine for domain checks)
@@ -205,10 +257,10 @@ async function handleApiCheck(headers, body) {
     ref,
   });
 
-  // 7. Debit tokens (check succeeded)
+  // 10. Debit tokens + populate cache
   try { debitTokens(tenantId, tokenCost, engineInput.type, ref); } catch { /* non-fatal */ }
 
-  // 8. Merge domain-heuristic score into final result
+  // 11. Merge domain-heuristic score into final result
   let finalScore = result.verdict.score;
   let finalSignals = result.verdict.reasons || [];
   if (domainBoost > 0) {
@@ -220,24 +272,27 @@ async function handleApiCheck(headers, body) {
   // Re-apply decision thresholds after merge
   const finalVerdict = finalScore >= 60 ? 'BLOCK' : finalScore >= 30 ? 'REVIEW' : 'ALLOW';
   const newTokenBalance = getTokenBalance(tenantId);
-
-  // 9. Response
-  return {
-    status: 200,
-    body: {
-      score: finalScore,
-      verdict: finalVerdict,
-      signals: finalSignals,
-      dominant_threat: result.verdict.dominantThreat || null,
-      type: engineInput.type,
-      query: engineInput.query,
-      graph_intelligence: result.graph_intelligence || null,
-      token_balance: newTokenBalance,
-      token_cost: tokenCost,
-      timestamp: nowIso(),
-      ref,
-    },
+  const responseBody = {
+    score: finalScore,
+    verdict: finalVerdict,
+    signals: finalSignals,
+    dominant_threat: result.verdict.dominantThreat || null,
+    type: engineInput.type,
+    query: engineInput.query,
+    graph_intelligence: result.graph_intelligence || null,
+    model: modelName,
+    token_balance: newTokenBalance,
+    token_cost: tokenCost,
+    cached: false,
+    timestamp: nowIso(),
+    ref,
   };
+
+  // Store in cache for future cache hits
+  setCache(tenantId, engineInput.type, engineInput.query, responseBody);
+
+  // 12. Response
+  return { status: 200, body: responseBody };
 }
 
 module.exports = { handleApiCheck };
