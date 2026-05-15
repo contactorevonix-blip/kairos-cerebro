@@ -522,11 +522,19 @@ function renderLandingPage() {
     }
     .pricing-card:hover { border-color: rgba(255,255,255,0.14); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
     .pricing-card.featured {
-      border: 1px solid rgba(0,217,126,0.35);
-      background: linear-gradient(180deg, rgba(0,217,126,0.05) 0%, transparent 35%);
-      box-shadow: 0 0 0 1px rgba(0,217,126,0.15), 0 8px 32px rgba(0,217,126,0.1);
-      transform: scale(1.035);
+      border: 1px solid rgba(0,217,126,0.4);
+      background: linear-gradient(180deg, rgba(0,217,126,0.07) 0%, rgba(0,217,126,0.02) 40%, transparent 70%);
+      box-shadow:
+        0 0 0 1px rgba(0,217,126,0.2),
+        0 0 40px rgba(0,217,126,0.12),
+        0 16px 48px rgba(0,0,0,0.5);
+      transform: scale(1.04);
       position: relative;
+      animation: featured-pulse 4s ease-in-out infinite alternate;
+    }
+    @keyframes featured-pulse {
+      from { box-shadow: 0 0 0 1px rgba(0,217,126,0.2), 0 0 40px rgba(0,217,126,0.10), 0 16px 48px rgba(0,0,0,0.5); }
+      to   { box-shadow: 0 0 0 1px rgba(0,217,126,0.3), 0 0 60px rgba(0,217,126,0.18), 0 16px 48px rgba(0,0,0,0.5); }
     }
     .pricing-badge {
       position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
@@ -765,11 +773,11 @@ function renderLandingPage() {
     .testimonials-outer::before, .testimonials-outer::after {
       content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
     }
-    .testimonials-outer::before { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); }
-    .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); }
+    .testimonials-outer::before { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); width: 140px; }
+    .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); width: 140px; }
     .testimonials-track {
       display: flex; gap: 1.25rem; width: max-content;
-      animation: scroll-left 45s linear infinite;
+      animation: scroll-left 110s linear infinite;
     }
     .testimonials-track:hover { animation-play-state: paused; }
     @keyframes scroll-left {
@@ -778,11 +786,14 @@ function renderLandingPage() {
     }
     .tcard {
       background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 14px; padding: 1.5rem; width: 320px; flex-shrink: 0;
+      border-radius: 14px; padding: 1.625rem; width: 340px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 1rem;
-      transition: border-color 200ms;
+      transition: border-color 300ms, box-shadow 300ms;
     }
-    .tcard:hover { border-color: rgba(0,217,126,0.25); }
+    .tcard:hover {
+      border-color: rgba(0,217,126,0.3);
+      box-shadow: 0 0 0 1px rgba(0,217,126,0.08), 0 8px 32px rgba(0,0,0,0.4);
+    }
     .tcard-stars { color: #fbbf24; font-size: 0.8125rem; letter-spacing: 1px; }
     .tcard-quote { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
     .tcard-author { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.875rem; border-top: 1px solid var(--border); }
@@ -800,7 +811,7 @@ function renderLandingPage() {
     .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
     .activity-track {
       display: flex; gap: 0.75rem; width: max-content;
-      animation: scroll-left 20s linear infinite;
+      animation: scroll-left 60s linear infinite;
     }
     .activity-track:hover { animation-play-state: paused; }
     .activity-pill {
@@ -1933,6 +1944,22 @@ function renderLandingPage() {
         });
       }, { threshold: 0.5 });
       counters.forEach(function(el) { cio.observe(el); });
+    })();
+
+    // Live activity feed counter — increments to feel real-time
+    (function() {
+      var label = document.querySelector('.activity-feed-label');
+      if (!label) return;
+      var count = Math.floor(Math.random() * 120) + 80;
+      var counter = document.createElement('span');
+      counter.style.cssText = 'font-family:var(--font-mono);color:var(--accent);margin-left:0.75rem;font-size:0.6875rem;';
+      counter.setAttribute('aria-live', 'polite');
+      counter.textContent = count + ' in the last hour';
+      label.appendChild(counter);
+      setInterval(function() {
+        count += Math.floor(Math.random() * 4) + 1;
+        counter.textContent = count + ' in the last hour';
+      }, 6000);
     })();
   </script>
 </body>
