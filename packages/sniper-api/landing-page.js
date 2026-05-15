@@ -768,30 +768,26 @@ function renderLandingPage() {
     .testimonial-role { font-size: var(--text-xs); color: var(--text-tertiary); }
     .testimonial-product { font-size: var(--text-xs); color: var(--accent); font-family: var(--font-mono); margin-top: 0.125rem; }
 
-    /* TESTIMONIALS CAROUSEL */
-    .testimonials-outer { overflow: hidden; position: relative; margin-top: 3rem; }
-    .testimonials-outer::before, .testimonials-outer::after {
-      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
-    }
-    .testimonials-outer::before { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); width: 140px; }
-    .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); width: 140px; }
+    /* TESTIMONIALS SLIDER */
+    .testimonials-outer { overflow: hidden; margin-top: 3rem; }
     .testimonials-track {
-      display: flex; gap: 0; width: max-content;
-      animation: scroll-left 220s linear infinite;
+      display: flex; gap: 1.25rem;
+      transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: transform;
     }
-    .testimonials-track:hover { animation-play-state: paused; }
     @keyframes scroll-left {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
     .tcard {
       background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 14px; padding: 1.625rem; width: 340px; flex-shrink: 0;
+      border-radius: 14px; padding: 1.625rem;
+      flex: 0 0 calc(33.333% - 0.833rem);
       display: flex; flex-direction: column; gap: 1rem;
-      margin-right: 1.25rem;
       transition: border-color 300ms, box-shadow 300ms;
     }
+    @media (max-width: 900px) { .tcard { flex: 0 0 calc(50% - 0.625rem); } }
+    @media (max-width: 600px) { .tcard { flex: 0 0 100%; } }
     .tcard:hover {
       border-color: rgba(0,217,126,0.3);
       box-shadow: 0 0 0 1px rgba(0,217,126,0.08), 0 8px 32px rgba(0,0,0,0.4);
@@ -807,6 +803,31 @@ function renderLandingPage() {
     .tcard-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
     .tcard-role { font-size: 0.75rem; color: var(--text-tertiary); }
     .tcard-product { font-size: 0.6875rem; color: var(--accent); font-family: var(--font-mono); margin-top: 1px; }
+    .tslider-nav { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .tslider-btn {
+      background: var(--surface); border: 1px solid var(--border-strong);
+      color: var(--text-secondary); width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; font-size: 1.125rem; line-height: 1;
+      transition: border-color 150ms, color 150ms, background 150ms;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tslider-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,217,126,0.06); }
+    .tslider-dots { display: flex; align-items: center; gap: 0.5rem; }
+    .tslider-dot {
+      width: 6px; height: 6px; border-radius: 3px;
+      background: var(--border-strong); border: none; cursor: pointer; padding: 0;
+      transition: background 300ms, width 300ms;
+    }
+    .tslider-dot.active { background: var(--accent); width: 24px; }
+    .tslider-progress {
+      height: 2px; background: var(--border); border-radius: 1px;
+      margin-top: 1.25rem; overflow: hidden;
+    }
+    .tslider-progress-bar {
+      height: 100%; background: var(--accent); border-radius: 1px;
+      width: 0%; transition: width 8s linear;
+    }
+    .tslider-progress-bar.running { width: 100%; }
 
     /* ACTIVITY FEED */
     .activity-feed { padding: 2rem 0; border-top: 1px solid var(--border); overflow: hidden; }
@@ -1255,146 +1276,86 @@ function renderLandingPage() {
       </div>
     </section>
 
-    <!-- ── TESTIMONIALS CAROUSEL ─────────────────────────────────────── -->
+    <!-- ── TESTIMONIALS SLIDER ───────────────────────────────────────── -->
     <section aria-labelledby="testimonials-h2">
       <div class="container">
         <p class="section-label">Early access</p>
         <h2 class="section-title" id="testimonials-h2">What <span class="gradient-text">indie devs</span> say</h2>
         <p class="section-lead">From developers who stopped losing revenue to fraud during our beta program.</p>
-      </div>
-      <div class="testimonials-outer" aria-label="Testimonials carousel">
-        <div class="testimonials-track" role="list">
-          <!-- === SET 1 (8 cards) === -->
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
-              <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
+        <div class="testimonials-outer" aria-label="Testimonials">
+          <div class="testimonials-track" id="tslider-track" role="list">
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
+                <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
-              <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+                <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
-              <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
+                <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
-              <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
+                <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
-              <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
+                <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
-              <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
+                <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
-              <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
+                <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
+              </div>
             </div>
-          </div>
-          <div class="tcard" role="listitem">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
-              <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
-            </div>
-          </div>
-          <!-- === SET 2 (exact duplicate for infinite loop) === -->
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
-              <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
-              <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
-              <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
-              <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
-              <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
-              <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
-              <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
-            </div>
-          </div>
-          <div class="tcard" role="listitem" aria-hidden="true">
-            <div class="tcard-stars">★★★★★</div>
-            <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
-            <div class="tcard-author">
-              <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
-              <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
+            <div class="tcard" role="listitem">
+              <div class="tcard-stars">★★★★★</div>
+              <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
+              <div class="tcard-author">
+                <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
+                <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="tslider-progress"><div class="tslider-progress-bar" id="tslider-bar"></div></div>
+        <nav class="tslider-nav" aria-label="Testimonials navigation">
+          <button class="tslider-btn" id="tslider-prev" aria-label="Previous testimonials">&#8592;</button>
+          <div class="tslider-dots" id="tslider-dots" role="tablist"></div>
+          <button class="tslider-btn" id="tslider-next" aria-label="Next testimonials">&#8594;</button>
+        </nav>
       </div>
     </section>
 
@@ -1917,6 +1878,67 @@ function renderLandingPage() {
           setTimeout(function() { btn.textContent = 'copy'; }, 2000);
         });
       });
+    })();
+
+    // Testimonials slider — JS controlled, no CSS animation, reads fine
+    (function() {
+      var track  = document.getElementById('tslider-track');
+      var dotsEl = document.getElementById('tslider-dots');
+      var bar    = document.getElementById('tslider-bar');
+      var prevBtn = document.getElementById('tslider-prev');
+      var nextBtn = document.getElementById('tslider-next');
+      if (!track || !dotsEl) return;
+
+      var cards = track.querySelectorAll('.tcard');
+      var total = cards.length; // 8
+      var perView = window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 3;
+      var maxSlide = Math.max(0, total - perView); // 5
+      var current = 0;
+      var autoTimer, barTimer;
+
+      // Build dots
+      for (var i = 0; i <= maxSlide; i++) {
+        (function(idx) {
+          var dot = document.createElement('button');
+          dot.className = 'tslider-dot' + (idx === 0 ? ' active' : '');
+          dot.setAttribute('role', 'tab');
+          dot.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+          dotsEl.appendChild(dot);
+          dot.addEventListener('click', function() { goTo(idx); resetAuto(); });
+        })(i);
+      }
+
+      function goTo(idx) {
+        current = (idx + maxSlide + 1) % (maxSlide + 1);
+        var cardW = cards[0].offsetWidth + 20; // card + gap
+        track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+        dotsEl.querySelectorAll('.tslider-dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+        // Reset progress bar
+        if (bar) { bar.classList.remove('running'); void bar.offsetWidth; bar.classList.add('running'); }
+      }
+
+      function resetAuto() {
+        clearInterval(autoTimer); clearTimeout(barTimer);
+        if (bar) { bar.classList.remove('running'); }
+        barTimer = setTimeout(function() {
+          if (bar) { void bar.offsetWidth; bar.classList.add('running'); }
+          autoTimer = setInterval(function() { goTo(current + 1); }, 8000);
+        }, 300);
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); resetAuto(); });
+      if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); resetAuto(); });
+
+      // Keyboard nav
+      track.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
+        if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
+      });
+
+      goTo(0);
+      resetAuto();
     })();
 
     // Counter animation for fraud stats
