@@ -65,12 +65,12 @@ describe('Token Economy — ledger', () => {
   });
 
   it('ensureMonthlyTokens grants once per month', () => {
-    const { ensureMonthlyTokens, getTokenBalance } = db();
+    const { ensureMonthlyTokens, getTokenBalance, MONTHLY_TOKENS } = db();
     const granted1 = ensureMonthlyTokens('tenant-d', 'starter', TEST_DIR);
     const granted2 = ensureMonthlyTokens('tenant-d', 'starter', TEST_DIR);
     assert.equal(granted1, true);
     assert.equal(granted2, false); // idempotent
-    assert.equal(getTokenBalance('tenant-d', TEST_DIR), 5000); // only one grant
+    assert.equal(getTokenBalance('tenant-d', TEST_DIR), MONTHLY_TOKENS.starter); // only one grant
   });
 
   it('ensureMonthlyTokens uses correct amounts per tier', () => {
