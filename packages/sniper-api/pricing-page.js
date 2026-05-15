@@ -8,7 +8,7 @@ function renderPricingPage() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing — Kairos Check</title>
-  <meta name="description" content="Fraud detection API for indie devs and solo founders. Starter from €29/month. No sales call. Cancel anytime.">
+  <meta name="description" content="Fraud detection API for indie devs and solo founders. Free tier included. Starter from €29/month. No contract. Cancel anytime.">
   <link rel="canonical" href="${base}/pricing">
   <meta property="og:title" content="Pricing — Kairos Check">
   <meta property="og:description" content="OSINT-first fraud detection API. Self-serve. No contract. Cancel anytime.">
@@ -16,7 +16,7 @@ function renderPricingPage() {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kairos Check">
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600&family=jetbrains-mono:400" rel="stylesheet">
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=jetbrains-mono:400,500" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,10 +24,10 @@ function renderPricingPage() {
     "name": "Kairos Check API",
     "description": "OSINT-first fraud detection API for developers",
     "offers": [
-      { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Starter", "price": "29", "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Pro", "price": "79", "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Scale", "price": "199", "priceCurrency": "EUR" }
+      { "@type": "Offer", "name": "Free",    "price": "0",   "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Starter", "price": "29",  "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Pro",     "price": "79",  "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Scale",   "price": "199", "priceCurrency": "EUR" }
     ]
   }
   </script>
@@ -41,12 +41,13 @@ function renderPricingPage() {
       --border: #1f1f1f; --border-strong: #2a2a2a;
       --text: #f5f5f5; --text-secondary: #a3a3a3; --text-tertiary: #737373;
       --accent: #00d97e; --accent-hover: #00b369;
+      --accent-dim: rgba(0,217,126,0.08); --accent-border: rgba(0,217,126,0.28);
+      --accent-glow: rgba(0,217,126,0.12);
       --danger: #ef4444;
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, monospace;
       --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
       --text-lg: 1.125rem; --text-xl: 1.5rem; --text-2xl: 2.25rem; --text-3xl: 3.5rem;
-      --lh-tight: 1.1; --lh-snug: 1.3; --lh-normal: 1.6;
     }
     html { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
     body { min-height: 100vh; }
@@ -54,140 +55,221 @@ function renderPricingPage() {
     a.skip-nav {
       position: absolute; top: -100%; left: 1rem;
       background: var(--accent); color: #000; padding: 0.5rem 1rem;
-      border-radius: 4px; font-size: var(--text-sm); font-weight: 600; text-decoration: none;
-      z-index: 100;
+      border-radius: 4px; font-size: var(--text-sm); font-weight: 600; text-decoration: none; z-index: 100;
     }
     a.skip-nav:focus { top: 1rem; }
 
+    /* NAV */
     nav {
       position: sticky; top: 0; z-index: 50;
       border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
     .nav-inner {
-      max-width: 1100px; margin: 0 auto;
-      padding: 0 1.5rem; height: 56px;
+      max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; height: 56px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-logo { font-size: var(--text-base); font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo-text { font-size: var(--text-base); font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .nav-logo-text span { color: var(--accent); }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: var(--text-sm); transition: color 150ms ease-out; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--text); }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: var(--text-sm); transition: color 150ms; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #000; text-decoration: none;
+      font-size: var(--text-sm); font-weight: 600; padding: 0.45rem 1rem;
+      border-radius: 6px; transition: background 150ms;
+    }
+    .nav-cta:hover { background: var(--accent-hover); color: #000; }
 
-    main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-    /* Hero */
-    .hero { text-align: center; padding: 5rem 0 3rem; }
-    .hero h1 { font-size: clamp(2rem, 5vw, var(--text-3xl)); font-weight: 600; line-height: var(--lh-tight); letter-spacing: -0.03em; color: var(--text); }
-    .hero p { margin-top: 1rem; font-size: var(--text-lg); color: var(--text-secondary); line-height: var(--lh-snug); max-width: 540px; margin-left: auto; margin-right: auto; }
+    /* HERO */
+    .pricing-hero { text-align: center; padding: 5rem 1.5rem 3rem; }
+    .pricing-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.03em;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 20%, #00d97e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .pricing-hero p {
+      margin-top: 1rem; font-size: var(--text-lg); color: var(--text-secondary);
+      line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;
+    }
 
-    /* Free tier banner */
-    .free-banner {
-      margin: 2rem auto; max-width: 560px;
+    /* TOGGLE */
+    .billing-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      margin: 2rem auto;
+    }
+    .toggle-label { font-size: var(--text-sm); color: var(--text-secondary); }
+    .toggle-label.active { color: var(--text); font-weight: 500; }
+    .toggle-btn {
+      position: relative; width: 44px; height: 24px;
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+      border-radius: 999px; cursor: pointer; transition: border-color 150ms;
+      flex-shrink: 0;
+    }
+    .toggle-btn::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--text-secondary); transition: transform 200ms, background 150ms;
+    }
+    .toggle-btn.annual::after { transform: translateX(20px); background: var(--accent); }
+    .toggle-btn.annual { border-color: var(--accent); }
+    .save-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      background: rgba(0,217,126,0.12); color: var(--accent);
+      border: 1px solid rgba(0,217,126,0.2); border-radius: 999px;
+      padding: 0.15rem 0.5rem;
+    }
+
+    /* PRICING GRID */
+    .plans-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1rem; margin: 1rem 0 1.5rem; align-items: start;
+    }
+    @media (max-width: 900px) { .plans-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 540px) { .plans-grid { grid-template-columns: 1fr; } }
+
+    .plan-card {
       background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 8px; padding: 1rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      border-radius: 12px; padding: 1.75rem;
+      display: flex; flex-direction: column; transition: border-color 150ms;
     }
-    .free-banner p { font-size: var(--text-sm); color: var(--text-secondary); }
-    .free-banner p strong { color: var(--text); }
-    .btn-ghost {
-      display: inline-block; padding: 0.5rem 1rem;
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      font-size: var(--text-sm); font-weight: 500; color: var(--text); text-decoration: none;
-      transition: border-color 150ms ease-out, background 150ms ease-out;
-      cursor: pointer; background: transparent; font-family: var(--font-sans);
-      white-space: nowrap;
+    .plan-card:hover { border-color: #3a3a3a; }
+    .plan-card.featured {
+      border: 1px solid var(--accent-border);
+      background: linear-gradient(180deg, rgba(0,217,126,0.05) 0%, var(--surface) 40%);
+      box-shadow: 0 0 0 1px var(--accent-border), 0 8px 40px var(--accent-glow);
+      position: relative; transform: scale(1.025);
     }
-    .btn-ghost:hover { border-color: var(--text-secondary); background: var(--surface-2); }
-
-    /* Pricing grid */
-    .plans {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden;
-      margin: 1rem 0 4rem;
-    }
-    .plan {
-      background: var(--surface); padding: 2rem;
-      display: flex; flex-direction: column;
-      transition: background 150ms ease-out;
-    }
-    .plan:hover { background: var(--surface-2); }
-    .plan.featured {
-      background: var(--surface-2);
-      position: relative;
-    }
-    .plan.featured::before {
-      content: 'Most popular';
-      position: absolute; top: 0; right: 1.5rem;
+    .plan-badge {
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
       background: var(--accent); color: #000;
-      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 0.25rem 0.75rem; border-radius: 0 0 6px 6px;
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.2rem 0.875rem; border-radius: 0 0 8px 8px; white-space: nowrap;
     }
-    .plan-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; }
-    .plan-price { margin-top: 1rem; }
-    .plan-price .amount { font-size: var(--text-3xl); font-weight: 600; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
-    .plan-price .period { font-size: var(--text-sm); color: var(--text-tertiary); margin-left: 0.25rem; }
-    .plan-price .vat { display: block; font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 0.25rem; }
-    .plan-desc { margin-top: 0.75rem; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--lh-normal); }
-    .plan-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
-    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; flex: 1; }
-    .plan-features li { font-size: var(--text-sm); color: var(--text-secondary); padding-left: 1.25rem; position: relative; }
-    .plan-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-size: var(--text-xs); top: 0.1em; }
-    .plan-cta { margin-top: 2rem; }
-    .btn-primary {
-      display: block; width: 100%; padding: 0.75rem 1rem; text-align: center;
-      background: var(--accent); color: #000; border: none; border-radius: 6px;
-      font-size: var(--text-sm); font-weight: 600; cursor: pointer; font-family: var(--font-sans);
-      transition: background 150ms ease-out, transform 150ms ease-out;
-      text-decoration: none;
+    .plan-name {
+      font-size: var(--text-xs); font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 1rem;
     }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-outline {
-      display: block; width: 100%; padding: 0.75rem 1rem; text-align: center;
-      background: transparent; color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px;
-      font-size: var(--text-sm); font-weight: 500; cursor: pointer; font-family: var(--font-sans);
-      transition: border-color 150ms ease-out, transform 150ms ease-out;
-      text-decoration: none;
+    .plan-card.featured .plan-name { color: var(--accent); }
+    .plan-price-row { display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 0.25rem; }
+    .plan-amount {
+      font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em;
+      line-height: 1; color: var(--text);
     }
-    .btn-outline:hover { border-color: var(--text-secondary); transform: translateY(-1px); }
-    .btn-outline:active { transform: translateY(0); }
-    .btn-disabled { opacity: 0.5; cursor: default; pointer-events: none; }
+    .plan-period { font-size: var(--text-sm); color: var(--text-tertiary); }
+    .plan-vat { font-size: var(--text-xs); color: var(--text-tertiary); margin-bottom: 1rem; }
+    .plan-desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.55; margin-bottom: 1.25rem; }
+    .plan-divider { height: 1px; background: var(--border); margin-bottom: 1.25rem; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; margin-bottom: 1.5rem; }
+    .plan-features li {
+      font-size: var(--text-sm); color: var(--text-secondary);
+      display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4;
+    }
+    .plan-features li::before {
+      content: ''; flex-shrink: 0; width: 14px; height: 14px; margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7' cy='7' r='7' fill='%2300d97e' fill-opacity='0.15'/%3E%3Cpath d='M4.5 7L6.5 9L9.5 5.5' stroke='%2300d97e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-size: contain;
+    }
 
-    /* Error message */
+    /* BUTTONS */
+    .btn-plan-primary {
+      display: block; width: 100%; padding: 0.75rem 1rem; text-align: center;
+      background: var(--accent); color: #000; border: none; border-radius: 8px;
+      font-size: var(--text-sm); font-weight: 700; cursor: pointer; font-family: var(--font-sans);
+      position: relative; overflow: hidden;
+      transition: background 150ms, transform 150ms, box-shadow 150ms;
+      text-decoration: none;
+    }
+    .btn-plan-primary:hover {
+      background: var(--accent-hover); transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,217,126,0.25);
+    }
+    .btn-plan-primary::after {
+      content: ''; position: absolute; top: -50%; left: -75%;
+      width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-20deg); transition: left 500ms ease;
+    }
+    .btn-plan-primary:hover::after { left: 150%; }
+    .btn-plan-outline {
+      display: block; width: 100%; padding: 0.75rem 1rem; text-align: center;
+      background: transparent; color: var(--text-secondary);
+      border: 1px solid var(--border-strong); border-radius: 8px;
+      font-size: var(--text-sm); font-weight: 500; cursor: pointer; font-family: var(--font-sans);
+      transition: border-color 150ms, color 150ms, transform 150ms;
+      text-decoration: none;
+    }
+    .btn-plan-outline:hover { border-color: var(--text-tertiary); color: var(--text); transform: translateY(-1px); }
     .checkout-error { display: none; margin-top: 0.5rem; font-size: var(--text-xs); color: var(--danger); text-align: center; }
 
+    /* TRUST ROW */
+    .trust-row {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 0.5rem 1.25rem; padding: 1.25rem 1.5rem; margin: 0 0 4rem;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.375rem;
+      font-size: var(--text-xs); color: var(--text-tertiary);
+    }
+    .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* COMPARISON TABLE */
+    .compare-section { margin: 0 0 5rem; overflow-x: auto; }
+    .compare-section h2 {
+      font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 1.5rem; text-align: center;
+    }
+    .compare-table { width: 100%; border-collapse: collapse; min-width: 540px; }
+    .compare-table th {
+      text-align: left; padding: 0.625rem 1rem;
+      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-tertiary); border-bottom: 1px solid var(--border-strong);
+    }
+    .compare-table th:not(:first-child) { text-align: center; }
+    .compare-table th.featured-col { color: var(--accent); }
+    .compare-table td {
+      padding: 0.75rem 1rem; font-size: var(--text-sm); color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table td.featured-col { background: rgba(0,217,126,0.03); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: var(--surface); }
+    .compare-table tr:hover td.featured-col { background: rgba(0,217,126,0.05); }
+    .check { color: var(--accent); font-size: 0.875rem; }
+    .dash  { color: var(--border-strong); }
+
     /* FAQ */
-    .faq { max-width: 680px; margin: 0 auto 6rem; }
-    .faq h2 { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2rem; }
-    .faq-item { border-top: 1px solid var(--border); padding: 1.5rem 0; }
+    .faq-section { max-width: 680px; margin: 0 auto 6rem; }
+    .faq-section h2 { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2rem; }
+    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
     .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-q { font-size: var(--text-base); font-weight: 500; color: var(--text); margin-bottom: 0.75rem; }
-    .faq-a { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--lh-normal); }
+    .faq-q { font-size: var(--text-base); font-weight: 500; color: var(--text); margin-bottom: 0.625rem; }
+    .faq-a { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.65; }
     .faq-a a { color: var(--accent); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+    /* FOOTER */
+    .footer-inner {
+      border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
       max-width: 1100px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     }
-    .footer-brand { font-size: var(--text-sm); color: var(--text-tertiary); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: var(--text-sm); color: var(--text-tertiary); text-decoration: none; transition: color 150ms ease-out; }
+    .footer-brand { font-size: var(--text-xs); color: var(--text-tertiary); }
+    .footer-links { display: flex; gap: 1.25rem; }
+    .footer-links a { font-size: var(--text-xs); color: var(--text-tertiary); text-decoration: none; transition: color 150ms; }
     .footer-links a:hover { color: var(--text-secondary); }
 
     @media (max-width: 640px) {
-      .hero { padding: 3rem 0 2rem; }
-      .hero h1 { font-size: 2rem; }
-      .free-banner { flex-direction: column; align-items: flex-start; }
-      .plans { grid-template-columns: 1fr; }
+      .pricing-hero { padding: 3rem 1.5rem 2rem; }
+      .trust-row { justify-content: flex-start; }
       footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -197,142 +279,309 @@ function renderPricingPage() {
 
   <nav aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">Kairos<span>Check</span></a>
+      <a href="/" class="nav-logo" aria-label="Kairos Check home">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true">
+          <path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/>
+          <path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">Kairos<span>Check</span></span>
+      </a>
       <div class="nav-links">
         <a href="/docs">Docs</a>
         <a href="/pricing" class="active" aria-current="page">Pricing</a>
+        <a href="/status">Status</a>
+        <a href="/" class="nav-cta">Get API key</a>
       </div>
     </div>
   </nav>
 
   <main id="main-content">
-    <section class="hero" aria-labelledby="hero-heading">
-      <h1 id="hero-heading">Fraud detection that fits in<br>5 minutes of code</h1>
-      <p>OSINT-first. GDPR-native. Self-serve. No sales call.</p>
+
+    <!-- HERO -->
+    <section class="pricing-hero" aria-labelledby="pricing-h1">
+      <h1 id="pricing-h1">Simple pricing.<br><span class="gradient-text">No surprises.</span></h1>
+      <p>Start free. Upgrade when you need more checks. Cancel anytime with one click.</p>
     </section>
 
-    <div class="free-banner" role="complementary" aria-label="Free tier">
-      <p><strong>Free tier included.</strong> 50 checks/month, no card required. Get your API key instantly.</p>
-      <a href="/docs/quickstart" class="btn-ghost">Get free key</a>
+    <!-- BILLING TOGGLE -->
+    <div class="billing-toggle" role="group" aria-label="Billing period">
+      <span class="toggle-label active" id="label-monthly">Monthly</span>
+      <button class="toggle-btn" id="billing-toggle" aria-pressed="false" aria-label="Switch to annual billing"></button>
+      <span class="toggle-label" id="label-annual">Annual <span class="save-badge">2 months free</span></span>
     </div>
 
-    <section aria-label="Pricing plans">
-      <div class="plans">
+    <!-- PRICING CARDS -->
+    <div class="container">
+      <div class="plans-grid" role="list">
 
-        <article class="plan" aria-labelledby="plan-starter">
-          <div class="plan-name">Starter</div>
-          <div class="plan-price">
-            <span class="amount">€29</span><span class="period">/month</span>
-            <span class="vat">+ VAT where applicable</span>
+        <!-- FREE -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-free-name">
+          <div class="plan-name" id="plan-free-name">Free</div>
+          <div class="plan-price-row">
+            <span class="plan-amount">€0</span>
           </div>
-          <p class="plan-desc">For indie devs shipping their first product with payments.</p>
+          <div class="plan-vat">forever · no card required</div>
+          <p class="plan-desc">Try the full scoring engine. Real API key, real results.</p>
+          <div class="plan-divider" aria-hidden="true"></div>
+          <ul class="plan-features" aria-label="Free tier features">
+            <li>50 checks / month</li>
+            <li>Domain + email scoring</li>
+            <li>Score + verdict + signals</li>
+            <li>No credit card</li>
+          </ul>
+          <a href="/docs/quickstart" class="btn-plan-outline">Get free key →</a>
+        </article>
+
+        <!-- STARTER -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-starter-name">
+          <div class="plan-name" id="plan-starter-name">Starter</div>
+          <div class="plan-price-row">
+            <span class="plan-amount" data-monthly="29" data-annual="24">€29</span>
+            <span class="plan-period">/mo</span>
+          </div>
+          <div class="plan-vat" id="starter-vat">+ VAT · billed monthly</div>
+          <p class="plan-desc">For indie devs shipping their first product.</p>
           <div class="plan-divider" aria-hidden="true"></div>
           <ul class="plan-features" aria-label="Starter features">
             <li>5,000 checks / month</li>
-            <li>All 8 OSINT scoring layers</li>
-            <li>Webhook on block/review events</li>
-            <li>Audit trail (CSV export)</li>
-            <li>Email support (48h)</li>
+            <li>Domain, email, phone, IBAN</li>
+            <li>Webhook on BLOCK events</li>
+            <li>Audit trail CSV export</li>
+            <li>Cancel anytime</li>
           </ul>
-          <div class="plan-cta">
-            <button class="btn-outline checkout-btn" data-tier="starter">Get started</button>
-            <p class="checkout-error" aria-live="polite"></p>
-          </div>
+          <button class="btn-plan-outline checkout-btn" data-tier="starter">Get started</button>
+          <p class="checkout-error" aria-live="polite"></p>
         </article>
 
-        <article class="plan featured" aria-labelledby="plan-pro">
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">
-            <span class="amount">€79</span><span class="period">/month</span>
-            <span class="vat">+ VAT where applicable</span>
+        <!-- PRO — FEATURED -->
+        <article class="plan-card featured" role="listitem" aria-labelledby="plan-pro-name">
+          <div class="plan-badge" aria-label="Most popular plan">Most Popular</div>
+          <div class="plan-name" id="plan-pro-name">Pro</div>
+          <div class="plan-price-row">
+            <span class="plan-amount" data-monthly="79" data-annual="66">€79</span>
+            <span class="plan-period">/mo</span>
           </div>
+          <div class="plan-vat" id="pro-vat">+ VAT · billed monthly</div>
           <p class="plan-desc">For growing SaaS products with real transaction volume.</p>
           <div class="plan-divider" aria-hidden="true"></div>
           <ul class="plan-features" aria-label="Pro features">
             <li>25,000 checks / month</li>
-            <li>SLA 99.9% uptime</li>
-            <li>GDPR endpoints (Art.15 / Art.17)</li>
-            <li>Batch API (up to 50 items)</li>
-            <li>Reputation graph queries</li>
+            <li>Everything in Starter</li>
+            <li>Batch API (100 items/call)</li>
+            <li>GDPR Art.15 / 17 endpoints</li>
+            <li>SLA 99.9% · Priority support</li>
           </ul>
-          <div class="plan-cta">
-            <button class="btn-primary checkout-btn" data-tier="pro">Get started</button>
-            <p class="checkout-error" aria-live="polite"></p>
-          </div>
+          <button class="btn-plan-primary checkout-btn" data-tier="pro">Get API key →</button>
+          <p class="checkout-error" aria-live="polite"></p>
         </article>
 
-        <article class="plan" aria-labelledby="plan-scale">
-          <div class="plan-name">Scale</div>
-          <div class="plan-price">
-            <span class="amount">€199</span><span class="period">/month</span>
-            <span class="vat">+ VAT where applicable</span>
+        <!-- SCALE -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-scale-name">
+          <div class="plan-name" id="plan-scale-name">Scale</div>
+          <div class="plan-price-row">
+            <span class="plan-amount" data-monthly="199" data-annual="166">€199</span>
+            <span class="plan-period">/mo</span>
           </div>
-          <p class="plan-desc">For platforms and marketplaces at volume. Still fully self-serve.</p>
+          <div class="plan-vat" id="scale-vat">+ VAT · billed monthly</div>
+          <p class="plan-desc">For platforms and marketplaces at volume.</p>
           <div class="plan-divider" aria-hidden="true"></div>
           <ul class="plan-features" aria-label="Scale features">
             <li>100,000 checks / month</li>
-            <li>Priority async support (email)</li>
+            <li>Everything in Pro</li>
             <li>Reputation graph full access</li>
-            <li>Audit trail with chain verification</li>
             <li>Custom webhook retry policy</li>
+            <li>Priority async support</li>
           </ul>
-          <div class="plan-cta">
-            <button class="btn-outline checkout-btn" data-tier="scale">Get started</button>
-            <p class="checkout-error" aria-live="polite"></p>
-          </div>
+          <button class="btn-plan-outline checkout-btn" data-tier="scale">Get started</button>
+          <p class="checkout-error" aria-live="polite"></p>
         </article>
 
       </div>
-    </section>
 
-    <section class="faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently asked questions</h2>
-
-      <div class="faq-item">
-        <p class="faq-q">Can I cancel at any time?</p>
-        <p class="faq-a">Yes. Cancel from your <a href="/portal">billing portal</a> with one click. Your subscription stays active until the end of the billing period — no prorating, no penalty.</p>
+      <!-- TRUST ROW -->
+      <div class="trust-row" aria-label="Purchase guarantees">
+        <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>No contract</span>
+        <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>Cancel anytime</span>
+        <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>14-day money back</span>
+        <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>EU-hosted · GDPR-native</span>
+        <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>No sales call</span>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-q">Is there a refund policy?</p>
-        <p class="faq-a">If you're not satisfied within the first 14 days of a paid subscription, contact <a href="mailto:support@kairoscheck.net">support@kairoscheck.net</a> for a full refund. No questions asked.</p>
-      </div>
+      <!-- COMPARISON TABLE -->
+      <section class="compare-section" aria-labelledby="compare-h2">
+        <h2 id="compare-h2">Everything included</h2>
+        <table class="compare-table" aria-label="Feature comparison by plan">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Free</th>
+              <th scope="col">Starter</th>
+              <th scope="col" class="featured-col">Pro</th>
+              <th scope="col">Scale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monthly checks</td>
+              <td>50</td>
+              <td>5,000</td>
+              <td class="featured-col">25,000</td>
+              <td>100,000</td>
+            </tr>
+            <tr>
+              <td>Domain, email, phone, IBAN scoring</td>
+              <td>Domain + email</td>
+              <td><span class="check">✓</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Score + verdict + signals</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Webhook on BLOCK / REVIEW</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="check">✓</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Audit trail (CSV export)</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="check">✓</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Batch API (up to 100/call)</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>GDPR Art.15 / 17 endpoints</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td class="featured-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Reputation graph full access</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td class="featured-col"><span class="dash">—</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>SLA</td>
+              <td>Best effort</td>
+              <td>Best effort</td>
+              <td class="featured-col">99.9%</td>
+              <td>99.9%</td>
+            </tr>
+            <tr>
+              <td>Support</td>
+              <td>Community</td>
+              <td>Email 48h</td>
+              <td class="featured-col">Priority email</td>
+              <td>Priority async</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-      <div class="faq-item">
-        <p class="faq-q">Is Kairos Check GDPR-compliant?</p>
-        <p class="faq-a">Yes. Kairos Check is OSINT-first — we score signals derived from public data, not personal data you submit. Requests are pseudonymized before storage. No personal data is sold or shared. Infrastructure runs in the EU. See our <a href="/privacy">Privacy Policy</a> for the full picture.</p>
-      </div>
+      <!-- FAQ -->
+      <section class="faq-section" aria-labelledby="faq-h2">
+        <h2 id="faq-h2">Common questions</h2>
 
-      <div class="faq-item">
-        <p class="faq-q">What does the free tier include?</p>
-        <p class="faq-a">50 checks per month, no credit card required. You get a real API key instantly via our <a href="/docs/quickstart">quickstart guide</a>. The free tier uses the same 8-layer scoring engine as paid plans — no degraded results. Webhooks and audit trail are not included.</p>
-      </div>
+        <div class="faq-item">
+          <p class="faq-q">Can I cancel at any time?</p>
+          <p class="faq-a">Yes. Cancel from your <a href="/api/portal">billing portal</a> with one click. Your subscription stays active until the end of the billing period — no penalty, no notice period.</p>
+        </div>
 
-      <div class="faq-item">
-        <p class="faq-q">Can I upgrade or downgrade mid-cycle?</p>
-        <p class="faq-a">Yes. Upgrades take effect immediately and are prorated. Downgrades take effect at the next billing cycle. Manage everything from your <a href="/portal">billing portal</a> — no email required.</p>
-      </div>
-    </section>
+        <div class="faq-item">
+          <p class="faq-q">Is there a refund policy?</p>
+          <p class="faq-a">If you're not satisfied within the first 14 days, email <a href="mailto:support@kairoscheck.net">support@kairoscheck.net</a> for a full refund. No questions asked.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">What counts as one check?</p>
+          <p class="faq-a">One API call to <code style="font-family:var(--font-mono);font-size:0.875em">/api/check</code> counts as one check, regardless of entity type (domain, email, phone, IBAN). Quota resets on the 1st of each month.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Is Kairos Check GDPR-compliant?</p>
+          <p class="faq-a">Yes. We score OSINT signals derived from public data. Inputs are pseudonymised before storage. No PII sold or shared. Infrastructure runs in the EU (Railway, Ireland). See our <a href="/privacy">Privacy Policy</a>.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Can I upgrade or downgrade mid-cycle?</p>
+          <p class="faq-a">Yes. Upgrades take effect immediately and are prorated. Downgrades take effect at the next billing cycle. Manage everything from your <a href="/api/portal">billing portal</a>.</p>
+        </div>
+      </section>
+    </div>
+
   </main>
 
   <footer>
-    <p class="footer-brand">&copy; ${new Date().getFullYear()} Kairos Check</p>
-    <nav class="footer-links" aria-label="Footer navigation">
-      <a href="/">Home</a>
-      <a href="/docs">Docs</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-    </nav>
+    <div class="footer-inner">
+      <p class="footer-brand">&copy; ${new Date().getFullYear()} Kairos Check · EU-hosted · No data sold</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/docs">Docs</a>
+        <a href="/status">Status</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
   </footer>
 
   <script>
+    // Billing toggle — monthly / annual
+    (function() {
+      var isAnnual = false;
+      var toggle = document.getElementById('billing-toggle');
+      var labelMonthly = document.getElementById('label-monthly');
+      var labelAnnual   = document.getElementById('label-annual');
+      var amounts = document.querySelectorAll('.plan-amount[data-monthly]');
+      var vats = {
+        starter: document.getElementById('starter-vat'),
+        pro:     document.getElementById('pro-vat'),
+        scale:   document.getElementById('scale-vat'),
+      };
+
+      function update() {
+        amounts.forEach(function(el) {
+          el.textContent = '€' + (isAnnual ? el.dataset.annual : el.dataset.monthly);
+        });
+        var period = isAnnual ? '+ VAT · billed annually' : '+ VAT · billed monthly';
+        Object.values(vats).forEach(function(el) { if (el) el.textContent = period; });
+        toggle.classList.toggle('annual', isAnnual);
+        toggle.setAttribute('aria-pressed', String(isAnnual));
+        labelMonthly.classList.toggle('active', !isAnnual);
+        labelAnnual.classList.toggle('active', isAnnual);
+      }
+
+      toggle.addEventListener('click', function() {
+        isAnnual = !isAnnual;
+        update();
+      });
+    })();
+
+    // Checkout buttons
     document.querySelectorAll('.checkout-btn').forEach(function(btn) {
       btn.addEventListener('click', async function() {
         var tier = btn.dataset.tier;
         var errorEl = btn.parentElement.querySelector('.checkout-error');
+        var orig = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Redirecting…';
-        errorEl.style.display = 'none';
+        if (errorEl) errorEl.style.display = 'none';
         try {
           var res = await fetch('/api/checkout', {
             method: 'POST',
@@ -346,10 +595,9 @@ function renderPricingPage() {
             throw new Error(data.error || 'Checkout unavailable');
           }
         } catch (err) {
-          errorEl.textContent = err.message || 'An error occurred. Please try again.';
-          errorEl.style.display = 'block';
+          if (errorEl) { errorEl.textContent = err.message || 'An error occurred. Please try again.'; errorEl.style.display = 'block'; }
           btn.disabled = false;
-          btn.textContent = 'Get started';
+          btn.textContent = orig;
         }
       });
     });

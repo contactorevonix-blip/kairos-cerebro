@@ -89,17 +89,57 @@ function renderLandingPage() {
     section + section { border-top: 1px solid var(--border); }
 
     /* HERO */
-    .hero { padding: 5rem 0 4rem; position: relative; overflow: hidden; }
+    .hero { padding: 6rem 0 4rem; position: relative; overflow: hidden; }
     .hero::before {
       content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
       position: absolute;
-      top: -120px; left: 50%;
+      top: -100px; left: 50%;
       transform: translateX(-50%);
-      width: 900px; height: 600px;
-      background: radial-gradient(ellipse at 50% 20%, rgba(0,217,126,0.07) 0%, transparent 60%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,217,126,0.09) 0%, transparent 65%);
       pointer-events: none; z-index: 0;
     }
     .hero .container { position: relative; z-index: 1; }
+
+    /* GRADIENT TEXT */
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 20%, #00d97e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* LIVE DOT */
+    .live-dot {
+      display: inline-block;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,217,126,0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(0,217,126,0); }
+    }
+
+    /* FADE UP */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fade-up 0.55s ease-out both; }
+    .fade-up-2 { animation: fade-up 0.55s 0.1s ease-out both; }
+    .fade-up-3 { animation: fade-up 0.55s 0.2s ease-out both; }
 
     /* SOCIAL PROOF BAR */
     .hero-proof {
@@ -211,17 +251,31 @@ function renderLandingPage() {
     .btn-primary {
       display: inline-flex; align-items: center; gap: 0.375rem;
       background: var(--accent); color: #000; text-decoration: none;
-      font-size: var(--text-sm); font-weight: 600; padding: 0.75rem 1.5rem;
-      border-radius: 7px; transition: background 150ms;
+      font-size: var(--text-sm); font-weight: 700; padding: 0.8rem 1.625rem;
+      border-radius: 8px; position: relative; overflow: hidden;
+      transition: background 150ms, transform 150ms, box-shadow 150ms;
     }
-    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0,217,126,0.3);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; top: -50%; left: -75%;
+      width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: skewX(-20deg);
+      transition: left 500ms ease;
+    }
+    .btn-primary:hover::after { left: 150%; }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 0.375rem;
-      border: 1px solid var(--border-strong); color: var(--text); text-decoration: none;
-      font-size: var(--text-sm); font-weight: 500; padding: 0.75rem 1.5rem;
-      border-radius: 7px; transition: border-color 150ms;
+      border: 1px solid var(--border-strong); color: var(--text-secondary); text-decoration: none;
+      font-size: var(--text-sm); font-weight: 500; padding: 0.8rem 1.625rem;
+      border-radius: 8px; transition: border-color 150ms, color 150ms;
     }
-    .btn-secondary:hover { border-color: var(--text-secondary); }
+    .btn-secondary:hover { border-color: var(--text-tertiary); color: var(--text); }
 
     /* SECTION HEADERS */
     .section-label {
@@ -279,7 +333,17 @@ function renderLandingPage() {
       border-radius: 10px; padding: 1.75rem; display: flex; flex-direction: column;
     }
     .pricing-card.featured {
-      border-color: rgba(0,217,126,0.4); background: rgba(0,217,126,0.04);
+      border: 1px solid rgba(0,217,126,0.35);
+      background: linear-gradient(180deg, rgba(0,217,126,0.05) 0%, transparent 35%);
+      box-shadow: 0 0 0 1px rgba(0,217,126,0.15), 0 8px 32px rgba(0,217,126,0.1);
+      transform: scale(1.02);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #000;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.2rem 0.875rem; border-radius: 0 0 8px 8px; white-space: nowrap;
     }
     .pricing-tier { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.75rem; }
     .pricing-card.featured .pricing-tier { color: var(--accent); }
@@ -305,6 +369,26 @@ function renderLandingPage() {
     .pricing-full-link { text-align: center; margin-top: 1.5rem; }
     .pricing-full-link a { color: var(--text-secondary); font-size: var(--text-sm); text-decoration: none; }
     .pricing-full-link a:hover { color: var(--text); }
+
+    /* HOW IT WORKS */
+    .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr; } }
+    .step-card {
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: 12px; padding: 1.75rem;
+    }
+    .step-number {
+      font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 600;
+      color: var(--accent); letter-spacing: 0.08em; margin-bottom: 1rem;
+    }
+    .step-title { font-size: var(--text-base); font-weight: 600; margin-bottom: 0.5rem; }
+    .step-desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+    .step-code {
+      background: #0d0d0d; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.875rem 1rem; overflow-x: auto;
+    }
+    .step-code pre { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--text-secondary); white-space: pre; }
+    .step-connector { display: none; }
 
     /* FAQ */
     .faq-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; }
@@ -387,11 +471,11 @@ function renderLandingPage() {
     <!-- ── HERO ─────────────────────────────────────────────────── -->
     <section class="hero" aria-labelledby="hero-h1">
       <div class="container">
-        <div class="hero-kicker">API · Self-serve · GDPR-native</div>
+        <div class="hero-kicker fade-up"><span class="live-dot" aria-hidden="true"></span>Fraud API · Self-serve · GDPR-native</div>
         <div class="hero-layout">
           <div>
-            <h1 id="hero-h1">Stop fraud before it costs you a customer</h1>
-            <p class="hero-lead">OSINT-first. GDPR-native. Self-serve. €29/month.<br>One POST call. No SDK required. No sales call.</p>
+            <h1 id="hero-h1" class="fade-up-2">Stop fraud before it costs you a <span class="gradient-text">customer</span></h1>
+            <p class="hero-lead fade-up-3">OSINT-first scoring in one POST call. No SDK. No sales call.<br>Starts at €29/month. Cancel anytime.</p>
             <div class="hero-ctas">
               <a href="/pricing" class="btn-primary">Get API key — €29 <span aria-hidden="true">→</span></a>
               <a href="/docs/quickstart" class="btn-secondary">Try free (50/month)</a>
@@ -495,6 +579,37 @@ function renderLandingPage() {
         <p style="margin-top:1.25rem; font-size:var(--text-sm); color:var(--text-tertiary);">
           Use Stripe Radar for card fraud. Use Kairos Check for everything before the card. <a href="/compare/stripe-radar" style="color:var(--accent); text-decoration:none;">Full comparison →</a>
         </p>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ─────────────────────────────────────────── -->
+    <section aria-labelledby="how-h2">
+      <div class="container">
+        <p class="section-label">How it works</p>
+        <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
+        <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01 — Get your key</div>
+            <h3 class="step-title">Subscribe and get an API key instantly</h3>
+            <p class="step-desc">Choose a plan, pay with card, receive your key by email. No waiting, no approval, no KYC.</p>
+            <div class="step-code"><pre><span style="color:var(--accent)">x-api-key</span>: kc_live_xxxxxxxxxxxx</pre></div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02 — One POST call</div>
+            <h3 class="step-title">Send the domain, email, phone or IBAN</h3>
+            <p class="step-desc">No SDK required. Works with any language that can make an HTTP request.</p>
+            <div class="step-code"><pre><span style="color:var(--text-tertiary)">POST</span> /api/check
+<span style="color:#60a5fa">"domain"</span>: <span style="color:#fbbf24">"susp.io"</span></pre></div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03 — Act on the score</div>
+            <h3 class="step-title">Block, flag for review, or allow</h3>
+            <p class="step-desc">Every response includes a score (0–100), a verdict, and the exact signals that triggered it.</p>
+            <div class="step-code"><pre><span style="color:#60a5fa">"verdict"</span>: <span style="color:var(--danger)">"BLOCK"</span>
+<span style="color:#60a5fa">"score"</span>: <span style="color:var(--accent)">94</span></pre></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -626,7 +741,7 @@ for (const c of customers) {
             </ul>
             <a href="/docs/quickstart" class="pricing-cta-ghost">Read the docs →</a>
           </div>
-          <div class="pricing-card featured">
+          <div class="pricing-card">
             <div class="pricing-tier">Starter</div>
             <div class="pricing-price">€29</div>
             <div class="pricing-price-sub">/month · 5,000 checks + VAT</div>
@@ -637,9 +752,10 @@ for (const c of customers) {
               <li>Audit trail (CSV export)</li>
               <li>Cancel anytime</li>
             </ul>
-            <a href="/pricing" class="pricing-cta-link">Get API key →</a>
+            <a href="/pricing" class="pricing-cta-ghost">Get started →</a>
           </div>
-          <div class="pricing-card">
+          <div class="pricing-card featured" aria-label="Most popular plan">
+            <div class="pricing-badge">Most Popular</div>
             <div class="pricing-tier">Pro</div>
             <div class="pricing-price">€79</div>
             <div class="pricing-price-sub">/month · 25,000 checks + VAT</div>
@@ -647,10 +763,10 @@ for (const c of customers) {
               <li>25,000 checks/month</li>
               <li>All Starter features</li>
               <li>GDPR Art.15/17 endpoints</li>
-              <li>Batch API</li>
-              <li>SLA 99.9%</li>
+              <li>Batch API (up to 100/call)</li>
+              <li>SLA 99.9% · Priority support</li>
             </ul>
-            <a href="/pricing" class="pricing-cta-ghost">See all plans →</a>
+            <a href="/pricing" class="pricing-cta-link">Get API key →</a>
           </div>
         </div>
         <div class="pricing-full-link">
@@ -709,8 +825,14 @@ for (const c of customers) {
   <footer>
     <div class="footer-inner">
       <div>
-        <div class="footer-logo">Kairos<span>Check</span></div>
-        <div class="footer-tagline">Made with care. No data sold. EU-hosted.</div>
+        <a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;">
+          <svg width="16" height="18" viewBox="0 0 20 22" fill="none" aria-hidden="true">
+            <path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/>
+            <path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="footer-logo">Kairos<span>Check</span></span>
+        </a>
+        <div class="footer-tagline">OSINT-first fraud API. EU-hosted. No data sold.</div>
       </div>
       <nav aria-label="Footer navigation">
         <div class="footer-links">
