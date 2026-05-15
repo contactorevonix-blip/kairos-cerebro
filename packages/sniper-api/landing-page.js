@@ -2343,6 +2343,202 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         if (lblA) lblA.classList.toggle('active', annual);
       });
     })();
+
+    // ── KAIROS CHAT WIDGET ────────────────────────────────────────────────────
+    (function() {
+      var FREE_LIMIT = 5;
+      var TOKENS_PER_MSG = 5;
+      var history = [];
+      var freeUsed = parseInt(localStorage.getItem('kc_chat_free') || '0', 10);
+      var apiKey = localStorage.getItem('kc_api_key') || '';
+
+      // Inject widget HTML
+      var widget = document.createElement('div');
+      widget.id = 'kc-chat-widget';
+      widget.innerHTML = [
+        '<div id="kc-bubble" aria-label="Open Kairos Check AI chat" role="button" tabindex="0">',
+          '<svg width="22" height="22" viewBox="0 0 22 22" fill="none">',
+            '<path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/>',
+            '<path d="M8 8V15M8 11.5H11.5M11.5 11.5L14 8M11.5 11.5L14 15" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+          '</svg>',
+        '</div>',
+        '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" hidden>',
+          '<div id="kc-panel-head">',
+            '<div style="display:flex;align-items:center;gap:0.5rem;">',
+              '<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/></svg>',
+              '<span style="font-weight:600;font-size:0.875rem;">Kairos Check AI</span>',
+            '</div>',
+            '<div id="kc-free-badge"></div>',
+            '<button id="kc-close" aria-label="Close chat">&times;</button>',
+          '</div>',
+          '<div id="kc-messages" role="log" aria-live="polite"></div>',
+          '<div id="kc-key-row">',
+            '<input id="kc-key-input" type="password" placeholder="API key (optional — kc_live_...)" autocomplete="off" spellcheck="false">',
+            '<button id="kc-key-save">Save</button>',
+          '</div>',
+          '<div id="kc-input-row">',
+            '<textarea id="kc-input" placeholder="Ask about pricing, integration, fraud detection..." rows="2" aria-label="Chat message"></textarea>',
+            '<button id="kc-send" aria-label="Send message">',
+              '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8L2 2l2 6-2 6z" fill="#000"/></svg>',
+            '</button>',
+          '</div>',
+          '<p id="kc-disclaimer">Powered by Claude · Answers about Kairos Check only · <a href="/pricing" style="color:var(--accent,#00d97e)">Get API key</a></p>',
+        '</div>'
+      ].join('');
+
+      // Styles
+      var style = document.createElement('style');
+      style.textContent = [
+        '#kc-chat-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;font-family:Inter,system-ui,sans-serif;}',
+        '#kc-bubble{width:52px;height:52px;border-radius:50%;background:#00d97e;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,217,126,0.35);transition:transform 200ms,box-shadow 200ms;}',
+        '#kc-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(0,217,126,0.5);}',
+        '#kc-panel{position:absolute;bottom:68px;right:0;width:340px;background:#0f0f0f;border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.6);}',
+        '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;background:#161616;border-bottom:1px solid rgba(255,255,255,0.07);}',
+        '#kc-panel-head span{color:#f0f0f0;}',
+        '#kc-free-badge{font-size:0.6875rem;color:#737373;font-family:monospace;}',
+        '#kc-close{background:none;border:none;color:#737373;font-size:1.25rem;cursor:pointer;line-height:1;padding:0 0.25rem;}',
+        '#kc-close:hover{color:#f0f0f0;}',
+        '#kc-messages{flex:1;overflow-y:auto;padding:0.875rem;display:flex;flex-direction:column;gap:0.75rem;max-height:340px;min-height:120px;}',
+        '.kc-msg{padding:0.625rem 0.875rem;border-radius:10px;font-size:0.8125rem;line-height:1.55;max-width:90%;}',
+        '.kc-msg-user{background:#00d97e;color:#000;align-self:flex-end;border-bottom-right-radius:3px;}',
+        '.kc-msg-ai{background:#1a1a1a;color:#e0e0e0;align-self:flex-start;border-bottom-left-radius:3px;}',
+        '.kc-msg-ai code{background:#0a0a0a;padding:0.1rem 0.3rem;border-radius:3px;font-family:monospace;font-size:0.75rem;color:#00d97e;}',
+        '.kc-typing{display:flex;gap:4px;align-items:center;padding:0.75rem 0.875rem;}',
+        '.kc-dot{width:6px;height:6px;border-radius:50%;background:#555;animation:kc-bounce 1.2s infinite;}',
+        '.kc-dot:nth-child(2){animation-delay:.2s;}.kc-dot:nth-child(3){animation-delay:.4s;}',
+        '@keyframes kc-bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}',
+        '#kc-key-row{display:flex;gap:0.375rem;padding:0 0.875rem 0.5rem;border-top:1px solid rgba(255,255,255,.06);padding-top:0.5rem;}',
+        '#kc-key-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:0.375rem 0.625rem;color:#a0a0a0;font-family:monospace;font-size:0.6875rem;outline:none;}',
+        '#kc-key-input:focus{border-color:rgba(0,217,126,.3);}',
+        '#kc-key-save{background:none;border:1px solid rgba(0,217,126,.3);color:#00d97e;border-radius:6px;padding:0.25rem 0.625rem;font-size:0.6875rem;cursor:pointer;}',
+        '#kc-input-row{display:flex;gap:0.5rem;padding:0.75rem 0.875rem;border-top:1px solid rgba(255,255,255,.07);}',
+        '#kc-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:0.5rem 0.75rem;color:#f0f0f0;font-family:Inter,system-ui,sans-serif;font-size:0.8125rem;resize:none;outline:none;line-height:1.4;}',
+        '#kc-input:focus{border-color:rgba(0,217,126,.35);}',
+        '#kc-send{width:36px;height:36px;background:#00d97e;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 150ms;}',
+        '#kc-send:hover{background:#00b369;}',
+        '#kc-send:disabled{background:#2a2a2a;cursor:not-allowed;}',
+        '#kc-disclaimer{font-size:0.625rem;color:#444;padding:0.375rem 0.875rem 0.625rem;line-height:1.4;}',
+        '@media(max-width:400px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}'
+      ].join('');
+      document.head.appendChild(style);
+      document.body.appendChild(widget);
+
+      var bubble = document.getElementById('kc-bubble');
+      var panel  = document.getElementById('kc-panel');
+      var msgs   = document.getElementById('kc-messages');
+      var input  = document.getElementById('kc-input');
+      var sendBtn = document.getElementById('kc-send');
+      var badge  = document.getElementById('kc-free-badge');
+      var keyInput = document.getElementById('kc-key-input');
+      var keySave = document.getElementById('kc-key-save');
+
+      if (apiKey) keyInput.value = apiKey;
+
+      function updateBadge() {
+        if (apiKey) { badge.textContent = ''; return; }
+        var rem = FREE_LIMIT - freeUsed;
+        badge.textContent = rem > 0 ? rem + ' free left' : 'Free limit reached';
+        badge.style.color = rem <= 1 ? '#ef4444' : '#737373';
+      }
+      updateBadge();
+
+      function addMsg(text, role) {
+        var div = document.createElement('div');
+        div.className = 'kc-msg kc-msg-' + role;
+        // Basic markdown: code blocks and inline code
+        var tick = '\x60';
+        var triTick = tick+tick+tick;
+        div.innerHTML = text
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .split(triTick).map(function(s,i){return i%2===1?'<pre style="background:#0a0a0a;padding:.5rem;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:.75rem;color:#00d97e;margin:.25rem 0;">'+s+'</pre>':s;}).join('')
+          .split(tick).map(function(s,i){return i%2===1?'<code>'+s+'</code>':s;}).join('')
+          .split(String.fromCharCode(10)).join('<br>');
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+        return div;
+      }
+
+      function showTyping() {
+        var d = document.createElement('div');
+        d.className = 'kc-typing'; d.id = 'kc-typing';
+        d.innerHTML = '<div class="kc-dot"></div><div class="kc-dot"></div><div class="kc-dot"></div>';
+        msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+      }
+      function removeTyping() { var t = document.getElementById('kc-typing'); if(t) t.remove(); }
+
+      // Add welcome message
+      setTimeout(function() {
+        addMsg('Hi! I\\'m the Kairos Check AI. Ask me about pricing, integration, or how the fraud scoring works.', 'ai');
+      }, 300);
+
+      async function sendMessage() {
+        var text = input.value.trim();
+        if (!text) return;
+        if (!apiKey && freeUsed >= FREE_LIMIT) {
+          addMsg('You\\'ve used all ' + FREE_LIMIT + ' free messages. Get an API key at kairoscheck.net/pricing to continue.', 'ai');
+          return;
+        }
+        input.value = '';
+        sendBtn.disabled = true;
+        addMsg(text, 'user');
+        history.push({ role: 'user', content: text });
+        showTyping();
+
+        try {
+          var headers = { 'Content-Type': 'application/json' };
+          if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
+          var resp = await fetch('/api/chat', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ message: text, history: history.slice(-4) }),
+          });
+          var data = await resp.json();
+          removeTyping();
+
+          if (resp.status === 429) {
+            var errMsg = data.message || data.error || 'Limit reached. Get an API key to continue.';
+            addMsg(errMsg + ' → <a href="/pricing" style="color:#00d97e;">kairoscheck.net/pricing</a>', 'ai');
+          } else if (!resp.ok) {
+            addMsg('Something went wrong. Try again in a moment.', 'ai');
+          } else {
+            var reply = data.reply || '';
+            addMsg(reply, 'ai');
+            history.push({ role: 'assistant', content: reply });
+            if (!apiKey && typeof data.free_remaining === 'number') {
+              freeUsed = FREE_LIMIT - data.free_remaining;
+              localStorage.setItem('kc_chat_free', String(freeUsed));
+              updateBadge();
+            }
+          }
+        } catch(e) {
+          removeTyping();
+          addMsg('Connection error. Check your internet and try again.', 'ai');
+        }
+        sendBtn.disabled = false;
+        input.focus();
+      }
+
+      bubble.addEventListener('click', function() {
+        var open = !panel.hidden;
+        panel.hidden = open;
+        if (!open) input.focus();
+      });
+      bubble.addEventListener('keydown', function(e) { if(e.key==='Enter'||e.key===' ') bubble.click(); });
+      document.getElementById('kc-close').addEventListener('click', function() { panel.hidden = true; });
+      sendBtn.addEventListener('click', sendMessage);
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+      });
+      keySave.addEventListener('click', function() {
+        var k = keyInput.value.trim();
+        apiKey = k;
+        if (k) localStorage.setItem('kc_api_key', k);
+        else localStorage.removeItem('kc_api_key');
+        updateBadge();
+        keySave.textContent = '✓';
+        setTimeout(function() { keySave.textContent = 'Save'; }, 1500);
+      });
+    })();
   </script>
 </body>
 </html>`;

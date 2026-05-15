@@ -10,6 +10,7 @@ const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession, createTopupSession, TOKEN_PACKS } = require('./stripe-checkout');
 const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
+const { handleChat } = require('./chat-handler');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
@@ -357,6 +358,23 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 </urlset>`;
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=86400' });
       res.end(xml);
+      return;
+    }
+
+    // ─── AI Chat endpoint ──────────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/chat') {
+      const body = await readJsonBody(req);
+      const rawKey = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim() || null;
+      const ip = clientIp(req);
+      try {
+        const result = await handleChat(ip, rawKey || null, body);
+        sendJson(res, result.status, result.body);
+      } catch (err) {
+        const isConfig = err.message && err.message.includes('ANTHROPIC_API_KEY');
+        sendJson(res, isConfig ? 503 : 500, {
+          error: isConfig ? 'Chat temporarily unavailable' : 'Chat error',
+        });
+      }
       return;
     }
 
