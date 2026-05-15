@@ -35,7 +35,7 @@ function renderLandingPage() {
   <meta name="twitter:image" content="https://kairoscheck.net/og-image.png">
 
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600&family=jetbrains-mono:400,500" rel="stylesheet">
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=jetbrains-mono:400,500" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,15 +43,19 @@ function renderLandingPage() {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
     :root {
-      --bg: #0a0a0a; --surface: #111111; --surface-2: #1a1a1a;
-      --border: #1f1f1f; --border-strong: #2a2a2a;
-      --text: #f5f5f5; --text-secondary: #a3a3a3; --text-tertiary: #737373;
+      /* Vercel-style true black palette */
+      --bg: #000000; --surface: rgba(255,255,255,0.03); --surface-2: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.07); --border-strong: rgba(255,255,255,0.12);
+      --text: #ededed; --text-secondary: #888888; --text-tertiary: #555555;
       --accent: #00d97e; --accent-hover: #00b369;
+      --accent-dim: rgba(0,217,126,0.08); --accent-border: rgba(0,217,126,0.25);
+      --accent-glow: rgba(0,217,126,0.12);
       --danger: #ef4444; --warning: #f59e0b;
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, monospace;
       --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
-      --text-lg: 1.125rem; --text-xl: 1.5rem; --text-2xl: 2.25rem; --text-3xl: 3rem;
+      --text-lg: 1.125rem; --text-xl: 1.5rem; --text-2xl: 2.5rem; --text-3xl: 3.5rem;
+      --radius: 14px;
     }
     html { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
     body { min-height: 100vh; }
@@ -67,7 +71,8 @@ function renderLandingPage() {
     nav {
       position: sticky; top: 0; z-index: 50;
       border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
     .nav-inner {
       max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
@@ -250,9 +255,9 @@ function renderLandingPage() {
     }
     .hero-kicker::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     .hero h1 {
-      font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 600;
-      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem;
-      max-width: 700px;
+      font-size: clamp(2.75rem, 7vw, 5.25rem); font-weight: 800;
+      letter-spacing: -0.045em; line-height: 1.0; margin-bottom: 1.5rem;
+      max-width: 820px;
     }
     .hero-lead {
       font-size: var(--text-lg); color: var(--text-secondary);
@@ -381,15 +386,17 @@ function renderLandingPage() {
     .steps-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: stretch; margin-top: 3rem; gap: 0; }
     @media (max-width: 900px) { .steps-flow { grid-template-columns: 1fr; gap: 1.5rem; } .step-arrow { display: none !important; } }
     .step-terminal {
-      background: #0d0d0d; border: 1px solid var(--border-strong);
-      border-radius: 12px; overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
-      transition: box-shadow 300ms;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      transition: box-shadow 300ms, border-color 300ms;
       display: flex; flex-direction: column; height: 100%;
     }
     .step-terminal:hover {
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(0,217,126,0.07);
-      /* NO transform here — JS tilt handles it */
+      border-color: rgba(0,217,126,0.2);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,217,126,0.06);
     }
     .step-term-header {
       background: #1a1a1a; border-bottom: 1px solid var(--border);
@@ -493,7 +500,7 @@ function renderLandingPage() {
       font-size: var(--text-xs); font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 0.75rem;
     }
-    .section-title { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 0.875rem; }
     .section-lead { font-size: var(--text-base); color: var(--text-secondary); line-height: 1.6; max-width: 520px; }
 
     /* COMPARISON TABLE */
@@ -540,9 +547,13 @@ function renderLandingPage() {
     /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
     .pricing-card {
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 10px; padding: 1.75rem; display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 1.75rem; display: flex; flex-direction: column;
+      transition: border-color 200ms, box-shadow 200ms;
     }
+    .pricing-card:hover { border-color: rgba(255,255,255,0.14); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
     .pricing-card.featured {
       border: 1px solid rgba(0,217,126,0.35);
       background: linear-gradient(180deg, rgba(0,217,126,0.05) 0%, transparent 35%);
@@ -622,11 +633,13 @@ function renderLandingPage() {
     .network-stat-row { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
     .network-stat {
       display: flex; align-items: center; gap: 1rem;
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 10px; padding: 1rem 1.25rem;
-      transition: border-color 150ms, transform 200ms;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 1.125rem 1.25rem;
+      transition: border-color 200ms, box-shadow 200ms;
     }
-    .network-stat:hover { border-color: rgba(0,217,126,0.3); transform: translateX(4px); }
+    .network-stat:hover { border-color: rgba(0,217,126,0.25); box-shadow: 0 0 20px rgba(0,217,126,0.05); }
     .network-stat-icon {
       width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
       background: rgba(0,217,126,0.1); border: 1px solid rgba(0,217,126,0.2);
@@ -673,6 +686,43 @@ function renderLandingPage() {
       padding-bottom: 1.25rem; display: none; max-width: 620px;
     }
     .faq-item.open .faq-a { display: block; }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* FINAL CTA SECTION */
+    .final-cta {
+      padding: 8rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,217,126,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800;
+      letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 1.5rem;
+    }
+    .final-cta p {
+      font-size: var(--text-lg); color: var(--text-secondary);
+      margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto;
+    }
+    .final-cta .btn-primary {
+      font-size: var(--text-base); padding: 1rem 2.5rem;
+    }
+    .final-cta-trust {
+      margin-top: 1.25rem; display: flex; align-items: center; justify-content: center;
+      gap: 1.25rem; flex-wrap: wrap;
+    }
+    .final-cta-trust span { font-size: var(--text-xs); color: var(--text-tertiary); }
 
     /* FOOTER */
     footer {
@@ -867,7 +917,7 @@ function renderLandingPage() {
     </section>
 
     <!-- ── HOW IT WORKS ─────────────────────────────────────────── -->
-    <section aria-labelledby="how-h2">
+    <section aria-labelledby="how-h2" class="reveal">
       <div class="container">
         <p class="section-label">How it works</p>
         <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
@@ -943,7 +993,8 @@ function renderLandingPage() {
     </section>
 
     <!-- ── NETWORK INTELLIGENCE ─────────────────────────────────── -->
-    <section class="network-section" aria-labelledby="network-h2">
+
+    <section class="network-section reveal" aria-labelledby="network-h2">
       <div class="container">
         <div class="network-grid">
           <div>
@@ -1050,7 +1101,7 @@ function renderLandingPage() {
     </section>
 
     <!-- ── INTEGRATION ───────────────────────────────────────────── -->
-    <section aria-labelledby="integration-h2">
+    <section aria-labelledby="integration-h2" class="reveal">
       <div class="container">
         <p class="section-label">Integration</p>
         <h2 class="section-title" id="integration-h2">Works with any stack</h2>
@@ -1281,6 +1332,24 @@ function renderLandingPage() {
       </div>
     </section>
 
+    <!-- ── FINAL CTA ─────────────────────────────────────────────── -->
+    <section class="final-cta reveal" aria-labelledby="cta-h2">
+      <div class="container">
+        <h2 id="cta-h2">Start protecting your<br>revenue <span class="gradient-text">today</span></h2>
+        <p>Join developers who stopped losing money to fraud. Setup in 30 minutes. No contract.</p>
+        <a href="/pricing" class="btn-primary">Get API key — free to start <span aria-hidden="true">→</span></a>
+        <div class="final-cta-trust">
+          <span>No credit card for free tier</span>
+          <span>·</span>
+          <span>Cancel anytime</span>
+          <span>·</span>
+          <span>14-day money back</span>
+          <span>·</span>
+          <span>GDPR-native</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ── FAQ ──────────────────────────────────────────────────── -->
     <section aria-labelledby="faq-h2">
       <div class="container" style="max-width:720px;">
@@ -1436,6 +1505,20 @@ function renderLandingPage() {
 
       btn.addEventListener('click', runCheck);
       input.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCheck(); });
+    })();
+
+    // Scroll reveal
+    (function() {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
     })();
 
     // Integration language tabs
