@@ -429,6 +429,64 @@ ALWAYS include:
 - Form labels associated with inputs (label[for] or aria-label)
 - Icons without text: aria-label or aria-hidden="true" with adjacent text
 
+## Performance Rules — NON-NEGOTIABLE
+
+1. **NEVER use backdrop-filter on more than 2 elements per page.**
+   `backdrop-filter: blur()` triggers GPU compositing on EVERY repaint.
+   On 8+ cards it tanks performance on mobile and mid-range laptops.
+   ONLY use on: nav bar, modals. Everything else: solid surface colors.
+
+2. **Glassmorphism only works on colorful/light backgrounds.**
+   rgba(255,255,255,0.03) on #000 = invisible card. Zero contrast.
+   Glassmorphism needs a vibrant background underneath to show the blur.
+   On dark SaaS sites, use SOLID surfaces instead: #111, #0f0f0f, #141414.
+
+3. **backdrop-filter alternative for premium dark cards:**
+   ```css
+   .card {
+     background: #111111;
+     border: 1px solid rgba(255,255,255,0.07);
+     box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
+   }
+   ```
+   This looks premium without killing performance.
+
+4. **will-change: transform only on hover, never always-on.**
+   Move it to :hover state to avoid constant GPU layer promotion.
+
+5. **True black (#000) + rgba cards = invisible.**
+   Minimum card surface on #000 background: rgba(255,255,255,0.06)
+   Better: #0d0d0d or #111111 solid.
+
+## How to Analyze + Clone a Site's Design
+
+Since WebFetch only returns HTML as text (cannot see rendered CSS):
+
+**What I CAN determine from HTML source:**
+- Font names (from link tags or font-face)
+- Color values (from inline styles or CSS variables in <style> tags)
+- Layout structure (grid, flex, semantic HTML)
+- Component names and patterns
+- JavaScript behavior and animations
+
+**What I CANNOT determine:**
+- Rendered visual appearance
+- CSS from external stylesheets
+- Actual pixel sizes and spacing
+- Whether effects work visually
+
+**To clone a site's style, Pedro must:**
+1. Describe verbally: "dark, cards with subtle glow, huge bold headline"
+2. Name the design language: "like Vercel", "like Linear", "like Stripe"
+3. Share a screenshot if possible
+
+**Known design languages I can replicate:**
+- **Vercel**: #000 bg, #ededed text, huge 800-weight headlines, minimal borders, centered hero, product screenshot in 3D
+- **Linear**: #090909 bg, grid pattern, smooth animations, minimal UI
+- **Stripe**: #0a2540 bg, gradient text, card-based sections, very polished CTA
+- **Anthropic/Claude**: gradient orbs, clean dark, Inter font, generous spacing
+- **Raycast**: dark glass, gradient borders, icon-heavy feature sections
+
 ## Layout Rules — CRITICAL (violations cause alignment bugs)
 
 1. **NEVER** use `style="max-width:Xpx"` without `margin: 0 auto` on centred elements.

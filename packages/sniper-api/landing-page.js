@@ -43,10 +43,9 @@ function renderLandingPage() {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
     :root {
-      /* Vercel-style true black palette */
-      --bg: #000000; --surface: rgba(255,255,255,0.03); --surface-2: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.07); --border-strong: rgba(255,255,255,0.12);
-      --text: #ededed; --text-secondary: #888888; --text-tertiary: #555555;
+      --bg: #060606; --surface: #0f0f0f; --surface-2: #161616;
+      --border: rgba(255,255,255,0.07); --border-strong: rgba(255,255,255,0.11);
+      --text: #f0f0f0; --text-secondary: #909090; --text-tertiary: #555555;
       --accent: #00d97e; --accent-hover: #00b369;
       --accent-dim: rgba(0,217,126,0.08); --accent-border: rgba(0,217,126,0.25);
       --accent-glow: rgba(0,217,126,0.12);
@@ -386,9 +385,8 @@ function renderLandingPage() {
     .steps-flow { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: stretch; margin-top: 3rem; gap: 0; }
     @media (max-width: 900px) { .steps-flow { grid-template-columns: 1fr; gap: 1.5rem; } .step-arrow { display: none !important; } }
     .step-terminal {
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius); overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
       transition: box-shadow 300ms, border-color 300ms;
@@ -547,9 +545,8 @@ function renderLandingPage() {
     /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
     .pricing-card {
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1.75rem; display: flex; flex-direction: column;
       transition: border-color 200ms, box-shadow 200ms;
     }
@@ -633,9 +630,8 @@ function renderLandingPage() {
     .network-stat-row { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
     .network-stat {
       display: flex; align-items: center; gap: 1rem;
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1.125rem 1.25rem;
       transition: border-color 200ms, box-shadow 200ms;
     }
