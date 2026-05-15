@@ -2476,7 +2476,7 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
             '<path d="M8 8V15M8 11.5H11.5M11.5 11.5L14 8M11.5 11.5L14 15" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
           '</svg>',
         '</div>',
-        '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" hidden>',
+        '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" style="display:none;">',
           '<div id="kc-panel-head">',
             '<div style="display:flex;align-items:center;gap:0.5rem;">',
               '<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/></svg>',
@@ -2633,12 +2633,12 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       }
 
       bubble.addEventListener('click', function() {
-        var open = !panel.hidden;
-        panel.hidden = open;
-        if (!open) input.focus();
+        var isOpen = panel.style.display !== 'none';
+        panel.style.display = isOpen ? 'none' : 'flex';
+        if (!isOpen) setTimeout(function() { input.focus(); }, 50);
       });
       bubble.addEventListener('keydown', function(e) { if(e.key==='Enter'||e.key===' ') bubble.click(); });
-      document.getElementById('kc-close').addEventListener('click', function() { panel.hidden = true; });
+      document.getElementById('kc-close').addEventListener('click', function() { panel.style.display = 'none'; });
       sendBtn.addEventListener('click', sendMessage);
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
