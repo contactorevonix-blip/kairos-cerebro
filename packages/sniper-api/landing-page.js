@@ -4,10 +4,14 @@ const { readGlobalMetrics } = require('../sniper-db');
 
 function renderLandingPage() {
   const m = readGlobalMetrics() || {};
-  const domainsScored = (m.verifyRequests || 0).toLocaleString('en');
-  const threatsBlocked = (m.blocked || 0).toLocaleString('en');
+  const rawRequests = m.verifyRequests || 0;
+  const rawBlocked  = m.blocked || 0;
+  const domainsScored = rawRequests.toLocaleString('en');
+  const threatsBlocked = rawBlocked.toLocaleString('en');
   const avgMs = m.avgLatencyMs ? Math.round(m.avgLatencyMs) : null;
   const avgMsDisplay = avgMs ? `${avgMs}ms` : '&lt;200ms';
+  // Only show live proof bar when there is real data — zeros destroy credibility
+  const showProofBar = rawRequests > 0;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -572,14 +576,15 @@ function renderLandingPage() {
               <a href="/pricing" class="btn-primary">Get API key — €29 <span aria-hidden="true">→</span></a>
               <a href="/docs/quickstart" class="btn-secondary">Try free (50/month)</a>
             </div>
+            ${showProofBar ? `
             <div class="hero-proof" aria-label="Live usage stats">
               <span class="hero-proof-item">
-                <span class="hero-proof-num">${domainsScored || '0'}</span>
+                <span class="hero-proof-num">${domainsScored}</span>
                 <span class="hero-proof-label">domains scored</span>
               </span>
               <span class="hero-proof-sep" aria-hidden="true">·</span>
               <span class="hero-proof-item">
-                <span class="hero-proof-num">${threatsBlocked || '0'}</span>
+                <span class="hero-proof-num">${threatsBlocked}</span>
                 <span class="hero-proof-label">threats blocked</span>
               </span>
               <span class="hero-proof-sep" aria-hidden="true">·</span>
@@ -587,7 +592,23 @@ function renderLandingPage() {
                 <span class="hero-proof-num">${avgMsDisplay}</span>
                 <span class="hero-proof-label">avg latency</span>
               </span>
-            </div>
+            </div>` : `
+            <div class="hero-proof" aria-label="Product guarantees">
+              <span class="hero-proof-item">
+                <span class="hero-proof-num" style="-webkit-text-fill-color:initial;background:none;">€29</span>
+                <span class="hero-proof-label">to start</span>
+              </span>
+              <span class="hero-proof-sep" aria-hidden="true">·</span>
+              <span class="hero-proof-item">
+                <span class="hero-proof-num" style="-webkit-text-fill-color:initial;background:none;">&lt;200ms</span>
+                <span class="hero-proof-label">avg response</span>
+              </span>
+              <span class="hero-proof-sep" aria-hidden="true">·</span>
+              <span class="hero-proof-item">
+                <span class="hero-proof-num" style="-webkit-text-fill-color:initial;background:none;">GDPR</span>
+                <span class="hero-proof-label">native · EU-hosted</span>
+              </span>
+            </div>`}
           </div>
           <!-- 3D perspective code block -->
           <div class="hero-visual-wrap">
