@@ -275,6 +275,12 @@ async function handleApiCheck(headers, body) {
   // Re-apply decision thresholds after merge
   const finalVerdict = finalScore >= 60 ? 'BLOCK' : finalScore >= 30 ? 'REVIEW' : 'ALLOW';
   const newTokenBalance = getTokenBalance(tenantId);
+  // Low balance warning — helps customer top up before hitting zero
+  const LOW_BALANCE_THRESHOLD = 50;
+  const lowBalanceWarning = newTokenBalance < LOW_BALANCE_THRESHOLD
+    ? `Token balance low (${newTokenBalance} remaining). Top up at kairoscheck.net/pricing`
+    : null;
+
   const responseBody = {
     score: finalScore,
     verdict: finalVerdict,
@@ -286,6 +292,7 @@ async function handleApiCheck(headers, body) {
     model: modelName,
     token_balance: newTokenBalance,
     token_cost: tokenCost,
+    ...(lowBalanceWarning ? { warning: lowBalanceWarning } : {}),
     cached: false,
     timestamp: nowIso(),
     ref,

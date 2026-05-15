@@ -8,7 +8,7 @@ const http = require('http');
 const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./app');
 const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
-const { createCheckoutSession } = require('./stripe-checkout');
+const { createCheckoutSession, createTopupSession, TOKEN_PACKS } = require('./stripe-checkout');
 const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
@@ -381,6 +381,41 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         costs: { domain: 1, email: 1, phone: 2, iban: 3 },
         history,
         top_up_url: 'https://kairoscheck.net/pricing',
+      });
+      return;
+    }
+
+    // ─── Token topup checkout ─────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/tokens/topup') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      const body2 = await readJsonBody(req);
+      const { findApiKey } = require('../sniper-db');
+      const keyRecord = raw ? readKeys().find(k => {
+        const crypto3 = require('crypto');
+        return k.api_key_hash === crypto3.createHash('sha256').update(raw).digest('hex');
+      }) : null;
+      const tenantId = keyRecord ? (keyRecord.tenant_id || keyRecord.customer_id || keyRecord.api_key_hash) : 'anonymous';
+      const pack = body2.pack || 'pack_100';
+      const origin = `https://${req.headers.host || 'kairoscheck.net'}`;
+      const result = await createTopupSession({ pack, tenantId, baseUrl: origin });
+      if (result.error) {
+        sendJson(res, result.status || 400, { error: result.error });
+        return;
+      }
+      sendJson(res, 200, { url: result.url, pack: result.pack, tokens: result.tokens });
+      return;
+    }
+
+    // ─── Token packs info ─────────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/tokens/packs') {
+      sendJson(res, 200, {
+        packs: Object.entries(TOKEN_PACKS).map(([id, p]) => ({
+          id, tokens: p.tokens, label: p.label,
+          price_env: p.env,
+          configured: !!process.env[p.env],
+        })),
+        topup_endpoint: 'POST /api/tokens/topup',
+        body: '{ "pack": "pack_100" | "pack_380" | "pack_1500" }',
       });
       return;
     }

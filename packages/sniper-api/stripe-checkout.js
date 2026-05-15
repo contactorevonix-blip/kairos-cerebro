@@ -3,12 +3,20 @@
 const Stripe = require('stripe');
 
 const TIER_TO_ENV = {
-  starter: 'STRIPE_PRICE_STARTER',
-  pro: 'STRIPE_PRICE_PRO',
-  scale: 'STRIPE_PRICE_SCALE',
+  starter:  'STRIPE_PRICE_STARTER',
+  growth:   'STRIPE_PRICE_GROWTH',
+  pro:      'STRIPE_PRICE_PRO',
+  scale:    'STRIPE_PRICE_SCALE',
 };
 
-const QUOTA = { starter: 5000, pro: 25000, scale: 100000 };
+const QUOTA = { starter: 300, growth: 1000, pro: 3000, scale: 15000 };
+
+// Token pack one-time prices (Pedro creates these in Stripe Dashboard)
+const TOKEN_PACKS = {
+  pack_100:  { env: 'STRIPE_PRICE_TOKENS_100',  tokens: 100,  label: '100 tokens' },
+  pack_380:  { env: 'STRIPE_PRICE_TOKENS_380',  tokens: 380,  label: '380 tokens (+27% bonus)' },
+  pack_1500: { env: 'STRIPE_PRICE_TOKENS_1500', tokens: 1500, label: '1,500 tokens (+50% bonus)' },
+};
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -54,4 +62,33 @@ async function createCheckoutSession({ tier, baseUrl }) {
   return { url: session.url, sessionId: session.id, tier, quotaPerMonth: QUOTA[tier] };
 }
 
-module.exports = { createCheckoutSession, QUOTA };
+// Token pack checkout — one-time payment, tokens credited via webhook
+async function createTopupSession({ pack, tenantId, baseUrl }) {
+  const packConfig = TOKEN_PACKS[pack];
+  if (!packConfig) return { error: `Invalid pack: ${pack}`, status: 400 };
+
+  const priceId = process.env[packConfig.env];
+  if (!priceId) {
+    return { error: 'topup_unavailable', status: 503,
+             _internal: `${packConfig.env} not configured in Railway env vars` };
+  }
+
+  const origin = baseUrl || process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+
+  try {
+    const stripe = getStripe();
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}&topup=1`,
+      cancel_url:  `${origin}/pricing`,
+      allow_promotion_codes: true,
+      metadata: { tenant_id: tenantId || '', pack, tokens: String(packConfig.tokens) },
+    });
+    return { url: session.url, sessionId: session.id, pack, tokens: packConfig.tokens };
+  } catch (err) {
+    return { error: 'checkout_failed', status: 500, _internal: err.message };
+  }
+}
+
+module.exports = { createCheckoutSession, createTopupSession, QUOTA, TOKEN_PACKS };

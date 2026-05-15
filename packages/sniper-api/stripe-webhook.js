@@ -112,6 +112,27 @@ function findKeyBySubscription(subscriptionId) {
 // ─── event handlers ───────────────────────────────────────────────────────────
 
 async function handleCheckoutCompleted(stripe, session) {
+  // Token topup: one-time payment (no subscription) with pack metadata
+  if (!session.subscription && session.metadata && session.metadata.pack) {
+    const { creditTokens } = require('../sniper-db');
+    const tenantId = session.metadata.tenant_id;
+    const tokens   = parseInt(session.metadata.tokens, 10) || 0;
+    const pack     = session.metadata.pack;
+    if (tenantId && tokens > 0) {
+      try {
+        creditTokens(tenantId, tokens, 'stripe_topup', session.id);
+        appendAudit({ timestamp: new Date().toISOString(), event_type: 'token_topup',
+          customer_id: session.customer, tenant_id: tenantId, pack, tokens, session_id: session.id, success: true });
+        return { credited: tokens, tenant_id: tenantId, pack };
+      } catch (err) {
+        appendAudit({ timestamp: new Date().toISOString(), event_type: 'token_topup',
+          customer_id: session.customer, success: false, error: err.message });
+        return { error: err.message };
+      }
+    }
+    return { skipped: 'invalid_topup_metadata' };
+  }
+
   if (!session.subscription) return { skipped: 'no_subscription' };
 
   const subscription = await stripe.subscriptions.retrieve(session.subscription, {
