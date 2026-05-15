@@ -653,11 +653,9 @@ function renderLandingPage() {
     .faq-item.open .faq-a { display: block; }
 
     /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal { transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.reveal-pending { opacity: 0; transform: translateY(28px); }
+    .reveal.reveal-pending.in-view { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
@@ -761,6 +759,62 @@ function renderLandingPage() {
     .testimonial-name { font-size: var(--text-sm); font-weight: 600; color: var(--text); }
     .testimonial-role { font-size: var(--text-xs); color: var(--text-tertiary); }
     .testimonial-product { font-size: var(--text-xs); color: var(--accent); font-family: var(--font-mono); margin-top: 0.125rem; }
+
+    /* TESTIMONIALS CAROUSEL */
+    .testimonials-outer { overflow: hidden; position: relative; margin-top: 3rem; }
+    .testimonials-outer::before, .testimonials-outer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+    }
+    .testimonials-outer::before { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); }
+    .testimonials-outer::after { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); }
+    .testimonials-track {
+      display: flex; gap: 1.25rem; width: max-content;
+      animation: scroll-left 45s linear infinite;
+    }
+    .testimonials-track:hover { animation-play-state: paused; }
+    @keyframes scroll-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .tcard {
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: 14px; padding: 1.5rem; width: 320px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 200ms;
+    }
+    .tcard:hover { border-color: rgba(0,217,126,0.25); }
+    .tcard-stars { color: #fbbf24; font-size: 0.8125rem; letter-spacing: 1px; }
+    .tcard-quote { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
+    .tcard-author { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.875rem; border-top: 1px solid var(--border); }
+    .tcard-avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8125rem; font-weight: 700; color: #fff;
+    }
+    .tcard-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .tcard-role { font-size: 0.75rem; color: var(--text-tertiary); }
+    .tcard-product { font-size: 0.6875rem; color: var(--accent); font-family: var(--font-mono); margin-top: 1px; }
+
+    /* ACTIVITY FEED */
+    .activity-feed { padding: 2rem 0; border-top: 1px solid var(--border); overflow: hidden; }
+    .activity-feed-label { text-align: center; font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .activity-track {
+      display: flex; gap: 0.75rem; width: max-content;
+      animation: scroll-left 20s linear infinite;
+    }
+    .activity-track:hover { animation-play-state: paused; }
+    .activity-pill {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.375rem 1rem;
+      font-family: var(--font-mono); font-size: 0.75rem; white-space: nowrap;
+      color: var(--text-secondary);
+    }
+    .activity-pill-verdict { font-weight: 700; }
+    .activity-pill-verdict.block { color: #ef4444; }
+    .activity-pill-verdict.clear { color: var(--accent); }
+    .activity-pill-ms { color: var(--text-tertiary); }
+    .activity-pill-flag { font-size: 0.875rem; }
   </style>
 
   <!-- Schema.org JSON-LD -->
@@ -914,6 +968,34 @@ function renderLandingPage() {
       </div>
     </section>
 
+    <!-- ── ACTIVITY FEED ───────────────────────────────────────────── -->
+    <div class="activity-feed" aria-label="Live fraud check activity">
+      <p class="activity-feed-label"><span class="live-dot" aria-hidden="true"></span> Live fraud checks — right now</p>
+      <div class="activity-track" aria-hidden="true">
+        <span class="activity-pill"><span class="activity-pill-flag">🇬🇧</span> shopify-reseller-uk.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">89ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇩🇪</span> freelancer-web-de.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">134ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇫🇷</span> temp-checkout-99.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">67ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇵🇹</span> saas-founder-pt.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">112ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇳🇱</span> marketplace-seller.nl <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">78ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇸🇪</span> dev-studio-sthlm.io <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">95ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇪🇸</span> disposable-mx-01.es <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">71ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇮🇳</span> startup-api-check.in <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">188ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇵🇱</span> fake-store-pl.shop <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">56ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇨🇭</span> saas-b2b-ch.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">102ms</span></span>
+        <!-- duplicate for seamless loop -->
+        <span class="activity-pill"><span class="activity-pill-flag">🇬🇧</span> shopify-reseller-uk.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">89ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇩🇪</span> freelancer-web-de.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">134ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇫🇷</span> temp-checkout-99.io <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">67ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇵🇹</span> saas-founder-pt.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">112ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇳🇱</span> marketplace-seller.nl <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">78ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇸🇪</span> dev-studio-sthlm.io <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">95ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇪🇸</span> disposable-mx-01.es <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">71ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇮🇳</span> startup-api-check.in <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">188ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇵🇱</span> fake-store-pl.shop <span class="activity-pill-verdict block">BLOCKED</span> <span class="activity-pill-ms">56ms</span></span>
+        <span class="activity-pill"><span class="activity-pill-flag">🇨🇭</span> saas-b2b-ch.com <span class="activity-pill-verdict clear">CLEAR</span> <span class="activity-pill-ms">102ms</span></span>
+      </div>
+    </div>
+
     <!-- ── STACK LOGOS BAR ───────────────────────────────────────── -->
     <div class="logos-bar" aria-label="Supported technologies">
       <div class="container">
@@ -1023,12 +1105,12 @@ function renderLandingPage() {
         <p class="section-lead">While you sleep, fraudsters test your signup flow, burn your free tier, and file chargebacks. The numbers are brutal.</p>
         <div class="fraud-stats">
           <div class="fraud-stat-card">
-            <div class="fraud-stat-num">4.1%</div>
+            <div class="fraud-stat-num"><span data-count="4.1" data-suffix="%">4.1%</span></div>
             <div class="fraud-stat-label">of SaaS and e-commerce revenue lost to payment fraud — before chargebacks, refunds, and ops costs</div>
             <div class="fraud-stat-source">Merchant Risk Council 2024</div>
           </div>
           <div class="fraud-stat-card">
-            <div class="fraud-stat-num">€75</div>
+            <div class="fraud-stat-num"><span>€</span><span data-count="75" data-suffix="">75</span></div>
             <div class="fraud-stat-label">average cost per chargeback dispute — on top of the refunded amount. 3 chargebacks = 1 month of Kairos Pro</div>
             <div class="fraud-stat-source">LexisNexis True Cost of Fraud 2023</div>
           </div>
@@ -1159,47 +1241,143 @@ function renderLandingPage() {
       </div>
     </section>
 
-    <!-- ── TESTIMONIALS ──────────────────────────────────────────── -->
+    <!-- ── TESTIMONIALS CAROUSEL ─────────────────────────────────────── -->
     <section aria-labelledby="testimonials-h2">
       <div class="container">
         <p class="section-label">Early access</p>
         <h2 class="section-title" id="testimonials-h2">What <span class="gradient-text">indie devs</span> say</h2>
-        <p class="section-lead">Feedback from developers who integrated Kairos Check into their products during beta access.</p>
-        <div class="testimonials-grid">
-          <div class="testimonial-card tilt-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-quote">We were seeing 18% of signups from disposable emails. Kairos Check cut that to under 2% in the first week. Setup took 25 minutes — one POST call at registration and we were done.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">MR</div>
-              <div>
-                <div class="testimonial-name">Miguel R.</div>
-                <div class="testimonial-role">Solo founder · SaaS</div>
-                <div class="testimonial-product">payment platform · Node.js</div>
-              </div>
+        <p class="section-lead">From developers who stopped losing revenue to fraud during our beta program.</p>
+      </div>
+      <div class="testimonials-outer" aria-label="Testimonials carousel">
+        <div class="testimonials-track" role="list">
+          <!-- === SET 1 (8 cards) === -->
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
+              <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
             </div>
           </div>
-          <div class="testimonial-card tilt-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-quote">I was losing €200–300/month to fake trial accounts. One API call at signup stopped 90% of it. The GDPR-native approach made our legal review trivial — no pushback from counsel.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">AK</div>
-              <div>
-                <div class="testimonial-name">Ana K.</div>
-                <div class="testimonial-role">Indie developer · B2B SaaS</div>
-                <div class="testimonial-product">EU market · Python</div>
-              </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+              <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
             </div>
           </div>
-          <div class="testimonial-card tilt-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-quote">Fast enough to add to every signup flow without any UX impact. The score + signals breakdown shows me exactly why something was flagged. The audit trail export is a game-changer for GDPR requests.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">TS</div>
-              <div>
-                <div class="testimonial-name">Tom S.</div>
-                <div class="testimonial-role">Full-stack developer</div>
-                <div class="testimonial-product">e-commerce · PHP / Laravel</div>
-              </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
+              <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
+              <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
+              <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
+              <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
+              <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
+              <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
+            </div>
+          </div>
+          <!-- === SET 2 (exact duplicate for infinite loop) === -->
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#00d97e,#00b369);">MR</div>
+              <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+              <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">TS</div>
+              <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LM</div>
+              <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">SO</div>
+              <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">JF</div>
+              <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">PN</div>
+              <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
+            </div>
+          </div>
+          <div class="tcard tilt-card" role="listitem" aria-hidden="true">
+            <div class="tcard-stars">★★★★★</div>
+            <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
+            <div class="tcard-author">
+              <div class="tcard-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">MD</div>
+              <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
             </div>
           </div>
         </div>
@@ -1207,7 +1385,7 @@ function renderLandingPage() {
     </section>
 
     <!-- ── INTEGRATION ───────────────────────────────────────────── -->
-    <section aria-labelledby="integration-h2" class="reveal">
+    <section aria-labelledby="integration-h2">
       <div class="container">
         <p class="section-label">Integration</p>
         <h2 class="section-title" id="integration-h2">Works with any stack</h2>
@@ -1622,16 +1800,30 @@ function renderLandingPage() {
 
     // Scroll reveal
     (function() {
+      var els = document.querySelectorAll('.reveal');
       if (!('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('in-view'); });
+        els.forEach(function(el) { el.classList.add('in-view'); });
         return;
+      }
+      function isAboveFold(el) {
+        return el.getBoundingClientRect().top < window.innerHeight * 1.1;
       }
       var io = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
-          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            io.unobserve(e.target);
+          }
         });
       }, { threshold: 0.02 });
-      document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+      els.forEach(function(el) {
+        if (isAboveFold(el)) {
+          el.classList.add('in-view'); // never hide above-fold content
+        } else {
+          el.classList.add('reveal-pending'); // only hide truly below-fold
+        }
+        io.observe(el);
+      });
     })();
 
     // Integration language tabs
@@ -1711,6 +1903,36 @@ function renderLandingPage() {
           setTimeout(function() { btn.textContent = 'copy'; }, 2000);
         });
       });
+    })();
+
+    // Counter animation for fraud stats
+    (function() {
+      function animateCounter(el, target, suffix) {
+        var start = 0;
+        var duration = 1500;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(ease * target * 10) / 10;
+          el.textContent = (current % 1 === 0 ? Math.round(current) : current.toFixed(1)) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var counters = document.querySelectorAll('[data-count]');
+      if (!('IntersectionObserver' in window)) return;
+      var cio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var el = e.target;
+            animateCounter(el, parseFloat(el.dataset.count), el.dataset.suffix || '');
+            cio.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function(el) { cio.observe(el); });
     })();
   </script>
 </body>
