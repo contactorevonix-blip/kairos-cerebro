@@ -93,7 +93,7 @@ function renderLandingPage() {
 
     /* LAYOUT */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 5rem 0; }
+    section { padding: 7rem 0; }
     section + section { border-top: 1px solid var(--border); }
 
     /* HERO */
@@ -255,12 +255,12 @@ function renderLandingPage() {
     .hero-kicker::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     .hero h1 {
       font-size: clamp(2.75rem, 7vw, 5.25rem); font-weight: 800;
-      letter-spacing: -0.045em; line-height: 1.0; margin-bottom: 1.5rem;
+      letter-spacing: -0.045em; line-height: 1.05; margin-bottom: 1.5rem;
       max-width: 820px;
     }
     .hero-lead {
-      font-size: var(--text-lg); color: var(--text-secondary);
-      line-height: 1.6; margin-bottom: 2rem; max-width: 560px;
+      font-size: 1.1875rem; color: #b0b0b0;
+      line-height: 1.65; margin-bottom: 2rem; max-width: 560px;
     }
     .hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
     @media (max-width: 768px) { .hero-layout { grid-template-columns: 1fr; } }
@@ -421,7 +421,7 @@ function renderLandingPage() {
     .step-term-code pre { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.7; color: var(--text-secondary); white-space: pre; }
     .step-arrow {
       display: flex; align-items: center; justify-content: center;
-      padding-top: 3rem; color: var(--border-strong); font-size: 1.25rem;
+      padding-top: 0; color: rgba(0,217,126,0.4); font-size: 1rem;
     }
 
     /* INTEGRATION — language tabs */
@@ -531,7 +531,7 @@ function renderLandingPage() {
     .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 2.5rem; }
     @media (max-width: 640px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
     .trust-item { background: var(--surface); padding: 1.5rem 1.25rem; }
-    .trust-number { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.25rem; }
+    .trust-number { font-size: var(--text-2xl); font-weight: 800; letter-spacing: -0.045em; color: var(--text); margin-bottom: 0.25rem; }
     .trust-desc { font-size: var(--text-xs); color: var(--text-tertiary); line-height: 1.5; }
     .trust-badges { display: flex; flex-wrap: wrap; gap: 0.625rem; margin-top: 2rem; }
     .trust-badge {
@@ -547,7 +547,7 @@ function renderLandingPage() {
     .pricing-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.75rem; display: flex; flex-direction: column;
+      border-radius: var(--radius); padding: 2.25rem; display: flex; flex-direction: column;
       transition: border-color 200ms, box-shadow 200ms;
     }
     .pricing-card:hover { border-color: rgba(255,255,255,0.14); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
@@ -555,7 +555,7 @@ function renderLandingPage() {
       border: 1px solid rgba(0,217,126,0.35);
       background: linear-gradient(180deg, rgba(0,217,126,0.05) 0%, transparent 35%);
       box-shadow: 0 0 0 1px rgba(0,217,126,0.15), 0 8px 32px rgba(0,217,126,0.1);
-      transform: scale(1.02);
+      transform: scale(1.035);
       position: relative;
     }
     .pricing-badge {
@@ -566,7 +566,7 @@ function renderLandingPage() {
     }
     .pricing-tier { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.75rem; }
     .pricing-card.featured .pricing-tier { color: var(--accent); }
-    .pricing-price { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.25rem; }
+    .pricing-price { font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.045em; margin-bottom: 0.375rem; }
     .pricing-price-sub { font-size: var(--text-sm); color: var(--text-tertiary); margin-bottom: 1.25rem; }
     .pricing-features { list-style: none; flex: 1; }
     .pricing-features li { font-size: var(--text-sm); color: var(--text-secondary); padding: 0.375rem 0; display: flex; align-items: center; gap: 0.5rem; }
@@ -916,7 +916,7 @@ function renderLandingPage() {
     <section aria-labelledby="how-h2" class="reveal">
       <div class="container">
         <p class="section-label">How it works</p>
-        <h2 class="section-title" id="how-h2">In production in 30 minutes</h2>
+        <h2 class="section-title" id="how-h2">In production in <span class="gradient-text">30 minutes</span></h2>
         <p class="section-lead">No agents. No sales call. No contract. Self-serve from day one.</p>
         <div class="steps-flow">
 
@@ -939,7 +939,7 @@ function renderLandingPage() {
             </div>
           </div>
 
-          <div class="step-arrow" aria-hidden="true">→</div>
+          <div class="step-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
           <!-- Step 2 -->
           <div class="step-terminal tilt-card">
@@ -961,7 +961,7 @@ function renderLandingPage() {
             </div>
           </div>
 
-          <div class="step-arrow" aria-hidden="true">→</div>
+          <div class="step-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
           <!-- Step 3 -->
           <div class="step-terminal tilt-card">
@@ -995,7 +995,7 @@ function renderLandingPage() {
         <div class="network-grid">
           <div>
             <p class="section-label">Collective intelligence</p>
-            <h2 class="section-title" id="network-h2">Gets smarter with<br>every customer</h2>
+            <h2 class="section-title" id="network-h2">Gets smarter with<br>every <span class="gradient-text">customer</span></h2>
             <p class="section-lead">Every verification you run contributes to a shared reputation graph. The more we see, the more accurately we score — for everyone.</p>
             <div class="network-stat-row">
               <div class="network-stat tilt-card">
@@ -1286,7 +1286,7 @@ function renderLandingPage() {
     <section aria-labelledby="pricing-h2">
       <div class="container">
         <p class="section-label">Pricing</p>
-        <h2 class="section-title" id="pricing-h2">Simple, honest pricing</h2>
+        <h2 class="section-title" id="pricing-h2">Simple, honest <span class="gradient-text">pricing</span></h2>
         <p class="section-lead">No contracts. No calls. Cancel anytime. One chargeback avoided pays for months.</p>
         <div class="pricing-grid">
           <div class="pricing-card tilt-card">
