@@ -15,7 +15,7 @@ const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
 const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
 const { renderPrivacy, renderTerms } = require('./legal-pages');
-const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift } = require('./trust-pages');
+const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift, renderCompareSeon, renderCompareMaxmind } = require('./trust-pages');
 const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
@@ -195,6 +195,77 @@ const server = http.createServer(async (req, res) => {
       sendHtml(res, renderCompareSift(), { 'cache-control': 'public, max-age=3600' });
       return;
     }
+    if (method === 'GET' && url === '/compare/seon') {
+      sendHtml(res, renderCompareSeon(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+    if (method === 'GET' && url === '/compare/maxmind') {
+      sendHtml(res, renderCompareMaxmind(), { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+
+    // ─── SEO: /check/[domain] — dynamic fraud score page ─────────────────────
+    // Indexed by Google. Drives organic traffic from devs searching domain safety.
+    if (method === 'GET' && url.startsWith('/check/') && url.length > 7) {
+      const domain = decodeURIComponent(url.slice(7)).split('?')[0].toLowerCase().trim();
+      if (domain && domain.includes('.') && domain.length < 100) {
+        const { scoreDomainName } = require('../sniper-engine/domain-heuristic');
+        const result = scoreDomainName(domain);
+        const verdict = result.score >= 60 ? 'HIGH RISK' : result.score >= 30 ? 'MEDIUM RISK' : 'LOW RISK';
+        const colour = result.score >= 60 ? '#ef4444' : result.score >= 30 ? '#f59e0b' : '#00d97e';
+        const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fraud Score for ${domain} — Kairos Check</title>
+  <meta name="description" content="Is ${domain} safe? Kairos Check fraud score: ${result.score}/100 — ${verdict}. Powered by OSINT-first fraud intelligence.">
+  <link rel="canonical" href="${base}/check/${domain}">
+  <meta property="og:title" content="Fraud Score: ${domain} — ${verdict}">
+  <meta property="og:description" content="Score: ${result.score}/100. ${verdict}. Powered by Kairos Check fraud intelligence.">
+  <meta property="og:url" content="${base}/check/${domain}">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Fraud score for ${domain}","description":"Kairos Check fraud score for ${domain}: ${result.score}/100 — ${verdict}"}</script>
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=jetbrains-mono:400" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--bg:#060606;--surface:#0f0f0f;--border:rgba(255,255,255,.08);--text:#f0f0f0;--text-secondary:#909090;--font-sans:'Inter',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace;}
+    html{background:var(--bg);color:var(--text);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;}
+    body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;max-width:560px;width:100%;text-align:center;}
+    .domain{font-family:var(--font-mono);font-size:1.125rem;color:var(--text-secondary);margin-bottom:1.5rem;word-break:break-all;}
+    .score{font-size:4rem;font-weight:800;letter-spacing:-.05em;color:${colour};font-family:var(--font-mono);line-height:1;}
+    .verdict{font-size:1rem;font-weight:700;color:${colour};text-transform:uppercase;letter-spacing:.1em;margin:.75rem 0 1.5rem;}
+    .signals{text-align:left;margin:1.5rem 0;padding:1rem;background:rgba(255,255,255,.03);border-radius:8px;}
+    .signal{font-size:.75rem;font-family:var(--font-mono);color:var(--text-secondary);padding:.25rem 0;border-bottom:1px solid var(--border);}
+    .signal:last-child{border-bottom:none;}
+    .cta{margin-top:2rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;}
+    .btn-p{background:#00d97e;color:#000;text-decoration:none;padding:.75rem 1.5rem;border-radius:7px;font-size:.875rem;font-weight:600;}
+    .btn-g{border:1px solid var(--border);color:var(--text);text-decoration:none;padding:.75rem 1.5rem;border-radius:7px;font-size:.875rem;}
+    .disclaimer{margin-top:1.5rem;font-size:.6875rem;color:var(--text-secondary);line-height:1.5;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p style="font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-secondary);margin-bottom:.5rem;font-weight:600;">Kairos Check — Fraud Score</p>
+    <p class="domain">${domain}</p>
+    <div class="score">${result.score}</div>
+    <p class="verdict">${verdict}</p>
+    ${result.reasons.length > 0 ? `<div class="signals">${result.reasons.slice(0, 5).map(r => `<div class="signal">${r}</div>`).join('')}</div>` : `<p style="font-size:.875rem;color:var(--text-secondary);margin-bottom:1rem;">No fraud signals detected by Layer 0 analysis.</p>`}
+    <p class="disclaimer">This score is based on domain name analysis (Layer 0). Full OSINT scoring — including network intelligence, reputation graph, and 8 additional signal layers — is available via the API.</p>
+    <div class="cta">
+      <a href="/pricing" class="btn-p">Check any domain via API →</a>
+      <a href="/" class="btn-g">About Kairos Check</a>
+    </div>
+  </div>
+</body>
+</html>`;
+        res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=3600', 'x-robots-tag': result.score === 0 ? 'index,follow' : 'index,follow' });
+        res.end(html);
+        return;
+      }
+    }
+
     if (method === 'GET' && url === '/privacy') {
       sendHtml(res, renderPrivacy(), { 'cache-control': 'public, max-age=3600' });
       return;

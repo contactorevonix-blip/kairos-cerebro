@@ -776,10 +776,233 @@ function renderCompareSift() {
 
 // ─── exports ──────────────────────────────────────────────────────────────────
 
+// ─── /compare/seon ────────────────────────────────────────────────────────────
+
+function renderCompareSeon() {
+  const shell = (content) => `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kairos Check vs SEON — Fraud API Comparison for Developers</title>
+  <meta name="description" content="SEON starts at €499/month and requires an SDK. Kairos Check is €29/month, one REST call, zero dependencies, GDPR Art.22 native. Compare features.">
+  <link rel="canonical" href="https://kairoscheck.net/compare/seon">
+  <meta property="og:title" content="Kairos Check vs SEON — Which fraud API is right for indie devs?">
+  <meta property="og:description" content="SEON is powerful but enterprise-priced. Kairos Check is built for indie devs: €29/month, self-serve, zero deps, GDPR-native.">
+  <meta property="og:url" content="https://kairoscheck.net/compare/seon">
+  <meta property="og:type" content="article">
+  ${FONTS}
+  <style>${BASE_CSS}
+  main{max-width:900px;}
+  .compare-table{width:100%;border-collapse:collapse;margin:2rem 0 3rem;}
+  .compare-table th{text-align:left;padding:.875rem 1rem;font-size:var(--text-sm);font-weight:600;border-bottom:2px solid var(--border-strong);color:var(--text-secondary);}
+  .compare-table th:not(:first-child){text-align:center;min-width:140px;}
+  .compare-table th.col-kairos{color:var(--accent);}
+  .compare-table td{padding:.875rem 1rem;font-size:var(--text-sm);border-bottom:1px solid var(--border);vertical-align:top;}
+  .compare-table td:not(:first-child){text-align:center;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .compare-table tr:hover td{background:rgba(255,255,255,.02);}
+  .yes{color:var(--accent);font-weight:600;} .no{color:var(--text-tertiary);} .partial{color:var(--warning);}
+  .price-callout{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:1rem 1.25rem;margin-bottom:2rem;font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;}
+  .price-callout strong{color:var(--text);}
+  .when-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2rem 0 3rem;}
+  @media(max-width:640px){.when-grid{grid-template-columns:1fr;}}
+  .when-card{background:var(--surface);border:1px solid var(--border-strong);border-radius:10px;padding:1.5rem;}
+  .when-card h3{font-size:var(--text-base);font-weight:600;margin-bottom:1rem;}
+  .when-card li{font-size:var(--text-sm);color:var(--text-secondary);padding:.375rem 0;display:flex;gap:.5rem;list-style:none;}
+  .when-card li::before{content:'→';color:var(--accent);flex-shrink:0;}
+  .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem;}
+  .btn-accent{display:inline-flex;background:var(--accent);color:#000;text-decoration:none;font-size:var(--text-sm);font-weight:600;padding:.75rem 1.5rem;border-radius:7px;}
+  .btn-ghost{display:inline-flex;border:1px solid var(--border-strong);color:var(--text);text-decoration:none;font-size:var(--text-sm);font-weight:500;padding:.75rem 1.5rem;border-radius:7px;}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  ${content}
+</body>
+</html>`;
+
+  return shell(`
+  <main id="main" style="max-width:900px;margin:0 auto;padding:4rem 1.5rem;">
+    <p style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--text-tertiary);margin-bottom:.75rem;font-weight:600;">Fraud API Comparison</p>
+    <h1 style="font-size:2rem;font-weight:700;letter-spacing:-.03em;margin-bottom:1rem;">Kairos Check vs SEON</h1>
+    <p style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.65;margin-bottom:2.5rem;">SEON is a serious fraud platform built for enterprise teams. Kairos Check is built for indie devs and solo founders who need the same intelligence without the enterprise price tag, SDK requirement, or 3-month onboarding.</p>
+
+    <div class="price-callout">
+      <strong>The price gap is real:</strong> SEON's entry plan starts at <strong>€499/month</strong> (annual contract required). Kairos Check starts at <strong>€29/month</strong>, self-serve, no contract, cancel anytime. Both check domains, emails, IPs, and phones — but for 17× less money.
+    </div>
+
+    <table class="compare-table" aria-label="Kairos Check vs SEON comparison">
+      <thead><tr>
+        <th scope="col">Feature</th>
+        <th scope="col">SEON</th>
+        <th scope="col" class="col-kairos">Kairos Check</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Starting price</td><td class="no">€499/month (annual)</td><td class="yes">€29/month (cancel anytime)</td></tr>
+        <tr><td>Self-serve signup</td><td class="no">Sales call required</td><td class="yes">No call. No KYC. Instant.</td></tr>
+        <tr><td>SDK / library required</td><td class="partial">SDK for advanced features</td><td class="yes">Zero deps — one REST call</td></tr>
+        <tr><td>Domain fraud scoring</td><td class="yes">✓</td><td class="yes">✓ + homograph detection</td></tr>
+        <tr><td>Email fraud scoring</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Phone scoring</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>IBAN / bank scoring</td><td class="partial">Add-on</td><td class="yes">✓ included</td></tr>
+        <tr><td>GDPR Art.22 compliance</td><td class="no">Requires configuration</td><td class="yes">Native — built-in by design</td></tr>
+        <tr><td>EU data residency</td><td class="partial">US primary, EU option</td><td class="yes">EU-only (Ireland)</td></tr>
+        <tr><td>Explainable signals</td><td class="yes">✓</td><td class="yes">✓ + scam DNA fingerprint</td></tr>
+        <tr><td>Cross-tenant intelligence</td><td class="yes">✓ (large network)</td><td class="yes">✓ (growing daily)</td></tr>
+        <tr><td>Homograph attack detection</td><td class="partial">Limited</td><td class="yes">✓ paypa1 → paypal → BLOCK</td></tr>
+        <tr><td>Time to first API call</td><td class="no">Days to weeks</td><td class="yes">Under 5 minutes</td></tr>
+        <tr><td>Contract required</td><td class="no">Yes (annual)</td><td class="yes">No — month-to-month</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="font-size:1.375rem;font-weight:600;margin-bottom:1rem;">When to choose which</h2>
+    <div class="when-grid">
+      <div class="when-card">
+        <h3>Choose SEON if:</h3>
+        <ul>
+          <li>You have a dedicated fraud team</li>
+          <li>Your budget is €500+/month</li>
+          <li>You need deep device fingerprinting</li>
+          <li>Enterprise compliance is required (SOC2, etc.)</li>
+          <li>You process millions of requests per month</li>
+        </ul>
+      </div>
+      <div class="when-card" style="border-color:rgba(0,217,126,.2);">
+        <h3 style="color:var(--accent);">Choose Kairos Check if:</h3>
+        <ul>
+          <li>You're an indie dev or solo founder</li>
+          <li>You need to ship fraud protection this week</li>
+          <li>Your budget is €29-99/month</li>
+          <li>You want zero SDK, one REST call</li>
+          <li>GDPR compliance is non-negotiable</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="/pricing" class="btn-accent">Start for €29/month →</a>
+      <a href="/docs/quickstart" class="btn-ghost">Read the docs</a>
+    </div>
+  </main>`);
+}
+
+// ─── /compare/maxmind ─────────────────────────────────────────────────────────
+
+function renderCompareMaxmind() {
+  const shell = (content) => `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kairos Check vs MaxMind — Fraud Detection API Comparison</title>
+  <meta name="description" content="MaxMind requires a 2GB database download and weekly updates. Kairos Check is one POST call, zero maintenance, GDPR-native. Compare for indie devs.">
+  <link rel="canonical" href="https://kairoscheck.net/compare/maxmind">
+  <meta property="og:title" content="Kairos Check vs MaxMind — Which is right for your stack?">
+  <meta property="og:description" content="MaxMind GeoIP requires local database files. Kairos Check is a pure REST API — no files, no updates, no maintenance. €29/month vs MaxMind complexity.">
+  <meta property="og:url" content="https://kairoscheck.net/compare/maxmind">
+  <meta property="og:type" content="article">
+  ${FONTS}
+  <style>${BASE_CSS}
+  main{max-width:900px;}
+  .compare-table{width:100%;border-collapse:collapse;margin:2rem 0 3rem;}
+  .compare-table th{text-align:left;padding:.875rem 1rem;font-size:var(--text-sm);font-weight:600;border-bottom:2px solid var(--border-strong);color:var(--text-secondary);}
+  .compare-table th:not(:first-child){text-align:center;min-width:140px;}
+  .compare-table th.col-kairos{color:var(--accent);}
+  .compare-table td{padding:.875rem 1rem;font-size:var(--text-sm);border-bottom:1px solid var(--border);vertical-align:top;}
+  .compare-table td:not(:first-child){text-align:center;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .compare-table tr:hover td{background:rgba(255,255,255,.02);}
+  .yes{color:var(--accent);font-weight:600;} .no{color:var(--text-tertiary);} .partial{color:var(--warning);}
+  .price-callout{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:1rem 1.25rem;margin-bottom:2rem;font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;}
+  .price-callout strong{color:var(--text);}
+  .when-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:2rem 0 3rem;}
+  @media(max-width:640px){.when-grid{grid-template-columns:1fr;}}
+  .when-card{background:var(--surface);border:1px solid var(--border-strong);border-radius:10px;padding:1.5rem;}
+  .when-card h3{font-size:var(--text-base);font-weight:600;margin-bottom:1rem;}
+  .when-card li{font-size:var(--text-sm);color:var(--text-secondary);padding:.375rem 0;display:flex;gap:.5rem;list-style:none;}
+  .when-card li::before{content:'→';color:var(--accent);flex-shrink:0;}
+  .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem;}
+  .btn-accent{display:inline-flex;background:var(--accent);color:#000;text-decoration:none;font-size:var(--text-sm);font-weight:600;padding:.75rem 1.5rem;border-radius:7px;}
+  .btn-ghost{display:inline-flex;border:1px solid var(--border-strong);color:var(--text);text-decoration:none;font-size:var(--text-sm);font-weight:500;padding:.75rem 1.5rem;border-radius:7px;}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  ${content}
+</body>
+</html>`;
+
+  return shell(`
+  <main id="main" style="max-width:900px;margin:0 auto;padding:4rem 1.5rem;">
+    <p style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--text-tertiary);margin-bottom:.75rem;font-weight:600;">Fraud API Comparison</p>
+    <h1 style="font-size:2rem;font-weight:700;letter-spacing:-.03em;margin-bottom:1rem;">Kairos Check vs MaxMind</h1>
+    <p style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.65;margin-bottom:2.5rem;">MaxMind GeoIP is the industry standard for IP intelligence. But if you need fraud scoring for domains, emails, phones, and IBANs — not just IPs — Kairos Check does more with a single REST call, no local database required, and no weekly update scripts to maintain.</p>
+
+    <div class="price-callout">
+      <strong>The maintenance gap:</strong> MaxMind requires downloading a 2GB database file and running update scripts weekly. A cron job breaks, your fraud scoring silently goes stale. Kairos Check has <strong>zero files to manage</strong> — every call gets the latest intelligence automatically.
+    </div>
+
+    <table class="compare-table" aria-label="Kairos Check vs MaxMind comparison">
+      <thead><tr>
+        <th scope="col">Feature</th>
+        <th scope="col">MaxMind GeoIP2</th>
+        <th scope="col" class="col-kairos">Kairos Check</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Integration method</td><td class="no">Download 2GB database + SDK</td><td class="yes">One REST POST call</td></tr>
+        <tr><td>Data freshness</td><td class="no">Weekly download required</td><td class="yes">Always current — no action needed</td></tr>
+        <tr><td>IP fraud scoring</td><td class="yes">✓ (excellent)</td><td class="partial">Via ASN reputation signals</td></tr>
+        <tr><td>Domain fraud scoring</td><td class="no">❌</td><td class="yes">✓ Layer 0 + 8 OSINT layers</td></tr>
+        <tr><td>Email fraud scoring</td><td class="no">❌</td><td class="yes">✓ disposable, reputation</td></tr>
+        <tr><td>Phone scoring</td><td class="no">❌</td><td class="yes">✓</td></tr>
+        <tr><td>IBAN scoring</td><td class="no">❌</td><td class="yes">✓</td></tr>
+        <tr><td>Brand impersonation detection</td><td class="no">❌</td><td class="yes">✓ 37 brands, homographs</td></tr>
+        <tr><td>GDPR Art.22 compliance</td><td class="no">Not native</td><td class="yes">Built-in by design</td></tr>
+        <tr><td>EU data residency</td><td class="no">US-hosted</td><td class="yes">Ireland (EU)</td></tr>
+        <tr><td>Explainable verdict</td><td class="no">Raw scores only</td><td class="yes">Score + signals + DNA</td></tr>
+        <tr><td>Starting price</td><td class="partial">Free (basic) / $20-200+/mo</td><td class="yes">Free (50 checks) / €29/mo</td></tr>
+        <tr><td>Zero maintenance</td><td class="no">Weekly cron jobs required</td><td class="yes">✓ nothing to maintain</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="font-size:1.375rem;font-weight:600;margin-bottom:1rem;">When to choose which</h2>
+    <div class="when-grid">
+      <div class="when-card">
+        <h3>Choose MaxMind if:</h3>
+        <ul>
+          <li>IP geolocation is your primary need</li>
+          <li>You already have IP-based fraud rules</li>
+          <li>You're comfortable maintaining local databases</li>
+          <li>US data residency is acceptable</li>
+          <li>You only need IP signals, not domain/email/IBAN</li>
+        </ul>
+      </div>
+      <div class="when-card" style="border-color:rgba(0,217,126,.2);">
+        <h3 style="color:var(--accent);">Choose Kairos Check if:</h3>
+        <ul>
+          <li>You want zero maintenance (no cron jobs)</li>
+          <li>You need domain + email + phone + IBAN scoring</li>
+          <li>GDPR compliance is required (EU hosting)</li>
+          <li>You want one API for all fraud signals</li>
+          <li>You're an indie dev who ships fast</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:2rem;">Most teams use both: MaxMind for IP-level geolocation + Kairos Check for entity-level fraud scoring. They complement each other perfectly.</p>
+
+    <div class="cta-row">
+      <a href="/pricing" class="btn-accent">Start for €29/month →</a>
+      <a href="/docs/quickstart" class="btn-ghost">5-minute quickstart</a>
+    </div>
+  </main>`);
+}
+
 module.exports = {
   renderStatus,
   renderChangelog,
   renderExamples,
   renderCompareStripeRadar,
   renderCompareSift,
+  renderCompareSeon,
+  renderCompareMaxmind,
 };
