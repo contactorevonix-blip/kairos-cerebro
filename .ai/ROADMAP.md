@@ -155,3 +155,33 @@ VANTAGEM REAL:
 - Antes de merge → QA gate 170/170 obrigatório
 - Mudanças de auth/billing → @security-architect obrigatório
 - DAILY_BRIEF actualizado no fim de cada sessão
+
+---
+
+## FASE 7 — KAIROS CARD (validar com primeiros clientes, lançar em 60 dias)
+
+### O produto
+Cartão virtual Visa via Stripe Issuing. CADA transacção passa pela nossa API antes de autorização:
+- Merchant score ≥ 60 → DECLINED automático (fraud)
+- Merchant score < 30 → Aprovado instantaneamente
+- Merchant score 30-59 → Aprovado com alerta ao utilizador
+
+### Revenue streams
+- Interchange: 0.20% por transacção (EU regulado, Stripe partilha com plataforma)
+- Taxa mensal: €5/cartão
+- Tokens: 1 token por transacção → auto-refill constante
+- Com 200 cartões × €5k gastos/mês: ~€3.800/mês passivo
+
+### Tecnologia
+- Stripe Issuing (EU disponível): sem licença bancária própria
+- Pedro = programme manager | Stripe = entidade regulada
+- Webhook de autorização: cada transacção → nosso /api/check → approve/decline
+
+### Como começar
+1. Aplicar ao Stripe Issuing: dashboard.stripe.com → Issuing → Apply
+2. Validar com primeiros 5 clientes API: "Usarias um cartão Kairos?"
+3. Se 3/5 dizem sim → sprint de 60 dias para lançar
+
+### O diferenciador único
+"O único cartão no mercado que sabe se a loja é fraude ANTES de tu pagares."
+Revolut: sem taxas de câmbio. Kairos Card: sem risco de fraude no merchant.
