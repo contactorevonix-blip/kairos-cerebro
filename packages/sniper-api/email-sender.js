@@ -310,7 +310,7 @@ function buildUpgradeHtml() {
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
   <tr><td style="padding-bottom:24px;"><span style="font-size:20px;font-weight:600;">Kairos<span style="color:#00b369;">Check</span></span></td></tr>
   <tr><td style="padding-bottom:20px;">
-    <p style="margin:0 0 8px;font-size:22px;font-weight:600;">Your 50 free tokens are gone.</p>
+    <p style="margin:0 0 8px;font-size:22px;font-weight:600;">Your 50 free fraud checks are used up.</p>
     <p style="margin:0;font-size:15px;color:#525252;">You used them because you had real signals to check. That is exactly what they are for.</p>
   </td></tr>
   <tr><td style="padding-bottom:28px;background:#f9f9f9;border-radius:10px;padding:20px;">
@@ -321,7 +321,7 @@ function buildUpgradeHtml() {
   <tr><td style="padding:24px 0 8px;">
     <p style="margin:0 0 16px;font-size:15px;font-weight:600;">Two ways to continue:</p>
     <a href="https://kairoscheck.net/pricing" style="display:inline-block;background:#00b369;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:7px;margin-right:12px;">Upgrade to Starter — 29/mo →</a>
-    <a href="https://kairoscheck.net/pricing" style="display:inline-block;color:#00b369;text-decoration:none;font-weight:600;font-size:14px;padding:12px 0;">Top up 100 tokens — 5 euros</a>
+    <a href="https://kairoscheck.net/pricing" style="display:inline-block;color:#00b369;text-decoration:none;font-weight:600;font-size:14px;padding:12px 0;">Top up 100 fraud checks — €5</a>
   </td></tr>
   <tr><td style="padding-bottom:24px;">
     <p style="margin:0;font-size:13px;color:#737373;">Founding member rate: 29 euros/month locks in forever. Prices go up as the network grows and gets smarter.</p>
@@ -342,7 +342,7 @@ async function sendUpgradeEmail({ toEmail }) {
     const result = await resend.emails.send({
       from,
       to: toEmail,
-      subject: 'Your 50 free Kairos Check tokens are gone — here is what to do next',
+      subject: 'Your 50 free Kairos Check fraud checks are used up — here is what to do next',
       html: buildUpgradeHtml(),
     });
     if (result.error) return { ok: false, error: result.error.message };
@@ -352,4 +352,59 @@ async function sendUpgradeEmail({ toEmail }) {
   }
 }
 
-module.exports = { sendApiKeyEmail, sendFollowupEmail, sendFirstCheckEmail, sendUpgradeEmail, keyPreview };
+// ─── ONBOARDING NUDGE — 48h sem checks ───────────────────────────────────────
+function buildNudgeHtml() {
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#fff;font-family:Inter,ui-sans-serif,sans-serif;color:#0a0a0a;line-height:1.6;">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:40px 16px;">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+  <tr><td style="padding-bottom:24px;"><span style="font-size:20px;font-weight:600;">Kairos<span style="color:#00b369;">Check</span></span></td></tr>
+  <tr><td style="padding-bottom:20px;">
+    <p style="margin:0 0 8px;font-size:22px;font-weight:600;">Did you make your first fraud check?</p>
+    <p style="margin:0;font-size:15px;color:#525252;">Your API key is active. Here is how to run your first check in under 60 seconds.</p>
+  </td></tr>
+  <tr><td style="padding-bottom:24px;">
+    <div style="background:#0a0a0a;color:#f5f5f5;border-radius:8px;padding:16px 20px;font-family:monospace;font-size:13px;white-space:pre-wrap;">curl -X POST https://kairoscheck.net/api/check \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"domain":"suspicious-shop.io"}'
+
+# {"verdict":"BLOCK","score":87,"token_balance":49}</div>
+  </td></tr>
+  <tr><td style="padding-bottom:24px;">
+    <p style="margin:0 0 8px;font-size:15px;font-weight:600;">What you can check:</p>
+    <p style="margin:0 0 6px;font-size:14px;color:#525252;">→ <strong>domain</strong> — catch phishing, fake shops, brand impersonation</p>
+    <p style="margin:0 0 6px;font-size:14px;color:#525252;">→ <strong>email</strong> — detect disposable and fraud-linked emails at signup</p>
+    <p style="margin:0 0 6px;font-size:14px;color:#525252;">→ <strong>phone</strong> — validate carrier and flag burner numbers</p>
+    <p style="margin:0;font-size:14px;color:#525252;">→ <strong>iban</strong> — verify bank details before payouts</p>
+  </td></tr>
+  <tr><td style="padding-bottom:32px;">
+    <a href="https://kairoscheck.net/docs/quickstart" style="display:inline-block;background:#00b369;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:7px;">Read the quickstart →</a>
+  </td></tr>
+  <tr><td style="padding-top:24px;border-top:1px solid #e5e5e5;">
+    <p style="margin:0;font-size:12px;color:#a3a3a3;">Reply with any question. Kairos Check · <a href="https://kairoscheck.net/privacy" style="color:#a3a3a3;">Privacy</a></p>
+  </td></tr>
+</table></td></tr></table>
+</body></html>`;
+}
+
+async function sendNudgeEmail({ toEmail }) {
+  const resendKey = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM || 'hello@kairoscheck.net';
+  if (!resendKey || !toEmail) return { ok: false, error: 'missing config or email' };
+  const resend = new Resend(resendKey);
+  try {
+    const result = await resend.emails.send({
+      from,
+      to: toEmail,
+      subject: 'Did you make your first Kairos Check fraud check?',
+      html: buildNudgeHtml(),
+    });
+    if (result.error) return { ok: false, error: result.error.message };
+    return { ok: true, resendId: result.data?.id };
+  } catch (err) {
+    return { ok: false, error: err.message };
+  }
+}
+
+module.exports = { sendApiKeyEmail, sendFollowupEmail, sendFirstCheckEmail, sendUpgradeEmail, sendNudgeEmail, keyPreview };
