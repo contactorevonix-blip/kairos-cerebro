@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Install Railway CLI
-        run: curl -fsSL https://railway.app/install.sh | sh
+        run: npm install -g @railway/cli
 
       - name: Run backup inside Railway container
         id: run_backup
@@ -27,7 +27,7 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           set -euo pipefail
-          railway run --service kairos-api -- node bin/backup-volume.js | tee /tmp/backup-log.json
+          railway run --service kairos-cerebro -- node bin/backup-volume.js | tee /tmp/backup-log.json
         continue-on-error: true
 
       - name: Upload backup log
