@@ -1538,86 +1538,28 @@ function renderLandingPage() {
       </div>
     </section>
 
-    <!-- ── TESTIMONIALS SLIDER ───────────────────────────────────────── -->
-    <section aria-labelledby="testimonials-h2">
-      <div class="container">
-        <p class="section-label">From developers in production</p>
-        <h2 class="section-title" id="testimonials-h2">What <span class="gradient-text">indie devs</span> say</h2>
-        <p class="section-lead">From developers who stopped losing revenue to fraud during our beta program.</p>
-        <div class="testimonials-outer" aria-label="Testimonials">
-          <div class="testimonials-track" id="tslider-track" role="list">
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">We had 18% of signups from disposable emails. One POST call at registration cut that to under 2% in week one. Setup took 25 minutes.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%2300b369'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%231a1a1a' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="Miguel R." width="42" height="42"></div>
-                <div><div class="tcard-name">Miguel R.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Node.js</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">I was losing €200–300/month to fake trial accounts. One API call stopped 90% of it. The GDPR approach meant zero pushback from legal.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%236366f1'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='11' rx='10' ry='8' fill='%231a1a1a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Ana K." width="42" height="42"></div>
-                <div><div class="tcard-name">Ana K.</div><div class="tcard-role">Indie developer</div><div class="tcard-product">B2B SaaS · Python</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">Fast enough for every signup flow with zero UX impact. The signals breakdown tells me exactly why something was flagged — the audit trail is a game-changer.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23d97706'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='11' rx='9' ry='6' fill='%23c9a96e' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Tom S." width="42" height="42"></div>
-                <div><div class="tcard-name">Tom S.</div><div class="tcard-role">Full-stack developer</div><div class="tcard-product">E-commerce · PHP</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">We integrated IBAN checking before bank transfers. Caught 3 fraudulent payouts in the first week. ROI was immediate — one avoided transfer paid for 6 months.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%231d4ed8'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='12' rx='8' ry='5' fill='%23a0856a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Lucas M." width="42" height="42"></div>
-                <div><div class="tcard-name">Lucas M.</div><div class="tcard-role">Backend engineer</div><div class="tcard-product">Fintech · Germany</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">Our marketplace was getting hammered with fake seller accounts. OSINT-first means we score reputation, not just patterns. Night and day difference from what we had before.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23db2777'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='10' rx='11' ry='8' fill='%23c0392b' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="Sarah O." width="42" height="42"></div>
-                <div><div class="tcard-name">Sarah O.</div><div class="tcard-role">Product lead</div><div class="tcard-product">Marketplace · Netherlands</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">Integrated in 30 minutes, literally. Zero config, zero SDK. One fetch call and it was done. Blocked 47 spam accounts in my SaaS the first week.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23059669'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23d4a574'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23d4a574'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%231a0f00' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="João F." width="42" height="42"></div>
-                <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">As CTO, I needed something GDPR-native that our DPO would approve. Kairos Check was the only API that came with Art.22 human oversight built in. Done deal.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23ea580c'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23c68642'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23c68642'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%230a0a0a' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Priya N." width="42" height="42"></div>
-                <div><div class="tcard-name">Priya N.</div><div class="tcard-role">CTO</div><div class="tcard-product">Startup · EU/India</div></div>
-              </div>
-            </div>
-            <div class="tcard" role="listitem">
-              <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">We run e-commerce for 12 brands. Chargebacks were eating 3% of revenue. Since integrating Kairos Check at checkout, that's down to 0.4%. The math speaks for itself.</p>
-              <div class="tcard-author">
-                <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%237c3aed'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23fde8c8'/%3E%3Cellipse cx='21' cy='12' rx='9' ry='6' fill='%23704214' style='fill-opacity:.9'/%3E%3C/svg%3E" alt="Marc D." width="42" height="42"></div>
-                <div><div class="tcard-name">Marc D.</div><div class="tcard-role">Developer</div><div class="tcard-product">E-commerce agency · France</div></div>
-              </div>
-            </div>
+    <!-- ── SOCIAL PROOF ───────────────────────────────────────── -->
+    <section aria-labelledby="proof-h2">
+      <div class="container" style="text-align:center;padding:5rem 1.5rem;">
+        <p class="section-label">Transparent by design</p>
+        <h2 class="section-title" id="proof-h2">No fake reviews. <span class="gradient-text">Real numbers.</span></h2>
+        <p class="section-lead" style="max-width:500px;margin:1rem auto 3rem;">We launched in 2026. Real developers in production, zero fabricated testimonials. Your results will be the first case study.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:680px;margin:0 auto 3rem;">
+          <div style="background:var(--surface);border:1px solid var(--border-strong);border-radius:14px;padding:2rem 1rem;">
+            <div style="font-size:2.25rem;font-weight:800;color:#f0f0f0;font-variant-numeric:tabular-nums;" id="live-api-count">—</div>
+            <div style="font-size:0.6875rem;color:var(--text-tertiary);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">API calls made</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid rgba(0,217,126,0.15);border-radius:14px;padding:2rem 1rem;">
+            <div style="font-size:2.25rem;font-weight:800;color:#00d97e;">4</div>
+            <div style="font-size:0.6875rem;color:var(--text-tertiary);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">in production</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-strong);border-radius:14px;padding:2rem 1rem;">
+            <div style="font-size:2.25rem;font-weight:800;color:#f0f0f0;">0</div>
+            <div style="font-size:0.6875rem;color:var(--text-tertiary);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">fake reviews</div>
           </div>
         </div>
-        <div class="tslider-progress"><div class="tslider-progress-bar" id="tslider-bar"></div></div>
-        <nav class="tslider-nav" aria-label="Testimonials navigation">
-          <button class="tslider-btn" id="tslider-prev" aria-label="Previous testimonials">&#8592;</button>
-          <div class="tslider-dots" id="tslider-dots" role="tablist"></div>
-          <button class="tslider-btn" id="tslider-next" aria-label="Next testimonials">&#8594;</button>
-        </nav>
+        <a href="/pricing" style="display:inline-flex;align-items:center;gap:8px;background:#00d97e;color:#000;font-weight:700;padding:14px 28px;border-radius:10px;font-size:0.9375rem;text-decoration:none;transition:background 150ms;">Become the first case study &#8594;</a>
+      </div>
       </div>
     </section>
 
@@ -2601,6 +2543,14 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       });
     })();
 
+    // ── LIVE COUNTER ─────────────────────────────────────────────────────────
+    fetch('/api/stats/counter').then(function(r){return r.json();}).then(function(d){
+      if(d&&d.count){
+        var el=document.getElementById('live-api-count');
+        if(el) el.textContent=Number(d.count).toLocaleString('en');
+      }
+    }).catch(function(){});
+
     // ── KAIROS CHAT WIDGET ────────────────────────────────────────────────────
     (function() {
       var FREE_LIMIT = 5;
@@ -2613,11 +2563,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var widget = document.createElement('div');
       widget.id = 'kc-chat-widget';
       widget.innerHTML = [
-        '<div id="kc-bubble" aria-label="Open Kairos Check AI chat" role="button" tabindex="0">',
-          '<svg width="22" height="22" viewBox="0 0 22 22" fill="none">',
-            '<path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/>',
-            '<path d="M8 8V15M8 11.5H11.5M11.5 11.5L14 8M11.5 11.5L14 15" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-          '</svg>',
+        '<div id="kc-bubble" aria-label="Open Kairos Check AI — 50 free checks" role="button" tabindex="0">',
+          '<svg width="18" height="18" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#000" fill-opacity="0.75"/><path d="M8 8V15M8 11.5H11.5M11.5 11.5L14 8M11.5 11.5L14 15" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          '<span id="kc-bubble-text">Ask free — 50 checks</span>',
         '</div>',
         '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" style="display:none;">',
           '<div id="kc-panel-head">',
@@ -2651,9 +2599,11 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var style = document.createElement('style');
       style.textContent = [
         '#kc-chat-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;font-family:Inter,system-ui,sans-serif;}',
-        '#kc-bubble{width:56px;height:56px;border-radius:50%;background:#00d97e;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 24px rgba(0,217,126,0.4);transition:transform 200ms,box-shadow 200ms;}',
-        '#kc-bubble:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(0,217,126,0.55);}',
-        '#kc-panel{position:absolute;bottom:72px;right:0;width:360px;background:#0d0d0d;border:1px solid rgba(255,255,255,0.09);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,126,0.06);}',
+        '#kc-bubble{display:flex;align-items:center;gap:9px;padding:13px 22px 13px 18px;border-radius:999px;background:#00d97e;cursor:pointer;box-shadow:0 4px 28px rgba(0,217,126,0.4);transition:transform 180ms,box-shadow 180ms;animation:kc-slide-in 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.2s both;}',
+        '#kc-bubble:hover{transform:translateY(-3px);box-shadow:0 8px 36px rgba(0,217,126,0.55);}',
+        '#kc-bubble-text{font-size:0.875rem;font-weight:700;color:#000;white-space:nowrap;letter-spacing:-.01em;}',
+        '@keyframes kc-slide-in{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}',
+        '#kc-panel{position:fixed;bottom:5.5rem;right:1.5rem;width:380px;background:#0d0d0d;border:1px solid rgba(255,255,255,0.09);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,126,0.06);}',
         '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1rem;background:linear-gradient(135deg,#131313 0%,#161616 100%);border-bottom:1px solid rgba(255,255,255,0.06);}',
         '.kc-live-dot{width:7px;height:7px;border-radius:50%;background:#00d97e;flex-shrink:0;box-shadow:0 0 6px rgba(0,217,126,0.8);animation:kc-pulse 2s ease-in-out infinite;}',
         '@keyframes kc-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.7;transform:scale(0.85);}}',
