@@ -158,10 +158,13 @@ function renderAccountPage() {
         <p style="font-size:.75rem;color:var(--text-tertiary);" id="ref-stats">0 referrals · 0 tokens earned</p>
       </div>
 
-      <!-- Topup -->
+      <!-- Topup + Auto-refill info -->
       <div class="card" style="margin-bottom:1.25rem;">
-        <div class="card-label" style="margin-bottom:.25rem;">Top up tokens</div>
-        <p style="font-size:.8125rem;color:var(--text-secondary);margin-bottom:0;">Need more checks this month?</p>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:.25rem;">
+          <div class="card-label">Top up tokens</div>
+          <div style="font-size:.6875rem;background:rgba(0,217,126,.08);border:1px solid rgba(0,217,126,.15);border-radius:6px;padding:.25rem .625rem;color:var(--accent);">Auto-refill coming soon</div>
+        </div>
+        <p style="font-size:.8125rem;color:var(--text-secondary);margin-bottom:0;">Need more checks this month? Top up instantly — tokens added within seconds.</p>
         <div class="topup-grid">
           <div class="topup-card" onclick="topup('pack_100')">
             <div class="topup-price">€5</div>

@@ -254,4 +254,52 @@ async function sendFollowupEmail({ toEmail, keyPreviewStr, tier, emailType }) {
   }
 }
 
-module.exports = { sendApiKeyEmail, sendFollowupEmail, keyPreview };
+// ─── FIRST CHECK EMAIL (#28) ──────────────────────────────────────────────────
+function buildFirstCheckHtml(verdict, score, entity, signals) {
+  const isBlock = verdict === 'BLOCK';
+  const color = isBlock ? '#ef4444' : '#00d97e';
+  const icon = isBlock ? '🔴' : '🟢';
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#fff;font-family:Inter,ui-sans-serif,sans-serif;color:#0a0a0a;line-height:1.6;">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:40px 16px;">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+  <tr><td style="padding-bottom:24px;"><span style="font-size:20px;font-weight:600;">Kairos<span style="color:#00b369;">Check</span></span></td></tr>
+  <tr><td style="padding-bottom:20px;">
+    <p style="margin:0 0 8px;font-size:22px;font-weight:600;">${icon} Your first fraud check just ran.</p>
+    <p style="margin:0;font-size:15px;color:#525252;">Kairos Check is now protecting your product. Here's what we found:</p>
+  </td></tr>
+  <tr><td style="padding-bottom:24px;background:#f9f9f9;border-radius:10px;padding:20px;">
+    <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#737373;">Entity checked</p>
+    <p style="margin:0 0 16px;font-family:monospace;font-size:14px;color:#0a0a0a;">${String(entity).slice(0,60)}</p>
+    <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#737373;">Verdict</p>
+    <p style="margin:0 0 4px;font-size:20px;font-weight:700;color:${color};">${verdict} — Score ${score}/100</p>
+    ${signals && signals.length > 0 ? `<p style="margin:8px 0 0;font-size:13px;color:#525252;">Signals: ${signals.slice(0,3).join(', ')}</p>` : ''}
+  </td></tr>
+  <tr><td style="padding:20px 0;">
+    <p style="margin:0 0 12px;font-size:15px;color:#525252;">Your integration is working. Every check protects your revenue from fraud.</p>
+    <a href="https://kairoscheck.net/account" style="display:inline-block;background:#00b369;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:12px 24px;border-radius:7px;">View your dashboard →</a>
+  </td></tr>
+  <tr><td style="padding-top:24px;border-top:1px solid #e5e5e5;">
+    <p style="margin:0;font-size:12px;color:#a3a3a3;">Kairos Check · <a href="https://kairoscheck.net" style="color:#a3a3a3;">kairoscheck.net</a></p>
+  </td></tr>
+</table></td></tr></table>
+</body></html>`;
+}
+
+async function sendFirstCheckEmail({ toEmail, verdict, score, entity, signals }) {
+  const resendKey = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM || 'hello@kairoscheck.net';
+  if (!resendKey || !toEmail) return { ok: false, error: 'missing config' };
+  const resend = new Resend(resendKey);
+  try {
+    const result = await resend.emails.send({
+      from, to: toEmail,
+      subject: 'Your first Kairos Check fraud check just ran ✅',
+      html: buildFirstCheckHtml(verdict, score, entity, signals),
+    });
+    if (result.error) return { ok: false, error: result.error.message };
+    return { ok: true, resendId: result.data?.id };
+  } catch (err) { return { ok: false, error: err.message }; }
+}
+
+module.exports = { sendApiKeyEmail, sendFollowupEmail, sendFirstCheckEmail, keyPreview };

@@ -367,6 +367,39 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // ─── "Powered by Kairos Check" badge (#29) ────────────────────────────────
+    if (method === 'GET' && url === '/badge') {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="28" viewBox="0 0 200 28">
+  <rect width="200" height="28" rx="6" fill="#0a0a0a"/>
+  <rect width="200" height="28" rx="6" fill="none" stroke="rgba(0,217,126,0.3)" stroke-width="1"/>
+  <path d="M10 5L6 6.8V10C6 12.5 7.8 14.7 10 15.3C12.2 14.7 14 12.5 14 10V6.8Z" fill="#00d97e"/>
+  <path d="M9 9V13M9 11H10.8M10.8 11L12 9M10.8 11L12 13" stroke="#0a0a0a" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="22" y="18" font-family="Inter,system-ui,sans-serif" font-size="10.5" fill="rgba(255,255,255,0.55)" font-weight="400">Secured by</text>
+  <text x="80" y="18" font-family="Inter,system-ui,sans-serif" font-size="10.5" fill="#ffffff" font-weight="600">Kairos</text>
+  <text x="109" y="18" font-family="Inter,system-ui,sans-serif" font-size="10.5" fill="#00d97e" font-weight="600">Check</text>
+</svg>`;
+      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=86400', 'access-control-allow-origin': '*' });
+      res.end(svg);
+      return;
+    }
+
+    if (method === 'GET' && url === '/badge/embed') {
+      const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
+      const badgeHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Kairos Check Badge</title>
+<style>*{box-sizing:border-box;margin:0;padding:0;}body{background:#060606;color:#f0f0f0;font-family:Inter,system-ui,sans-serif;padding:3rem 1.5rem;max-width:680px;margin:0 auto;}h1{font-size:1.5rem;font-weight:700;margin-bottom:.5rem;}p{color:#909090;font-size:.9375rem;margin-bottom:1.5rem;}pre{background:#111;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:1.25rem;font-family:monospace;font-size:.8125rem;overflow-x:auto;color:#00d97e;margin-bottom:1.5rem;white-space:pre-wrap;}</style>
+</head><body>
+<h1>Powered by Kairos Check</h1>
+<p>Add this badge to show your users they are protected by Kairos Check fraud intelligence.</p>
+<img src="${base}/badge" alt="Secured by Kairos Check" height="28" style="margin:1.5rem 0;display:block;">
+<p style="font-weight:600;font-size:.875rem;margin-bottom:.5rem;">HTML:</p>
+<pre>&lt;a href="https://kairoscheck.net"&gt;&lt;img src="${base}/badge" alt="Secured by Kairos Check" height="28"&gt;&lt;/a&gt;</pre>
+<p style="font-weight:600;font-size:.875rem;margin-bottom:.5rem;">Markdown (README):</p>
+<pre>[![Secured by Kairos Check](${base}/badge)](https://kairoscheck.net)</pre>
+</body></html>`;
+      sendHtml(res, badgeHtml, { 'cache-control': 'public, max-age=3600' });
+      return;
+    }
+
     // ─── Sitemap ──────────────────────────────────────────────────────────────
     if (method === 'GET' && url === '/sitemap.xml') {
       const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
@@ -383,7 +416,7 @@ const server = http.createServer(async (req, res) => {
         '/docs/api/authentication', '/docs/api/batch', '/docs/api/webhooks',
         '/docs/api/errors', '/docs/guides/how-it-works', '/docs/guides/gdpr',
         '/compare/stripe-radar', '/compare/sift', '/compare/seon', '/compare/maxmind',
-        '/fraud-detection-api', '/enterprise', '/examples', '/changelog', '/status',
+        '/fraud-detection-api', '/enterprise', '/badge/embed', '/examples', '/changelog', '/status',
       ];
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

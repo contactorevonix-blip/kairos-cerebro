@@ -159,6 +159,33 @@ describe('Domain Heuristic — Layer 0', () => {
 
   // ─── EDGE CASES ─────────────────────────────────────────────────────────────
 
+  // ─── EMAIL CHECK (#31) ──────────────────────────────────────────────────────
+
+  it('flags disposable email provider — mailinator.com', () => {
+    const { scoreEmailDomain } = require('../packages/sniper-engine/domain-heuristic');
+    const r = scoreEmailDomain('user@mailinator.com');
+    assert.ok(r.score >= 55, `Expected score>=55, got ${r.score}`);
+    assert.ok(r.reasons.some(s => s.includes('disposable-provider')));
+  });
+
+  it('flags disposable email provider — temp-mail.org', () => {
+    const { scoreEmailDomain } = require('../packages/sniper-engine/domain-heuristic');
+    const r = scoreEmailDomain('test@temp-mail.org');
+    assert.ok(r.score >= 55, `Expected score>=55, got ${r.score}`);
+  });
+
+  it('does NOT flag gmail.com email', () => {
+    const { scoreEmailDomain } = require('../packages/sniper-engine/domain-heuristic');
+    const r = scoreEmailDomain('user@gmail.com');
+    assert.equal(r.score, 0, `Expected score=0 for gmail.com, got ${r.score}`);
+  });
+
+  it('does NOT flag legit business email', () => {
+    const { scoreEmailDomain } = require('../packages/sniper-engine/domain-heuristic');
+    const r = scoreEmailDomain('pedro@kairoscheck.net');
+    assert.equal(r.score, 0, `Expected score=0, got ${r.score}`);
+  });
+
   it('returns score 0 for empty input', () => {
     assert.equal(scoreDomainName('').score, 0);
     assert.equal(scoreDomainName(null).score, 0);

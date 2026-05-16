@@ -4,8 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { verifyPayloadWithGraph } = require('../sniper-engine');
-const { scoreDomainName } = require('../sniper-engine/domain-heuristic');
+const { scoreDomainName, scoreEmailDomain } = require('../sniper-engine/domain-heuristic');
 const { readKeys, isKeyActive } = require('./stripe-webhook');
+const { sendFirstCheckEmail } = require('./email-sender');
 const {
   ensureMonthlyTokens,
   getTokenBalance,
@@ -261,13 +262,17 @@ async function handleApiCheck(headers, body) {
   // 7. Score with graph-aware engine
   const ref = auditId();
 
-  // Layer 0: Domain-specific heuristic (runs before content engine for domain checks)
+  // Layer 0: Domain/Email heuristic (runs before content engine)
   let domainBoost = 0;
   let domainReasons = [];
   if (engineInput.type === 'domain') {
     const domainResult = scoreDomainName(engineInput.text);
     domainBoost   = domainResult.score;
     domainReasons = domainResult.reasons;
+  } else if (engineInput.type === 'email') {
+    const emailResult = scoreEmailDomain(engineInput.text);
+    domainBoost   = emailResult.score;
+    domainReasons = emailResult.reasons;
   }
 
   let result;
@@ -345,6 +350,21 @@ async function handleApiCheck(headers, body) {
 
   // Store in cache for future cache hits
   setCache(tenantId, engineInput.type, engineInput.query, responseBody);
+
+  // First check email (#28): send on first successful authenticated check
+  try {
+    const history = require('../sniper-db').getTokenHistory(tenantId, 100);
+    const debitCount = history.filter(h => h.type === 'debit' && h.source !== 'chat').length;
+    if (debitCount === 1 && keyRecord.email) {
+      sendFirstCheckEmail({
+        toEmail: keyRecord.email,
+        verdict: finalVerdict,
+        score: finalScore,
+        entity: engineInput.query,
+        signals: finalSignals.slice(0, 3),
+      }).catch(() => {});
+    }
+  } catch { /* non-fatal */ }
 
   // 12. Response
   return { status: 200, body: responseBody };

@@ -122,6 +122,35 @@ function sldContainsBrand(sld, brandName) {
   return normaliseHomographs(sld).some(norm => norm.includes(brandName));
 }
 
+// ─── DISPOSABLE EMAIL PROVIDERS (#31) ────────────────────────────────────────
+const DISPOSABLE_PROVIDERS = new Set([
+  'temp-mail.org','guerrillamail.com','mailinator.com','throwaway.email',
+  'fakesmtp.com','yopmail.com','sharklasers.com','guerrillamailblock.com',
+  'grr.la','guerrillamail.info','trashmail.com','tempmail.com','maildrop.cc',
+  'dispostable.com','spamgourmet.com','trashmail.me','getairmail.com',
+  'tempr.email','discard.email','spamfree24.org','spam4.me','binkmail.com',
+  'spamdecoy.net','mailnull.com','spammotel.com','mailnesia.com',
+  'spamgourmet.net','spamgourmet.org','0-mail.com','0clickemail.com',
+]);
+
+function scoreEmailDomain(email) {
+  if (!email || !String(email).includes('@')) return { score: 0, reasons: [] };
+  const domain = String(email).split('@').pop().toLowerCase().trim();
+  const reasons = [];
+  let score = 0;
+  if (DISPOSABLE_PROVIDERS.has(domain)) {
+    score += 55;
+    reasons.push(`email:disposable-provider:${domain}`);
+  }
+  // Also score the domain part
+  const domainScore = scoreDomainName(domain);
+  if (domainScore.score > 0) {
+    score = Math.min(100, score + Math.round(domainScore.score * 0.5));
+    reasons.push(...domainScore.reasons.map(r => 'email-domain:' + r));
+  }
+  return { score: Math.min(score, 100), reasons };
+}
+
 // ─── MAIN SCORER ─────────────────────────────────────────────────────────────
 
 function scoreDomainName(domain) {
@@ -220,4 +249,4 @@ function scoreDomainName(domain) {
   };
 }
 
-module.exports = { scoreDomainName };
+module.exports = { scoreDomainName, scoreEmailDomain, DISPOSABLE_PROVIDERS };
