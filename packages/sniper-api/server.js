@@ -828,6 +828,55 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       });
       return;
     }
+
+    // ─── CEO Business Metrics ──────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/admin/metrics') {
+      if (!checkAdminAuth(req)) {
+        sendJson(res, 401, { error: 'unauthorized', hint: 'Provide Authorization: Bearer <KAIROS_ADMIN_TOKEN>' });
+        return;
+      }
+      const TIER_PRICE = { free: 0, starter: 29, growth: 59, pro: 99, scale: 249 };
+      const allKeys = readKeys();
+      const activeKeys = allKeys.filter((k) => isKeyActive(k));
+      const customersByTier = { free: 0, starter: 0, growth: 0, pro: 0, scale: 0 };
+      let mrr = 0;
+      for (const k of activeKeys) {
+        const tier = k.tier || 'free';
+        if (tier in customersByTier) customersByTier[tier] += 1;
+        mrr += TIER_PRICE[tier] || 0;
+      }
+      const dbDir = process.env.KAIROS_DB_DIR || pathModule.join(process.cwd(), '.kairos-data');
+      let totalVerifications = 0;
+      try {
+        const vFile = pathModule.join(dbDir, 'verifications.jsonl');
+        if (fsModule.existsSync(vFile)) {
+          totalVerifications = fsModule.readFileSync(vFile, 'utf8').split('\n').filter(Boolean).length;
+        }
+      } catch { /* non-fatal */ }
+      let totalTokensConsumed = 0;
+      try {
+        const tokDir = pathModule.join(dbDir, 'tokens');
+        if (fsModule.existsSync(tokDir)) {
+          for (const f of fsModule.readdirSync(tokDir).filter((f) => f.endsWith('.jsonl'))) {
+            const raw = fsModule.readFileSync(pathModule.join(tokDir, f), 'utf8').trim();
+            for (const line of raw.split('\n')) {
+              try { const e = JSON.parse(line); if (e.type === 'debit') totalTokensConsumed += (e.amount || 0); } catch { /* skip */ }
+            }
+          }
+        }
+      } catch { /* non-fatal */ }
+      sendJson(res, 200, {
+        mrr,
+        customers_by_tier: customersByTier,
+        total_customers: activeKeys.length,
+        total_verifications: totalVerifications,
+        total_tokens_consumed: totalTokensConsumed,
+        uptime_days: Math.floor((Date.now() - new Date('2026-05-15T00:00:00Z').getTime()) / 86400000),
+        timestamp: Date.now(),
+        version: VERSION,
+      });
+      return;
+    }
     if (method === 'GET' && url === '/api/geo') {
       const h = req.headers || {};
       const cf = String(h['cf-ipcountry'] || '').trim();
