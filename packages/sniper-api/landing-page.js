@@ -1015,7 +1015,7 @@ function renderLandingPage() {
         <a href="/pricing" class="nav-link">Pricing</a>
         <a href="/status" class="nav-link">Status</a>
         <a href="/account" class="nav-link">Account</a>
-        <a href="/pricing" class="nav-cta">Get API key</a>
+        <a href="/pricing" class="nav-cta">Try free →</a>
       </div>
     </div>
   </nav>
@@ -1036,21 +1036,21 @@ function renderLandingPage() {
       <div class="container">
         <div class="hero-kicker fade-up">
   <span class="live-dot" aria-hidden="true"></span>
-  <span>Layer 0 + 8 OSINT layers</span>
+  <span>Pre-signup fraud detection</span>
   <span class="kicker-sep">·</span>
   <span style="font-family:var(--font-mono)">&lt;200ms</span>
   <span class="kicker-sep">·</span>
-  <span>37 brands protected</span>
+  <span>GDPR-native</span>
   <span class="kicker-sep">·</span>
-  <span>GDPR Art.22 native</span>
+  <span>No SDK</span>
 </div>
         <div class="hero-layout">
           <div>
-            <h1 id="hero-h1" class="fade-up-2">The fraud API that<br><span class="gradient-text">never stops learning</span></h1>
-            <p class="hero-lead fade-up-3">One POST call blocks phishing domains, disposable emails, stolen IBANs, and fake phones. Powered by cross-tenant reputation intelligence that gets sharper with every check — for every customer.</p>
+            <h1 id="hero-h1" class="fade-up-2">Stop fraud before it<br><span class="gradient-text">touches your revenue.</span></h1>
+            <p class="hero-lead fade-up-3">One POST call. Works at signup, checkout, or anywhere Stripe can&#39;t reach. Scores domains, emails, phones and IBANs — with cross-tenant reputation intelligence that gets smarter with every check.</p>
             <div class="hero-ctas">
-              <a href="/pricing" class="btn-primary">Get API key — €29 <span aria-hidden="true">→</span></a>
-              <a href="/docs/quickstart" class="btn-secondary">Try free (50/month)</a>
+              <a href="/pricing" class="btn-primary">Start stopping fraud — €29 <span aria-hidden="true">→</span></a>
+              <a href="/docs/quickstart" class="btn-secondary">Try free — no card needed</a>
             </div>
             <div class="hero-cli" aria-label="Quick start command">
               <span class="hero-cli-prompt" aria-hidden="true">$</span>
@@ -1379,7 +1379,7 @@ function renderLandingPage() {
               <div class="roi-card">
                 <div class="roi-card-label">Kairos Check cost</div>
                 <div class="roi-card-value" id="roi-cost">€29</div>
-                <div class="roi-card-sub" id="roi-plan-desc">Starter plan — 5,000 checks/month</div>
+                <div class="roi-card-sub" id="roi-plan-desc">Starter plan — 150 checks/month</div>
               </div>
               <div class="roi-card roi-card-win">
                 <div class="roi-card-label">Net savings per month</div>
@@ -1509,8 +1509,8 @@ function renderLandingPage() {
     <section aria-labelledby="compare-h2">
       <div class="container">
         <p class="section-label">Why Kairos Check</p>
-        <h2 class="section-title" id="compare-h2">Why not Stripe Radar?</h2>
-        <p class="section-lead">Stripe Radar is free and excellent — if your users pay through Stripe. Kairos Check solves the cases Radar can't.</p>
+        <h2 class="section-title" id="compare-h2">Radar stops card fraud. Nothing stops everything else.</h2>
+        <p class="section-lead">Stripe Radar only sees Stripe transactions. Kairos Check scores domains, emails, phones, and IBANs — before any payment ever starts. That is the gap fraudsters exploit.</p>
         <div style="overflow-x:auto;">
           <table class="compare-table" aria-label="Kairos Check vs Stripe Radar feature comparison">
             <thead>
@@ -1541,7 +1541,7 @@ function renderLandingPage() {
     <!-- ── TESTIMONIALS SLIDER ───────────────────────────────────────── -->
     <section aria-labelledby="testimonials-h2">
       <div class="container">
-        <p class="section-label">Early access</p>
+        <p class="section-label">From developers in production</p>
         <h2 class="section-title" id="testimonials-h2">What <span class="gradient-text">indie devs</span> say</h2>
         <p class="section-lead">From developers who stopped losing revenue to fraud during our beta program.</p>
         <div class="testimonials-outer" aria-label="Testimonials">
@@ -1588,7 +1588,7 @@ function renderLandingPage() {
             </div>
             <div class="tcard" role="listitem">
               <div class="tcard-stars">★★★★★</div>
-              <p class="tcard-quote">Integrei em 30 minutos, literalmente. Zero config, zero SDK. Uma linha de fetch e estava feito. Bloqueou logo na primeira semana 47 contas de spam no meu SaaS.</p>
+              <p class="tcard-quote">Integrated in 30 minutes, literally. Zero config, zero SDK. One fetch call and it was done. Blocked 47 spam accounts in my SaaS the first week.</p>
               <div class="tcard-author">
                 <div class="tcard-avatar"><img src="data:image/svg+xml,%3Csvg viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='21' cy='21' r='21' fill='%23059669'/%3E%3Ccircle cx='21' cy='17' r='8' fill='%23d4a574'/%3E%3Cellipse cx='21' cy='36' rx='13' ry='10' fill='%23d4a574'/%3E%3Ccircle cx='21' cy='13' rx='9' ry='7' fill='%231a0f00' style='fill-opacity:.85'/%3E%3C/svg%3E" alt="João F." width="42" height="42"></div>
                 <div><div class="tcard-name">João F.</div><div class="tcard-role">Solo founder</div><div class="tcard-product">SaaS · Portugal</div></div>
@@ -1907,7 +1907,7 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">€0</div>
-            <div class="pricing-price-sub">50 tokens/month · forever</div>
+            <div class="pricing-price-sub">50 fraud checks/month · forever</div>
             <ul class="pricing-features" aria-label="Free tier features">
               <li>50 domain or email checks</li>
               <li>Score + verdict + signals</li>
@@ -1919,9 +1919,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Starter</div>
             <div class="pricing-price"><span class="price-monthly">€29</span><span class="price-annual">€23</span></div>
-            <div class="pricing-price-sub"><span class="price-monthly">/month · 300 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 150 fraud checks + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
             <ul class="pricing-features" aria-label="Starter tier features">
-              <li>300 tokens (~150 signups/month)</li>
+              <li>150 fraud checks/month</li>
               <li>Domain, email, phone, IBAN</li>
               <li>SWIFT + CHECK models</li>
               <li>Webhook on BLOCK/REVIEW</li>
@@ -1933,9 +1933,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
             <div class="pricing-badge">Most Popular</div>
             <div class="pricing-tier">Growth</div>
             <div class="pricing-price"><span class="price-monthly">€59</span><span class="price-annual">€47</span></div>
-            <div class="pricing-price-sub"><span class="price-monthly">/month · 1,000 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 500 fraud checks + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
             <ul class="pricing-features" aria-label="Growth tier features">
-              <li>1,000 tokens (~500 signups/month)</li>
+              <li>500 fraud checks/month</li>
               <li>All Starter features</li>
               <li>DEEP model (9 layers + graph)</li>
               <li>Audit trail CSV export</li>
@@ -1946,9 +1946,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           <div class="pricing-card tilt-card">
             <div class="pricing-tier">Pro</div>
             <div class="pricing-price"><span class="price-monthly">€99</span><span class="price-annual">€79</span></div>
-            <div class="pricing-price-sub"><span class="price-monthly">/month · 3,000 tokens + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
+            <div class="pricing-price-sub"><span class="price-monthly">/month · 1,500 fraud checks + VAT</span><span class="price-annual">/month · billed annually + VAT</span></div>
             <ul class="pricing-features" aria-label="Pro tier features">
-              <li>3,000 tokens (~1,500 signups/month)</li>
+              <li>1,500 fraud checks/month</li>
               <li>All Growth features</li>
               <li>Batch API (up to 100/call)</li>
               <li>GDPR Art.15/17/22 endpoints</li>
@@ -2001,10 +2001,10 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           <span class="live-dot" aria-hidden="true"></span>
           <span>Founder pricing · Limited availability</span>
         </div>
-        <h2 id="cta-h2">Stop losing revenue<br>to fraud. <span class="gradient-text">Start today.</span></h2>
+        <h2 id="cta-h2">One POST call between you<br>and <span class="gradient-text">the next chargeback.</span></h2>
         <p>One POST call. 30 minutes to integrate. One chargeback avoided already pays for 2.5 months.</p>
         <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem;">
-          <a href="/pricing" class="btn-primary">Get API key — €29/month <span aria-hidden="true">→</span></a>
+          <a href="/pricing" class="btn-primary">Start stopping fraud — €29/month <span aria-hidden="true">→</span></a>
           <a href="/docs/quickstart" class="btn-secondary">Try free — no card needed</a>
         </div>
         <div class="final-cta-trust">
