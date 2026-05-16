@@ -2621,25 +2621,29 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         '</div>',
         '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" style="display:none;">',
           '<div id="kc-panel-head">',
-            '<div style="display:flex;align-items:center;gap:0.5rem;">',
-              '<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/></svg>',
-              '<span style="font-weight:600;font-size:0.875rem;">Kairos Check AI</span>',
+            '<div style="display:flex;align-items:center;gap:0.625rem;">',
+              '<svg width="18" height="20" viewBox="0 0 22 22" fill="none"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/></svg>',
+              '<div>',
+                '<div style="font-weight:700;font-size:0.875rem;color:#f0f0f0;letter-spacing:-.01em;">Kairos Check AI</div>',
+                '<div style="display:flex;align-items:center;gap:0.3rem;margin-top:1px;">',
+                  '<span class="kc-live-dot"></span>',
+                  '<span style="font-size:0.6875rem;color:#737373;">Online &middot; Replies instantly</span>',
+                '</div>',
+              '</div>',
             '</div>',
-            '<div id="kc-free-badge"></div>',
-            '<button id="kc-close" aria-label="Close chat">&times;</button>',
+            '<div style="display:flex;align-items:center;gap:0.5rem;">',
+              '<div id="kc-free-badge"></div>',
+              '<button id="kc-close" aria-label="Close chat">&times;</button>',
+            '</div>',
           '</div>',
           '<div id="kc-messages" role="log" aria-live="polite"></div>',
-          '<div id="kc-key-row">',
-            '<input id="kc-key-input" type="password" placeholder="API key (optional — kc_live_...)" autocomplete="off" spellcheck="false">',
-            '<button id="kc-key-save">Save</button>',
-          '</div>',
           '<div id="kc-input-row">',
-            '<textarea id="kc-input" placeholder="Ask about pricing, integration, fraud detection..." rows="2" aria-label="Chat message"></textarea>',
+            '<textarea id="kc-input" placeholder="What are you building? Describe your fraud problem." rows="2" aria-label="Chat message"></textarea>',
             '<button id="kc-send" aria-label="Send message">',
               '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8L2 2l2 6-2 6z" fill="#000"/></svg>',
             '</button>',
           '</div>',
-          '<p id="kc-disclaimer">Powered by Claude · Answers about Kairos Check only · <a href="/pricing" style="color:var(--accent,#00d97e)">Get API key</a></p>',
+          '<p id="kc-disclaimer">Powered by Claude · Kairos Check only · <a href="/pricing" style="color:#00d97e;">Get API key →</a></p>',
         '</div>'
       ].join('');
 
@@ -2647,35 +2651,36 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var style = document.createElement('style');
       style.textContent = [
         '#kc-chat-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;font-family:Inter,system-ui,sans-serif;}',
-        '#kc-bubble{width:52px;height:52px;border-radius:50%;background:#00d97e;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,217,126,0.35);transition:transform 200ms,box-shadow 200ms;}',
-        '#kc-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(0,217,126,0.5);}',
-        '#kc-panel{position:absolute;bottom:68px;right:0;width:340px;background:#0f0f0f;border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.6);}',
-        '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 2.5rem 0.75rem 1rem;background:#161616;border-bottom:1px solid rgba(255,255,255,0.07);position:relative;}',
-        '#kc-panel-head span{color:#f0f0f0;}',
-        '#kc-free-badge{font-size:0.6875rem;color:#737373;font-family:monospace;}',
-        '#kc-close{position:absolute;top:.5rem;right:.625rem;background:rgba(255,255,255,.06);border:none;color:#a0a0a0;font-size:1.125rem;cursor:pointer;line-height:1;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;z-index:2;transition:background 150ms,color 150ms;}',
+        '#kc-bubble{width:56px;height:56px;border-radius:50%;background:#00d97e;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 24px rgba(0,217,126,0.4);transition:transform 200ms,box-shadow 200ms;}',
+        '#kc-bubble:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(0,217,126,0.55);}',
+        '#kc-panel{position:absolute;bottom:72px;right:0;width:360px;background:#0d0d0d;border:1px solid rgba(255,255,255,0.09);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,126,0.06);}',
+        '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1rem;background:linear-gradient(135deg,#131313 0%,#161616 100%);border-bottom:1px solid rgba(255,255,255,0.06);}',
+        '.kc-live-dot{width:7px;height:7px;border-radius:50%;background:#00d97e;flex-shrink:0;box-shadow:0 0 6px rgba(0,217,126,0.8);animation:kc-pulse 2s ease-in-out infinite;}',
+        '@keyframes kc-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.7;transform:scale(0.85);}}',
+        '#kc-free-badge{font-size:0.6875rem;color:#606060;font-family:monospace;background:rgba(255,255,255,.04);padding:.2rem .5rem;border-radius:5px;}',
+        '#kc-close{background:rgba(255,255,255,.06);border:none;color:#606060;font-size:1.125rem;cursor:pointer;line-height:1;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;transition:background 150ms,color 150ms;}',
         '#kc-close:hover{background:rgba(255,255,255,.12);color:#f0f0f0;}',
-        '#kc-messages{flex:1;overflow-y:auto;padding:0.875rem;display:flex;flex-direction:column;gap:0.75rem;max-height:340px;min-height:120px;}',
-        '.kc-msg{padding:0.625rem 0.875rem;border-radius:10px;font-size:0.8125rem;line-height:1.55;max-width:90%;}',
-        '.kc-msg-user{background:#00d97e;color:#000;align-self:flex-end;border-bottom-right-radius:3px;}',
-        '.kc-msg-ai{background:#1a1a1a;color:#e0e0e0;align-self:flex-start;border-bottom-left-radius:3px;}',
-        '.kc-msg-ai code{background:#0a0a0a;padding:0.1rem 0.3rem;border-radius:3px;font-family:monospace;font-size:0.75rem;color:#00d97e;}',
-        '.kc-typing{display:flex;gap:4px;align-items:center;padding:0.75rem 0.875rem;}',
-        '.kc-dot{width:6px;height:6px;border-radius:50%;background:#555;animation:kc-bounce 1.2s infinite;}',
+        '#kc-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;max-height:360px;min-height:140px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;}',
+        '.kc-msg{padding:0.6875rem 0.9375rem;border-radius:12px;font-size:0.8125rem;line-height:1.6;max-width:88%;}',
+        '.kc-msg-user{background:#00d97e;color:#000;align-self:flex-end;border-bottom-right-radius:3px;font-weight:500;}',
+        '.kc-msg-ai{background:#1c1c1c;color:#e8e8e8;align-self:flex-start;border-bottom-left-radius:3px;border:1px solid rgba(255,255,255,.05);}',
+        '.kc-msg-ai a{color:#00d97e;}',
+        '.kc-msg-ai code{background:#0a0a0a;padding:0.125rem 0.375rem;border-radius:4px;font-family:monospace;font-size:0.75rem;color:#00d97e;}',
+        '.kc-typing{display:flex;gap:5px;align-items:center;padding:0.75rem 0.9375rem;background:#1c1c1c;border-radius:12px;border-bottom-left-radius:3px;align-self:flex-start;border:1px solid rgba(255,255,255,.05);}',
+        '.kc-dot{width:6px;height:6px;border-radius:50%;background:#444;animation:kc-bounce 1.2s infinite;}',
         '.kc-dot:nth-child(2){animation-delay:.2s;}.kc-dot:nth-child(3){animation-delay:.4s;}',
-        '@keyframes kc-bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}',
-        '#kc-key-row{display:flex;gap:0.375rem;padding:0 0.875rem 0.5rem;border-top:1px solid rgba(255,255,255,.06);padding-top:0.5rem;}',
-        '#kc-key-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:0.375rem 0.625rem;color:#a0a0a0;font-family:monospace;font-size:0.6875rem;outline:none;}',
-        '#kc-key-input:focus{border-color:rgba(0,217,126,.3);}',
-        '#kc-key-save{background:none;border:1px solid rgba(0,217,126,.3);color:#00d97e;border-radius:6px;padding:0.25rem 0.625rem;font-size:0.6875rem;cursor:pointer;}',
-        '#kc-input-row{display:flex;gap:0.5rem;padding:0.75rem 0.875rem;border-top:1px solid rgba(255,255,255,.07);}',
-        '#kc-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:0.5rem 0.75rem;color:#f0f0f0;font-family:Inter,system-ui,sans-serif;font-size:0.8125rem;resize:none;outline:none;line-height:1.4;}',
-        '#kc-input:focus{border-color:rgba(0,217,126,.35);}',
-        '#kc-send{width:36px;height:36px;background:#00d97e;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 150ms;}',
-        '#kc-send:hover{background:#00b369;}',
-        '#kc-send:disabled{background:#2a2a2a;cursor:not-allowed;}',
-        '#kc-disclaimer{font-size:0.625rem;color:#444;padding:0.375rem 0.875rem 0.625rem;line-height:1.4;}',
-        '@media(max-width:400px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}'
+        '@keyframes kc-bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}',
+        '#kc-input-row{display:flex;gap:0.5rem;padding:0.75rem 0.875rem;border-top:1px solid rgba(255,255,255,.06);background:#0d0d0d;}',
+        '#kc-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:0.5625rem 0.875rem;color:#f0f0f0;font-family:Inter,system-ui,sans-serif;font-size:0.8125rem;resize:none;outline:none;line-height:1.45;transition:border-color 150ms;}',
+        '#kc-input:focus{border-color:rgba(0,217,126,.4);background:#1e1e1e;}',
+        '#kc-input::placeholder{color:#4a4a4a;}',
+        '#kc-send{width:38px;height:38px;background:#00d97e;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 150ms,transform 100ms;align-self:flex-end;}',
+        '#kc-send:hover{background:#00b369;transform:scale(1.05);}',
+        '#kc-send:disabled{background:#252525;cursor:not-allowed;transform:none;}',
+        '#kc-disclaimer{font-size:0.625rem;color:#383838;padding:0.375rem 0.875rem 0.625rem;line-height:1.4;text-align:center;}',
+        '#kc-disclaimer a{color:#505050;}',
+        '#kc-disclaimer a:hover{color:#00d97e;}',
+        '@media(max-width:420px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}'
       ].join('');
       document.head.appendChild(style);
       document.body.appendChild(widget);
@@ -2686,10 +2691,6 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var input  = document.getElementById('kc-input');
       var sendBtn = document.getElementById('kc-send');
       var badge  = document.getElementById('kc-free-badge');
-      var keyInput = document.getElementById('kc-key-input');
-      var keySave = document.getElementById('kc-key-save');
-
-      if (apiKey) keyInput.value = apiKey;
 
       function updateBadge() {
         if (apiKey) { badge.textContent = ''; return; }
@@ -2725,7 +2726,7 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
 
       // Add welcome message
       setTimeout(function() {
-        addMsg('Hi! I\\'m the Kairos Check AI. Ask me about pricing, integration, or how the fraud scoring works.', 'ai');
+        addMsg('Hey! What are you building? Tell me about your fraud problem and I will show you exactly how to stop it — with a working code example.', 'ai');
       }, 300);
 
       async function sendMessage() {
@@ -2785,15 +2786,6 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       sendBtn.addEventListener('click', sendMessage);
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-      });
-      keySave.addEventListener('click', function() {
-        var k = keyInput.value.trim();
-        apiKey = k;
-        if (k) localStorage.setItem('kc_api_key', k);
-        else localStorage.removeItem('kc_api_key');
-        updateBadge();
-        keySave.textContent = '✓';
-        setTimeout(function() { keySave.textContent = 'Save'; }, 1500);
       });
     })();
   </script>
