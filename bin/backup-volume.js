@@ -31,6 +31,7 @@ const ACCESS_KEY_ID   = process.env.R2_ACCESS_KEY_ID;
 const SECRET_ACCESS   = process.env.R2_SECRET_ACCESS_KEY;
 
 function die(msg) {
+  process.stdout.write(JSON.stringify({ status: 'FAILED', reason: msg, ts: new Date().toISOString() }) + '\n');
   process.stderr.write('[backup] ERROR: ' + msg + '\n');
   process.exit(1);
 }
@@ -137,6 +138,6 @@ process.stderr.write(`[backup] Uploading to ${destination} ...\n`);
   process.stderr.write(`[backup] Upload complete — HTTP ${res.status}\n`);
   try { fs.unlinkSync(archiveFile); } catch (_) {}
 
-  process.stdout.write(JSON.stringify({ ts: now.toISOString(), sha: sha256hex, size: archiveSize, destination }) + '\n');
+  process.stdout.write(JSON.stringify({ status: 'OK', ts: now.toISOString(), sha: sha256hex, size: archiveSize, destination }) + '\n');
   process.exit(0);
 })();

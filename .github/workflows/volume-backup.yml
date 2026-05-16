@@ -66,7 +66,7 @@ jobs:
           echo "Go to: repo → Settings → Secrets → Actions → New secret" >> $GITHUB_STEP_SUMMARY
 
       - name: Alert on failure
-        if: steps.run_backup.outcome == 'failure' && steps.check_status.outputs.status != 'NOT_CONFIGURED' && steps.check_status.outputs.status != 'unknown'
+        if: steps.check_status.outputs.status == 'FAILED'
         run: |
           echo "::error title=Volume Backup Failed::Daily backup failed at $(date -u +%Y-%m-%dT%H:%M:%SZ). Check R2 credentials and Railway logs."
           echo "## ❌ Backup FAILED" >> $GITHUB_STEP_SUMMARY
