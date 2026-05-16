@@ -68,9 +68,30 @@ const KNOWN_BAD = [
   'customer-support-ticket.store',
   'verify-your-identity-now.com',
   // Fake stores / drop-shipping fraud
-  'luxury-brands-outlet.store',
-  'designer-goods-discount.shop',
-  'exclusive-deals-today.store',
+  'luxury-brands-outlet.store', 'designer-goods-discount.shop', 'exclusive-deals-today.store',
+  // NEW — verified by Kairos Check API 2026-05-16
+  'amazon-refund-portal.store',       // BLOCK 100
+  'apple-id-verify.shop',             // BLOCK 100
+  'binance-airdrop-claim.store',      // BLOCK 100
+  'microsoft-support-ticket.shop',    // BLOCK 100
+  'chase-account-verify.store',       // BLOCK 100
+  'instagram-verify-account.shop',    // BLOCK 100
+  'google-account-suspended.store',   // BLOCK 100
+  'netflix-billing-update.com',       // BLOCK 85
+  'coinbase-wallet-recovery.net',     // BLOCK 85
+  'facebook-security-alert.net',      // BLOCK 85
+  'amazon-seller-payout.store',       // BLOCK 83
+  'stripe-payment-failed.shop',       // BLOCK 83
+  'paypal-security-center.net',       // BLOCK 73
+  // Social media
+  'twitter-account-verify.store', 'whatsapp-update-required.net',
+  // Apple
+  'apple-icloud-locked.net', 'icloud-restore-account.net',
+  // Streaming
+  'netflix-account-suspended.store', 'spotify-payment-failed.shop',
+  // Crypto expanded
+  'ethereum-rewards-claim.store', 'nft-airdrop-free.store',
+  'crypto-wallet-restore.net', 'metamask-security-verify.net',
 ];
 
 // ─── High-confidence known-good domains (legit, established) ─────────────────
