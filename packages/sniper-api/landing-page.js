@@ -2680,7 +2680,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         '#kc-disclaimer{font-size:0.625rem;color:#383838;padding:0.375rem 0.875rem 0.625rem;line-height:1.4;text-align:center;}',
         '#kc-disclaimer a{color:#505050;}',
         '#kc-disclaimer a:hover{color:#00d97e;}',
-        '@media(max-width:420px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}'
+        '@media(max-width:420px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}',
+        '.kc-cta-btn{display:inline-flex;align-items:center;background:#00d97e;color:#000;font-weight:700;font-size:.8125rem;padding:.5rem 1.125rem;border-radius:8px;text-decoration:none;transition:background 150ms;}',
+        '.kc-cta-btn:hover{background:#00b369;}'
       ].join('');
       document.head.appendChild(style);
       document.body.appendChild(widget);
@@ -2729,11 +2731,25 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         addMsg('Hey! What are you building? Tell me about your fraud problem and I will show you exactly how to stop it — with a working code example.', 'ai');
       }, 300);
 
+      function showLimitReached() {
+        var card = document.createElement('div');
+        card.className = 'kc-msg kc-msg-ai';
+        card.style.cssText = 'border:1px solid rgba(0,217,126,0.3);background:linear-gradient(135deg,#0c1a14,#0f1a12);max-width:100%;';
+        card.innerHTML = '<div style="font-weight:700;color:#f0f0f0;font-size:.875rem;margin-bottom:.375rem;">Free preview complete</div><div style="color:#909090;font-size:.75rem;line-height:1.5;margin-bottom:.75rem;">Start free — 50 checks/month, no card needed.<br>Founding member pricing locks in today.</div><a href="/pricing" class="kc-cta-btn">Get your free API key →</a>';
+        msgs.appendChild(card);
+        msgs.scrollTop = msgs.scrollHeight;
+        input.disabled = true;
+        input.placeholder = 'Get a free API key to continue →';
+        sendBtn.disabled = true;
+        badge.textContent = 'Limit reached';
+        badge.style.color = '#ef4444';
+      }
+
       async function sendMessage() {
         var text = input.value.trim();
         if (!text) return;
         if (!apiKey && freeUsed >= FREE_LIMIT) {
-          addMsg('You\\'ve used all ' + FREE_LIMIT + ' free messages. Get an API key at kairoscheck.net/pricing to continue.', 'ai');
+          showLimitReached();
           return;
         }
         input.value = '';
@@ -2754,10 +2770,9 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
           removeTyping();
 
           if (resp.status === 429) {
-            var errMsg = data.message || data.error || 'Limit reached. Get an API key to continue.';
-            addMsg(errMsg + ' → <a href="/pricing" style="color:#00d97e;">kairoscheck.net/pricing</a>', 'ai');
+            showLimitReached();
           } else if (!resp.ok) {
-            addMsg('Something went wrong. Try again in a moment.', 'ai');
+            addMsg('Something went wrong on our end. Try again in a moment.', 'ai');
           } else {
             var reply = data.reply || '';
             addMsg(reply, 'ai');
@@ -2766,6 +2781,13 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
               freeUsed = FREE_LIMIT - data.free_remaining;
               localStorage.setItem('kc_chat_free', String(freeUsed));
               updateBadge();
+              if (data.free_remaining === 1) {
+                var nudge = document.createElement('div');
+                nudge.style.cssText = 'font-size:.6875rem;color:#737373;text-align:center;padding:.25rem 0;';
+                nudge.innerHTML = 'Last free message \xb7 <a href="/pricing" style="color:#00d97e;">Get API key</a>';
+                msgs.appendChild(nudge);
+                msgs.scrollTop = msgs.scrollHeight;
+              }
             }
           }
         } catch(e) {
