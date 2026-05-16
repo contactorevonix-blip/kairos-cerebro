@@ -24,10 +24,12 @@ function renderPricingPage() {
     "name": "Kairos Check API",
     "description": "OSINT-first fraud detection API for developers",
     "offers": [
-      { "@type": "Offer", "name": "Free",    "price": "0",   "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Starter", "price": "29",  "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Pro",     "price": "79",  "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Scale",   "price": "199", "priceCurrency": "EUR" }
+      { "@type": "Offer", "name": "Free",       "price": "0",   "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Starter",    "price": "29",  "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Growth",     "price": "59",  "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Pro",        "price": "99",  "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Scale",      "price": "249", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Enterprise", "price": "800", "priceCurrency": "EUR" }
     ]
   }
   </script>
@@ -368,6 +370,27 @@ function renderPricingPage() {
           <p class="checkout-error" aria-live="polite"></p>
         </article>
 
+        <!-- GROWTH -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-growth-name">
+          <div class="plan-name" id="plan-growth-name">Growth</div>
+          <div class="plan-price-row">
+            <span class="plan-amount" data-monthly="59" data-annual="47">€59</span>
+            <span class="plan-period">/mo</span>
+          </div>
+          <div class="plan-vat" id="growth-vat">+ VAT · billed monthly</div>
+          <p class="plan-desc">For businesses growing beyond 150 signups/month.</p>
+          <div class="plan-divider" aria-hidden="true"></div>
+          <ul class="plan-features" aria-label="Growth features">
+            <li>1,000 tokens / month (~500 signups)</li>
+            <li>All Starter features</li>
+            <li>DEEP model (9 layers + graph)</li>
+            <li>24h response cache (0.1 tokens/hit)</li>
+            <li>Audit trail CSV export</li>
+          </ul>
+          <button class="btn-plan-outline checkout-btn" data-tier="growth">Get started</button>
+          <p class="checkout-error" aria-live="polite"></p>
+        </article>
+
         <!-- PRO — FEATURED -->
         <article class="plan-card featured" role="listitem" aria-labelledby="plan-pro-name">
           <div class="plan-badge" aria-label="Most popular plan">Most Popular</div>
@@ -411,6 +434,14 @@ function renderPricingPage() {
           <p class="checkout-error" aria-live="polite"></p>
         </article>
 
+      </div>
+
+      <!-- Enterprise link -->
+      <div style="text-align:center;margin-top:1.5rem;">
+        <p style="font-size:.875rem;color:var(--text-secondary);">
+          Need dedicated graph, custom patterns, and SLA guarantee?
+          <a href="/enterprise" style="color:var(--accent);font-weight:600;">See Enterprise — €800/month →</a>
+        </p>
       </div>
 
       <!-- TRUST ROW -->
