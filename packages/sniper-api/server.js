@@ -932,21 +932,6 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       ].filter(Boolean).join('\n') + '\n');
       return;
     }
-    if (method === 'GET' && url === '/sitemap.xml') {
-      const base = process.env.KAIROS_PUBLIC_BASE_URL || '';
-      const today = new Date().toISOString().split('T')[0];
-      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8' });
-      res.end(`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${base}/</loc><lastmod>${today}</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>
-  <url><loc>${base}/#product</loc><priority>0.85</priority></url>
-  <url><loc>${base}/#api</loc><priority>0.8</priority></url>
-  <url><loc>${base}/#trust</loc><priority>0.75</priority></url>
-  <url><loc>${base}/#pricing</loc><priority>0.9</priority></url>
-</urlset>
-`);
-      return;
-    }
     if (method === 'GET' && url === '/.well-known/security.txt') {
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' });
       res.end([
