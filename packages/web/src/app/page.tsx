@@ -1,6 +1,13 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import ActivityFeed from '@/components/ActivityFeed';
+import HowItWorks from '@/components/HowItWorks';
+import Compare from '@/components/Compare';
+import Integration from '@/components/Integration';
+import SocialProof from '@/components/SocialProof';
+import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function HomePage() {
   return (
@@ -8,9 +15,15 @@ export default function HomePage() {
       <Nav />
       <main>
         <Hero />
-        {/* More sections coming: HowItWorks, RealScores, Compare, Integration, SocialProof, FAQ */}
+        <ActivityFeed />
+        <HowItWorks />
+        <Compare />
+        <Integration />
+        <SocialProof />
+        <FAQ />
       </main>
       <Footer />
+      <ChatWidget />
     </>
   );
 }
