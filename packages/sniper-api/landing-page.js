@@ -2391,19 +2391,41 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         { flag: '🇩🇪', domain: 'astro.build',                       verdict: 'clear',  score: 0,   ms: 97  },
       ];
 
-      // Deterministic counter: same number every refresh in the same minute.
-      // Calculated server-side at render time. Grows ~400/day since launch.
-      var count = ${(() => {
+      // ── COUNTER — localStorage persistence, same number all day ──────────────
+      var todayKey = 'kc_count_' + new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      var dailyBase = ${(() => {
         const launch = new Date('2026-05-15T00:00:00Z').getTime();
-        const now = Date.now();
-        const days = Math.floor((now - launch) / 86400000);
-        const h = new Date().getHours();
-        const m = Math.floor(new Date().getMinutes() / 10);
-        return 180 + days * 400 + h * 17 + m * 2;
+        const days = Math.floor((Date.now() - launch) / 86400000);
+        return 180 + days * 400; // grows 400/day from launch
       })()};
-      var countTick = 0;
-      var idx = 0;
-      var ages = []; // seconds ago for each visible entry
+      // Restore today's count from localStorage, or start from daily base
+      var stored = localStorage.getItem(todayKey);
+      var count = stored ? parseInt(stored, 10) : dailyBase;
+      // Clear yesterday's key
+      try {
+        Object.keys(localStorage).forEach(function(k) {
+          if (k.startsWith('kc_count_') && k !== todayKey) localStorage.removeItem(k);
+        });
+      } catch(e) {}
+
+      // ── SHUFFLE — no repeats until all domains shown ───────────────────────
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+        return a;
+      }
+      var queue = shuffle(entries);
+      var qIdx = 0;
+
+      function nextEntry() {
+        if (qIdx >= queue.length) { queue = shuffle(entries); qIdx = 0; }
+        return queue[qIdx++];
+      }
+
+      var ages = [];
 
       function updateAges() {
         var items = log.querySelectorAll('.activity-entry-ago');
@@ -2414,12 +2436,15 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         });
       }
 
+      var entryTick = 0;
       function addEntry() {
-        var e = entries[idx % entries.length];
-        idx++;
-        // Counter only increments every ~45s (every 11th entry at 4s interval)
-        countTick++;
-        if (countTick % 11 === 0) { count += 1; }
+        var e = nextEntry();
+        // Increment counter every ~45s (every 11th entry)
+        entryTick++;
+        if (entryTick % 11 === 0) {
+          count += 1;
+          try { localStorage.setItem(todayKey, String(count)); } catch(e) {}
+        }
         if (countEl) countEl.textContent = count + ' today';
 
         ages.unshift(0); // new entry is 0s ago
