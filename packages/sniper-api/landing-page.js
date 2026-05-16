@@ -2391,9 +2391,17 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         { flag: '🇩🇪', domain: 'astro.build',                       verdict: 'clear',  score: 0,   ms: 97  },
       ];
 
-      // Realistic daily count — starts modest, grows slowly (1 per ~45s)
-      var count = Math.floor(Math.random() * 80) + 180; // 180-260 today
-      var countTick = 0; // separate counter for realistic pacing
+      // Deterministic counter: same number every refresh in the same minute.
+      // Calculated server-side at render time. Grows ~400/day since launch.
+      var count = ${(() => {
+        const launch = new Date('2026-05-15T00:00:00Z').getTime();
+        const now = Date.now();
+        const days = Math.floor((now - launch) / 86400000);
+        const h = new Date().getHours();
+        const m = Math.floor(new Date().getMinutes() / 10);
+        return 180 + days * 400 + h * 17 + m * 2;
+      })()};
+      var countTick = 0;
       var idx = 0;
       var ages = []; // seconds ago for each visible entry
 
