@@ -129,8 +129,8 @@ function renderAccountPage() {
           <div class="card-label">Plan</div>
           <div class="card-value" id="plan-tier" style="font-size:1.5rem;text-transform:capitalize;">—</div>
           <div class="card-sub" id="plan-sub">Loading...</div>
-          <div style="margin-top:1rem;">
-            <a href="/pricing" class="btn btn-outline btn-sm">Upgrade plan →</a>
+          <div style="margin-top:1rem;" id="plan-action-row">
+            <a href="/pricing" class="btn btn-outline btn-sm" id="plan-action-btn">Upgrade plan →</a>
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@ function renderAccountPage() {
         </div>
         <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
           <button class="btn btn-outline btn-sm" onclick="rotateKey()">🔄 Rotate key</button>
-          <button class="btn btn-outline btn-sm" onclick="copyKey()">📋 Copy preview</button>
+          <button class="btn btn-outline btn-sm" id="copy-key-btn" onclick="copyKey()">📋 Copy key</button>
         </div>
         <p id="rotate-msg" style="font-size:.75rem;color:var(--text-secondary);margin-top:.625rem;display:none;"></p>
       </div>
@@ -261,6 +261,16 @@ function renderAccountPage() {
         document.getElementById('plan-tier').textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
         document.getElementById('plan-sub').textContent = monthly.toLocaleString() + ' tokens/month · Founding rate locked';
         document.getElementById('dash-subtitle').textContent = 'Welcome back. Your ' + tier + ' plan is active.';
+        // Smart upgrade button — Scale users manage billing, others upgrade
+        var actionBtn = document.getElementById('plan-action-btn');
+        if (tier === 'scale' || tier === 'enterprise') {
+          actionBtn.textContent = 'Manage billing →';
+          actionBtn.href = '#';
+          actionBtn.onclick = function(e) { e.preventDefault(); manageBilling(); };
+        } else {
+          actionBtn.textContent = 'Upgrade plan →';
+          actionBtn.href = '/pricing';
+        }
 
         // Key card
         if (key) {
@@ -326,11 +336,14 @@ function renderAccountPage() {
     }
 
     function copyKey() {
-      var preview = document.getElementById('key-preview').textContent;
-      navigator.clipboard.writeText(preview).then(function() {
-        var btn = event.target;
-        btn.textContent = '✓ Copied';
-        setTimeout(function() { btn.textContent = '📋 Copy preview'; }, 2000);
+      var btn = document.getElementById('copy-key-btn');
+      navigator.clipboard.writeText(API_KEY).then(function() {
+        btn.textContent = '✓ Copied!';
+        btn.style.color = 'var(--accent)';
+        setTimeout(function() { btn.textContent = '📋 Copy key'; btn.style.color = ''; }, 2000);
+      }).catch(function() {
+        btn.textContent = 'Use Ctrl+C';
+        setTimeout(function() { btn.textContent = '📋 Copy key'; }, 2000);
       });
     }
 
@@ -342,6 +355,12 @@ function renderAccountPage() {
         btn.style.color = 'var(--accent)';
         setTimeout(function() { btn.textContent = 'Copy'; btn.style.color = ''; }, 2000);
       });
+    }
+
+    async function manageBilling() {
+      var res = await fetch('/api/portal', { method: 'POST', headers: authHeaders() });
+      var data = await res.json();
+      if (data.url) window.location.href = data.url;
     }
 
     async function topup(pack) {

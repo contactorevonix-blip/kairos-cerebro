@@ -22,7 +22,7 @@ kairoscheck.net | Em produção | Billing activo via Stripe.
 
 Checks: SWIFT=0.5t · CHECK=1t · DEEP=3t
 Token packs: 100t/€9 · 500t/€39 · 2.000t/€129 (one-time)
-Referral: 50t referrer + 25t novo utilizador
+Referral: 500t referrer + 500t novo utilizador (quando subscreve)
 
 ## Milestone Actual
 **PRIMEIRO CLIENTE PAGANTE A €29.**
