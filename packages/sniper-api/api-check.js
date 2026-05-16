@@ -5,8 +5,8 @@ const path = require('path');
 const crypto = require('crypto');
 const { verifyPayloadWithGraph } = require('../sniper-engine');
 const { scoreDomainName, scoreEmailDomain } = require('../sniper-engine/domain-heuristic');
-const { readKeys, isKeyActive } = require('./stripe-webhook');
-const { sendFirstCheckEmail } = require('./email-sender');
+const { readKeys, isKeyActive, markKeyUpgradeEmailSent } = require('./stripe-webhook');
+const { sendFirstCheckEmail, sendUpgradeEmail } = require('./email-sender');
 const {
   ensureMonthlyTokens,
   getTokenBalance,
@@ -313,6 +313,18 @@ async function handleApiCheck(headers, body) {
   // 10. Debit tokens + populate cache
   try { debitTokens(tenantId, tokenCost, engineInput.type, ref); } catch { /* non-fatal */ }
 
+  // Free tier exhausted → send upgrade email once (fire-and-forget, non-fatal)
+  const balanceAfterDebit = getTokenBalance(tenantId);
+  if (
+    keyRecord.tier === 'free' &&
+    balanceAfterDebit <= 0 &&
+    keyRecord.email &&
+    !keyRecord.upgrade_email_sent_at
+  ) {
+    try { markKeyUpgradeEmailSent(keyRecord.api_key_hash); } catch { /* non-fatal */ }
+    sendUpgradeEmail({ toEmail: keyRecord.email }).catch(() => {});
+  }
+
   // 11. Merge domain-heuristic score into final result
   let finalScore = result.verdict.score;
   let finalSignals = result.verdict.reasons || [];
@@ -324,7 +336,7 @@ async function handleApiCheck(headers, body) {
 
   // Re-apply decision thresholds after merge
   const finalVerdict = finalScore >= 60 ? 'BLOCK' : finalScore >= 30 ? 'REVIEW' : 'ALLOW';
-  const newTokenBalance = getTokenBalance(tenantId);
+  const newTokenBalance = balanceAfterDebit;
   // Low balance warning — helps customer top up before hitting zero
   const LOW_BALANCE_THRESHOLD = 50;
   const lowBalanceWarning = newTokenBalance < LOW_BALANCE_THRESHOLD
