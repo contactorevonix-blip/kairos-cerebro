@@ -918,7 +918,7 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       return;
     }
     if (method === 'GET' && (url === '/favicon.ico' || url === '/favicon.svg')) {
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#00d97e"/><path fill="#ffffff" d="M7 6h5v7.5l7-7.5h6.5L17 15.5 26.5 26H20l-8-8.5V26H7z"/></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#00d97e"/><rect x="6" y="5" width="5.5" height="22" fill="#fff"/><polygon points="11,16 26,5 26,11 16,18" fill="#fff"/><polygon points="11,16 26,27 26,21 16,14" fill="#fff"/></svg>`;
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=604800' });
       res.end(svg);
       return;
