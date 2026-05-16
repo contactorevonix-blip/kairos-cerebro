@@ -23,13 +23,20 @@ function renderPricingPage() {
     "@type": "Product",
     "name": "Kairos Check API",
     "description": "OSINT-first fraud detection API for developers",
+    "image": "https://kairoscheck.net/badge",
+    "brand": { "@type": "Brand", "name": "Kairos Check" },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "PT",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+    },
     "offers": [
-      { "@type": "Offer", "name": "Free",       "price": "0",   "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Starter",    "price": "29",  "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Growth",     "price": "59",  "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Pro",        "price": "99",  "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Scale",      "price": "249", "priceCurrency": "EUR" },
-      { "@type": "Offer", "name": "Enterprise", "price": "800", "priceCurrency": "EUR" }
+      { "@type": "Offer", "name": "Free",       "price": "0",   "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" },
+      { "@type": "Offer", "name": "Starter",    "price": "29",  "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" },
+      { "@type": "Offer", "name": "Growth",     "price": "59",  "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" },
+      { "@type": "Offer", "name": "Pro",        "price": "99",  "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" },
+      { "@type": "Offer", "name": "Scale",      "price": "249", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" },
+      { "@type": "Offer", "name": "Enterprise", "price": "800", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://kairoscheck.net/pricing" }
     ]
   }
   </script>

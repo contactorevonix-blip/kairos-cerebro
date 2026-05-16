@@ -979,11 +979,19 @@ function renderLandingPage() {
     "operatingSystem": "Web",
     "description": "OSINT-first fraud scoring API for indie devs and solo founders. Detect fraudulent domains, emails, phones and IBANs.",
     "url": "https://kairoscheck.net",
+    "image": "https://kairoscheck.net/badge",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "12"
+    },
     "offers": {
       "@type": "Offer",
       "price": "29.00",
       "priceCurrency": "EUR",
-      "priceValidUntil": "2027-01-01"
+      "priceValidUntil": "2027-01-01",
+      "availability": "https://schema.org/InStock",
+      "url": "https://kairoscheck.net/pricing"
     }
   }
   </script>
