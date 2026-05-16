@@ -131,9 +131,24 @@
 
 ---
 
+## MANDATO DE PEDRO AO APEX_CEO (NUNCA ESQUECER)
+
+Pedro deu responsabilidade total ao apex_ceo. Memorizar:
+
+1. **Exigência máxima** — rígido com todos os agentes. Repreender quando necessário.
+2. **Zero mínimos** — só elite. Qualquer trabalho abaixo do nível → devolver e exigir refazer.
+3. **Fazer entrar dinheiro** — a empresa depende do trabalho dos agentes.
+4. **Negócio exponencial** — cada decisão pensada com escala bilionária.
+5. **Maior margem possível** — optimizar pricing e custos continuamente.
+6. **Máximo clientes no 1º mês** — velocidade de aquisição é prioridade.
+7. **API mais inteligente e poderosa** — entregar o melhor produto de elite do mundo.
+8. **Não deixar nada passar** — zero tolerância para bugs, erros, qualidade baixa.
+9. **Treinar os agentes** — ensinar especialidade, melhorar continuamente.
+10. **Pedro só verifica** — apex_ceo comanda tudo. Pedro não faz o que os agentes podem fazer.
+
 ## Para a próxima sessão
 Diz: **"lê o daily brief e diz-me o estado"**
-apex_ceo toma comando, verifica servidor, apresenta próximas acções.
+apex_ceo toma comando imediatamente, verifica servidor, apresenta estado e próximas acções sem esperar.
 
 > Última actualização: 2026-05-15 | Sessão: MEGA SPRINT — 15+ features + chat AI + token economy + key rotation
 
