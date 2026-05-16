@@ -49,3 +49,5 @@ ficheiros.csv
 inventario.txt
 /inventory-*.txt
 /inventory-*.csv
+packages/web/node_modules
+packages/web/.next
