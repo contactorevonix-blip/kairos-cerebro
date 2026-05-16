@@ -88,19 +88,22 @@ function renderLandingPage() {
       max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
       height: 56px; display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo { display: flex; align-items: center; gap: 0.625rem; text-decoration: none; }
     .nav-logo-mark { flex-shrink: 0; display: block; }
-    .nav-logo-text { font-size: var(--text-base); font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
-    .nav-logo-text span { color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.03em; line-height: 1; }
+    .nav-logo-text strong { color: var(--accent); font-weight: 800; }
+    .nav-links { display: flex; align-items: center; gap: 0.125rem; }
     .nav-link { color: var(--text-secondary); text-decoration: none; font-size: var(--text-sm); padding: 0.375rem 0.75rem; border-radius: 6px; transition: color 150ms; }
     .nav-link:hover { color: var(--text); }
-    .nav-cta {
-      background: var(--accent); color: #000; text-decoration: none; font-size: var(--text-sm);
-      font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; transition: background 150ms;
-    }
-    .nav-cta:hover { background: var(--accent-hover); }
-    @media (max-width: 480px) { .nav-links .nav-link:not(.nav-cta) { display: none; } }
+    .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.1); margin: 0 0.5rem; }
+    .nav-login { color: var(--text-secondary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; padding: 0.375rem 0.875rem; border-radius: 6px; transition: color 150ms; }
+    .nav-login:hover { color: var(--text); }
+    .nav-signup { color: #e8e8e8; text-decoration: none; font-size: var(--text-sm); font-weight: 600; padding: 0.4375rem 1rem; border-radius: 7px; border: 1px solid rgba(255,255,255,0.14); transition: border-color 150ms, color 150ms, background 150ms; background: rgba(255,255,255,0.05); }
+    .nav-signup:hover { border-color: rgba(0,217,126,0.5); color: var(--accent); background: rgba(0,217,126,0.07); }
+    .nav-ask-ai { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: #000; border: none; font-size: var(--text-sm); font-weight: 700; padding: 0.5rem 1.125rem; border-radius: 7px; cursor: pointer; transition: background 150ms, box-shadow 150ms; letter-spacing: -0.01em; text-decoration: none; box-shadow: 0 0 0 0 rgba(0,217,126,0); }
+    .nav-ask-ai:hover { background: #00e888; box-shadow: 0 0 20px rgba(0,217,126,0.35); }
+    @media (max-width: 680px) { .nav-link { display: none; } }
+    @media (max-width: 520px) { .nav-sep, .nav-login { display: none; } }
 
     /* LAYOUT */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
@@ -1004,18 +1007,45 @@ function renderLandingPage() {
   <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Kairos Check home">
-        <svg class="nav-logo-mark" width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true">
-          <path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/>
-          <path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="nav-logo-mark" width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg1" x1="4" y1="4" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00ff99"/>
+              <stop offset="100%" stop-color="#00c870"/>
+            </linearGradient>
+            <filter id="gf" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur"/>
+              <feFlood flood-color="#00d97e" flood-opacity="0.6" result="color"/>
+              <feComposite in="color" in2="blur" operator="in" result="shadow"/>
+              <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Hexagon container -->
+          <path d="M17 2L31 9.5V24.5L17 32L3 24.5V9.5L17 2Z" fill="rgba(0,217,126,0.08)" stroke="url(#lg1)" stroke-width="1.25" stroke-linejoin="round"/>
+          <!-- Scan line -->
+          <line x1="7" y1="17" x2="27" y2="17" stroke="#00d97e" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.35"/>
+          <!-- K letter — bold geometric -->
+          <path d="M12 10v14" stroke="url(#lg1)" stroke-width="2.5" stroke-linecap="round" filter="url(#gf)"/>
+          <path d="M12 17L22 10" stroke="url(#lg1)" stroke-width="2.5" stroke-linecap="round" filter="url(#gf)"/>
+          <path d="M12 17L22 24" stroke="url(#lg1)" stroke-width="2.5" stroke-linecap="round" filter="url(#gf)"/>
+          <!-- Corner dots — precision marks -->
+          <circle cx="17" cy="2" r="1.2" fill="#00d97e" opacity="0.6"/>
+          <circle cx="31" cy="9.5" r="1.2" fill="#00d97e" opacity="0.4"/>
+          <circle cx="3" cy="9.5" r="1.2" fill="#00d97e" opacity="0.4"/>
         </svg>
-        <span class="nav-logo-text">Kairos<span>Check</span></span>
+        <span class="nav-logo-text">Kairos<strong>Check</strong></span>
       </a>
       <div class="nav-links">
         <a href="/docs" class="nav-link">Docs</a>
         <a href="/pricing" class="nav-link">Pricing</a>
         <a href="/status" class="nav-link">Status</a>
-        <a href="/account" class="nav-link">Account</a>
-        <a href="/pricing" class="nav-cta">Try free →</a>
+        <div class="nav-sep" aria-hidden="true"></div>
+        <a href="/login" class="nav-login">Log in</a>
+        <a href="/pricing" class="nav-signup">Sign up</a>
+        <a href="#" class="nav-ask-ai" onclick="event.preventDefault();document.getElementById('kc-bubble')&&document.getElementById('kc-bubble').click();" aria-label="Open AI chat">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="#000" stroke-width="1.4"/><path d="M4.5 7.5C4.5 7.5 5.5 9 7 9C8.5 9 9.5 7.5 9.5 7.5" stroke="#000" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="5.5" r="0.8" fill="#000"/><circle cx="9" cy="5.5" r="0.8" fill="#000"/></svg>
+          Ask AI
+        </a>
       </div>
     </div>
   </nav>
@@ -2564,34 +2594,43 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       widget.id = 'kc-chat-widget';
       widget.innerHTML = [
         '<div id="kc-bubble" aria-label="Open Kairos Check AI — 50 free checks" role="button" tabindex="0">',
-          '<svg width="18" height="18" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#000" fill-opacity="0.75"/><path d="M8 8V15M8 11.5H11.5M11.5 11.5L14 8M11.5 11.5L14 15" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-          '<span id="kc-bubble-text">Ask free — 50 checks</span>',
+          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5C4.41 1.5 1.5 4.08 1.5 7.25c0 1.12.34 2.17.93 3.06L1.5 14.5l4.37-1.38A7.1 7.1 0 008 13c3.59 0 6.5-2.58 6.5-5.75S11.59 1.5 8 1.5z" fill="#000" fill-opacity="0.85"/></svg>',
+          '<span id="kc-bubble-text">Ask AI — free</span>',
         '</div>',
-        '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI Assistant" style="display:none;">',
+        '<div id="kc-panel" role="dialog" aria-modal="true" aria-label="Kairos Check AI" style="display:none;">',
           '<div id="kc-panel-head">',
-            '<div style="display:flex;align-items:center;gap:0.625rem;">',
-              '<svg width="18" height="20" viewBox="0 0 22 22" fill="none"><path d="M11 1L2 4.5V10.5C2 15.7 6.2 19.7 11 21C15.8 19.7 20 15.7 20 10.5V4.5Z" fill="#00d97e"/></svg>',
+            '<div style="display:flex;align-items:center;gap:0.75rem;">',
+              '<div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#003d1f,#006b38);border:1px solid rgba(0,217,126,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">',
+                '<svg width="16" height="16" viewBox="0 0 20 22" fill="none"><path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/><path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+              '</div>',
               '<div>',
-                '<div style="font-weight:700;font-size:0.875rem;color:#f0f0f0;letter-spacing:-.01em;">Kairos Check AI</div>',
-                '<div style="display:flex;align-items:center;gap:0.3rem;margin-top:1px;">',
+                '<div style="font-weight:700;font-size:0.875rem;color:#f5f5f5;letter-spacing:-.02em;line-height:1.2;">Kairos AI</div>',
+                '<div style="display:flex;align-items:center;gap:5px;margin-top:2px;">',
                   '<span class="kc-live-dot"></span>',
-                  '<span style="font-size:0.6875rem;color:#737373;">Online &middot; Replies instantly</span>',
+                  '<span style="font-size:0.6875rem;color:#555;letter-spacing:.01em;">Online · fraud detection expert</span>',
                 '</div>',
               '</div>',
             '</div>',
             '<div style="display:flex;align-items:center;gap:0.5rem;">',
               '<div id="kc-free-badge"></div>',
-              '<button id="kc-close" aria-label="Close chat">&times;</button>',
+              '<button id="kc-close" aria-label="Close chat">',
+                '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+              '</button>',
             '</div>',
           '</div>',
           '<div id="kc-messages" role="log" aria-live="polite"></div>',
+          '<div id="kc-suggestions" style="padding:0 0.875rem 0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">',
+            '<button class="kc-chip" data-q="How do I score a domain for fraud?">Score a domain</button>',
+            '<button class="kc-chip" data-q="What is the free tier?">Free tier?</button>',
+            '<button class="kc-chip" data-q="Show me a curl example">API example</button>',
+          '</div>',
           '<div id="kc-input-row">',
-            '<textarea id="kc-input" placeholder="What are you building? Describe your fraud problem." rows="2" aria-label="Chat message"></textarea>',
+            '<textarea id="kc-input" placeholder="Ask about fraud detection, the API, pricing…" rows="1" aria-label="Chat message"></textarea>',
             '<button id="kc-send" aria-label="Send message">',
-              '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8L2 2l2 6-2 6z" fill="#000"/></svg>',
+              '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 7L1 1.5l1.5 5.5L1 13z" fill="#000"/></svg>',
             '</button>',
           '</div>',
-          '<p id="kc-disclaimer">Powered by Claude · Kairos Check only · <a href="/pricing" style="color:#00d97e;">Get API key →</a></p>',
+          '<p id="kc-disclaimer">Kairos AI · Powered by Claude · <a href="/pricing" style="color:#00d97e;">Get free API key →</a></p>',
         '</div>'
       ].join('');
 
@@ -2599,18 +2638,20 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
       var style = document.createElement('style');
       style.textContent = [
         '#kc-chat-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;font-family:Inter,system-ui,sans-serif;}',
-        '#kc-bubble{display:flex;align-items:center;gap:9px;padding:13px 22px 13px 18px;border-radius:999px;background:#00d97e;cursor:pointer;box-shadow:0 4px 28px rgba(0,217,126,0.4);transition:transform 180ms,box-shadow 180ms;animation:kc-slide-in 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.2s both;}',
-        '#kc-bubble:hover{transform:translateY(-3px);box-shadow:0 8px 36px rgba(0,217,126,0.55);}',
-        '#kc-bubble-text{font-size:0.875rem;font-weight:700;color:#000;white-space:nowrap;letter-spacing:-.01em;}',
-        '@keyframes kc-slide-in{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}',
-        '#kc-panel{position:fixed;bottom:5.5rem;right:1.5rem;width:380px;background:#0d0d0d;border:1px solid rgba(255,255,255,0.09);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,126,0.06);}',
-        '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1rem;background:linear-gradient(135deg,#131313 0%,#161616 100%);border-bottom:1px solid rgba(255,255,255,0.06);}',
-        '.kc-live-dot{width:7px;height:7px;border-radius:50%;background:#00d97e;flex-shrink:0;box-shadow:0 0 6px rgba(0,217,126,0.8);animation:kc-pulse 2s ease-in-out infinite;}',
-        '@keyframes kc-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.7;transform:scale(0.85);}}',
-        '#kc-free-badge{font-size:0.6875rem;color:#606060;font-family:monospace;background:rgba(255,255,255,.04);padding:.2rem .5rem;border-radius:5px;}',
-        '#kc-close{background:rgba(255,255,255,.06);border:none;color:#606060;font-size:1.125rem;cursor:pointer;line-height:1;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;transition:background 150ms,color 150ms;}',
-        '#kc-close:hover{background:rgba(255,255,255,.12);color:#f0f0f0;}',
-        '#kc-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;max-height:360px;min-height:140px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent;}',
+        '#kc-bubble{display:flex;align-items:center;gap:8px;padding:11px 20px 11px 16px;border-radius:999px;background:#00d97e;cursor:pointer;box-shadow:0 4px 24px rgba(0,217,126,0.35),0 1px 0 rgba(255,255,255,0.2) inset;transition:transform 150ms,box-shadow 150ms;animation:kc-slide-in 0.45s cubic-bezier(0.34,1.56,0.64,1) 1.5s both;}',
+        '#kc-bubble:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,217,126,0.5);}',
+        '#kc-bubble-text{font-size:0.8125rem;font-weight:700;color:#000;white-space:nowrap;letter-spacing:-.01em;}',
+        '@keyframes kc-slide-in{from{opacity:0;transform:translateY(20px) scale(0.9);}to{opacity:1;transform:translateY(0) scale(1);}}',
+        '#kc-panel{position:fixed;bottom:5rem;right:1.5rem;width:400px;background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.04);}',
+        '#kc-panel-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1rem 0.875rem;border-bottom:1px solid rgba(255,255,255,0.06);background:#111;}',
+        '.kc-live-dot{width:6px;height:6px;border-radius:50%;background:#00d97e;flex-shrink:0;animation:kc-pulse 2.5s ease-in-out infinite;}',
+        '@keyframes kc-pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,217,126,0.4);}50%{opacity:0.8;box-shadow:0 0 0 3px rgba(0,217,126,0);}}',
+        '#kc-free-badge{font-size:0.625rem;color:#444;font-family:monospace;background:rgba(255,255,255,.03);padding:.15rem .45rem;border-radius:4px;border:1px solid rgba(255,255,255,.06);}',
+        '#kc-close{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:#555;cursor:pointer;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background 150ms,color 150ms;flex-shrink:0;}',
+        '#kc-close:hover{background:rgba(255,255,255,.1);color:#ccc;}',
+        '#kc-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.625rem;max-height:320px;min-height:120px;scrollbar-width:thin;scrollbar-color:#222 transparent;}',
+        '.kc-chip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);color:#888;font-size:0.6875rem;padding:5px 10px;border-radius:20px;cursor:pointer;transition:border-color 150ms,color 150ms,background 150ms;font-family:inherit;white-space:nowrap;}',
+        '.kc-chip:hover{border-color:rgba(0,217,126,0.4);color:#00d97e;background:rgba(0,217,126,0.06);}',
         '.kc-msg{padding:0.6875rem 0.9375rem;border-radius:12px;font-size:0.8125rem;line-height:1.6;max-width:88%;}',
         '.kc-msg-user{background:#00d97e;color:#000;align-self:flex-end;border-bottom-right-radius:3px;font-weight:500;}',
         '.kc-msg-ai{background:#1c1c1c;color:#e8e8e8;align-self:flex-start;border-bottom-left-radius:3px;border:1px solid rgba(255,255,255,.05);}',
@@ -2620,17 +2661,17 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         '.kc-dot{width:6px;height:6px;border-radius:50%;background:#444;animation:kc-bounce 1.2s infinite;}',
         '.kc-dot:nth-child(2){animation-delay:.2s;}.kc-dot:nth-child(3){animation-delay:.4s;}',
         '@keyframes kc-bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}',
-        '#kc-input-row{display:flex;gap:0.5rem;padding:0.75rem 0.875rem;border-top:1px solid rgba(255,255,255,.06);background:#0d0d0d;}',
-        '#kc-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:0.5625rem 0.875rem;color:#f0f0f0;font-family:Inter,system-ui,sans-serif;font-size:0.8125rem;resize:none;outline:none;line-height:1.45;transition:border-color 150ms;}',
-        '#kc-input:focus{border-color:rgba(0,217,126,.4);background:#1e1e1e;}',
-        '#kc-input::placeholder{color:#4a4a4a;}',
-        '#kc-send{width:38px;height:38px;background:#00d97e;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 150ms,transform 100ms;align-self:flex-end;}',
-        '#kc-send:hover{background:#00b369;transform:scale(1.05);}',
-        '#kc-send:disabled{background:#252525;cursor:not-allowed;transform:none;}',
-        '#kc-disclaimer{font-size:0.625rem;color:#383838;padding:0.375rem 0.875rem 0.625rem;line-height:1.4;text-align:center;}',
-        '#kc-disclaimer a{color:#505050;}',
+        '#kc-input-row{display:flex;align-items:flex-end;gap:0.5rem;padding:0.75rem 0.875rem;border-top:1px solid rgba(255,255,255,.05);background:#111;}',
+        '#kc-input{flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0.625rem 0.875rem;color:#e8e8e8;font-family:Inter,system-ui,sans-serif;font-size:0.8125rem;resize:none;outline:none;line-height:1.5;transition:border-color 150ms,background 150ms;min-height:40px;max-height:100px;}',
+        '#kc-input:focus{border-color:rgba(0,217,126,.35);background:#1d1d1d;}',
+        '#kc-input::placeholder{color:#3a3a3a;}',
+        '#kc-send{width:36px;height:36px;background:#00d97e;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 150ms,box-shadow 150ms;}',
+        '#kc-send:hover{background:#00e888;box-shadow:0 0 12px rgba(0,217,126,0.4);}',
+        '#kc-send:disabled{background:#1e1e1e;cursor:not-allowed;box-shadow:none;}',
+        '#kc-disclaimer{font-size:0.5625rem;color:#2e2e2e;padding:0.3rem 0.875rem 0.5rem;line-height:1.4;text-align:center;}',
+        '#kc-disclaimer a{color:#404040;}',
         '#kc-disclaimer a:hover{color:#00d97e;}',
-        '@media(max-width:420px){#kc-panel{width:calc(100vw - 2rem);right:-0.5rem;}}',
+        '@media(max-width:440px){#kc-panel{width:calc(100vw - 2rem);right:1rem;}}',
         '.kc-cta-btn{display:inline-flex;align-items:center;background:#00d97e;color:#000;font-weight:700;font-size:.8125rem;padding:.5rem 1.125rem;border-radius:8px;text-decoration:none;transition:background 150ms;}',
         '.kc-cta-btn:hover{background:#00b369;}'
       ].join('');
@@ -2747,6 +2788,19 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         sendBtn.disabled = false;
         input.focus();
       }
+
+      // Suggestion chips
+      document.querySelectorAll('.kc-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          var q = chip.getAttribute('data-q');
+          if (q) {
+            input.value = q;
+            var sug = document.getElementById('kc-suggestions');
+            if (sug) sug.style.display = 'none';
+            sendMessage();
+          }
+        });
+      });
 
       bubble.addEventListener('click', function() {
         var isOpen = panel.style.display !== 'none';
