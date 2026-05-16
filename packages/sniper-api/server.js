@@ -413,11 +413,43 @@ const server = http.createServer(async (req, res) => {
       const base = process.env.KAIROS_PUBLIC_BASE_URL || 'https://kairoscheck.net';
       const now = new Date().toISOString().slice(0, 10);
       const fraudDomains = [
-        'paypal-account-suspended.store', 'amazon-security-alert.net',
-        'microsoft-helpdesk.shop', 'paypa1-verify.com', 'metamask-wallet-restore.com',
-        'coinbase-security-alert.net', 'secure-banking-update.net',
-        'crypto-refund-portal.com', 'invoice-download-now.store',
+        // Crypto & DeFi scams
+        'paypal-account-suspended.store', 'metamask-wallet-restore.com',
+        'coinbase-security-alert.net', 'crypto-refund-portal.com',
+        'binance-airdrop-claim.store', 'opensea-nft-giveaway.net',
+        'uniswap-liquidity-reward.com', 'ledger-wallet-recovery.shop',
+        'phantom-wallet-verify.store', 'trustwallet-airdrop.net',
+        // Bank & payment phishing
+        'amazon-security-alert.net', 'paypa1-verify.com',
+        'secure-banking-update.net', 'invoice-download-now.store',
         'amazon-account-update.store', 'paypal-customer-support.store',
+        'chase-account-suspended.store', 'wellsfargo-verify-account.net',
+        'bankofamerica-security.shop', 'hsbc-account-alert.store',
+        // Tech support & Microsoft scams
+        'microsoft-helpdesk.shop', 'windows-defender-alert.store',
+        'apple-id-suspended.net', 'icloud-storage-full.shop',
+        'google-account-recovery.store', 'netflix-payment-failed.net',
+        'spotify-subscription-alert.shop', 'adobe-license-expired.store',
+        // Social media phishing
+        'instagram-account-verify.store', 'facebook-security-review.net',
+        'twitter-account-suspended.shop', 'tiktok-creator-fund.store',
+        'linkedin-account-restricted.net', 'whatsapp-account-banned.shop',
+        // Fake invoices & delivery scams
+        'fedex-delivery-pending.store', 'ups-package-held.net',
+        'dhl-customs-fee.shop', 'usps-delivery-failed.store',
+        'tax-refund-portal.net', 'irs-refund-pending.shop',
+        // E-commerce & subscription fraud
+        'amazon-prime-renewal.store', 'ebay-seller-suspended.net',
+        'shopify-store-suspended.shop', 'stripe-account-restricted.store',
+        'github-account-suspended.net', 'discord-nitro-free.shop',
+        // Fake job & investment fraud
+        'remote-job-apply-now.store', 'crypto-investment-guaranteed.net',
+        'forex-profit-daily.shop', 'work-from-home-earn.store',
+        'survey-reward-claim.net', 'prize-winner-claim.shop',
+        // Misc brand impersonation
+        'cloudflare-ddos-alert.store', 'paypal-account-limited.shop',
+        'amazon-gift-card-free.net', 'google-play-reward.store',
+        'microsoft-support-ticket.shop', 'apple-care-renewal.net',
       ];
       const staticUrls = [
         '/', '/pricing', '/docs', '/docs/quickstart', '/docs/api/check',
