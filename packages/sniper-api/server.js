@@ -943,7 +943,7 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
     if (method === 'GET' && url === '/.well-known/security.txt') {
       res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' });
       res.end([
-        'Contact: mailto:security@kairos.example',
+        'Contact: mailto:security@kairoscheck.net',
         'Preferred-Languages: en, pt',
         `Expires: ${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()}`,
         'Policy: ' + (process.env.KAIROS_PUBLIC_BASE_URL || '') + '/docs/legal/privacy-policy.md',
