@@ -358,24 +358,24 @@ function renderPricingPage() {
           <a href="/docs/quickstart" class="btn-plan-outline">Get free key →</a>
         </article>
 
-        <!-- SCALE — shown first for price anchoring: €249 makes €29 look like a steal -->
-        <article class="plan-card" role="listitem" aria-labelledby="plan-scale-name">
-          <div class="plan-name" id="plan-scale-name">Scale</div>
+        <!-- STARTER -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-starter-name">
+          <div class="plan-name" id="plan-starter-name">Starter</div>
           <div class="plan-price-row">
-            <span class="plan-amount" data-monthly="249" data-annual="199">€249</span>
+            <span class="plan-amount" data-monthly="29" data-annual="23">€29</span>
             <span class="plan-period">/mo</span>
           </div>
-          <div class="plan-vat" id="scale-vat">+ VAT · billed monthly</div>
-          <p class="plan-desc">For platforms and marketplaces at volume.</p>
+          <div class="plan-vat" id="starter-vat">+ VAT · billed monthly</div>
+          <p class="plan-desc">For indie devs protecting their first product.</p>
           <div class="plan-divider" aria-hidden="true"></div>
-          <ul class="plan-features" aria-label="Scale features">
-            <li>15,000 tokens / month</li>
-            <li>Everything in Pro</li>
-            <li>SWIFT + CHECK + DEEP models</li>
-            <li>Reputation graph priority access</li>
-            <li>SLA 99.9% · Priority support</li>
+          <ul class="plan-features" aria-label="Starter features">
+            <li>300 tokens / month (~150 signups)</li>
+            <li>Domain, email, phone, IBAN</li>
+            <li>SWIFT + CHECK models</li>
+            <li>Webhook on BLOCK/REVIEW</li>
+            <li>Cancel anytime · Founding rate locked</li>
           </ul>
-          <button class="btn-plan-outline checkout-btn" data-tier="scale">Get started</button>
+          <button class="btn-plan-outline checkout-btn" data-tier="starter">Get started</button>
           <p class="checkout-error" aria-live="polite"></p>
         </article>
 
@@ -422,24 +422,24 @@ function renderPricingPage() {
           <p class="checkout-error" aria-live="polite"></p>
         </article>
 
-        <!-- STARTER -->
-        <article class="plan-card" role="listitem" aria-labelledby="plan-starter-name">
-          <div class="plan-name" id="plan-starter-name">Starter</div>
+        <!-- SCALE -->
+        <article class="plan-card" role="listitem" aria-labelledby="plan-scale-name">
+          <div class="plan-name" id="plan-scale-name">Scale</div>
           <div class="plan-price-row">
-            <span class="plan-amount" data-monthly="29" data-annual="23">€29</span>
+            <span class="plan-amount" data-monthly="249" data-annual="199">€249</span>
             <span class="plan-period">/mo</span>
           </div>
-          <div class="plan-vat" id="starter-vat">+ VAT · billed monthly</div>
-          <p class="plan-desc">For indie devs protecting their first product.</p>
+          <div class="plan-vat" id="scale-vat">+ VAT · billed monthly</div>
+          <p class="plan-desc">For platforms and marketplaces at volume.</p>
           <div class="plan-divider" aria-hidden="true"></div>
-          <ul class="plan-features" aria-label="Starter features">
-            <li>300 tokens / month (~150 signups)</li>
-            <li>Domain, email, phone, IBAN</li>
-            <li>SWIFT + CHECK models</li>
-            <li>Webhook on BLOCK/REVIEW</li>
-            <li>Cancel anytime · Founding rate locked</li>
+          <ul class="plan-features" aria-label="Scale features">
+            <li>15,000 tokens / month</li>
+            <li>Everything in Pro</li>
+            <li>SWIFT + CHECK + DEEP models</li>
+            <li>Reputation graph priority access</li>
+            <li>SLA 99.9% · Priority support</li>
           </ul>
-          <button class="btn-plan-outline checkout-btn" data-tier="starter">Get started</button>
+          <button class="btn-plan-outline checkout-btn" data-tier="scale">Get started</button>
           <p class="checkout-error" aria-live="polite"></p>
         </article>
 
