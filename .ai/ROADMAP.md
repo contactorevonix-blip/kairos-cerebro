@@ -1,5 +1,26 @@
 # KAIROS — Roadmap Bilionário
-> Criado: 2026-05-15 | Squad: KAIROS-CORE-SQUAD | Status: ACTIVO
+> Criado: 2026-05-15 | Actualizado: 2026-05-16 | Squad: KAIROS-CORE-SQUAD | Status: ACTIVO
+
+---
+
+## STRIPE — PRODUTOS CONFIGURADOS ✅ (2026-05-16)
+
+```
+PLANOS MENSAIS:
+  STRIPE_PRICE_STARTER     = configurado (existia) ✅  €29/mês
+  STRIPE_PRICE_GROWTH      = configurado ✅             €59/mês  [NOVO]
+  STRIPE_PRICE_PRO         = configurado (existia) ✅  €99/mês
+  STRIPE_PRICE_SCALE       = configurado (existia) ✅  €249/mês
+  STRIPE_PRICE_ENTERPRISE  = configurado ✅             €800/mês [NOVO]
+
+TOKEN PACKS (one-time):
+  STRIPE_PRICE_TOKENS_100  = configurado ✅  €5  → 100 tokens
+  STRIPE_PRICE_TOKENS_380  = configurado ✅  €15 → 380 tokens (+27% bónus)
+  STRIPE_PRICE_TOKENS_1500 = configurado ✅  €50 → 1,500 tokens (+50% bónus)
+
+Automatic Tax: activo (IVA por país automaticamente)
+Verificado em produção: /api/tokens/packs → configured: true nos 3 packs
+```
 
 ---
 
@@ -31,7 +52,40 @@ TOKEN ECONOMY:
 
 ---
 
-## BACKLOG COMPLETO — 19 TASKS
+## BACKLOG COMPLETO — 31 TASKS
+
+### TUDO FEITO ✅ DONE (2026-05-15/16) — 26 tasks completas
+
+- [x] #1-5   Bugs + features base (landing, pricing, ROI, toggle)
+- [x] #6     Founder pricing countdown
+- [x] #7     Token economy (SWIFT/CHECK/DEEP + cache + auto-refill)
+- [x] #8     Key rotation + grace period 24h
+- [x] #9     /docs completa (10 páginas)
+- [x] #10    Live chat AI (Claude Haiku + token gate)
+- [x] #11    SEO programático (/check/[domain])
+- [x] #12    Dashboard cliente (/account)
+- [x] #13    Email onboarding (3 emails automáticos)
+- [x] #14    Referral 500 tokens cada
+- [x] #15    Usage analytics API
+- [x] #16    Compare pages (SEON, MaxMind, Stripe Radar, Sift)
+- [x] #17    Auto-refill + token packs
+- [x] #18    Allowlist/denylist por cliente
+- [x] #19    Fraud trend alerts semanais
+- [x] #20    Nightly seeder GitHub Action
+- [x] #21    SEO /fraud-detection-api
+- [x] #22    "How the intelligence works" section
+- [x] #23    Guarantee badge
+- [x] #24    SWIFT/CHECK/DEEP models
+- [x] #25    Cache 24h (0.1 tokens)
+- [x] #26    Enterprise tier + custom patterns
+
+### PENDENTE ⏳
+
+- [ ] #27    Kairos Card (Stripe Issuing — validar com primeiros clientes)
+- [ ] #28    First check email de activação
+- [ ] #29    "Powered by Kairos Check" badge
+- [ ] #30    Auto-refill off-session (Stripe PaymentIntent)
+- [ ] #31    Email check melhorado (MX + disposable detection)
 
 ### SPRINT 1 ✅ DONE (2026-05-15)
 - [x] #1 Fix activity feed (animation bug)
