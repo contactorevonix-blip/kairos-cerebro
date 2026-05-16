@@ -12,6 +12,7 @@ const {
   debitTokens,
   getTokenCost,
   getAllowDenyList,
+  getCustomPatterns,
 } = require('../sniper-db');
 
 const DB_DIR = process.env.KAIROS_DB_DIR || path.join(process.cwd(), '.kairos-data');
@@ -201,6 +202,26 @@ async function handleApiCheck(headers, body) {
       }};
     }
   } catch { /* lists check is non-fatal */ }
+
+  // 4.7 Enterprise: apply custom patterns (regex-based rules)
+  if (keyRecord.tier === 'enterprise') {
+    try {
+      const patterns = getCustomPatterns(tenantId);
+      for (const p of patterns) {
+        const re = new RegExp(p.pattern, 'i');
+        if (re.test(engineInput.query || engineInput.text || '')) {
+          const action = p.action === 'BLOCK' ? 'BLOCK' : 'REVIEW';
+          const score = action === 'BLOCK' ? 100 : 45;
+          return { status: 200, body: {
+            score, verdict: action, signals: [`enterprise:pattern:${p.id}`],
+            type: engineInput.type, query: engineInput.query,
+            token_balance: getTokenBalance(tenantId), token_cost: 0,
+            cached: false, timestamp: nowIso(), ref: auditId(),
+          }};
+        }
+      }
+    } catch { /* non-fatal */ }
+  }
 
   // 5. Resolve model (swift / check / deep) and check cache
   const model = resolveModel(body.model);

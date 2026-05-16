@@ -13,6 +13,7 @@ const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-we
 const { handleChat } = require('./chat-handler');
 const { sendFollowupEmail } = require('./email-sender');
 const { renderAccountPage } = require('./account-page');
+const { renderEnterprisePage } = require('./enterprise-page');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
@@ -382,7 +383,7 @@ const server = http.createServer(async (req, res) => {
         '/docs/api/authentication', '/docs/api/batch', '/docs/api/webhooks',
         '/docs/api/errors', '/docs/guides/how-it-works', '/docs/guides/gdpr',
         '/compare/stripe-radar', '/compare/sift', '/compare/seon', '/compare/maxmind',
-        '/fraud-detection-api', '/examples', '/changelog', '/status',
+        '/fraud-detection-api', '/enterprise', '/examples', '/changelog', '/status',
       ];
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -656,6 +657,46 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       res.end(result.html);
       return;
     }
+    if (method === 'GET' && (url === '/enterprise' || url === '/enterprise/')) {
+      sendHtml(res, renderEnterprisePage(), { 'cache-control': 'public, max-age=1800' });
+      return;
+    }
+
+    // ─── Enterprise endpoints ──────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/patterns') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const crE = require('crypto');
+      const hE = crE.createHash('sha256').update(raw).digest('hex');
+      const kE = readKeys().find(k => k.api_key_hash === hE);
+      if (!kE || !isKeyActive(kE)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      if (kE.tier !== 'enterprise') { sendJson(res, 403, { error: 'Custom patterns require Enterprise plan', upgrade: '/enterprise' }); return; }
+      const tE = kE.tenant_id || kE.customer_id || kE.api_key_hash;
+      const { getCustomPatterns } = require('../sniper-db');
+      sendJson(res, 200, { patterns: getCustomPatterns(tE), count: getCustomPatterns(tE).length });
+      return;
+    }
+
+    if (method === 'POST' && url === '/api/patterns') {
+      const raw = (req.headers['authorization'] || '').replace(/^Bearer\s+/i, '').trim();
+      if (!raw) { sendJson(res, 401, { error: 'Authorization required' }); return; }
+      const crE = require('crypto');
+      const hE = crE.createHash('sha256').update(raw).digest('hex');
+      const kE = readKeys().find(k => k.api_key_hash === hE);
+      if (!kE || !isKeyActive(kE)) { sendJson(res, 401, { error: 'Invalid API key' }); return; }
+      if (kE.tier !== 'enterprise') { sendJson(res, 403, { error: 'Custom patterns require Enterprise plan', upgrade: '/enterprise' }); return; }
+      const tE = kE.tenant_id || kE.customer_id || kE.api_key_hash;
+      const bodyE = await readJsonBody(req);
+      if (!bodyE.id || !bodyE.pattern || !bodyE.action) {
+        sendJson(res, 400, { error: 'Required: id, pattern (regex string), action (BLOCK|REVIEW)' }); return;
+      }
+      const { saveCustomPattern } = require('../sniper-db');
+      const patterns = saveCustomPattern(tE, { id: String(bodyE.id), pattern: String(bodyE.pattern), action: bodyE.action, description: bodyE.description || '' });
+      logEvent('enterprise.pattern.saved', { tenant: tE, id: bodyE.id });
+      sendJson(res, 200, { patterns, message: 'Pattern saved. Applied to all future checks.' });
+      return;
+    }
+
     if (method === 'GET' && url === '/account') {
       sendHtml(res, renderAccountPage(), { 'cache-control': 'no-store', 'x-robots-tag': 'noindex' });
       return;

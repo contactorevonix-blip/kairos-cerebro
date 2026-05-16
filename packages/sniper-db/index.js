@@ -334,6 +334,40 @@ function bootstrapIfEmpty(dir = DEFAULT_DB_DIR) {
   };
 }
 
+// ─── ENTERPRISE FEATURES ──────────────────────────────────────────────────────
+
+function enterprisePath(tenantId, file, dir = DEFAULT_DB_DIR) {
+  return path.join(dir, 'enterprise', `${String(tenantId).replace(/[^a-z0-9_-]/gi,'_')}_${file}`);
+}
+
+function getCustomPatterns(tenantId, dir = DEFAULT_DB_DIR) {
+  const file = enterprisePath(tenantId, 'patterns.json', dir);
+  if (!fs.existsSync(file)) return [];
+  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return []; }
+}
+
+function saveCustomPattern(tenantId, pattern, dir = DEFAULT_DB_DIR) {
+  ensureDir(path.dirname(enterprisePath(tenantId, 'patterns.json', dir)));
+  const patterns = getCustomPatterns(tenantId, dir);
+  const exists = patterns.findIndex(p => p.id === pattern.id);
+  if (exists >= 0) patterns[exists] = pattern;
+  else patterns.push({ ...pattern, created_at: nowIso() });
+  writeJsonAtomic(enterprisePath(tenantId, 'patterns.json', dir), patterns);
+  return patterns;
+}
+
+function removeCustomPattern(tenantId, patternId, dir = DEFAULT_DB_DIR) {
+  const patterns = getCustomPatterns(tenantId, dir).filter(p => p.id !== patternId);
+  writeJsonAtomic(enterprisePath(tenantId, 'patterns.json', dir), patterns);
+  return patterns;
+}
+
+function getTeamKeys(tenantId, dir = DEFAULT_DB_DIR) {
+  // Enterprise: up to 5 active keys per tenant
+  const all = listApiKeys(dir);
+  return all.filter(k => k.tenantId === tenantId && !k.revokedAt);
+}
+
 // ─── ALLOWLIST / DENYLIST ─────────────────────────────────────────────────────
 function listFilePath(tenantId, dir = DEFAULT_DB_DIR) {
   return path.join(dir, 'lists', `${String(tenantId).replace(/[^a-z0-9_-]/gi, '_')}.json`);
@@ -490,6 +524,11 @@ module.exports = {
   updateGlobalMetrics,
   // bootstrap
   bootstrapIfEmpty,
+  // enterprise
+  getCustomPatterns,
+  saveCustomPattern,
+  removeCustomPattern,
+  getTeamKeys,
   // allowlist/denylist
   getAllowDenyList,
   addToList,

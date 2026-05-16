@@ -3,10 +3,11 @@
 const Stripe = require('stripe');
 
 const TIER_TO_ENV = {
-  starter:  'STRIPE_PRICE_STARTER',
-  growth:   'STRIPE_PRICE_GROWTH',
-  pro:      'STRIPE_PRICE_PRO',
-  scale:    'STRIPE_PRICE_SCALE',
+  starter:    'STRIPE_PRICE_STARTER',
+  growth:     'STRIPE_PRICE_GROWTH',
+  pro:        'STRIPE_PRICE_PRO',
+  scale:      'STRIPE_PRICE_SCALE',
+  enterprise: 'STRIPE_PRICE_ENTERPRISE',
 };
 
 const QUOTA = { starter: 300, growth: 1000, pro: 3000, scale: 15000 };
