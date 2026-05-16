@@ -16,6 +16,14 @@ jobs:
         env:
           ADMIN_TOKEN: ${{ secrets.KAIROS_ADMIN_TOKEN }}
         run: |
+          if [ -z "$ADMIN_TOKEN" ]; then
+            echo "::warning::KAIROS_ADMIN_TOKEN not set in GitHub Actions secrets — add it to enable onboarding emails"
+            echo "## ⚠️ Skipped — KAIROS_ADMIN_TOKEN not set in GitHub secrets" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Go to: repo → Settings → Secrets → Actions → New secret" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
             https://kairoscheck.net/api/admin/send-followups \
             -H "Authorization: Bearer $ADMIN_TOKEN" \

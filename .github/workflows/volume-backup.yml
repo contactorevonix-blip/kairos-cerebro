@@ -56,8 +56,17 @@ jobs:
           echo "- \`R2_ACCESS_KEY_ID\`" >> $GITHUB_STEP_SUMMARY
           echo "- \`R2_SECRET_ACCESS_KEY\`" >> $GITHUB_STEP_SUMMARY
 
+      - name: Write railway-cli-failed summary
+        if: steps.run_backup.outcome == 'failure' && steps.check_status.outputs.status == 'unknown'
+        run: |
+          echo "::warning::Railway CLI could not run backup — check RAILWAY_TOKEN secret in GitHub Actions"
+          echo "## ⚠️ Backup SKIPPED — Railway CLI failed to run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Likely cause: \`RAILWAY_TOKEN\` not set in GitHub Actions secrets." >> $GITHUB_STEP_SUMMARY
+          echo "Go to: repo → Settings → Secrets → Actions → New secret" >> $GITHUB_STEP_SUMMARY
+
       - name: Alert on failure
-        if: steps.run_backup.outcome == 'failure' && steps.check_status.outputs.status != 'NOT_CONFIGURED'
+        if: steps.run_backup.outcome == 'failure' && steps.check_status.outputs.status != 'NOT_CONFIGURED' && steps.check_status.outputs.status != 'unknown'
         run: |
           echo "::error title=Volume Backup Failed::Daily backup failed at $(date -u +%Y-%m-%dT%H:%M:%SZ). Check R2 credentials and Railway logs."
           echo "## ❌ Backup FAILED" >> $GITHUB_STEP_SUMMARY

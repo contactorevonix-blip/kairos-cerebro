@@ -165,6 +165,14 @@ function clientIp(req) {
   return req.socket.remoteAddress || 'unknown';
 }
 
+const COUNTER_LAUNCH = new Date('2026-05-15T00:00:00Z').getTime();
+function counterBase() {
+  const now = Date.now();
+  const days = Math.floor((now - COUNTER_LAUNCH) / 86400000);
+  const secs = Math.floor((now % 86400000) / 1000);
+  return 180 + days * 400 + Math.floor(secs / 43);
+}
+
 const server = http.createServer(async (req, res) => {
   const isHead = req.method === 'HEAD';
   const method = isHead ? 'GET' : req.method;
@@ -849,6 +857,10 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         probes,
         timestamp: new Date().toISOString(),
       });
+      return;
+    }
+    if (method === 'GET' && url === '/api/stats/counter') {
+      sendJson(res, 200, { count: counterBase() }, { 'cache-control': 'no-store' });
       return;
     }
     if (method === 'GET' && url === '/robots.txt') {

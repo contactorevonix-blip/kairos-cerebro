@@ -2,6 +2,14 @@
 
 const { readGlobalMetrics } = require('../sniper-db');
 
+const COUNTER_LAUNCH = new Date('2026-05-15T00:00:00Z').getTime();
+function counterBase() {
+  const now = Date.now();
+  const days = Math.floor((now - COUNTER_LAUNCH) / 86400000);
+  const secs = Math.floor((now % 86400000) / 1000);
+  return 180 + days * 400 + Math.floor(secs / 43);
+}
+
 function renderLandingPage() {
   const m = readGlobalMetrics() || {};
   const rawRequests = m.verifyRequests || 0;
@@ -2391,22 +2399,12 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         { flag: '🇩🇪', domain: 'astro.build',                       verdict: 'clear',  score: 0,   ms: 97  },
       ];
 
-      // ── COUNTER — localStorage persistence, same number all day ──────────────
-      var todayKey = 'kc_count_' + new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-      var dailyBase = ${(() => {
-        const launch = new Date('2026-05-15T00:00:00Z').getTime();
-        const days = Math.floor((Date.now() - launch) / 86400000);
-        return 180 + days * 400; // grows 400/day from launch
-      })()};
-      // Restore today's count from localStorage, or start from daily base
-      var stored = localStorage.getItem(todayKey);
-      var count = stored ? parseInt(stored, 10) : dailyBase;
-      // Clear yesterday's key
-      try {
-        Object.keys(localStorage).forEach(function(k) {
-          if (k.startsWith('kc_count_') && k !== todayKey) localStorage.removeItem(k);
-        });
-      } catch(e) {}
+      // ── COUNTER — server-side, same number across all devices ────────────────
+      var count = ${counterBase()};
+      fetch('/api/stats/counter')
+        .then(function(r) { return r.json(); })
+        .then(function(d) { count = d.count; if (countEl) countEl.textContent = count + ' today'; })
+        .catch(function() {});
 
       // ── SHUFFLE — no repeats until all domains shown ───────────────────────
       function shuffle(arr) {
@@ -2443,7 +2441,6 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         entryTick++;
         if (entryTick % 11 === 0) {
           count += 1;
-          try { localStorage.setItem(todayKey, String(count)); } catch(e) {}
         }
         if (countEl) countEl.textContent = count + ' today';
 
