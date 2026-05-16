@@ -1,5 +1,140 @@
 # KAIROS — Diário de Bordo
 
+> Última actualização: 2026-05-16 | Sessão: SQUAD ELITE — 18 agentes treinados, SEO, backup R2, chat redesign, dashboard fixes
+
+---
+
+## Estado do servidor (2026-05-16)
+
+- URL: `https://kairoscheck.net`
+- Status Railway: **OPERATIONAL** ✅ (4 tenants registados)
+- Último deploy: 2026-05-16 — b1eb18e (chat widget redesign)
+- ANTHROPIC_API_KEY: configurada ✅
+- KAIROS_ADMIN_TOKEN: configurado Railway ✅ + GitHub Secrets ✅
+- RAILWAY_TOKEN: GitHub Secrets ✅
+- Cloudflare SSL: Full (não Strict)
+- Bot Fight Mode: ON
+- Backup R2: ACTIVO ✅ (02:00 UTC diário, verificado e verde)
+- Emails: security/support/hello@kairoscheck.net → ProtonMail ✅
+- Favicon: Escudo verde + K branco ✅
+- Google Search Console: 79 páginas, sitemap submetido ✅
+
+---
+
+## O que foi feito nesta sessão (2026-05-16) — SESSÃO MAIS RECENTE
+
+### INFRASTRUCTURE
+- R2 backup configurado e verde ✅
+- GitHub Actions: Node.js 20→24 em todos os workflows ✅
+- volume-backup.yml: reescrito sem Railway CLI (curl para /api/admin/backup-now) ✅
+- onboarding-emails.yml: guard para KAIROS_ADMIN_TOKEN vazio ✅
+- security.txt: email corrigido (kairos.example → security@kairoscheck.net) ✅
+- Sitemap: 11→50 domínios fraud ✅
+- Sitemap duplicado removido ✅
+
+### SEO
+- Google Search Console configurado ✅ (79 páginas)
+- Verificação Google: meta tag adicionada ✅
+- Indexação pedida para: /, /pricing, /docs, /fraud-detection-api, /compare/stripe-radar ✅
+- Schema.org pricing page corrigido (image, availability, hasMerchantReturnPolicy) ✅
+- Schema.org landing page melhorado ✅
+
+### PRODUTO
+- Counter server-side: GET /api/stats/counter (fórmula determinística) ✅
+- POST /api/admin/backup-now (endpoint, sem Railway CLI) ✅
+- Favicon: escudo verde + K branco (path SVG, sem text) ✅
+- Favicon Cloudflare cache purgado ✅
+- Pricing page reordenada: Free→Starter→Growth→Pro→Scale ✅
+- Dashboard cliente — 3 bugs corrigidos:
+  - Copy key: copia key real (não preview mascarada) ✅
+  - Upgrade button: Scale/Enterprise → "Manage billing" ✅
+  - manageBilling(): abre portal Stripe ✅
+
+### CHAT WIDGET
+- Redesign completo: header com status dot pulsante ✅
+- Largura 340→360px, bubble 52→56px ✅
+- Campo de API key removido (confuso) ✅
+- Welcome message que qualifica visitante ✅
+- Placeholder: "What are you building? Describe your fraud problem." ✅
+
+### EQUIPA (18 AGENTES)
+- MEMORY.md elite criado/actualizado para TODOS os 18 agentes ✅
+- apex_ceo: General com responsabilidade total, mandato de Pedro ✅
+- Matriz de autoridade completa sem conflitos ✅
+- Anti-patterns históricos documentados ✅
+
+### COMMITS DESTA SESSÃO
+- 90f3506 — counter server-side + fix Actions
+- 0db5895 — volume-backup CLI fix
+- 95a45f8 — backup alert only on FAILED status
+- ac48d5e — backup via API endpoint
+- 9d0fb43 — sitemap 50 domínios + Node.js 24
+- 2d54262 — remove sitemap duplicado
+- f785f80 — Google Search Console meta tag
+- 0e66abe — schema.org fixes
+- 3b9be6e — favicon todos os ficheiros HTML
+- 96d8e59 — favicon opção B
+- 430411f — favicon K como path
+- 7d3608a — favicon rect+polygon
+- 3d3c8c9 — favicon escudo + K final
+- 720405d — favicon cache 1h
+- 06de9b0 — security.txt email fix
+- 9a08b37 — elite training 6 agentes + pricing reordenada
+- edd4c82 — elite training 12 agentes restantes
+- a3aa6ab — dashboard cliente 3 bugs
+- b1eb18e — chat widget redesign ✅ (ÚLTIMO)
+
+---
+
+## PLANO COMPLETO — PRÓXIMA SESSÃO
+
+### apex_ceo em comando. Pedro só verifica resultado final.
+
+### FASE 0 — BUGS E FIXES (CONTINUAR)
+- [ ] Chat system prompt — melhorar conversão (agent_copywriter já briefado)
+- [ ] Rate limit UX — mensagem clara quando limite atingido
+- [ ] Error messages — humanizar todos os catch blocks
+- [ ] OG image — /og.svg para partilha social (1200x630)
+
+### FASE 1 — FUNIL CONVERSÃO
+- [ ] Landing page copy audit (agent_copywriter + agent_psycho)
+- [ ] Free → Paid email (após 50 checks esgotados)
+- [ ] Checkout flow test end-to-end
+
+### FASE 2 — PRODUTO
+- [ ] Dashboard CEO — métricas reais (MRR, clientes, checks, conversão)
+- [ ] Docs — completar e verificar todas as 8 páginas
+- [ ] Onboarding — email se 0 checks em 48h
+
+### FASE 3 — /SEARCH B2C
+- [ ] /search página pública (pesquisa de domínios)
+- [ ] POST /api/complaints (reclamações sobre domínios)
+- [ ] SEO 50→500 domínios no sitemap
+
+### FASE 4 — CRESCIMENTO (PEDRO FAZ)
+- [ ] Product Hunt launch — terça 08:01 Lisboa
+- [ ] Chrome Web Store ($5 Google Developer)
+- [ ] npm publish kairos-check-node
+
+---
+
+## Pedro tem de fazer (curto prazo)
+1. Product Hunt — terça-feira 08:01 Lisboa (30 min)
+2. Chrome Web Store — criar conta Developer ($5) + submeter extensão (30 min)
+3. X outreach — 2 posts/dia (agent_growth prepara o copy, Pedro só publica)
+
+## Nota importante
+- Referral: 500t referrer + 500t novo utilizador (CONFIRMADO no código)
+- Token packs: €5/100t · €15/380t · €50/1500t (CONFIRMADO por Pedro)
+- Vault: não inicializado — não crítico, produto funciona sem vault
+- Audit chain: 0 entradas — normal após deploy limpo, cresce automaticamente
+
+---
+
+## Para a próxima sessão
+Diz: **"lê o daily brief e diz-me o estado"**
+apex_ceo toma comando, verifica servidor, apresenta próximas acções.
+
 > Última actualização: 2026-05-15 | Sessão: MEGA SPRINT — 15+ features + chat AI + token economy + key rotation
 
 ---
@@ -117,16 +252,18 @@
 
 ## Pedro tem de fazer (URGENTE — PRÓXIMA SESSÃO)
 
-### 🔴 Esta semana — Stripe (30 min total)
-1. **Criar Growth tier no Stripe** → €59/mês → copiar price ID → Railway: `STRIPE_PRICE_GROWTH`
-2. **Criar Token Pack 100** → one-time €5 → Railway: `STRIPE_PRICE_TOKENS_100`
-3. **Criar Token Pack 380** → one-time €15 → Railway: `STRIPE_PRICE_TOKENS_380`
-4. **Criar Token Pack 1500** → one-time €50 → Railway: `STRIPE_PRICE_TOKENS_1500`
-5. **Aplicar ao Stripe Issuing** → dashboard.stripe.com → Issuing → Apply (Kairos Card futuro)
+### ✅ FEITO (2026-05-16) — confirmado por Pedro
+1. ~~Criar Growth tier no Stripe~~ ✅
+2. ~~Criar Token Pack 100~~ ✅
+3. ~~Criar Token Pack 380~~ ✅
+4. ~~Criar Token Pack 1500~~ ✅
+5. ~~Rodar webhook secret no Stripe~~ ✅
+6. ~~Testar pagamento real €29~~ ✅
 
-### 🟡 Já feito hoje — confirmar funcionamento
-- ANTHROPIC_API_KEY: ✅ configurada — chat activo
-- KAIROS_ADMIN_TOKEN: confirmar que está a bloquear /dashboard
+### 🟡 Ainda por fazer (Pedro)
+- **Aplicar ao Stripe Issuing** → dashboard.stripe.com → Issuing → Apply (Kairos Card futuro)
+- **Chrome Web Store** — submeter extensão (requer conta Google Developer $5)
+- **Outreach** — 2 devs/dia no X ou Indie Hackers
 
 ## Pedro tem de fazer (histórico — URGENTE — SEM SQUAD PODER FAZER)
 
