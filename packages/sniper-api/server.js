@@ -919,7 +919,7 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
     }
     if (method === 'GET' && (url === '/favicon.ico' || url === '/favicon.svg')) {
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 2L3 7v11q0 8 13 13q13-5 13-13V7Z" fill="#00d97e"/><rect x="9" y="9" width="4.5" height="14" fill="#fff"/><polygon points="13.5,16 23,9.5 23,13.5 15,19" fill="#fff"/><polygon points="13.5,16 23,22.5 23,18.5 15,13" fill="#fff"/></svg>`;
-      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=604800' });
+      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=3600' });
       res.end(svg);
       return;
     }
