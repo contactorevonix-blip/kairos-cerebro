@@ -1,5 +1,14 @@
 # KAIROS — .gitignore
 
+# Imagens temporárias — nunca entram no repo
+audit_*.png
+audit_*.jpg
+screenshot_*.png
+kairos_thumbnail*.png
+s[123]_candidate*.jpg
+S[123]_*.png
+ph_s*.png
+
 # Runtime data (never commit)
 .kairos-data/
 *.log

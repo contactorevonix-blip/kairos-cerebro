@@ -1,5 +1,91 @@
 # KAIROS — Diário de Bordo
 
+> Última actualização: 2026-05-16 | Sessão: SESSÃO FINAL DO DIA — Product Hunt prep completo, Twitter/Composio, onboarding nudge, ROI fix
+
+---
+
+## Estado do servidor (2026-05-16) — SESSÃO FINAL DO DIA
+
+- URL: https://kairoscheck.net
+- Status Railway: OPERATIONAL ✅ (4 tenants registados)
+- Último commit: 5c8374b
+- Todos os sistemas operacionais ✅
+
+---
+
+## COMMITS DESTA SESSÃO (2026-05-16)
+
+- a6e98ad — chat: qualify-first system prompt + rate limit CTA card
+- d28c14b — email free→paid automático ao esgotar 50 tokens
+- 3ed7b76 — OG image 1200×630 PNG puro Node.js
+- 705fae0 — dashboard CEO /api/admin/metrics (MRR, clientes, verificações)
+- 1bafa51 — landing page: 8 mudanças de copy de conversão
+- 5332d1e — fix tokens→fraud checks (3 issues críticos do QA gate)
+- 5c8374b — onboarding nudge email 48h + ROI calculator fix
+
+---
+
+## ESTADO DOS ASSETS PRODUCT HUNT
+
+- Thumbnail 240×240: script em packages/sniper-api/generate-thumbnail.js — Pedro corre: node packages/sniper-api/generate-thumbnail.js
+- Screenshot S2 (Como funciona): aprovado por Quinn — Design ID Canva: DAHJ2tkEiVM
+- Screenshot S3 (Pricing): aprovado por apex_ceo — Design ID Canva: DAHJ2_Qy5dA
+- Screenshot S1 (Hero): PENDENTE — Pedro tira screenshot de kairoscheck.net (hero section) com Windows+Shift+S
+- Kit Product Hunt completo: tagline, descrição, primeiro comentário — pronto na sessão
+
+---
+
+## TWITTER/COMPOSIO
+
+- App Twitter criada no X Developer Portal ✅
+- Integração Composio configurada (Integration ID: 7ecab845-ace3-4cc8-8b23-5cdcf206ce07) ✅
+- Conta Pedro conectada via OAuth ✅
+- BLOQUEIO: Twitter API de posting custa $100/mês (plano Basic) — não vale para 2 tweets
+- DECISÃO: Pedro posta manualmente os 2 tweets de Morgan na segunda e terça — 30 segundos cada
+- Tweets escritos por Morgan: prontos na sessão anterior
+
+---
+
+## PEDRO TEM DE FAZER (URGENTE ANTES DE TERÇA)
+
+1. **Gerar thumbnail** — corre no terminal: `node "C:\Users\lealp\KAIROS_CEREBRO\packages\sniper-api\generate-thumbnail.js"`
+2. **Screenshot S1** — abre kairoscheck.net → Windows+Shift+S → captura a secção hero
+3. **Screenshot S2** — captura a secção "How it works"
+4. **Screenshot S3** — abre kairoscheck.net/pricing → captura os cards de preços
+5. **Product Hunt draft** — segunda à noite, usar o kit do Morgan
+6. **Publicar** — terça 08:01 Lisboa
+7. **Post X segunda** — copiar o tweet teaser do Morgan e publicar
+8. **Post X terça** — copiar o tweet de lançamento com link PH
+
+---
+
+## ESTRUTURA DA EQUIPA (GRAVADA EM MEMÓRIA)
+
+18 agentes activos. Estrutura em: C:\Users\lealp\.claude\projects\C--Users-lealp\memory\project_kairos_team_structure.md
+
+Regra absoluta: apex_ceo decide e delega, NUNCA executa.
+Auditoria de fim de fase: target 0 violações.
+
+---
+
+## PRÓXIMA SESSÃO — PRIORIDADES
+
+1. Auditoria 0 violações (apex_ceo segue o plano)
+2. Landing page copy — melhorias adicionais do funil
+3. Dashboard CEO — interface visual para Pedro ver métricas
+4. SEO — 50→500 domínios no sitemap
+5. /search — página pública de pesquisa de domínios
+6. Post-Product Hunt — seguir plano 7 dias de Morgan
+
+---
+
+## PARA A PRÓXIMA SESSÃO
+
+Diz: **"lê o daily brief e diz-me o estado"**
+apex_ceo toma comando, lê tudo, apresenta briefing em 3 blocos, e trabalha.
+
+---
+
 > Última actualização: 2026-05-16 | Sessão: SQUAD ELITE — 18 agentes treinados, SEO, backup R2, chat redesign, dashboard fixes
 
 ---
