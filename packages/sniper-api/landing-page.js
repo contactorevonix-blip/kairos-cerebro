@@ -28,6 +28,7 @@ function renderLandingPage() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check — Fraud detection API for indie devs</title>
   <meta name="description" content="OSINT-first fraud scoring API. Detect fraudulent domains, emails, phones and IBANs in one POST. Self-serve. GDPR-native. Starts at €29/month.">
+  <meta name="google-site-verification" content="nCjdjDcmV2nGgnFjW2kCgYbuu1c1staJrmT0iikkaw4">
   <link rel="canonical" href="https://kairoscheck.net/">
 
   <!-- Open Graph -->
