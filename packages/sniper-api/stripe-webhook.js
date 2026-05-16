@@ -120,6 +120,17 @@ function markKeyUpgradeEmailSent(apiKeyHash) {
   fs.renameSync(tmp, KEYS_FILE);
 }
 
+function markKeyNudgeSent(apiKeyHash) {
+  ensureDir();
+  const keys = readKeys();
+  const updated = keys.map((k) =>
+    k.api_key_hash === apiKeyHash ? { ...k, nudge_sent_at: new Date().toISOString() } : k,
+  );
+  const tmp = `${KEYS_FILE}.${process.pid}.${Date.now()}.tmp`;
+  fs.writeFileSync(tmp, updated.map((r) => JSON.stringify(r)).join('\n') + '\n', 'utf8');
+  fs.renameSync(tmp, KEYS_FILE);
+}
+
 // ─── event handlers ───────────────────────────────────────────────────────────
 
 async function handleCheckoutCompleted(stripe, session) {
@@ -435,4 +446,4 @@ function isKeyActive(record) {
   return false;
 }
 
-module.exports = { handleWebhook, claimPendingKey, readKeys, findKeyBySubscription, rotateKey, isKeyActive, markKeyUpgradeEmailSent, QUOTA };
+module.exports = { handleWebhook, claimPendingKey, readKeys, findKeyBySubscription, rotateKey, isKeyActive, markKeyUpgradeEmailSent, markKeyNudgeSent, QUOTA };

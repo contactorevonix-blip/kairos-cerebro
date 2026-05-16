@@ -2507,8 +2507,8 @@ KC_API_KEY = <span style="color:#fbbf24">"kc_live_your_key_here"</span>
         var cbs = parseInt(cbEl.value) || 0;
         if (ratePctEl) ratePctEl.textContent = rate.toFixed(1) + '%';
         var loss = rev * (rate / 100) + cbs * 75;
-        var kairosCost = rev < 5000 ? 29 : rev < 20000 ? 79 : 199;
-        var plan = kairosCost === 29 ? 'Starter — 5,000 checks/month' : kairosCost === 79 ? 'Pro — 25,000 checks/month' : 'Scale — unlimited';
+        var kairosCost = rev < 5000 ? 29 : rev < 15000 ? 59 : 99;
+        var plan = kairosCost === 29 ? 'Starter — 150 checks/month' : kairosCost === 59 ? 'Growth — 500 checks/month' : 'Pro — 1,500 checks/month';
         var sav = Math.max(0, loss * 0.87 - kairosCost);
         var roi = kairosCost > 0 ? Math.round((sav / kairosCost) * 100) : 0;
         var pbDays = loss > 0 ? Math.max(1, Math.round(kairosCost / (loss / 30))) : 0;

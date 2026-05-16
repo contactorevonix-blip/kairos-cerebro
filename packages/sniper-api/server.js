@@ -9,9 +9,9 @@ const { handleVerifyRequest, logEvent, handleBatchVerifyRequest } = require('./a
 const { renderLandingPage, renderDashboard } = require('./ui');
 const { renderPricingPage } = require('./pricing-page');
 const { createCheckoutSession, createTopupSession, TOKEN_PACKS } = require('./stripe-checkout');
-const { handleWebhook, readKeys, rotateKey, isKeyActive } = require('./stripe-webhook');
+const { handleWebhook, readKeys, rotateKey, isKeyActive, markKeyNudgeSent } = require('./stripe-webhook');
 const { handleChat } = require('./chat-handler');
-const { sendFollowupEmail } = require('./email-sender');
+const { sendFollowupEmail, sendNudgeEmail } = require('./email-sender');
 const { renderAccountPage } = require('./account-page');
 const { renderEnterprisePage } = require('./enterprise-page');
 const { handleSuccess } = require('./success-page');
@@ -1362,6 +1362,48 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 });
 
 setInterval(purgeStale, 300_000).unref();
+
+// ─── ONBOARDING NUDGE SCHEDULER — runs every 6h ───────────────────────────────
+// Finds tenants registered >48h ago with 0 checks and no nudge sent yet.
+setInterval(() => {
+  try {
+    const nowMs = Date.now();
+    const fortyEightHoursMs = 48 * 60 * 60 * 1000;
+    const dbDir = process.env.KAIROS_DB_DIR || pathModule.join(process.cwd(), '.kairos-data');
+    const vFile = pathModule.join(dbDir, 'verifications.jsonl');
+
+    const candidates = readKeys().filter((k) =>
+      k.status === 'active' &&
+      k.email &&
+      k.created_at &&
+      (nowMs - new Date(k.created_at).getTime()) > fortyEightHoursMs &&
+      !k.nudge_sent_at,
+    );
+
+    if (candidates.length === 0) return;
+
+    // Count verifications per tenantId
+    let verLines = [];
+    try {
+      if (fsModule.existsSync(vFile)) {
+        verLines = fsModule.readFileSync(vFile, 'utf8').split('\n').filter(Boolean);
+      }
+    } catch { /* non-fatal */ }
+
+    for (const k of candidates) {
+      try {
+        const tenantId = k.tenant_id || k.customer_id || k.api_key_hash;
+        const count = verLines.filter((line) => {
+          try { return JSON.parse(line).tenantId === tenantId; } catch { return false; }
+        }).length;
+        if (count === 0) {
+          markKeyNudgeSent(k.api_key_hash);
+          sendNudgeEmail({ toEmail: k.email }).catch(() => {});
+        }
+      } catch { /* non-fatal per-key */ }
+    }
+  } catch { /* non-fatal scheduler */ }
+}, 6 * 60 * 60 * 1000).unref();
 
 // Graph aggregator — hourly background worker (graceful if unavailable)
 try {
