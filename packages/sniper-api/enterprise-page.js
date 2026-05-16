@@ -5,7 +5,9 @@ function renderEnterprisePage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check Enterprise — Dedicated Fraud Intelligence</title>
   <meta name="description" content="Kairos Check Enterprise: dedicated reputation graph, custom fraud patterns, SLA 99.9%, team seats, SOC2 report. From €800/month. Self-serve.">
   <link rel="canonical" href="${base}/enterprise">

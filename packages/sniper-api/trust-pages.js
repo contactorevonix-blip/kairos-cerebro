@@ -96,6 +96,8 @@ function renderStatus() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Status — Kairos Check</title>
   <meta name="description" content="Live status of Kairos Check API and infrastructure.">
@@ -281,6 +283,8 @@ function renderChangelog() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Changelog — Kairos Check</title>
   <meta name="description" content="What's new in Kairos Check. Latest features, fixes and improvements.">
@@ -463,6 +467,8 @@ function renderExamples() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Examples — Kairos Check</title>
   <meta name="description" content="Code examples for integrating Kairos Check fraud detection into Shopify, Stripe, Supabase, and more.">
@@ -519,6 +525,8 @@ function renderCompareStripeRadar() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check vs Stripe Radar — Fraud Detection Comparison</title>
   <meta name="description" content="Kairos Check vs Stripe Radar: feature comparison, pricing, and when to use each. Kairos works outside Stripe with OSINT signals and GDPR audit trails.">
@@ -648,6 +656,8 @@ function renderCompareSift() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check vs Sift — Fraud Detection for Indie Devs</title>
   <meta name="description" content="Kairos Check vs Sift: pricing, features, and when each makes sense. Sift starts at $500/month. Kairos Check is €29/month, self-serve, no contract.">
@@ -782,7 +792,9 @@ function renderCompareSeon() {
   const shell = (content) => `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check vs SEON — Fraud API Comparison for Developers</title>
   <meta name="description" content="SEON starts at €499/month and requires an SDK. Kairos Check is €29/month, one REST call, zero dependencies, GDPR Art.22 native. Compare features.">
   <link rel="canonical" href="https://kairoscheck.net/compare/seon">
@@ -892,7 +904,9 @@ function renderCompareMaxmind() {
   const shell = (content) => `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kairos Check vs MaxMind — Fraud Detection API Comparison</title>
   <meta name="description" content="MaxMind requires a 2GB database download and weekly updates. Kairos Check is one POST call, zero maintenance, GDPR-native. Compare for indie devs.">
   <link rel="canonical" href="https://kairoscheck.net/compare/maxmind">
@@ -1005,7 +1019,9 @@ function renderFraudDetectionApi() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fraud Detection API for Developers — Kairos Check</title>
   <meta name="description" content="The simplest fraud detection API for indie devs. One POST call. Zero dependencies. Detects domain fraud, disposable emails, phone fraud, IBAN fraud. GDPR-native. Starts free.">
   <link rel="canonical" href="${base}/fraud-detection-api">

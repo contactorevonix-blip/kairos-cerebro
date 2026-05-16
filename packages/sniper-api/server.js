@@ -237,6 +237,8 @@ const server = http.createServer(async (req, res) => {
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <title>Fraud Score for ${domain} — Kairos Check</title>
   <meta name="description" content="Is ${domain} safe? Kairos Check fraud score: ${result.score}/100 — ${verdict}. Powered by OSINT-first fraud intelligence.">
   <link rel="canonical" href="${base}/check/${domain}">
@@ -913,6 +915,12 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
     }
     if (method === 'GET' && url === '/api/stats/counter') {
       sendJson(res, 200, { count: counterBase() }, { 'cache-control': 'no-store' });
+      return;
+    }
+    if (method === 'GET' && (url === '/favicon.ico' || url === '/favicon.svg')) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22"><path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e"/><path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      res.writeHead(200, { ...SECURITY_HEADERS, 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=604800' });
+      res.end(svg);
       return;
     }
     if (method === 'GET' && url === '/robots.txt') {

@@ -78,6 +78,8 @@ function renderPrivacy() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Kairos Check</title>
   <meta name="description" content="Kairos Check Privacy Policy. How we collect, use, and protect your data. GDPR-compliant, EU-hosted.">
@@ -183,6 +185,8 @@ function renderTerms() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — Kairos Check</title>
   <meta name="description" content="Kairos Check Terms of Service. API usage, billing, cancellation, and liability terms. Governed by Portuguese law.">

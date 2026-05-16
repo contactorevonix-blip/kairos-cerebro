@@ -6,6 +6,8 @@ function renderPricingPage() {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing — Kairos Check</title>
   <meta name="description" content="Fraud detection API for indie devs and solo founders. Free tier included. Starter from €29/month. No contract. Cancel anytime.">
