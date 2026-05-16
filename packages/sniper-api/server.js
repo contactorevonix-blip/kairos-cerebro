@@ -571,6 +571,26 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       return;
     }
 
+    // ─── Manual backup trigger ────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/admin/backup-now') {
+      if (!checkAdminAuth(req)) { sendJson(res, 401, { error: 'unauthorized' }); return; }
+      const { execFile } = require('child_process');
+      const { promisify } = require('util');
+      const execFileAsync = promisify(execFile);
+      const backupScript = pathModule.join(process.cwd(), 'bin', 'backup-volume.js');
+      try {
+        const { stdout } = await execFileAsync(process.execPath, [backupScript], { timeout: 300_000, maxBuffer: 1_000_000 });
+        let result = {};
+        try { result = JSON.parse(stdout.trim().split('\n').pop()); } catch {}
+        sendJson(res, 200, { ok: true, ...result });
+      } catch (err) {
+        let result = {};
+        try { result = JSON.parse((err.stdout || '').trim().split('\n').pop()); } catch {}
+        sendJson(res, 500, { ok: false, error: err.message.slice(0, 200), ...result });
+      }
+      return;
+    }
+
     // ─── Onboarding follow-up emails ──────────────────────────────────────────
     if (method === 'POST' && url === '/api/admin/send-followups') {
       if (!checkAdminAuth(req)) { sendJson(res, 401, { error: 'unauthorized' }); return; }
