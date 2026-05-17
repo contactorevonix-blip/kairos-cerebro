@@ -52,10 +52,13 @@
 - [x] shadcn init completo (button, card, badge)
 - [x] globals.css sem imports quebrados
 
-## Bloqueio: Screenshot local
-- Dev server não inicia em contexto CI
-- **Pedro verifica visualmente após deploy em https://kairoscheck.net**
-- Build passou → código está correcto
+## Screenshot Produção — CORRIGIDO
+
+Screenshot tirado após deploy em produção:
+- Ficheiro: `.ai/design-ref/kairos-fase1-producao.png`
+- URL: https://kairoscheck.net
+- Resultado visual: Hero com dark background, headline "Stop fraud before it touches your revenue", terminal animado, verde #00d97e ✅
+- **REGRA APRENDIDA:** Sempre usar URL produção para screenshots. Nunca localhost.
 
 ---
 
