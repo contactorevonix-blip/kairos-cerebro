@@ -31,8 +31,8 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Design sem dados de refer�
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — agent files + arsenal prontos
-- FASE 2: 🔄 A SEGUIR — disseco vercel.com + linear.app com agent-browser, defino spec para @Dex
-- Stack frontend: Next.js 16.2.6 + TypeScript + Tailwind + **shadcn/ui (instalar FASE 2)** + **framer-motion (instalar FASE 2)**
+- FASE 1: 🔄 A SEGUIR — disseco vercel.com + linear.app com agent-browser, defino spec para @Dex
+- Stack frontend: Next.js 16.2.6 + TypeScript + Tailwind + **shadcn/ui (instalar FASE 1)** + **framer-motion (instalar FASE 1)**
 **Componentes existentes:** Nav, Hero, ActivityFeed, HowItWorks, Compare, Integration, SocialProof, FAQ, Footer, ChatWidget
 
 ---

@@ -34,7 +34,7 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Somos um produto anti-frau
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — security agent file + arsenal activo
-- FASE 2: 🔄 A SEGUIR — validar que upgrade visual não introduz vulnerabilidades XSS/CSP
+- FASE 1: 🔄 A SEGUIR — validar que upgrade visual não introduz vulnerabilidades XSS/CSP
 - Vault: não inicializado (não crítico) | Audit trail: 0 entradas (normal) | Testes: 214/214
 
 **ICP:** Indie devs e solo founders | kairoscheck.net | GDPR-native

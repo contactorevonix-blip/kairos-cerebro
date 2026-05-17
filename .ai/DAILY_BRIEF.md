@@ -30,7 +30,7 @@ git push origin main
 
 ---
 
-## PRÓXIMA SESSÃO — FASE 2: SITE BILIONÁRIO
+## PRÓXIMA SESSÃO — FASE 1: SITE BILIONÁRIO
 
 ### PROTOCOLO OBRIGATÓRIO DE INÍCIO (APEX_CEO lê tudo)
 1. `CLAUDE.md` → regras, mandato, skills
@@ -40,7 +40,7 @@ git push origin main
 5. `.ai/audits/2026-05-17-phase0-agent-files.md` → última auditoria
 6. Todos os 8 agent files → estado de cada agente
 
-### FASE 2 — PLANO EXACTO (sem desvios)
+### FASE 1 — PLANO EXACTO (sem desvios)
 
 ```
 PASSO 1 — @Gage (PRIMEIRO — commita FASE 0)

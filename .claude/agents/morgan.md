@@ -28,7 +28,8 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Crescimento sem estratégi
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — arsenal de skills activo
-- FASE 2: 🔄 A SEGUIR — site bilionário (mais conversão após redesign)
+- FASE 1: 🔄 A SEGUIR — site bilionário (mais conversão após redesign)
+- FASE 2: 🔄 A SEGUIR — pesquisar skills em falta (paralelo com FASE 1)
 - Product Hunt: URGENTE — lançamento terça 08:01 Lisboa (Pedro faz)
 
 **Estado growth:**

@@ -26,7 +26,7 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Quinn é o guardião da qu
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — auditoria completa, 0 HIGH issues
-- FASE 2: 🔄 A SEGUIR — validar upgrade visual (screenshots before/after obrigatórios)
+- FASE 1: 🔄 A SEGUIR — validar upgrade visual (screenshots before/after obrigatórios)
 - Testes: **214**/214 pass | Produção: OPERATIONAL
 - Regra nova: `.claude/rules/pre-commit-protocol.md` — ler SEMPRE antes de qualquer sign-off
 

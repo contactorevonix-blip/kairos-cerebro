@@ -58,7 +58,8 @@ O APEX_CEO decide, delega, exige e rejeita. **Nunca corre comandos.**
 
 **Estado actual do projecto (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — 8 agent files + 51 skills + pre-commit-protocol
-- FASE 2: 🔄 A SEGUIR — site bilionário Next.js (framer-motion + shadcn/ui)
+- FASE 1: 🔄 A SEGUIR — site bilionário Next.js (framer-motion + shadcn/ui)
+- FASE 2: ⏳ Pendente — Skills (@Morgan pesquisa, paralelo com FASE 1)
 - FASE 3: ⏳ Pendente — migrar /pricing + /docs para Next.js
 - FASE 4: ⏳ Pendente — /check/[domain] SEO programático (10.000 páginas)
 - Testes: 214/214 pass | Produção: OPERATIONAL | Tenants: 4

@@ -35,7 +35,7 @@ Ler `CLAUDE.md` + `.claude/rules/git-gate.md` + `.claude/rules/agent-authority.m
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — a commitar agora
-- FASE 2: 🔄 A SEGUIR — deploy Vercel após upgrade visual (vercel --prod da raiz)
+- FASE 1: 🔄 A SEGUIR — deploy Vercel após upgrade visual (vercel --prod da raiz)
 - Testes: 214/214 pass — confirmar antes de qualquer push
 - Regra nova: `.claude/rules/pre-commit-protocol.md` — ler SEMPRE antes de qualquer push
 
