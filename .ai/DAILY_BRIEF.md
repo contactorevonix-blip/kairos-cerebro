@@ -1,5 +1,47 @@
 # KAIROS — Diário de Bordo
 
+## PLANO AMANHÃ — SESSÃO BILIONÁRIA (2026-05-18)
+
+Pedro deu liberdade total. Equipa de 8 agentes com agent files + site ao nível Vercel/Linear.
+
+### FASE 0 — Equipa completa (primeira coisa)
+@Gage cria os 8 agent files em `.claude/agents/`:
+- APEX_CEO.md — liderança, delegação, never executes
+- aria.md — arquitectura, ADRs, Next.js
+- dex.md — código, builds, never pushes
+- quinn.md — QA, screenshots, bloqueia se falhar
+- gage.md — ÚNICO que faz git push + vercel --prod
+- uma.md — design + copy, disseca sites de referência
+- morgan.md — PM + growth + SEO
+- security.md — vault, GDPR, auditoria
+
+### FASE 1 — Site bilionário
+1. @Uma abre vercel.com + linear.app com agent-browser — disseca tipografia, animações, espaçamentos
+2. @Dex instala framer-motion + shadcn/ui em packages/web
+3. @Aria valida arquitectura de componentes
+4. @Dex implementa com Framer Motion baseado na análise da Uma
+5. @Quinn valida com screenshots lado a lado vs Vercel/Linear
+6. @Gage deploy: cd KAIROS_CEREBRO && vercel --prod
+
+### FASE 2 — Skills (paralelo com Fase 1)
+@Morgan pesquisa skills em falta para os 8 agentes. Liberdade total para instalar o que for melhor.
+
+### REGRAS QUE NÃO QUEBRAM AMANHÃ
+- APEX_CEO nunca executa. Zero excepções.
+- @Gage é o ÚNICO que faz git push e vercel --prod
+- @Quinn valida SEMPRE antes de qualquer deploy
+- Deploy via CLI da raiz: cd KAIROS_CEREBRO && vercel --prod
+- Email git: contacto.revonix@gmail.com
+
+### ESTADO ACTUAL (deixado por esta sessão)
+- Next.js 16.2.6 em produção no Vercel (kairoscheck.net)
+- 8 agentes definidos, skills instaladas
+- Permissões alargadas: npm install/run, npx, node, vercel, git rm/branch/checkout
+- Repositório limpo: 9 PNGs e pastas vazias removidas
+- 8 skills custom criadas: kairos-apex-leadership, kairos-copywriter, kairos-growth, kairos-seo, kairos-psycho, kairos-po, kairos-sm, kairos-data
+
+---
+
 ## 8 SKILLS CUSTOM CRIADAS — 2026-05-17
 
 Criadas via skill-creator e activas em ~/.claude/skills/:
