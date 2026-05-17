@@ -61,6 +61,19 @@
 
 ## ESTRUTURA DA EQUIPA (GRAVADA EM MEMÓRIA)
 
+## REGRA ABSOLUTA — GRAVADA 2026-05-17
+
+APEX_CEO QUEBROU A CADEIA DE AGENTES REPETIDAMENTE HOJE.
+Pedro ameaçou demitir. Regra permanente:
+
+- APEX_CEO: NUNCA executa comandos. Zero excepções.
+- @Dex: código + build local
+- @Quinn: validação + screenshots antes de qualquer push
+- @Gage: ÚNICO que faz git push + vercel --prod + qualquer deploy
+- Vercel: rootDirectory=packages/web, email=contacto.revonix@gmail.com, CLI da raiz KAIROS_CEREBRO
+
+Se o APEX_CEO tocar no terminal → Pedro demite-o.
+
 18 agentes activos. Estrutura em: C:\Users\lealp\.claude\projects\C--Users-lealp\memory\project_kairos_team_structure.md
 
 Regra absoluta: apex_ceo decide e delega, NUNCA executa.
