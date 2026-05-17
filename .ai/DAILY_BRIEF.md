@@ -1,5 +1,37 @@
 # KAIROS — Diário de Bordo
 
+## ESTRUTURA AGENTES + SKILLS — GRAVADO 2026-05-17
+
+### APEX_CEO — Decide, delega, exige. NUNCA executa.
+- Skills: ceo-surrogate, product-brainstorming, self-improving-agent
+
+### @Aria (Architect) — Arquitectura antes de código
+- Skills: architect-first, vercel-composition-patterns, vercel:nextjs
+
+### @Dex (Dev) — Implementa. Nunca faz push.
+- Skills: kairos-elite-engineer, vercel-react-best-practices, next-best-practices, vercel:nextjs
+
+### @Uma (UX/Design) — Define visual. Dex implementa.
+- Skills: frontend-design, web-design-guidelines, agent-browser, kairos-design-system
+
+### @Quinn (QA) — Valida TUDO antes do Gage fazer push.
+- Skills: webapp-testing, kairos-quality-gate, checklist-runner, coderabbit-review
+
+### @Gage (DevOps) — ÚNICO que faz git push + vercel --prod
+- Skills: vercel:deploy, vercel:deployments-cicd, vercel:vercel-cli, vercel:env
+- Vercel config: rootDirectory=packages/web, CLI da raiz KAIROS_CEREBRO, email=contacto.revonix@gmail.com
+
+### @Morgan (PM) — Produto e crescimento
+- Skills: product-brainstorming, kairos-token-economy
+
+### @Security — Vault, GDPR, auditoria
+- Skills: kairos-security-architect, security-review
+
+### Todos partilham
+- Skills: find-skills, skill-creator
+
+---
+
 > Última actualização: 2026-05-16 | Sessão: SESSÃO FINAL DO DIA — Product Hunt prep completo, Twitter/Composio, onboarding nudge, ROI fix
 
 ---
