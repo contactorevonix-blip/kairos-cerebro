@@ -114,6 +114,20 @@ curl https://kairoscheck.net/health
 
 ---
 
+## PRE-FLIGHT DEPLOY — OBRIGATÓRIO ANTES DE vercel --prod
+
+```
+[ ] packages/web/.vercel/project.json existe?
+    NÃO → PARAR. Alertar Pedro. Fazer npx vercel link primeiro.
+    SIM → confirmar que projectId corresponde ao projecto com kairoscheck.net
+
+[ ] npx vercel domains ls → kairoscheck.net aparece na lista?
+    NÃO → PARAR. Pedro tem de ligar o domínio no Dashboard Vercel.
+    SIM → deploy autorizado.
+```
+
+**Nunca fazer deploy sem confirmar que o domínio está ligado.**
+
 ## Regras Absolutas
 
 1. **Zero deploys sem @Quinn ter aprovado** — sem excepção, sem pressão de tempo

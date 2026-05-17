@@ -70,4 +70,25 @@ node -e "require('framer-motion')" && echo "framer-motion OK" || echo "não inst
 
 ---
 
-*Promovido via self-improving-agent | 2026-05-17 | 6 erros → 6 regras*
+## VERCEL DEPLOY — REGRA CRÍTICA
+
+**ANTES de qualquer `npx vercel --prod`, verificar:**
+
+```bash
+# 1. Confirmar que .vercel/project.json existe e tem o projecto correcto
+cat packages/web/.vercel/project.json
+
+# 2. Se não existir → NÃO fazer deploy directo
+# Pedro tem de fazer: npx vercel link (interactivo) primeiro
+# OU ir ao Vercel Dashboard → Settings → Domains → confirmar kairoscheck.net ligado
+
+# 3. Confirmar que o projecto tem kairoscheck.net como domínio
+npx vercel domains ls
+```
+
+**Se `.vercel/project.json` não existir → PARAR. Alertar Pedro. Não deployer.**
+
+Razão: sem este ficheiro, `vercel --prod` cria um projecto novo sem domínio.
+O site antigo continua a servir porque o DNS aponta para Railway, não para Vercel.
+
+*Promovido via self-improving-agent | 2026-05-17 | 6+1 erros → 7 regras*
