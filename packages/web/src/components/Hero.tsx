@@ -2,6 +2,9 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+const HeroGlobe = dynamic(() => import('./HeroGlobe'), { ssr: false });
 
 /* ── Animated verdict card ─────────────────────────────── */
 const SIGNALS = [
@@ -120,7 +123,7 @@ export default function Hero() {
       }} />
 
       <div className="relative z-10 mx-auto w-full max-w-[1100px]">
-        <div className="grid items-center gap-16 lg:grid-cols-[1fr_440px]">
+        <div className="grid items-center gap-16 lg:grid-cols-[1fr_1fr]">
 
           {/* LEFT */}
           <motion.div
@@ -229,14 +232,23 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* RIGHT — verdict card */}
+          {/* RIGHT — 3D Globe */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
-            className="flex justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
+            className="relative flex items-center justify-center"
           >
-            <VerdictCard />
+            {/* Ambient glow */}
+            <div className="pointer-events-none absolute rounded-full"
+              style={{
+                width: 320, height: 320,
+                background: 'rgba(0,217,126,0.15)',
+                filter: 'blur(80px)',
+                top: '50%', left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }} />
+            <HeroGlobe />
           </motion.div>
 
         </div>

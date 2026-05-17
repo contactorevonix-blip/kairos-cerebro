@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { ShoppingCart, UserX, Zap, Tag, Shield, Gauge, Copy, Check } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -11,7 +12,7 @@ type Verdict = 'BLOCK' | 'REVIEW';
 
 interface Scenario {
   id:       string;
-  icon:     React.ElementType;
+  icon:     LucideIcon;
   label:    string;
   file:     string;
   verdict:  Verdict;
@@ -260,7 +261,7 @@ export default function InteractiveDemo() {
                   onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = '#0f0f0f'; }}
                   onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
                 >
-                  <Icon size={15} color={isActive ? '#00DC82' : '#333'} style={{ marginTop: 1, flexShrink: 0 }} />
+                  <Icon size={15} color={isActive ? '#00DC82' : '#333'} />
                   <div>
                     <p style={{ fontSize: 13, color: isActive ? '#fff' : '#444', transition: 'color 150ms' }}>{s.label}</p>
                     <p style={{ fontSize: 11, color: '#2a2a2a', fontFamily: 'var(--font-geist-mono)', marginTop: 2 }}>{s.file}</p>
