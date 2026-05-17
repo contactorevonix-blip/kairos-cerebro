@@ -1,5 +1,20 @@
 # KAIROS — Diário de Bordo
 
+## 8 SKILLS CUSTOM CRIADAS — 2026-05-17
+
+Criadas via skill-creator e activas em ~/.claude/skills/:
+- kairos-apex-leadership: liderança elite APEX_CEO
+- kairos-copywriter: copy conversão para devs/founders
+- kairos-growth: outreach, Product Hunt, X, Indie Hackers
+- kairos-seo: SEO programático, /check/[domain], sitemap
+- kairos-psycho: CRO, psicologia de conversão, onboarding
+- kairos-po: stories, epics, backlog KAIROS
+- kairos-sm: scrum, coordenação 18 agentes, blockers
+- kairos-data: métricas, MRR, fraud patterns, CEO dashboard
+
+Todas com self-improving-agent para aprender continuamente.
+18 agentes KAIROS completamente equipados.
+
 ## ESTRUTURA COMPLETA 18 AGENTES + SKILLS — GRAVADO 2026-05-17
 
 ### APEX_CEO — Decide, delega, exige. NUNCA executa.
