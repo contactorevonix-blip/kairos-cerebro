@@ -4,12 +4,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent:         '#00d97e',
-        'accent-hover': '#00e888',
-        bg:             '#080808',
-        'bg-elevated':  '#0f0f0f',
-        'bg-card':      '#111111',
-        // shadcn CSS variable tokens
+        // ── Kairos Design Tokens ──────────────────────────
+        kc: {
+          black:          '#000000',
+          's1':           '#0a0a0a',
+          's2':           '#111111',
+          's3':           '#1a1a1a',
+          border:         '#1f1f1f',
+          'border-light': '#2a2a2a',
+          green:          '#00DC82',
+          'green-dim':    'rgba(0,220,130,0.12)',
+          'green-border': 'rgba(0,220,130,0.18)',
+          'green-glow':   'rgba(0,220,130,0.25)',
+          'text-1':       '#ffffff',
+          'text-2':       '#888888',
+          'text-3':       '#444444',
+          red:            '#FF4444',
+          'red-dim':      'rgba(255,68,68,0.12)',
+          yellow:         '#FFB800',
+        },
+        // ── shadcn tokens (mantidos para componentes UI) ──
         border:      'hsl(var(--border) / <alpha-value>)',
         input:       'hsl(var(--input) / <alpha-value>)',
         ring:        'hsl(var(--ring) / <alpha-value>)',
@@ -31,37 +45,56 @@ module.exports = {
           DEFAULT:    'hsl(var(--destructive) / <alpha-value>)',
           foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
         },
-        popover: {
-          DEFAULT:    'hsl(var(--popover) / <alpha-value>)',
-          foreground: 'hsl(var(--popover-foreground) / <alpha-value>)',
-        },
-        card: {
-          DEFAULT:    'hsl(var(--card) / <alpha-value>)',
-          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
-        },
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
-      letterSpacing: {
-        tighter: '-0.03em',
-        tight:   '-0.02em',
+      fontSize: {
+        'hero': ['clamp(56px,8vw,96px)', { lineHeight: '1.0', letterSpacing: '-0.03em', fontWeight: '700' }],
+        'h2':   ['clamp(32px,4vw,48px)',  { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'h3':   ['24px',                  { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '600' }],
+        'body': ['15px',                  { lineHeight: '1.6', letterSpacing: '-0.01em' }],
+        'sm':   ['13px',                  { lineHeight: '1.5' }],
+        'label':['12px',                  { lineHeight: '1', letterSpacing: '0.08em', fontWeight: '500' }],
       },
       borderRadius: {
         '2xl': '16px',
         '3xl': '20px',
         '4xl': '28px',
+        'pill': '9999px',
       },
       maxWidth: {
-        content: '1100px',
+        content: '1200px',
       },
       animation: {
-        'fade-up':   'fade-up 0.55s cubic-bezier(0.16,1,0.3,1) both',
-        'fade-in':   'fade-in 0.55s cubic-bezier(0.16,1,0.3,1) both',
-        'glow':      'glow-pulse 3s ease-in-out infinite',
-        'blink':     'blink 1s step-end infinite',
-        'kc-slide':  'kc-slide 0.45s cubic-bezier(0.34,1.56,0.64,1) 1.5s both',
+        'marquee':    'marquee 20s linear infinite',
+        'glow-pulse': 'glow-pulse 2.5s ease-in-out infinite',
+        'fade-up':    'fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-in':    'fade-in 0.4s cubic-bezier(0.16,1,0.3,1) both',
+        'blink':      'blink 1s step-end infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%':   { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'glow-pulse': {
+          '0%,100%': { boxShadow: '0 0 0 0 rgba(0,220,130,0)' },
+          '50%':     { boxShadow: '0 0 20px 4px rgba(0,220,130,0.25)' },
+        },
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to:   { opacity: '1' },
+        },
+        blink: {
+          '0%,100%': { opacity: '1' },
+          '50%':     { opacity: '0' },
+        },
       },
     },
   },

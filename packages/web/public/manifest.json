@@ -1,0 +1,16 @@
+{
+  "name": "Kairos Check",
+  "short_name": "Kairos",
+  "description": "Fraud Detection API for indie devs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00DC82",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

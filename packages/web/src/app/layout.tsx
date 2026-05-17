@@ -1,44 +1,60 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { Instrument_Serif } from 'next/font/google';
 import './globals.css';
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Kairos Check — Fraud Detection API',
-  description: 'OSINT-first fraud scoring API. Detect fraudulent domains, emails, phones and IBANs in one POST. Self-serve. GDPR-native. Starts free.',
   metadataBase: new URL('https://kairoscheck.net'),
+  title: {
+    default: 'Kairos Check — Fraud Detection API for indie devs',
+    template: '%s | Kairos Check',
+  },
+  description: 'OSINT-first fraud scoring API. Detect fraudulent domains, emails, phones and IBANs in one POST. Sub-100ms. Self-serve. GDPR-native.',
+  keywords: ['fraud detection', 'fraud API', 'indie dev', 'fraud scoring', 'OSINT', 'email validation', 'IP reputation'],
+  authors: [{ name: 'Kairos Check' }],
+  creator: 'Kairos Check',
   openGraph: {
-    title: 'Kairos Check — Fraud Detection API',
-    description: 'Stop fraud before it touches your revenue. One API call, instant verdict.',
+    type: 'website',
+    locale: 'en_US',
     url: 'https://kairoscheck.net',
     siteName: 'Kairos Check',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
-    type: 'website',
+    title: 'Kairos Check — Fraud Detection API for indie devs',
+    description: 'OSINT-first fraud scoring API. Detect fraudulent domains, emails, phones and IBANs in one POST. Sub-100ms. Self-serve. GDPR-native.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kairos Check — Fraud Detection API',
-    description: 'Stop fraud before it touches your revenue.',
-    images: ['/og-image.png'],
+    description: 'Stop fraud before it ships. One API call, 40+ signals, sub-100ms.',
+    creator: '@kairoscheck',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.ico',
+    icon: '/icon',
+    apple: '/apple-icon',
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={cn(GeistSans.variable, GeistMono.variable, "font-sans", geist.variable)}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
       style={{ colorScheme: 'dark' }}
     >
-      <body className="font-sans antialiased bg-[#0a0a0a] text-[#f0f0f0]">
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>
