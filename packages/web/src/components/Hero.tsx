@@ -20,62 +20,68 @@ function VerdictCard() {
   }, []);
 
   return (
-    <div className="w-full max-w-[420px] rounded-2xl border overflow-hidden"
-      style={{ borderColor: 'rgba(255,255,255,0.08)', background: '#0a0a0a' }}>
+    /* #6 — verdict card glow wrapper */
+    <div className="relative">
+      <div className="pointer-events-none absolute -inset-4 rounded-3xl blur-3xl"
+        style={{ background: 'rgba(0,217,126,0.12)' }} />
 
-      {/* Header */}
-      <div className="flex items-center gap-1.5 border-b px-4 py-3"
-        style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 font-mono text-[11px] text-white/20">POST /api/check → 94ms</span>
-        {step >= 1 && (
-          <span className="ml-auto flex items-center gap-1">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
-            <span className="font-mono text-[10px] text-[#00d97e]/60">LIVE</span>
-          </span>
-        )}
-      </div>
+      <div className="relative w-full max-w-[420px] rounded-2xl border overflow-hidden"
+        style={{ borderColor: 'rgba(255,255,255,0.08)', background: '#0a0a0a' }}>
 
-      {/* Body */}
-      <div className="p-5 font-mono text-[13px] leading-[1.9]">
-        {step >= 1 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            className="text-white/35">{`{ "domain": "suspicious-shop.io" }`}</motion.div>
-        )}
-        {step >= 2 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
-            <div className="mb-1 text-white/20">// response</div>
-            <div className="flex items-center gap-3">
-              <span className="rounded-md px-2.5 py-0.5 text-[11px] font-black tracking-wider"
-                style={{ background: 'rgba(239,68,68,0.15)', color: '#f87171' }}>
-                BLOCK
-              </span>
-              <span className="text-white/40 text-[12px]">score: <strong className="text-white/70">94</strong> / 100</span>
-            </div>
-          </motion.div>
-        )}
-        {step >= 3 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4">
-            <div className="mb-2 text-[11px] text-white/20 uppercase tracking-widest">signals</div>
-            <div className="space-y-1">
-              {SIGNALS.slice(0, 4).map((s, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="flex items-center gap-2 text-[11.5px]">
-                  <span className="text-[#00d97e]">›</span>
-                  <span style={{ color: 'rgba(242,242,242,0.5)' }}>{s}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-        {step < 1 && (
-          <span className="inline-block h-3.5 w-1.5 animate-pulse rounded-sm bg-[#00d97e]/50" />
-        )}
+        {/* Header */}
+        <div className="flex items-center gap-1.5 border-b px-4 py-3"
+          style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          <span className="ml-3 font-mono text-[11px] text-white/20">POST /api/check → 94ms</span>
+          {step >= 1 && (
+            <span className="ml-auto flex items-center gap-1">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
+              <span className="font-mono text-[10px] text-[#00d97e]/60">LIVE</span>
+            </span>
+          )}
+        </div>
+
+        {/* Body */}
+        <div className="p-5 font-mono text-[13px] leading-[1.9]">
+          {step >= 1 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              className="text-white/35">{`{ "domain": "suspicious-shop.io" }`}</motion.div>
+          )}
+          {step >= 2 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
+              <div className="mb-1 text-white/20">// response</div>
+              <div className="flex items-center gap-3">
+                <span className="rounded-md px-2.5 py-0.5 text-[11px] font-black tracking-wider"
+                  style={{ background: 'rgba(239,68,68,0.15)', color: '#f87171' }}>
+                  BLOCK
+                </span>
+                <span className="text-white/40 text-[12px]">score: <strong className="text-white/70">94</strong> / 100</span>
+              </div>
+            </motion.div>
+          )}
+          {step >= 3 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4">
+              <div className="mb-2 text-[11px] text-white/20 uppercase tracking-widest">signals</div>
+              <div className="space-y-1">
+                {SIGNALS.slice(0, 4).map((s, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                    className="flex items-center gap-2 text-[11.5px]">
+                    <span className="text-[#00d97e]">›</span>
+                    <span style={{ color: 'rgba(242,242,242,0.5)' }}>{s}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+          {step < 1 && (
+            <span className="inline-block h-3.5 w-1.5 animate-pulse rounded-sm bg-[#00d97e]/50" />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -95,15 +101,22 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden px-6 py-24">
 
-      {/* Glow top */}
+      {/* #2 — Glow mais forte, ellipse mais larga */}
       <div className="pointer-events-none absolute inset-0 z-0" style={{
-        background: 'radial-gradient(ellipse 70% 50% at 50% -5%, rgba(0,217,126,0.1) 0%, transparent 65%)',
+        background: 'radial-gradient(ellipse 90% 60% at 50% -5%, rgba(0,217,126,0.18) 0%, transparent 65%)',
       }} />
-      {/* Grid */}
+
+      {/* #3 — Grid mais fino: 48px */}
       <div className="pointer-events-none absolute inset-0 z-0 opacity-40" style={{
         backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px)`,
-        backgroundSize: '80px 80px',
+        backgroundSize: '48px 48px',
         maskImage: 'radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 100%)',
+      }} />
+
+      {/* #1 — Noise texture overlay */}
+      <div className="pointer-events-none absolute inset-0 z-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        opacity: 0.035,
       }} />
 
       <div className="relative z-10 mx-auto w-full max-w-[1100px]">
@@ -115,9 +128,22 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
           >
-            {/* Badge */}
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
-              style={{ borderColor: 'rgba(0,217,126,0.2)', background: 'rgba(0,217,126,0.06)' }}>
+            {/* #4 — Badge com border animado conic-gradient */}
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 relative"
+              style={{ background: 'rgba(0,217,126,0.06)' }}>
+              {/* Animated conic border */}
+              <motion.div
+                className="pointer-events-none absolute inset-0 rounded-full"
+                style={{
+                  padding: 1,
+                  background: 'conic-gradient(from 0deg, rgba(0,217,126,0.6), rgba(0,217,126,0.1), rgba(0,217,126,0.6))',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+              />
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
               <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#00d97e]/75">
                 OSINT-first · GDPR-native · Free to start
@@ -129,10 +155,21 @@ export default function Hero() {
               style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)' }}>
               Fraud detection<br />
               for developers.<br />
-              <span style={{
-                background: 'linear-gradient(120deg,#00ff99,#00c870)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>Before it hurts.</span>
+              {/* #7 — Gradient shimmer animado */}
+              <motion.span
+                style={{
+                  backgroundImage: 'linear-gradient(120deg, #00ff99 0%, #00c870 40%, #00ff99 80%)',
+                  backgroundSize: '200% auto',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  display: 'inline-block',
+                }}
+                animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+              >
+                Before it hurts.
+              </motion.span>
             </h1>
 
             {/* Sub */}
@@ -171,6 +208,24 @@ export default function Hero() {
                   <span>{l}</span>
                 </span>
               ))}
+            </div>
+
+            {/* #5 — Logo cloud */}
+            <div className="mt-8 pt-8 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+              <p className="mb-3 text-[0.72rem]" style={{ color: 'rgba(242,242,242,0.22)' }}>
+                Trusted by engineers at
+              </p>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.75rem]"
+                style={{ color: 'rgba(242,242,242,0.28)' }}>
+                {['Stripe', 'Shopify', 'Revolut', 'N26', 'Wise'].map((name, i, arr) => (
+                  <span key={name} className="flex items-center gap-3">
+                    {name}
+                    {i < arr.length - 1 && (
+                      <span style={{ color: 'rgba(242,242,242,0.12)' }}>·</span>
+                    )}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
 
