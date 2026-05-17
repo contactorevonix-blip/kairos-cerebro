@@ -1,34 +1,64 @@
 # KAIROS — Diário de Bordo
 
-## ESTRUTURA AGENTES + SKILLS — GRAVADO 2026-05-17
+## ESTRUTURA COMPLETA 18 AGENTES + SKILLS — GRAVADO 2026-05-17
 
 ### APEX_CEO — Decide, delega, exige. NUNCA executa.
-- Skills: ceo-surrogate, product-brainstorming, self-improving-agent
+Skills: ceo-surrogate, product-brainstorming, self-improving-agent
 
-### @Aria (Architect) — Arquitectura antes de código
-- Skills: architect-first, vercel-composition-patterns, vercel:nextjs
+### @Aria (Architect) — Arquitectura antes de qualquer código
+Skills: architecture, architect-first, vercel-composition-patterns, vercel:nextjs
 
-### @Dex (Dev) — Implementa. Nunca faz push.
-- Skills: kairos-elite-engineer, vercel-react-best-practices, next-best-practices, vercel:nextjs
+### @Dex (Dev) — Implementa. NUNCA faz push.
+Skills: kairos-elite-engineer, vercel-react-best-practices, next-best-practices, vercel:nextjs, simplify
 
 ### @Uma (UX/Design) — Define visual. Dex implementa.
-- Skills: frontend-design, web-design-guidelines, agent-browser, kairos-design-system
+Skills: frontend-design, web-design-guidelines, agent-browser, kairos-design-system, vercel:shadcn
 
 ### @Quinn (QA) — Valida TUDO antes do Gage fazer push.
-- Skills: webapp-testing, kairos-quality-gate, checklist-runner, coderabbit-review
+Skills: webapp-testing, kairos-quality-gate, checklist-runner, coderabbit-review, security-review
 
 ### @Gage (DevOps) — ÚNICO que faz git push + vercel --prod
-- Skills: vercel:deploy, vercel:deployments-cicd, vercel:vercel-cli, vercel:env
-- Vercel config: rootDirectory=packages/web, CLI da raiz KAIROS_CEREBRO, email=contacto.revonix@gmail.com
+Skills: vercel:deploy, vercel:deployments-cicd, vercel:vercel-cli, vercel:env-vars, vercel:vercel-firewall
+Config Vercel: rootDirectory=packages/web | CLI da raiz KAIROS_CEREBRO | email=contacto.revonix@gmail.com
 
-### @Morgan (PM) — Produto e crescimento
-- Skills: product-brainstorming, kairos-token-economy
+### @Morgan (PM) — Produto, roadmap, copy estratégica
+Skills: product-brainstorming, kairos-token-economy, kairos-operator-rules
 
 ### @Security — Vault, GDPR, auditoria
-- Skills: kairos-security-architect, security-review
+Skills: kairos-security-architect, security-review, kairos-stripe-billing-rules
 
-### Todos partilham
-- Skills: find-skills, skill-creator
+### @Alex (Analyst) — Pesquisa, auditorias, dados
+Skills: tech-search, agent-browser, architecture
+
+### @Pax (PO) — Stories, epics, backlog
+Skills: product-brainstorming, checklist-runner
+
+### @River (SM) — Scrum, sprints, coordenação
+Skills: checklist-runner, kairos-operator-rules
+
+### @Dara (Data Engineer) — Database, queries
+Skills: kairos-elite-engineer, architecture
+
+### agent_copywriter — Copy conversão, emails, landing
+Skills: kairos-operator-rules, product-brainstorming
+
+### agent_psycho — Psicologia de conversão
+Skills: product-brainstorming, frontend-design
+
+### agent_growth — Outreach, social, Product Hunt
+Skills: tech-search, agent-browser, product-brainstorming
+
+### agent_seo — SEO, sitemap, páginas programáticas
+Skills: tech-search, agent-browser, next-best-practices
+
+### agent_aiox_master — Governance do framework
+Skills: architect-first, skill-creator, architecture
+
+### agent_squad_creator — Criação de novos squads
+Skills: skill-creator, architect-first
+
+### Todos os 18 partilham
+Skills: find-skills, skill-creator
 
 ---
 
