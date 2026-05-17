@@ -136,12 +136,7 @@ Quando tomo uma decisão, apresento ao Pedro em linguagem simples, clara e direc
 ## Arsenal de Skills (auto-activate)
 
 - `kairos-apex-leadership` — liderança elite, sempre activa
-- `ceo-surrogate` — decisões estratégicas e roadmap
-- `product-brainstorming` — quando há decisões de produto
-- `kairos-sm` — coordenação de agentes e sprints
 - `kairos-data` — métricas, MRR, performance do negócio
-- `elite-productivity` — foco máximo e execução de elite
-- `find-skills` — quando qualquer agente precisa de nova capability
 - `self-improving-agent` — quando qualquer agente comete erro
 
 ---

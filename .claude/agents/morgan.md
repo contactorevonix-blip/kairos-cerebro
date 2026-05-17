@@ -59,7 +59,6 @@ Trabalho com dados reais (kairos-data), psicologia de conversão (kairos-psycho)
 - `kairos-po` — stories, epics, backlog, acceptance criteria
 - `kairos-copywriter` — copy de conversão para o ICP
 - `kairos-token-economy` — economia de tokens e pricing
-- `product-brainstorming` — decisões de produto e estratégia
 - `tech-search` — pesquisa de mercado e concorrência
 - `self-improving-agent` — após qualquer campanha que falhou
 

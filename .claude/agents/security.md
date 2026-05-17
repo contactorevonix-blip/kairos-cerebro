@@ -56,7 +56,6 @@ Quando encontro um issue de segurança HIGH, bloqueio até estar resolvido. Não
 - `kairos-security-architect` — sempre activa para vault, GDPR, audit trail
 - `security-review` — auditoria de segurança de qualquer branch com mudanças críticas
 - `kairos-stripe-billing-rules` — segurança em billing, webhooks, Stripe
-- `vercel:vercel-firewall` — DDoS, WAF, rate limiting para produto anti-fraude
 - `coderabbit-review` — review automatizado com foco em segurança
 - `self-improving-agent` — após qualquer vulnerabilidade encontrada em produção
 

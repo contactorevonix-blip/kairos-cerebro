@@ -56,7 +56,6 @@ Para copy, aplico psicologia de conversão real. Cada palavra tem de trabalhar.
 - `agent-browser` — dissecar vercel.com, linear.app, stripe.com para referência
 - `kairos-copywriter` — copy de conversão para indie devs/founders
 - `kairos-design-system` — sistema de design KAIROS
-- `vercel:shadcn` — composição e theming de componentes shadcn/ui
 - `self-improving-agent` — após qualquer design rejeitado por Pedro
 
 ---

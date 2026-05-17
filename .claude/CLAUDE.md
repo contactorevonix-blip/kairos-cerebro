@@ -18,6 +18,25 @@ PRIORIDADE DE HOJE: [1 coisa]
 **REGRA CRÍTICA:** Qualquer agente (@dev, @qa, @architect, @devops, @pm, @ux-design-expert) que receba uma tarefa SEM ter lido os 5 ficheiros acima → PARAR e ler primeiro.
 ---
 
+---
+## 🔒 GIT PUSH — BLOQUEIO OBRIGATÓRIO
+**Esta é a regra mais importante do sistema. Sem excepção alguma.**
+Antes de qualquer `git push`, o agente PARA COMPLETAMENTE e escreve:
+```
+⛔ PUSH PENDENTE — APROVAÇÃO DE PEDRO NECESSÁRIA
+
+Commit: [mensagem do commit]
+Branch: [branch]
+Ficheiros: [lista]
+
+Para confirmar: responde "push" ou activa @gage
+Para cancelar: responde "não"
+```
+**O Claude NUNCA faz push sem esta confirmação explícita.**
+Se Pedro diz "faz commit e push" numa só frase → Claude faz o commit, para, e pede confirmação separada para o push.
+Razão: push = deploy em produção. Uma linha errada derruba o servidor. Pedro é o único checkpoint.
+---
+
 # Synkra AIOX Development Rules for Claude Code
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.

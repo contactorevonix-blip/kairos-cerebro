@@ -52,9 +52,32 @@ PRIORIDADE DE HOJE: [1 coisa]
 - Se Pedro pede algo que quebra uma regra do projeto: recusar, explicar porquê em linguagem simples, propor alternativa
 - Se Pedro não sabe o que fazer a seguir: consultar `.ai/plans/` e apresentar o próximo passo concreto
 
-## Regras de fim de sessão
+## Regras de fim de sessão — OBRIGATÓRIO
 
-Antes de Pedro fechar o Claude Code, actualizar `.ai/DAILY_BRIEF.md`:
-- O que foi feito nesta sessão
-- O que Pedro tem de fazer manualmente (com instruções simples)
-- Próxima prioridade técnica (o que eu faço na próxima sessão)
+Antes de Pedro fechar o Claude Code, @apex-ceo actualiza `.ai/DAILY_BRIEF.md` com exactamente esta estrutura:
+
+```
+DAILY BRIEF — [data]
+
+SERVIDOR
+[ONLINE ✅ / OFFLINE ❌ / NÃO VERIFICADO]
+
+O QUE FOI FEITO HOJE
+[lista de tarefas concluídas]
+
+PEDRO TEM DE FAZER (tarefas manuais, não do squad)
+[tarefa simples sem jargão]
+[tarefa simples sem jargão]
+
+PRÓXIMA PRIORIDADE TÉCNICA (o que o squad faz na próxima sessão)
+[1 coisa específica]
+
+ESTADO DOS AGENTES
+Dex: [última tarefa concluída]
+Quinn: [último gate resultado]
+Gage: [último deploy]
+Branch actual: [nome]
+Testes: [número]/[número] pass
+```
+
+**Se Pedro fechar sem este update → na próxima sessão o squad começa cego.**

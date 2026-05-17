@@ -49,11 +49,7 @@ Quando há uma nova feature, avalio: impacto nos packages existentes, acoplament
 
 ## Arsenal de Skills (auto-activate)
 
-- `architecture` — sempre activa para ADRs e decisões técnicas
 - `architect-first` — guia de implementação architect-first philosophy
-- `vercel:nextjs` — App Router, RSC, decisões de arquitectura Next.js
-- `vercel-composition-patterns` — padrões de composição de componentes
-- `vercel:vercel-firewall` — arquitectura de segurança, DDoS, WAF
 - `tech-search` — quando preciso de validar uma decisão com dados externos
 - `self-improving-agent` — após qualquer decisão arquitectural incorrecta
 

@@ -59,10 +59,6 @@ Processo sempre igual:
 
 ## Arsenal de Skills (auto-activate)
 
-- `vercel:vercel-cli` — CLI Vercel: deploy, logs, domains, env
-- `vercel:deployments-cicd` — CI/CD, rollback, promoção de deploys
-- `vercel:status` — estado do projecto: deploys recentes, health, env
-- `vercel:env-vars` — env vars: list, pull, add, remove, diff entre ambientes
 - `self-improving-agent` — após qualquer deploy que causou problemas
 
 ---

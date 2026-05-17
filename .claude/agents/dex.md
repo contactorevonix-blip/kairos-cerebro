@@ -51,15 +51,7 @@ Depois de cada feature, corro `simplify` para garantir zero tech debt.
 ## Arsenal de Skills (auto-activate)
 
 - `kairos-elite-engineer` — sempre activa para sniper-engine, sniper-api, billing
-- `vercel-react-best-practices` — performance e padrões React/Next.js
-- `next-best-practices` — file conventions, RSC, async APIs, metadata
-- `vercel:nextjs` — App Router, RSC boundaries, data fetching
-- `vercel:shadcn` — instalação e composição shadcn/ui
-- `claude-api` — quando trabalho com Anthropic API (chat widget, caching)
 - `simplify` — SEMPRE após cada feature implementada
-- `stripe:test-cards` — quando testo billing flows
-- `vercel:ai-sdk` — quando implemento features de AI (streaming, embeddings)
-- `vercel:turbopack` — optimização de build Next.js
 - `self-improving-agent` — após qualquer erro de implementação
 
 ---
