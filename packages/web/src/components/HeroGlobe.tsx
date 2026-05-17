@@ -1,166 +1,99 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-
 const GREEN = '#00d97e';
 
-/* Nodes distributed around each ring */
-const RINGS = [
-  { rx: 180, ry: 50, tilt: 0,   speed: 18, nodes: 6 },
-  { rx: 160, ry: 55, tilt: 50,  speed: 24, nodes: 5 },
-  { rx: 140, ry: 48, tilt: -40, speed: 20, nodes: 5 },
-  { rx: 100, ry: 35, tilt: 75,  speed: 30, nodes: 4 },
-];
-
 const ACTIVE_NODES = [
-  { cx: 200, cy: 160, delay: 0 },
-  { cx: 320, cy: 200, delay: 0.6 },
-  { cx: 160, cy: 280, delay: 1.2 },
-  { cx: 280, cy: 310, delay: 0.3 },
-  { cx: 350, cy: 150, delay: 0.9 },
-  { cx: 120, cy: 200, delay: 1.5 },
+  { cx: 190, cy: 120, delay: 0 },
+  { cx: 300, cy: 170, delay: 0.6 },
+  { cx: 130, cy: 230, delay: 1.2 },
+  { cx: 260, cy: 280, delay: 0.3 },
+  { cx: 320, cy: 240, delay: 0.9 },
+  { cx: 100, cy: 170, delay: 1.5 },
 ];
 
 export default function HeroGlobe() {
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 480,
-        height: 480,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <div style={{ position: 'relative', width: '100%', height: 420, overflow: 'hidden' }}>
       <style>{`
-        @keyframes globe-spin-1 { from { transform: rotateX(70deg) rotateZ(0deg); } to { transform: rotateX(70deg) rotateZ(360deg); } }
-        @keyframes globe-spin-2 { from { transform: rotateX(70deg) rotateZ(50deg) rotateY(0deg); } to { transform: rotateX(70deg) rotateZ(50deg) rotateY(360deg); } }
-        @keyframes globe-spin-3 { from { transform: rotateX(30deg) rotateZ(-40deg) rotateY(0deg); } to { transform: rotateX(30deg) rotateZ(-40deg) rotateY(360deg); } }
-        @keyframes globe-spin-4 { from { transform: rotateX(10deg) rotateZ(75deg) rotateY(0deg); } to { transform: rotateX(10deg) rotateZ(75deg) rotateY(360deg); } }
-        @keyframes node-pulse { 0%,100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(2.2); opacity: 0.4; } }
-        @keyframes globe-fade-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
-        .hero-globe-root { animation: globe-fade-in 1.2s ease forwards; }
-        .ring-1 { animation: globe-spin-1 18s linear infinite; }
-        .ring-2 { animation: globe-spin-2 24s linear infinite; }
-        .ring-3 { animation: globe-spin-3 20s linear infinite reverse; }
-        .ring-4 { animation: globe-spin-4 30s linear infinite; }
-        .active-node { animation: node-pulse 2.5s ease-in-out infinite; }
+        @keyframes ring1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes ring2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes ring3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes npulse { 0%,100% { r: 4; opacity: 0.9; } 50% { r: 8; opacity: 0.3; } }
+        @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+        .hg-wrap { animation: fadeUp 1s ease forwards; }
+        .hg-ring1 { transform-origin: 190px 190px; transform-box: fill-box; animation: ring1 18s linear infinite; }
+        .hg-ring2 { transform-origin: 190px 190px; transform-box: fill-box; animation: ring2 24s linear infinite; }
+        .hg-ring3 { transform-origin: 190px 190px; transform-box: fill-box; animation: ring3 32s linear infinite; }
+        .hg-node { animation: npulse 2.5s ease-in-out infinite; }
       `}</style>
 
-      {/* Outer ambient glow */}
+      {/* Ambient glow behind globe */}
       <div style={{
         position: 'absolute',
-        inset: 0,
+        top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 340, height: 340,
         borderRadius: '50%',
-        background: 'radial-gradient(ellipse at center, rgba(0,217,126,0.18) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse at center, rgba(0,217,126,0.22) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
-      <div
-        className="hero-globe-root"
-        style={{
-          position: 'relative',
-          width: 380,
-          height: 380,
-          perspective: 800,
-          transformStyle: 'preserve-3d',
-        }}
+      <svg
+        className="hg-wrap"
+        viewBox="0 0 380 380"
+        width="100%"
+        height="100%"
+        style={{ display: 'block', overflow: 'visible' }}
       >
-        {/* Central sphere glow */}
-        <div style={{
-          position: 'absolute',
-          top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 120, height: 120,
-          borderRadius: '50%',
-          background: 'radial-gradient(ellipse at center, rgba(0,217,126,0.25) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+        {/* Main sphere outline */}
+        <circle cx="190" cy="190" r="168" fill="none" stroke={GREEN} strokeWidth="0.8" strokeOpacity="0.18" />
+        <circle cx="190" cy="190" r="120" fill="none" stroke={GREEN} strokeWidth="0.5" strokeOpacity="0.08" />
 
-        {/* Outer wireframe circle */}
-        <svg
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}
-          viewBox="0 0 380 380"
-        >
-          {/* Main sphere outline */}
-          <circle cx="190" cy="190" r="170" fill="none" stroke={GREEN} strokeWidth="0.5" strokeOpacity="0.2" />
-          <circle cx="190" cy="190" r="130" fill="none" stroke={GREEN} strokeWidth="0.4" strokeOpacity="0.1" />
+        {/* Ring 1 — equatorial, fast */}
+        <g className="hg-ring1">
+          <ellipse cx="190" cy="190" rx="168" ry="50" fill="none" stroke={GREEN} strokeWidth="1.2" strokeOpacity="0.5" />
+          {[0,60,120,180,240,300].map((deg, i) => {
+            const r = (deg * Math.PI) / 180;
+            return <circle key={i} cx={190 + 168 * Math.cos(r)} cy={190 + 50 * Math.sin(r)} r="3.5" fill={GREEN} fillOpacity="0.85" />;
+          })}
+        </g>
 
-          {/* Ring 1 — equatorial */}
-          <g className="ring-1" style={{ transformOrigin: '190px 190px', transformBox: 'fill-box' }}>
-            <ellipse cx="190" cy="190" rx="170" ry="48" fill="none" stroke={GREEN} strokeWidth="1" strokeOpacity="0.45" />
-            {[0,60,120,180,240,300].map((deg, i) => {
-              const rad = (deg * Math.PI) / 180;
-              const x = 190 + 170 * Math.cos(rad);
-              const y = 190 + 48 * Math.sin(rad);
-              return <circle key={i} cx={x} cy={y} r="3" fill={GREEN} fillOpacity="0.8" />;
-            })}
+        {/* Ring 2 — tilted, reverse */}
+        <g className="hg-ring2">
+          <ellipse cx="190" cy="190" rx="155" ry="60" fill="none" stroke={GREEN} strokeWidth="1" strokeOpacity="0.38" />
+          {[0,72,144,216,288].map((deg, i) => {
+            const r = (deg * Math.PI) / 180;
+            return <circle key={i} cx={190 + 155 * Math.cos(r)} cy={190 + 60 * Math.sin(r)} r="3" fill={GREEN} fillOpacity="0.7" />;
+          })}
+        </g>
+
+        {/* Ring 3 — polar */}
+        <g className="hg-ring3">
+          <ellipse cx="190" cy="190" rx="55" ry="168" fill="none" stroke={GREEN} strokeWidth="0.8" strokeOpacity="0.28" />
+          {[0,90,180,270].map((deg, i) => {
+            const r = (deg * Math.PI) / 180;
+            return <circle key={i} cx={190 + 55 * Math.cos(r)} cy={190 + 168 * Math.sin(r)} r="2.5" fill={GREEN} fillOpacity="0.55" />;
+          })}
+        </g>
+
+        {/* Active pulsing nodes */}
+        {ACTIVE_NODES.map((n, i) => (
+          <g key={i}>
+            <circle className="hg-node" cx={n.cx} cy={n.cy} r="4" fill={GREEN} fillOpacity="0.95"
+              style={{ animationDelay: `${n.delay}s`, transformOrigin: `${n.cx}px ${n.cy}px`, transformBox: 'fill-box' }} />
+            <circle cx={n.cx} cy={n.cy} r="12" fill="none" stroke={GREEN} strokeWidth="1" strokeOpacity="0.25"
+              className="hg-node"
+              style={{ animationDelay: `${n.delay + 0.1}s`, transformOrigin: `${n.cx}px ${n.cy}px`, transformBox: 'fill-box' }} />
           </g>
+        ))}
 
-          {/* Ring 2 — tilted */}
-          <g className="ring-2" style={{ transformOrigin: '190px 190px', transformBox: 'fill-box' }}>
-            <ellipse cx="190" cy="190" rx="155" ry="52" fill="none" stroke={GREEN} strokeWidth="1" strokeOpacity="0.35" />
-            {[0,72,144,216,288].map((deg, i) => {
-              const rad = (deg * Math.PI) / 180;
-              const x = 190 + 155 * Math.cos(rad);
-              const y = 190 + 52 * Math.sin(rad);
-              return <circle key={i} cx={x} cy={y} r="2.5" fill={GREEN} fillOpacity="0.7" />;
-            })}
-          </g>
-
-          {/* Ring 3 — opposite tilt */}
-          <g className="ring-3" style={{ transformOrigin: '190px 190px', transformBox: 'fill-box' }}>
-            <ellipse cx="190" cy="190" rx="140" ry="44" fill="none" stroke={GREEN} strokeWidth="0.8" strokeOpacity="0.3" />
-            {[0,72,144,216,288].map((deg, i) => {
-              const rad = (deg * Math.PI) / 180;
-              const x = 190 + 140 * Math.cos(rad);
-              const y = 190 + 44 * Math.sin(rad);
-              return <circle key={i} cx={x} cy={y} r="2" fill={GREEN} fillOpacity="0.6" />;
-            })}
-          </g>
-
-          {/* Ring 4 — polar */}
-          <g className="ring-4" style={{ transformOrigin: '190px 190px', transformBox: 'fill-box' }}>
-            <ellipse cx="190" cy="190" rx="90" ry="170" fill="none" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.25" />
-            {[0,90,180,270].map((deg, i) => {
-              const rad = (deg * Math.PI) / 180;
-              const x = 190 + 90 * Math.cos(rad);
-              const y = 190 + 170 * Math.sin(rad);
-              return <circle key={i} cx={x} cy={y} r="2" fill={GREEN} fillOpacity="0.5" />;
-            })}
-          </g>
-
-          {/* Active pulsing nodes */}
-          {ACTIVE_NODES.map((n, i) => (
-            <g key={i}>
-              <circle
-                cx={n.cx} cy={n.cy} r="4"
-                fill={GREEN}
-                fillOpacity="0.9"
-                className="active-node"
-                style={{ animationDelay: `${n.delay}s`, transformOrigin: `${n.cx}px ${n.cy}px`, transformBox: 'fill-box' }}
-              />
-              <circle cx={n.cx} cy={n.cy} r="10" fill="none" stroke={GREEN} strokeWidth="1" strokeOpacity="0.3"
-                className="active-node"
-                style={{ animationDelay: `${n.delay}s`, transformOrigin: `${n.cx}px ${n.cy}px`, transformBox: 'fill-box' }}
-              />
-            </g>
-          ))}
-
-          {/* Connection lines between active nodes */}
-          {ACTIVE_NODES.slice(0, 4).map((a, i) =>
-            ACTIVE_NODES.slice(i + 1, i + 3).map((b, j) => (
-              <line
-                key={`${i}-${j}`}
-                x1={a.cx} y1={a.cy} x2={b.cx} y2={b.cy}
-                stroke={GREEN} strokeWidth="0.6" strokeOpacity="0.2"
-              />
-            ))
-          )}
-        </svg>
-      </div>
+        {/* Connection lines */}
+        <line x1="190" y1="120" x2="300" y2="170" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.2" />
+        <line x1="300" y1="170" x2="260" y2="280" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.2" />
+        <line x1="130" y1="230" x2="260" y2="280" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.2" />
+        <line x1="190" y1="120" x2="100" y2="170" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.15" />
+        <line x1="100" y1="170" x2="130" y2="230" stroke={GREEN} strokeWidth="0.7" strokeOpacity="0.15" />
+      </svg>
     </div>
   );
 }
