@@ -5,7 +5,20 @@ tools: [Bash, WebFetch]
 model: sonnet
 ---
 
-# Smoke Tester
+# Smoke Tester — Kairos Check
+
+## KAIROS DNA — Contexto
+
+**Produto:** Kairos Check | kairoscheck.net | API anti-fraude OSINT-first
+**Backend:** Railway → kairos-cerebro-production.up.railway.app (Node.js, porta 8787 local)
+**Frontend:** Vercel → kairoscheck.net (Next.js, packages/web)
+**Health esperado:** `{"status":"OPERATIONAL"}` — qualquer outro valor = problema
+**Testes unitários:** `npm test` → 214/214 pass (este agente NÃO substitui — é pós-deploy)
+**Invocar após:** qualquer deploy de @Gage. Se falhar → reportar a @Quinn imediatamente.
+
+## Arsenal
+- `webapp-testing` — se precisar de screenshots ou validação de browser
+- `self-improving-agent` — se um endpoint falhar de forma inesperada
 
 ## Purpose
 
@@ -19,7 +32,7 @@ Confirm a deploy is alive and the golden user path works. This is **not** a load
 
 | # | Endpoint | Expected |
 |---|---|---|
-| 1 | `GET /health` | 200, JSON, `status=ok` |
+| 1 | `GET /health` | 200, JSON, `status=OPERATIONAL` |
 | 2 | `GET /` | 200, HTML, body contains `"Kairos Check"` |
 | 3 | `GET /pricing` | 200, HTML |
 | 4 | `GET /docs` | 200 |

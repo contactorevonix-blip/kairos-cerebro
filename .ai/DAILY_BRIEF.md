@@ -1,5 +1,98 @@
 # KAIROS — Diário de Bordo
 
+---
+
+## SESSÃO 2026-05-17 — FASE 0 CONCLUÍDA
+
+### ESTADO DO SERVIDOR
+- URL: https://kairoscheck.net | Status: **OPERATIONAL** ✅
+- Railway: v7.1.0 | 4 tenants | DB writable | uptime 8h+
+- Vercel: Next.js 16.2.6 (packages/web) — landing page em produção
+
+### O QUE FOI FEITO (NÃO REPETIR NA PRÓXIMA SESSÃO)
+- ✅ 8 agent files criados em `.claude/agents/` com KAIROS DNA completo
+- ✅ 51 skills registadas no CLAUDE.md com auto-activate por agente
+- ✅ `.claude/rules/pre-commit-protocol.md` criado — 3 fases obrigatórias
+- ✅ Protocolo de transição de fase gravado em CLAUDE.md + rules + memória
+- ✅ Mandato APEX_CEO gravado: ler 9 ficheiros obrigatórios antes de comandar
+- ✅ self-improving-agent aplicado: 4 erros → 4 regras permanentes
+- ✅ Auditoria completa em `.ai/audits/2026-05-17-phase0-agent-files.md`
+- ✅ Diagnóstico Next.js: migração INCOMPLETA — /pricing /docs /account ainda em sniper-api
+- ⚠️ COMMIT PENDENTE — @Gage ainda não executou o push desta sessão
+
+### COMMIT PENDENTE — @Gage executa PRIMEIRO na próxima sessão
+```bash
+cd "C:\Users\lealp\KAIROS_CEREBRO"
+git add .claude/agents/apex-ceo.md .claude/agents/aria.md .claude/agents/dex.md .claude/agents/quinn.md .claude/agents/gage.md .claude/agents/uma.md .claude/agents/morgan.md .claude/agents/security.md .claude/agents/smoke-tester.md .claude/rules/pre-commit-protocol.md .ai/audits/2026-05-17-phase0-agent-files.md packages/web/.gitignore
+git commit -m "feat: FASE 0 completa — 8 agents + protocols + phase-transition rule"
+git push origin main
+```
+
+---
+
+## PRÓXIMA SESSÃO — FASE 2: SITE BILIONÁRIO
+
+### PROTOCOLO OBRIGATÓRIO DE INÍCIO (APEX_CEO lê tudo)
+1. `CLAUDE.md` → regras, mandato, skills
+2. `.claude/rules/pre-commit-protocol.md` → protocolo pré-commit
+3. `.claude/rules/agent-authority.md` → autoridades
+4. `.claude/rules/git-gate.md` → git push
+5. `.ai/audits/2026-05-17-phase0-agent-files.md` → última auditoria
+6. Todos os 8 agent files → estado de cada agente
+
+### FASE 2 — PLANO EXACTO (sem desvios)
+
+```
+PASSO 1 — @Gage (PRIMEIRO — commita FASE 0)
+  git push origin main
+
+PASSO 2 — @Uma (agent-browser)
+  Dissecar vercel.com → tipografia, espaçamentos, animações, micro-interacções
+  Dissecar linear.app → cards, hover states, transições, grid
+  Produzir spec detalhada: componente a componente para @Dex
+
+PASSO 3 — @Aria (arquitectura)
+  Validar estrutura de componentes packages/web/src/components/
+  Confirmar que shadcn/ui + framer-motion não quebram nada
+  ADR se necessário
+
+PASSO 4 — @Dex (implementação)
+  npm install framer-motion @radix-ui/react-* (shadcn deps)
+  npx shadcn@latest init em packages/web
+  Implementar animações premium seguindo spec da @Uma
+  npm test → 214/214 PASS antes de entregar a @Quinn
+
+PASSO 5 — @Quinn (quality gate)
+  kairos-quality-gate em todos os ficheiros alterados
+  Screenshots before/after de cada componente
+  Verificar mobile responsiveness
+  Auditoria em .ai/audits/2026-05-17-fase2-site-bilionario.md
+
+PASSO 6 — @Gage (deploy)
+  cd C:\Users\lealp\KAIROS_CEREBRO && vercel --prod
+  Verificar health: curl https://kairoscheck.net/health → OPERATIONAL
+  Confirmar a Pedro
+```
+
+### REGRAS QUE NÃO QUEBRAM NUNCA
+- APEX_CEO lê os 9 ficheiros obrigatórios ANTES de qualquer acção
+- Cada fase concluída → actualizar TODOS os 8 agent files
+- kairos-quality-gate SEMPRE antes de qualquer commit
+- @Gage é o ÚNICO que faz git push e vercel --prod
+- @Quinn valida SEMPRE antes de @Gage commitar
+- self-improving-agent após qualquer erro
+
+### PEDRO TEM DE FAZER (urgente antes de terça)
+1. **Gerar thumbnail PH** → `node "C:\Users\lealp\KAIROS_CEREBRO\packages\sniper-api\generate-thumbnail.js"`
+2. **Screenshot S1** → kairoscheck.net → Windows+Shift+S → secção hero
+3. **Screenshot S2** → secção "How it works"
+4. **Screenshot S3** → kairoscheck.net/pricing → cards de preços
+5. **Product Hunt draft** → segunda à noite
+6. **Publicar** → terça 08:01 Lisboa
+7. **Posts X** → segunda (teaser) + terça (lançamento)
+
+---
+
 ## PLANO AMANHÃ — SESSÃO BILIONÁRIA (2026-05-18)
 
 Pedro deu liberdade total. Equipa de 8 agentes com agent files + site ao nível Vercel/Linear.

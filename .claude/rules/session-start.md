@@ -2,11 +2,21 @@
 
 Esta regra é executada SEMPRE no início de qualquer sessão de trabalho no KAIROS_CEREBRO.
 
-## Sequência obrigatória ao iniciar
+## Sequência obrigatória ao iniciar — APEX_CEO lê TUDO
 
-1. Ler `.ai/PROJECT_BRIEFING.md`
-2. Ler `.ai/DAILY_BRIEF.md` (estado actual + pendentes do Pedro)
-3. Verificar checkpoints em `.ai/checkpoints/` para saber onde está o ATAQUE em curso
+```
+1. .ai/DAILY_BRIEF.md              → estado actual + pendentes + próxima fase
+2. .ai/PROJECT_BRIEFING.md         → contexto completo do projecto
+3. CLAUDE.md (C:\Users\lealp\)     → regras absolutas + mandato APEX_CEO
+4. .claude/rules/pre-commit-protocol.md → protocolo pré-commit + transição fases
+5. .claude/rules/agent-authority.md → quem pode fazer o quê
+6. .claude/rules/git-gate.md       → regras de push e deploy
+7. .ai/audits/ (última auditoria)  → o que ficou por resolver
+8. Todos os 8 agent files          → estado actual de cada agente
+```
+
+**Só após ler tudo → apresentar briefing ao Pedro → comandar.**
+
 4. Apresentar ao Pedro um briefing em 3 blocos:
 
 ### Bloco 1 — Estado do servidor (30 segundos)
