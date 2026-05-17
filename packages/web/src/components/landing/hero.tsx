@@ -16,7 +16,7 @@ export default function Hero() {
   const doubled = [...LOGOS, ...LOGOS];
 
   return (
-    <section className="relative overflow-hidden" style={{ background: '#000', paddingTop: 112, paddingBottom: 80 }}>
+    <section className="relative overflow-hidden" style={{ background: '#000', paddingTop: 100, paddingBottom: 60 }}>
 
       {/* Grid bg */}
       <div className="absolute inset-0 pointer-events-none" style={{
@@ -24,15 +24,15 @@ export default function Hero() {
         backgroundSize: '48px 48px',
       }} />
 
-      {/* Radial green glow */}
+      {/* Radial green glow top */}
       <div className="absolute pointer-events-none" style={{
         top: 0, left: '50%', transform: 'translateX(-50%)',
         width: 800, height: 400,
-        background: 'radial-gradient(ellipse 800px 400px at 50% -10%, rgba(0,220,130,0.1) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 800px 400px at 50% -10%, rgba(0,220,130,0.12) 0%, transparent 70%)',
       }} />
 
-      <div className="relative container-kc">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
+      <div className="relative" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', gap: 48 }}>
 
           {/* LEFT — copy */}
           <motion.div
@@ -52,10 +52,11 @@ export default function Hero() {
 
             {/* Headline */}
             <motion.h1 variants={item} style={{
-              fontSize: 'clamp(52px, 7vw, 96px)',
+              fontSize: 'clamp(52px, 6vw, 88px)',
               fontWeight: 700,
               lineHeight: 1.0,
               letterSpacing: '-0.04em',
+              margin: 0,
             }}>
               <span style={{ color: '#fff' }}>Stop fraud</span>
               <br />
@@ -63,7 +64,7 @@ export default function Hero() {
             </motion.h1>
 
             {/* Sub */}
-            <motion.p variants={item} style={{ color: '#666', fontSize: 18, maxWidth: 440, lineHeight: 1.6 }}>
+            <motion.p variants={item} style={{ color: '#666', fontSize: 18, maxWidth: 420, lineHeight: 1.6, margin: 0 }}>
               One API call. Real-time signals. No ML PhD required.
             </motion.p>
 
@@ -77,8 +78,8 @@ export default function Hero() {
               </Link>
             </motion.div>
 
-            {/* Stats line */}
-            <motion.p variants={item} className="font-mono text-sm" style={{ color: '#333' }}>
+            {/* Stats */}
+            <motion.p variants={item} className="font-mono text-sm" style={{ color: '#333', margin: 0 }}>
               2.3M+ requests blocked
               <span style={{ color: '#2a2a2a', margin: '0 10px' }}>·</span>
               99.9% uptime
@@ -87,8 +88,8 @@ export default function Hero() {
             </motion.p>
 
             {/* Logo marquee */}
-            <motion.div variants={item} className="w-full">
-              <p className="text-xs mb-3" style={{ color: '#333', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            <motion.div variants={item} style={{ width: '100%' }}>
+              <p className="text-xs mb-3" style={{ color: '#333', letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 12px' }}>
                 Trusted by indie builders at
               </p>
               <div className="relative overflow-hidden" style={{
@@ -106,23 +107,13 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — 3D Globe */}
+          {/* RIGHT — Globe */}
           <motion.div
-            className="relative flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.95 }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3, ease }}
           >
-            {/* Ambient glow */}
-            <div className="pointer-events-none absolute rounded-full"
-              style={{
-                width: 384, height: 384,
-                background: 'rgba(0,217,126,0.15)',
-                filter: 'blur(80px)',
-                top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
             <HeroGlobe />
           </motion.div>
 
