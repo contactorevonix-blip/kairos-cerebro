@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const TERMINAL_LINES = [
   { t: 400,  text: '$ curl https://kairoscheck.net/api/check \\',  color: 'text-white/50' },
@@ -27,7 +28,6 @@ function AnimatedTerminal() {
 
   return (
     <div className="rounded-[18px] border overflow-hidden" style={{ borderColor: 'var(--border)', background: 'var(--bg-elevated)' }}>
-      {/* Window chrome */}
       <div className="flex items-center gap-1.5 border-b px-4 py-3" style={{ borderColor: 'var(--border)' }}>
         <span className="h-[11px] w-[11px] rounded-full bg-[#ff5f57]" />
         <span className="h-[11px] w-[11px] rounded-full bg-[#febc2e]" />
@@ -38,12 +38,10 @@ function AnimatedTerminal() {
           <span className="font-mono text-[10px] text-accent/60">LIVE</span>
         </span>
       </div>
-
-      {/* Code */}
       <div className="min-h-[240px] p-5 font-mono text-[13px] leading-[1.7]">
         {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
           <div key={i} className={`${line.color || 'text-white/50'}`}>
-            {line.text || ' '}
+            {line.text || ' '}
           </div>
         ))}
         {visibleLines < TERMINAL_LINES.length && (
@@ -53,6 +51,16 @@ function AnimatedTerminal() {
     </div>
   );
 }
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
 
 export default function Hero() {
   const [count, setCount] = useState<string | null>(null);
@@ -84,32 +92,54 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-content px-6">
         <div className="grid items-center gap-14 lg:grid-cols-[1fr_480px]">
 
-          {/* Left */}
-          <div>
+          {/* Left — staggered Framer Motion */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
             {/* Badge */}
-            <div className="animate-fade-up mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
-              style={{ borderColor: 'rgba(0,217,126,0.2)', background: 'rgba(0,217,126,0.07)' }}>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
+              style={{ borderColor: 'rgba(0,217,126,0.2)', background: 'rgba(0,217,126,0.07)' }}
+            >
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-accent/80">
                 OSINT-first · GDPR-native · Free to start
               </span>
-            </div>
+            </motion.div>
 
-            {/* Headline */}
-            <h1 className="animate-fade-up-1 mb-6 text-[46px] font-extrabold leading-[1.04] tracking-tighter text-white md:text-[56px] lg:text-[60px]">
+            {/* Headline — bigger, Linear-inspired */}
+            <motion.h1
+              variants={fadeUp}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6 font-extrabold leading-[1.02] tracking-tighter text-white"
+              style={{ fontSize: 'clamp(2.8rem, 6vw, 5rem)' }}
+            >
               Stop fraud<br />
               before it costs<br />
               <span className="gradient-text">your revenue.</span>
-            </h1>
+            </motion.h1>
 
             {/* Sub */}
-            <p className="animate-fade-up-2 mb-8 max-w-[420px] text-[17px] leading-[1.65]" style={{ color: 'var(--text-sub)' }}>
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-8 max-w-[420px] text-[17px] leading-[1.65]"
+              style={{ color: 'var(--text-sub)' }}
+            >
               One API call. Scores domains, emails, phones and IBANs.
               Works anywhere Stripe can&apos;t reach.
-            </p>
+            </motion.p>
 
             {/* CTAs */}
-            <div className="animate-fade-up-3 flex flex-wrap items-center gap-3">
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-3"
+            >
               <Link href="/pricing" className="btn-primary text-[14px]">
                 Start free — 50 checks
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -119,11 +149,15 @@ export default function Hero() {
               <Link href="/docs" className="btn-ghost text-[14px]">
                 Read the docs →
               </Link>
-            </div>
+            </motion.div>
 
             {/* Trust bar */}
-            <div className="animate-fade-up-4 mt-9 flex flex-wrap items-center gap-5 border-t pt-7 text-[12px]"
-              style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-9 flex flex-wrap items-center gap-5 border-t pt-7 text-[12px]"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+            >
               {[
                 { val: count ?? '—', label: 'API calls' },
                 { val: '4',          label: 'in production' },
@@ -136,13 +170,17 @@ export default function Hero() {
                   {i < 3 && <span className="ml-3 text-white/[0.1]">·</span>}
                 </span>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right — animated terminal */}
-          <div className="animate-fade-in">
+          {/* Right — terminal fades in after left */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          >
             <AnimatedTerminal />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

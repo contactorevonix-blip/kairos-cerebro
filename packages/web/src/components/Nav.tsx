@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 function KairosLogo() {
   return (
@@ -36,17 +38,28 @@ const navLinks = [
 ];
 
 export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const openChat = () => {
     (document.getElementById('kc-bubble') as HTMLButtonElement | null)?.click();
   };
 
   return (
-    <header
+    <motion.header
       aria-label="Site header"
-      className="sticky top-0 z-50 h-[60px] border-b"
+      initial={{ y: -8, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="sticky top-0 z-50 h-[60px] border-b transition-colors duration-300"
       style={{
-        borderColor: 'var(--border)',
-        background: 'rgba(8,8,8,0.88)',
+        borderColor: scrolled ? 'var(--border-strong)' : 'var(--border)',
+        background: scrolled ? 'rgba(8,8,8,0.96)' : 'rgba(8,8,8,0.75)',
         backdropFilter: 'blur(24px) saturate(180%)',
         WebkitBackdropFilter: 'blur(24px) saturate(180%)',
       }}
@@ -107,6 +120,6 @@ export default function Nav() {
           </button>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
