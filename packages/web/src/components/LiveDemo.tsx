@@ -235,10 +235,10 @@ export default function LiveDemo() {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            {/* Ambient glow */}
+            {/* Ambient glow — increased opacity and spread for visibility */}
             <div
-              className="pointer-events-none absolute inset-0 scale-75 rounded-3xl blur-3xl"
-              style={{ background: 'rgba(0,217,126,0.12)' }}
+              className="pointer-events-none absolute -inset-6 rounded-3xl blur-3xl"
+              style={{ background: 'rgba(0,217,126,0.30)' }}
             />
 
             {/* Browser window */}
