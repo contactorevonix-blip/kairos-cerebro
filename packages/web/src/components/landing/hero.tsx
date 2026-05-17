@@ -14,41 +14,33 @@ export default function Hero() {
   const doubled = [...LOGOS, ...LOGOS];
 
   return (
-    <section style={{ position:'relative', overflow:'hidden', background:'#000', paddingTop:100, paddingBottom:60 }}>
+    <section style={{ position:'relative', background:'#000', paddingTop:100, paddingBottom:60 }}>
 
       {/* Grid bg */}
-      <div style={{
-        position:'absolute', inset:0, pointerEvents:'none',
-        backgroundImage:'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)',
-        backgroundSize:'48px 48px',
-      }}/>
+      <div style={{ position:'absolute', inset:0, pointerEvents:'none', backgroundImage:'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)', backgroundSize:'48px 48px' }}/>
 
       {/* Top glow */}
-      <div style={{
-        position:'absolute', top:0, left:'50%', transform:'translateX(-50%)',
-        width:800, height:400, pointerEvents:'none',
-        background:'radial-gradient(ellipse 800px 400px at 50% -10%,rgba(0,220,130,0.12) 0%,transparent 70%)',
-      }}/>
+      <div style={{ position:'absolute', top:0, left:'50%', transform:'translateX(-50%)', width:800, height:400, pointerEvents:'none', background:'radial-gradient(ellipse 800px 400px at 50% -10%,rgba(0,220,130,0.12) 0%,transparent 70%)' }}/>
 
       <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 24px', position:'relative' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', alignItems:'center', gap:48 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', alignItems:'center', gap:48, minHeight:500 }}>
 
           {/* LEFT */}
           <motion.div style={{ display:'flex', flexDirection:'column', gap:24 }} variants={container} initial="hidden" animate="show">
 
             <motion.div variants={item}>
               <span style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'6px 14px', borderRadius:999, fontSize:12, fontWeight:500, background:'rgba(0,220,130,0.08)', border:'1px solid rgba(0,220,130,0.2)', color:'#00DC82' }}>
-                <span style={{ width:6, height:6, borderRadius:'50%', background:'#00DC82', animation:'pulse 2s infinite' }}/>
+                <span style={{ width:6, height:6, borderRadius:'50%', background:'#00DC82' }}/>
                 2.3M requests blocked · Public beta
               </span>
             </motion.div>
 
-            <motion.h1 variants={item} style={{ fontSize:'clamp(52px,6vw,88px)', fontWeight:700, lineHeight:1.0, letterSpacing:'-0.04em', margin:0 }}>
+            <motion.h1 variants={item} style={{ fontSize:'clamp(48px,5.5vw,84px)', fontWeight:700, lineHeight:1.0, letterSpacing:'-0.04em', margin:0 }}>
               <span style={{ color:'#fff' }}>Stop fraud</span><br/>
               <span style={{ color:'rgba(255,255,255,0.22)' }}>before it ships.</span>
             </motion.h1>
 
-            <motion.p variants={item} style={{ color:'#666', fontSize:18, maxWidth:420, lineHeight:1.6, margin:0 }}>
+            <motion.p variants={item} style={{ color:'#666', fontSize:17, maxWidth:400, lineHeight:1.6, margin:0 }}>
               One API call. Real-time signals. No ML PhD required.
             </motion.p>
 
@@ -72,9 +64,9 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* RIGHT — Globe */}
+          {/* RIGHT */}
           <motion.div
-            style={{ display:'flex', alignItems:'center', justifyContent:'center' }}
+            style={{ display:'flex', alignItems:'center', justifyContent:'center', overflow:'visible' }}
             initial={{ opacity:0, scale:0.9 }}
             animate={{ opacity:1, scale:1 }}
             transition={{ duration:1, delay:0.3, ease }}
