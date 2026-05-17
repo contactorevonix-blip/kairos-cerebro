@@ -3,63 +3,17 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const TERMINAL_LINES = [
-  { t: 400,  text: '$ curl https://kairoscheck.net/api/check \\',  color: 'text-white/50' },
-  { t: 700,  text: '  -H "Authorization: Bearer kc_live_••••" \\', color: 'text-white/35' },
-  { t: 1000, text: '  -d \'{"domain":"suspicious-shop.io"}\'',       color: 'text-yellow-300/70' },
-  { t: 1600, text: '',                                               color: '' },
-  { t: 1800, text: '// 94ms',                                       color: 'text-white/25' },
-  { t: 2000, text: '{',                                              color: 'text-white/50' },
-  { t: 2100, text: '  "verdict": "BLOCK",',                         color: 'text-red-400 font-semibold' },
-  { t: 2200, text: '  "score": 94,',                                color: 'text-white/60' },
-  { t: 2350, text: '  "signals": ["newly-registered", "scam-pattern"],', color: 'text-accent/80' },
-  { t: 2500, text: '  "ms": 94',                                    color: 'text-white/50' },
-  { t: 2600, text: '}',                                             color: 'text-white/50' },
-];
+const ease = [0.16, 1, 0.3, 1] as const;
 
-function AnimatedTerminal() {
-  const [visibleLines, setVisibleLines] = useState<number>(0);
-
-  useEffect(() => {
-    TERMINAL_LINES.forEach(({ t }, i) => {
-      setTimeout(() => setVisibleLines(i + 1), t);
-    });
-  }, []);
-
-  return (
-    <div className="rounded-[18px] border overflow-hidden" style={{ borderColor: 'var(--border)', background: 'var(--bg-elevated)' }}>
-      <div className="flex items-center gap-1.5 border-b px-4 py-3" style={{ borderColor: 'var(--border)' }}>
-        <span className="h-[11px] w-[11px] rounded-full bg-[#ff5f57]" />
-        <span className="h-[11px] w-[11px] rounded-full bg-[#febc2e]" />
-        <span className="h-[11px] w-[11px] rounded-full bg-[#28c840]" />
-        <span className="ml-4 font-mono text-[11px] text-white/20">POST /api/check — 94ms</span>
-        <span className="ml-auto flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          <span className="font-mono text-[10px] text-accent/60">LIVE</span>
-        </span>
-      </div>
-      <div className="min-h-[240px] p-5 font-mono text-[13px] leading-[1.7]">
-        {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-          <div key={i} className={`${line.color || 'text-white/50'}`}>
-            {line.text || ' '}
-          </div>
-        ))}
-        {visibleLines < TERMINAL_LINES.length && (
-          <span className="inline-block h-[14px] w-[7px] animate-blink bg-accent/70 align-middle" />
-        )}
-      </div>
-    </div>
-  );
-}
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
+const item = {
+  hidden: { opacity: 0, y: 32 },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  show:  { opacity: 1, y: 0, transition: { duration: 0.65, ease: ease as any } },
 };
 
-const stagger = {
+const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  show:  { transition: { staggerChildren: 0.11, delayChildren: 0.05 } },
 };
 
 export default function Hero() {
@@ -73,116 +27,92 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28">
+    <section className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 pb-24 pt-20 text-center">
+
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0 z-0" style={{
+        background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,217,126,0.12) 0%, transparent 65%)',
+      }} />
+
       {/* Grid */}
       <div className="pointer-events-none absolute inset-0 z-0" style={{
         backgroundImage: `
-          linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)
-        `,
-        backgroundSize: '64px 64px',
-        maskImage: 'radial-gradient(ellipse 85% 70% at 50% 0%, black 30%, transparent 100%)',
+          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)`,
+        backgroundSize: '72px 72px',
+        maskImage: 'radial-gradient(ellipse 90% 80% at 50% 0%, black 20%, transparent 100%)',
       }} />
 
-      {/* Top glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[500px]" style={{
-        background: 'radial-gradient(ellipse 60% 50% at 50% -5%, rgba(0,217,126,0.09) 0%, transparent 70%)',
-      }} />
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 flex max-w-[860px] flex-col items-center"
+      >
+        {/* Kicker */}
+        <motion.div variants={item}>
+          <span className="mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
+            style={{ borderColor: 'rgba(0,217,126,0.25)', background: 'rgba(0,217,126,0.07)' }}>
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#00d97e]/80">
+              OSINT-first · GDPR-native · Free to start
+            </span>
+          </span>
+        </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-content px-6">
-        <div className="grid items-center gap-14 lg:grid-cols-[1fr_480px]">
+        {/* Headline */}
+        <motion.h1 variants={item}
+          className="mb-6 font-extrabold leading-[1.0] tracking-[-0.045em] text-white"
+          style={{ fontSize: 'clamp(3.2rem, 7.5vw, 6.5rem)' }}>
+          Stop fraud before<br />
+          <span style={{
+            background: 'linear-gradient(135deg, #00ff99 0%, #00c870 50%, #00d97e 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+          }}>
+            it costs you.
+          </span>
+        </motion.h1>
 
-          {/* Left — staggered Framer Motion */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Badge */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
-              style={{ borderColor: 'rgba(0,217,126,0.2)', background: 'rgba(0,217,126,0.07)' }}
-            >
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-accent/80">
-                OSINT-first · GDPR-native · Free to start
-              </span>
-            </motion.div>
+        {/* Sub */}
+        <motion.p variants={item}
+          className="mb-10 max-w-[520px] text-[1.1rem] leading-[1.7]"
+          style={{ color: 'rgba(242,242,242,0.55)' }}>
+          One API call. Scores domains, emails, phones and IBANs in under 200ms.
+          Works anywhere Stripe can't reach. Self-serve. Starts free.
+        </motion.p>
 
-            {/* Headline — bigger, Linear-inspired */}
-            <motion.h1
-              variants={fadeUp}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-6 font-extrabold leading-[1.02] tracking-tighter text-white"
-              style={{ fontSize: 'clamp(2.8rem, 6vw, 5rem)' }}
-            >
-              Stop fraud<br />
-              before it costs<br />
-              <span className="gradient-text">your revenue.</span>
-            </motion.h1>
+        {/* CTAs */}
+        <motion.div variants={item} className="mb-14 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/pricing"
+            className="inline-flex items-center gap-2 rounded-full bg-[#00d97e] px-7 py-3.5 text-[0.9rem] font-bold text-black transition-all hover:bg-[#00e888] hover:shadow-[0_0_32px_rgba(0,217,126,0.4)] hover:-translate-y-0.5">
+            Start free — 50 checks
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          <Link href="/docs"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-7 py-3.5 text-[0.9rem] font-medium text-white/60 transition-all hover:border-white/20 hover:text-white/90">
+            Read the docs
+          </Link>
+        </motion.div>
 
-            {/* Sub */}
-            <motion.p
-              variants={fadeUp}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-8 max-w-[420px] text-[17px] leading-[1.65]"
-              style={{ color: 'var(--text-sub)' }}
-            >
-              One API call. Scores domains, emails, phones and IBANs.
-              Works anywhere Stripe can&apos;t reach.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-3"
-            >
-              <Link href="/pricing" className="btn-primary text-[14px]">
-                Start free — 50 checks
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link href="/docs" className="btn-ghost text-[14px]">
-                Read the docs →
-              </Link>
-            </motion.div>
-
-            {/* Trust bar */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-9 flex flex-wrap items-center gap-5 border-t pt-7 text-[12px]"
-              style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
-            >
-              {[
-                { val: count ?? '—', label: 'API calls' },
-                { val: '4',          label: 'in production' },
-                { val: '<200ms',     label: 'avg latency' },
-                { val: 'GDPR',       label: 'Art.22 native' },
-              ].map(({ val, label }, i) => (
-                <span key={i} className="flex items-baseline gap-1.5">
-                  <strong className="font-mono text-[13px] font-bold text-white/65">{val}</strong>
-                  <span>{label}</span>
-                  {i < 3 && <span className="ml-3 text-white/[0.1]">·</span>}
-                </span>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Right — terminal fades in after left */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <AnimatedTerminal />
-          </motion.div>
-        </div>
-      </div>
+        {/* Stats bar */}
+        <motion.div variants={item}
+          className="flex flex-wrap items-center justify-center gap-8 border-t pt-8 text-[0.78rem]"
+          style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'rgba(242,242,242,0.32)' }}>
+          {[
+            { val: count ?? '—', label: 'checks made' },
+            { val: '4',          label: 'teams in production' },
+            { val: '<200ms',     label: 'avg latency' },
+            { val: '8',          label: 'scoring layers' },
+          ].map(({ val, label }, i) => (
+            <span key={i} className="flex items-baseline gap-1.5">
+              <strong className="font-mono text-[0.9rem] font-bold text-white/55">{val}</strong>
+              <span>{label}</span>
+            </span>
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
