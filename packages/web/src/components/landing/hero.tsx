@@ -14,12 +14,12 @@ export default function Hero() {
   const doubled = [...LOGOS, ...LOGOS];
 
   return (
-    <section style={{ position: 'relative', background: '#000', paddingTop: 100, paddingBottom: 60 }}>
+    <section style={{ position: 'relative', background: '#000', paddingTop: 100, paddingBottom: 60, overflow: 'hidden' }}>
 
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
       <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 800, height: 400, pointerEvents: 'none', background: 'radial-gradient(ellipse 800px 400px at 50% -10%,rgba(0,220,130,0.12) 0%,transparent 70%)' }} />
 
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', position: 'relative' }}>
+      <div className="container-kc" style={{ position: 'relative' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', alignItems: 'center', gap: 48 }}>
 
           {/* LEFT */}

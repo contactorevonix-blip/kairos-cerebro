@@ -23,7 +23,6 @@ export default function HeroGlobe() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
       width: 600,
@@ -43,18 +42,15 @@ export default function HeroGlobe() {
         phiRef.current += 0.003;
       },
     });
-
     return () => globe.destroy();
   }, []);
 
   return (
-    <div style={{ width: '100%', maxWidth: 500, aspectRatio: '1', position: 'relative' }}>
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={600}
-        style={{ width: '100%', height: '100%', display: 'block' }}
-      />
-    </div>
+    <canvas
+      ref={canvasRef}
+      width={600}
+      height={600}
+      style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 440 }}
+    />
   );
 }
