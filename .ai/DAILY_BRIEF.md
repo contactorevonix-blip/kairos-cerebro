@@ -15,78 +15,44 @@ Criadas via skill-creator e activas em ~/.claude/skills/:
 Todas com self-improving-agent para aprender continuamente.
 18 agentes KAIROS completamente equipados.
 
-## ESTRUTURA COMPLETA 18 AGENTES + SKILLS — GRAVADO 2026-05-17
+## ESTRUTURA FINAL — 8 AGENTES KAIROS (2026-05-17)
+
+Simplificado de 18 para 8. Menos agentes, mais foco, zero interferência.
 
 ### APEX_CEO — Decide, delega, exige. NUNCA executa.
-Skills: ceo-surrogate, product-brainstorming, self-improving-agent
+Skills: kairos-apex-leadership, architecture, product-brainstorming, ceo-surrogate, self-improving-agent
 
-### @Aria (Architect) — Arquitectura antes de qualquer código
-Skills: architecture, architect-first, vercel-composition-patterns, vercel:nextjs, self-improving-agent
+### @Aria (Architect) — Arquitectura antes de código
+Skills: architect-first, architecture, vercel-composition-patterns, vercel:nextjs, self-improving-agent
 
-### @Dex (Dev) — Implementa. NUNCA faz push.
-Skills: kairos-elite-engineer, vercel-react-best-practices, next-best-practices, vercel:nextjs, simplify, self-improving-agent
+### @Dex (Dev) — Implementa + build local. NUNCA faz push.
+Skills: kairos-elite-engineer, vercel-react-best-practices, next-best-practices, simplify, self-improving-agent
 
-### @Uma (UX/Design) — Define visual. Dex implementa.
-Skills: frontend-design, web-design-guidelines, agent-browser, kairos-design-system, vercel:shadcn, self-improving-agent
-
-### @Quinn (QA) — Valida TUDO antes do Gage fazer push.
-Skills: webapp-testing, kairos-quality-gate, checklist-runner, coderabbit-review, security-review, self-improving-agent
+### @Quinn (QA) — Valida TUDO. Bloqueia se falhar.
+Skills: webapp-testing, kairos-quality-gate, coderabbit-review, security-review, self-improving-agent
 
 ### @Gage (DevOps) — ÚNICO que faz git push + vercel --prod
-Skills: vercel:deploy, vercel:deployments-cicd, vercel:vercel-cli, vercel:env-vars, vercel:vercel-firewall, self-improving-agent
-Config Vercel: rootDirectory=packages/web | CLI da raiz KAIROS_CEREBRO | email=contacto.revonix@gmail.com
+Skills: vercel:deploy, vercel:deployments-cicd, vercel:vercel-cli, vercel:env-vars, self-improving-agent
+Config: rootDirectory=packages/web | CLI da raiz KAIROS_CEREBRO | email=contacto.revonix@gmail.com
 
-### @Morgan (PM) — Produto, roadmap, copy estratégica
-Skills: product-brainstorming, kairos-token-economy, kairos-operator-rules, self-improving-agent
+### @Uma (UX + Copy) — Design + textos que convertem
+Skills: frontend-design, web-design-guidelines, agent-browser, kairos-copywriter, kairos-design-system, self-improving-agent
+
+### @Morgan (PM + Growth + SEO) — Produto, clientes, visibilidade
+Skills: kairos-growth, kairos-seo, kairos-psycho, kairos-token-economy, product-brainstorming, self-improving-agent
 
 ### @Security — Vault, GDPR, auditoria
 Skills: kairos-security-architect, security-review, kairos-stripe-billing-rules, self-improving-agent
 
-### @Alex (Analyst) — Pesquisa, auditorias, dados
-Skills: tech-search, agent-browser, architecture, self-improving-agent
+### Todos partilham
+Skills: find-skills, tech-search, skill-creator
 
-### @Pax (PO) — Stories, epics, backlog
-Skills: product-brainstorming, checklist-runner, self-improving-agent
-
-### @River (SM) — Scrum, sprints, coordenação
-Skills: checklist-runner, kairos-operator-rules, self-improving-agent
-
-### @Dara (Data Engineer) — Database, queries
-Skills: kairos-elite-engineer, architecture, self-improving-agent
-
-### agent_copywriter — Copy conversão, emails, landing
-Skills: kairos-operator-rules, product-brainstorming, self-improving-agent
-
-### agent_psycho — Psicologia de conversão
-Skills: product-brainstorming, frontend-design, self-improving-agent
-
-### agent_growth — Outreach, social, Product Hunt
-Skills: tech-search, agent-browser, product-brainstorming, self-improving-agent
-
-### agent_seo — SEO, sitemap, páginas programáticas
-Skills: tech-search, agent-browser, next-best-practices, self-improving-agent
-
-### agent_aiox_master — Governance do framework
-Skills: architect-first, skill-creator, architecture, self-improving-agent
-
-### agent_squad_creator — Criação de novos squads
-Skills: skill-creator, architect-first, self-improving-agent
-
-### Todos os 18 partilham
-Skills: find-skills, skill-creator, self-improving-agent
-
-### PLANO SKILLS CUSTOM — A CRIAR AMANHÃ via skill-creator (Anthropic)
-- kairos-copywriter: copy de conversão para devs, emails, landing (agent_copywriter)
-- kairos-growth: outreach, Product Hunt, social, aquisição (agent_growth)
-- kairos-seo: SEO programático, sitemap, 500 páginas (agent_seo)
-- kairos-psycho: psicologia de conversão, CRO (agent_psycho)
-- kairos-po: stories, epics, backlog KAIROS (Pax)
-- kairos-sm: scrum KAIROS, sprints, coordenação (River)
-- kairos-data: queries, analytics, métricas KAIROS (Dara)
-- kairos-apex-leadership: liderança elite, decisões estratégicas, gestão de 18 agentes (APEX_CEO)
-
-NOTA: Não há skills oficiais de fontes confiáveis para estas funções.
-Solução: criar skills custom com skill-creator (Anthropic, 211K installs).
+### PRÓXIMAS PRIORIDADES TÉCNICAS (amanhã)
+1. @Dex instala framer-motion + shadcn/ui em packages/web
+2. @Uma usa agent-browser para analisar vercel.com e linear.app pixel a pixel
+3. @Dex implementa animações premium com Framer Motion
+4. @Quinn valida com screenshots antes de qualquer deploy
+5. @Gage faz o deploy via vercel --prod da raiz KAIROS_CEREBRO
 
 ---
 
