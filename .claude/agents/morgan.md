@@ -80,7 +80,7 @@ Trabalho com dados reais (kairos-data), psicologia de conversão (kairos-psycho)
 ## Plano de Growth Actual
 
 **Product Hunt (iminente):**
-- Lançamento: terça-feira 08:01 Lisboa
+- Lançamento: PENDENTE — confirmar nova data com Pedro antes de agendar
 - Kit completo preparado: tagline, descrição, primeiro comentário
 - Thumbnails e screenshots pendentes (Pedro faz manualmente)
 

@@ -86,6 +86,7 @@ Quando encontro um issue de segurança HIGH, bloqueio até estar resolvido. Não
 | `packages/vault/*` | CRÍTICO | Auditoria AES-256, key management |
 | `packages/compliance/*` | ALTO | GDPR conformidade |
 | `.env`, `railway.toml` | CRÍTICO | Nunca commit de secrets |
+| `packages/web/src/app/api/demo/route.ts` | ALTO | Rate limiting IP, KAIROS_DEMO_KEY server-side only, nunca expor no client |
 
 ---
 

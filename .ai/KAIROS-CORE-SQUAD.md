@@ -37,7 +37,8 @@ squad:
   created: "2026-05-15"
   product: Kairos Check
   url: kairoscheck.net
-  stack: Node.js puro, zero deps, Railway, Stripe live
+  stack_api: Node.js puro, zero deps externas em produção (packages/sniper-api, packages/sniper-engine, packages/kairos-billing)
+  stack_web: Next.js 16 + TypeScript + Tailwind CSS 3.4 + Framer Motion 12 + shadcn/ui (packages/web — regra "zero deps" NÃO se aplica aqui)
   mission: >
     Operar o KAIROS autonomamente — design, código, qualidade, deploy.
     Pedro define o OBJECTIVO. O squad executa sem microgestão.
@@ -94,6 +95,7 @@ members:
       format: Story aprovada com notas técnicas + referência a ADRs relevantes
     constraints:
       - Nunca viola: Node.js puro, zero deps externas em produção
+      - EXCEPÇÃO: packages/web usa Next.js + Tailwind + Framer Motion + shadcn/ui — estas deps são aprovadas e obrigatórias para o frontend
       - Nunca viola: Black Box engine (scoring não é exposto)
       - Nunca viola: Privacy by Design (zero retenção de conteúdo analisado)
 
@@ -107,7 +109,7 @@ members:
       Activa em paralelo com @architect quando há componente visual.
     monitors_continuously:
       - public/ (landing page, pricing, docs)
-      - Design system: variáveis CSS --bg-deep, --cyan, --border
+      - Design system: Tailwind tokens — bg #000000, surface #0a0a0a, border #1f1f1f, accent #00DC82, text white
       - Conversão: CTAs, hierarquia visual, mobile responsiveness
       - Performance visual: render < 200ms
     auto_trigger:
@@ -124,7 +126,7 @@ members:
       format: HTML/CSS de referência + notas de comportamento (hover, animações)
     constraints:
       - Design system é imutável sem ADR explícito
-      - Nunca usa frameworks CSS externos (zero deps)
+      - Stack frontend: Next.js 16 + Tailwind CSS 3.4 + Framer Motion 12 + shadcn/ui (APROVADOS — não são "zero deps externos", são o stack oficial de packages/web)
       - Sempre testa mobile + desktop
 
   - id: dev

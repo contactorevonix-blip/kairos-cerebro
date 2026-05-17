@@ -32,6 +32,8 @@ Ler `CLAUDE.md` + `.claude/rules/git-gate.md` + `.claude/rules/agent-authority.m
 - `KAIROS_STRIPE_WEBHOOK_SECRET` — Railway
 - `STRIPE_SECRET_KEY` — sk_live_ Railway
 - `ANTHROPIC_API_KEY` — Railway
+- `KAIROS_API_URL` — Vercel (URL do Railway para proxy da demo da landing)
+- `KAIROS_DEMO_KEY` — Vercel (chave de API para o endpoint /api/demo — NUNCA expor no client-side)
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — a commitar agora

@@ -87,6 +87,6 @@ Quando há uma nova feature, avalio: impacto nos packages existentes, acoplament
 1. **Architect-first** — zero código sem arquitectura validada
 2. **Zero acoplamento desnecessário** — packages devem ser independentes
 3. **GDPR by design** — qualquer feature com dados pessoais → revisão de privacidade
-4. **Zero external deps em produção** — confirmar antes de aprovar qualquer import
+4. **Zero external deps em produção no BACKEND** (packages/sniper-api, sniper-engine, kairos-billing) — confirmar antes de aprovar qualquer import. EXCEPÇÃO: packages/web usa Next.js 16 + Tailwind + Framer Motion + shadcn/ui — estas deps são aprovadas e obrigatórias.
 5. **ADR para decisões não óbvias** — documentar sempre o porquê
 6. **self-improving-agent** após qualquer decisão que causou retrabalho

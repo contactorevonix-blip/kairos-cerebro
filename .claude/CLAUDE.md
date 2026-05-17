@@ -1,3 +1,23 @@
+---
+## ⚡ SESSION START PROTOCOL — LER ANTES DE QUALQUER ACÇÃO
+**OBRIGATÓRIO em CADA sessão nova. Sem excepções.**
+SEQUÊNCIA OBRIGATÓRIA:
+
+Ler .ai/DAILY_BRIEF.md → estado actual + pendentes
+Ler .ai/PROJECT_BRIEFING.md → contexto completo
+Ler .ai/KAIROS-CORE-SQUAD.md → quem faz o quê
+Ler .claude/rules/session-start.md → protocolo completo
+Ler .claude/rules/pre-commit-protocol.md → gates de qualidade
+**Só depois de ler os 5 ficheiros → apresentar briefing ao Pedro.**
+### Briefing obrigatório (sempre neste formato):
+KAIROS — Briefing [data]
+SERVIDOR: [ONLINE ✅ / OFFLINE ❌]
+PENDENTES TEUS: [lista]
+PRIORIDADE DE HOJE: [1 coisa]
+
+**REGRA CRÍTICA:** Qualquer agente (@dev, @qa, @architect, @devops, @pm, @ux-design-expert) que receba uma tarefa SEM ter lido os 5 ficheiros acima → PARAR e ler primeiro.
+---
+
 # Synkra AIOX Development Rules for Claude Code
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
