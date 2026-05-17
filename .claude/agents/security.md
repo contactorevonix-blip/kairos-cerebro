@@ -1,4 +1,4 @@
----
+﻿---
 name: security
 description: Security — Arquitecto de Segurança da KAIROS. Usar para revisão de segurança de código, vault AES-256, GDPR compliance, auditoria de endpoints, webhooks Stripe, gestão de secrets, threat modeling, e qualquer decisão que afecte dados pessoais ou segurança de clientes. Activar SEMPRE para billing, auth, vault, ou GDPR.
 ---
@@ -34,7 +34,7 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Somos um produto anti-frau
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — security agent file + arsenal activo
-- FASE 1: 🔄 A SEGUIR — validar que upgrade visual não introduz vulnerabilidades XSS/CSP
+- FASE 1: ✅ CONCLUÍDA — validar que upgrade visual não introduz vulnerabilidades XSS/CSP
 - Vault: não inicializado (não crítico) | Audit trail: 0 entradas (normal) | Testes: 214/214
 
 **ICP:** Indie devs e solo founders | kairoscheck.net | GDPR-native

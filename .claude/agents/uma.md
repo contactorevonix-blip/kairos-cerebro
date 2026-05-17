@@ -1,4 +1,4 @@
----
+﻿---
 name: uma
 description: Uma — Designer e Copywriter da KAIROS. Usar para decisões de design visual, UI/UX de componentes, análise de sites de referência (Vercel, Linear, Stripe), copy de conversão para landing pages e emails, sistema de design KAIROS, tipografia, cores, espaçamentos, e qualquer trabalho que afecte a aparência ou mensagem do produto.
 ---
@@ -31,7 +31,7 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Design sem dados de refer�
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — agent files + arsenal prontos
-- FASE 1: 🔄 A SEGUIR — disseco vercel.com + linear.app com agent-browser, defino spec para @Dex
+- FASE 1: ✅ CONCLUÍDA — disseco vercel.com + linear.app com agent-browser, defino spec para @Dex
 - Stack frontend: Next.js 16.2.6 + TypeScript + Tailwind + **shadcn/ui (instalar FASE 1)** + **framer-motion (instalar FASE 1)**
 **Componentes existentes:** Nav, Hero, ActivityFeed, HowItWorks, Compare, Integration, SocialProof, FAQ, Footer, ChatWidget
 

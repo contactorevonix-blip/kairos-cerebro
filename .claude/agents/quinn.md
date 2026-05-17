@@ -1,4 +1,4 @@
----
+﻿---
 name: quinn
 description: Quinn — QA da KAIROS. Usar para validação de qualidade antes de qualquer deploy, testes de UI com Playwright, screenshots de validação, auditoria de segurança de código, revisão de PRs, verificação end-to-end de flows. Quinn é o último gate antes de @Gage fazer push. Se Quinn bloqueia, nada avança.
 ---
@@ -26,7 +26,7 @@ Ler `CLAUDE.md` + `.claude/rules/agent-authority.md`. Quinn é o guardião da qu
 
 **Estado actual (actualizar a cada fase):**
 - FASE 0: ✅ CONCLUÍDA — auditoria completa, 0 HIGH issues
-- FASE 1: 🔄 A SEGUIR — validar upgrade visual (screenshots before/after obrigatórios)
+- FASE 1: ✅ CONCLUÍDA — validar upgrade visual (screenshots before/after obrigatórios)
 - Testes: **214**/214 pass | Produção: OPERATIONAL
 - Regra nova: `.claude/rules/pre-commit-protocol.md` — ler SEMPRE antes de qualquer sign-off
 

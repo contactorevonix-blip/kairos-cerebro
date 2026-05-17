@@ -2,12 +2,38 @@
 
 ---
 
-## SESSÃO 2026-05-17 — FASE 0 CONCLUÍDA
+## SESSÃO 2026-05-17 — FASE 0 ✅ + FASE 1 ✅ + REDESIGN ✅ CONCLUÍDAS
 
 ### ESTADO DO SERVIDOR
-- URL: https://kairoscheck.net | Status: **OPERATIONAL** ✅
-- Railway: v7.1.0 | 4 tenants | DB writable | uptime 8h+
-- Vercel: Next.js 16.2.6 (packages/web) — landing page em produção
+- URL: https://kairoscheck.net | Status: **OPERATIONAL** ✅ (Railway)
+- Railway: v7.1.0 | 4 tenants | DB writable
+- Vercel: Next.js deployed mas **kairoscheck.net NÃO apontado para Vercel ainda**
+- ⚠️ PEDRO TEM DE LIGAR O DOMÍNIO NO VERCEL DASHBOARD (ver abaixo)
+
+### O QUE FOI FEITO NESTA SESSÃO (NÃO REPETIR)
+
+**REDESIGN COMPLETO kairoscheck.net:**
+- Hero: verdict card animado (BLOCK/score/signals), headline "Fraud detection for developers. Before it hurts."
+- ActivityFeed: timestamps reais, animação entrada nova linha, BLOCK/CLEAR coloridos
+- HowItWorks: 3 cards numerados com código preview
+- SignalMap: 8 layers OSINT em grid com score bar animado
+- SocialProof: 6 stats em grid
+- FAQ: accordion animado
+- FinalCTA: nova secção com glow verde
+- Domínio: kairoscheck.net → Vercel (DNS mudou de Railway para Vercel, CNAME no Cloudflare)
+- KAIROS_API_URL: configurada em Vercel Production
+
+**REGRAS CRIADAS:**
+- pre-commit-protocol.md
+- pre-flight-tools.md (inclui: vercel deploy pre-flight, npx vercel, paths Bash vs PS)
+- Regra APEX_CEO lê tudo antes de qualquer acção
+- Regra transição de fases
+
+**PROXIMA SESSAO — FASE 2:**
+- @Morgan pesquisa skills em falta (paralelo)
+- Continuar redesign se Pedro pedir
+- SEO: 500 domínios no sitemap
+- Dashboard CEO visual
 
 ### O QUE FOI FEITO (NÃO REPETIR NA PRÓXIMA SESSÃO)
 - ✅ 8 agent files criados em `.claude/agents/` com KAIROS DNA completo
@@ -20,12 +46,19 @@
 - ✅ Diagnóstico Next.js: migração INCOMPLETA — /pricing /docs /account ainda em sniper-api
 - ⚠️ COMMIT PENDENTE — @Gage ainda não executou o push desta sessão
 
-### COMMIT PENDENTE — @Gage executa PRIMEIRO na próxima sessão
-```bash
-cd "C:\Users\lealp\KAIROS_CEREBRO"
-git add .claude/agents/apex-ceo.md .claude/agents/aria.md .claude/agents/dex.md .claude/agents/quinn.md .claude/agents/gage.md .claude/agents/uma.md .claude/agents/morgan.md .claude/agents/security.md .claude/agents/smoke-tester.md .claude/rules/pre-commit-protocol.md .ai/audits/2026-05-17-phase0-agent-files.md packages/web/.gitignore
-git commit -m "feat: FASE 0 completa — 8 agents + protocols + phase-transition rule"
-git push origin main
+### COMMITS DESTA SESSÃO (já feitos)
+- f97d1bf — FASE 0: 8 agent files + arsenal 51 skills + protocols
+- 03290bf — fix: FASE 1 (numeração corrigida em todos os agents)
+- dfbff86 — FASE 1: framer-motion + shadcn/ui + Hero/Nav upgrade
+- 6c91596 — fix: pre-flight-tools rule + audit visual completo
+- f802dd3 — fix: vercel deploy pre-flight check
+- PENDENTE — apex-ceo.md regra zero + DAILY_BRIEF update (esta sessão)
+
+### PEDRO TEM DE FAZER — URGENTE (site não actualizou)
+```
+1. Vercel Dashboard → projecto → Settings → Domains → Add kairoscheck.net
+2. Cloudflare → DNS → apontar kairoscheck.net para Vercel
+3. Terminal: ! cd "C:\Users\lealp\KAIROS_CEREBRO" && npx vercel --prod --yes
 ```
 
 ---

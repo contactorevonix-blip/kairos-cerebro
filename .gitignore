@@ -53,3 +53,5 @@ packages/web/node_modules
 packages/web/.next
 
 .vercel
+
+.ai/design-ref/
