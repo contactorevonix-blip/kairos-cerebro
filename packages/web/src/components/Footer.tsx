@@ -1,28 +1,38 @@
 import Link from 'next/link';
 
+const links = [
+  { href: '/docs',           label: 'Docs'    },
+  { href: '/pricing',        label: 'Pricing' },
+  { href: '/status',         label: 'Status'  },
+  { href: '/legal/privacy',  label: 'Privacy' },
+  { href: '/legal/terms',    label: 'Terms'   },
+];
+
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-[#0a0a0a] py-12">
-      <div className="mx-auto max-w-[1100px] px-6">
-        <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+    <footer className="border-t py-14" style={{ borderColor: 'var(--border)', background: 'var(--bg)' }}>
+      <div className="mx-auto max-w-content px-6">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+
           <div>
-            <div className="text-sm font-bold tracking-tighter text-white">
+            <p className="text-[15px] font-bold tracking-tighter text-white">
               Kairos<span className="text-accent">Check</span>
-            </div>
-            <p className="mt-1 text-xs text-white/30">
-              OSINT-first fraud detection API. GDPR-native.
+            </p>
+            <p className="mt-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+              OSINT-first fraud detection API. GDPR-native by design.
             </p>
           </div>
-          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/35">
-            <Link href="/docs" className="hover:text-white transition-colors">Docs</Link>
-            <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
-            <Link href="/status" className="hover:text-white transition-colors">Status</Link>
-            <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="/legal/terms" className="hover:text-white transition-colors">Terms</Link>
-            <a href="mailto:hello@kairoscheck.net" className="hover:text-white transition-colors">Contact</a>
+
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-[13px]" style={{ color: 'var(--text-muted)' }}>
+            {links.map(({ href, label }) => (
+              <Link key={href} href={href} className="transition-colors hover:text-white/70">{label}</Link>
+            ))}
+            <a href="mailto:hello@kairoscheck.net" className="transition-colors hover:text-white/70">Contact</a>
           </nav>
         </div>
-        <div className="mt-8 border-t border-white/[0.04] pt-6 text-xs text-white/20">
+
+        <div className="mt-10 border-t pt-6 text-[11px]"
+          style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
           © {new Date().getFullYear()} Kairos Check. All rights reserved.
         </div>
       </div>
