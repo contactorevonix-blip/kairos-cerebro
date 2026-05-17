@@ -51,3 +51,5 @@ inventario.txt
 /inventory-*.csv
 packages/web/node_modules
 packages/web/.next
+
+.vercel
