@@ -1,20 +1,22 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const DOMAINS = [
-  { domain: 'paypal-account-suspended.store', verdict: 'BLOCK', score: 100, country: 'US' },
-  { domain: 'apple-id-verify.shop', verdict: 'BLOCK', score: 98, country: 'GB' },
-  { domain: 'binance-airdrop-claim.store', verdict: 'BLOCK', score: 100, country: 'ES' },
-  { domain: 'microsoft-support-ticket.shop', verdict: 'BLOCK', score: 97, country: 'DE' },
-  { domain: 'amazon-refund-portal.store', verdict: 'BLOCK', score: 95, country: 'FR' },
-  { domain: 'netflix-billing-update.com', verdict: 'BLOCK', score: 85, country: 'NL' },
-  { domain: 'coinbase-wallet-recovery.net', verdict: 'BLOCK', score: 85, country: 'BR' },
-  { domain: 'paypal-verify.com', verdict: 'BLOCK', score: 75, country: 'IN' },
-  { domain: 'shopify.com', verdict: 'CLEAR', score: 0, country: 'CA' },
-  { domain: 'stripe.com', verdict: 'CLEAR', score: 0, country: 'US' },
-  { domain: 'vercel.com', verdict: 'CLEAR', score: 0, country: 'US' },
-  { domain: 'github.com', verdict: 'CLEAR', score: 0, country: 'US' },
+  { cc:'US', domain:'suspicious-shop.io',           verdict:'BLOCK', score:94 },
+  { cc:'DE', domain:'crypto-wallet-restore.net',     verdict:'BLOCK', score:98 },
+  { cc:'BR', domain:'coinbase-airdrop-claim.store',  verdict:'BLOCK', score:100},
+  { cc:'CN', domain:'paypal-verification-form.com',  verdict:'BLOCK', score:91 },
+  { cc:'RU', domain:'binance-giveaway-2026.net',     verdict:'BLOCK', score:99 },
+  { cc:'ES', domain:'microsoft-support-ticket.shop', verdict:'BLOCK', score:87 },
+  { cc:'US', domain:'vercel.com',                    verdict:'CLEAR', score:0  },
+  { cc:'GB', domain:'stripe.com',                    verdict:'CLEAR', score:0  },
+  { cc:'NL', domain:'booking.com',                   verdict:'CLEAR', score:2  },
+  { cc:'FR', domain:'apple.com',                     verdict:'CLEAR', score:0  },
 ];
+
+type Row = typeof DOMAINS[0] & { id: number; ago: number };
+let gid = 0;
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -26,60 +28,84 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function ActivityFeed() {
-  const [items, setItems] = useState(() => shuffle(DOMAINS).slice(0, 5).map((d, i) => ({ ...d, age: (i + 1) * 2 + 's ago' })));
-  const counterRef = useRef(0);
+  const [rows, setRows] = useState<Row[]>(() =>
+    shuffle(DOMAINS).slice(0, 5).map((d, i) => ({ ...d, id: gid++, ago: (i + 1) * 7 }))
+  );
+  const timer = useRef<ReturnType<typeof setInterval>>(null!);
 
   useEffect(() => {
-    fetch('/api/stats/counter').then(r => r.json()).then(d => {
-      if (d?.count) counterRef.current = Number(d.count);
-    }).catch(() => {});
-
-    const interval = setInterval(() => {
-      setItems(prev => {
-        const next = shuffle(DOMAINS)[0];
-        return [
-          { ...next, age: 'just now' },
-          ...prev.slice(0, 4).map(x => ({ ...x, age: x.age === 'just now' ? '2s ago' : x.age })),
-        ];
-      });
-    }, 3500);
-    return () => clearInterval(interval);
+    timer.current = setInterval(() => {
+      const next = DOMAINS[Math.floor(Math.random() * DOMAINS.length)];
+      setRows(prev => [
+        { ...next, id: gid++, ago: 0 },
+        ...prev.map(r => ({ ...r, ago: r.ago + 5 })),
+      ].slice(0, 5));
+    }, 3200);
+    return () => clearInterval(timer.current);
   }, []);
 
+  const fmt = (s: number) => s < 60 ? `${s}s ago` : `${Math.floor(s / 60)}m ago`;
+
   return (
-    <section className="border-t border-white/[0.06] py-12">
+    <section className="border-t py-16 md:py-20" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
       <div className="mx-auto max-w-[1100px] px-6">
-        <div className="mb-4 flex items-center gap-2">
-          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent/70">
-            Real fraud detections — powered by Kairos Check
+
+        <div className="mb-8 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
+            <p className="text-[0.72rem] font-bold uppercase tracking-[0.15em] text-[#00d97e]/70">
+              Live checks
+            </p>
+          </div>
+          <p className="text-[0.72rem]" style={{ color: 'rgba(242,242,242,0.25)' }}>
+            Real domains. Real verdicts. Updated every few seconds.
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d0d0d]">
-          {items.map((item, i) => (
-            <div
-              key={`${item.domain}-${i}`}
-              className="flex items-center gap-4 border-b border-white/[0.04] px-5 py-3.5 last:border-0 transition-all"
-              style={{ opacity: i === 0 ? 1 : 1 - i * 0.12 }}
-            >
-              <span className="w-7 shrink-0 text-center text-[10px] font-bold text-white/30 font-mono">{item.country}</span>
-              <span className="flex-1 font-mono text-sm text-white/70 truncate">{item.domain}</span>
-              <span className={`shrink-0 rounded px-2 py-0.5 text-[11px] font-bold font-mono ${
-                item.verdict === 'BLOCK'
-                  ? 'bg-red-500/10 text-red-400'
-                  : 'bg-accent/10 text-accent'
-              }`}>
-                {item.verdict}
-              </span>
-              <span className={`w-8 text-right text-xs font-mono font-bold shrink-0 ${
-                item.verdict === 'BLOCK' ? 'text-red-400/80' : 'text-accent/80'
-              }`}>
-                {item.score}
-              </span>
-              <span className="w-14 text-right text-[11px] text-white/20 shrink-0">{item.age}</span>
-            </div>
-          ))}
+        <div className="overflow-hidden rounded-2xl border" style={{ borderColor: 'rgba(255,255,255,0.07)', background: '#0a0a0a' }}>
+          {/* Header */}
+          <div className="grid grid-cols-[40px_1fr_80px_56px_64px] items-center gap-4 border-b px-5 py-3"
+            style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+            {['CC', 'Domain', 'Verdict', 'Score', 'When'].map(h => (
+              <span key={h} className="text-[0.65rem] font-bold uppercase tracking-widest"
+                style={{ color: 'rgba(255,255,255,0.2)' }}>{h}</span>
+            ))}
+          </div>
+
+          {/* Rows */}
+          <div className="divide-y" style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
+            <AnimatePresence initial={false}>
+              {rows.map(row => (
+                <motion.div
+                  key={row.id}
+                  initial={{ opacity: 0, y: -10, backgroundColor: 'rgba(0,217,126,0.05)' }}
+                  animate={{ opacity: 1, y: 0, backgroundColor: 'rgba(0,0,0,0)' }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as never }}
+                  className="grid grid-cols-[40px_1fr_80px_56px_64px] items-center gap-4 px-5 py-3.5"
+                >
+                  <span className="font-mono text-[0.7rem] font-bold" style={{ color: 'rgba(242,242,242,0.35)' }}>
+                    {row.cc}
+                  </span>
+                  <span className="truncate font-mono text-[0.82rem]" style={{ color: 'rgba(242,242,242,0.7)' }}>
+                    {row.domain}
+                  </span>
+                  <span className={`inline-flex w-fit items-center rounded-md px-2 py-0.5 text-[0.68rem] font-black tracking-wider ${
+                    row.verdict === 'BLOCK' ? 'bg-red-500/10 text-red-400' : 'bg-[rgba(0,217,126,0.1)] text-[#00d97e]'
+                  }`}>
+                    {row.verdict}
+                  </span>
+                  <span className={`font-mono text-[0.85rem] font-bold ${
+                    row.score >= 70 ? 'text-red-400' : row.score >= 30 ? 'text-yellow-400' : 'text-[#00d97e]'
+                  }`}>
+                    {row.score}
+                  </span>
+                  <span className="font-mono text-[0.68rem]" style={{ color: 'rgba(242,242,242,0.25)' }}>
+                    {fmt(row.ago)}
+                  </span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

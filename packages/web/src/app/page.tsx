@@ -2,8 +2,9 @@ import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import ActivityFeed from '@/components/ActivityFeed';
 import HowItWorks from '@/components/HowItWorks';
-import Compare from '@/components/Compare';
+import SignalMap from '@/components/SignalMap';
 import Integration from '@/components/Integration';
+import Compare from '@/components/Compare';
 import SocialProof from '@/components/SocialProof';
 import FAQ from '@/components/FAQ';
 import FinalCTA from '@/components/FinalCTA';
@@ -18,8 +19,9 @@ export default function HomePage() {
         <Hero />
         <ActivityFeed />
         <HowItWorks />
-        <Compare />
+        <SignalMap />
         <Integration />
+        <Compare />
         <SocialProof />
         <FAQ />
         <FinalCTA />
