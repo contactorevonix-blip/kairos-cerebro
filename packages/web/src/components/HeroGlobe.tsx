@@ -4,18 +4,18 @@ import { useEffect, useRef } from 'react';
 import createGlobe from 'cobe';
 
 const MARKERS: { location: [number, number]; size: number }[] = [
-  { location: [38.7169,  -9.1395],  size: 0.06 }, // Lisboa
-  { location: [51.5074,  -0.1278],  size: 0.06 }, // Londres
-  { location: [40.7128, -74.0060],  size: 0.07 }, // Nova York
-  { location: [-23.5505, -46.6333], size: 0.07 }, // São Paulo
-  { location: [35.6762,  139.6503], size: 0.06 }, // Tóquio
-  { location: [25.2048,   55.2708], size: 0.05 }, // Dubai
-  { location: [1.3521,   103.8198], size: 0.05 }, // Singapura
-  { location: [-33.8688, 151.2093], size: 0.05 }, // Sydney
-  { location: [43.6532,  -79.3832], size: 0.06 }, // Toronto
-  { location: [52.5200,   13.4050], size: 0.05 }, // Berlim
-  { location: [6.5244,    3.3792],  size: 0.05 }, // Lagos
-  { location: [19.0760,   72.8777], size: 0.06 }, // Mumbai
+  { location: [38.7169,  -9.1395],  size: 0.06 },
+  { location: [51.5074,  -0.1278],  size: 0.06 },
+  { location: [40.7128, -74.0060],  size: 0.07 },
+  { location: [-23.5505, -46.6333], size: 0.07 },
+  { location: [35.6762,  139.6503], size: 0.06 },
+  { location: [25.2048,   55.2708], size: 0.05 },
+  { location: [1.3521,   103.8198], size: 0.05 },
+  { location: [-33.8688, 151.2093], size: 0.05 },
+  { location: [43.6532,  -79.3832], size: 0.06 },
+  { location: [52.5200,   13.4050], size: 0.05 },
+  { location: [6.5244,    3.3792],  size: 0.05 },
+  { location: [19.0760,   72.8777], size: 0.06 },
 ];
 
 export default function HeroGlobe() {
@@ -30,8 +30,8 @@ export default function HeroGlobe() {
 
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
-      width: 500,
-      height: 500,
+      width: 600,
+      height: 600,
       phi: 0,
       theta: 0.3,
       dark: 1,
@@ -49,7 +49,6 @@ export default function HeroGlobe() {
       globe.update({ phi });
       rafId = requestAnimationFrame(animate);
     }
-
     rafId = requestAnimationFrame(animate);
 
     return () => {
@@ -59,9 +58,17 @@ export default function HeroGlobe() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', height: '100%', aspectRatio: '1' }}
-    />
+    <div style={{ width: 500, height: 500, position: 'relative' }}>
+      <canvas
+        ref={canvasRef}
+        width={600}
+        height={600}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'block',
+        }}
+      />
+    </div>
   );
 }
