@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import LiveDemo from '@/components/LiveDemo';
 import ActivityFeed from '@/components/ActivityFeed';
 import HowItWorks from '@/components/HowItWorks';
 import SignalMap from '@/components/SignalMap';
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Nav />
       <main>
         <Hero />
+        <LiveDemo />
         <ActivityFeed />
         <HowItWorks />
         <SignalMap />
