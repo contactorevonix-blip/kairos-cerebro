@@ -90,7 +90,7 @@ export function ShieldMesh({ mouseX, mouseY }: { mouseX: number; mouseY: number 
     color: new THREE.Color("#061428"),
     metalness: 1.0, roughness: 0.04,
     clearcoat: 1.0, clearcoatRoughness: 0.02,
-    reflectivity: 1.0, envMapIntensity: 2.2,
+    ior: 1.5, envMapIntensity: 2.2,
     emissive: new THREE.Color("#0d2f6e"), emissiveIntensity: 0.6,
   }), []);
 

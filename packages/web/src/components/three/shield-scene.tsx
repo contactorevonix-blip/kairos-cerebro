@@ -55,7 +55,7 @@ export function ShieldScene({ mouseX = 0, mouseY = 0 }: { mouseX?: number; mouse
         gl.setClearColor(0x000000, 0);
         scene.background = null;
       }}
-      style={{ background: "transparent" }}
+      style={{ width: "100%", height: "100%", background: "transparent" }}
       dpr={[1, 2]}
     >
       <SceneConfig />

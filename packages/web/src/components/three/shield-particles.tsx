@@ -60,7 +60,7 @@ export function ShieldParticles() {
       <OrbitalRing radius={5.1} speed={0.16}  tilt={0.72} color="#06b6d4" dotCount={2} />
       <points ref={ref}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" array={positions} count={120} itemSize={3} />
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         </bufferGeometry>
         <pointsMaterial size={0.024} color="#3b82f6" transparent opacity={0.60} sizeAttenuation />
       </points>
