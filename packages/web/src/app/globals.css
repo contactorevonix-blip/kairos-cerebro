@@ -63,10 +63,22 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: rgba(0,220,130,0.2); color: #fff; }
+::selection { background: rgba(146,129,247,0.25); color: #fff; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #222; border-radius: 999px; }
+
+/* Responsive helpers */
+@media (max-width: 768px) {
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: flex !important; }
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .hero-cube { display: none !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (min-width: 769px) {
+  .show-mobile { display: none !important; }
+}
 :focus-visible { outline: 2px solid rgba(0,220,130,0.6); outline-offset: 3px; border-radius: 4px; }
 
 /* ── MARQUEE ──────────────────────────────────────────────── */
