@@ -1,176 +1,270 @@
 "use client";
 
 import { useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useSpring, animated } from "@react-spring/three";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 
-/* ------------------------------------------------------------------ */
-/* Shield geometry — extruded from a shield-shaped 2D path              */
-/* ------------------------------------------------------------------ */
-function ShieldMesh({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
-  const groupRef = useRef<THREE.Group>(null!);
-  const innerRef = useRef<THREE.Mesh>(null!);
-  const glowRef  = useRef<THREE.Mesh>(null!);
+/* ─────────────────────────────────────────────────────────────────────
+   Shield path — shared between outer shell and inner recessed panel
+   ───────────────────────────────────────────────────────────────────── */
+function makeShieldShape(scale = 1): THREE.Shape {
+  const s = new THREE.Shape();
+  const k = scale;
+  s.moveTo(0, 2.4 * k);
+  s.bezierCurveTo( 1.2*k, 2.4*k,  2.0*k, 1.8*k,  2.0*k, 1.0*k);
+  s.bezierCurveTo( 2.0*k, 0.2*k,  1.4*k,-0.6*k,  0.8*k,-1.4*k);
+  s.bezierCurveTo( 0.3*k,-2.2*k,  0,    -2.6*k,  0,    -2.6*k);
+  s.bezierCurveTo( 0,    -2.6*k, -0.3*k,-2.2*k, -0.8*k,-1.4*k);
+  s.bezierCurveTo(-1.4*k,-0.6*k, -2.0*k, 0.2*k, -2.0*k, 1.0*k);
+  s.bezierCurveTo(-2.0*k, 1.8*k, -1.2*k, 2.4*k,  0,     2.4*k);
+  return s;
+}
 
-  const shieldShape = useMemo(() => {
-    const shape = new THREE.Shape();
-    // Classic shield outline
-    shape.moveTo(0, 2.4);
-    shape.bezierCurveTo( 1.2, 2.4,  2.0, 1.8,  2.0, 1.0);
-    shape.bezierCurveTo( 2.0, 0.2,  1.4,-0.6,  0.8,-1.4);
-    shape.bezierCurveTo( 0.3,-2.2,  0,  -2.6,  0,  -2.6);
-    shape.bezierCurveTo( 0,  -2.6, -0.3,-2.2, -0.8,-1.4);
-    shape.bezierCurveTo(-1.4,-0.6, -2.0, 0.2, -2.0, 1.0);
-    shape.bezierCurveTo(-2.0, 1.8, -1.2, 2.4,  0,   2.4);
-    return shape;
-  }, []);
+const OUTER_EXTRUDE: THREE.ExtrudeGeometryOptions = {
+  depth: 0.6,
+  bevelEnabled: true,
+  bevelThickness: 0.15,
+  bevelSize: 0.10,
+  bevelSegments: 20,
+  curveSegments: 48,
+};
 
-  const extrudeSettings = useMemo(() => ({
-    depth: 0.4,
-    bevelEnabled: true,
-    bevelThickness: 0.08,
-    bevelSize: 0.06,
-    bevelSegments: 8,
+const INNER_EXTRUDE: THREE.ExtrudeGeometryOptions = {
+  depth: 0.07,
+  bevelEnabled: false,
+  curveSegments: 32,
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   KAIROS mark — K letter inside a ring, centred on the shield face
+   ───────────────────────────────────────────────────────────────────── */
+function KairosMark() {
+  const ref = useRef<THREE.Group>(null!);
+  const ringRef = useRef<THREE.Mesh>(null!);
+
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+    if (ref.current) {
+      ref.current.scale.setScalar(1 + Math.sin(t * 2.0) * 0.022);
+    }
+    if (ringRef.current) {
+      const mat = ringRef.current.material as THREE.MeshBasicMaterial;
+      mat.opacity = 0.55 + Math.sin(t * 1.4) * 0.25;
+    }
+  });
+
+  return (
+    <group ref={ref} position={[0, -0.12, 0.72]}>
+      {/* Soft halo — wide low-opacity disc */}
+      <mesh>
+        <circleGeometry args={[0.88, 64]} />
+        <meshBasicMaterial
+          color="#2563eb"
+          transparent
+          opacity={0.12}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Outer glow ring */}
+      <mesh>
+        <torusGeometry args={[0.68, 0.09, 16, 64]} />
+        <meshBasicMaterial
+          color="#3b82f6"
+          transparent
+          opacity={0.22}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Solid inner ring */}
+      <mesh ref={ringRef}>
+        <torusGeometry args={[0.68, 0.024, 16, 64]} />
+        <meshBasicMaterial color="#60a5fa" transparent opacity={0.7} />
+      </mesh>
+
+      {/* K — vertical stem */}
+      <mesh position={[-0.20, 0, 0.01]}>
+        <boxGeometry args={[0.10, 0.82, 0.06]} />
+        <meshBasicMaterial color="#93c5fd" />
+      </mesh>
+      {/* K — upper diagonal arm */}
+      <mesh position={[0.11, 0.24, 0.01]} rotation={[0, 0, -0.48]}>
+        <boxGeometry args={[0.10, 0.50, 0.06]} />
+        <meshBasicMaterial color="#93c5fd" />
+      </mesh>
+      {/* K — lower diagonal arm */}
+      <mesh position={[0.11, -0.24, 0.01]} rotation={[0, 0, 0.48]}>
+        <boxGeometry args={[0.10, 0.50, 0.06]} />
+        <meshBasicMaterial color="#93c5fd" />
+      </mesh>
+
+      {/* Centre junction glow */}
+      <mesh position={[0, 0, 0.04]}>
+        <circleGeometry args={[0.07, 24]} />
+        <meshBasicMaterial
+          color="#93c5fd"
+          transparent
+          opacity={0.9}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Shield mesh — outer shell + inner panel + scan line + emblem
+   ───────────────────────────────────────────────────────────────────── */
+function ShieldBody({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
+  const groupRef  = useRef<THREE.Group>(null!);
+  const scanRef   = useRef<THREE.Mesh>(null!);
+  const scanY     = useRef(-2.8);
+  const rot       = useRef({ x: 0, y: 0 });
+
+  /* shapes */
+  const outerShape = useMemo(() => makeShieldShape(1),    []);
+  const innerShape = useMemo(() => makeShieldShape(0.80), []);
+
+  /* materials */
+  const outerMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color:               new THREE.Color("#061428"),
+    metalness:           1.0,
+    roughness:           0.04,
+    clearcoat:           1.0,
+    clearcoatRoughness:  0.02,
+    reflectivity:        1.0,
+    emissive:            new THREE.Color("#0d2f6e"),
+    emissiveIntensity:   0.6,
+    envMapIntensity:     2.0,
   }), []);
 
-  /* Gradient material via vertex colors */
-  const shieldMaterial = useMemo(() => {
-    return new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color(0x0a1628),
-      metalness: 0.9,
-      roughness: 0.1,
-      reflectivity: 1,
-      clearcoat: 1,
-      clearcoatRoughness: 0.05,
-      emissive: new THREE.Color(0x1a3a6e),
-      emissiveIntensity: 0.4,
-      side: THREE.FrontSide,
-    });
-  }, []);
+  const innerMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color:              new THREE.Color("#0a1e50"),
+    metalness:          0.85,
+    roughness:          0.12,
+    clearcoat:          0.7,
+    emissive:           new THREE.Color("#1a4090"),
+    emissiveIntensity:  0.45,
+    envMapIntensity:    1.2,
+  }), []);
 
-  const glowMaterial = useMemo(() => {
-    return new THREE.MeshBasicMaterial({
-      color: new THREE.Color(0x3b82f6),
-      transparent: true,
-      opacity: 0.07,
-      side: THREE.BackSide,
-    });
-  }, []);
+  const auraMat = useMemo(() => new THREE.MeshBasicMaterial({
+    color:       new THREE.Color("#1d4ed8"),
+    transparent: true,
+    opacity:     0.06,
+    side:        THREE.BackSide,
+    blending:    THREE.AdditiveBlending,
+    depthWrite:  false,
+  }), []);
 
-  /* Spring-follow mouse */
-  const targetRot = useRef({ x: 0, y: 0 });
-  useFrame((state) => {
-    targetRot.current.x += (mouseY * 0.4 - targetRot.current.x) * 0.06;
-    targetRot.current.y += (mouseX * 0.6 - targetRot.current.y) * 0.06;
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+
+    /* smooth spring-like mouse follow */
+    rot.current.x += (mouseY * 0.40 - rot.current.x) * 0.06;
+    rot.current.y += (mouseX * 0.60 - rot.current.y) * 0.06;
 
     if (groupRef.current) {
-      groupRef.current.rotation.x = targetRot.current.x;
-      groupRef.current.rotation.y = targetRot.current.y;
-      /* gentle idle float */
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.7) * 0.08;
+      groupRef.current.rotation.x = rot.current.x;
+      groupRef.current.rotation.y = rot.current.y;
+      groupRef.current.position.y = Math.sin(t * 0.65) * 0.11;
     }
 
-    /* Pulse emissive on inner shield */
-    if (innerRef.current) {
-      const mat = innerRef.current.material as THREE.MeshPhysicalMaterial;
-      mat.emissiveIntensity = 0.3 + Math.sin(state.clock.elapsedTime * 1.4) * 0.15;
-    }
+    /* emissive breathing */
+    outerMat.emissiveIntensity = 0.50 + Math.sin(t * 1.3)  * 0.18;
+    innerMat.emissiveIntensity = 0.35 + Math.sin(t * 1.3 + 1.0) * 0.14;
 
-    /* Rotate glow shell */
-    if (glowRef.current) {
-      glowRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+    /* scan line sweep — bottom to top, wrap */
+    if (scanRef.current) {
+      scanY.current += 0.024;
+      if (scanY.current > 2.9) scanY.current = -2.9;
+      scanRef.current.position.y = scanY.current;
+      const progress = (scanY.current + 2.9) / 5.8;
+      const fade = Math.sin(progress * Math.PI);
+      (scanRef.current.material as THREE.MeshBasicMaterial).opacity = fade * 0.22;
     }
   });
 
   return (
     <group ref={groupRef}>
-      {/* Main shield */}
-      <mesh ref={innerRef} material={shieldMaterial} castShadow receiveShadow>
-        <extrudeGeometry args={[shieldShape, extrudeSettings]} />
+      {/* ── Outer aura glow (backface, slightly scaled up) ── */}
+      <mesh scale={[1.14, 1.14, 1.04]} material={auraMat}>
+        <extrudeGeometry args={[outerShape, OUTER_EXTRUDE]} />
       </mesh>
 
-      {/* Glow backface */}
-      <mesh ref={glowRef} scale={[1.08, 1.08, 1.08]} material={glowMaterial}>
-        <extrudeGeometry args={[shieldShape, extrudeSettings]} />
+      {/* ── Main shield shell ── */}
+      <mesh material={outerMat} castShadow receiveShadow>
+        <extrudeGeometry args={[outerShape, OUTER_EXTRUDE]} />
       </mesh>
 
-      {/* Center checkmark / K emblem */}
-      <group position={[0, -0.1, 0.26]}>
-        <mesh>
-          <torusGeometry args={[0.55, 0.04, 12, 48]} />
-          <meshBasicMaterial color="#3b82f6" transparent opacity={0.7} />
-        </mesh>
-        <mesh position={[0, 0, 0]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.9, 8]} />
-          <meshBasicMaterial color="#60a5fa" />
-        </mesh>
-        <mesh position={[0.22, 0.15, 0]} rotation={[0, 0, -Math.PI / 4]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.5, 8]} />
-          <meshBasicMaterial color="#60a5fa" />
-        </mesh>
-        <mesh position={[0.22, -0.15, 0]} rotation={[0, 0, Math.PI / 4]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.5, 8]} />
-          <meshBasicMaterial color="#60a5fa" />
-        </mesh>
-      </group>
+      {/* ── Inner recessed panel ── */}
+      <mesh position={[0, 0, 0.50]} material={innerMat}>
+        <extrudeGeometry args={[innerShape, INNER_EXTRUDE]} />
+      </mesh>
+
+      {/* ── Scan line ── */}
+      <mesh ref={scanRef} position={[0, 0, 0.75]}>
+        <planeGeometry args={[4.8, 0.20]} />
+        <meshBasicMaterial
+          color="#60a5fa"
+          transparent
+          opacity={0.14}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* ── Rim highlight line — top arc ── */}
+      <mesh position={[0, 1.65, 0.62]}>
+        <torusGeometry args={[1.12, 0.011, 8, 80, Math.PI]} />
+        <meshBasicMaterial color="#60a5fa" transparent opacity={0.55} />
+      </mesh>
+
+      {/* ── K emblem ── */}
+      <KairosMark />
     </group>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Orbital ring                                                         */
-/* ------------------------------------------------------------------ */
+/* ─────────────────────────────────────────────────────────────────────
+   Orbital ring with rotating dots
+   ───────────────────────────────────────────────────────────────────── */
 function OrbitalRing({
-  radius,
-  speed,
-  tilt,
-  color,
-  dotCount = 3,
+  radius, speed, tilt, color, dotCount = 2,
 }: {
-  radius: number;
-  speed: number;
-  tilt: number;
-  color: string;
-  dotCount?: number;
+  radius: number; speed: number; tilt: number; color: string; dotCount?: number;
 }) {
-  const groupRef = useRef<THREE.Group>(null!);
+  const ref = useRef<THREE.Group>(null!);
   useFrame(({ clock }) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = clock.elapsedTime * speed;
-    }
+    if (ref.current) ref.current.rotation.y = clock.elapsedTime * speed;
   });
 
   const ringMat = useMemo(
-    () => new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.15 }),
-    [color]
-  );
-  const dotMat = useMemo(
-    () => new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85 }),
-    [color]
-  );
+    () => new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.22 }), [color]);
+  const dotMat  = useMemo(
+    () => new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }), [color]);
 
   return (
     <group rotation={[tilt, 0, 0]}>
-      <group ref={groupRef}>
-        {/* Ring circle */}
+      <group ref={ref}>
         <mesh rotation={[Math.PI / 2, 0, 0]} material={ringMat}>
-          <torusGeometry args={[radius, 0.012, 8, 80]} />
+          <torusGeometry args={[radius, 0.011, 8, 100]} />
         </mesh>
-        {/* Orbiting dots */}
         {Array.from({ length: dotCount }).map((_, i) => {
-          const angle = (i / dotCount) * Math.PI * 2;
+          const a = (i / dotCount) * Math.PI * 2;
           return (
             <mesh
               key={i}
-              position={[
-                Math.cos(angle) * radius,
-                0,
-                Math.sin(angle) * radius,
-              ]}
+              position={[Math.cos(a) * radius, 0, Math.sin(a) * radius]}
               material={dotMat}
             >
-              <sphereGeometry args={[0.05, 12, 12]} />
+              <sphereGeometry args={[0.048, 14, 14]} />
             </mesh>
           );
         })}
@@ -179,62 +273,87 @@ function OrbitalRing({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Scene lights                                                         */
-/* ------------------------------------------------------------------ */
-function Lights() {
-  const lightRef = useRef<THREE.PointLight>(null!);
-  useFrame(({ clock }) => {
-    if (lightRef.current) {
-      lightRef.current.intensity = 1.8 + Math.sin(clock.elapsedTime * 1.2) * 0.4;
-    }
-  });
-  return (
-    <>
-      <ambientLight intensity={0.15} />
-      <pointLight ref={lightRef} position={[3, 4, 4]} intensity={2} color="#6ea8fe" />
-      <pointLight position={[-3, -2, 2]} intensity={0.8} color="#8b5cf6" />
-      <pointLight position={[0, 0, 5]} intensity={0.5} color="#ffffff" />
-      <pointLight position={[0, -4, 0]} intensity={0.3} color="#3b82f6" />
-    </>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Particle field                                                       */
-/* ------------------------------------------------------------------ */
-function Particles({ count = 120 }: { count?: number }) {
+/* ─────────────────────────────────────────────────────────────────────
+   Floating particles
+   ───────────────────────────────────────────────────────────────────── */
+function Particles({ count = 130 }: { count?: number }) {
+  const ref = useRef<THREE.Points>(null!);
   const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
+    const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi   = Math.acos(Math.random() * 2 - 1);
-      const r     = 3 + Math.random() * 3;
-      pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
+      const r     = 3.5 + Math.random() * 2.8;
+      arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      arr[i * 3 + 2] = r * Math.cos(phi);
     }
-    return pos;
+    return arr;
   }, [count]);
 
-  const ref = useRef<THREE.Points>(null!);
   useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = clock.elapsedTime * 0.04;
+    if (ref.current) ref.current.rotation.y = clock.elapsedTime * 0.05;
   });
 
   return (
     <points ref={ref}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" array={positions} count={count} itemSize={3} />
+        <bufferAttribute
+          attach="attributes-position"
+          array={positions}
+          count={count}
+          itemSize={3}
+        />
       </bufferGeometry>
-      <pointsMaterial size={0.025} color="#3b82f6" transparent opacity={0.5} sizeAttenuation />
+      <pointsMaterial size={0.024} color="#3b82f6" transparent opacity={0.60} sizeAttenuation />
     </points>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Main export — canvas wrapper                                         */
-/* ------------------------------------------------------------------ */
+/* ─────────────────────────────────────────────────────────────────────
+   Scene lights — pulsing key light + orbiting rim light
+   ───────────────────────────────────────────────────────────────────── */
+function Lights() {
+  const keyRef = useRef<THREE.PointLight>(null!);
+  const rimRef = useRef<THREE.PointLight>(null!);
+
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+    if (keyRef.current) {
+      keyRef.current.intensity = 2.8 + Math.sin(t * 1.1) * 0.6;
+    }
+    if (rimRef.current) {
+      rimRef.current.position.x = Math.sin(t * 0.38) * 4;
+      rimRef.current.position.z = Math.cos(t * 0.38) * 3;
+    }
+  });
+
+  return (
+    <>
+      <ambientLight intensity={0.10} />
+      {/* Key light — blue-white from upper-right */}
+      <pointLight ref={keyRef} position={[4, 5, 4]} intensity={3.0} color="#7ec8ff" />
+      {/* Rim light — orbits the shield */}
+      <pointLight ref={rimRef} position={[0, 0, 4]} intensity={1.2} color="#8b5cf6" />
+      {/* Fill from lower-left */}
+      <pointLight position={[-4, -3, 2]} intensity={0.8} color="#1d4ed8" />
+      {/* Bottom bounce */}
+      <pointLight position={[0, -4, 1]} intensity={0.5} color="#3b82f6" />
+      {/* Top spot for clearcoat highlight */}
+      <spotLight
+        position={[0, 7, 3]}
+        intensity={1.2}
+        angle={0.45}
+        penumbra={0.9}
+        color="#ffffff"
+      />
+    </>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Exported canvas — lazy-loaded via ShieldWrapper
+   ───────────────────────────────────────────────────────────────────── */
 export default function ShieldScene({
   mouseX = 0,
   mouseY = 0,
@@ -244,17 +363,24 @@ export default function ShieldScene({
 }) {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6.5], fov: 45 }}
-      gl={{ antialias: true, alpha: true }}
+      camera={{ position: [0, 0.4, 7.2], fov: 42 }}
+      gl={{
+        antialias:    true,
+        alpha:        true,
+        toneMapping:  THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1.4,
+      }}
       style={{ background: "transparent" }}
       dpr={[1, 2]}
     >
       <Lights />
-      <ShieldMesh mouseX={mouseX} mouseY={mouseY} />
-      <OrbitalRing radius={3.2} speed={0.4}  tilt={0.3}  color="#3b82f6" dotCount={2} />
-      <OrbitalRing radius={4.0} speed={-0.25} tilt={1.1} color="#8b5cf6" dotCount={3} />
-      <OrbitalRing radius={4.8} speed={0.18}  tilt={0.7}  color="#06b6d4" dotCount={2} />
-      <Particles count={100} />
+      {/* Environment map gives metallic surfaces real-world reflections */}
+      <Environment preset="city" />
+      <ShieldBody mouseX={mouseX} mouseY={mouseY} />
+      <OrbitalRing radius={3.5}  speed={0.38}  tilt={0.28} color="#3b82f6" dotCount={2} />
+      <OrbitalRing radius={4.3}  speed={-0.24} tilt={1.05} color="#8b5cf6" dotCount={3} />
+      <OrbitalRing radius={5.1}  speed={0.16}  tilt={0.72} color="#06b6d4" dotCount={2} />
+      <Particles count={120} />
     </Canvas>
   );
 }
