@@ -1,122 +1,83 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { consumeToken, checkFreeLimit, consumeFreeCredit } from "@/lib/tokens";
 
-const FREE_DAILY_LIMIT = 5;
-
-/* In-memory daily counter keyed by IP (per-process, stateless across replicas).
-   For production: replace with Redis + sliding-window.
-*/
-const dailyUsage = new Map<string, { count: number; resetAt: number }>();
-
-function getClientIp(req: NextRequest): string {
+function getIp(req: NextRequest) {
   return (
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     req.headers.get("x-real-ip") ??
-    "unknown"
+    "anon"
   );
 }
 
-function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
-  const now = Date.now();
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
-  const resetAt = midnight.getTime();
-
-  const entry = dailyUsage.get(ip);
-  if (!entry || entry.resetAt < now) {
-    dailyUsage.set(ip, { count: 0, resetAt });
-    return { allowed: true, remaining: FREE_DAILY_LIMIT };
-  }
-
-  if (entry.count >= FREE_DAILY_LIMIT) {
-    return { allowed: false, remaining: 0 };
-  }
-
-  return { allowed: true, remaining: FREE_DAILY_LIMIT - entry.count };
-}
-
-function consumeCredit(ip: string): void {
-  const entry = dailyUsage.get(ip)!;
-  entry.count += 1;
-}
-
-/* Simple pattern-based analysis — replace with real KAIROS engine call */
 function analyzeInput(message: string): string {
   const m = message.trim().toUpperCase();
 
-  /* IBAN */
-  if (/^[A-Z]{2}\d{2}[A-Z0-9]{4,}/.test(m.replace(/\s/g, ""))) {
+  if (/^[A-Z]{2}\d{2}[A-Z0-9 ]{4,}/.test(m)) {
     const code = m.replace(/\s/g, "").slice(0, 2);
     const highRisk = ["RU", "BY", "KP", "IR", "SY"];
     if (highRisk.includes(code)) {
-      return `**IBAN risk: HIGH** ⚠️\n\nCountry code \`${code}\` is in a sanctioned jurisdiction. Score: **12/100**.\n\nSignals:\n- Sanctioned country\n- High fraud prevalence\n- Restricted banking`;
+      return `**IBAN risk: HIGH** ⚠️\n\nCountry code \`${code}\` is sanctioned. Score: **12/100**.\n\n- Sanctioned jurisdiction\n- Restricted banking\n- Flag all transactions`;
     }
-    return `**IBAN verified** ✅\n\nScore: **91/100** — Low risk.\n\nSignals:\n- Valid checksum\n- Known bank\n- Clean jurisdiction\n- No fraud flags`;
+    return `**IBAN verified** ✅ Score: **91/100** — Low risk.\n\n- Valid checksum • Known bank • Clean jurisdiction • No fraud flags`;
   }
 
-  /* Email */
   const emailMatch = message.match(/[\w.-]+@[\w.-]+\.[a-z]{2,}/i);
   if (emailMatch) {
     const domain = emailMatch[0].split("@")[1].toLowerCase();
-    const disposable = ["mailinator", "guerrillamail", "tempmail", "trash", "throwam"];
+    const disposable = ["mailinator", "guerrillamail", "tempmail", "trash"];
     if (disposable.some((d) => domain.includes(d))) {
-      return `**Email risk: DANGEROUS** ❌\n\n\`${emailMatch[0]}\` is a disposable address. Score: **5/100**.\n\nSignals:\n- Disposable provider\n- No permanent inbox\n- Known fraud vector`;
+      return `**Email: DANGEROUS** ❌\n\n\`${emailMatch[0]}\` is disposable. Score: **5/100**.\n\n- Throwaway provider • No permanent inbox • Known fraud vector`;
     }
-    return `**Email verified** ✅\n\n\`${emailMatch[0]}\` appears legitimate. Score: **84/100**.\n\nSignals:\n- Real MX records\n- Valid domain\n- Not disposable`;
+    return `**Email verified** ✅ Score: **84/100**.\n\n- Real MX records • Valid domain • Not disposable • No breach history`;
   }
 
-  /* Phone */
-  const phoneMatch = message.match(/[+]?[\d\s\-().]{8,}/);
-  if (phoneMatch) {
-    return `**Phone analyzed** ℹ️\n\nScore: **71/100** — Moderate confidence.\n\nSignals:\n- Mobile carrier detected\n- EU jurisdiction\n- Low SIM-swap risk`;
+  if (message.match(/[+]?[\d\s\-().]{8,}/)) {
+    return `**Phone analyzed** ℹ️ Score: **71/100**.\n\n- Mobile carrier detected • EU jurisdiction • Low SIM-swap risk`;
   }
 
-  /* URL / Link */
   if (message.match(/https?:\/\/|www\.|\.[a-z]{2,}\//i)) {
-    const suspicious = ["free", "win", "click", "phish", "login-verify", "secure-update"];
-    if (suspicious.some((w) => message.toLowerCase().includes(w))) {
-      return `**Link risk: DANGEROUS** ❌\n\nPhishing pattern detected. Score: **8/100**.\n\nSignals:\n- Suspicious keyword pattern\n- Domain registered <7 days\n- Redirect chain detected`;
+    if (["free", "win", "phish", "secure-update"].some((w) => message.toLowerCase().includes(w))) {
+      return `**Link: DANGEROUS** ❌ Score: **8/100**.\n\n- Phishing pattern • Domain <7 days old • Redirect chain`;
     }
-    return `**Link scanned** ✅\n\nScore: **87/100** — Clean URL.\n\nSignals:\n- Valid SSL certificate\n- No redirect chains\n- No malware history`;
+    return `**Link scanned** ✅ Score: **87/100**.\n\n- Valid SSL • No redirects • No malware history`;
   }
 
-  /* Fallback */
-  return `I can verify **IBANs**, **emails**, **phone numbers**, and **links**.\n\nTry something like:\n- \`NL91 ABNA 0417 1643 00\`\n- \`user@company.com\`\n- \`+351 912 345 678\`\n- \`https://example.com\``;
+  return `I can verify **IBANs**, **emails**, **phones**, and **links**.\n\nTry:\n\`NL91 ABNA 0417 1643 00\` • \`user@company.com\` • \`+351 912 345 678\``;
 }
 
 export async function POST(req: NextRequest) {
-  const ip = getClientIp(req);
-  const { allowed, remaining } = checkRateLimit(ip);
+  let body: { message?: string };
+  try { body = await req.json(); } catch { return NextResponse.json({ error: "invalid_json" }, { status: 400 }); }
 
+  const message = body.message?.trim();
+  if (!message) return NextResponse.json({ error: "missing_message" }, { status: 422 });
+
+  const session = await auth();
+  const userId  = session?.user?.id;
+
+  if (userId) {
+    /* Authenticated: deduct token */
+    const { ok, remaining } = await consumeToken(userId, `Chat: ${message.slice(0, 40)}`);
+    if (!ok) {
+      return NextResponse.json(
+        { error: "insufficient_tokens", message: "You have no tokens left. Buy more to continue.", remaining: 0 },
+        { status: 402 }
+      );
+    }
+    return NextResponse.json({ reply: analyzeInput(message), remaining, authenticated: true });
+  }
+
+  /* Anonymous: check daily free limit */
+  const ip = getIp(req);
+  const { allowed, remaining } = await checkFreeLimit(ip, "chat");
   if (!allowed) {
     return NextResponse.json(
-      {
-        error:   "rate_limited",
-        message: "Daily free limit reached. Upgrade for unlimited checks.",
-        remaining: 0,
-      },
+      { error: "rate_limited", message: "Daily free limit reached. Sign up for more.", remaining: 0 },
       { status: 429 }
     );
   }
 
-  let body: { message?: string };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const message = body.message?.trim();
-  if (!message) {
-    return NextResponse.json({ error: "missing_message" }, { status: 422 });
-  }
-
-  consumeCredit(ip);
-
-  const reply = analyzeInput(message);
-
-  return NextResponse.json({
-    reply,
-    remaining: remaining - 1,
-    limit: FREE_DAILY_LIMIT,
-  });
+  await consumeFreeCredit(ip, "chat");
+  return NextResponse.json({ reply: analyzeInput(message), remaining: remaining - 1, authenticated: false });
 }
