@@ -1,8 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { ShieldWrapper } from '../three/shield-wrapper';
+
+const ShieldK = dynamic(() => import('../ShieldK'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ width: '100%', height: 500, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: 80, height: 80, borderRadius: '50%', border: '1px solid rgba(255,215,0,0.3)', animation: 'pulse 2s ease-in-out infinite' }} />
+    </div>
+  ),
+});
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -78,31 +87,23 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* RIGHT — Escudo 3D */}
+          {/* RIGHT — Escudo 3D vanilla Three.js */}
           <div className="transform-gpu flex items-center justify-center min-w-0" style={{ position: 'relative' }}>
-            {/* Glow por baixo — simula a sombra/reflexo do Resend */}
+            {/* Glow por baixo */}
             <div style={{
-              position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
-              width: 360, height: 60,
-              background: 'radial-gradient(ellipse 100% 100% at 50% 100%, rgba(59,130,246,0.35) 0%, transparent 70%)',
-              filter: 'blur(20px)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }} />
-            {/* Glow ambiente azul à volta */}
-            <div style={{
-              position: 'absolute', inset: -40,
-              background: 'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%)',
-              pointerEvents: 'none',
-              zIndex: 0,
+              position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)',
+              width: 380, height: 60,
+              background: 'radial-gradient(ellipse 100% 100% at 50% 100%, rgba(255,215,0,0.18) 0%, transparent 70%)',
+              filter: 'blur(24px)',
+              pointerEvents: 'none', zIndex: 0,
             }} />
             <motion.div
-              style={{ width: 520, height: 520, position: 'relative', zIndex: 1 }}
-              initial={{ opacity: 0, scale: 0.7 }}
+              style={{ width: '100%', maxWidth: 540, position: 'relative', zIndex: 1 }}
+              initial={{ opacity: 0, scale: 0.75 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
-              <ShieldWrapper className="w-full h-full" />
+              <ShieldK />
             </motion.div>
           </div>
 
