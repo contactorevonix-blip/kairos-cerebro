@@ -1,139 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-/* ═══════════════════════════════════════════════════════════
-   KAIROS CHECK — Design System v3
-═══════════════════════════════════════════════════════════ */
+@import "../styles/tokens.css";
+@import "../styles/animations.css";
+@import "../styles/theme.css";
 
-:root {
-  --green:         #00DC82;
-  --green-dim:     rgba(0, 220, 130, 0.08);
-  --green-border:  rgba(0, 220, 130, 0.18);
-  --green-glow:    rgba(0, 220, 130, 0.25);
-  --red:           #FF4444;
-  --red-dim:       rgba(255, 68, 68, 0.08);
-  --yellow:        #FFB800;
-  --s1:            #0a0a0a;
-  --s2:            #111111;
-  --s3:            #1a1a1a;
-  --border:        #1f1f1f;
-  --border-light:  #2a2a2a;
-  --text-1:        #ffffff;
-  --text-2:        #666666;
-  --text-3:        #444444;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-
-  --background:           0 0% 4%;
-  --foreground:           0 0% 95%;
-  --card:                 0 0% 7%;
-  --card-foreground:      0 0% 95%;
-  --popover:              0 0% 7%;
-  --popover-foreground:   0 0% 95%;
-  --primary:              0 0% 95%;
-  --primary-foreground:   0 0% 4%;
-  --secondary:            0 0% 12%;
-  --secondary-foreground: 0 0% 95%;
-  --muted:                0 0% 12%;
-  --muted-foreground:     0 0% 53%;
-  --destructive:          0 84% 60%;
-  --input:                0 0% 12%;
-  --ring:                 0 0% 30%;
-  --radius:               0.625rem;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-html { color-scheme: dark; scroll-behavior: smooth; }
-
-body {
-  background: #000000;
-  color: var(--text-1);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  letter-spacing: -0.01em;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-::selection { background: rgba(0,220,130,0.2); color: #fff; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #222; border-radius: 999px; }
-:focus-visible { outline: 2px solid rgba(0,220,130,0.6); outline-offset: 3px; border-radius: 4px; }
-
-/* ── MARQUEE ──────────────────────────────────────────────── */
-@keyframes marquee-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
-}
-
-/* ── DOT GRID ─────────────────────────────────────────────── */
-.dot-grid {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* ── NOISE ────────────────────────────────────────────────── */
-.noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.028;
-  pointer-events: none;
-}
-
-@layer utilities {
-  .section-y {
-    padding-top:    clamp(80px, 12vw, 160px);
-    padding-bottom: clamp(80px, 12vw, 160px);
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--border-default);
   }
 
-  .container-kc {
-    width: 100%;
-    max-width: 1200px;
-    margin-inline: auto;
-    padding-inline: clamp(20px, 4vw, 48px);
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
   }
 
-  .section-label {
-    font-family: var(--font-geist-mono), monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--green);
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gray-6);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-8);
+  }
+
+  ::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: var(--text-primary);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--text-primary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s var(--ease-default);
+  }
+
+  button, input, textarea, select {
+    font-family: inherit;
+  }
+
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
     display: block;
-    margin-bottom: 16px;
   }
 
-  .heading-two-tone > span:first-child { color: #ffffff; }
-  .heading-two-tone > span:last-child  { color: rgba(255,255,255,0.22); }
-
-  .btn-green {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 22px; background: var(--green); color: #000;
-    font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
-    border-radius: 10px; border: none; cursor: pointer;
-    transition: background 150ms, transform 150ms, box-shadow 150ms;
-    white-space: nowrap; text-decoration: none;
+  /* GPU acceleration for animated elements */
+  .gpu {
+    transform: translateZ(0);
+    will-change: transform;
   }
-  .btn-green:hover { background: #00f090; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,220,130,0.3); }
-
-  .btn-ghost {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 11px 18px; background: transparent; color: rgba(255,255,255,0.45);
-    font-size: 14px; font-weight: 500; border-radius: 10px;
-    border: none; cursor: pointer; transition: color 150ms; text-decoration: none;
-  }
-  .btn-ghost:hover { color: #fff; }
 }
