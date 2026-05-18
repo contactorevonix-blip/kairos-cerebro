@@ -1,60 +1,54 @@
-'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import Link from 'next/link';
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function FinalCTA() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
   return (
-    <section ref={ref} className="border-t py-28 md:py-40 text-center overflow-hidden relative"
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+    <section className="relative py-24 lg:py-32 overflow-hidden">
+      <div className="mx-auto max-w-4xl px-6 text-center">
+        {/* Background glow */}
+        <div className="absolute inset-0 bg-gradient-radial from-blue-950/20 via-transparent to-transparent pointer-events-none" />
 
-      {/* Green glow */}
-      <div className="pointer-events-none absolute inset-0 z-0" style={{
-        background: 'radial-gradient(ellipse 70% 60% at 50% 100%, rgba(0,217,126,0.1) 0%, transparent 70%)',
-      }} />
-
-      <div className="relative z-10 mx-auto max-w-[720px] px-6">
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
         >
-          <p className="mb-6 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-[#00d97e]/60">
-            Start today
-          </p>
+          <div className="inline-flex w-16 h-16 rounded-3xl bg-blue-500/15 border border-blue-500/30 items-center justify-center mx-auto mb-8 animate-pulse-glow">
+            <Shield className="w-8 h-8 text-blue-400" />
+          </div>
 
-          <h2 className="mb-6 font-extrabold leading-[1.02] tracking-[-0.045em] text-white"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
-            Stop fraud before<br />
-            <span style={{
-              background: 'linear-gradient(135deg, #00ff99, #00c870)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>
-              the first chargebacks.
-            </span>
+          <h2 className="text-4xl lg:text-6xl font-semibold text-gray-12 tracking-tight mb-6">
+            Start protecting
+            <br />
+            <span className="text-gradient-blue">your business today</span>
           </h2>
 
-          <p className="mb-10 text-[1.05rem] leading-relaxed"
-            style={{ color: 'rgba(242,242,242,0.45)' }}>
-            50 free checks. No credit card. In production in 30 minutes.
+          <p className="text-lg lg:text-xl text-gray-10 leading-relaxed mb-10 max-w-xl mx-auto">
+            5 free checks every day. No credit card. No signup friction.
+            Scale to enterprise when you’re ready.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/pricing"
-              className="inline-flex items-center gap-2 rounded-full bg-[#00d97e] px-8 py-4 text-[0.9rem] font-bold text-black transition-all hover:bg-[#00e888] hover:shadow-[0_0_40px_rgba(0,217,126,0.45)] hover:-translate-y-0.5">
-              Start free — no card needed
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link href="/docs"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-8 py-4 text-[0.9rem] font-medium text-white/55 transition-all hover:border-white/20 hover:text-white/80">
-              Read the docs
-            </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button size="xl" asChild>
+              <Link href="#demo">
+                Try free now
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="xl" asChild>
+              <Link href="/contact">Talk to sales</Link>
+            </Button>
           </div>
+
+          <p className="mt-6 text-sm text-gray-9">
+            Trusted by 2,400+ developers and businesses across 40 countries
+          </p>
         </motion.div>
       </div>
     </section>
