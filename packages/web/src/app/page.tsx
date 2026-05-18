@@ -1,25 +1,27 @@
-import Nav       from "@/components/Nav";
-import Hero      from "@/components/Hero";
-import Features  from "@/components/Features";
-import LiveDemo  from "@/components/LiveDemo";
-import ApiSection from "@/components/ApiSection";
-import Pricing   from "@/components/Pricing";
-import FinalCTA  from "@/components/FinalCTA";
-import Footer    from "@/components/Footer";
-import ChatWidget from "@/components/ChatWidget";
+import { Hero }     from "@/components/sections/hero";
+import Nav         from "@/components/Nav";
+import Features    from "@/components/Features";
+import LiveDemo    from "@/components/LiveDemo";
+import Pricing     from "@/components/Pricing";
+import ApiSection  from "@/components/ApiSection";
+import FinalCTA    from "@/components/FinalCTA";
+import Footer      from "@/components/Footer";
+import ChatWidget  from "@/components/ChatWidget";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Nav />
-      <Hero />
-      <Features />
-      <LiveDemo />
-      <ApiSection />
-      <Pricing />
-      <FinalCTA />
+      <main>
+        <Hero />
+        <Features />
+        <LiveDemo />
+        <ApiSection />
+        <Pricing />
+        <FinalCTA />
+      </main>
       <Footer />
       <ChatWidget />
-    </main>
+    </>
   );
 }
