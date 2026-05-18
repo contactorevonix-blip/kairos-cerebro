@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import HeroGlobe from '../HeroGlobe';
+import { ShieldWrapper } from '../three/shield-wrapper';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -61,16 +61,15 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* RIGHT — Globe — transform-gpu força aceleração hardware */}
+          {/* RIGHT — Escudo 3D — transform-gpu força aceleração hardware */}
           <div className="transform-gpu flex items-center justify-center min-w-0">
             <motion.div
-              className="animate-scale-up-fade"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ width: 520, height: 520 }}
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <HeroGlobe />
+              <ShieldWrapper className="w-full h-full" />
             </motion.div>
           </div>
 
