@@ -1,76 +1,178 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import HeroGlobe from '../HeroGlobe';
+import dynamic from 'next/dynamic';
 
-const ease = [0.16, 1, 0.3, 1] as const;
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
-const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } };
+const HeroCube = dynamic(() => import('./cube'), { ssr: false });
 
-const LOGOS = ['Vercel', 'Railway', 'Supabase', 'PlanetScale', 'Render', 'Fly.io', 'Cloudflare', 'Neon'];
+const CODE = `curl https://api.kairoscheck.net/v1/check \\
+  -H "Authorization: Bearer kc_live_..." \\
+  -d '{ "email": "user@suspect.io" }'
+
+# Response — 94ms
+{
+  "verdict": "BLOCK",
+  "score": 94,
+  "signals": [
+    "newly-registered-domain",
+    "disposable-email-pattern",
+    "cross-tenant-match"
+  ]
+}`;
 
 export default function Hero() {
-  const doubled = [...LOGOS, ...LOGOS];
-
   return (
-    <section style={{ position: 'relative', background: '#000', paddingTop: 100, paddingBottom: 60, overflow: 'hidden' }}>
+    <section style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+      paddingTop: 64,
+    }}>
+      {/* Background glow */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: `
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(146,129,247,0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 40% 40% at 80% 40%, rgba(99,102,241,0.06) 0%, transparent 60%)
+        `,
+      }} />
 
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
-      <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 800, height: 400, pointerEvents: 'none', background: 'radial-gradient(ellipse 800px 400px at 50% -10%,rgba(0,220,130,0.12) 0%,transparent 70%)' }} />
+      <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%', padding: '80px 24px', position: 'relative' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}
+          className="hero-grid">
 
-      <div className="container-kc" style={{ position: 'relative' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', alignItems: 'center', gap: 48 }}>
-
-          {/* LEFT */}
-          <motion.div style={{ display: 'flex', flexDirection: 'column', gap: 24, minWidth: 0 }} variants={container} initial="hidden" animate="show">
-
-            <motion.div variants={item}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', borderRadius: 999, fontSize: 12, fontWeight: 500, background: 'rgba(0,220,130,0.08)', border: '1px solid rgba(0,220,130,0.2)', color: '#00DC82' }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00DC82' }} />
-                2.3M requests blocked · Public beta
+          {/* Left — Text */}
+          <div>
+            {/* Badge */}
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '5px 12px', borderRadius: 9999,
+              border: '1px solid rgba(146,129,247,0.25)',
+              background: 'rgba(146,129,247,0.06)',
+              marginBottom: 32,
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#9281f7', display: 'inline-block' }} />
+              <span style={{ fontSize: 12, color: 'rgb(146,129,247)', fontFamily: 'var(--font-geist-mono)', letterSpacing: '0.05em' }}>
+                OSINT-NATIVE · GDPR-READY
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1 variants={item} style={{ fontSize: 'clamp(40px, 5vw, 84px)', fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.04em', margin: 0 }}>
-              <span style={{ color: '#fff' }}>Stop fraud</span><br />
-              <span style={{ color: 'rgba(255,255,255,0.22)' }}>before it ships.</span>
-            </motion.h1>
+            {/* Headline */}
+            <h1 style={{
+              fontSize: 'clamp(48px, 6vw, 88px)',
+              fontWeight: 600,
+              letterSpacing: '-0.04em',
+              lineHeight: 1.0,
+              color: 'rgb(240,240,240)',
+              margin: '0 0 24px',
+            }}>
+              Fraud detection<br />
+              <span style={{
+                background: 'linear-gradient(135deg, #9281f7 0%, #6366f1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>for developers</span>
+            </h1>
 
-            <motion.p variants={item} style={{ color: '#666', fontSize: 17, maxWidth: 400, lineHeight: 1.6, margin: 0 }}>
-              One API call. Real-time signals. No ML PhD required.
-            </motion.p>
+            {/* Subtitle */}
+            <p style={{
+              fontSize: 18,
+              color: 'rgb(138,143,152)',
+              lineHeight: 1.6,
+              margin: '0 0 40px',
+              maxWidth: 460,
+            }}>
+              One API call. 40+ OSINT signals. Sub-100ms verdict.
+              Stop fraud before it ships — without building the infrastructure.
+            </p>
 
-            <motion.div variants={item} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
-              <Link href="/signup" className="btn-green" style={{ fontSize: 14, padding: '12px 24px' }}>Get API Key — free</Link>
-              <Link href="/docs" className="btn-ghost" style={{ fontSize: 14 }}>Read the docs →</Link>
-            </motion.div>
+            {/* CTA buttons */}
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <Link href="/signup" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                padding: '12px 28px', borderRadius: 9999,
+                background: 'rgb(240,240,240)', color: '#000',
+                fontSize: 15, fontWeight: 600, textDecoration: 'none',
+                transition: 'background 0.15s, transform 0.15s',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = '#fff';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgb(240,240,240)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Start for free
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+              <Link href="/docs" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                padding: '12px 28px', borderRadius: 9999,
+                border: '1px solid rgba(255,255,255,0.08)',
+                background: 'rgba(255,255,255,0.02)',
+                color: 'rgb(240,240,240)', fontSize: 15, fontWeight: 500, textDecoration: 'none',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                }}
+              >
+                View docs
+              </Link>
+            </div>
 
-            <motion.p variants={item} style={{ color: '#333', fontSize: 13, fontFamily: 'monospace', margin: 0 }}>
-              2.3M+ requests blocked <span style={{ margin: '0 8px', color: '#222' }}>·</span> 99.9% uptime <span style={{ margin: '0 8px', color: '#222' }}>·</span> &lt;47ms p99
-            </motion.p>
+            {/* Social proof */}
+            <p style={{ marginTop: 32, fontSize: 13, color: 'rgb(138,143,152)' }}>
+              Trusted by developers across Europe · 500 free checks/month
+            </p>
+          </div>
 
-            <motion.div variants={item}>
-              <p style={{ color: '#333', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 10px' }}>Trusted by indie builders at</p>
-              <div style={{ overflow: 'hidden', maskImage: 'linear-gradient(90deg,transparent,black 15%,black 85%,transparent)', WebkitMaskImage: 'linear-gradient(90deg,transparent,black 15%,black 85%,transparent)' }}>
-                <div className="animate-marquee" style={{ display: 'flex', gap: 40, width: 'max-content' }}>
-                  {doubled.map((logo, i) => <span key={i} style={{ color: '#333', fontSize: 13, fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{logo}</span>)}
-                </div>
-              </div>
-            </motion.div>
+          {/* Right — 3D Cube */}
+          <div style={{ position: 'relative', height: 500 }} className="hero-cube">
+            <HeroCube />
+          </div>
+        </div>
 
-          </motion.div>
-
-          {/* RIGHT — Globe */}
-          <motion.div
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: 0 }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease }}
-          >
-            <HeroGlobe />
-          </motion.div>
-
+        {/* Code snippet */}
+        <div style={{
+          marginTop: 80,
+          borderRadius: 16,
+          border: '1px solid rgba(255,255,255,0.06)',
+          background: 'rgba(255,255,255,0.02)',
+          overflow: 'hidden',
+        }}>
+          {/* Window chrome */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: '12px 16px',
+            borderBottom: '1px solid rgba(255,255,255,0.04)',
+          }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e' }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840' }} />
+            <span style={{ marginLeft: 12, fontSize: 12, color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-geist-mono)' }}>
+              terminal
+            </span>
+          </div>
+          <pre style={{
+            margin: 0, padding: '24px 24px',
+            fontFamily: 'var(--font-geist-mono)',
+            fontSize: 13, lineHeight: 1.7,
+            color: 'rgb(138,143,152)',
+            overflowX: 'auto',
+            whiteSpace: 'pre',
+          }}>{CODE}</pre>
         </div>
       </div>
     </section>
