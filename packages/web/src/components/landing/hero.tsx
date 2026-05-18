@@ -61,15 +61,18 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* RIGHT — Globe */}
-          <motion.div
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: 0 }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease }}
-          >
-            <HeroGlobe />
-          </motion.div>
+          {/* RIGHT — Globe — transform-gpu força aceleração hardware */}
+          <div className="transform-gpu flex items-center justify-center min-w-0">
+            <motion.div
+              className="animate-scale-up-fade"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <HeroGlobe />
+            </motion.div>
+          </div>
 
         </div>
       </div>
