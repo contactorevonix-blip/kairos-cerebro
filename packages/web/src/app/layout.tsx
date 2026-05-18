@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,19 +21,20 @@ export const metadata: Metadata = {
     siteName:    "KAIROS",
   },
   twitter: {
-    card:        "summary_large_image",
-    title:       "KAIROS — Fraud Detection Infrastructure",
-    description: "Verify IBANs, emails, phones and links in real-time.",
+    card:  "summary_large_image",
+    title: "KAIROS — Fraud Detection Infrastructure",
   },
-  robots: { index: true, follow: true },
-  metadataBase: new URL("https://kairos.app"),
+  robots:      { index: true, follow: true },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://kairos.app"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className={inter.className}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
