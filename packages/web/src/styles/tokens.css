@@ -10,6 +10,10 @@
   --font-serif:   "Fraunces", ui-serif, Georgia, serif;  /* H1 hero — peso 400 */
   --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
 
+  /* Aliases de compatibilidade — componentes antigos usam estes nomes */
+  --font-geist-sans: var(--font-sans);
+  --font-geist-mono: var(--font-mono);
+
   /* ─── ESCALA CINZENTA RADIX (modo escuro — valores exactos Resend) ── */
   --color-gray-1:  #141517;   /* fundo mais escuro              */
   --color-gray-2:  #191b1e;   /* fundo de cards / painéis       */
