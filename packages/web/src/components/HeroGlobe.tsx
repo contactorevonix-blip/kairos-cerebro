@@ -27,7 +27,7 @@ export default function HeroGlobe() {
       devicePixelRatio: 2,
       width: 600,
       height: 600,
-      phi: 0,
+      phi: phiRef.current,
       theta: 0.25,
       dark: 1,
       diffuse: 1.2,
@@ -37,12 +37,20 @@ export default function HeroGlobe() {
       markerColor: [0, 0.85, 0.49],
       glowColor: [0, 0.85, 0.49],
       markers: MARKERS,
-      onRender: (state) => {
-        state.phi = phiRef.current;
-        phiRef.current += 0.003;
-      },
     });
-    return () => globe.destroy();
+
+    let rafId: number;
+    const animate = () => {
+      phiRef.current += 0.003;
+      globe.update({ phi: phiRef.current });
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      globe.destroy();
+    };
   }, []);
 
   return (
