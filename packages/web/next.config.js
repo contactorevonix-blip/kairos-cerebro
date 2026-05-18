@@ -1,22 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    const apiBase = process.env.KAIROS_API_URL || 'http://localhost:8787';
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${apiBase}/api/:path*`,
-      },
-      {
-        source: '/billing/:path*',
-        destination: `${apiBase}/billing/:path*`,
-      },
-    ];
-  },
-  images: {
-    formats: ['image/avif', 'image/webp'],
-  },
+  reactStrictMode: true,
   poweredByHeader: false,
+
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
+
+  webpack: (config) => {
+    /* Three.js WASM/worker compatibility */
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: "javascript/auto",
+    });
+    return config;
+  },
+
+  headers: async () => [
+    {
+      source: "/(.*)",
+      headers: [
+        { key: "X-Content-Type-Options",   value: "nosniff" },
+        { key: "X-Frame-Options",           value: "DENY" },
+        { key: "X-XSS-Protection",          value: "1; mode=block" },
+        { key: "Referrer-Policy",           value: "strict-origin-when-cross-origin" },
+        { key: "Permissions-Policy",        value: "camera=(), microphone=(), geolocation=()" },
+      ],
+    },
+  ],
 };
 
 module.exports = nextConfig;
