@@ -1,234 +1,291 @@
-'use client';
-import { useEffect, useRef, useState, useCallback } from 'react';
+"use client";
 
-const FREE_LIMIT = 5;
+import { useState, useRef, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MessageCircle, X, Send, Shield, Lock, ArrowRight, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
-interface Message {
-  role: 'user' | 'ai';
-  text: string;
-}
+const FREE_DAILY_LIMIT = 5;
 
-const SUGGESTIONS = [
-  { label: 'Score a domain', q: 'How do I score a domain for fraud?' },
-  { label: 'Free tier?', q: 'What is the free tier?' },
-  { label: 'API example', q: 'Show me a curl example' },
+type Message = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
+};
+
+const SYSTEM_SUGGESTIONS = [
+  "Check NL91 ABNA 0417164300",
+  "Is test@example.com safe?",
+  "Scan link suspicious-site.com",
+  "Verify +351 912 345 678",
 ];
 
-function Logo() {
-  return (
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-accent/30 bg-gradient-to-br from-[#003d1f] to-[#006b38]">
-      <svg width="16" height="16" viewBox="0 0 20 22" fill="none" aria-hidden="true">
-        <path d="M10 1L1 4.5V10.5C1 15.7 5.2 19.7 10 21C14.8 19.7 19 15.7 19 10.5V4.5Z" fill="#00d97e" />
-        <path d="M7 7.5V14.5M7 11H10.5M10.5 11L13 7.5M10.5 11L13 14.5" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-  );
-}
+const WELCOME_MESSAGE: Message = {
+  id: "welcome",
+  role: "assistant",
+  content:
+    "Hi! I'm KAIROS. I can verify IBANs, emails, phone numbers and links in seconds. Try me — you have **5 free checks today**. No signup needed.",
+  timestamp: new Date(),
+};
 
 export default function ChatWidget() {
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [freeUsed, setFreeUsed] = useState(0);
-  const [showSuggestions, setShowSuggestions] = useState(true);
-  const messagesRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const historyRef = useRef<{ role: string; content: string }[]>([]);
+  const [open, setOpen]           = useState(false);
+  const [messages, setMessages]   = useState<Message[]>([WELCOME_MESSAGE]);
+  const [input, setInput]         = useState("");
+  const [loading, setLoading]     = useState(false);
+  const [usedToday, setUsedToday] = useState(0);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef  = useRef<HTMLInputElement>(null);
+
+  const remainingFree = FREE_DAILY_LIMIT - usedToday;
 
   useEffect(() => {
-    const saved = parseInt(localStorage.getItem('kc_chat_free') || '0', 10);
-    setFreeUsed(saved);
-    // Welcome message
-    setMessages([{ role: 'ai', text: 'Hey! What are you building? Tell me about your fraud problem and I\'ll show you exactly how to stop it — with a working code example.' }]);
-  }, []);
-
-  useEffect(() => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [messages, loading]);
-
-  useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 80);
   }, [open]);
 
-  const send = useCallback(async (text?: string) => {
-    const msg = (text ?? input).trim();
-    if (!msg || loading) return;
-    if (freeUsed >= FREE_LIMIT) return;
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
-    setInput('');
-    setShowSuggestions(false);
-    setMessages(prev => [...prev, { role: 'user', text: msg }]);
+  const sendMessage = useCallback(async (text: string) => {
+    if (!text.trim() || loading) return;
+
+    if (usedToday >= FREE_DAILY_LIMIT) {
+      setShowUpsell(true);
+      return;
+    }
+
+    const userMsg: Message = {
+      id:        Date.now().toString(),
+      role:      "user",
+      content:   text.trim(),
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
     setLoading(true);
-    historyRef.current.push({ role: 'user', content: msg });
+    setUsedToday((n) => n + 1);
 
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, history: historyRef.current.slice(-4) }),
+      const res = await fetch("/api/chat", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ message: text.trim() }),
       });
       const data = await res.json();
-
-      if (res.status === 429 || data.free_remaining === 0) {
-        setMessages(prev => [...prev, { role: 'ai', text: '**Free preview complete.** Get your free API key to continue — 50 checks/month included, no card needed. [Get API key →](/pricing)' }]);
-        setFreeUsed(FREE_LIMIT);
-        localStorage.setItem('kc_chat_free', String(FREE_LIMIT));
-      } else {
-        const reply = data.reply ?? '';
-        setMessages(prev => [...prev, { role: 'ai', text: reply }]);
-        historyRef.current.push({ role: 'assistant', content: reply });
-        const newUsed = FREE_LIMIT - (data.free_remaining ?? FREE_LIMIT - 1);
-        setFreeUsed(newUsed);
-        localStorage.setItem('kc_chat_free', String(newUsed));
-      }
+      const reply: Message = {
+        id:        (Date.now() + 1).toString(),
+        role:      "assistant",
+        content:   data.reply ?? "I couldn't process that. Please try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, reply]);
+      if (usedToday + 1 >= FREE_DAILY_LIMIT) setShowUpsell(true);
     } catch {
-      setMessages(prev => [...prev, { role: 'ai', text: 'Connection error. Please try again.' }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id:        "err",
+          role:      "assistant",
+          content:   "Connection error. Please try again.",
+          timestamp: new Date(),
+        },
+      ]);
     } finally {
       setLoading(false);
     }
-  }, [input, loading, freeUsed]);
+  }, [loading, usedToday]);
 
-  const freeLeft = Math.max(0, FREE_LIMIT - freeUsed);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage(input);
+  };
 
   return (
     <>
-      {/* Bubble */}
-      <button
-        id="kc-bubble"
-        onClick={() => setOpen(o => !o)}
-        aria-label="Open Kairos AI — free fraud detection assistant"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-black shadow-[0_4px_24px_rgba(0,217,126,0.35),0_1px_0_rgba(255,255,255,0.2)_inset] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,217,126,0.5)] animate-[slide-up_0.45s_cubic-bezier(0.34,1.56,0.64,1)_1.5s_both]"
-        style={{ animation: 'kc-slide 0.45s cubic-bezier(0.34,1.56,0.64,1) 1.5s both' }}
-      >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M8 1.5C4.41 1.5 1.5 4.08 1.5 7.25c0 1.12.34 2.17.93 3.06L1.5 14.5l4.37-1.38A7.1 7.1 0 008 13c3.59 0 6.5-2.58 6.5-5.75S11.59 1.5 8 1.5z" fill="#000" />
-        </svg>
-        Ask AI — free
-      </button>
+      {/* Floating trigger */}
+      <AnimatePresence>
+        {!open && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            onClick={() => setOpen(true)}
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 h-12 pl-4 pr-5 glass rounded-full border border-blue-500/30 text-sm font-medium text-gray-12 shadow-glow-sm hover:shadow-glow-blue transition-kairos"
+            aria-label="Open KAIROS chat"
+          >
+            <Shield className="w-4 h-4 text-blue-400" />
+            <span>Ask KAIROS</span>
+            {remainingFree > 0 && (
+              <Badge variant="accent" className="text-2xs py-0.5">{remainingFree} left</Badge>
+            )}
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-      {/* Panel */}
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Kairos AI assistant"
-          className="fixed bottom-20 right-6 z-50 flex w-[400px] flex-col overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111] shadow-[0_32px_80px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.04)] max-sm:bottom-0 max-sm:right-0 max-sm:w-full max-sm:rounded-b-none"
-          style={{ maxHeight: '80vh' }}
-        >
-          {/* Header */}
-          <div className="flex shrink-0 items-center justify-between border-b border-white/[0.06] px-4 py-3.5">
-            <div className="flex items-center gap-3">
-              <Logo />
-              <div>
-                <div className="text-sm font-bold tracking-tight text-[#f5f5f5]">Kairos AI</div>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-                  <span className="text-[11px] text-white/35">Online · fraud detection expert</span>
+      {/* Chat panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-6 right-6 z-50 flex flex-col w-[380px] max-h-[600px] glass-strong rounded-3xl border border-white/8 shadow-card overflow-hidden"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/6">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-9 h-9 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-gray-2" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-gray-12">KAIROS AI</div>
+                  <div className="text-xs text-gray-10">Fraud detection engine</div>
                 </div>
               </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="accent" className="text-2xs">
+                  {remainingFree}/{FREE_DAILY_LIMIT} free
+                </Badge>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-gray-10 hover:text-gray-12 hover:bg-white/6 transition-kairos"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              {freeLeft > 0 && (
-                <span className="rounded border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 font-mono text-[10px] text-white/30">
-                  {freeLeft} free left
-                </span>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin min-h-0">
+              {messages.map((msg) => (
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={cn(
+                    "flex gap-2",
+                    msg.role === "user" && "flex-row-reverse"
+                  )}
+                >
+                  {msg.role === "assistant" && (
+                    <div className="w-7 h-7 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center shrink-0 mt-0.5">
+                      <Shield className="w-3.5 h-3.5 text-blue-400" />
+                    </div>
+                  )}
+                  <div
+                    className={cn(
+                      "max-w-[82%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+                      msg.role === "user"
+                        ? "bg-blue-600/90 text-white rounded-tr-sm"
+                        : "bg-white/5 text-gray-11 border border-white/8 rounded-tl-sm"
+                    )}
+                    dangerouslySetInnerHTML={{
+                      __html: msg.content
+                        .replace(/\*\*(.*?)\*\*/g, "<strong class='text-gray-12'>$1</strong>")
+                        .replace(/\n/g, "<br />"),
+                    }}
+                  />
+                </motion.div>
+              ))}
+
+              {/* Loading dots */}
+              {loading && (
+                <div className="flex gap-2">
+                  <div className="w-7 h-7 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center shrink-0">
+                    <Shield className="w-3.5 h-3.5 text-blue-400" />
+                  </div>
+                  <div className="bg-white/5 border border-white/8 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
+                    {[0, 1, 2].map((i) => (
+                      <span
+                        key={i}
+                        className="w-1.5 h-1.5 rounded-full bg-gray-9 animate-plop"
+                        style={{ animationDelay: `${i * 200}ms` }}
+                      />
+                    ))}
+                  </div>
+                </div>
               )}
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close chat"
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.05] text-white/35 transition-all hover:bg-white/[0.1] hover:text-white/70"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
-            </div>
-          </div>
 
-          {/* Messages */}
-          <div ref={messagesRef} className="flex flex-1 flex-col gap-2.5 overflow-y-auto p-4" style={{ maxHeight: '320px', minHeight: '120px' }}>
-            {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
-                  m.role === 'user'
-                    ? 'rounded-br-sm bg-accent font-medium text-black'
-                    : 'rounded-bl-sm border border-white/[0.05] bg-[#1c1c1c] text-[#e8e8e8]'
-                }`}>
-                  {m.text}
-                </div>
-              </div>
-            ))}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-white/[0.05] bg-[#1c1c1c] px-4 py-3">
-                  {[0, 150, 300].map(delay => (
-                    <span key={delay} className="h-1.5 w-1.5 animate-bounce rounded-full bg-white/30" style={{ animationDelay: `${delay}ms` }} />
-                  ))}
-                </div>
+              {/* Upsell card */}
+              {showUpsell && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-2xl bg-gradient-to-br from-blue-600/15 to-violet-600/10 border border-blue-500/20 p-4"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span className="text-sm font-semibold text-gray-12">Daily limit reached</span>
+                  </div>
+                  <p className="text-xs text-gray-10 mb-3 leading-relaxed">
+                    Get unlimited checks with a token pack or subscribe to Pro.
+                  </p>
+                  <Button size="sm" className="w-full" asChild>
+                    <a href="#pricing">
+                      Unlock unlimited checks <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+
+              <div ref={bottomRef} />
+            </div>
+
+            {/* Suggestions */}
+            {messages.length <= 1 && (
+              <div className="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-none">
+                {SYSTEM_SUGGESTIONS.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => sendMessage(s)}
+                    className="shrink-0 text-xs text-gray-10 bg-white/4 hover:bg-white/8 border border-white/8 rounded-full px-3 py-1.5 transition-kairos whitespace-nowrap"
+                  >
+                    {s}
+                  </button>
+                ))}
               </div>
             )}
-          </div>
 
-          {/* Suggestion chips */}
-          {showSuggestions && (
-            <div className="shrink-0 flex gap-2 flex-wrap px-4 pb-3">
-              {SUGGESTIONS.map(s => (
-                <button
-                  key={s.label}
-                  onClick={() => send(s.q)}
-                  className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-[11px] text-white/40 transition-all hover:border-accent/40 hover:bg-accent/[0.06] hover:text-accent"
-                >
-                  {s.label}
-                </button>
-              ))}
+            {/* Input */}
+            <form onSubmit={handleSubmit} className="flex gap-2 px-4 py-3 border-t border-white/6">
+              <input
+                ref={inputRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="IBAN, email, phone or link..."
+                className="flex-1 min-w-0 bg-white/5 border border-white/8 rounded-2xl px-4 py-2.5 text-sm text-gray-12 placeholder:text-gray-9 focus:outline-none focus:border-blue-500/40 transition-kairos"
+                disabled={loading || usedToday >= FREE_DAILY_LIMIT}
+              />
+              <button
+                type="submit"
+                disabled={!input.trim() || loading || usedToday >= FREE_DAILY_LIMIT}
+                className="w-10 h-10 rounded-2xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 flex items-center justify-center transition-kairos shrink-0"
+              >
+                <Send className="w-4 h-4 text-white" />
+              </button>
+            </form>
+
+            {/* Footer trust */}
+            <div className="flex items-center justify-center gap-2 px-4 pb-3 text-2xs text-gray-9">
+              <Lock className="w-3 h-3" />
+              End-to-end encrypted · GDPR compliant
             </div>
-          )}
-
-          {/* Input */}
-          <div className="shrink-0 flex items-end gap-2 border-t border-white/[0.05] bg-[#111] px-3.5 py-3">
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-              placeholder={freeLeft > 0 ? 'Ask about fraud detection, pricing, the API…' : 'Get a free API key to continue →'}
-              disabled={freeLeft === 0}
-              rows={1}
-              aria-label="Chat message"
-              className="flex-1 resize-none rounded-xl border border-white/[0.08] bg-[#1a1a1a] px-3.5 py-2.5 text-[13px] text-[#e8e8e8] placeholder-white/20 outline-none transition-all focus:border-accent/35 focus:bg-[#1d1d1d] disabled:opacity-40 leading-relaxed"
-              style={{ minHeight: '40px', maxHeight: '100px' }}
-            />
-            <button
-              onClick={() => send()}
-              disabled={!input.trim() || loading || freeLeft === 0}
-              aria-label="Send message"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-accent transition-all hover:bg-accent-hover hover:shadow-[0_0_12px_rgba(0,217,126,0.4)] disabled:cursor-not-allowed disabled:bg-[#1e1e1e] disabled:shadow-none"
-            >
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-                <path d="M12 6.5L1 1.5l1.5 5L1 11.5z" fill="#000" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Disclaimer */}
-          <p className="shrink-0 py-1.5 pb-2.5 text-center text-[10px] text-white/20">
-            Kairos AI · Powered by Claude ·{' '}
-            <a href="/pricing" className="text-white/30 hover:text-accent transition-colors">
-              Get free API key →
-            </a>
-          </p>
-        </div>
-      )}
-
-      <style>{`
-        @keyframes kc-slide {
-          from { opacity: 0; transform: translateY(20px) scale(0.9); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-      `}</style>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

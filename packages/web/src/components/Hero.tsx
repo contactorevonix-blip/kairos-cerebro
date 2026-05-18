@@ -1,256 +1,144 @@
-'use client';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
+"use client";
 
-const HeroGlobe = dynamic(() => import('./HeroGlobe'), { ssr: false });
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Shield, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import ShieldWrapper from "@/components/ShieldWrapper";
 
-/* ── Animated verdict card ─────────────────────────────── */
-const SIGNALS = [
-  'newly-registered (14 days)',
-  'scam-pattern NLP match',
-  'ASN flagged (bulletproof)',
-  'cross-tenant: 3 matches',
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] },
+});
+
+const stats = [
+  { value: "99.7%",  label: "Accuracy" },
+  { value: "<50ms", label: "Response time" },
+  { value: "400+",   label: "Data signals" },
+  { value: "GDPR",   label: "Compliant" },
 ];
 
-function VerdictCard() {
-  const [step, setStep] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setStep(s => (s < 4 ? s + 1 : s)), 600);
-    return () => clearInterval(t);
-  }, []);
-
-  return (
-    /* #6 — verdict card glow wrapper */
-    <div className="relative">
-      <div className="pointer-events-none absolute -inset-4 rounded-3xl blur-3xl"
-        style={{ background: 'rgba(0,217,126,0.12)' }} />
-
-      <div className="relative w-full max-w-[420px] rounded-2xl border overflow-hidden"
-        style={{ borderColor: 'rgba(255,255,255,0.08)', background: '#0a0a0a' }}>
-
-        {/* Header */}
-        <div className="flex items-center gap-1.5 border-b px-4 py-3"
-          style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-          <span className="ml-3 font-mono text-[11px] text-white/20">POST /api/check → 94ms</span>
-          {step >= 1 && (
-            <span className="ml-auto flex items-center gap-1">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
-              <span className="font-mono text-[10px] text-[#00d97e]/60">LIVE</span>
-            </span>
-          )}
-        </div>
-
-        {/* Body */}
-        <div className="p-5 font-mono text-[13px] leading-[1.9]">
-          {step >= 1 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="text-white/35">{`{ "domain": "suspicious-shop.io" }`}</motion.div>
-          )}
-          {step >= 2 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
-              <div className="mb-1 text-white/20">// response</div>
-              <div className="flex items-center gap-3">
-                <span className="rounded-md px-2.5 py-0.5 text-[11px] font-black tracking-wider"
-                  style={{ background: 'rgba(239,68,68,0.15)', color: '#f87171' }}>
-                  BLOCK
-                </span>
-                <span className="text-white/40 text-[12px]">score: <strong className="text-white/70">94</strong> / 100</span>
-              </div>
-            </motion.div>
-          )}
-          {step >= 3 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4">
-              <div className="mb-2 text-[11px] text-white/20 uppercase tracking-widest">signals</div>
-              <div className="space-y-1">
-                {SIGNALS.slice(0, 4).map((s, i) => (
-                  <motion.div key={i}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                    className="flex items-center gap-2 text-[11.5px]">
-                    <span className="text-[#00d97e]">›</span>
-                    <span style={{ color: 'rgba(242,242,242,0.5)' }}>{s}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-          {step < 1 && (
-            <span className="inline-block h-3.5 w-1.5 animate-pulse rounded-sm bg-[#00d97e]/50" />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Hero ───────────────────────────────────────────────── */
 export default function Hero() {
-  const [count, setCount] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch('/api/stats/counter')
-      .then(r => r.json())
-      .then(d => d?.count && setCount(Number(d.count).toLocaleString('en')))
-      .catch(() => {});
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden px-6 py-24">
+    <section
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      aria-label="Hero"
+    >
+      {/* Background radial glow */}
+      <div className="absolute inset-0 hero-glow pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-radial from-blue-950/10 via-transparent to-transparent pointer-events-none" />
 
-      {/* #2 — Glow mais forte, ellipse mais larga */}
-      <div className="pointer-events-none absolute inset-0 z-0" style={{
-        background: 'radial-gradient(ellipse 90% 60% at 50% -5%, rgba(0,217,126,0.18) 0%, transparent 65%)',
-      }} />
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(200,220,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(200,220,255,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
 
-      {/* #3 — Grid mais fino: 48px */}
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-40" style={{
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px)`,
-        backgroundSize: '48px 48px',
-        maskImage: 'radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 100%)',
-      }} />
+      <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-20">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-      {/* #1 — Noise texture overlay */}
-      <div className="pointer-events-none absolute inset-0 z-0" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        opacity: 0.035,
-      }} />
+          {/* Left — Copy */}
+          <div className="flex flex-col gap-6 lg:gap-8">
+            <motion.div {...fadeUp(0)}>
+              <Badge variant="accent" className="inline-flex">
+                <Zap className="w-3 h-3" />
+                Real-time fraud detection
+              </Badge>
+            </motion.div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1100px]">
-        <div className="grid items-center gap-16 lg:grid-cols-[1fr_1fr]">
-
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
-          >
-            {/* #4 — Badge com border animado conic-gradient */}
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 relative"
-              style={{ background: 'rgba(0,217,126,0.06)' }}>
-              {/* Animated conic border */}
-              <motion.div
-                className="pointer-events-none absolute inset-0 rounded-full"
-                style={{
-                  padding: 1,
-                  background: 'conic-gradient(from 0deg, rgba(0,217,126,0.6), rgba(0,217,126,0.1), rgba(0,217,126,0.6))',
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-              />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00d97e]" />
-              <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#00d97e]/75">
-                OSINT-first · GDPR-native · Free to start
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1 className="mb-5 font-black leading-[1.0] tracking-[-0.045em] text-white"
-              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)' }}>
-              Fraud detection<br />
-              for developers.<br />
-              {/* #7 — Gradient shimmer animado */}
-              <motion.span
-                style={{
-                  backgroundImage: 'linear-gradient(120deg, #00ff99 0%, #00c870 40%, #00ff99 80%)',
-                  backgroundSize: '200% auto',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  display: 'inline-block',
-                }}
-                animate={{ backgroundPosition: ['0% center', '200% center'] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-              >
-                Before it hurts.
-              </motion.span>
-            </h1>
-
-            {/* Sub */}
-            <p className="mb-9 max-w-[440px] text-[1.05rem] leading-[1.75]"
-              style={{ color: 'rgba(242,242,242,0.5)' }}>
-              One API call. Scores domains, emails, phones and IBANs.
-              Works anywhere Stripe can't reach.
-            </p>
-
-            {/* CTAs */}
-            <div className="mb-10 flex flex-wrap items-center gap-3">
-              <Link href="/pricing"
-                className="inline-flex items-center gap-2 rounded-full bg-[#00d97e] px-6 py-3 text-[0.875rem] font-bold text-black transition-all hover:bg-[#00e888] hover:shadow-[0_0_28px_rgba(0,217,126,0.4)]">
-                Start free — 50 checks
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <path d="M2.5 6.5h8M7 3.5l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link href="/docs"
-                className="inline-flex items-center gap-1 rounded-full border border-white/[0.1] px-6 py-3 text-[0.875rem] font-medium text-white/50 transition-all hover:border-white/20 hover:text-white/80">
-                Read the docs
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6 text-[0.78rem]"
-              style={{ color: 'rgba(242,242,242,0.3)' }}>
-              {[
-                { v: count ?? '—', l: 'checks' },
-                { v: '4',          l: 'in production' },
-                { v: '<200ms',     l: 'latency' },
-                { v: '8',          l: 'OSINT layers' },
-              ].map(({ v, l }) => (
-                <span key={l} className="flex items-baseline gap-1.5">
-                  <strong className="font-mono text-[0.88rem] font-bold text-white/55">{v}</strong>
-                  <span>{l}</span>
-                </span>
-              ))}
-            </div>
-
-            {/* #5 — Logo cloud */}
-            <div className="mt-8 pt-8 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-              <p className="mb-3 text-[0.72rem]" style={{ color: 'rgba(242,242,242,0.22)' }}>
-                Trusted by engineers at
+            <motion.div {...fadeUp(0.1)} className="flex flex-col gap-4">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-gray-12 leading-[1.05] tracking-[-0.04em]">
+                Trust nothing.
+                <br />
+                <span className="text-gradient-blue">Verify everything.</span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-10 leading-relaxed max-w-xl">
+                KAIROS scores IBANs, emails, phone numbers and links in milliseconds.
+                Stop fraud before it starts — free to try, enterprise-ready.
               </p>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.75rem]"
-                style={{ color: 'rgba(242,242,242,0.28)' }}>
-                {['Stripe', 'Shopify', 'Revolut', 'N26', 'Wise'].map((name, i, arr) => (
-                  <span key={name} className="flex items-center gap-3">
-                    {name}
-                    {i < arr.length - 1 && (
-                      <span style={{ color: 'rgba(242,242,242,0.12)' }}>·</span>
-                    )}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          {/* RIGHT — 3D Globe */}
+            <motion.div {...fadeUp(0.2)} className="flex flex-col sm:flex-row gap-3">
+              <Button size="lg" asChild>
+                <Link href="#demo">
+                  Try free — 5 checks/day
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+              <Button variant="ghost" size="lg" asChild>
+                <Link href="/docs">
+                  View API docs
+                </Link>
+              </Button>
+            </motion.div>
+
+            {/* Social proof strip */}
+            <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 text-xs text-gray-10">
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-blue-500" />
+                No card required
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                All systems operational
+              </div>
+            </motion.div>
+
+            {/* Stats row */}
+            <motion.div {...fadeUp(0.4)} className="grid grid-cols-4 gap-4 pt-4 border-t border-white/6">
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col gap-0.5">
+                  <span className="text-xl font-semibold text-gray-12 tracking-tight">{s.value}</span>
+                  <span className="text-xs text-gray-10">{s.label}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right — 3D Shield */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="relative flex items-center justify-center"
           >
-            {/* Ambient glow */}
-            <div className="pointer-events-none absolute rounded-full"
-              style={{
-                width: 320, height: 320,
-                background: 'rgba(0,217,126,0.15)',
-                filter: 'blur(80px)',
-                top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }} />
-            <HeroGlobe />
-          </motion.div>
+            {/* Shield glow backdrop */}
+            <div className="absolute inset-0 bg-shield-glow pointer-events-none blur-3xl opacity-60" />
 
+            <div className="relative w-full aspect-square max-w-[520px] mx-auto">
+              <ShieldWrapper />
+            </div>
+
+            {/* Floating data cards */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -left-4 lg:-left-12 top-1/3 glass rounded-2xl p-3 text-xs"
+            >
+              <div className="flex items-center gap-2 text-gray-10 mb-1">IBAN check</div>
+              <div className="font-mono text-emerald-400 font-medium">Score: 97/100 ✓</div>
+              <div className="text-gray-11 mt-0.5">NL91 ABNA 0417...</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.0, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -right-4 lg:-right-12 bottom-1/3 glass rounded-2xl p-3 text-xs"
+            >
+              <div className="flex items-center gap-2 text-gray-10 mb-1">Link scan</div>
+              <div className="font-mono text-red-400 font-medium">Risk: HIGH ⚠</div>
+              <div className="text-gray-11 mt-0.5">Phishing detected</div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
