@@ -1,6 +1,5 @@
 import Nav from '@/components/landing/nav';
 import Hero from '@/components/landing/hero';
-import LiveDemoSection from '@/components/LiveDemo';
 import LiveDemo from '@/components/landing/live-demo';
 import HowItWorks from '@/components/landing/how-it-works';
 import SdkSection from '@/components/landing/sdk-section';
@@ -28,10 +27,7 @@ export default function HomePage() {
           <Hero />
         </div>
 
-        {/* LIVE DEMO — split panel (Linear-style) */}
-        <LiveDemoSection />
-
-        {/* LIVE DEMO — API route */}
+        {/* LIVE DEMO */}
         <LiveDemo />
 
         <div style={{ background: `radial-gradient(ellipse 600px 400px at 50% 100%, rgba(0,220,130,0.05), transparent 70%), #000` }}>
