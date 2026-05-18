@@ -14,10 +14,27 @@ export default function Hero() {
   const doubled = [...LOGOS, ...LOGOS];
 
   return (
-    <section style={{ position: 'relative', background: '#000', paddingTop: 100, paddingBottom: 60, overflow: 'hidden' }}>
+    <section style={{
+      position: 'relative',
+      background: '#000',
+      paddingTop: 100,
+      paddingBottom: 80,
+      overflow: 'hidden',
+      minHeight: '92vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    }}>
 
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
-      <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 800, height: 400, pointerEvents: 'none', background: 'radial-gradient(ellipse 800px 400px at 50% -10%,rgba(0,220,130,0.12) 0%,transparent 70%)' }} />
+      {/* Gradiente de fundo — verde KAIROS subtil vindo de cima à esquerda */}
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse 80% 60% at 20% 50%, rgba(0,220,130,0.07) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 30%, rgba(59,130,246,0.05) 0%, transparent 55%)',
+      }} />
+      {/* Grid subtil */}
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)',
+        backgroundSize: '64px 64px',
+      }} />
 
       <div className="container-kc" style={{ position: 'relative' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', alignItems: 'center', gap: 48 }}>
@@ -61,13 +78,29 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* RIGHT — Escudo 3D — transform-gpu força aceleração hardware */}
-          <div className="transform-gpu flex items-center justify-center min-w-0">
+          {/* RIGHT — Escudo 3D */}
+          <div className="transform-gpu flex items-center justify-center min-w-0" style={{ position: 'relative' }}>
+            {/* Glow por baixo — simula a sombra/reflexo do Resend */}
+            <div style={{
+              position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
+              width: 360, height: 60,
+              background: 'radial-gradient(ellipse 100% 100% at 50% 100%, rgba(59,130,246,0.35) 0%, transparent 70%)',
+              filter: 'blur(20px)',
+              pointerEvents: 'none',
+              zIndex: 0,
+            }} />
+            {/* Glow ambiente azul à volta */}
+            <div style={{
+              position: 'absolute', inset: -40,
+              background: 'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%)',
+              pointerEvents: 'none',
+              zIndex: 0,
+            }} />
             <motion.div
-              style={{ width: 520, height: 520 }}
+              style={{ width: 520, height: 520, position: 'relative', zIndex: 1 }}
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <ShieldWrapper className="w-full h-full" />
             </motion.div>
