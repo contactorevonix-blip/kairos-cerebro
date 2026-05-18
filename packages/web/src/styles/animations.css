@@ -2,152 +2,82 @@
    KAIROS DESIGN SYSTEM — Animations & Keyframes
    ===================================================== */
 
-@layer base {
-  /* ── KEYFRAMES ──────────────────────────────────── */
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-  }
-
-  @keyframes slide-up-fade {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slide-down-fade {
-    from { opacity: 0; transform: translateY(-12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes scale-in-fade {
-    from { opacity: 0; transform: scale(0.96); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes scale-up-fade {
-    from { opacity: 0; transform: scale(0.96) translateY(8px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  @keyframes hero-text-in {
-    from { opacity: 0; transform: translateY(32px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes shield-scale-in {
-    from { opacity: 0; transform: scale(0.7); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes header-in {
-    from { opacity: 0; transform: translateY(-16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes scroll-x {
-    from { transform: translateX(0); }
-    to   { transform: translateX(calc(-100% - 2rem)); }
-  }
-
-  @keyframes shine {
-    from { background-position: 200% center; }
-    to   { background-position: -200% center; }
-  }
-
-  @keyframes shimmer {
-    0%   { background-position: 100% center; }
-    100% { background-position: -100% center; }
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% { opacity: 0.4; box-shadow: 0 0 20px rgba(59,130,246,0.2); }
-    50%       { opacity: 1;   box-shadow: 0 0 40px rgba(59,130,246,0.5); }
-  }
-
-  @keyframes shield-pulse {
-    0%, 100% { filter: drop-shadow(0 0 12px rgba(59,130,246,0.3)); }
-    50%       { filter: drop-shadow(0 0 30px rgba(59,130,246,0.7)); }
-  }
-
-  @keyframes disco {
-    from { transform: translateY(-50%) rotate(0deg); }
-    to   { transform: translateY(-50%) rotate(360deg); }
-  }
-
-  @keyframes plop {
-    0%, 100% { opacity: 0.2; }
-    20%       { opacity: 1; }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-12px); }
-  }
-
-  @keyframes orbit {
-    from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
-  }
-
-  @keyframes accordion-down {
-    from { height: 0; }
-    to   { height: var(--radix-accordion-content-height); }
-  }
-
-  @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height); }
-    to   { height: 0; }
-  }
-
-  @keyframes scan-line {
-    from { top: 0%; }
-    to   { top: 100%; }
-  }
-
-  @keyframes typing {
-    from { width: 0; }
-    to   { width: 100%; }
-  }
-
-  @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50%       { border-color: var(--color-accent); }
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* ── ANIMATION UTILITY CLASSES ──────────────────────── */
-@layer utilities {
-  .animate-fade-in         { animation: fade-in 0.2s var(--ease-default); }
-  .animate-fade-out        { animation: fade-out 0.2s var(--ease-default); }
-  .animate-slide-up        { animation: slide-up-fade 0.4s var(--ease-cinematic); }
-  .animate-slide-down      { animation: slide-down-fade 0.2s var(--ease-default); }
-  .animate-scale-in        { animation: scale-in-fade 0.2s var(--ease-default); }
-  .animate-scale-up        { animation: scale-up-fade 0.2s var(--ease-default); }
-  .animate-hero-text       { animation: hero-text-in 1s var(--ease-cinematic) both; }
-  .animate-shield-in       { animation: shield-scale-in 1.2s var(--ease-cinematic) both; }
-  .animate-header-in       { animation: header-in 0.8s var(--ease-cinematic) both; }
-  .animate-scroll-x        { animation: scroll-x 30s linear infinite; }
-  .animate-shine           { animation: shine 3s linear infinite; }
-  .animate-shimmer         { animation: shimmer 2s linear infinite; }
-  .animate-pulse-glow      { animation: pulse-glow 3s ease-in-out infinite; }
-  .animate-shield-pulse    { animation: shield-pulse 3s ease-in-out infinite; }
-  .animate-float           { animation: float 4s ease-in-out infinite; }
-  .animate-orbit           { animation: orbit 8s linear infinite; }
-  .animate-accordion-down  { animation: accordion-down 0.3s var(--ease-default); }
-  .animate-accordion-up    { animation: accordion-up 0.3s var(--ease-default); }
-  .animate-plop            { animation: plop 1.4s ease-in-out 0.1s infinite; }
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
 
-  /* Stagger helpers */
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-700 { animation-delay: 700ms; }
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down-fade {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in-fade {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shield-scale-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes header-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% - 2rem)); }
+}
+
+@keyframes shine {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% center; }
+  100% { background-position: -100% center; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 20px rgba(59,130,246,0.2); }
+  50%       { opacity: 1;   box-shadow: 0 0 40px rgba(59,130,246,0.5); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes plop {
+  0%, 100% { opacity: 0.2; }
+  20%       { opacity: 1; }
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to   { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to   { height: 0; }
 }

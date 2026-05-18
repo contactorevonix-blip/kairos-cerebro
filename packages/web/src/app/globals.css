@@ -1,10 +1,10 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 @import "../styles/tokens.css";
 @import "../styles/animations.css";
 @import "../styles/theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   * {
@@ -33,9 +33,7 @@
     width: 6px;
     height: 6px;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
     background: var(--color-gray-6);
     border-radius: 3px;
@@ -74,11 +72,5 @@
     max-width: 100%;
     height: auto;
     display: block;
-  }
-
-  /* GPU acceleration for animated elements */
-  .gpu {
-    transform: translateZ(0);
-    will-change: transform;
   }
 }
