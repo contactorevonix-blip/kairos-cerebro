@@ -1,125 +1,184 @@
-'use client';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+"use client";
 
-function KairosLogo() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="nav-lg" x1="4" y1="4" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#00ff99" />
-          <stop offset="100%" stopColor="#00c870" />
-        </linearGradient>
-        <filter id="nav-glow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
-          <feFlood floodColor="#00d97e" floodOpacity="0.45" result="c" />
-          <feComposite in="c" in2="blur" operator="in" result="s" />
-          <feMerge><feMergeNode in="s" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-      </defs>
-      <path d="M17 2L31 9.5V24.5L17 32L3 24.5V9.5L17 2Z"
-        fill="rgba(0,217,126,0.07)" stroke="url(#nav-lg)" strokeWidth="1.2" strokeLinejoin="round" />
-      <line x1="7" y1="17" x2="27" y2="17" stroke="url(#nav-lg)" strokeWidth="0.5" strokeDasharray="2 3.5" opacity="0.3" />
-      <path d="M12 10v14" stroke="url(#nav-lg)" strokeWidth="2.4" strokeLinecap="round" filter="url(#nav-glow)" />
-      <path d="M12 17L22 10" stroke="url(#nav-lg)" strokeWidth="2.4" strokeLinecap="round" filter="url(#nav-glow)" />
-      <path d="M12 17L22 24" stroke="url(#nav-lg)" strokeWidth="2.4" strokeLinecap="round" filter="url(#nav-glow)" />
-      <circle cx="17" cy="2"    r="1.1" fill="#00d97e" opacity="0.55" />
-      <circle cx="31" cy="9.5" r="1.1" fill="#00d97e" opacity="0.35" />
-      <circle cx="3"  cy="9.5" r="1.1" fill="#00d97e" opacity="0.35" />
-    </svg>
-  );
-}
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Shield, Menu, X, ChevronDown, Zap, Code2, Building2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: '/docs',    label: 'Docs'    },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/status',  label: 'Status'  },
+  {
+    label: "Product",
+    href: "#",
+    dropdown: [
+      { label: "Live Demo",      href: "#demo",     icon: Zap,       desc: "Try KAIROS in real-time" },
+      { label: "API",            href: "#api",      icon: Code2,     desc: "B2B REST API & SDKs" },
+      { label: "Enterprise",     href: "#enterprise",icon: Building2, desc: "Custom SLA & white-label" },
+    ],
+  },
+  { label: "Pricing",  href: "#pricing" },
+  { label: "Docs",     href: "/docs" },
+  { label: "Blog",     href: "/blog" },
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdown, setDropdown]     = useState<string | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handler = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const openChat = () => {
-    (document.getElementById('kc-bubble') as HTMLButtonElement | null)?.click();
-  };
-
   return (
-    <motion.header
-      aria-label="Site header"
-      initial={{ y: -8, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 z-50 h-[60px] border-b transition-colors duration-300"
-      style={{
-        borderColor: scrolled ? 'var(--border-strong)' : 'var(--border)',
-        background: scrolled ? 'rgba(8,8,8,0.96)' : 'rgba(8,8,8,0.75)',
-        backdropFilter: 'blur(24px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-      }}
-    >
-      <div className="mx-auto flex h-full max-w-content items-center justify-between px-6">
-
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="Kairos Check">
-          <KairosLogo />
-          <span className="text-[15px] font-bold leading-none tracking-tighter text-white">
-            Kairos<strong className="text-accent font-extrabold">Check</strong>
-          </span>
-        </Link>
-
-        {/* Nav links */}
-        <nav aria-label="Main navigation" className="hidden items-center gap-0.5 md:flex">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="rounded-lg px-3.5 py-2 text-sm text-white/45 transition-colors hover:bg-white/[0.04] hover:text-white/80"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Auth + CTA */}
-        <div className="flex items-center gap-1">
-          <div className="hidden h-4 w-px bg-white/[0.08] sm:block mx-2" aria-hidden="true" />
-
-          <Link
-            href="/login"
-            className="hidden sm:block rounded-lg px-3.5 py-2 text-sm font-medium text-white/45 transition-colors hover:text-white/80"
-          >
-            Log in
+    <>
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={cn(
+          "fixed top-0 inset-x-0 z-50 transition-all duration-300",
+          scrolled
+            ? "bg-black/80 backdrop-blur-xl border-b border-white/8 shadow-lg"
+            : "bg-transparent"
+        )}
+      >
+        <nav className="mx-auto max-w-7xl px-4 md:px-6 h-[60px] flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative w-8 h-8">
+              <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300" />
+              <div className="relative flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-500/30 to-violet-600/20 rounded-xl border border-blue-500/30">
+                <Shield className="w-4 h-4 text-blue-400" strokeWidth={2.5} />
+              </div>
+            </div>
+            <span className="font-semibold text-base text-gray-12 tracking-tight">KAIROS</span>
           </Link>
 
-          <Link
-            href="/pricing"
-            className="hidden sm:block rounded-[9px] border border-white/[0.12] bg-white/[0.05] px-4 py-[7px] text-sm font-semibold text-white/80 transition-all hover:border-accent/40 hover:bg-accent/[0.07] hover:text-accent"
-          >
-            Sign up
-          </Link>
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) =>
+              link.dropdown ? (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => setDropdown(link.label)}
+                  onMouseLeave={() => setDropdown(null)}
+                >
+                  <button className="flex items-center gap-1 h-9 px-3 text-sm text-gray-11 hover:text-gray-12 transition-colors duration-200 rounded-xl hover:bg-white/5">
+                    {link.label}
+                    <ChevronDown
+                      className={cn(
+                        "w-3.5 h-3.5 transition-transform duration-200",
+                        dropdown === link.label && "rotate-180"
+                      )}
+                    />
+                  </button>
 
+                  <AnimatePresence>
+                    {dropdown === link.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 4, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full left-0 pt-2"
+                      >
+                        <div className="glass rounded-2xl p-2 min-w-[240px] shadow-card">
+                          {link.dropdown.map((item) => (
+                            <Link
+                              key={item.label}
+                              href={item.href}
+                              className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors duration-150 group/item"
+                            >
+                              <div className="icon-box w-9 h-9 mt-0.5 shrink-0">
+                                <item.icon className="w-4 h-4 text-blue-400" />
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium text-gray-12">{item.label}</div>
+                                <div className="text-xs text-gray-10 mt-0.5">{item.desc}</div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="h-9 px-3 text-sm text-gray-11 hover:text-gray-12 transition-colors duration-200 inline-flex items-center rounded-xl hover:bg-white/5"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+          </div>
+
+          {/* CTAs */}
+          <div className="hidden md:flex items-center gap-2">
+            <Badge variant="accent" className="mr-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+              5 free checks/day
+            </Badge>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">Sign in</Link>
+            </Button>
+            <Button size="sm" asChild>
+              <Link href="#demo">Try free</Link>
+            </Button>
+          </div>
+
+          {/* Mobile toggle */}
           <button
-            onClick={openChat}
-            aria-label="Open AI assistant"
-            className="ml-1.5 flex items-center gap-1.5 rounded-[9px] bg-accent px-4 py-[9px] text-[13px] font-bold text-black transition-all hover:bg-[#00e888]"
-            style={{ boxShadow: '0 0 0 0 rgba(0,217,126,0)', transition: 'background 150ms, box-shadow 150ms' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 18px rgba(0,217,126,0.35)'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 0 0 rgba(0,217,126,0)'; }}
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl border border-white/10 text-gray-11"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M8 1.5C4.41 1.5 1.5 4.08 1.5 7.25c0 1.12.34 2.17.93 3.06L1.5 14.5l4.37-1.38A7.1 7.1 0 008 13c3.59 0 6.5-2.58 6.5-5.75S11.59 1.5 8 1.5z" fill="#000" />
-            </svg>
-            Ask AI
+            {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
-        </div>
-      </div>
-    </motion.header>
+        </nav>
+      </motion.header>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-[60px] z-40 glass-strong border-b border-white/8 p-4"
+          >
+            <div className="flex flex-col gap-1 mb-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href ?? "#"}
+                  className="px-4 py-3 text-sm text-gray-11 hover:text-gray-12 hover:bg-white/5 rounded-xl transition-colors duration-150"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2">
+              <Button variant="secondary" className="w-full" asChild>
+                <Link href="/login">Sign in</Link>
+              </Button>
+              <Button className="w-full" asChild>
+                <Link href="#demo">Try free — 5 checks/day</Link>
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
