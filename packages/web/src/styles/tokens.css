@@ -1,0 +1,128 @@
+/* =====================================================
+   KAIROS DESIGN SYSTEM — CSS Custom Properties
+   Inspired by: Linear, Vercel, Stripe, Resend, Raycast
+   ===================================================== */
+
+@layer base {
+  :root {
+    /* ── FONTS ──────────────────────────────────────── */
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-display: "Cal Sans", "Inter", ui-sans-serif, sans-serif;
+
+    /* ── GRAY SCALE (Radix-inspired, dark mode native) */
+    --color-gray-1: #0a0a0b;
+    --color-gray-2: #111113;
+    --color-gray-3: #18191b;
+    --color-gray-4: #1e1f22;
+    --color-gray-5: #252629;
+    --color-gray-6: #2c2d31;
+    --color-gray-7: #363739;
+    --color-gray-8: #4a4b4e;
+    --color-gray-9: #636466;
+    --color-gray-10: #7e8082;
+    --color-gray-11: #a0a2a5;
+    --color-gray-12: #ededef;
+
+    /* ── SLATE ALPHA SCALE (glassmorphism borders) ── */
+    --color-slate-1: rgba(0, 0, 0, 0);
+    --color-slate-2: rgba(200, 220, 255, 0.035);
+    --color-slate-3: rgba(200, 220, 255, 0.08);
+    --color-slate-4: rgba(200, 220, 255, 0.11);
+    --color-slate-5: rgba(200, 220, 255, 0.15);
+    --color-slate-6: rgba(200, 220, 255, 0.19);
+    --color-slate-7: rgba(200, 220, 255, 0.25);
+    --color-slate-8: rgba(200, 220, 255, 0.36);
+    --color-slate-9: rgba(200, 220, 255, 0.43);
+    --color-slate-10: rgba(200, 220, 255, 0.48);
+    --color-slate-11: rgba(200, 220, 255, 0.71);
+    --color-slate-12: rgba(240, 248, 255, 0.94);
+
+    /* ── BRAND COLORS ──────────────────────────────── */
+    --color-brand-blue: #3b82f6;
+    --color-brand-blue-dim: #1d4ed8;
+    --color-brand-cyan: #06b6d4;
+    --color-brand-violet: #8b5cf6;
+    --color-brand-emerald: #10b981;
+
+    /* ── KAIROS ACCENT (shield/trust) ───────────────── */
+    --color-accent: #3b82f6;
+    --color-accent-dim: rgba(59, 130, 246, 0.15);
+    --color-accent-glow: rgba(59, 130, 246, 0.3);
+
+    /* ── SEMANTIC SURFACES ──────────────────────────── */
+    --background: #000000;
+    --surface-1: #0a0a0b;
+    --surface-2: #111113;
+    --surface-3: #18191b;
+    --canvas: rgba(17, 17, 19, 0.6);
+
+    /* ── TEXT ───────────────────────────────────────── */
+    --text-primary: #ededef;
+    --text-secondary: #a0a2a5;
+    --text-muted: #636466;
+    --text-disabled: #4a4b4e;
+    --text-on-accent: #ffffff;
+
+    /* ── BORDERS ────────────────────────────────────── */
+    --border-default: rgba(200, 220, 255, 0.1);
+    --border-subtle: rgba(200, 220, 255, 0.06);
+    --border-strong: rgba(200, 220, 255, 0.2);
+    --border-accent: rgba(59, 130, 246, 0.4);
+
+    /* ── RADIUS ─────────────────────────────────────── */
+    --radius-xs: 0.125rem;   /* 2px */
+    --radius-sm: 0.25rem;    /* 4px */
+    --radius-md: 0.375rem;   /* 6px */
+    --radius-lg: 0.5rem;     /* 8px */
+    --radius-xl: 0.75rem;    /* 12px */
+    --radius-2xl: 1rem;      /* 16px — buttons */
+    --radius-3xl: 1.5rem;    /* 24px — cards */
+    --radius-4xl: 2rem;      /* 32px */
+    --radius-full: 9999px;   /* pill */
+
+    /* ── TYPOGRAPHY SCALE ───────────────────────────── */
+    --text-2xs: 0.625rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+
+    /* ── SHADOWS ────────────────────────────────────── */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.5);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.7);
+    --shadow-glow-blue: 0 0 40px rgba(59,130,246,0.2);
+    --shadow-glow-accent: 0 0 60px rgba(59,130,246,0.15);
+
+    /* ── BLUR ───────────────────────────────────────── */
+    --blur-xs: 4px;
+    --blur-sm: 8px;
+    --blur-md: 16px;
+    --blur-lg: 24px;
+    --blur-xl: 40px;
+
+    /* ── EASING ─────────────────────────────────────── */
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ── LAYOUT ─────────────────────────────────────── */
+    --container-sm: 24rem;
+    --container-md: 48rem;
+    --container-lg: 64rem;
+    --container-xl: 80rem;
+    --section-padding-x: clamp(1.5rem, 5vw, 6rem);
+    --section-padding-y: clamp(4rem, 10vw, 8rem);
+  }
+}
