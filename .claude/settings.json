@@ -1,6 +1,7 @@
 {
   "language": "portuguese",
   "permissions": {
+    "defaultMode": "bypassPermissions",
     "allow": [
       "Edit",
       "Write",

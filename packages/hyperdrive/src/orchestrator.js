@@ -23,6 +23,7 @@
  */
 
 const { classify }          = require('./router');
+const { HYPERDRIVE_CONFIG } = require('./config');
 const { append, EVENT_TYPES, ulid } = require('./memory/ledger');
 const { createSnapshot }    = require('./memory/snapshot');
 const { markMilestoneStep } = require('./memory/knowledge-graph');

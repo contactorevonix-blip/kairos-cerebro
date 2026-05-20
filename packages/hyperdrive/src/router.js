@@ -148,7 +148,7 @@ function classify(task, files = []) {
     lower.includes('critical') ||
     lower.includes('crítico') ||
     touchesSensitive ||
-    confidence < 0.4;
+    confidence < (process.env.KAIROS_MIN_CONFIDENCE ? Number(process.env.KAIROS_MIN_CONFIDENCE) : 0.4);
 
   const agents = DOMAINS[topDomain]?.agents || ['@Dex', '@Aria'];
 

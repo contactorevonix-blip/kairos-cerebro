@@ -321,7 +321,9 @@ async function invokeWithTools(agentId, task, files = [], opts = {}) {
   const systemBlocks = buildCachedSystem(agentId, fileCtx);
 
   const allToolCalls = [];
-  let messages       = [{ role: 'user', content: task }];
+  // Instrução explícita: usar ferramentas, não descrever — corrige o padrão de "planeamento sem acção"
+  const taskWithDirective = `${task}\n\nIMPORTANTE: Usa as ferramentas disponíveis para EXECUTAR a tarefa. Não descreves o que farias — ages directamente. Quando terminares, chama write_file para guardar o resultado e responde com um resumo do que foi feito.`;
+  let messages       = [{ role: 'user', content: taskWithDirective }];
   let iterations     = 0;
 
   while (iterations < MAX_TOOL_ITERATIONS) {
@@ -334,7 +336,7 @@ async function invokeWithTools(agentId, task, files = [], opts = {}) {
 
     const body = {
       model:      modelId,
-      max_tokens: 4096,
+      max_tokens: Number(process.env.KAIROS_MAX_TOKENS || 8192),
       system:     systemBlocks,
       tools:      TOOL_DEFINITIONS,
       messages,

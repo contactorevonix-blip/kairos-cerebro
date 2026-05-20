@@ -246,7 +246,7 @@
       "KAIROS/03-ENGENHARIA/specs/intelligent-components.md"
     ],
     "colors": {
-      "background": "#0d0d0d",
+      "background": "oklch(0.09 0 0)",
       "surface": "oklch(0.13 0 0)",
       "surface-raised": "oklch(0.17 0 0)",
       "border": "oklch(1 0 0 / 8%)",
@@ -254,14 +254,11 @@
       "text-primary": "oklch(0.94 0 0)",
       "text-secondary": "oklch(0.65 0 0)",
       "text-muted": "oklch(0.45 0 0)",
-      "accent": "#3b82f6",
+      "accent": "oklch(0.623 0.214 259.8)",
       "accent-hover": "oklch(0.557 0.214 259.8)",
-      "success": "#22c55e",
-      "warning": "#f59e0b",
-      "danger": "#ef4444",
-      "geist-green": "#0070f3",
-      "geist-red": "#ff0000",
-      "geist-amber": "#f5a623"
+      "success": "oklch(0.696 0.17 162.48)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "danger": "oklch(0.704 0.191 22.216)"
     },
     "typography": {
       "fonts": {
@@ -303,12 +300,12 @@
       "rule": "GeistMono para tudo técnico — scores, API keys, latência, JSON"
     },
     "borderRadius": {
-      "radius": "0.625rem`",
-      "radius-sm": "4px   /* inputs, badges pequenos */",
-      "radius-md": "8px   /* cards, botões */",
-      "radius-lg": "12px  /* modais, sheets */",
-      "radius-xl": "16px  /* hero cards */",
-      "radius-full": "9999px /* pills, avatars */"
+      "radius": "0.625rem",
+      "radius-sm": "4px",
+      "radius-md": "8px",
+      "radius-lg": "12px",
+      "radius-xl": "16px",
+      "radius-full": "9999px"
     },
     "spacing": {
       "note": "Baseado em Stripe whitespace — 64px+ entre secções",
@@ -417,6 +414,18 @@
         "SCROLL PROGRESS INDICATOR — barra de progresso no topo",
         "SMART CTA — muda copy/destino com contexto do utilizador"
       ]
+    },
+    "fontSizes": {
+      "text-xs": "0.75rem  / 12px",
+      "text-sm": "0.875rem / 14px",
+      "text-base": "1rem     / 16px",
+      "text-lg": "1.125rem / 18px",
+      "text-xl": "1.25rem  / 20px",
+      "text-2xl": "1.5rem   / 24px",
+      "text-3xl": "1.875rem / 30px",
+      "text-4xl": "2.25rem  / 36px",
+      "text-5xl": "3rem     / 48px",
+      "text-6xl": "3.75rem  / 60px"
     }
   }
 }
