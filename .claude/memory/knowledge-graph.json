@@ -1,0 +1,28 @@
+{
+  "nodes": {
+    "milestone-rebuild-v1": {
+      "id": "milestone-rebuild-v1",
+      "type": "Milestone",
+      "data": { "label": "Rebuild KairosCheck v1", "status": "in-progress" },
+      "createdAt": "2026-05-20T00:00:00.000Z"
+    },
+    "milestone-hyperdrive-v1": {
+      "id": "milestone-hyperdrive-v1",
+      "type": "Milestone",
+      "data": { "label": "KAIROS HYPERDRIVE v1", "status": "in-progress" },
+      "createdAt": "2026-05-20T00:00:00.000Z"
+    }
+  },
+  "edges": [],
+  "milestones": {
+    "rebuild-v1": {
+      "passo-0-preparacao": { "status": "done", "doneAt": "2026-05-20T00:00:00.000Z" },
+      "passo-1-skills":     { "status": "done", "doneAt": "2026-05-20T00:00:00.000Z" },
+      "passo-2-estrategia": { "status": "done", "doneAt": "2026-05-20T00:00:00.000Z" },
+      "passo-4-arquitectura":{ "status": "done", "doneAt": "2026-05-20T00:00:00.000Z" }
+    },
+    "hyperdrive-v1": {
+      "hd-fase-0-auditoria": { "status": "done", "doneAt": "2026-05-20T00:00:00.000Z" }
+    }
+  }
+}

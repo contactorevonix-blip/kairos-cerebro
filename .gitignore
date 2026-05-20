@@ -55,3 +55,7 @@ packages/web/.next
 .vercel
 
 .ai/design-ref/
+.claude/memory/snapshots/
+.claude/memory/state-ledger.jsonl
+.claude/.consensus-key
+*.tmp
