@@ -1,19 +1,27 @@
 'use strict';
 
 /**
- * KAIROS HYPERDRIVE — Provider Anthropic
+ * KAIROS HYPERDRIVE — Provider Anthropic (v2 — Fase 7)
  * Chama a Anthropic API via HTTPS nativo (zero deps externas).
- * Suporta prompt caching (90% desconto em rules/constitution).
+ * Selecção automática de modelo por complexidade da task.
+ * Prompt caching agressivo em 2 blocos (constitution + skill).
  *
- * Modelos por tier:
- *   Sénior (consenso): claude-opus-4-7     → @Sage, @Oracle, @Aria
- *   Executor:          claude-sonnet-4-6   → @Dex, @Quinn, @Uma, @Rex, @Morgan, @Hermes
- *   Utilitário:        claude-haiku-4-5    → @Gage, @Orion
+ * Selecção de modelo (Fase 7):
+ *   Score 0-3  → Haiku   (tasks simples: docs, navegação)
+ *   Score 4-7  → Sonnet  (tasks médias: backend, frontend)
+ *   Score 8-10 → Opus    (tasks críticas: auditoria, estratégia, billing)
+ *
+ * Cache strategy:
+ *   Block 1: kairos-constitution.md (shared, ephemeral) → 90% off em reads
+ *   Block 2: agent skill file (per-agent, ephemeral) → 90% off em reads
+ *   Block 3: task context (dinâmico, não cacheado)
  */
 
-const https = require('node:https');
-const fs    = require('node:fs');
-const path  = require('node:path');
+const https      = require('node:https');
+const fs         = require('node:fs');
+const path       = require('node:path');
+const { analyze: analyzeComplexity } = require('./complexity');
+const { buildCachedSystem }          = require('./cache-warmer');
 
 const ROOT = path.join(__dirname, '..', '..', '..', '..');
 
@@ -184,35 +192,53 @@ async function invoke(agentId, task, role = 'execute', ctx = {}) {
   if (budget.exceeded) throw new Error(`Budget da task excedido ($${budget.taskCostUsd.toFixed(4)} >= $${budget.hardStop})`);
   if (budget.warned)   console.warn(`⚠️  BUDGET AVISO: $${budget.taskCostUsd.toFixed(4)} / $${budget.warnThreshold} por task`);
 
-  const tier      = AGENT_TIER[agentId] || 'executor';
-  const model     = CONFIG.models[tier];
-  const skill     = getAgentSkill(agentId);
-  const constitution = getConstitution();
+  // ── SELECÇÃO AUTOMÁTICA DE MODELO (Fase 7) ────────────────────────────────
+  // Para consenso → usar sempre senior (decisão crítica)
+  // Para execução → complexidade determina o modelo
+  let modelId;
+  let complexityResult = null;
 
-  const systemPrompt = role === 'consensus'
-    ? `Estás no protocolo de consenso KAIROS HYPERDRIVE como ${agentId}.\n\nCONSTITUIÇÃO:\n${constitution}\n\nO TUE PERFIL:\n${skill}`
-    : `Estás a executar uma task como ${agentId} no KAIROS HYPERDRIVE.\n\nCONSTITUIÇÃO:\n${constitution}\n\nO TEU PERFIL:\n${skill}`;
+  if (role === 'consensus') {
+    modelId = CONFIG.models.senior; // Opus — consenso é sempre crítico
+  } else {
+    const domain = ctx.route?.domain || 'backend';
+    const files  = ctx.files || [];
+    complexityResult = analyzeComplexity(task, files, domain, {
+      forceOpus:   ctx.forceOpus,
+      forceSonnet: ctx.forceSonnet,
+      forceHaiku:  ctx.forceHaiku,
+    });
+    modelId = complexityResult.modelId;
+
+    // Override: agentes de segurança/architecture nunca descem abaixo de Sonnet
+    const alwaysAtLeastSonnet = ['@Rex', '@Aria', '@Sage', '@Oracle'];
+    if (alwaysAtLeastSonnet.includes(agentId) && modelId === CONFIG.models.utility) {
+      modelId = CONFIG.models.executor;
+      if (complexityResult) complexityResult.reasons.push('override: agente sénior → mínimo Sonnet');
+    }
+  }
+
+  // ── PROMPT CACHING (2 blocos) ─────────────────────────────────────────────
+  const dynamicCtx = Object.keys(ctx).length > 0
+    ? `Contexto: ${JSON.stringify(ctx, null, 2).slice(0, 1000)}`
+    : '';
+  const systemBlocks = buildCachedSystem(agentId, dynamicCtx);
 
   const userMsg = role === 'consensus'
-    ? `TASK: ${task}\n\nContexto adicional: ${JSON.stringify(ctx)}\n\nResponde em JSON válido:\n{"approach":"...","risks":"...","confidence":0.0}`
-    : `TASK: ${task}\n\nContexto: ${JSON.stringify(ctx)}\n\nExecuta a tarefa e responde com o resultado.`;
+    ? `TASK: ${task}\n\nResponde em JSON:\n{"approach":"...","risks":"...","confidence":0.0}`
+    : `TASK: ${task}\n\nExecuta e responde com o resultado.`;
 
   const body = {
-    model,
+    model:      modelId,
     max_tokens: role === 'consensus' ? 512 : 2048,
-    system: [
-      {
-        type: 'text',
-        text: systemPrompt,
-        cache_control: { type: 'ephemeral' }, // cache do system prompt — 90% desconto
-      },
-    ],
-    messages: [{ role: 'user', content: userMsg }],
+    system:     systemBlocks,  // 2 blocos cacheados + contexto dinâmico
+    messages:   [{ role: 'user', content: userMsg }],
   };
 
   const response = await post('/v1/messages', body);
-  const cost     = trackUsage(model, response.usage || {});
+  const cost     = trackUsage(modelId, response.usage || {});
   const text     = response.content?.[0]?.text || '';
+  const cacheHit = (response.usage?.cache_read_input_tokens || 0) > 0;
 
   // Extrair JSON se for consenso
   if (role === 'consensus') {
@@ -220,19 +246,30 @@ async function invoke(agentId, task, role = 'execute', ctx = {}) {
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       const parsed    = JSON.parse(jsonMatch?.[0] || '{}');
       return {
-        approach:   parsed.approach   || text,
-        risks:      parsed.risks      || '',
-        confidence: Number(parsed.confidence) || 0.5,
+        approach:        parsed.approach   || text,
+        risks:           parsed.risks      || '',
+        confidence:      Number(parsed.confidence) || 0.5,
         agentId,
-        model,
-        costUsd: Math.round(cost * 10000) / 10000,
+        model:           modelId,
+        costUsd:         Math.round(cost * 10000) / 10000,
+        cacheHit,
+        complexity:      complexityResult,
+        usage:           response.usage,
       };
     } catch {
-      return { approach: text, risks: '', confidence: 0.5, agentId, model, costUsd: cost };
+      return { approach: text, risks: '', confidence: 0.5, agentId, model: modelId, costUsd: cost, cacheHit };
     }
   }
 
-  return { text, agentId, model, costUsd: Math.round(cost * 10000) / 10000 };
+  return {
+    text,
+    agentId,
+    model:      modelId,
+    costUsd:    Math.round(cost * 10000) / 10000,
+    cacheHit,
+    complexity: complexityResult,
+    usage:      response.usage,
+  };
 }
 
 module.exports = { invoke, resetTaskBudget, getBudgetStatus, CONFIG, AGENT_TIER };

@@ -47,6 +47,10 @@
       "hd-fase-5-interface": {
         "status": "done",
         "doneAt": "2026-05-20T20:51:50.884Z"
+      },
+      "hd-fase-7-live": {
+        "status": "done",
+        "doneAt": "2026-05-20T20:59:16.574Z"
       }
     }
   }
