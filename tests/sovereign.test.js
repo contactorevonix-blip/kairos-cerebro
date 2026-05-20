@@ -12,14 +12,13 @@ function tmpDir() { return fs.mkdtempSync(path.join(os.tmpdir(), 'kairos-sov-'))
 
 test('agent registry classifies agents by tier', () => {
   const all = sovereign.listAgents();
-  // Sovereigns
+  // Sovereign tier — orion is the guardian
   const sovTier = all.filter((a) => a.tier === 'sovereign').map((a) => a.id);
-  assert.ok(sovTier.includes('apex_ceo'));
-  assert.ok(sovTier.includes('aiox-master'));
-  // Quality gate exists
-  assert.ok(all.some((a) => a.id === 'qa' && a.tier === 'gate'));
-  // Architect lives in design
-  assert.ok(all.some((a) => a.id === 'architect' && a.tier === 'design'));
+  assert.ok(sovTier.includes('orion'));
+  // Quality gate exists — quinn
+  assert.ok(all.some((a) => a.id === 'quinn' && a.tier === 'gate'));
+  // Architect lives in design — aria
+  assert.ok(all.some((a) => a.id === 'aria' && a.tier === 'design'));
   // No duplicates
   const ids = all.map((a) => a.id);
   assert.equal(new Set(ids).size, ids.length);
@@ -27,9 +26,9 @@ test('agent registry classifies agents by tier', () => {
 
 test('listByTier returns operational agents only for the requested tier', () => {
   const exec = sovereign.listByTier('execution').map((a) => a.id);
-  assert.ok(exec.includes('dev'));
-  assert.ok(exec.includes('devops'));
-  assert.ok(!exec.includes('apex_ceo'));
+  assert.ok(exec.includes('dex'));
+  assert.ok(exec.includes('gage'));
+  assert.ok(!exec.includes('orion'));
 });
 
 test('decide rejects empty task', () => {

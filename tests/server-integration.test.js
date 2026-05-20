@@ -126,7 +126,7 @@ test('GET /api/taskforces returns the four forces', async () => {
   const res = await request('GET', '/api/taskforces');
   assert.equal(res.status, 200);
   const ids = res.json.taskForces.map((f) => f.id).sort();
-  assert.deepEqual(ids, ['b2b-security', 'growth', 'infrastructure', 'sovereign-overlay']);
+  assert.deepEqual(ids, ['growth', 'infrastructure', 'sovereign-overlay', 'strategy']);
 });
 
 test('POST /api/community/signup auto-provisions a free-tier tenant + key', async () => {

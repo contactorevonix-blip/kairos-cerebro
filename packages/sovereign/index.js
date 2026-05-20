@@ -68,15 +68,15 @@ function decide({ task, brief = '', agentDir, decisionsDir } = {}) {
   const productionCheck = policy.evaluateProductionReadiness(taskText);
   const handoff = buildHandoffPlan(agentDir);
 
-  const sovereign = registry.getAgent('apex_ceo', agentDir);
+  const sovereign = registry.getAgent('orion', agentDir);
   if (!sovereign) {
-    // Fail-safe: if the apex_ceo persona file is missing, NO decision is
+    // Fail-safe: if the orion persona file is missing, NO decision is
     // possible. The Sovereign refuses to act blind.
     const refusal = {
       taskId,
       timestamp: new Date().toISOString(),
       decision: 'NAO',
-      rationale: 'apex_ceo persona missing; sovereign cannot rule.',
+      rationale: 'orion persona missing; sovereign cannot rule.',
       handoff,
       legalityViolations: ['SOVEREIGN_PERSONA_MISSING'],
       productionReady: false,

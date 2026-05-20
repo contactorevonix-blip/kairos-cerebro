@@ -5,85 +5,92 @@
 
 ## ESTADO DO SERVIDOR
 - URL: https://kairoscheck.net
-- Backend: Railway (Node.js) | Frontend: Vercel (Next.js — em rebuild)
-- Stripe: **ACTIVO ✅** (charges_enabled: true — confirmado pelo CEO 2026-05-20)
+- Backend: Railway (Node.js puro) | Frontend: Vercel (Next.js — em rebuild)
+- Stripe: **ACTIVO ✅** (charges_enabled: true — confirmado CEO 2026-05-20)
 - Tenants activos: 4
 
 ---
 
-## O QUE FOI FEITO HOJE (2026-05-20)
+## O QUE FOI FEITO HOJE (2026-05-20) — SESSÃO COMPLETA
 
-### PASSO 1 — SKILLS: CONCLUÍDO ✅
+### PASSO 1 — SKILLS: CONCLUÍDO ✅ (commits 25ea9c7 → 71f6a28)
+- 11 skills criadas com cérebro operacional (uma por agente)
+- 6 skills antigas arquivadas em .claude/skills/_archive/
 
-**11 skills criadas** (uma por agente, estrutura nova com cérebro operacional):
+### PASSO 1B — SPECS @UMA: CONCLUÍDO ✅ (commits b824043 → 0a9ecaf)
+- 16 ficheiros de specs em KAIROS/03-ENGENHARIA/specs/
+- Dados verificados de fontes reais (Tailwind, Anthropic, Resend, Stripe, Shadcn)
+- CORRECÇÕES CRÍTICAS: GSAP grátis, OKLCH em vez de HSL, modelos Claude reais
+- DESIGN_BRIEF_KAIROSCHECK.md — síntese completa do produto
+- Nav hover intelligence, componentes inteligentes, backgrounds premium
+- Vantagem competitiva vs SEON/Stripe/Sardine
+- OPERATIONAL_SYSTEM_COMPLETE.md — fonte única de verdade
+- Browser Extension v2 spec completa
 
-| Skill | Agente | Função |
-|---|---|---|
-| kairos-orion | @Orion | Guardian 24/7, escriba, memória institucional |
-| kairos-gage | @Gage | Deploy exclusivo — Railway + Vercel |
-| kairos-quinn | @Quinn | QA lead — GO/BLOQUEADO, auditoria obrigatória |
-| kairos-aria | @Aria | Architect — ADRs, decisões técnicas |
-| kairos-dex | @Dex | Senior Engineer — código + testes |
-| kairos-rex | @Rex | Security + GDPR — veto absoluto |
-| kairos-uma | @Uma | Design Intelligence — animações, design system |
-| kairos-sage | @Sage | Business model — unit economics, pricing |
-| kairos-morgan | @Morgan | Growth — SEO, copy, distribuição PT+BR |
-| kairos-hermes | @Hermes | Sales — pipeline, outreach, receita |
-| kairos-oracle | @Oracle | Analytics — Company Score, Weekly Report |
-
-**6 skills antigas arquivadas** em `.claude/skills/_archive/`:
-  kairos-quality-gate, kairos-operator-rules, kairos-token-economy,
-  kairos-stripe-billing-rules, kairos-design-system, kairos-conversion-design
-
-**Melhorias das skills novas vs antigas:**
-  ✅ Em PT-PT (antigas eram em inglês)
-  ✅ CÉREBRO OPERACIONAL em cada skill (contexto completo da empresa)
-  ✅ CEO Protocol integrado (formato de box obrigatório)
-  ✅ Pasta KAIROS/ atribuída a cada agente
-  ✅ O MEU PLANO (o que cada agente faz em cada Passo)
-  ✅ Sem referências a AIOX, agentes antigos, sistemas obsoletos
-  ✅ Arquitectura actualizada (Next.js, não mais vanilla)
-  ✅ Stripe marcado como ACTIVO
-
-**SPECS @Uma (Passo 1B) — PENDENTE:**
-  10 docs de specs a criar com agent-browser:
-  nextjs.md, shadcn.md, vercel.md, stripe.md, resend.md,
-  claude-api.md, motion-animations.md, text-animations.md,
-  design-systems.md, tailwind-animate.md
-  → Guardar em KAIROS/03-ENGENHARIA/specs/
-  → Requer sessão dedicada com agent-browser
+### PRÉ-PASSO 2 — LIMPEZA: CONCLUÍDO ✅
+- **Testes: 0 fail → 214/214 PASS**
+  - sovereign/agents-registry.js: migrado de AIOX para 11 agentes novos
+  - sovereign/index.js: apex_ceo → orion
+  - tests/sovereign.test.js: actualizado
+  - tests/taskforces.test.js: b2b-security → strategy, novos IDs
+  - tests/server-integration.test.js: força correcta
+- **packages/web/ limpo de legado:**
+  - Componentes landing antigos removidos
+  - globals.css: design system v3 → v4 OKLCH
+  - page.tsx: placeholder limpo para Passo 3
 
 ---
 
-## ESTADO DO REPOSITÓRIO (verificado por @Orion)
+## ESTADO ACTUAL DO REPOSITÓRIO (verificado)
 
 ```
-.claude/skills/ — 11 skills novas + 3 de sistema (architect-first, checklist-runner, etc.)
-                  6 antigas em _archive/
-.claude/agents/ — 11 agentes (orion, dex, quinn, gage, aria, uma, sage,
-                   morgan, hermes, oracle, rex)
-.claude/rules/  — kairos-constitution.md + ceo-protocol.md + outros
-KAIROS/         — estrutura de 12 pastas (maioria vazia — a preencher nos Passos 2+)
-packages/       — backend sagrado (não tocado)
+packages/
+  sniper-api/    ← BACKEND SAGRADO — funcional em produção
+  sniper-engine/ ← 9 camadas OSINT — funcional
+  billing/       ← Stripe integrado (ACTIVO ✅)
+  vault/         ← AES-256 — funcional
+  web/           ← Next.js 16 + React 19 LIMPO — aguarda Passo 3
+  browser-extension/ ← v0.2.0 — aguarda v2 (Passo 5)
+  sovereign/     ← 11 agentes novos ✅
+
+.claude/
+  agents/        ← 11 agentes (orion, dex, quinn, gage, aria, uma,
+                    sage, morgan, hermes, oracle, rex)
+  skills/        ← 11 skills com cérebro operacional
+
+KAIROS/
+  03-ENGENHARIA/specs/ ← 16 docs de specs verificadas
+
+tests/           ← 214/214 PASS ✅
 ```
 
 ---
 
-## PRÓXIMO PASSO — PASSO 2: ESTRATÉGIA E NEGÓCIO
+## OS 6 PASSOS DO REBUILD
 
-Antes de começar: CEO confirma.
+```
+Passo 0: Preparação                    ✅ CONCLUÍDO
+Passo 1: Skills + Specs                ✅ CONCLUÍDO (11 skills + 16 specs)
+         Pré-Passo 2: Limpeza          ✅ 214/214 testes, web limpo
+Passo 2: Estratégia e negócio          ← PRÓXIMO
+Passo 3: Design System do zero
+Passo 4: Arquitectura frontend
+Passo 5: Implementação
+Passo 6: Backend + deploy final
+```
 
-Agenda:
-  @Sage + @Morgan → definir:
-    1. ICP detalhado PT+BR (quem são, qual a dor, onde estão)
-    2. Pricing validado com dados de mercado
-    3. Unit economics com números reais
-    4. Go-to-market: 3 acções concretas nos próximos 30 dias
-    5. Target: 1 cliente pagante antes do runway acabar
+---
 
-Paralelamente (pode correr antes do Passo 2):
-  @Uma Passo 1B: specs de animações e design systems
-  → Requer aprovação CEO antes de começar
+## PENDENTE — PASSO 2 (aguarda confirmação CEO)
+
+**@Sage + @Morgan:**
+1. Definir ICP detalhado PT+BR (quem são, dor específica, onde estão)
+2. Validar pricing tiers com dados de mercado real
+3. Calcular unit economics com números reais (runway exacto)
+4. Definir 3 acções concretas de go-to-market nos próximos 30 dias
+5. Target: 1 cliente pagante antes do runway acabar
+
+**Nota urgente:** Runway ~45 dias. Cada sessão tem de aproximar de €1 MRR.
 
 ---
 
@@ -92,4 +99,5 @@ Paralelamente (pode correr antes do Passo 2):
 - @Quinn dá GO antes de qualquer deploy
 - CEO confirma antes de cada fase
 - @Orion é o primeiro de cada sessão
-- Stripe ACTIVO — cada sessão tem de aproximar de €1 MRR
+- Stripe ACTIVO — aproximar de receita real em cada sessão
+- 214 testes passam — zero regressões aceites

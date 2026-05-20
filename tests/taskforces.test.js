@@ -8,7 +8,7 @@ const sov = require('../packages/sovereign');
 test('listTaskForces returns the three operational forces plus sovereign overlay', () => {
   const forces = sov.listTaskForces();
   const ids = forces.map((f) => f.id).sort();
-  assert.deepEqual(ids, ['b2b-security', 'growth', 'infrastructure', 'sovereign-overlay']);
+  assert.deepEqual(ids, ['growth', 'infrastructure', 'sovereign-overlay', 'strategy']);
 });
 
 test('every operational agent is assigned to exactly one task force', () => {
@@ -22,7 +22,7 @@ test('every operational agent is assigned to exactly one task force', () => {
       totalAcrossForces += 1;
     }
   }
-  // With 18 operational agents, each must be in exactly one force.
+  // 11 agents, each in exactly one force.
   const live = sov.listAgents().filter((a) => a.tier !== 'auxiliary');
   assert.equal(totalAcrossForces, live.length);
 });
@@ -30,28 +30,24 @@ test('every operational agent is assigned to exactly one task force', () => {
 test('infrastructure force contains the engineering core', () => {
   const force = sov.listByTaskForce('infrastructure');
   const ids = force.map((a) => a.id).sort();
-  assert.ok(ids.includes('architect'));
-  assert.ok(ids.includes('dev'));
-  assert.ok(ids.includes('devops'));
-  assert.ok(ids.includes('data-engineer'));
+  assert.ok(ids.includes('aria'));
+  assert.ok(ids.includes('dex'));
+  assert.ok(ids.includes('gage'));
+  assert.ok(ids.includes('quinn'));
+  assert.ok(ids.includes('rex'));
 });
 
-test('growth force contains the distribution and conversion specialists', () => {
+test('growth force contains the distribution and revenue specialists', () => {
   const force = sov.listByTaskForce('growth');
   const ids = force.map((a) => a.id).sort();
-  assert.ok(ids.includes('agent_ghost'));
-  assert.ok(ids.includes('agent_psycho'));
-  assert.ok(ids.includes('agent_copywriter'));
-  assert.ok(ids.includes('ux-design-expert'));
-  assert.ok(ids.includes('pm'));
+  assert.ok(ids.includes('uma'));
+  assert.ok(ids.includes('morgan'));
+  assert.ok(ids.includes('hermes'));
 });
 
-test('b2b-security force contains the institutional and quality stack', () => {
-  const force = sov.listByTaskForce('b2b-security');
+test('strategy force contains the business intelligence stack', () => {
+  const force = sov.listByTaskForce('strategy');
   const ids = force.map((a) => a.id).sort();
-  assert.ok(ids.includes('qa'));
-  assert.ok(ids.includes('agent_sales'));
-  assert.ok(ids.includes('agent_growth'));
-  assert.ok(ids.includes('po'));
-  assert.ok(ids.includes('sm'));
+  assert.ok(ids.includes('sage'));
+  assert.ok(ids.includes('oracle'));
 });

@@ -8,57 +8,50 @@ const path = require('path');
 
 const DEFAULT_AGENT_DIR = path.join(
   process.cwd(),
-  '.aiox-core',
-  'development',
+  '.claude',
   'agents'
 );
 
-// Roles authoritatively declared by KAIROS. Anything not here is treated as
-// auxiliary persona without orchestration power.
-//
-// `taskForce` groups the 18 agents into 3 specialised forces for blitzscaling.
-// Sovereign agents are above task forces (cross-cutting decision power).
+// Roles authoritatively declared by KAIROS — the 11-agent system.
+// `taskForce` groups agents into 3 specialised forces + sovereign overlay.
 const ROLE_INDEX = {
-  'apex_ceo': { tier: 'sovereign', taskForce: 'sovereign-overlay', responsibility: 'final-binary-decision' },
-  'aiox-master': { tier: 'sovereign', taskForce: 'sovereign-overlay', responsibility: 'framework-orchestration' },
-  'analyst': { tier: 'discovery', taskForce: 'sovereign-overlay', responsibility: 'requirements-and-research' },
-  'pm': { tier: 'discovery', taskForce: 'growth', responsibility: 'product-management' },
-  'po': { tier: 'discovery', taskForce: 'b2b-security', responsibility: 'backlog-and-acceptance-criteria' },
-  'sm': { tier: 'discovery', taskForce: 'b2b-security', responsibility: 'story-creation' },
-  'architect': { tier: 'design', taskForce: 'infrastructure', responsibility: 'system-architecture' },
-  'ux-design-expert': { tier: 'design', taskForce: 'growth', responsibility: 'ux-and-design-system' },
-  'data-engineer': { tier: 'design', taskForce: 'infrastructure', responsibility: 'data-and-database' },
-  'dev': { tier: 'execution', taskForce: 'infrastructure', responsibility: 'implementation' },
-  'devops': { tier: 'execution', taskForce: 'infrastructure', responsibility: 'ci-cd-and-release' },
-  'qa': { tier: 'gate', taskForce: 'b2b-security', responsibility: 'quality-and-test-architecture' },
-  'squad-creator': { tier: 'meta', taskForce: 'sovereign-overlay', responsibility: 'agent-creation' },
-  'agent_ghost': { tier: 'commercial', taskForce: 'growth', responsibility: 'faceless-distribution' },
-  'agent_psycho': { tier: 'commercial', taskForce: 'growth', responsibility: 'ethical-neuromarketing' },
-  'agent_copywriter': { tier: 'commercial', taskForce: 'growth', responsibility: 'multilingual-copy' },
-  'agent_sales': { tier: 'commercial', taskForce: 'b2b-security', responsibility: 'pricing-and-stripe' },
-  'agent_growth': { tier: 'commercial', taskForce: 'b2b-security', responsibility: 'b2b2c-distribution' },
+  // Sovereign — cross-cutting guardian and escriba
+  'orion':  { tier: 'sovereign',  taskForce: 'sovereign-overlay', responsibility: 'repository-guardian-and-escriba' },
+  // Infrastructure force — build, ship, secure
+  'aria':   { tier: 'design',     taskForce: 'infrastructure',    responsibility: 'system-architecture-and-adrs' },
+  'dex':    { tier: 'execution',  taskForce: 'infrastructure',    responsibility: 'implementation-and-tests' },
+  'gage':   { tier: 'execution',  taskForce: 'infrastructure',    responsibility: 'deploy-and-ci-cd' },
+  'quinn':  { tier: 'gate',       taskForce: 'infrastructure',    responsibility: 'quality-and-audit' },
+  'rex':    { tier: 'gate',       taskForce: 'infrastructure',    responsibility: 'security-and-gdpr' },
+  // Growth force — design, reach, revenue
+  'uma':    { tier: 'design',     taskForce: 'growth',            responsibility: 'design-intelligence-and-ux' },
+  'morgan': { tier: 'commercial', taskForce: 'growth',            responsibility: 'seo-copy-and-distribution' },
+  'hermes': { tier: 'commercial', taskForce: 'growth',            responsibility: 'sales-and-revenue' },
+  // Strategy force — intelligence and economics
+  'sage':   { tier: 'discovery',  taskForce: 'strategy',          responsibility: 'business-model-and-unit-economics' },
+  'oracle': { tier: 'discovery',  taskForce: 'strategy',          responsibility: 'analytics-and-company-score' },
 };
 
 const TASK_FORCES = {
   infrastructure: {
     id: 'infrastructure',
     name: 'Infrastructure Force',
-    mandate: 'Global scalability, Redis, multi-region, performance, data integrity.',
+    mandate: 'Architecture, engineering, quality, security, deploy.',
   },
   growth: {
     id: 'growth',
     name: 'Growth Force',
-    mandate: 'Browser extension, B2C distribution, conversion, copy, UX, faceless reach.',
+    mandate: 'Design, copy, SEO, distribution, sales, revenue.',
   },
-  'b2b-security': {
-    id: 'b2b-security',
-    name: 'B2B & Security Force',
-    mandate: 'Banks, institutional pilots, signed feeds, quality, compliance, contracts.',
+  strategy: {
+    id: 'strategy',
+    name: 'Strategy Force',
+    mandate: 'Business model, unit economics, metrics, MRR tracking.',
   },
   'sovereign-overlay': {
     id: 'sovereign-overlay',
     name: 'Sovereign Overlay',
-    mandate: 'Cross-cutting decision authority and meta-orchestration.',
+    mandate: 'Repository guardian, cross-cutting decision authority.',
   },
 };
 
