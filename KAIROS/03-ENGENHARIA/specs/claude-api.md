@@ -1,9 +1,20 @@
 # Claude API (Anthropic) — Specs para KairosCheck
-> Versão: Claude claude-sonnet-4-6 | Anthropic SDK 0.39+ | Data: 2026-05-20 | Owner: @Dex
-> Baseado em conhecimento técnico verificado (docs.anthropic.com)
+> Verificado: platform.claude.com/docs/en/docs/about-claude/models/overview | Data: 2026-05-20 | Owner: @Dex
+
+## Modelos Actuais (verificados 2026-05-20)
+
+| Modelo | ID Exacto | Input/MTok | Output/MTok | Context | Max Output |
+|---|---|---|---|---|---|
+| **Opus 4.7** | `claude-opus-4-7` | $5 | $25 | 1M tokens | 128k |
+| **Sonnet 4.6** | `claude-sonnet-4-6` | $3 | $15 | 1M tokens | 64k |
+| **Haiku 4.5** | `claude-haiku-4-5-20251001` | $1 | $5 | 200k tokens | 64k |
+
+**Para KairosCheck chat widget:** `claude-sonnet-4-6` (velocidade + inteligência)
+**Para tarefas simples:** `claude-haiku-4-5-20251001` (-70% custo)
+**Deprecated:** `claude-sonnet-4-20250514` e `claude-opus-4-20250514` — retirados em 15 Jun 2026
 
 ## O Essencial
-- **Modelo recomendado:** `claude-sonnet-4-6` (mais recente Sonnet — melhor custo/performance)
+- **Modelo recomendado:** `claude-sonnet-4-6` (melhor custo/performance em 2026)
 - **Streaming SSE** para o chat widget — resposta incremental, não bloqueia a UI
 - **Prompt caching** reduz custo em até 90% para contextos repetidos (system prompt + docs)
 - **Tool use** permite ao Claude chamar a API do KairosCheck durante a conversa
@@ -136,16 +147,56 @@ const message = await client.messages.create({
 })
 ```
 
-**Regras do prompt caching:**
-- Bloco de texto deve ter > 1024 tokens para ser elegível para cache
-- Cache dura ~5 minutos após último uso
-- `cache_control: { type: 'ephemeral' }` na última posição do array de `system`
-- Custo dos tokens em cache: 10% do custo normal de input
+**Regras do prompt caching (verificadas nos docs Anthropic):**
 
-**Poupança estimada para KairosCheck:**
-- System prompt + docs da API: ~4.000 tokens por request
-- Sem cache: 4.000 × $3/MTok = $0.012 por request
-- Com cache (após 1ª chamada): 4.000 × $0.30/MTok = $0.0012 por request
+| Modelo | Mínimo de tokens para cache |
+|---|---|
+| Claude Opus 4.7, 4.6 | 4.096 tokens |
+| Claude Sonnet 4.6 | 1.024 tokens |
+| Claude Haiku 4.5 | 4.096 tokens |
+
+**Pricing de cache (Claude Sonnet 4.6, verificado):**
+| Tipo | Custo por MTok |
+|---|---|
+| Cache write (5 min) | $3.75 (1.25× base) |
+| Cache write (1 hora) | $6.00 (2× base) |
+| Cache hit | $0.30 (0.1× base — 90% desconto!) |
+| Input normal | $3.00 |
+| Output | $15.00 |
+
+**Dois modos:**
+1. **Automático** (recomendado para conversas): `cache_control` no nível do request
+2. **Explícito** (controlo fino): `cache_control` em blocos individuais (máx 4 breakpoints)
+
+```ts
+// Modo automático — o sistema decide onde colocar o breakpoint
+const response = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 2048,
+  cache_control: { type: 'ephemeral' },  // ← automático
+  system: 'És o assistente do KairosCheck...',
+  messages: conversationHistory,  // cresce a cada turno
+})
+
+// Verificar se cache foi usado
+console.log(response.usage.cache_read_input_tokens)    // > 0 se cache hit
+console.log(response.usage.cache_creation_input_tokens) // > 0 se escreveu cache
+```
+
+```ts
+// Pre-warming — carregar cache antes do utilizador interagir
+await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 0,  // sem output — só escreve o cache
+  system: [{ type: 'text', text: systemPromptWithDocs, cache_control: { type: 'ephemeral' } }],
+  messages: [{ role: 'user', content: 'warmup' }]
+})
+```
+
+**Poupança KairosCheck:**
+- System prompt + API docs: ~4.000 tokens por request
+- Sem cache: 4.000 × $3/MTok = $0.012/request
+- Com cache hit: 4.000 × $0.30/MTok = $0.0012/request
 - **Poupança: 90% nos tokens de contexto**
 
 ---
@@ -186,13 +237,55 @@ if (response.stop_reason === 'tool_use') {
 
 ---
 
-## Modelos Disponíveis (2026)
+## Modelos Disponíveis (verificados 2026-05-20)
 
-| Modelo | Uso | Custo (input/output por MTok) |
-|---|---|---|
-| `claude-opus-4-5` | Tarefas complexas, raciocínio | $15 / $75 |
-| `claude-sonnet-4-6` | **Chat widget** (balanço ideal) | $3 / $15 |
-| `claude-haiku-4-5` | Tarefas simples, classificação | $0.25 / $1.25 |
+| Modelo | ID Exacto | Input/MTok | Output/MTok | Context | Uso |
+|---|---|---|---|---|---|
+| **Opus 4.7** | `claude-opus-4-7` | $5 | $25 | 1M | Tarefas complexas |
+| **Sonnet 4.6** | `claude-sonnet-4-6` | $3 | $15 | 1M | **Chat widget** ← usar este |
+| **Haiku 4.5** | `claude-haiku-4-5-20251001` | $1 | $5 | 200k | Classificação simples |
+
+⚠️ **Deprecated:** `claude-sonnet-4-20250514` e `claude-opus-4-20250514` → retirados 15 Jun 2026
+
+**Tool use — custo adicional:**
+- ~346 tokens de sistema adicionados automaticamente por request com tools
+- Preço: tokens normais de input
+
+**Tool definition melhorada (boas práticas verificadas):**
+```ts
+const tools = [
+  {
+    name: 'check_domain',
+    // Descrição DETALHADA — é o factor mais importante para performance
+    description: `Verifica o score de fraude de um domínio usando a API KairosCheck.
+                  Usa esta tool quando o utilizador pede para verificar, analisar, ou
+                  avaliar o risco de um domínio específico. Retorna um score de 0-100
+                  (100 = risco máximo) e o breakdown por camada (C0-C8).
+                  Não usar para verificar emails — só domínios.`,
+    input_schema: {
+      type: 'object' as const,
+      properties: {
+        domain: {
+          type: 'string',
+          description: 'O domínio a verificar. Exemplos: example.com, paypal.com (sem https://)'
+        },
+        model: {
+          type: 'string',
+          enum: ['swift', 'check', 'deep'],
+          description: 'Modelo de análise. swift=rápido (C0), check=padrão (C0-C7), deep=completo (C0-C8)'
+        }
+      },
+      required: ['domain'],
+    },
+    // input_examples ajudam o Claude a perceber o formato correcto
+    input_examples: [
+      { domain: 'example.com', model: 'check' },
+      { domain: 'suspicious-site.xyz', model: 'deep' },
+      { domain: 'google.com' }
+    ]
+  }
+]
+```
 
 **Para o KairosCheck:** usar `claude-sonnet-4-6` no chat widget. Haiku para classificação de risco simples se necessário.
 

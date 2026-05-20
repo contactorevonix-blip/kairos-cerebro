@@ -1,27 +1,69 @@
 # Text Animations — Specs para KairosCheck
 > Versão: 2026-05-20 | Owner: @Uma
-> GSAP SplitText verificado: PAGO (Club GreenSock) — alternativas gratuitas documentadas abaixo
+> ⚠️ CORRECÇÃO CRÍTICA: GSAP é 100% GRÁTIS (Webflow patrocina desde 2024). SplitText incluído. Sem custo.
 
 ## O Essencial
-- **GSAP SplitText é PAGO** — requer Club GreenSock ($99/ano). NÃO usar sem licença.
-- **Alternativas gratuitas:** Splitting.js + GSAP (gratuito), ou Framer Motion puro
-- **8 técnicas documentadas** — cada uma com implementação sem dependências pagas
+- **GSAP + SplitText são 100% GRÁTIS** — Webflow patrocina GSAP desde 2024. Club GreenSock não existe mais.
+- **SplitText é a melhor opção** para animações de letra profissionais no KairosCheck
+- **Framer Motion** para layout animations, page transitions, scroll-triggered
+- **8 técnicas documentadas** — da mais simples à mais profissional
 - **`prefers-reduced-motion`** é OBRIGATÓRIO em todas as animações de texto
 - **Performance:** usar `transform` e `opacity` apenas — nunca animar `font-size`, `width`, `height`
 
 ---
 
-## GSAP SplitText — Estado
+## GSAP SplitText — GRÁTIS (verificado 2026)
 
-**SplitText é uma plugin do Club GreenSock.** Requer subscrição paga ($99/ano).
+**GSAP é 100% gratuito** — patrocinado pela Webflow. Inclui SplitText, ScrollTrigger, MorphSVG, DrawSVG, todos gratuitos.
 
-**Alternativas gratuitas equivalentes:**
-1. **Splitting.js** (MIT) + CSS animations — split por chars/words/lines
-2. **Framer Motion** — variants com stagger (para words/chars em React)
-3. **CSS puro** — para animações simples de linha/palavra
-4. **Custom split function** — 10 linhas de JS para split manual
+```bash
+npm install gsap
+```
 
-**Recomendação KairosCheck:** usar Framer Motion (já instalado) + custom split para chars/words. Evitar dependência paga desnecessária.
+```ts
+import { gsap } from 'gsap'
+import { SplitText } from 'gsap/SplitText'
+gsap.registerPlugin(SplitText)
+```
+
+### API SplitText (verificada)
+
+```ts
+// Criar split
+const split = SplitText.create('.hero-title', { type: 'words, chars' })
+// split.chars  → array de <span> por letra
+// split.words  → array de <span> por palavra
+// split.lines  → array de <span> por linha
+
+// Animar
+gsap.from(split.chars, {
+  y: 100, autoAlpha: 0, stagger: 0.03, duration: 0.6, ease: 'power2.out'
+})
+
+// Auto-replit com callback (ideal para React)
+SplitText.create('.hero-title', {
+  type: 'lines, words',
+  autoSplit: true,  // re-split em resize
+  onSplit(self) {
+    return gsap.from(self.words, { y: 40, autoAlpha: 0, stagger: 0.05 })
+  }
+})
+
+// Reverter ao estado original
+split.revert()
+```
+
+### Opções de configuração:
+| Opção | Descrição |
+|---|---|
+| `type` | `"chars"`, `"words"`, `"lines"` ou combinações |
+| `mask` | Adiciona clip-path para reveal (esconde texto antes da animação) |
+| `autoSplit` | Re-split automático em resize/font load |
+| `aria` | `"auto"` adiciona aria-label para screen readers |
+| `deepSlice` | Suporta nested elements |
+| `ignore` | Exclui elementos filhos específicos |
+
+**Recomendação KairosCheck:** GSAP SplitText é a escolha principal para hero animations. Framer Motion para o resto.
 
 ---
 

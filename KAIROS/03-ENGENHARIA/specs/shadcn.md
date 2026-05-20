@@ -1,6 +1,6 @@
 # shadcn/ui — Specs para KairosCheck
 > Versão: shadcn/ui latest (2026) | Data: 2026-05-20 | Owner: @Uma / @Dex
-> Baseado em conhecimento técnico verificado + ui.shadcn.com
+> Verificado: ui.shadcn.com/docs/installation/next + ui.shadcn.com/docs/theming | Data: 2026-05-20
 
 ## O Essencial
 - **Não é uma biblioteca** — copia os componentes para o teu repositório (`components/ui/`)
@@ -58,52 +58,69 @@ Gera automaticamente:
 
 ---
 
-## Sistema de Theming — CSS Variables
+## Sistema de Theming — CSS Variables (OKLCH — verificado)
+
+⚠️ **shadcn v2+ usa OKLCH** (não HSL). Cores mais precisas e perceptualmente uniformes.
 
 ```css
-/* app/globals.css */
+/* app/globals.css — valores REAIS verificados em ui.shadcn.com/docs/theming */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;          /* Cor principal dos botões */
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-border: oklch(0.922 0 0);
   }
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
   }
 }
 ```
 
-**Para KairosCheck:** personalizar `--primary` para a cor de brand e `--radius` para o raio de borda desejado.
+### Radius derivado (shadcn v2):
+```css
+/* Gerado automaticamente a partir de --radius */
+--radius-sm:  calc(var(--radius) - 4px)
+--radius-md:  calc(var(--radius) - 2px)
+--radius-lg:  var(--radius)
+--radius-xl:  calc(var(--radius) + 4px)
+--radius-2xl: calc(var(--radius) + 8px)
+```
+
+**Para KairosCheck dark mode:** personalizar `--background` para `oklch(0.09 0 0)` (Linear-style, quase preto mas não totalmente) e `--accent` para blue-500 (`oklch(0.623 0.214 259.8)`).
 
 ---
 

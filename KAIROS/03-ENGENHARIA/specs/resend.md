@@ -1,13 +1,27 @@
 # Resend + React Email — Specs para KairosCheck
-> Versão: Resend SDK 4.x | React Email 3.x | Data: 2026-05-20 | Owner: @Dex
-> Baseado em conhecimento técnico verificado (resend.com/docs)
+> Verificado: resend.com/docs + resend.com/pricing | Data: 2026-05-20 | Owner: @Uma/@Dex
 
 ## O Essencial
-- **Resend** = transactional email API, developer-first
-- **React Email** = criar templates de email em React (componentes reutilizáveis)
-- **Integração no Next.js** via Server Action ou Route Handler (nunca client-side)
-- **Free tier:** 3.000 emails/mês, 100/dia — suficiente para early stage
-- **Deliverability:** SPF/DKIM configurados no domínio (kairoscheck.net)
+- **Resend** = email API para developers, REST + SDKs
+- **React Email** = templates de email em React (componentes reutilizáveis)
+- **Free tier REAL:** 3.000 emails/mês, 100/dia, 1 domínio — suficiente até ~80 utilizadores
+- **Batch:** até 100 emails numa só chamada API
+- **Scheduling:** suporta envio agendado (campo `scheduled_at`)
+- **Inbound:** pode receber emails via webhook (útil para respostas de clientes)
+
+---
+
+## Pricing Real (verificado)
+
+| Plano | Preço | Emails/mês | Emails/dia | Domínios |
+|---|---|---|---|---|
+| Free | $0 | 3.000 | 100 | 1 |
+| Pro | $20/mês | 50.000 | Ilimitado | 10 |
+| Pro+ | $35/mês | 100.000 | Ilimitado | 10 |
+| Scale | $90–$1.150/mês | 100k–2.5M | Ilimitado | 1.000 |
+
+**Overage (Pro/Scale):** $0.90 por 1.000 emails extra
+**Upgrade trigger KairosCheck:** quando > 80 utilizadores activos ou > 2.500 emails/mês
 
 ---
 
@@ -26,91 +40,132 @@ export const resend = new Resend(process.env.RESEND_API_KEY)
 ```bash
 # .env.local
 RESEND_API_KEY=re_...
-EMAIL_FROM=noreply@kairoscheck.net  # domínio verificado no Resend
+EMAIL_FROM=noreply@kairoscheck.net
 ```
 
 ---
 
-## Enviar Email (Route Handler)
+## API — Parâmetros Completos (verificados)
 
 ```ts
-// app/api/send-email/route.ts
-import { resend } from '@/lib/resend'
-import { WelcomeEmail } from '@/emails/welcome'
+await resend.emails.send({
+  // Obrigatórios
+  from: 'KairosCheck <noreply@kairoscheck.net>',
+  to: 'user@example.com',          // string | string[] (max 50)
+  subject: 'Assunto do email',
 
-export async function POST(request: Request) {
-  const { email, name } = await request.json()
+  // Conteúdo (pelo menos um obrigatório)
+  react: <WelcomeEmail name="Pedro" />,  // React component (Node.js only)
+  html: '<p>HTML content</p>',            // ou HTML directo
+  text: 'Plain text fallback',           // gerado automaticamente do HTML se omitido
 
-  const { data, error } = await resend.emails.send({
-    from: 'KairosCheck <noreply@kairoscheck.net>',
-    to: email,
-    subject: 'Bem-vindo ao KairosCheck',
-    react: WelcomeEmail({ name }),
-  })
-
-  if (error) {
-    console.error('Email error:', error)
-    return Response.json({ error }, { status: 500 })
-  }
-
-  return Response.json({ id: data?.id })
-}
+  // Opcionais
+  cc: 'cc@example.com',
+  bcc: ['bcc1@example.com', 'bcc2@example.com'],
+  reply_to: 'support@kairoscheck.net',
+  scheduled_at: '2026-05-21T10:00:00Z',  // ISO 8601 ou linguagem natural
+  headers: { 'X-Custom-Header': 'value' },
+  tags: [{ name: 'category', value: 'welcome' }],  // metadata personalizado
+  attachments: [
+    { filename: 'invoice.pdf', content: buffer }
+  ],
+})
 ```
 
-### Via Server Action
+**Idempotency:** adicionar header `Idempotency-Key` (max 256 chars, expira em 24h) para prevenir duplicados
+
+---
+
+## Webhook Events (verificados)
+
+Configurar em Resend Dashboard → Webhooks:
+
+**Eventos de email:**
+| Evento | Quando dispara |
+|---|---|
+| `email.sent` | Email enviado da fila |
+| `email.delivered` | Entregue ao servidor do destinatário |
+| `email.opened` | Email aberto (tracking pixel) |
+| `email.clicked` | Link clicado |
+| `email.bounced` | Endereço inválido ou caixa cheia |
+| `email.complained` | Marcado como spam |
+| `email.failed` | Falha permanente no envio |
+| `email.suppressed` | Endereço na lista de supressão |
+| `email.delivery_delayed` | Entrega atrasada (retry em curso) |
+| `email.scheduled` | Email agendado criado |
+| `email.received` | Email recebido (inbound) |
+
+**Eventos de contacto:** `contact.created`, `contact.updated`, `contact.deleted`
+
+---
+
+## Envio Batch (até 100 por chamada)
 
 ```ts
-// app/actions/email.ts
-'use server'
-import { resend } from '@/lib/resend'
-import { ApiKeyEmail } from '@/emails/api-key'
-
-export async function sendApiKeyEmail(email: string, apiKey: string) {
-  await resend.emails.send({
+await resend.batch.send([
+  {
     from: 'KairosCheck <noreply@kairoscheck.net>',
-    to: email,
-    subject: 'A tua API key do KairosCheck',
-    react: ApiKeyEmail({ apiKey }),
-  })
-}
+    to: 'user1@example.com',
+    subject: 'Quota Warning',
+    react: <QuotaWarningEmail usage={80} />,
+  },
+  {
+    from: 'KairosCheck <noreply@kairoscheck.net>',
+    to: 'user2@example.com',
+    subject: 'Quota Warning',
+    react: <QuotaWarningEmail usage={85} />,
+  },
+])
 ```
 
 ---
 
-## React Email — Criar Templates
+## React Email — Componentes Disponíveis
+
+```bash
+# Instalar todos os componentes
+npm install @react-email/components
+```
+
+| Componente | Uso |
+|---|---|
+| `<Html>` | Wrapper raiz obrigatório |
+| `<Head>` | Meta tags, fonts |
+| `<Preview>` | Texto de preview no cliente de email |
+| `<Body>` | Container do corpo |
+| `<Container>` | Limita largura (max 600px) |
+| `<Section>` | Blocos de conteúdo |
+| `<Row>` + `<Column>` | Layout em colunas |
+| `<Heading>` | h1–h6 |
+| `<Text>` | Parágrafo |
+| `<Button>` | CTA com href |
+| `<Link>` | Link inline |
+| `<Img>` | Imagem (preferir URLs absolutas) |
+| `<Hr>` | Divisor horizontal |
+| `<Font>` | Google Fonts no email |
+| `<Tailwind>` | Usar classes Tailwind no email |
+| `<Markdown>` | Renderizar markdown como email |
+
+---
+
+## Templates KairosCheck
 
 ```tsx
 // emails/welcome.tsx
-import {
-  Body, Button, Container, Head, Heading,
-  Html, Preview, Section, Text, Hr
-} from '@react-email/components'
+import { Body, Button, Container, Head, Html, Preview, Text } from '@react-email/components'
 
-interface WelcomeEmailProps { name: string }
-
-export function WelcomeEmail({ name }: WelcomeEmailProps) {
+export function WelcomeEmail({ name }: { name: string }) {
   return (
-    <Html>
-      <Head />
-      <Preview>Bem-vindo ao KairosCheck — API de detecção de fraude</Preview>
-      <Body style={{ fontFamily: 'system-ui, sans-serif', background: '#f9fafb' }}>
+    <Html><Head />
+      <Preview>Bem-vindo ao KairosCheck — 50 checks gratuitos à tua espera</Preview>
+      <Body style={{ fontFamily: 'system-ui, sans-serif', background: '#0d0d0d', color: '#ededed' }}>
         <Container style={{ maxWidth: 600, margin: '0 auto', padding: 24 }}>
-          <Heading>Bem-vindo, {name}</Heading>
-          <Text>
-            A tua conta KairosCheck está activa. Começa agora com 100 checks gratuitos.
-          </Text>
-          <Section style={{ textAlign: 'center', marginTop: 32 }}>
-            <Button
-              href="https://kairoscheck.net/dashboard"
-              style={{ background: '#000', color: '#fff', padding: '12px 24px', borderRadius: 6 }}
-            >
-              Ir para o Dashboard
-            </Button>
-          </Section>
-          <Hr />
-          <Text style={{ color: '#6b7280', fontSize: 12 }}>
-            KairosCheck · kairoscheck.net · Cancelar subscrição de emails
-          </Text>
+          <Text style={{ fontSize: 24, fontWeight: 700 }}>Bem-vindo, {name}</Text>
+          <Text>Tens 50 checks gratuitos. Sem cartão. Integras em 60 minutos.</Text>
+          <Button href="https://kairoscheck.net/dashboard"
+            style={{ background: '#3b82f6', color: '#fff', padding: '12px 24px', borderRadius: 6 }}>
+            Ir para o Dashboard →
+          </Button>
         </Container>
       </Body>
     </Html>
@@ -118,104 +173,35 @@ export function WelcomeEmail({ name }: WelcomeEmailProps) {
 }
 ```
 
----
+### Emails necessários:
 
-## Emails que o KairosCheck Precisa
-
-### 1. Welcome (após signup)
-```tsx
-// emails/welcome.tsx
-// Trigger: após criar conta
-// Para: novo utilizador
-// Subject: "Bem-vindo ao KairosCheck — {N} checks gratuitos à tua espera"
-```
-
-### 2. API Key Gerada (após primeiro pagamento)
-```tsx
-// emails/api-key.tsx
-// Trigger: webhook Stripe checkout.session.completed → gerar API key
-// Para: utilizador que fez upgrade
-// Subject: "A tua API key KairosCheck está pronta"
-// Incluir: API key (mascarada), link para docs, exemplo curl
-```
-
-### 3. Quota Warning (80% do limite)
-```tsx
-// emails/quota-warning.tsx
-// Trigger: contador de checks atinge 80% do limite do plano
-// Para: utilizador Free ou qualquer tier
-// Subject: "Estás a 80% do teu limite mensal — faz upgrade antes de parar"
-// CTA: "Upgrade agora" → pricing page
-```
-
-### 4. Payment Failed
-```tsx
-// emails/payment-failed.tsx
-// Trigger: webhook invoice.payment_failed
-// Para: utilizador com pagamento falhado
-// Subject: "Pagamento falhado — actualiza o teu método de pagamento"
-// Incluir: link para Customer Portal
-// NOTA: a Stripe também envia emails de invoice — verificar sobreposição
-```
-
-### 5. Subscription Cancelled
-```tsx
-// emails/subscription-cancelled.tsx
-// Trigger: webhook customer.subscription.deleted
-// Para: utilizador que cancelou
-// Subject: "A tua subscrição KairosCheck foi cancelada"
-// Tom: não agressivo, oferecer reactivação fácil
-```
+| Ficheiro | Trigger | Subject |
+|---|---|---|
+| `welcome.tsx` | Após signup | "Bem-vindo ao KairosCheck — {N} checks gratuitos" |
+| `api-key.tsx` | `checkout.session.completed` → key gerada | "A tua API key está pronta" |
+| `quota-warning.tsx` | 80% do limite mensal | "Estás a 80% do limite — faz upgrade" |
+| `payment-failed.tsx` | `invoice.payment_failed` | "Pagamento falhado — actualiza o método" |
+| `subscription-cancelled.tsx` | `customer.subscription.deleted` | "Subscrição cancelada" |
 
 ---
 
 ## Preview em Desenvolvimento
 
 ```bash
-# Servidor de preview de emails (localhost:3000)
-npx react-email dev --dir emails --port 3000
+npx react-email dev --dir emails --port 3001
+# Abre UI em localhost:3001 com todos os templates
 ```
 
-Abre uma interface web onde podes ver todos os emails com dados de teste.
-
 ---
 
-## Rate Limits e Pricing
+## Configuração DNS (deliverability)
 
-| Plano | Emails/mês | Emails/dia | Preço |
-|---|---|---|---|
-| Free | 3.000 | 100 | €0 |
-| Pro | 50.000 | ilimitado | $20/mês |
-| Business | 100.000 | ilimitado | $45/mês |
-
-**Para KairosCheck early stage:** Free tier é suficiente (máx 100 utilizadores activos).
-**Threshold de upgrade:** quando > 80 utilizadores activos.
-
----
-
-## Configuração DNS (Deliverability)
-
-No Resend Dashboard → Domains → Add Domain (`kairoscheck.net`):
-- Adicionar **SPF record** ao DNS
-- Adicionar **DKIM record** ao DNS
-- Verificação demora 24-48h
-
-Sem estes registos, emails vão para spam.
-
----
-
-## Testar em Desenvolvimento
-
-```ts
-// Em desenvolvimento, enviar para o teu email de teste
-const toEmail = process.env.NODE_ENV === 'development'
-  ? 'lealp219@gmail.com'
-  : userEmail
-
-await resend.emails.send({ to: toEmail, ... })
-```
-
-Ou usar o Resend Dashboard para ver o log de emails enviados e o HTML renderizado.
+No Resend Dashboard → Domains → Add `kairoscheck.net`:
+1. Adicionar **SPF record** ao DNS do domínio
+2. Adicionar **DKIM record** (2048-bit recomendado) ao DNS
+3. Configurar **DMARC** para protecção anti-phishing
+4. Verificação: 24-48h
+5. **Sem estes registos → emails vão para spam**
 
 ---
 
@@ -223,24 +209,26 @@ Ou usar o Resend Dashboard para ver o log de emails enviados e o HTML renderizad
 
 **Estrutura de ficheiros:**
 ```
-emails/
-├── welcome.tsx
-├── api-key.tsx
-├── quota-warning.tsx
-├── payment-failed.tsx
-├── subscription-cancelled.tsx
-└── _components/
-    ├── header.tsx     ← logo KairosCheck
-    └── footer.tsx     ← links legais + unsubscribe
+packages/web/
+└── emails/
+    ├── welcome.tsx
+    ├── api-key.tsx
+    ├── quota-warning.tsx
+    ├── payment-failed.tsx
+    ├── subscription-cancelled.tsx
+    └── _components/
+        ├── header.tsx     ← logo + nome
+        └── footer.tsx     ← unsubscribe + links legais
 ```
 
-**Convenção:** todos os emails partilham header e footer. Usar componentes `_components/` para consistência visual.
-
-**Tom dos emails KairosCheck:** técnico, directo, sem marketing agressivo. Tratar o utilizador como developer, não como consumidor.
+**Integração:** Server Action (não client-side) → `resend.emails.send()`
+**Tom:** técnico e directo — utilizadores são developers, não consumidores
+**Dark-themed:** emails com fundo escuro (#0d0d0d) para consistência com o produto
 
 ---
 
-## Referências
+## Referências Verificadas
 - https://resend.com/docs/introduction
-- https://resend.com/docs/send-with-react-email
+- https://resend.com/docs/api-reference/emails/send-email
+- https://resend.com/pricing
 - https://react.email/docs/introduction
