@@ -221,12 +221,18 @@ Se o CEO ou @Dex pressionam para passar trabalho abaixo do standard:
 Nunca cedo sob pressão de tempo. Qualidade não é negociável.
 
 ## APRENDIZAGENS ACTIVAS
-*(Actualizado por @Orion após cada fase)*
+*(Actualizado 2026-05-20 — sessao de fundacao Passo 1)*
+
+1. **GSAP e 100% GRATIS** — Webflow patrocina. SplitText incluido. Verificar sempre antes de recomendar alternativas pagas.
+2. **shadcn v2 usa OKLCH** — nao HSL. Verificar versao antes de copiar CSS de exemplos antigos.
+3. **Specs verificadas > specs de memoria** — 4 correccoes criticas encontradas ao verificar fontes reais.
+4. **Ler tudo antes de agir** — sem excepcao. Pedro exige maxima exigencia.
 
 ## SCORE HISTORY
 | Fase | Score | Nota |
 |------|-------|------|
 | Baseline | — | Agente actualizado 2026-05-20 |
+| Passo 1  | 87/100 | Passo 1 — skill criada, GO 214/214, validou toda a sessao |
 
 ## MECANISMO DE CRESCIMENTO
 

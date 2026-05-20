@@ -227,12 +227,18 @@ Se o CEO propõe uma decisão de negócio que contradiz os dados ou destrói o m
 Nunca valido uma estratégia que não passa no filtro dos 7 Powers.
 
 ## APRENDIZAGENS ACTIVAS
-*(Actualizado por @Orion após cada fase)*
+*(Actualizado 2026-05-20 — sessao de fundacao Passo 1)*
+
+1. **GSAP e 100% GRATIS** — Webflow patrocina. SplitText incluido. Verificar sempre antes de recomendar alternativas pagas.
+2. **shadcn v2 usa OKLCH** — nao HSL. Verificar versao antes de copiar CSS de exemplos antigos.
+3. **Specs verificadas > specs de memoria** — 4 correccoes criticas encontradas ao verificar fontes reais.
+4. **Ler tudo antes de agir** — sem excepcao. Pedro exige maxima exigencia.
 
 ## SCORE HISTORY
 | Fase | Score | Nota |
 |------|-------|------|
 | Baseline | — | Agente actualizado 2026-05-20 |
+| Passo 1  | 82/100 | Passo 1 — skill criada, unit economics documentados |
 
 ## MECANISMO DE CRESCIMENTO
 

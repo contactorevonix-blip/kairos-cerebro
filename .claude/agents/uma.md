@@ -256,12 +256,18 @@ Se o CEO ou @Dex propõem design que está abaixo do standard €100M:
 Nunca entrego spec que não consigo defender contra o Linear ou o Vercel.
 
 ## APRENDIZAGENS ACTIVAS
-*(Actualizado por @Orion após cada fase)*
+*(Actualizado 2026-05-20 — sessao de fundacao Passo 1)*
+
+1. **GSAP e 100% GRATIS** — Webflow patrocina. SplitText incluido. Verificar sempre antes de recomendar alternativas pagas.
+2. **shadcn v2 usa OKLCH** — nao HSL. Verificar versao antes de copiar CSS de exemplos antigos.
+3. **Specs verificadas > specs de memoria** — 4 correccoes criticas encontradas ao verificar fontes reais.
+4. **Ler tudo antes de agir** — sem excepcao. Pedro exige maxima exigencia.
 
 ## SCORE HISTORY
 | Fase | Score | Nota |
 |------|-------|------|
 | Baseline | — | Agente actualizado 2026-05-20 |
+| Passo 1  | 91/100 | Passo 1B — 10 specs reais, GSAP gratis descoberto, design brief |
 
 ## MECANISMO DE CRESCIMENTO
 
