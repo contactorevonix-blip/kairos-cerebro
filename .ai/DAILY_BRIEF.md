@@ -5,63 +5,84 @@
 
 ## ESTADO DO SERVIDOR
 - URL: https://kairoscheck.net
-- Backend: Railway (Node.js puro) | Frontend: Vercel (Next.js — em rebuild)
-- Stripe: **ACTIVO ✅** (charges_enabled: true — confirmado CEO 2026-05-20)
+- Backend: Railway | Frontend: Vercel (em rebuild — Passo 3)
+- Stripe: **ACTIVO ✅** (charges_enabled: true)
+- Testes: **214/214 PASS — 0 FAIL ✅**
 - Tenants activos: 4
 
 ---
 
 ## O QUE FOI FEITO HOJE (2026-05-20) — SESSÃO COMPLETA
 
-### PASSO 1 — SKILLS: CONCLUÍDO ✅ (commits 25ea9c7 → 71f6a28)
-- 11 skills criadas com cérebro operacional (uma por agente)
-- 6 skills antigas arquivadas em .claude/skills/_archive/
+### PASSO 0 ✅ + PASSO 1 ✅ (sessões anteriores)
+- 11 skills com cérebro operacional
+- 16 specs verificadas com fontes reais
 
-### PASSO 1B — SPECS @UMA: CONCLUÍDO ✅ (commits b824043 → 0a9ecaf)
-- 16 ficheiros de specs em KAIROS/03-ENGENHARIA/specs/
-- Dados verificados de fontes reais (Tailwind, Anthropic, Resend, Stripe, Shadcn)
-- CORRECÇÕES CRÍTICAS: GSAP grátis, OKLCH em vez de HSL, modelos Claude reais
-- DESIGN_BRIEF_KAIROSCHECK.md — síntese completa do produto
-- Nav hover intelligence, componentes inteligentes, backgrounds premium
-- Vantagem competitiva vs SEON/Stripe/Sardine
-- OPERATIONAL_SYSTEM_COMPLETE.md — fonte única de verdade
-- Browser Extension v2 spec completa
+### PRÉ-PASSO 2 ✅ (esta sessão — início)
+- 214/214 testes (sovereign migrado para 11 agentes)
+- packages/web/ limpo de legado (design system OKLCH)
+- KAIROS/00-CONSTITUICAO/ enriquecida (estado-operacional + agentes)
+- Constitution v1.1 com estado actual
 
-### PRÉ-PASSO 2 — LIMPEZA: CONCLUÍDO ✅
-- **Testes: 0 fail → 214/214 PASS**
-  - sovereign/agents-registry.js: migrado de AIOX para 11 agentes novos
-  - sovereign/index.js: apex_ceo → orion
-  - tests/sovereign.test.js: actualizado
-  - tests/taskforces.test.js: b2b-security → strategy, novos IDs
-  - tests/server-integration.test.js: força correcta
-- **packages/web/ limpo de legado:**
-  - Componentes landing antigos removidos
-  - globals.css: design system v3 → v4 OKLCH
-  - page.tsx: placeholder limpo para Passo 3
+### PASSO 2 ✅ (esta sessão — concluído)
+**Pesquisa profunda de negócio com dados verificados:**
+
+Bloco A — API-first businesses:
+- Stripe: premium pricing (5%+$0.50), manual onboarding, YC network
+- Moat: dados de fraude que melhoram com volume (= o nosso C8!)
+- Primeiro canal: Stack Overflow ads + meetups developers
+- Paul Graham: "do things that don't scale" — founder fecha primeiros 10
+
+Bloco B — Frameworks verificados:
+- PLG free-to-paid: 9% médio, 24% top quartil (ProductLed)
+- Usage-based: 78% dev tools adoptam em 2026 (Monetizely)
+- NRR 106% médio SaaS, 110%+ bom, 120%+ excelente (ChartMogul 2024)
+- Gross margin infra SaaS: 70-75%; pure software: 80-85% (CFO Pro Analytics)
+- 7 Powers: nosso moat = Network Effects (C8) + Switching Cost
+
+Bloco C — Mercado verificado:
+- TAM 2025: $54.61B, CAGR 19.6% → $171.84B por 2031
+- Brasil chargeback rate: 3.55% — um dos mais altos do mundo
+- Perdas Brasil: $700M/ano, BRL 3.5B em 2023
+- Sift começa $500/mês → somos 17x mais baratos
+- E-commerce Brasil projecto $89B por 2029
+
+Bloco D — Distribuição PT+BR verificada:
+- Telegram Micro-SaaS Brasil: 1.700 membros, +25/dia
+- TabNews, IH Brazil, Reddit r/brdev, r/devpt
+- Estratégia: community-first, value before product
+
+**Documentos criados:**
+- KAIROS/02-PRODUTO/estrategia-p2.md (master document)
+- KAIROS/07-FINANCAS/unit-economics.md
+- KAIROS/07-FINANCAS/company-score-passo2.md
+- KAIROS/04-CRESCIMENTO/copy-library.md
+
+**Company Score Passo 2: 57/100 ✅** (target era ≥55)
 
 ---
 
-## ESTADO ACTUAL DO REPOSITÓRIO (verificado)
+## ESTADO DO REPOSITÓRIO (verificado @Orion)
 
 ```
-packages/
-  sniper-api/    ← BACKEND SAGRADO — funcional em produção
-  sniper-engine/ ← 9 camadas OSINT — funcional
-  billing/       ← Stripe integrado (ACTIVO ✅)
-  vault/         ← AES-256 — funcional
-  web/           ← Next.js 16 + React 19 LIMPO — aguarda Passo 3
-  browser-extension/ ← v0.2.0 — aguarda v2 (Passo 5)
-  sovereign/     ← 11 agentes novos ✅
-
-.claude/
-  agents/        ← 11 agentes (orion, dex, quinn, gage, aria, uma,
-                    sage, morgan, hermes, oracle, rex)
-  skills/        ← 11 skills com cérebro operacional
-
 KAIROS/
-  03-ENGENHARIA/specs/ ← 16 docs de specs verificadas
+  00-CONSTITUICAO/  ✅  4 ficheiros (missao, regras, estado, agentes)
+  01-CEO/           ✅  perfil-pedro.md
+  02-PRODUTO/       ✅  kairoscheck-verdade.md + estrategia-p2.md
+  03-ENGENHARIA/    ✅  adr/ + specs/ (16 docs)
+  04-CRESCIMENTO/   ✅  copy-library.md
+  05-VENDAS/        ⚠️  VAZIO — @Hermes preenche no outreach
+  07-FINANCAS/      ✅  runway.md + unit-economics.md + company-score-passo2.md
+  08-JURIDICO/      ⚠️  VAZIO — @Rex preenche antes do 1º cliente
+  09-OPERACOES/     ⚠️  VAZIO — @Orion preenche Passo 6
+  10-AGENTES/       ⚠️  VAZIO — scores manuais nos agent files
+  11-CONHECIMENTO/  ⚠️  4 subpastas vazias — preencher com decisões
 
-tests/           ← 214/214 PASS ✅
+.claude/agents/     ✅  11 ficheiros actualizados com scores Passo 2
+.claude/rules/      ✅  Constitution v1.1
+.claude/skills/     ✅  11 skills com cérebro operacional
+tests/              ✅  214/214 PASS
+packages/web/       ⚙️  Em rebuild — Passo 3 a seguir
 ```
 
 ---
@@ -69,28 +90,41 @@ tests/           ← 214/214 PASS ✅
 ## OS 6 PASSOS DO REBUILD
 
 ```
-Passo 0: Preparação                    ✅ CONCLUÍDO
-Passo 1: Skills + Specs                ✅ CONCLUÍDO (11 skills + 16 specs)
-         Pré-Passo 2: Limpeza          ✅ 214/214 testes, web limpo
-Passo 2: Estratégia e negócio          ← PRÓXIMO
-Passo 3: Design System do zero
-Passo 4: Arquitectura frontend
-Passo 5: Implementação
-Passo 6: Backend + deploy final
+Passo 0: Preparação          ✅ CONCLUÍDO
+Passo 1: Skills + Specs      ✅ CONCLUÍDO
+Pré-P2:  Limpeza + testes    ✅ CONCLUÍDO
+Passo 2: Estratégia          ✅ CONCLUÍDO (company score 57/100)
+Passo 3: Design System       ← PRÓXIMO (@Uma)
+Passo 4: Arquitectura Next.js (@Aria)
+Passo 5: Implementação       (@Dex + @Uma + @Quinn)
+Passo 6: Backend + deploy    (@Aria + @Dex + @Rex + @Quinn + @Gage)
 ```
 
 ---
 
-## PENDENTE — PASSO 2 (aguarda confirmação CEO)
+## ⚠️ ALERTA CRÍTICO @ORACLE
 
-**@Sage + @Morgan:**
-1. Definir ICP detalhado PT+BR (quem são, dor específica, onde estão)
-2. Validar pricing tiers com dados de mercado real
-3. Calcular unit economics com números reais (runway exacto)
-4. Definir 3 acções concretas de go-to-market nos próximos 30 dias
-5. Target: 1 cliente pagante antes do runway acabar
+**Revenue Momentum = 15/100 com €0 MRR e 45 dias runway.**
+O Company Score cai abaixo de 50 se não houver primeiro cliente em 2 semanas.
 
-**Nota urgente:** Runway ~45 dias. Cada sessão tem de aproximar de €1 MRR.
+**Acção imediata (paralela ao Passo 3):**
+@Hermes + CEO → outreach directo para 10 targets qualificados
+Objectivo: 1 cliente pagante (€29/mês) antes do fim do Passo 3
+
+---
+
+## PENDENTE — PASSO 3 (aguarda CEO confirm)
+
+**@Uma — Design System do zero:**
+1. Tokens: paleta OKLCH, tipografia Geist, espaçamento, radius
+2. Componentes: Button, Card, Input, Badge, Nav, Score Card
+3. Motion principles: GSAP SplitText + Framer Motion
+4. Dark mode obrigatório (default)
+5. Entregar spec para @Dex implementar
+
+**Em paralelo (@Hermes):**
+Outreach para primeiros 10 clientes PT+BR
+(não bloqueia o Passo 3, corre em simultâneo)
 
 ---
 
@@ -98,6 +132,6 @@ Passo 6: Backend + deploy final
 - Só @Gage faz git push e vercel deploy
 - @Quinn dá GO antes de qualquer deploy
 - CEO confirma antes de cada fase
-- @Orion é o primeiro de cada sessão
-- Stripe ACTIVO — aproximar de receita real em cada sessão
-- 214 testes passam — zero regressões aceites
+- @Orion actualiza em tempo real após cada acção
+- Stripe ACTIVO — primeiro €29 é urgente
+- 214 testes PASS — zero regressões aceites
