@@ -28,10 +28,27 @@ const { createSnapshot }    = require('./memory/snapshot');
 const { markMilestoneStep } = require('./memory/knowledge-graph');
 const {
   invoke,
+  invokeWithTools,
   resetTaskBudget,
   getBudgetStatus,
   CONFIG,
 } = require('./providers/anthropic');
+
+// ─── DETECÇÃO DE TASKS OPERACIONAIS ───────────────────────────────────────────
+
+// Keywords que indicam que o agente precisa de executar operações reais no filesystem.
+// Nestes casos usa-se invokeWithTools em vez de invoke.
+const OPERATIONAL_KEYWORDS = [
+  'produzir', 'criar ficheiro', 'escrever ficheiro', 'gerar ficheiro',
+  '.json', 'inventory', 'extractions', '.ai/', 'output:',
+  'scan', 'procurar em', 'listar ficheiros', 'grep',
+  'read_file', 'write_file', 'list_directory',
+];
+
+function isOperationalTask(task) {
+  const lower = task.toLowerCase();
+  return OPERATIONAL_KEYWORDS.some(kw => lower.includes(kw));
+}
 
 // ─── CONFIGURAÇÃO ──────────────────────────────────────────────────────────
 
@@ -257,7 +274,12 @@ async function orchestrate(task, files = [], options = {}) {
       // Consenso alcançado → executar com o agente principal
       console.log(`  ✅ Consenso alcançado (ronda ${consensus.round}, avg confidence ${consensus.avgConfidence})`);
       const leadAgent = route.agents[0];
-      const execution = await invoke(leadAgent, task, 'execute', { ...ctx, consensusApproach: consensus.finalApproach });
+      const execCtx   = { ...ctx, consensusApproach: consensus.finalApproach };
+      const useTools  = isOperationalTask(task);
+      if (useTools) console.log(`  [TOOLS] Task operacional → invokeWithTools`);
+      const execution = useTools
+        ? await invokeWithTools(leadAgent, task, files, { domain: route.domain })
+        : await invoke(leadAgent, task, 'execute', execCtx);
 
       append('orchestrator', EVENT_TYPES.TaskCompleted, {
         runId,
@@ -281,8 +303,11 @@ async function orchestrate(task, files = [], options = {}) {
   } else {
     // 3b. Execução directa
     const leadAgent = route.agents[0];
-    console.log(`  → Execução directa por ${leadAgent}`);
-    const execution = await invoke(leadAgent, task, 'execute', ctx);
+    const useTools  = isOperationalTask(task);
+    console.log(`  → Execução directa por ${leadAgent}${useTools ? ' [com tools]' : ''}`);
+    const execution = useTools
+      ? await invokeWithTools(leadAgent, task, files, { domain: route.domain })
+      : await invoke(leadAgent, task, 'execute', ctx);
 
     append('orchestrator', EVENT_TYPES.TaskCompleted, {
       runId,

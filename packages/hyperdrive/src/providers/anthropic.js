@@ -272,4 +272,147 @@ async function invoke(agentId, task, role = 'execute', ctx = {}) {
   };
 }
 
-module.exports = { invoke, resetTaskBudget, getBudgetStatus, CONFIG, AGENT_TIER };
+// ─── INVOKE WITH TOOLS (agentic loop) ─────────────────────────────────────────
+
+const MAX_TOOL_ITERATIONS = 20;
+
+/**
+ * Invoca um agente com tool execution real (agentic loop).
+ * O modelo chama ferramentas de filesystem até produzir uma resposta final.
+ *
+ * @param {string}   agentId  - Ex: '@Oracle', '@Dex'
+ * @param {string}   task     - Descrição completa da tarefa
+ * @param {string[]} [files]  - Ficheiros de contexto (passados no system prompt)
+ * @param {object}   [opts]   - { modelId, forceOpus, forceSonnet, forceHaiku }
+ * @returns {Promise<{text, agentId, model, toolCalls, iterations, costUsd, usage}>}
+ */
+async function invokeWithTools(agentId, task, files = [], opts = {}) {
+  if (!CONFIG.isLive) {
+    return {
+      text:       `[MOCK] ${agentId} executaria com tools: ${task.slice(0, 100)}`,
+      agentId,
+      toolCalls:  [],
+      iterations: 0,
+      mock:       true,
+    };
+  }
+
+  if (!CONFIG.apiKey) throw new Error('KAIROS_ANTHROPIC_API_KEY não configurada. Definir no .env');
+
+  const budget = getBudgetStatus();
+  if (budget.exceeded) throw new Error(`Budget excedido ($${budget.taskCostUsd.toFixed(4)} >= $${budget.hardStop})`);
+
+  const { TOOL_DEFINITIONS }    = require('../tools/definitions');
+  const { execute: executeTool } = require('../tools/executor');
+
+  // Selecção de modelo — mesmo sistema que invoke()
+  const domain          = opts.domain || 'backend';
+  const complexityResult = analyzeComplexity(task, files, domain, opts);
+  let modelId            = opts.modelId || complexityResult.modelId;
+
+  // Agentes sénior nunca descem abaixo de Sonnet
+  const alwaysAtLeastSonnet = ['@Rex', '@Aria', '@Sage', '@Oracle'];
+  if (alwaysAtLeastSonnet.includes(agentId) && modelId === CONFIG.models.utility) {
+    modelId = CONFIG.models.executor;
+  }
+
+  // System prompt com cache
+  const fileCtx      = files.length > 0 ? `\nFicheiros de contexto: ${files.join(', ')}` : '';
+  const systemBlocks = buildCachedSystem(agentId, fileCtx);
+
+  const allToolCalls = [];
+  let messages       = [{ role: 'user', content: task }];
+  let iterations     = 0;
+
+  while (iterations < MAX_TOOL_ITERATIONS) {
+    iterations++;
+
+    const nowBudget = getBudgetStatus();
+    if (nowBudget.exceeded) {
+      throw new Error(`Budget excedido na iteração ${iterations} ($${nowBudget.taskCostUsd.toFixed(4)})`);
+    }
+
+    const body = {
+      model:      modelId,
+      max_tokens: 4096,
+      system:     systemBlocks,
+      tools:      TOOL_DEFINITIONS,
+      messages,
+    };
+
+    const response = await post('/v1/messages', body);
+    trackUsage(modelId, response.usage || {});
+
+    // Resposta final (sem mais tool calls)
+    if (response.stop_reason === 'end_turn' || response.stop_reason === 'max_tokens') {
+      const text = (response.content || [])
+        .filter(b => b.type === 'text')
+        .map(b => b.text)
+        .join('\n');
+
+      return {
+        text,
+        agentId,
+        model:      modelId,
+        toolCalls:  allToolCalls,
+        iterations,
+        costUsd:    Math.round(getBudgetStatus().taskCostUsd * 10000) / 10000,
+        usage:      response.usage,
+      };
+    }
+
+    // O modelo quer usar ferramentas
+    if (response.stop_reason === 'tool_use') {
+      // Adicionar resposta do assistente ao histórico
+      messages.push({ role: 'assistant', content: response.content });
+
+      // Executar cada tool_use block e recolher resultados
+      const toolResults = [];
+      for (const block of (response.content || [])) {
+        if (block.type !== 'tool_use') continue;
+
+        let result;
+        try {
+          console.log(`  [TOOL] ${block.name}(${JSON.stringify(block.input).slice(0, 100)})`);
+          result  = executeTool(block.name, block.input);
+          allToolCalls.push({ name: block.name, input: block.input, ok: true });
+        } catch (err) {
+          result  = { error: err.message };
+          allToolCalls.push({ name: block.name, input: block.input, ok: false, error: err.message });
+        }
+
+        toolResults.push({
+          type:        'tool_result',
+          tool_use_id: block.id,
+          content:     JSON.stringify(result),
+        });
+      }
+
+      // Adicionar resultados como mensagem do user
+      messages.push({ role: 'user', content: toolResults });
+      continue;
+    }
+
+    // Stop reason inesperado — terminar com o que temos
+    break;
+  }
+
+  const finalText = messages
+    .filter(m => m.role === 'assistant')
+    .flatMap(m => (Array.isArray(m.content) ? m.content : [{ type: 'text', text: m.content }]))
+    .filter(b => b.type === 'text')
+    .map(b => b.text)
+    .join('\n');
+
+  return {
+    text:       finalText || `[LIMITE] Atingido máximo de ${MAX_TOOL_ITERATIONS} iterações`,
+    agentId,
+    model:      modelId,
+    toolCalls:  allToolCalls,
+    iterations,
+    costUsd:    Math.round(getBudgetStatus().taskCostUsd * 10000) / 10000,
+    error:      iterations >= MAX_TOOL_ITERATIONS ? 'max_iterations' : 'unknown_stop',
+  };
+}
+
+module.exports = { invoke, invokeWithTools, resetTaskBudget, getBudgetStatus, CONFIG, AGENT_TIER };
