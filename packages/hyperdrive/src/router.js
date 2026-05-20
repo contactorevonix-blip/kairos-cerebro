@@ -61,9 +61,11 @@ const DOMAINS = {
   },
   navegacao: {
     keywords: ['file', 'folder', 'directory', 'repo', 'structure', 'find',
-               'search', 'index', 'list', 'tree', 'path', 'ficheiro', 'pasta'],
-    agents:   ['@Orion', '@Dex'],
-    weight:   0.8,
+               'search', 'index', 'list', 'tree', 'path', 'ficheiro', 'pasta',
+               'screenshot', 'browser_screenshot', 'browser_get_page', 'captura',
+               'track a', 'track b', 'extrair', 'extraction', 'inventory'],
+    agents:   ['@Orion', '@Dex', '@Uma'],
+    weight:   1.2,
   },
   estrategia: {
     keywords: ['business', 'negócio', 'pricing', 'market', 'revenue', 'unit economics',

@@ -237,5 +237,186 @@
       "design-systems.md"
     ],
     "recommendation": "Design system está bem documentado em texto. Gap principal: ausência de referências visuais reais (screenshots). Próximo passo: @Uma capturar screenshots de Resend/Linear/Clerk via agent-browser."
+  },
+  "extracted_tokens": {
+    "extracted_at": "2026-05-20",
+    "sources": [
+      "KAIROS/03-ENGENHARIA/specs/DESIGN_BRIEF_KAIROSCHECK.md",
+      "KAIROS/03-ENGENHARIA/specs/design-systems.md",
+      "KAIROS/03-ENGENHARIA/specs/intelligent-components.md"
+    ],
+    "colors": {
+      "background": "#0d0d0d",
+      "surface": "oklch(0.13 0 0)",
+      "surface-raised": "oklch(0.17 0 0)",
+      "border": "oklch(1 0 0 / 8%)",
+      "border-strong": "oklch(1 0 0 / 15%)",
+      "text-primary": "oklch(0.94 0 0)",
+      "text-secondary": "oklch(0.65 0 0)",
+      "text-muted": "oklch(0.45 0 0)",
+      "accent": "#3b82f6",
+      "accent-hover": "oklch(0.557 0.214 259.8)",
+      "success": "#22c55e",
+      "warning": "#f59e0b",
+      "danger": "#ef4444",
+      "geist-green": "#0070f3",
+      "geist-red": "#ff0000",
+      "geist-amber": "#f5a623"
+    },
+    "typography": {
+      "fonts": {
+        "sans": "GeistSans (geist/font/sans)",
+        "mono": "GeistMono (geist/font/mono)"
+      },
+      "scale": [
+        {
+          "role": "Hero headline",
+          "font": "GeistSans",
+          "size": "48-64px",
+          "weight": 800
+        },
+        {
+          "role": "Section title",
+          "font": "GeistSans",
+          "size": "32-40px",
+          "weight": 700
+        },
+        {
+          "role": "Body",
+          "font": "GeistSans",
+          "size": "16-18px",
+          "weight": 400
+        },
+        {
+          "role": "UI labels / nav",
+          "font": "GeistSans",
+          "size": "14px",
+          "weight": 500
+        },
+        {
+          "role": "API keys / scores / code",
+          "font": "GeistMono",
+          "size": "13-14px",
+          "weight": 400
+        }
+      ],
+      "rule": "GeistMono para tudo técnico — scores, API keys, latência, JSON"
+    },
+    "borderRadius": {
+      "radius": "0.625rem`",
+      "radius-sm": "4px   /* inputs, badges pequenos */",
+      "radius-md": "8px   /* cards, botões */",
+      "radius-lg": "12px  /* modais, sheets */",
+      "radius-xl": "16px  /* hero cards */",
+      "radius-full": "9999px /* pills, avatars */"
+    },
+    "spacing": {
+      "note": "Baseado em Stripe whitespace — 64px+ entre secções",
+      "sections_gap": "64px minimum (py-20 = 80px Tailwind)",
+      "sidebar_width": "240px",
+      "sheet_width": "420px",
+      "card_padding": "p-6 (24px)",
+      "typical": {
+        "py-20": "80px  (section padding)",
+        "gap-4": "16px",
+        "gap-6": "24px",
+        "gap-8": "32px",
+        "p-4": "16px",
+        "p-6": "24px"
+      }
+    },
+    "shadows": {
+      "note": "Design minimalista — sombras substituídas por borders com opacidade",
+      "border_default": "border-white/8  (8% white opacity)",
+      "border_strong": "border-white/10 a border-white/15",
+      "border_accent": "border-blue-500/30 a border-blue-500/40 (hover/active)",
+      "glow_accent": "bg-blue-500/5 com border-blue-500/40"
+    },
+    "animation": {
+      "principle": "Nunca linear — power2.out (GSAP) / ease-out (CSS)",
+      "easing": {
+        "primary": "power2.out (GSAP) / cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "layout": "easeOut (Framer Motion)",
+        "spring": "spring physics (Framer Motion — sidebar)",
+        "pageLoad": "easeInOut"
+      },
+      "durations": {
+        "micro": "100-200ms  (hover, toast, dialog enter)",
+        "layout": "300-500ms  (cards, page sections)",
+        "hero": "500-600ms  (hero reveal, score counter: 1500ms)",
+        "max": "600ms (excepção: GSAP score bar 800ms, counter 1500ms)",
+        "accessible": "0.01ms (prefers-reduced-motion)"
+      },
+      "by_element": [
+        {
+          "element": "Hero headline",
+          "animation": "chars/words reveal de baixo",
+          "duration": "500ms",
+          "library": "GSAP SplitText"
+        },
+        {
+          "element": "Score number",
+          "animation": "counter 0→X",
+          "duration": "1500ms",
+          "library": "GSAP"
+        },
+        {
+          "element": "Cards no scroll",
+          "animation": "fade up",
+          "duration": "400ms",
+          "library": "Framer Motion"
+        },
+        {
+          "element": "Page load",
+          "animation": "fade in + slight up",
+          "duration": "200ms",
+          "library": "Framer Motion"
+        },
+        {
+          "element": "Hover em card",
+          "animation": "scale 1.02 + border",
+          "duration": "150ms",
+          "library": "Framer Motion"
+        },
+        {
+          "element": "Toast/Dialog",
+          "animation": "fade + scale",
+          "duration": "150ms",
+          "library": "Tailwind Animate"
+        },
+        {
+          "element": "Sidebar",
+          "animation": "spring collapse",
+          "duration": "250ms",
+          "library": "Framer Motion"
+        },
+        {
+          "element": "Score bar",
+          "animation": "width 0→X%",
+          "duration": "800ms",
+          "library": "GSAP"
+        }
+      ]
+    },
+    "components": {
+      "P0": [
+        "LIVE SCORE DEMO — demo interactivo na landing page",
+        "CODE SWITCHER POR LINGUAGEM — exemplo de integração JS/Python/PHP/Go",
+        "ANIMATED STAT COUNTERS — métricas animadas (checks/dia, accuracy, latência)"
+      ],
+      "P1": [
+        "LAYER EXPLORER — acordeão das 9 camadas de inteligência",
+        "PRICING TOGGLE — mensal/anual com highlight do plano recomendado",
+        "HOVER CARD DE FEATURE — cards de feature com hover state rico",
+        "SECTOR SWITCHER — adapta copy por tipo de cliente (ecommerce/marketplace/fintech)",
+        "COPY BUTTON INTELIGENTE — copia código com feedback visual"
+      ],
+      "P2": [
+        "LIVE STATUS BADGE — pulse animation indicando sistema activo",
+        "TESTIMONIAL CAROUSEL — social proof rotativo",
+        "SCROLL PROGRESS INDICATOR — barra de progresso no topo",
+        "SMART CTA — muda copy/destino com contexto do utilizador"
+      ]
+    }
   }
 }
