@@ -19,7 +19,9 @@ const fs   = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
-const LEDGER_PATH = path.join(__dirname, '..', '..', '..', '..', '.claude', 'memory', 'state-ledger.jsonl');
+// Suporta override via env var para isolamento de testes
+const LEDGER_PATH = process.env.KAIROS_LEDGER_PATH
+  || path.join(__dirname, '..', '..', '..', '..', '.claude', 'memory', 'state-ledger.jsonl');
 
 const EVENT_TYPES = {
   // Sistema

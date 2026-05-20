@@ -19,8 +19,10 @@ const assert = require('node:assert/strict');
 const fs     = require('node:fs');
 const path   = require('node:path');
 
-// Garantir MOCK MODE nos testes
+// Garantir MOCK MODE + ledger isolado nos testes
 process.env.KAIROS_LIVE = '0';
+const os   = require('node:os');
+process.env.KAIROS_LEDGER_PATH = require('node:path').join(os.tmpdir(), `kairos-test-ledger-${process.pid}.jsonl`);
 
 const { classify }    = require('../src/router');
 const { orchestrate } = require('../src/orchestrator');

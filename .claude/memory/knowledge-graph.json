@@ -51,6 +51,26 @@
       "hd-fase-7-live": {
         "status": "done",
         "doneAt": "2026-05-20T20:59:16.574Z"
+      },
+      "hd-fase-1-infra": {
+        "status": "done",
+        "doneAt": "2026-05-20T21:06:37.729Z"
+      },
+      "hd-fase-2-ferramentas": {
+        "status": "done",
+        "doneAt": "2026-05-20T21:06:37.732Z"
+      },
+      "hd-fase-3-orquestrador": {
+        "status": "done",
+        "doneAt": "2026-05-20T21:06:37.734Z"
+      },
+      "hd-fase-4-redteam": {
+        "status": "done",
+        "doneAt": "2026-05-20T21:06:37.737Z"
+      },
+      "hd-fase-8-relatorio": {
+        "status": "done",
+        "doneAt": "2026-05-20T21:06:37.740Z"
       }
     }
   }
