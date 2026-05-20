@@ -2,8 +2,8 @@
 
 /**
  * KAIROS HYPERDRIVE — Tool Executor
- * Execução real de ferramentas de filesystem para o agentic loop.
- * Segurança: todos os paths são validados contra ROOT (sem path traversal).
+ * Execução real de ferramentas de filesystem + browser headless.
+ * Segurança: paths validados contra ROOT; URLs só https://.
  */
 
 const fs   = require('node:fs');
@@ -227,15 +227,98 @@ function fileExists({ path: filePath }) {
   return { path: filePath, exists, type };
 }
 
+// ─── BROWSER TOOLS ────────────────────────────────────────────────────────────
+
+// Segurança: só URLs https:// são permitidas (previne SSRF a localhost/internal)
+function assertSafeUrl(url) {
+  if (typeof url !== 'string' || !url.startsWith('https://')) {
+    throw new Error(`URL inválido ou não-HTTPS: ${url}. Apenas https:// é permitido.`);
+  }
+}
+
+async function browserScreenshot({
+  url,
+  path: outputPath,
+  full_page    = false,
+  wait_for,
+  viewport_width  = 1440,
+  viewport_height = 900,
+}) {
+  assertSafeUrl(url);
+  const abs = safePath(outputPath); // lança em segurança
+  fs.mkdirSync(path.dirname(abs), { recursive: true });
+
+  const { chromium } = require('playwright');
+  let browser;
+  try {
+    browser = await chromium.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setViewportSize({ width: viewport_width, height: viewport_height });
+
+    await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+
+    if (wait_for) {
+      await page.waitForSelector(wait_for, { timeout: 10000 }).catch(() => {});
+    }
+
+    await page.screenshot({ path: abs, fullPage: full_page });
+    const size = fs.statSync(abs).size;
+
+    return { ok: true, url, path: outputPath, bytes: size, full_page };
+  } catch (e) {
+    return { ok: false, url, path: outputPath, error: e.message };
+  } finally {
+    if (browser) await browser.close();
+  }
+}
+
+async function browserGetPage({ url, selector, max_chars = 8000 }) {
+  assertSafeUrl(url);
+
+  const { chromium } = require('playwright');
+  let browser;
+  try {
+    browser = await chromium.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setViewportSize({ width: 1440, height: 900 });
+
+    await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+
+    let text;
+    if (selector) {
+      const el = await page.$(selector).catch(() => null);
+      text = el ? await el.innerText() : await page.innerText('body');
+    } else {
+      text = await page.innerText('body');
+    }
+
+    const title = await page.title().catch(() => '');
+    const truncated = text.length > max_chars;
+    return {
+      url,
+      title,
+      content: text.slice(0, max_chars),
+      chars: Math.min(text.length, max_chars),
+      truncated,
+    };
+  } catch (e) {
+    return { url, error: e.message, content: '' };
+  } finally {
+    if (browser) await browser.close();
+  }
+}
+
 // ─── DISPATCHER ───────────────────────────────────────────────────────────────
 
 function execute(toolName, toolInput) {
   switch (toolName) {
-    case 'list_directory': return listDirectory(toolInput);
-    case 'read_file':      return readFile(toolInput);
-    case 'write_file':     return writeFile(toolInput);
-    case 'grep_files':     return grepFiles(toolInput);
-    case 'file_exists':    return fileExists(toolInput);
+    case 'list_directory':    return listDirectory(toolInput);
+    case 'read_file':         return readFile(toolInput);
+    case 'write_file':        return writeFile(toolInput);
+    case 'grep_files':        return grepFiles(toolInput);
+    case 'file_exists':       return fileExists(toolInput);
+    case 'browser_screenshot': return browserScreenshot(toolInput); // async
+    case 'browser_get_page':   return browserGetPage(toolInput);    // async
     default: throw new Error(`Tool desconhecida: ${toolName}`);
   }
 }

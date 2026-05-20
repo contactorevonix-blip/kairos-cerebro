@@ -374,7 +374,7 @@ async function invokeWithTools(agentId, task, files = [], opts = {}) {
         let result;
         try {
           console.log(`  [TOOL] ${block.name}(${JSON.stringify(block.input).slice(0, 100)})`);
-          result  = executeTool(block.name, block.input);
+          result  = await executeTool(block.name, block.input);
           allToolCalls.push({ name: block.name, input: block.input, ok: true });
         } catch (err) {
           result  = { error: err.message };
