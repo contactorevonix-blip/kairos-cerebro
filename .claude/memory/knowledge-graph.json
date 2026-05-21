@@ -17,9 +17,182 @@
         "status": "in-progress"
       },
       "createdAt": "2026-05-20T00:00:00.000Z"
+    },
+    "pattern-backend-995cae94": {
+      "id": "pattern-backend-995cae94",
+      "type": "Pattern",
+      "data": {
+        "task": "test task para verificar criação de node agente",
+        "domain": "backend",
+        "outputSummary": "test task para verificar criação de node agente",
+        "createdAt": "2026-05-21T14:58:43.586Z"
+      },
+      "createdAt": "2026-05-21T14:58:43.586Z"
+    },
+    "pattern-unknown-e3b0c442": {
+      "id": "pattern-unknown-e3b0c442",
+      "type": "Pattern",
+      "data": {
+        "task": "",
+        "domain": "unknown",
+        "outputSummary": "",
+        "createdAt": "2026-05-21T12:27:19.042Z"
+      },
+      "createdAt": "2026-05-21T12:27:19.042Z"
+    },
+    "pattern-backend-9f86d081": {
+      "id": "pattern-backend-9f86d081",
+      "type": "Pattern",
+      "data": {
+        "task": "test",
+        "domain": "backend",
+        "outputSummary": "test",
+        "createdAt": "2026-05-21T14:58:43.594Z"
+      },
+      "createdAt": "2026-05-21T14:58:43.594Z"
+    },
+    "pattern-backend-18d05716": {
+      "id": "pattern-backend-18d05716",
+      "type": "Pattern",
+      "data": {
+        "task": "increment test 1 agente novo backend",
+        "domain": "backend",
+        "outputSummary": "increment test 1 agente novo backend",
+        "createdAt": "2026-05-21T14:58:43.601Z"
+      },
+      "createdAt": "2026-05-21T14:58:43.601Z"
+    },
+    "pattern-backend-8091e180": {
+      "id": "pattern-backend-8091e180",
+      "type": "Pattern",
+      "data": {
+        "task": "increment test 2 agente novo backend",
+        "domain": "backend",
+        "outputSummary": "increment test 2 agente novo backend",
+        "createdAt": "2026-05-21T14:58:43.605Z"
+      },
+      "createdAt": "2026-05-21T14:58:43.606Z"
     }
   },
-  "edges": [],
+  "edges": [
+    {
+      "from": "pattern-backend-995cae94",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:19.039Z"
+    },
+    {
+      "from": "pattern-unknown-e3b0c442",
+      "to": "domain-unknown",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:19.045Z"
+    },
+    {
+      "from": "pattern-backend-9f86d081",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:19.054Z"
+    },
+    {
+      "from": "pattern-backend-18d05716",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:19.061Z"
+    },
+    {
+      "from": "pattern-backend-8091e180",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:19.067Z"
+    },
+    {
+      "from": "pattern-backend-995cae94",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:53.701Z"
+    },
+    {
+      "from": "pattern-backend-9f86d081",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:53.708Z"
+    },
+    {
+      "from": "pattern-backend-18d05716",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:53.714Z"
+    },
+    {
+      "from": "pattern-backend-8091e180",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T12:27:53.720Z"
+    },
+    {
+      "from": "pattern-backend-995cae94",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T14:58:43.589Z"
+    },
+    {
+      "from": "pattern-backend-9f86d081",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T14:58:43.597Z"
+    },
+    {
+      "from": "pattern-backend-18d05716",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T14:58:43.603Z"
+    },
+    {
+      "from": "pattern-backend-8091e180",
+      "to": "domain-backend",
+      "relation": {
+        "type": "IN_DOMAIN",
+        "weight": 1
+      },
+      "createdAt": "2026-05-21T14:58:43.608Z"
+    }
+  ],
   "milestones": {
     "rebuild-v1": {
       "passo-0-preparacao": {

@@ -32,6 +32,9 @@ const { EscalationEngine }  = require('./core/escalation-engine');
 const { PostMortemEngine }  = require('./core/postmortem-engine');
 const { SpecPipeline }      = require('./core/spec-pipeline');
 const { RecoveryEngine }    = require('./core/recovery-engine');
+const { SelfCritiqueEngine } = require('./core/self-critique');
+const { LedgerRAG }         = require('./memory/rag');
+const { KGEnricher }        = require('./memory/kg-enricher');
 const {
   invoke,
   invokeWithTools,
@@ -45,6 +48,9 @@ const escalationEngine = new EscalationEngine();
 const postmortemEngine = new PostMortemEngine();
 const specPipeline     = new SpecPipeline();
 const recoveryEngine   = new RecoveryEngine(); // eslint-disable-line no-unused-vars
+const selfCritique     = new SelfCritiqueEngine();
+const ledgerRAG        = new LedgerRAG();
+const kgEnricher       = new KGEnricher();
 
 // ─── DETECÇÃO DE TASKS OPERACIONAIS ───────────────────────────────────────────
 
@@ -335,6 +341,13 @@ async function orchestrate(task, files = [], options = {}) {
     console.log('  📋 Spec injectada no contexto do agente.');
   }
 
+  // RAG — contexto histórico de tasks similares bem-sucedidas
+  const ragHits    = ledgerRAG.topK(task, 3);
+  const ragContext = ledgerRAG.formatContext(ragHits);
+  if (ragContext) {
+    console.log(`  📚 RAG: ${ragHits.length} task(s) similar(es) encontrada(s).`);
+  }
+
   // Registar task no monitor de escalação
   const monitorId = `run-${runId}`;
 
@@ -415,12 +428,21 @@ async function orchestrate(task, files = [], options = {}) {
       // Consenso alcançado → executar com o agente principal
       console.log(`  ✅ Consenso alcançado (ronda ${consensus.round}, avg confidence ${consensus.avgConfidence})`);
       const leadAgent = route.agents[0];
-      const execCtx   = { ...ctx, consensusApproach: consensus.finalApproach, specContext };
+      const execCtx   = { ...ctx, consensusApproach: consensus.finalApproach, specContext, ragContext };
       const useTools  = isOperationalTask(task);
       if (useTools) console.log(`  [TOOLS] Task operacional → invokeWithTools`);
-      const execution = useTools
+      let rawExecution = useTools
         ? await invokeWithTools(leadAgent, task, files, { domain: route.domain })
         : await invoke(leadAgent, task, 'execute', execCtx);
+
+      // SELF-CRITIQUE — segunda passagem com haiku (degradação graciosa)
+      const critiqueResult = await selfCritique.critique(leadAgent, task, rawExecution?.text || '');
+      const execution = critiqueResult.improved
+        ? { ...rawExecution, text: critiqueResult.output }
+        : rawExecution;
+
+      // KG ENRICHMENT — enriquecer grafo após execução bem-sucedida
+      kgEnricher.enrich({ agent: leadAgent, domain: route.domain, task, costUsd: getBudgetStatus().taskCostUsd, confidence_real: route.confidence }).catch(() => {});
 
       append('orchestrator', EVENT_TYPES.TaskCompleted, {
         runId,
@@ -432,6 +454,7 @@ async function orchestrate(task, files = [], options = {}) {
         costUsd:         getBudgetStatus().taskCostUsd,
         red_team:        redTeamStatus,
         spec_id:         specResult?.spec?.id || null,
+        critique:        critiqueResult.skipped ? null : { improved: critiqueResult.improved, gaps: critiqueResult.gaps, risks: critiqueResult.risks },
       });
 
       result = {
@@ -450,10 +473,19 @@ async function orchestrate(task, files = [], options = {}) {
     const leadAgent = route.agents[0];
     const useTools  = isOperationalTask(task);
     console.log(`  → Execução directa por ${leadAgent}${useTools ? ' [com tools]' : ''}`);
-    const execCtx   = { ...ctx, specContext };
-    const execution = useTools
+    const execCtx   = { ...ctx, specContext, ragContext };
+    let rawExec = useTools
       ? await invokeWithTools(leadAgent, task, files, { domain: route.domain })
       : await invoke(leadAgent, task, 'execute', execCtx);
+
+    // SELF-CRITIQUE — segunda passagem com haiku
+    const directCritique = await selfCritique.critique(leadAgent, task, rawExec?.text || '');
+    const execution = directCritique.improved
+      ? { ...rawExec, text: directCritique.output }
+      : rawExec;
+
+    // KG ENRICHMENT
+    kgEnricher.enrich({ agent: leadAgent, domain: route.domain, task, costUsd: getBudgetStatus().taskCostUsd, confidence_real: route.confidence }).catch(() => {});
 
     append('orchestrator', EVENT_TYPES.TaskCompleted, {
       runId,
@@ -463,6 +495,7 @@ async function orchestrate(task, files = [], options = {}) {
       confidence_real: route.confidence,
       red_team:        redTeamStatus,
       spec_id:         specResult?.spec?.id || null,
+      critique:        directCritique.skipped ? null : { improved: directCritique.improved, gaps: directCritique.gaps, risks: directCritique.risks },
     });
 
     result = {
@@ -526,4 +559,4 @@ async function orchestrate(task, files = [], options = {}) {
   return result;
 }
 
-module.exports = { orchestrate, runConsensus, classify, escalationEngine, postmortemEngine, specPipeline, recoveryEngine };
+module.exports = { orchestrate, runConsensus, classify, escalationEngine, postmortemEngine, specPipeline, recoveryEngine, selfCritique, ledgerRAG, kgEnricher };
