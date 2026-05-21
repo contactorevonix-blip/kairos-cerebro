@@ -34,9 +34,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         width: '280px',
         borderRight: '1px solid var(--kc-border-subtle)',
         background: 'var(--kc-bg-surface)',
-        display: sidebarOpen ? 'block' : { '@media (max-width: 768px)': 'none' },
-        overflowY: 'auto',
-        position: { '@media (max-width: 768px)': 'fixed' },
+        display: 'block',
+        overflowY: 'auto' as const,
+        position: 'sticky' as const,
         height: '100vh',
         zIndex: 40,
       }} className="hidden md:block">
@@ -77,7 +77,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
               }}>
                 {group.section}
               </div>
-              {group.items.map(doc => {
+              {group.items.map((doc: { href: string; label: string }) => {
                 const isActive = pathname === doc.href
                 return (
                   <Link key={doc.href} href={doc.href} style={{

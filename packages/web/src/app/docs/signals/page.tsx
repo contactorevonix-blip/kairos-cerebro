@@ -195,7 +195,7 @@ const RISK_SIGNALS = [
   },
 ]
 
-const SEVERITY_COLORS = {
+const SEVERITY_COLORS: Record<string, string> = {
   critical: '#e11d48',
   high: '#ea580c',
   medium: '#f59e0b',

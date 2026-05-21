@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -24,15 +25,36 @@ function GitHubIcon() {
 }
 
 export default function SignupPage() {
+  const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const canSubmit = name.trim().length > 0 && email.trim().length > 0 && password.length >= 6;
 
-  const handleSubmit = () => {
-    console.log('Sign up attempt:', { name, email, password });
+  const handleSubmit = async () => {
+    if (!canSubmit || loading) return;
+    setLoading(true);
+    setError('');
+    try {
+      // Gerar API key para o novo utilizador
+      const res = await fetch('/api/keys', { method: 'POST' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erro ao criar conta');
+      // Guardar dados da sessão (MVP: localStorage)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('kc_user', JSON.stringify({ name, email, apiKey: data.key }));
+        localStorage.setItem('kc_new_key', data.key); // mostrar na página keys
+      }
+      router.push('/dashboard/keys');
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Erro inesperado');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -200,22 +222,29 @@ export default function SignupPage() {
             </div>
           </div>
 
+          {/* Error */}
+          {error && (
+            <p style={{ fontSize: 13, color: '#ff4444', background: 'rgba(255,68,68,0.08)', borderRadius: 8, padding: '10px 14px', marginTop: 16 }}>
+              {error}
+            </p>
+          )}
+
           {/* Submit */}
           <button
-            disabled={!canSubmit}
+            disabled={!canSubmit || loading}
             onClick={handleSubmit}
             style={{
               width: '100%', height: 48, borderRadius: 12, marginTop: 24,
-              background: canSubmit ? '#00DC82' : '#111',
-              border: canSubmit ? 'none' : '1px solid #1f1f1f',
-              color: canSubmit ? '#000' : '#333',
-              fontSize: 15, fontWeight: 600, cursor: canSubmit ? 'pointer' : 'not-allowed',
+              background: canSubmit && !loading ? '#00DC82' : '#111',
+              border: canSubmit && !loading ? 'none' : '1px solid #1f1f1f',
+              color: canSubmit && !loading ? '#000' : '#333',
+              fontSize: 15, fontWeight: 600, cursor: canSubmit && !loading ? 'pointer' : 'not-allowed',
               transition: 'all 200ms',
             }}
-            onMouseEnter={e => { if (canSubmit) e.currentTarget.style.background = '#00e88a'; }}
-            onMouseLeave={e => { if (canSubmit) e.currentTarget.style.background = '#00DC82'; }}
+            onMouseEnter={e => { if (canSubmit && !loading) e.currentTarget.style.background = '#00e88a'; }}
+            onMouseLeave={e => { if (canSubmit && !loading) e.currentTarget.style.background = '#00DC82'; }}
           >
-            Start free
+            {loading ? 'A criar conta…' : 'Start free'}
           </button>
 
           {/* Legal */}

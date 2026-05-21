@@ -4,7 +4,21 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Copy, Play, Loader2, AlertCircle } from 'lucide-react'
 
-export const metadata = {
+interface CheckResult {
+  check_id: string
+  score: number
+  band: string
+  risk: string
+  decision: string
+  explanation: string
+  confidence: string
+  execution_time_ms: number
+  active_flags: string[]
+  timestamp: string
+}
+
+// metadata não funciona em 'use client' — removido
+const _metadata = {
   title: 'Playground — KairosCheck API',
   description: 'Interactive API playground. Test real fraud detection checks without coding.',
 }
@@ -71,24 +85,24 @@ export default function PlaygroundPage() {
   const [inputDomain, setInputDomain] = useState('paypal.com')
   const [inputIP, setInputIP] = useState('177.70.100.200')
   const [language, setLanguage] = useState('curl')
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState<CheckResult | null>(null)
   const [loading, setLoading] = useState(false)
-  const [copied, setCopied] = useState(null)
-  const resultRef = useRef(null)
+  const [copied, setCopied] = useState<string | null>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
 
-  function copyCode(code, id) {
+  function copyCode(code: string, id: string) {
     navigator.clipboard.writeText(code)
     setCopied(id)
     setTimeout(() => setCopied(null), 2000)
   }
 
-  function getResultColor(score) {
+  function getResultColor(score: number) {
     if (score < 26) return 'var(--kc-success)'
     if (score < 51) return 'var(--kc-warning)'
     return 'var(--kc-danger)'
   }
 
-  function getRiskBand(score) {
+  function getRiskBand(score: number) {
     if (score < 26) return 'SAFE'
     if (score < 51) return 'MEDIUM'
     if (score < 86) return 'HIGH'
@@ -103,7 +117,7 @@ export default function PlaygroundPage() {
     await new Promise(r => setTimeout(r, 800 + Math.random() * 400))
 
     const domain = inputDomain || inputEmail?.split('@')[1] || 'unknown.com'
-    const demoResult = DEMO_DOMAINS[domain.toLowerCase()] || {
+    const demoResult = (DEMO_DOMAINS as Record<string, typeof DEMO_DOMAINS[keyof typeof DEMO_DOMAINS]>)[domain.toLowerCase()] || {
       score: Math.floor(Math.random() * 100),
       band: getRiskBand(Math.floor(Math.random() * 100)).toLowerCase(),
       risk: getRiskBand(Math.floor(Math.random() * 100)),
@@ -124,7 +138,7 @@ export default function PlaygroundPage() {
     resultRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const currentCode = CODE_TEMPLATES[language]
+  const currentCode = (CODE_TEMPLATES as Record<string, string>)[language]
 
   return (
     <div>
@@ -293,7 +307,7 @@ export default function PlaygroundPage() {
                   </div>
                   <div style={{ background: 'var(--kc-bg-base)', borderRadius: '8px', padding: '12px' }}>
                     <span style={{ display: 'block', color: 'var(--kc-text-muted)', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>Confidence</span>
-                    <span style={{ color: 'var(--kc-text-primary)', fontSize: '14px', fontWeight: 700 }}>{Math.round(result.confidence * 100)}%</span>
+                    <span style={{ color: 'var(--kc-text-primary)', fontSize: '14px', fontWeight: 700 }}>{Math.round(parseFloat(result.confidence) * 100)}%</span>
                   </div>
                   <div style={{ background: 'var(--kc-bg-base)', borderRadius: '8px', padding: '12px' }}>
                     <span style={{ display: 'block', color: 'var(--kc-text-muted)', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>Latency</span>

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ArrowRight, Play, BookOpen, Zap, Code } from 'lucide-react'
 

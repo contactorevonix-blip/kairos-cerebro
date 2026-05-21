@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -24,11 +25,45 @@ function GitHubIcon() {
 }
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const canSubmit = email.trim().length > 0 && password.length >= 6;
+
+  const handleLogin = async () => {
+    if (!canSubmit || loading) return;
+    setLoading(true);
+    setError('');
+    try {
+      // Verificar se existe uma conta guardada com este email (MVP: localStorage)
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('kc_user');
+        const user   = stored ? JSON.parse(stored) : null;
+        if (user && user.email === email) {
+          router.push('/dashboard');
+          return;
+        }
+        // Sem conta — verificar se há keys criadas (acesso directo com email)
+        const keysRes = await fetch('/api/keys');
+        const keysData = await keysRes.json();
+        if (keysData.keys && keysData.keys.length > 0) {
+          // Guardar sessão mínima e entrar
+          localStorage.setItem('kc_user', JSON.stringify({ email, name: email.split('@')[0] }));
+          router.push('/dashboard');
+          return;
+        }
+        setError('Conta não encontrada. Cria uma conta primeiro.');
+      }
+    } catch {
+      setError('Erro ao iniciar sessão. Tenta novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#000' }}>
@@ -40,8 +75,8 @@ export default function LoginPage() {
             <div style={{ width: 24, height: 24, borderRadius: 6, background: '#00DC82', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontSize: 11, fontWeight: 700 }}>K</div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#fff' }}>Kairos Check</span>
           </Link>
-          <Link href="/login" style={{ fontSize: 14, color: '#555', textDecoration: 'none' }}>
-            Already have an account? <span style={{ color: '#00DC82', textDecoration: 'underline' }}>Log in</span>
+          <Link href="/signup" style={{ fontSize: 14, color: '#555', textDecoration: 'none' }}>
+            No account yet? <span style={{ color: '#00DC82', textDecoration: 'underline' }}>Sign up free</span>
           </Link>
         </div>
       </header>
@@ -94,11 +129,11 @@ export default function LoginPage() {
               <span style={{ fontFamily: 'var(--font-geist-mono)', fontWeight: 700, fontSize: 24, color: '#00DC82' }}>K</span>
             </div>
             <h1 style={{ fontSize: 26, fontWeight: 600, color: '#fff', marginTop: 24, letterSpacing: '-0.02em' }}>
-              Create your Kairos account
+              Sign in to Kairos
             </h1>
             <p style={{ fontSize: 14, color: '#555', marginTop: 8 }}>
-              Already have an account?{' '}
-              <Link href="/login" style={{ color: '#00DC82', textDecoration: 'underline', cursor: 'pointer' }}>Log in</Link>
+              No account yet?{' '}
+              <Link href="/signup" style={{ color: '#00DC82', textDecoration: 'underline', cursor: 'pointer' }}>Create one free</Link>
             </p>
           </div>
 
@@ -179,21 +214,29 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {/* Error */}
+          {error && (
+            <p style={{ fontSize: 13, color: '#ff4444', background: 'rgba(255,68,68,0.08)', borderRadius: 8, padding: '10px 14px', marginTop: 16 }}>
+              {error}
+            </p>
+          )}
+
           {/* Submit */}
           <button
-            disabled={!canSubmit}
+            disabled={!canSubmit || loading}
+            onClick={handleLogin}
             style={{
               width: '100%', height: 48, borderRadius: 12, marginTop: 24,
-              background: canSubmit ? '#00DC82' : '#111',
-              border: canSubmit ? 'none' : '1px solid #1f1f1f',
-              color: canSubmit ? '#000' : '#333',
-              fontSize: 15, fontWeight: 600, cursor: canSubmit ? 'pointer' : 'not-allowed',
+              background: canSubmit && !loading ? '#00DC82' : '#111',
+              border: canSubmit && !loading ? 'none' : '1px solid #1f1f1f',
+              color: canSubmit && !loading ? '#000' : '#333',
+              fontSize: 15, fontWeight: 600, cursor: canSubmit && !loading ? 'pointer' : 'not-allowed',
               transition: 'all 200ms',
             }}
-            onMouseEnter={e => { if (canSubmit) e.currentTarget.style.background = '#00e88a'; }}
-            onMouseLeave={e => { if (canSubmit) e.currentTarget.style.background = '#00DC82'; }}
+            onMouseEnter={e => { if (canSubmit && !loading) e.currentTarget.style.background = '#00e88a'; }}
+            onMouseLeave={e => { if (canSubmit && !loading) e.currentTarget.style.background = '#00DC82'; }}
           >
-            Create account
+            {loading ? 'A entrar…' : 'Sign in'}
           </button>
 
           {/* Legal */}

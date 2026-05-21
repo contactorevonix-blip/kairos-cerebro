@@ -127,7 +127,7 @@ export default function RateLimitsPage() {
                 </div>
               </div>
 
-              <ul style({ marginBottom: '20px', paddingLeft: 0, listStyle: 'none' }}>
+              <ul style={{ marginBottom: '20px', paddingLeft: 0, listStyle: 'none' }}>
                 {plan.features.map((feature, j) => (
                   <li key={j} style={{
                     color: 'var(--kc-text-secondary)',
