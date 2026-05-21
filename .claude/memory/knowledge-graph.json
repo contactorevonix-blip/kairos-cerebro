@@ -73,5 +73,68 @@
         "doneAt": "2026-05-20T21:06:37.740Z"
       }
     }
+  },
+  "patterns": {
+    "last_consolidated": "2026-05-21T01:49:36.790Z",
+    "total_events": 80,
+    "total_completed": 12,
+    "total_failed": 1,
+    "success_rate": 92
+  },
+  "agents": {
+    "redteam": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    },
+    "@Sage": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    },
+    "@Oracle": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    },
+    "@Aria": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    },
+    "@Dex": {
+      "tasks": 1,
+      "success_rate": null,
+      "top_domain": "backend",
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    },
+    "@CEO": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T01:49:36.791Z"
+    }
+  },
+  "domains": {
+    "unknown": {
+      "count": 11,
+      "fail_rate": 0.08,
+      "avg_cost": 0.2328
+    },
+    "backend": {
+      "count": 1,
+      "fail_rate": 0,
+      "avg_cost": 0
+    }
   }
 }

@@ -2,39 +2,64 @@
 
 /**
  * KAIROS HYPERDRIVE — Escalation Engine
- * Detecta tasks que excedem 10 minutos, escala para manager e regista no Ledger.
+ * Detecta agentes "stuck" que excedem 5 minutos sem completar a task,
+ * escala para o manager responsável e regista o evento no Ledger (hash chain).
  *
- * Lógica:
- *   1. startMonitor(taskId, agentId, taskDescription) — regista início
- *   2. checkEscalation(taskId)                        — verifica se >10min
- *   3. completeTask(taskId, outcome)                  — marca como concluída
- *   4. escalate(reason, context)                      — escala imediatamente (sem timer)
+ * API pública:
+ *   startMonitor(taskId, agentId, taskDescription) — inicia monitorização
+ *   completeTask(taskId, outcome)                  — remove do monitor (task terminada)
+ *   shouldEscalateById(taskId)                     — verifica se >5min por ID
+ *   shouldEscalate(monitor)                        — verifica monitor directo (legacy)
+ *   runScheduledCheck()                            — varre todos os monitores activos
+ *   escalate(reason, context)                      — escala imediatamente (sem timer)
+ *   startAutoPoller(intervalMs?)                   — inicia polling automático real
+ *   stopAutoPoller()                               — para o polling
+ *   getHistory()                                   — histórico de escaladas em memória
+ *   getActiveMonitors()                            — monitores activos com durações
  *
- * Integração com Ledger: todos os eventos críticos são gravados.
+ * Integração com Ledger:
+ *   Todos os eventos de escalonamento e notificação ao manager são gravados
+ *   na hash chain do ledger em .claude/memory/state-ledger.jsonl.
  */
 
 const { append, EVENT_TYPES } = require('../memory/ledger');
 
-const ESCALATION_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutos
+// ─── CONSTANTES ──────────────────────────────────────────────────────────────
 
-// Tipos de evento adicionais (não existem no ledger base)
+/** Threshold de detecção: agente stuck mais de 5 minutos → escalar. */
+const ESCALATION_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutos
+
+/** Intervalo padrão do polling automático: 1 minuto. */
+const DEFAULT_POLL_INTERVAL_MS = 60 * 1000; // 1 minuto
+
+/** Tipos de evento exclusivos do EscalationEngine (não existem no ledger base). */
 const ESCALATION_EVENT = 'TaskEscalated';
 const MANAGER_NOTIFIED  = 'ManagerNotified';
 
+// ─── ENGINE ──────────────────────────────────────────────────────────────────
+
 class EscalationEngine {
+  /**
+   * @param {string[]} [agents]  — lista de agentIds conhecidos (opcional, para overrides futuros)
+   */
   constructor(agents = []) {
-    this.agents  = agents;
-    this.events  = [];       // histórico em memória para debug
-    this.monitors = new Map(); // taskId → { startedAt, agentId, taskDescription, escalated }
+    this.agents   = agents;
+    this.events   = [];        // histórico em memória: todos os escalonamentos desta sessão
+    this.monitors = new Map(); // taskId → MonitorEntry
+
+    /** Handle do setInterval do auto-poller (null = parado) */
+    this._pollTimer = null;
   }
 
-  // ─── MONITOR ──────────────────────────────────────────────────────────────
+  // ─── MONITOR ─────────────────────────────────────────────────────────────
 
   /**
    * Inicia monitorização de uma task.
-   * @param {string} taskId
-   * @param {string} agentId
-   * @param {string} taskDescription
+   * Deve ser chamado logo após o agente começar a trabalhar.
+   *
+   * @param {string} taskId           — ID único da task (ex: runId do orchestrator)
+   * @param {string} agentId          — ex: '@Dex', '@Aria'
+   * @param {string} [taskDescription]— descrição legível (truncada a 200 chars)
    * @returns {{ taskId: string, startedAt: number }}
    */
   startMonitor(taskId, agentId, taskDescription = '') {
@@ -42,7 +67,7 @@ class EscalationEngine {
     this.monitors.set(taskId, {
       taskId,
       agentId,
-      taskDescription: taskDescription.slice(0, 200),
+      taskDescription: String(taskDescription).slice(0, 200),
       startedAt,
       escalated: false,
     });
@@ -50,28 +75,32 @@ class EscalationEngine {
   }
 
   /**
-   * Marca uma task como concluída — remove do monitor.
+   * Marca uma task como concluída e remove o monitor.
+   * Se a task tinha sido escalada, grava o encerramento no ledger (fecha o loop).
+   *
    * @param {string} taskId
-   * @param {'completed'|'failed'|'cancelled'} outcome
-   * @returns {{ durationMs: number, escalated: boolean } | null}
+   * @param {'completed'|'failed'|'cancelled'} [outcome]
+   * @returns {{ durationMs: number, escalated: boolean, outcome: string } | null}
    */
   completeTask(taskId, outcome = 'completed') {
     const monitor = this.monitors.get(taskId);
     if (!monitor) return null;
 
-    const durationMs = Date.now() - monitor.startedAt;
-    const wasEscalated = monitor.escalated;
+    const durationMs    = Date.now() - monitor.startedAt;
+    const wasEscalated  = monitor.escalated;
 
     this.monitors.delete(taskId);
 
-    // Registar conclusão no ledger só se tarefa foi escalada (para fechar o loop)
+    // Registar encerramento no ledger apenas se a task tinha sido escalada
+    // (serve para fechar o loop de auditoria)
     if (wasEscalated) {
       append(monitor.agentId || 'orchestrator', EVENT_TYPES.TaskCompleted, {
         taskId,
         outcome,
         durationMs,
-        durationMin: Math.round(durationMs / 60000 * 10) / 10,
-        note: 'task tinha sido escalada — concluída após escalonamento',
+        durationMin:  Math.round(durationMs / 60_000 * 10) / 10,
+        stuckResolved: true,
+        note: 'task tinha sido escalada por timeout — concluída após escalonamento',
       });
     }
 
@@ -81,7 +110,8 @@ class EscalationEngine {
   // ─── DETECÇÃO ────────────────────────────────────────────────────────────
 
   /**
-   * Verifica se uma task específica deve ser escalada (>10min).
+   * Verifica se uma task específica deve ser escalada (stuck > 5min, ainda não escalada).
+   *
    * @param {string} taskId
    * @returns {boolean}
    */
@@ -92,8 +122,10 @@ class EscalationEngine {
   }
 
   /**
-   * API legacy — aceita objecto monitor directo.
-   * @param {{ started_at?: number } | null} monitor
+   * API legacy — aceita objecto monitor directo (sem taskId).
+   * Útil para verificações pontuais sem registar no mapa de monitores.
+   *
+   * @param {{ started_at?: number, startedAt?: number } | null} monitor
    * @returns {boolean}
    */
   shouldEscalate(monitor) {
@@ -103,34 +135,110 @@ class EscalationEngine {
   }
 
   /**
-   * Varre todos os monitores activos e escala os que ultrapassaram 10min.
-   * Deve ser chamado periodicamente (ex: a cada minuto pelo orchestrator).
-   * @returns {Array<{ taskId: string, agentId: string, durationMs: number }>} lista de escalados
+   * Varre todos os monitores activos e escala imediatamente os que ultrapassaram 5min.
+   * Garante idempotência: tasks já escaladas não voltam a ser escaladas.
+   *
+   * Deve ser chamado periodicamente — ou via startAutoPoller().
+   *
+   * @returns {Array<{ taskId: string, agentId: string, durationMs: number }>}
    */
   runScheduledCheck() {
     const escalated = [];
+
     for (const [taskId, monitor] of this.monitors.entries()) {
-      if (!monitor.escalated && this.shouldEscalate({ started_at: monitor.startedAt })) {
-        const durationMs = Date.now() - monitor.startedAt;
-        this._doEscalate(
-          `Task "${monitor.taskDescription.slice(0, 60)}…" excedeu ${Math.round(durationMs / 60000)}min`,
-          { taskId, agentId: monitor.agentId, durationMs, auto: true }
-        );
-        monitor.escalated = true;
-        escalated.push({ taskId, agentId: monitor.agentId, durationMs });
-      }
+      if (monitor.escalated) continue;
+
+      const durationMs = Date.now() - monitor.startedAt;
+      if (durationMs <= ESCALATION_THRESHOLD_MS) continue;
+
+      const stuckMinutes = Math.round(durationMs / 60_000 * 10) / 10;
+      const reason = `Agente ${monitor.agentId} stuck há ${stuckMinutes}min` +
+        (monitor.taskDescription
+          ? ` na task "${monitor.taskDescription.slice(0, 60)}"`
+          : '');
+
+      this._doEscalate(reason, {
+        taskId,
+        agentId:   monitor.agentId,
+        durationMs,
+        stuckMinutes,
+        auto:      true,
+      });
+
+      monitor.escalated = true;
+      escalated.push({ taskId, agentId: monitor.agentId, durationMs });
     }
+
     return escalated;
+  }
+
+  // ─── AUTO-POLLER ─────────────────────────────────────────────────────────
+
+  /**
+   * Inicia o polling automático que chama runScheduledCheck() a cada intervalMs.
+   * Seguro chamar múltiplas vezes — não duplica o timer.
+   *
+   * @param {number} [intervalMs]  — default: 60_000 (1 minuto)
+   * @returns {this}
+   */
+  startAutoPoller(intervalMs = DEFAULT_POLL_INTERVAL_MS) {
+    if (this._pollTimer) return this; // já está a correr
+
+    this._pollTimer = setInterval(() => {
+      const escalated = this.runScheduledCheck();
+      if (escalated.length > 0) {
+        console.log(
+          `  [EscalationEngine] Auto-poll: ${escalated.length} agente(s) escalado(s) ` +
+          `— ${escalated.map(e => e.agentId).join(', ')}`
+        );
+      }
+    }, intervalMs);
+
+    // Não bloquear o processo Node.js (permite que testes e scripts terminem)
+    if (this._pollTimer.unref) this._pollTimer.unref();
+
+    console.log(
+      `  [EscalationEngine] Auto-poller iniciado ` +
+      `(threshold: ${ESCALATION_THRESHOLD_MS / 60_000}min, ` +
+      `intervalo: ${intervalMs / 60_000}min)`
+    );
+
+    return this;
+  }
+
+  /**
+   * Para o polling automático.
+   * Idempotente — seguro chamar mesmo que o poller não esteja activo.
+   *
+   * @returns {this}
+   */
+  stopAutoPoller() {
+    if (this._pollTimer) {
+      clearInterval(this._pollTimer);
+      this._pollTimer = null;
+      console.log('  [EscalationEngine] Auto-poller parado.');
+    }
+    return this;
+  }
+
+  /**
+   * Indica se o auto-poller está activo.
+   * @returns {boolean}
+   */
+  get isPolling() {
+    return this._pollTimer !== null;
   }
 
   // ─── ESCALADA ────────────────────────────────────────────────────────────
 
   /**
    * Escala imediatamente (sem verificar timer).
-   * Notifica manager, grava no ledger e no histórico em memória.
-   * @param {string} reason
-   * @param {object} context
-   * @returns {{ escalated: boolean, reason: string, timestamp: number, eventId: string }}
+   * Notifica o manager, grava dois eventos no ledger (TaskEscalated + ManagerNotified)
+   * e persiste no histórico em memória.
+   *
+   * @param {string} reason    — motivo legível (ex: "sem convergência após deliberação")
+   * @param {object} [context] — { taskId?, agentId?, durationMs?, stuckMinutes?, auto? }
+   * @returns {{ escalated: true, reason: string, manager: string, timestamp: number, eventId: string }}
    */
   escalate(reason, context = {}) {
     return this._doEscalate(reason, context);
@@ -138,52 +246,63 @@ class EscalationEngine {
 
   /**
    * Implementação interna de escalonamento.
+   * Centraliza toda a lógica para que runScheduledCheck() e escalate() sejam consistentes.
+   *
    * @private
    */
   _doEscalate(reason, context = {}) {
-    const timestamp = Date.now();
-    const manager   = this._selectManager(context.agentId);
+    const timestamp    = Date.now();
+    const manager      = this._selectManager(context.agentId);
+    const stuckMinutes = context.stuckMinutes
+      || (context.durationMs ? Math.round(context.durationMs / 60_000 * 10) / 10 : null);
 
+    // ── 1. Guardar no histórico em memória ────────────────────────────────
     const entry = {
-      escalated:  true,
+      escalated:    true,
       reason,
       context,
       manager,
       timestamp,
+      stuckMinutes,
     };
-
-    // Guardar no histórico em memória
     this.events.push(entry);
 
-    // Notificar no console (substitui notificação externa que seria via webhook)
+    // ── 2. Log imediato no console ────────────────────────────────────────
     console.log(`\n  🚨 ESCALATION → ${manager}`);
     console.log(`     Razão:    ${reason}`);
-    if (context.taskId)    console.log(`     Task ID:  ${context.taskId}`);
-    if (context.agentId)   console.log(`     Agente:   ${context.agentId}`);
-    if (context.durationMs) {
-      console.log(`     Duração:  ${Math.round(context.durationMs / 60000 * 10) / 10}min`);
+    if (context.taskId)      console.log(`     Task ID:  ${context.taskId}`);
+    if (context.agentId)     console.log(`     Agente:   ${context.agentId}`);
+    if (stuckMinutes !== null) {
+      console.log(`     Stuck há: ${stuckMinutes}min (threshold: ${ESCALATION_THRESHOLD_MS / 60_000}min)`);
     }
+    console.log(`     Manager:  ${manager} notificado\n`);
 
-    // Gravar evento de escalonamento no Ledger (hash chain)
+    // ── 3. Gravar evento TaskEscalated no Ledger (hash chain) ─────────────
     const escalationEvent = append(
       context.agentId || 'orchestrator',
       ESCALATION_EVENT,
       {
-        reason:     reason.slice(0, 300),
+        reason:       reason.slice(0, 300),
         manager,
-        taskId:     context.taskId   || null,
-        durationMs: context.durationMs || null,
-        auto:       context.auto     || false,
-        ts:         new Date().toISOString(),
+        taskId:       context.taskId    || null,
+        agentId:      context.agentId   || null,
+        durationMs:   context.durationMs || null,
+        stuckMinutes: stuckMinutes,
+        threshold:    ESCALATION_THRESHOLD_MS,
+        auto:         context.auto      || false,
+        ts:           new Date().toISOString(),
       }
     );
 
-    // Gravar notificação ao manager no Ledger
+    // ── 4. Gravar evento ManagerNotified no Ledger ────────────────────────
+    //      (actor = manager para facilitar queries por agente)
     append(manager, MANAGER_NOTIFIED, {
       escalationEventId: escalationEvent.id,
-      reason: reason.slice(0, 200),
-      taskId: context.taskId || null,
-      ts:     new Date().toISOString(),
+      reason:       reason.slice(0, 200),
+      taskId:       context.taskId  || null,
+      agentId:      context.agentId || null,
+      stuckMinutes: stuckMinutes,
+      ts:           new Date().toISOString(),
     });
 
     return {
@@ -198,8 +317,9 @@ class EscalationEngine {
   // ─── UTILITÁRIOS ─────────────────────────────────────────────────────────
 
   /**
-   * Selecciona o manager mais adequado com base no agente que falhou.
-   * Mapeamento: agente → manager de fallback.
+   * Selecciona o manager mais adequado para o agente que ficou stuck.
+   * Hierarquia de escalação definida na Kairos Constitution.
+   *
    * @param {string} [agentId]
    * @returns {string}
    */
@@ -220,28 +340,28 @@ class EscalationEngine {
   }
 
   /**
-   * Retorna histórico de escaladas (para reports e debugging).
-   * @returns {Array}
+   * Retorna histórico completo de escaladas desta sessão (imutável).
+   * @returns {ReadonlyArray<object>}
    */
   getHistory() {
     return [...this.events];
   }
 
   /**
-   * Retorna tasks actualmente em monitorização.
-   * @returns {Array<{ taskId, agentId, durationMs, escalated }>}
+   * Retorna lista de tasks actualmente em monitorização com durações calculadas.
+   * @returns {Array<{ taskId, agentId, durationMs, durationMin, escalated, description }>}
    */
   getActiveMonitors() {
     const now = Date.now();
     return Array.from(this.monitors.values()).map(m => ({
-      taskId:     m.taskId,
-      agentId:    m.agentId,
-      durationMs: now - m.startedAt,
-      durationMin: Math.round((now - m.startedAt) / 60000 * 10) / 10,
-      escalated:  m.escalated,
+      taskId:      m.taskId,
+      agentId:     m.agentId,
+      durationMs:  now - m.startedAt,
+      durationMin: Math.round((now - m.startedAt) / 60_000 * 10) / 10,
+      escalated:   m.escalated,
       description: m.taskDescription,
     }));
   }
 }
 
-module.exports = { EscalationEngine, ESCALATION_THRESHOLD_MS };
+module.exports = { EscalationEngine, ESCALATION_THRESHOLD_MS, DEFAULT_POLL_INTERVAL_MS };

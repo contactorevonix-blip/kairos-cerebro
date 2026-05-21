@@ -1,0 +1,159 @@
+/* ─── KAIROS HYPERDRIVE — Global Styles ─────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Geist Sans font stack */
+  --font-sans: 'Geist', 'Geist Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', 'SF Mono', 'Fira Code', 'Cascadia Code',
+    Consolas, monospace;
+
+  /* Dark palette */
+  --bg-base:      #000000;
+  --bg-panel:     #0a0a0a;
+  --bg-card:      #111111;
+  --bg-card-hover:#161616;
+  --bg-elevated:  #1a1a1a;
+  --bg-input:     #0f0f0f;
+
+  /* Borders */
+  --border:       rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.14);
+  --border-focus: rgba(255,255,255,0.25);
+
+  /* Text */
+  --text-primary:   rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary:  rgba(255,255,255,0.35);
+  --text-disabled:  rgba(255,255,255,0.20);
+
+  /* Semantic colours */
+  --color-green:    #22c55e;
+  --color-green-dim: rgba(34,197,94,0.12);
+  --color-yellow:   #eab308;
+  --color-yellow-dim: rgba(234,179,8,0.12);
+  --color-red:      #ef4444;
+  --color-red-dim:  rgba(239,68,68,0.12);
+  --color-blue:     #3b82f6;
+  --color-blue-dim: rgba(59,130,246,0.12);
+  --color-cyan:     #06b6d4;
+  --color-cyan-dim: rgba(6,182,212,0.10);
+  --color-purple:   #a855f7;
+  --color-purple-dim: rgba(168,85,247,0.12);
+  --color-orange:   #f97316;
+  --color-orange-dim: rgba(249,115,22,0.12);
+
+  /* Accent — KAIROS brand */
+  --accent:       #6366f1;
+  --accent-light: rgba(99,102,241,0.15);
+  --accent-glow:  rgba(99,102,241,0.30);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+/* Selection */
+::selection { background: var(--accent-light); color: var(--text-primary); }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Mono spans */
+.mono { font-family: var(--font-mono); }
+
+/* Pulse animation */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slide-in-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--accent-glow); }
+  50%       { box-shadow: 0 0 20px var(--accent-glow), 0 0 40px rgba(99,102,241,0.15); }
+}
+
+/* Utility classes */
+.animate-fade-in    { animation: fade-in 300ms ease forwards; }
+.animate-slide-up   { animation: slide-in-up 250ms ease forwards; }
+.animate-slide-right { animation: slide-in-right 250ms ease forwards; }
