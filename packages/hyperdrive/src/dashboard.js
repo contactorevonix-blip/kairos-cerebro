@@ -18,32 +18,33 @@ const { getBudgetStatus }   = require('./providers/anthropic');
 const { append, EVENT_TYPES } = require('./memory/ledger');
 
 const ROOT       = path.join(__dirname, '..', '..', '..');
-const LEDGER_PATH = path.join(ROOT, '.claude', 'memory', 'state-ledger.jsonl');
+const LEDGER_PATH = process.env.KAIROS_LEDGER_PATH ||
+  path.join(ROOT, '.claude', 'memory', 'state-ledger.jsonl');
 const SNAP_DIR    = path.join(ROOT, '.claude', 'memory', 'snapshots');
 
 // ─── ANSI HELPERS ──────────────────────────────────────────────────────────
 
 const A = {
-  reset:    '\x1b[0m',
-  bold:     '\x1b[1m',
-  dim:      '\x1b[2m',
-  red:      '\x1b[31m',
-  green:    '\x1b[32m',
-  yellow:   '\x1b[33m',
-  blue:     '\x1b[34m',
-  magenta:  '\x1b[35m',
-  cyan:     '\x1b[36m',
-  white:    '\x1b[37m',
-  bgRed:    '\x1b[41m',
-  bgGreen:  '\x1b[42m',
-  bgBlue:   '\x1b[44m',
-  clearLine:'\x1b[2K',
-  up:       (n) => `\x1b[${n}A`,
-  saveCursor:   '\x1b7',
-  restoreCursor:'\x1b8',
-  hideCursor:   '\x1b[?25l',
-  showCursor:   '\x1b[?25h',
-  clearScreen:  '\x1b[2J\x1b[H',
+  reset:    '\\x1b[0m',
+  bold:     '\\x1b[1m',
+  dim:      '\\x1b[2m',
+  red:      '\\x1b[31m',
+  green:    '\\x1b[32m',
+  yellow:   '\\x1b[33m',
+  blue:     '\\x1b[34m',
+  magenta:  '\\x1b[35m',
+  cyan:     '\\x1b[36m',
+  white:    '\\x1b[37m',
+  bgRed:    '\\x1b[41m',
+  bgGreen:  '\\x1b[42m',
+  bgBlue:   '\\x1b[44m',
+  clearLine:'\\x1b[2K',
+  up:       (n) => `\\x1b[${n}A`,
+  saveCursor:   '\\x1b7',
+  restoreCursor:'\\x1b8',
+  hideCursor:   '\\x1b[?25l',
+  showCursor:   '\\x1b[?25h',
+  clearScreen:  '\\x1b[2J\\x1b[H',
 };
 
 function c(color, text) { return `${A[color] || ''}${text}${A.reset}`; }
@@ -56,7 +57,7 @@ function readLedgerTail(n = 8) {
   try {
     const content = fs.readFileSync(LEDGER_PATH, 'utf8').trim();
     if (!content) return [];
-    return content.split('\n').filter(Boolean)
+    return content.split('\\n').filter(Boolean)
       .slice(-n)
       .map(line => { try { return JSON.parse(line); } catch { return null; } })
       .filter(Boolean);
@@ -66,7 +67,7 @@ function readLedgerTail(n = 8) {
 function countLedgerEvents() {
   try {
     const content = fs.readFileSync(LEDGER_PATH, 'utf8').trim();
-    return content ? content.split('\n').filter(Boolean).length : 0;
+    return content ? content.split('\\n').filter(Boolean).length : 0;
   } catch { return 0; }
 }
 
@@ -104,7 +105,7 @@ function renderHeader(startMs, emergency) {
     rows.push(c('bgRed', `│ ${c('bold', '🚨 EMERGENCY PAUSE ACTIVO')} — Motivo: ${emergency.reason || 'manual'} `.padEnd(WIDTH - 1) + '│'));
   }
 
-  return rows.join('\n');
+  return rows.join('\\n');
 }
 
 function renderSection(title, rows) {
@@ -114,7 +115,7 @@ function renderSection(title, rows) {
   for (const row of rows) {
     lines.push(`│ ${pad(row, WIDTH - 3)}│`);
   }
-  return lines.join('\n');
+  return lines.join('\\n');
 }
 
 function renderLedger(events) {
@@ -208,7 +209,7 @@ function render(startMs) {
     renderFooter(),
   ];
 
-  return blocks.join('\n') + '\n';
+  return blocks.join('\\n') + '\\n';
 }
 
 let _startMs = Date.now();
@@ -253,8 +254,8 @@ function start(opts = {}) {
         stop();
         pause('Ctrl+E — manual pelo CEO');
         process.stdout.write(A.showCursor);
-        console.log('\n\n🚨 EMERGENCY PAUSE activado.');
-        console.log('   Retomar: node packages/hyperdrive/src/cli.js --resume\n');
+        console.log('\\n\\n🚨 EMERGENCY PAUSE activado.');
+        console.log('   Retomar: node packages/hyperdrive/src/cli.js --resume\\n');
         process.exit(0);
       }
       // Ctrl+C
@@ -264,7 +265,7 @@ function start(opts = {}) {
         createSnapshot({}, [], { reason: 'Ctrl+C' });
         append('orchestrator', EVENT_TYPES.RunInterrupted, { reason: 'Ctrl+C' });
         process.stdout.write(A.showCursor);
-        console.log('\n\nSnapshot forçado. Saindo.');
+        console.log('\\n\\nSnapshot forçado. Saindo.');
         process.exit(130);
       }
     });
@@ -272,7 +273,7 @@ function start(opts = {}) {
 
   const draw = () => {
     const output = render(_startMs);
-    const lines  = output.split('\n').length;
+    const lines  = output.split('\\n').length;
     if (_lineCount > 0) {
       process.stdout.write(A.up(_lineCount));
     }

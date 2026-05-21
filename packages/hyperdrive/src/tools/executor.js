@@ -4,6 +4,7 @@
  * KAIROS HYPERDRIVE — Tool Executor
  * Execução real de ferramentas de filesystem + browser headless.
  * Segurança: paths validados contra ROOT; URLs só https://.
+ * Browser tools desabilitas em Railway (env RAILWAY=true).
  */
 
 const fs   = require('node:fs');
@@ -14,6 +15,9 @@ const ROOT = path.resolve(path.join(__dirname, '..', '..', '..', '..'));
 const MAX_READ_LINES   = 500;
 const MAX_LIST_ENTRIES = 200;
 const MAX_GREP_RESULTS = 100;
+
+// Check if running in Railway
+const IS_RAILWAY = process.env.RAILWAY === 'true';
 
 // Extensões binárias a ignorar em grep e read
 const BINARY_EXTS = new Set([
@@ -244,6 +248,16 @@ async function browserScreenshot({
   viewport_width  = 1440,
   viewport_height = 900,
 }) {
+  // Desabilitar em Railway
+  if (IS_RAILWAY) {
+    return {
+      ok: false,
+      url,
+      path: outputPath,
+      error: 'browser_screenshot não está disponível em Railway (sem Chromium no container). Use browser_get_page ou tools de filesystem.',
+    };
+  }
+
   assertSafeUrl(url);
   const abs = safePath(outputPath); // lança em segurança
   fs.mkdirSync(path.dirname(abs), { recursive: true });
@@ -273,6 +287,15 @@ async function browserScreenshot({
 }
 
 async function browserGetPage({ url, selector, max_chars = 8000 }) {
+  // Desabilitar em Railway
+  if (IS_RAILWAY) {
+    return {
+      url,
+      error: 'browser_get_page não está disponível em Railway (sem Chromium no container). Use tools de filesystem ou HTTP requests diretos.',
+      content: '',
+    };
+  }
+
   assertSafeUrl(url);
 
   const { chromium } = require('playwright');

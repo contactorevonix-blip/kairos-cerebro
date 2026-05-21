@@ -9,7 +9,8 @@ const path   = require('node:path');
 const { append, EVENT_TYPES } = require('../memory/ledger');
 
 const ROOT        = path.resolve(__dirname, '..', '..', '..', '..');
-const LEDGER_PATH = path.join(ROOT, '.claude', 'memory', 'state-ledger.jsonl');
+const LEDGER_PATH = process.env.KAIROS_LEDGER_PATH ||
+  path.join(ROOT, '.claude', 'memory', 'state-ledger.jsonl');
 
 function loadLedger() {
   const fs = require('node:fs');
@@ -18,7 +19,7 @@ function loadLedger() {
   try {
     const raw = fs.readFileSync(LEDGER_PATH, 'utf8').trim();
     if (raw) {
-      events = raw.split('\n')
+      events = raw.split('\\n')
         .filter(Boolean)
         .map(l => { try { return JSON.parse(l); } catch { return null; } })
         .filter(Boolean);

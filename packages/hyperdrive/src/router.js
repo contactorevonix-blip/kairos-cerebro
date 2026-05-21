@@ -130,6 +130,15 @@ function classify(task, files = []) {
     }
   }
 
+  // Se a task tem palavras de auditoria/verificação, infra perde peso —
+  // "verificar o Railway" é navegacao, não deploy de infra.
+  const AUDIT_OVERRIDE = ['verificar', 'verificação', 'auditoria', 'audit',
+    'listar', 'reportar', 'relatório', 'report', 'inspecionar', 'confirmar',
+    'correr testes', 'run tests', 'o que está', 'pré-deploy', 'pre-deploy'];
+  if (AUDIT_OVERRIDE.some(kw => lower.includes(kw))) {
+    if (scores['infra']) scores['infra'] *= 0.3;  // reduzir peso de infra drasticamente
+  }
+
   // Domínio dominante
   const topDomain = Object.keys(scores).sort((a, b) => scores[b] - scores[a])[0] || 'backend';
   const topScore  = scores[topDomain] || 0;
