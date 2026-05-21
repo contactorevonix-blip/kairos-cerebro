@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS — Cost Analyser
  * Analisa custos no ledger e projecta mensal.

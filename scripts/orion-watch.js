@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS @ORION — Guardian 24/7
  * Verifica o repositório continuamente e mantém a saúde do sistema.

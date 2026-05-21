@@ -26,6 +26,27 @@ const MILESTONES = {
       'passo-6-backend-deploy',
     ],
   },
+  'check-engine-v1': {
+    label: 'Check-engine v1.0 (fraud signals PT-BR)',
+    steps: [
+      'ce-fase-1-ptbr-validators',
+      'ce-fase-2-email-sources',
+      'ce-fase-3-ip-sources',
+      'ce-fase-4-rules-engine',
+      'ce-fase-5-api-server',
+      'ce-fase-6-testes-39',
+    ],
+  },
+  'reorganizacao-sistema': {
+    label: 'Reorganização Sistema — CLAUDE.md + router + authority',
+    steps: [
+      'reorg-claude-md',
+      'reorg-agent-authority-v2',
+      'reorg-router-13-dominios',
+      'reorg-kairos-constitution-v12',
+      'reorg-orion-watch-247',
+    ],
+  },
   'hyperdrive-v1': {
     label: 'KAIROS HYPERDRIVE v1',
     steps: [

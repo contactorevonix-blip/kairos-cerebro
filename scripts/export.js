@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS — Knowledge Export
  * Exporta tudo para kairos-knowledge-backup-{data}.json

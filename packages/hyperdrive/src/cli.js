@@ -23,6 +23,29 @@
 const path = require('node:path');
 const fs   = require('node:fs');
 
+// ─── AUTO-LOADER DE .env ───────────────────────────────────────────────────
+// Carrega .env da raiz do projecto antes de qualquer outra coisa.
+// Garante que KAIROS_TASK_HARD_STOP_USD, KAIROS_LIVE, etc. estão disponíveis
+// mesmo sem `export $(...)` manual no terminal.
+// Não sobrescreve vars já definidas no ambiente — seguro em Railway/CI.
+(function loadDotEnv() {
+  const envFile = path.join(__dirname, '..', '..', '..', '.env');
+  if (!fs.existsSync(envFile)) return;
+  try {
+    fs.readFileSync(envFile, 'utf8').split('\n').forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) return;
+      const eq = trimmed.indexOf('=');
+      if (eq < 1) return;
+      const key = trimmed.slice(0, eq).trim();
+      const val = trimmed.slice(eq + 1).trim();
+      if (key && val && process.env[key] === undefined) {
+        process.env[key] = val;
+      }
+    });
+  } catch { /* .env inaccessível — silencioso */ }
+})();
+
 // Ledger path — suporta KAIROS_LEDGER_PATH env var para Railway
 const LEDGER_PATH = process.env.KAIROS_LEDGER_PATH ||
   path.join(__dirname, '..', '..', '..', '.claude', 'memory', 'state-ledger.jsonl');

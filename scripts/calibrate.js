@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS — Calibrate Agent Confidence
  * Lê historial e actualiza baseConfidence em .claude/agents/*.md

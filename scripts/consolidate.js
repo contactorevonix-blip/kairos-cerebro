@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS — Consolidate
  * Lê ledger, extrai padrões, actualiza knowledge-graph.json.

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS HYPERDRIVE — Overnight Runner
  * Executa lista de tasks sequencialmente via HYPERDRIVE LIVE.

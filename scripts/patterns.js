@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+require('./load-env'); // auto-load .env
+
 /**
  * KAIROS — Pattern Detector
  * Analisa ledger dos últimos 30 dias, detecta padrões, guarda em patterns.json.

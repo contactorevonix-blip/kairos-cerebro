@@ -7,6 +7,8 @@
  * Usage: npm run kairos:health
  */
 
+require('./load-env'); // carregar .env antes de qualquer verificação
+
 const fs     = require('node:fs');
 const path   = require('node:path');
 const http   = require('node:http');

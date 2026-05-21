@@ -33,10 +33,54 @@
       "passo-2-estrategia": {
         "status": "done",
         "doneAt": "2026-05-20T00:00:00.000Z"
-      },
-      "passo-4-arquitectura": {
+      }
+    },
+    "check-engine-v1": {
+      "ce-fase-1-ptbr-validators": {
         "status": "done",
-        "doneAt": "2026-05-20T00:00:00.000Z"
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      },
+      "ce-fase-2-email-sources": {
+        "status": "done",
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      },
+      "ce-fase-3-ip-sources": {
+        "status": "done",
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      },
+      "ce-fase-4-rules-engine": {
+        "status": "done",
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      },
+      "ce-fase-5-api-server": {
+        "status": "done",
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      },
+      "ce-fase-6-testes-39": {
+        "status": "done",
+        "doneAt": "2026-05-21T00:00:00.000Z"
+      }
+    },
+    "reorganizacao-sistema": {
+      "reorg-claude-md": {
+        "status": "done",
+        "doneAt": "2026-05-21T12:00:00.000Z"
+      },
+      "reorg-agent-authority-v2": {
+        "status": "done",
+        "doneAt": "2026-05-21T12:00:00.000Z"
+      },
+      "reorg-router-13-dominios": {
+        "status": "done",
+        "doneAt": "2026-05-21T12:00:00.000Z"
+      },
+      "reorg-kairos-constitution-v12": {
+        "status": "done",
+        "doneAt": "2026-05-21T12:00:00.000Z"
+      },
+      "reorg-orion-watch-247": {
+        "status": "done",
+        "doneAt": "2026-05-21T12:00:00.000Z"
       }
     },
     "hyperdrive-v1": {
@@ -75,7 +119,7 @@
     }
   },
   "patterns": {
-    "last_consolidated": "2026-05-21T09:56:17.834Z",
+    "last_consolidated": "2026-05-21T11:32:40.638Z",
     "total_events": 168,
     "total_completed": 26,
     "total_failed": 1,
@@ -87,63 +131,63 @@
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Sage": {
       "tasks": 1,
       "success_rate": null,
       "top_domain": "unknown",
       "total_cost_usd": 0.7902,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Oracle": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Aria": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Dex": {
       "tasks": 17,
       "success_rate": 1,
       "top_domain": "unknown",
       "total_cost_usd": 5.1495,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@CEO": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Orion": {
       "tasks": 7,
       "success_rate": 1,
       "top_domain": "unknown",
       "total_cost_usd": 0.3592,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Quinn": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     },
     "@Gage": {
       "tasks": 1,
       "success_rate": null,
       "top_domain": "unknown",
       "total_cost_usd": 0.0423,
-      "calibrated_at": "2026-05-21T09:56:17.835Z"
+      "calibrated_at": "2026-05-21T11:32:40.639Z"
     }
   },
   "domains": {
