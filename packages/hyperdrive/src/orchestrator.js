@@ -313,8 +313,10 @@ async function orchestrate(task, files = [], options = {}) {
 
       append('orchestrator', EVENT_TYPES.TaskCompleted, {
         runId,
-        ledger:    'integrated',
-        agent:     leadAgent,
+        ledger:         'integrated',
+        agent:          leadAgent,
+        quality_score:  execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
+        confidence_real: route.confidence,
         consensusRound: consensus.round,
         costUsd:   getBudgetStatus().taskCostUsd,
       });
@@ -341,8 +343,10 @@ async function orchestrate(task, files = [], options = {}) {
 
     append('orchestrator', EVENT_TYPES.TaskCompleted, {
       runId,
-      agent:  leadAgent,
-      costUsd: getBudgetStatus().taskCostUsd,
+      agent:          leadAgent,
+      costUsd:        getBudgetStatus().taskCostUsd,
+      quality_score:  execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
+      confidence_real: route.confidence,
     });
 
     result = {

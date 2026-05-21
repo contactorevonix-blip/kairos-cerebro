@@ -110,6 +110,7 @@ const SENSITIVE_FILES = [
 
 const SHORT_TASK_WORD_THRESHOLD = 8;
 const SHORT_TASK_CONFIDENCE_BOOST = 0.20;
+const LONG_TASK_WORD_THRESHOLD = 20; // tasks longas → aviso de divisão
 
 /**
  * Conta palavras reais numa string (ignora pontuação e espaços extra).
@@ -118,6 +119,16 @@ const SHORT_TASK_CONFIDENCE_BOOST = 0.20;
  */
 function countWords(text) {
   return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+// Contador global para rotação de agentes de navegação
+let _navAgentIndex = 0;
+const NAV_AGENT_ROTATION = ['@Orion', '@Aria', '@Quinn'];
+
+function nextNavAgent() {
+  const agent = NAV_AGENT_ROTATION[_navAgentIndex % NAV_AGENT_ROTATION.length];
+  _navAgentIndex++;
+  return agent;
 }
 
 // ─── ROUTER ─────────────────────────────────────────────────────────────────
@@ -177,6 +188,14 @@ function classify(task, files = []) {
     );
   }
 
+  // ─── LONG TASK DETECTION ───────────────────────────────────────────────────
+  const wordCountFull = countWords(task);
+  const isLongTask = wordCountFull > LONG_TASK_WORD_THRESHOLD;
+  if (isLongTask) {
+    console.log(`  ⚠️  Task longa (${wordCountFull} palavras > ${LONG_TASK_WORD_THRESHOLD}) — considera dividir em sub-tasks para melhor resultado.`);
+    reasons.push(`long-task-warning: ${wordCountFull} palavras`);
+  }
+
   // Arredondar para 2 casas decimais
   confidence = Math.round(confidence * 100) / 100;
 
@@ -189,10 +208,10 @@ function classify(task, files = []) {
   // - domain é auditoria (alwaysCritical)
   // - task tem "critical" explícito
   // - toca ficheiros sensíveis
-  // - confidence baixa (< 0.4 — task ambígua)
+  // - confidence abaixo do threshold configurado
   const minConfidence = process.env.KAIROS_MIN_CONFIDENCE
     ? Number(process.env.KAIROS_MIN_CONFIDENCE)
-    : 0.4;
+    : 0.25; // Lowered from 0.4 → 0.25: menos false positives de consenso
 
   const critical =
     DOMAINS[topDomain]?.alwaysCritical === true ||
@@ -201,7 +220,13 @@ function classify(task, files = []) {
     touchesSensitive ||
     confidence < minConfidence;
 
-  const agents = DOMAINS[topDomain]?.agents || ['@Dex', '@Aria'];
+  // ─── NAVEGAÇÃO: ROTAÇÃO DE AGENTES ─────────────────────────────────────────
+  // Alterna @Orion/@Aria/@Quinn em vez de sempre usar @Orion primeiro.
+  let agents = DOMAINS[topDomain]?.agents || ['@Dex', '@Aria'];
+  if (topDomain === 'navegacao') {
+    const primaryNav = nextNavAgent();
+    agents = [primaryNav, ...NAV_AGENT_ROTATION.filter(a => a !== primaryNav)];
+  }
 
   return {
     domain:     topDomain,

@@ -23,7 +23,8 @@ const HYPERDRIVE_CONFIG = {
   reportStyle: process.env.KAIROS_REPORT_STYLE || 'summary-only',
 
   // Threshold mínimo de confiança do agente para execução directa (sem consenso)
-  minConfidenceForDirect: Number(process.env.KAIROS_MIN_CONFIDENCE || 0.4),
+  // Baixado de 0.4 → 0.25: menos tasks são escaladas para consenso desnecessariamente
+  minConfidenceForDirect: Number(process.env.KAIROS_MIN_CONFIDENCE || 0.25),
 
   // Max tokens para respostas de execução (aumentado para tasks complexas)
   maxTokensExecution: Number(process.env.KAIROS_MAX_TOKENS || 8192),
