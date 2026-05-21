@@ -30,6 +30,8 @@ const { createSnapshot }    = require('./memory/snapshot');
 const { markMilestoneStep } = require('./memory/knowledge-graph');
 const { EscalationEngine }  = require('./core/escalation-engine');
 const { PostMortemEngine }  = require('./core/postmortem-engine');
+const { SpecPipeline }      = require('./core/spec-pipeline');
+const { RecoveryEngine }    = require('./core/recovery-engine');
 const {
   invoke,
   invokeWithTools,
@@ -41,6 +43,8 @@ const {
 // Instâncias singleton dos engines auxiliares
 const escalationEngine = new EscalationEngine();
 const postmortemEngine = new PostMortemEngine();
+const specPipeline     = new SpecPipeline();
+const recoveryEngine   = new RecoveryEngine(); // eslint-disable-line no-unused-vars
 
 // ─── DETECÇÃO DE TASKS OPERACIONAIS ───────────────────────────────────────────
 
@@ -215,6 +219,101 @@ async function runConsensus(task, domain, ctx) {
   return { reached: false, proposals, finalApproach: null, round: MAX_DELIBERATION_ROUNDS };
 }
 
+// ─── RED TEAM AUTOMÁTICO ──────────────────────────────────────────────────
+
+/**
+ * Corre red team automaticamente após tasks de código.
+ * NÃO bloqueia — reporta status no output e no ledger.
+ *
+ * @param {string} domain        - domínio classificado pelo router
+ * @param {string} taskDesc      - descrição da task (para contexto)
+ * @param {string} runId         - ID da task para o ledger
+ * @returns {Promise<{skipped: boolean, status?: string, critical?: number, high?: number}>}
+ */
+async function runAutoRedTeam(domain, taskDesc, runId) {
+  const CODE_DOMAINS = ['backend', 'frontend', 'check-engine', 'seguranca'];
+
+  if (!CODE_DOMAINS.includes(domain)) {
+    return { skipped: true, reason: 'non_code_domain' };
+  }
+
+  if (process.env.KAIROS_LIVE !== '1') {
+    return { skipped: true, reason: 'mock_mode' };
+  }
+
+  // Procurar ficheiros .js modificados nas últimas 2 horas em packages/
+  const packagesDir = path.join(__dirname, '..', '..', '..', 'packages');
+  if (!fs.existsSync(packagesDir)) return { skipped: true, reason: 'no_packages_dir' };
+
+  const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
+  const recentFiles = [];
+
+  function findRecent(dir, depth = 0) {
+    if (depth > 4) return;
+    try {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.name === 'node_modules') continue;
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          findRecent(fullPath, depth + 1);
+        } else if (entry.name.endsWith('.js')) {
+          try {
+            const stat = fs.statSync(fullPath);
+            if (stat.mtimeMs > twoHoursAgo) recentFiles.push(fullPath);
+          } catch (_) {}
+        }
+      }
+    } catch (_) {}
+  }
+
+  findRecent(packagesDir);
+
+  if (recentFiles.length === 0) {
+    return { skipped: true, reason: 'no_recent_files' };
+  }
+
+  const { run } = require('./redteam/index');
+  let totalCritical = 0;
+  let totalHigh     = 0;
+  let totalMedium   = 0;
+
+  console.log(`\n🔴 RED TEAM AUTO — a analisar ${recentFiles.length} ficheiro(s) recente(s)...`);
+
+  for (const filePath of recentFiles.slice(0, 10)) {
+    try {
+      const code   = fs.readFileSync(filePath, 'utf-8');
+      const report = run(code, filePath, {});
+      totalCritical += report.critical || 0;
+      totalHigh     += report.high     || 0;
+      totalMedium   += report.medium   || 0;
+    } catch (_) {}
+  }
+
+  const status = totalCritical > 0 ? 'CRITICAL'
+               : totalHigh     > 0 ? 'HIGH'
+               : totalMedium   > 0 ? 'MEDIUM'
+               : 'CLEAN';
+
+  console.log(`   Status: ${status} | Critical: ${totalCritical} | High: ${totalHigh} | Medium: ${totalMedium}`);
+
+  if (totalCritical > 0) {
+    console.log('   ⚠️  Findings CRÍTICOS detectados — @Rex deve rever antes de deploy.');
+  }
+
+  append('red-team-auto', 'RedTeamAutoCompleted', {
+    runId,
+    domain,
+    status,
+    files_checked: Math.min(recentFiles.length, 10),
+    critical: totalCritical,
+    high:     totalHigh,
+    medium:   totalMedium,
+  });
+
+  return { skipped: false, status, critical: totalCritical, high: totalHigh, medium: totalMedium };
+}
+
 // ─── ORQUESTRADOR PRINCIPAL ────────────────────────────────────────────────
 
 /**
@@ -228,6 +327,13 @@ async function orchestrate(task, files = [], options = {}) {
   resetTaskBudget();
   const runId    = ulid();
   const taskStart = Date.now();
+
+  // SPEC PIPELINE — gerar spec para tasks complexas
+  const specResult  = await specPipeline.generateSpec(task, {});
+  const specContext = specPipeline.formatAsContext(specResult);
+  if (specContext) {
+    console.log('  📋 Spec injectada no contexto do agente.');
+  }
 
   // Registar task no monitor de escalação
   const monitorId = `run-${runId}`;
@@ -309,7 +415,7 @@ async function orchestrate(task, files = [], options = {}) {
       // Consenso alcançado → executar com o agente principal
       console.log(`  ✅ Consenso alcançado (ronda ${consensus.round}, avg confidence ${consensus.avgConfidence})`);
       const leadAgent = route.agents[0];
-      const execCtx   = { ...ctx, consensusApproach: consensus.finalApproach };
+      const execCtx   = { ...ctx, consensusApproach: consensus.finalApproach, specContext };
       const useTools  = isOperationalTask(task);
       if (useTools) console.log(`  [TOOLS] Task operacional → invokeWithTools`);
       const execution = useTools
@@ -318,12 +424,14 @@ async function orchestrate(task, files = [], options = {}) {
 
       append('orchestrator', EVENT_TYPES.TaskCompleted, {
         runId,
-        ledger:         'integrated',
-        agent:          leadAgent,
-        quality_score:  execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
+        ledger:          'integrated',
+        agent:           leadAgent,
+        quality_score:   execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
         confidence_real: route.confidence,
-        consensusRound: consensus.round,
-        costUsd:   getBudgetStatus().taskCostUsd,
+        consensusRound:  consensus.round,
+        costUsd:         getBudgetStatus().taskCostUsd,
+        red_team:        redTeamStatus,
+        spec_id:         specResult?.spec?.id || null,
       });
 
       result = {
@@ -342,16 +450,19 @@ async function orchestrate(task, files = [], options = {}) {
     const leadAgent = route.agents[0];
     const useTools  = isOperationalTask(task);
     console.log(`  → Execução directa por ${leadAgent}${useTools ? ' [com tools]' : ''}`);
+    const execCtx   = { ...ctx, specContext };
     const execution = useTools
       ? await invokeWithTools(leadAgent, task, files, { domain: route.domain })
-      : await invoke(leadAgent, task, 'execute', ctx);
+      : await invoke(leadAgent, task, 'execute', execCtx);
 
     append('orchestrator', EVENT_TYPES.TaskCompleted, {
       runId,
-      agent:          leadAgent,
-      costUsd:        getBudgetStatus().taskCostUsd,
-      quality_score:  execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
+      agent:           leadAgent,
+      costUsd:         getBudgetStatus().taskCostUsd,
+      quality_score:   execution?.costUsd < 0.05 ? 9.0 : execution?.costUsd < 0.20 ? 8.5 : 8.0,
       confidence_real: route.confidence,
+      red_team:        redTeamStatus,
+      spec_id:         specResult?.spec?.id || null,
     });
 
     result = {
@@ -364,6 +475,17 @@ async function orchestrate(task, files = [], options = {}) {
       ledgerEventId: runId,
       budget:  getBudgetStatus(),
     };
+  }
+
+  // RED TEAM AUTOMÁTICO — após execução bem-sucedida
+  let redTeamStatus = 'skipped';
+  if (result.ok && !options.dryRun) {
+    try {
+      const rtResult = await runAutoRedTeam(route.domain, task, runId);
+      redTeamStatus = rtResult.status || 'skipped';
+    } catch (rtErr) {
+      console.warn(`  ⚠️  Red Team auto falhou: ${rtErr.message}`);
+    }
   }
 
   // 4. Completar monitor de escalação
@@ -404,4 +526,4 @@ async function orchestrate(task, files = [], options = {}) {
   return result;
 }
 
-module.exports = { orchestrate, runConsensus, classify, escalationEngine, postmortemEngine };
+module.exports = { orchestrate, runConsensus, classify, escalationEngine, postmortemEngine, specPipeline, recoveryEngine };
