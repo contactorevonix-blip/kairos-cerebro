@@ -67,12 +67,17 @@ function isOperationalTask(task) {
 
 // ─── CONFIGURAÇÃO ──────────────────────────────────────────────────────────
 
+// Quórum baseado nos 11 agentes reais (ADR-013)
 const CONSENSUS_QUORUM = {
-  default:    ['@Sage', '@Oracle', '@Aria'],   // arquitectura/estratégia
-  backend:    ['@Dex',  '@Aria',   '@Quinn'],  // técnico backend
-  auditoria:  ['@Rex',  '@Aria',   '@Quinn'],  // segurança
-  vendas:     ['@Hermes','@Sage',  '@Morgan'], // commercial
-  crescimento:['@Morgan','@Sage',  '@Oracle'], // growth
+  default:     ['@Sage',   '@Oracle', '@Aria'],   // arquitectura/estratégia
+  backend:     ['@Dex',    '@Aria',   '@Quinn'],   // técnico backend
+  seguranca:   ['@Rex',    '@Aria',   '@Quinn'],   // segurança — @Rex obrigatório
+  'check-engine': ['@Dex', '@Rex',   '@Quinn'],   // check-engine
+  vendas:      ['@Hermes', '@Sage',  '@Morgan'],  // commercial
+  crescimento: ['@Morgan', '@Sage',  '@Oracle'],  // growth
+  analytics:   ['@Oracle', '@Sage',  '@Aria'],    // métricas
+  design:      ['@Uma',    '@Dex',   '@Quinn'],   // design
+  infra:       ['@Gage',   '@Aria',  '@Rex'],     // infra
 };
 
 const SIMILARITY_THRESHOLD  = 0.8;  // convergência mínima

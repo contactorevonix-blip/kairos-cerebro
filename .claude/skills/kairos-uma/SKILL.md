@@ -248,3 +248,20 @@ Passo para: @Dex — specs de componentes com tokens e animações
             @Aria — confirmação que design é implementável na stack
             @Quinn — revisão de UI antes de PR (acessibilidade, dark mode)
 Chamo sempre: CEO antes de qualquer decisão de direcção visual major
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

@@ -239,3 +239,20 @@ Recebo de: Stripe → MRR real
 Passo para: CEO — Company Score + Weekly Report
             @Sage — dados reais para ajustar estratégia
 Alerto imediatamente: CEO quando runway < 30 dias ou MRR decresce
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

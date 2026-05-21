@@ -240,3 +240,20 @@ Passo para: @Dex — ADRs aprovadas + contexto para implementação
             @Quinn — para revisão de ADRs antes de merge
             @Orion — para guardar em KAIROS/03-ENGENHARIA/adr/
 Chamo sempre: CEO antes de qualquer decisão arquitectural major
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

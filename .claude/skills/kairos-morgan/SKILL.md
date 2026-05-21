@@ -212,3 +212,20 @@ Passo para: @Uma — copy aprovado para implementar nas páginas
             @Hermes — ICP e mensagens validadas para outreach
             @Dex — specs de SEO programático para implementar
 Chamo sempre: CEO antes de qualquer publicação externa (Product Hunt, IH, X)
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

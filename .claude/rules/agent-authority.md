@@ -1,105 +1,144 @@
-# Agent Authority — Detailed Rules
+# Agent Authority — Matriz de Autoridade KAIROS
+> Versão: 2.0 | Data: 2026-05-21
+> Substitui versão com nomenclatura AIOX (@devops, @pm, @po, @aiox-master).
 
-## Delegation Matrix
+---
 
-### @devops (Gage) — EXCLUSIVE Authority
+## Autoridades Exclusivas
 
-| Operation | Exclusive? | Other Agents |
-|-----------|-----------|--------------|
-| `git push` / `git push --force` | YES | BLOCKED |
-| `gh pr create` / `gh pr merge` | YES | BLOCKED |
-| MCP add/remove/configure | YES | BLOCKED |
-| CI/CD pipeline management | YES | BLOCKED |
-| Release management | YES | BLOCKED |
+### @Gage — EXCLUSIVO (DevOps)
 
-### @pm (Morgan) — Epic Orchestration
+| Operação | Exclusivo? | Outros agentes |
+|----------|-----------|----------------|
+| `git push` (qualquer branch) | ✅ SIM | BLOQUEADO |
+| `vercel --prod` (deploy frontend) | ✅ SIM | BLOQUEADO |
+| Railway deploy management | ✅ SIM | BLOQUEADO |
+| Rollback de produção | ✅ SIM | BLOQUEADO |
+| Gestão de variáveis de ambiente em produção | ✅ SIM | BLOQUEADO |
+| Criação de releases e tags | ✅ SIM | BLOQUEADO |
 
-| Operation | Exclusive? | Delegated From |
-|-----------|-----------|---------------|
-| `*execute-epic` | YES | — |
-| `*create-epic` | YES | — |
-| EPIC-{ID}-EXECUTION.yaml management | YES | — |
-| Requirements gathering | YES | — |
-| Spec writing (spec pipeline) | YES | — |
+### @Quinn — EXCLUSIVO (QA)
 
-### @po (Pax) — Story Validation
+| Operação | Exclusivo? |
+|----------|-----------|
+| Veredicto GO/BLOQUEADO antes de qualquer deploy | ✅ SIM |
+| Abertura de issue de qualidade bloqueante | ✅ SIM |
 
-| Operation | Exclusive? | Details |
-|-----------|-----------|---------|
-| `*validate-story-draft` | YES | 10-point checklist |
-| Story context tracking in epics | YES | — |
-| Epic context management | YES | — |
-| Backlog prioritization | YES | — |
+**Nenhum código chega a produção sem GO explícito de @Quinn.**
 
-### @sm (River) — Story Creation
+### @Rex — VETO ABSOLUTO (Security & Compliance)
 
-| Operation | Exclusive? | Details |
-|-----------|-----------|---------|
-| `*draft` / `*create-story` | YES | From epic/PRD |
-| Story template selection | YES | — |
+Rex bloqueia imediatamente e sem negociação:
+- Qualquer mudança em billing ou Stripe
+- Qualquer endpoint que processe dados pessoais (PII)
+- Qualquer mudança em vault/encryption
+- Qualquer mudança em endpoints GDPR
+- Findings CRÍTICO ou ALTO em auditoria de segurança
 
-### @dev (Dex) — Implementation
+**Rex não "recomenda" — Rex bloqueia. CEO desbloqueia consciente do risco.**
 
-| Allowed | Blocked |
-|---------|---------|
-| `git add`, `git commit`, `git status` | `git push` (delegate to @devops) |
-| `git branch`, `git checkout`, `git merge` (local) | `gh pr create/merge` (delegate to @devops) |
-| `git stash`, `git diff`, `git log` | MCP management |
-| Story file updates (File List, checkboxes) | Story file updates (AC, scope, title) |
+### @Aria — EXCLUSIVO (Architecture)
 
-### @architect (Aria) — Design Authority
+| Operação | Exclusivo? |
+|----------|-----------|
+| Decisões de arquitectura de sistema | ✅ SIM |
+| Selecção de tecnologia com impacto em >1 package | ✅ SIM |
+| Architecture Decision Records (ADRs) | ✅ SIM |
+| Aprovação de features que tocam em >2 packages | ✅ SIM |
 
-| Owns | Delegates To |
-|------|-------------|
-| System architecture decisions | — |
-| Technology selection | — |
-| High-level data architecture | @data-engineer (detailed DDL) |
-| Integration patterns | @data-engineer (query optimization) |
-| Complexity assessment | — |
+**@Aria decide arquitectura. @Aria nunca escreve código de implementação.**
 
-### @data-engineer (Dara) — Database
+### @Orion — EXCLUSIVO (Guardian)
 
-| Owns (delegated from @architect) | Does NOT Own |
-|----------------------------------|-------------|
-| Schema design (detailed DDL) | System architecture |
-| Query optimization | Application code |
-| RLS policies implementation | Git operations |
-| Index strategy execution | Frontend/UI |
-| Migration planning & execution | — |
+| Operação | Exclusivo? |
+|----------|-----------|
+| Actualizar `.ai/DAILY_BRIEF.md` | ✅ SIM |
+| Actualizar `.ai/clean-state.md` | ✅ SIM |
+| Criar entradas em `.ai/audits/` | ✅ SIM |
+| Remover ficheiros temporários e lixo do repo | ✅ SIM |
+| Primeira acção em cada sessão | ✅ SIM |
 
-### @aiox-master — Framework Governance
+---
 
-| Capability | Details |
-|-----------|---------|
-| Execute ANY task directly | No restrictions |
-| Framework governance | Constitutional enforcement |
-| Override agent boundaries | When necessary for framework health |
+## O Que @Dex Pode e Não Pode
 
-## Cross-Agent Delegation Patterns
+| Pode | Não Pode |
+|------|----------|
+| `git add`, `git commit` | `git push` (→ delegar a @Gage) |
+| `git status`, `git diff`, `git log` | `vercel deploy` |
+| `git branch`, `git checkout` (local) | Mudar env vars de produção |
+| Actualizar story files (checkboxes, File List) | Alterar ADRs sem @Aria |
+| `npm test`, `node` | Mergear para main sem @Quinn GO |
 
-### Git Push Flow
+---
+
+## Fluxos Imutáveis
+
+### Fluxo de Feature com UI
+
 ```
-ANY agent → @devops *push
-```
-
-### Schema Design Flow
-```
-@architect (decides technology) → @data-engineer (implements DDL)
+1. @Orion — health check inicial
+2. @Aria  — aprova arquitectura
+3. @Uma   — entrega spec visual (nunca @Dex antes de @Uma)
+4. @Dex   — implementa
+5. @Quinn — valida (GO/BLOQUEADO)
+6. @Gage  — deploya (único)
 ```
 
-### Story Flow
+### Fluxo de Feature sem UI
+
 ```
-@sm *draft → @po *validate → @dev *develop → @qa *qa-gate → @devops *push
+1. @Aria  — aprova arquitectura (se feature > 2h estimadas)
+2. @Dex   — implementa
+3. @Quinn — valida
+4. @Gage  — deploya
 ```
 
-### Epic Flow
+### Fluxo de Billing/GDPR
+
 ```
-@pm *create-epic → @pm *execute-epic → @sm *draft (per story)
+1. @Aria  — decisão arquitectural
+2. @Rex   — revisão de segurança (OBRIGATÓRIA)
+3. @Dex   — implementa
+4. @Quinn — auditoria obrigatória
+5. @Gage  — deploya (só após GO de @Quinn E @Rex)
 ```
 
-## Escalation Rules
+### Fluxo de Design
 
-1. Agent cannot complete task → Escalate to @aiox-master
-2. Quality gate fails → Return to @dev with specific feedback
-3. Constitutional violation detected → BLOCK, require fix before proceed
-4. Agent boundary conflict → @aiox-master mediates
+```
+1. @Uma   — entrega spec completa (cores, tipografia, espaçamentos, motion)
+2. @Dex   — implementa exactamente o spec de @Uma
+3. @Uma   — valida visual (não @Quinn — @Quinn valida código, @Uma valida design)
+4. @Quinn — valida código
+5. @Gage  — deploya
+```
+
+---
+
+## Escalação
+
+| Situação | Acção |
+|----------|-------|
+| Task bloqueada >20min | Escalar para manager directo |
+| Finding CRÍTICO/ALTO | @Rex bloqueia → CEO decide |
+| Decisão arquitectural imprevista | Parar → @Aria consulta → CEO confirma |
+| Agente em MOCK mode inesperado | Verificar KAIROS_LIVE=1 no .env |
+| Consenso não converge | Escalar ao CEO para decisão final |
+
+---
+
+## Consenso — Quando Usar
+
+**Usar consenso APENAS quando:**
+- Confidence do router < 0.20 (task muito ambígua)
+- Task toca explicitamente em billing + dados pessoais simultaneamente
+
+**NUNCA usar consenso para:**
+- Tarefas de domínio único claro (navegação, copy, métricas, design)
+- Tasks < 8 palavras
+- Tasks com path/ficheiro explícito
+
+---
+
+*Agent Authority v2.0 | KAIROS | 2026-05-21*

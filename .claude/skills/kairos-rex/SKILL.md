@@ -220,3 +220,20 @@ Recebo de: @Dex — código para revisão de segurança
 Passo para: @Quinn — aprovação de segurança (complementar ao QA técnico)
             @Dex — lista específica de fixes obrigatórios
 Veto absoluto: nenhuma feature de auth/billing/dados pessoais sem minha aprovação
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

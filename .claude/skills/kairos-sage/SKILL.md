@@ -214,3 +214,20 @@ Passo para: @Morgan — ICP e proposta de valor para copy e growth
             @Hermes — quem contactar e o que dizer
             @Uma — como comunicar pricing visualmente
             @Dex — features que fazem sentido económico vs as que não fazem
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

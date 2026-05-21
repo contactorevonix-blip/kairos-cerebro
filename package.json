@@ -23,6 +23,7 @@
     "kairos:web:dev": "npm run dev --prefix packages/web",
     "kairos:web:build": "npm run build --prefix packages/web",
     "kairos:overnight": "node scripts/run-overnight.js",
+    "kairos:orion": "node scripts/orion-watch.js",
     "kairos:consolidate": "node scripts/consolidate.js",
     "kairos:calibrate": "node scripts/calibrate.js",
     "kairos:patterns": "node scripts/patterns.js",

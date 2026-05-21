@@ -18,22 +18,37 @@ Destino: 100M€ MRR. Não é aspiração — é pressuposto.
 ## ESTADO ACTUAL (ler antes de qualquer sessão)
 
 ```
-Data:    2026-05-20
+Data:    2026-05-21
 Stripe:  ACTIVO ✅ (charges_enabled: true)
-Testes:  214/214 PASS — 0 FAIL ✅
+Testes:  253/253 PASS (214 sniper-api + 39 check-engine) ✅
 Tenants: 4 activos
-Runway:  ~45 dias
 
-OS 6 PASSOS DO REBUILD:
+PASSOS DO REBUILD:
   Passo 0: Preparação              ✅ CONCLUÍDO
   Passo 1: Skills + Specs          ✅ CONCLUÍDO
-           (11 skills + 16 specs em KAIROS/03-ENGENHARIA/specs/)
-  Pré-P2:  Limpeza + testes        ✅ CONCLUÍDO (commit 4595b6b)
-  Passo 2: Estratégia e negócio    ← PRÓXIMO
-  Passo 3: Design System do zero
-  Passo 4: Arquitectura frontend
-  Passo 5: Implementação
-  Passo 6: Backend + deploy final
+  Pré-P2:  Limpeza + testes        ✅ CONCLUÍDO
+  Passo 2: Estratégia e negócio    ✅ CONCLUÍDO (Company Score 57/100)
+  EXTRA:   HYPERDRIVE operacional  ✅ CONCLUÍDO (motor multi-agente LIVE)
+  EXTRA:   Check-engine v1.0       ✅ CONCLUÍDO (signals PT-BR, $0/mês)
+  Passo 3: Design System           ← PRÓXIMO (@Uma)
+  Passo 4: Arquitectura Next.js    (@Aria)
+  Passo 5: Implementação           (@Dex + @Uma + @Quinn)
+  Passo 6: Backend + deploy final  (@Aria + @Dex + @Rex + @Quinn + @Gage)
+
+HYPERDRIVE:
+  Motor de orquestração: packages/hyperdrive/
+  Modo: LIVE (KAIROS_LIVE=1)
+  Ledger: 168 eventos | @Dex 0.90 | @Orion 0.90
+  Scripts: npm run kairos:health|consolidate|calibrate|patterns|costs|export|overnight|orion
+
+NOVOS PACKAGES:
+  packages/check-engine/        — motor anti-fraude v1.0
+  packages/hyperdrive/          — orquestrador multi-agente
+  packages/hyperdrive-dashboard/ — dashboard React tempo real
+
+NOVOS SCRIPTS (scripts/):
+  health.js, consolidate.js, calibrate.js, patterns.js,
+  costs.js, export.js, run-overnight.js, orion-watch.js
 ```
 
 ---

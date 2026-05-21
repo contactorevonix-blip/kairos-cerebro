@@ -241,3 +241,20 @@ Recebo de: @Dex — código a validar
 Passo para: @Gage — GO formal (condição obrigatória para deploy)
             CEO — veredicto final com evidência
 Nunca substituo: ninguém escreve código por mim, ninguém faz deploy sem mim
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+

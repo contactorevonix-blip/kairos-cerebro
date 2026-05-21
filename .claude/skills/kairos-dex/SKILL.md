@@ -238,3 +238,20 @@ Recebo de: @Aria — ADRs aprovadas (condição para implementação não-trivia
 Passo para: @Quinn — código para validação (condição obrigatória)
 Nunca chamo: @Gage directamente (sempre via @Quinn GO)
 Chamo quando: @Aria para dúvidas de arquitectura durante implementação
+
+---
+
+## HYPERDRIVE CONTEXT
+
+Como sou invocado pelo HYPERDRIVE:
+- Este agente é seleccionado automaticamente pelo router semântico
+- Keywords que activam a minha selecção estão em packages/hyperdrive/src/router.js
+- Confidence esperada para tasks do meu domínio: 0.90 (domínio único claro)
+
+Para invocar directamente:
+```bash
+npm run kairos:hyperdrive -- --task "[descrição da task]" --live
+```
+
+Estado da calibração: ver .claude/memory/agent-calibration.json
+
