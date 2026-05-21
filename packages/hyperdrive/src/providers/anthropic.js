@@ -334,11 +334,14 @@ async function invokeWithTools(agentId, task, files = [], opts = {}) {
       throw new Error(`Budget excedido na iteração ${iterations} ($${nowBudget.taskCostUsd.toFixed(4)})`);
     }
 
+    // Na primeira iteração forçar uso de ferramentas (tool_choice: any).
+    // Nas iterações seguintes deixar o modelo decidir (pode responder com texto).
     const body = {
-      model:      modelId,
-      max_tokens: Number(process.env.KAIROS_MAX_TOKENS || 8192),
-      system:     systemBlocks,
-      tools:      TOOL_DEFINITIONS,
+      model:        modelId,
+      max_tokens:   Number(process.env.KAIROS_MAX_TOKENS || 8192),
+      system:       systemBlocks,
+      tools:        TOOL_DEFINITIONS,
+      tool_choice:  iterations === 1 ? { type: 'any' } : { type: 'auto' },
       messages,
     };
 
