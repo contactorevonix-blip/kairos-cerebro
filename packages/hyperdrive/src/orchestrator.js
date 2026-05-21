@@ -40,10 +40,17 @@ const {
 // Keywords que indicam que o agente precisa de executar operações reais no filesystem.
 // Nestes casos usa-se invokeWithTools em vez de invoke.
 const OPERATIONAL_KEYWORDS = [
+  // Escrita
   'produzir', 'criar ficheiro', 'escrever ficheiro', 'gerar ficheiro',
-  '.json', 'inventory', 'extractions', '.ai/', 'output:',
-  'scan', 'procurar em', 'listar ficheiros', 'grep',
-  'read_file', 'write_file', 'list_directory',
+  'write_file', '.json', 'inventory', 'extractions', '.ai/', 'output:',
+  // Leitura / listagem — variantes PT e EN
+  'listar ficheiros', 'lista os ficheiros', 'lista ficheiros', 'listar',
+  'list files', 'list_directory', 'read_file',
+  'mostra os ficheiros', 'mostra ficheiros', 'ver ficheiros',
+  // Pesquisa
+  'scan', 'procurar em', 'grep', 'grep_files', 'pesquisar em',
+  // Paths concretos — qualquer task com caminho de pacote ou extensão
+  'packages/', 'src/', '.ts', '.js', '.md',
 ];
 
 function isOperationalTask(task) {
