@@ -19,7 +19,7 @@ function loadLedger() {
   try {
     const raw = fs.readFileSync(LEDGER_PATH, 'utf8').trim();
     if (raw) {
-      events = raw.split('\\n')
+      events = raw.split('\n')
         .filter(Boolean)
         .map(l => { try { return JSON.parse(l); } catch { return null; } })
         .filter(Boolean);
