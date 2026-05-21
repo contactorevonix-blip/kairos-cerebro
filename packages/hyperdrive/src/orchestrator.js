@@ -20,6 +20,7 @@
  * @property {object|null} consensus
  * @property {string} ledgerEventId
  * @property {object} budget
+ * @property {object} [postmortem]   — registo PostMortem após cada execução
  */
 
 const { classify }          = require('./router');
@@ -27,6 +28,8 @@ const { HYPERDRIVE_CONFIG } = require('./config');
 const { append, EVENT_TYPES, ulid } = require('./memory/ledger');
 const { createSnapshot }    = require('./memory/snapshot');
 const { markMilestoneStep } = require('./memory/knowledge-graph');
+const { EscalationEngine }  = require('./core/escalation-engine');
+const { PostMortemEngine }  = require('./core/postmortem-engine');
 const {
   invoke,
   invokeWithTools,
@@ -34,6 +37,10 @@ const {
   getBudgetStatus,
   CONFIG,
 } = require('./providers/anthropic');
+
+// Instâncias singleton dos engines auxiliares
+const escalationEngine = new EscalationEngine();
+const postmortemEngine = new PostMortemEngine();
 
 // ─── DETECÇÃO DE TASKS OPERACIONAIS ───────────────────────────────────────────
 
@@ -214,7 +221,11 @@ async function runConsensus(task, domain, ctx) {
  */
 async function orchestrate(task, files = [], options = {}) {
   resetTaskBudget();
-  const runId = ulid();
+  const runId    = ulid();
+  const taskStart = Date.now();
+
+  // Registar task no monitor de escalação
+  const monitorId = `run-${runId}`;
 
   append('orchestrator', EVENT_TYPES.TaskCreated, {
     runId,
@@ -227,16 +238,20 @@ async function orchestrate(task, files = [], options = {}) {
   // 1. Classificar
   const route = classify(task, files);
   console.log(`\n[HYPERDRIVE] Task: "${task.slice(0, 80)}"`);
-  console.log(`  Domain: ${route.domain} | Critical: ${route.critical} | Confidence: ${route.confidence}`);
+  console.log(`  Domain: ${route.domain} | Critical: ${route.critical} | Confidence: ${route.confidence}${route.shortTaskBoost ? ' (+boost)' : ''}`);
   console.log(`  Mode: ${CONFIG.isLive ? 'LIVE' : 'MOCK'} | Agents: ${route.agents.join(', ')}`);
 
   append('orchestrator', EVENT_TYPES.TaskStarted, {
     runId,
-    domain:   route.domain,
-    critical: route.critical,
-    agents:   route.agents,
+    domain:     route.domain,
+    critical:   route.critical,
+    agents:     route.agents,
     confidence: route.confidence,
+    shortTaskBoost: route.shortTaskBoost || false,
   });
+
+  // Iniciar monitor de escalação (detecção de tasks > 10min)
+  escalationEngine.startMonitor(monitorId, route.agents[0], task);
 
   const ctx = pruneContext({ task, files, route, options });
   let result;
@@ -268,6 +283,13 @@ async function orchestrate(task, files = [], options = {}) {
       for (const p of proposals3) {
         console.log(`\n  ${p.agentId} (confidence: ${p.confidence}):\n  ${p.approach?.slice(0, 200)}`);
       }
+
+      // Escalar via EscalationEngine → grava no Ledger
+      escalationEngine.escalate(
+        'Sem convergência após deliberação de consenso',
+        { taskId: monitorId, agentId: route.agents[0] }
+      );
+
       result = {
         ok:      false,
         mode:    'escalated',
@@ -335,16 +357,42 @@ async function orchestrate(task, files = [], options = {}) {
     };
   }
 
-  // 4. Snapshot se task crítica
+  // 4. Completar monitor de escalação
+  const durationMs = Date.now() - taskStart;
+  escalationEngine.completeTask(monitorId, result.ok ? 'completed' : 'failed');
+
+  // 5. Post-mortem automático (após toda task)
+  if (!options.dryRun) {
+    try {
+      const postmortem = await postmortemEngine.analyze(
+        { id: runId, description: task },
+        result,
+        {
+          status:     result.ok ? 'completed' : (result.mode === 'escalated' ? 'escalated' : 'failed'),
+          durationMs,
+          agent:      route.agents[0],
+          domain:     route.domain,
+          escalated:  result.mode === 'escalated',
+        }
+      );
+      result.postmortem = postmortem;
+      console.log(`  📋 PostMortem: ${postmortem.outcome} | ${postmortem.duration_min}min | ${postmortem.learnings.length} learnings`);
+    } catch (pmErr) {
+      // PostMortem nunca bloqueia — falha silenciosa com aviso
+      console.warn(`  ⚠️  PostMortem falhou: ${pmErr.message}`);
+    }
+  }
+
+  // 6. Snapshot se task crítica
   if (needsConsensus) {
     createSnapshot({ lastTask: task, lastResult: result.ok }, [], { runId });
   }
 
-  // 5. Relatório de budget
+  // 7. Relatório de budget
   const budget = getBudgetStatus();
   console.log(`\n  Budget: $${budget.taskCostUsd} / $${budget.hardStop} (sessão: $${budget.sessionCostUsd})`);
 
   return result;
 }
 
-module.exports = { orchestrate, runConsensus, classify };
+module.exports = { orchestrate, runConsensus, classify, escalationEngine, postmortemEngine };

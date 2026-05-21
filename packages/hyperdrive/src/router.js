@@ -13,6 +13,7 @@
  * @property {boolean} critical   - Requer consenso sénior
  * @property {number} confidence  - 0..1 confiança na classificação
  * @property {string[]} reasons   - Razões da classificação
+ * @property {boolean} shortTaskBoost - true se boost de +0.20 foi aplicado (< 8 palavras)
  */
 
 // ─── DOMÍNIOS E KEYWORDS ────────────────────────────────────────────────────
@@ -101,6 +102,24 @@ const SENSITIVE_FILES = [
   'ADR-', 'stripe', 'webhook',
 ];
 
+// ─── SHORT TASK BOOST ────────────────────────────────────────────────────────
+// Tasks curtas (< 8 palavras) recebem confidence boost de +0.20.
+// Razão: tasks muito curtas são normalmente comandos directos e não ambíguos
+// (ex: "deploy", "correr testes", "fix stripe") — mereciam confiança alta mas
+// a contagem de keywords é baixa. O boost compensa essa distorção.
+
+const SHORT_TASK_WORD_THRESHOLD = 8;
+const SHORT_TASK_CONFIDENCE_BOOST = 0.20;
+
+/**
+ * Conta palavras reais numa string (ignora pontuação e espaços extra).
+ * @param {string} text
+ * @returns {number}
+ */
+function countWords(text) {
+  return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
 // ─── ROUTER ─────────────────────────────────────────────────────────────────
 
 /**
@@ -143,7 +162,23 @@ function classify(task, files = []) {
   const topDomain = Object.keys(scores).sort((a, b) => scores[b] - scores[a])[0] || 'backend';
   const topScore  = scores[topDomain] || 0;
   const total     = Object.values(scores).reduce((s, v) => s + v, 0) || 1;
-  const confidence = Math.min(topScore / total, 1);
+  let   confidence = Math.min(topScore / total, 1);
+
+  // ─── SHORT TASK BOOST ───────────────────────────────────────────────────
+  // Tasks com menos de 8 palavras recebem +0.20 de confidence.
+  // Aplica-se ANTES do cap em 1.0 (o cap já existe no Math.min abaixo).
+  const wordCount    = countWords(task);
+  const shortTaskBoost = wordCount < SHORT_TASK_WORD_THRESHOLD;
+
+  if (shortTaskBoost) {
+    confidence = Math.min(confidence + SHORT_TASK_CONFIDENCE_BOOST, 1);
+    reasons.push(
+      `short-task-boost: +${SHORT_TASK_CONFIDENCE_BOOST} (${wordCount} palavras < ${SHORT_TASK_WORD_THRESHOLD})`
+    );
+  }
+
+  // Arredondar para 2 casas decimais
+  confidence = Math.round(confidence * 100) / 100;
 
   // Detectar ficheiros sensíveis
   const touchesSensitive = files.some(f =>
@@ -155,12 +190,16 @@ function classify(task, files = []) {
   // - task tem "critical" explícito
   // - toca ficheiros sensíveis
   // - confidence baixa (< 0.4 — task ambígua)
+  const minConfidence = process.env.KAIROS_MIN_CONFIDENCE
+    ? Number(process.env.KAIROS_MIN_CONFIDENCE)
+    : 0.4;
+
   const critical =
     DOMAINS[topDomain]?.alwaysCritical === true ||
     lower.includes('critical') ||
     lower.includes('crítico') ||
     touchesSensitive ||
-    confidence < (process.env.KAIROS_MIN_CONFIDENCE ? Number(process.env.KAIROS_MIN_CONFIDENCE) : 0.4);
+    confidence < minConfidence;
 
   const agents = DOMAINS[topDomain]?.agents || ['@Dex', '@Aria'];
 
@@ -168,11 +207,13 @@ function classify(task, files = []) {
     domain:     topDomain,
     agents,
     critical,
-    confidence: Math.round(confidence * 100) / 100,
+    confidence,
     reasons,
     touchesSensitive,
+    shortTaskBoost,
+    wordCount,
     scores, // debug
   };
 }
 
-module.exports = { classify, DOMAINS, SENSITIVE_FILES };
+module.exports = { classify, DOMAINS, SENSITIVE_FILES, SHORT_TASK_WORD_THRESHOLD, SHORT_TASK_CONFIDENCE_BOOST };
