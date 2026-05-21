@@ -47,8 +47,9 @@ function main() {
   const agentStats = {};
 
   for (const ev of events) {
-    const agent = ev.actor || ev.payload?.agent;
-    if (!agent || agent === 'orchestrator') continue;
+    // actor é normalmente 'orchestrator' — o agente real está em payload.agent
+    const agent = ev.payload?.agent || (ev.actor !== 'orchestrator' ? ev.actor : null);
+    if (!agent) continue;
 
     if (!agentStats[agent]) {
       agentStats[agent] = { tasks: 0, successes: 0, failures: 0, domains: {}, totalCost: 0 };

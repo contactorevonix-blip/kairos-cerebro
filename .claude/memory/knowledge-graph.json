@@ -75,11 +75,11 @@
     }
   },
   "patterns": {
-    "last_consolidated": "2026-05-21T01:49:36.790Z",
-    "total_events": 80,
-    "total_completed": 12,
+    "last_consolidated": "2026-05-21T09:56:17.834Z",
+    "total_events": 168,
+    "total_completed": 26,
     "total_failed": 1,
-    "success_rate": 92
+    "success_rate": 96
   },
   "agents": {
     "redteam": {
@@ -87,49 +87,70 @@
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     },
     "@Sage": {
-      "tasks": 0,
+      "tasks": 1,
       "success_rate": null,
-      "top_domain": null,
-      "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "top_domain": "unknown",
+      "total_cost_usd": 0.7902,
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     },
     "@Oracle": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     },
     "@Aria": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     },
     "@Dex": {
-      "tasks": 1,
-      "success_rate": null,
-      "top_domain": "backend",
-      "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "tasks": 17,
+      "success_rate": 1,
+      "top_domain": "unknown",
+      "total_cost_usd": 5.1495,
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     },
     "@CEO": {
       "tasks": 0,
       "success_rate": null,
       "top_domain": null,
       "total_cost_usd": 0,
-      "calibrated_at": "2026-05-21T01:49:36.791Z"
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
+    },
+    "@Orion": {
+      "tasks": 7,
+      "success_rate": 1,
+      "top_domain": "unknown",
+      "total_cost_usd": 0.3592,
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
+    },
+    "@Quinn": {
+      "tasks": 0,
+      "success_rate": null,
+      "top_domain": null,
+      "total_cost_usd": 0,
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
+    },
+    "@Gage": {
+      "tasks": 1,
+      "success_rate": null,
+      "top_domain": "unknown",
+      "total_cost_usd": 0.0423,
+      "calibrated_at": "2026-05-21T09:56:17.835Z"
     }
   },
   "domains": {
     "unknown": {
-      "count": 11,
-      "fail_rate": 0.08,
-      "avg_cost": 0.2328
+      "count": 25,
+      "fail_rate": 0.04,
+      "avg_cost": 0.2536
     },
     "backend": {
       "count": 1,
