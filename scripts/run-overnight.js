@@ -144,7 +144,9 @@ async function main() {
     }
 
     try {
-      const result = spawnSync('npm', ['run', 'kairos:hyperdrive', '--', '--task', task, '--live'], {
+      // Invocar node directamente para evitar problemas com npm.cmd no Windows
+      const cliPath = path.join(ROOT, 'packages', 'hyperdrive', 'src', 'cli.js');
+      const result = spawnSync(process.execPath, [cliPath, '--task', task, '--live'], {
         cwd:      ROOT,
         encoding: 'utf8',
         timeout:  20 * 60 * 1000, // 20min por task
