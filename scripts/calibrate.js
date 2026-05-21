@@ -13,6 +13,7 @@ const path = require('node:path');
 const ROOT       = path.resolve(__dirname, '..');
 const LEDGER     = process.env.KAIROS_LEDGER_PATH || path.join(ROOT, '.claude', 'memory', 'state-ledger.jsonl');
 const AGENTS_DIR = path.join(ROOT, '.claude', 'agents');
+const CALIB_FILE = path.join(ROOT, '.claude', 'memory', 'agent-calibration.json');
 
 function c(code, t) {
   const m = { reset:'\x1b[0m', bold:'\x1b[1m', green:'\x1b[32m', yellow:'\x1b[33m', red:'\x1b[31m', dim:'\x1b[2m', cyan:'\x1b[36m' };
@@ -95,27 +96,47 @@ function main() {
       continue;
     }
 
-    const delta     = newConf - oldConf;
-    const deltaStr  = delta > 0 ? c('green', `+${delta.toFixed(2)}`) : delta < 0 ? c('red', delta.toFixed(2)) : c('dim', '±0');
-    const taskCount = events.filter(e => e.actor === agentId && ['TaskCompleted','TaskFailed'].includes(e.type)).length;
-    const reason    = `${Math.round((events.filter(e => e.actor === agentId && e.type === 'TaskCompleted').length / taskCount) * 100)}% success`;
+    const delta = newConf - oldConf;
+    const deltaStr = delta > 0 ? c('green', `+${delta.toFixed(2)}`) : delta < 0 ? c('red', delta.toFixed(2)) : c('dim', '±0');
+
+    // Usar o mesmo filtro que calcNewConfidence (payload.agent + actor)
+    const agentEvts = events.filter(e =>
+      (e.payload?.agent === agentId || e.actor === agentId) &&
+      ['TaskCompleted', 'TaskFailed'].includes(e.type)
+    );
+    const taskCount    = agentEvts.length;
+    const successCount = agentEvts.filter(e => e.type === 'TaskCompleted').length;
+    const successPct   = taskCount > 0 ? Math.round((successCount / taskCount) * 100) : 0;
+    const reason       = `${successPct}% success`;
 
     console.log(`  ${agentId.padEnd(14)} ${String(oldConf).padEnd(12)} ${String(newConf).padEnd(12)} ${String(taskCount).padEnd(8)} ${deltaStr} (${reason})`);
 
-    // Actualizar ficheiro se mudou
+    // Guardar calibração em JSON separado (agents .md não têm campo confidence)
     if (Math.abs(delta) >= 0.01) {
-      const updated = updateConfidence(content, newConf);
-      if (updated !== content) {
-        fs.writeFileSync(filePath, updated, 'utf8');
-        calibrated++;
-      }
+      calibrated++;
     }
 
-    rows.push({ agentId, oldConf, newConf, delta, reason });
+    rows.push({ agentId, oldConf, newConf, delta, reason, taskCount, successPct });
   }
 
+  // Persistir calibração em JSON (loader de agentes pode ler daqui)
+  const calibration = {};
+  for (const row of rows) {
+    if (row.newConf !== null) {
+      calibration[row.agentId] = {
+        confidence:    row.newConf,
+        calibrated_at: new Date().toISOString(),
+        tasks:         row.taskCount || 0,
+        success_rate:  row.successPct || 0,
+      };
+    }
+  }
+  fs.mkdirSync(path.dirname(CALIB_FILE), { recursive: true });
+  fs.writeFileSync(CALIB_FILE, JSON.stringify(calibration, null, 2), 'utf8');
+
   console.log('\n  ' + '─'.repeat(60));
-  console.log(`  ${c('green', `✅ ${calibrated} agentes actualizados`)} com nova confidence baseada em dados reais.\n`);
+  console.log(`  ${c('green', `✅ ${calibrated} agentes actualizados`)} com nova confidence baseada em dados reais.`);
+  console.log(`  ${c('dim', 'Calibração guardada em: ' + CALIB_FILE)}\n`);
 }
 
 main();
