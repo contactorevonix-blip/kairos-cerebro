@@ -1,0 +1,15 @@
+Implementar lógica real no escalation-engine.js — quando agente stuck mais de 5 minutos escalar para manager e gravar no ledger
+Implementar lógica real no postmortem-engine.js — após cada task analisar duração custo agente domínio e gravar 3 learnings reais
+Implementar lógica real no intelligence-engine.js — detectar padrões em tasks similares dos últimos 7 dias e sugerir atalhos
+Implementar lógica real no resource-allocator.js — escolher agente baseado em success rate histórico real do ledger
+Implementar lógica real no okr-engine.js — calcular progresso real dos OKRs baseado em tasks completadas no ledger
+Corrigir threshold de consenso no router de 0.4 para 0.25 e distribuir carga navegação entre Orion Aria Quinn
+Adicionar quality score e confidence real ao ledger após cada TaskCompleted
+Construir dashboard web React em packages/hyperdrive-dashboard com WebSocket tempo real dark theme GeistSans
+Adicionar phone carrier lookup Telnyx free tier ao check-engine
+Adicionar email breach check HIBP ao check-engine
+Construir endpoint self-serve API keys POST /auth/register e GET /auth/key no check-engine
+Criar página docs e playground interactivo em packages/web
+Preparar check-engine para deploy Railway com railway.toml e PORT env var
+Actualizar os 11 agent profiles em .claude/agents com OKRs reais e confidence base
+Correr load test ao check-engine com 100 checks paralelos e reportar latência P95

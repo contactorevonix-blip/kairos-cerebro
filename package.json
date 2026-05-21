@@ -21,7 +21,14 @@
     "kairos:validate": "node scripts/hyperdrive/isolated-validate.js",
     "kairos:infra-lock": "node scripts/hyperdrive/infra-lock.js",
     "kairos:web:dev": "npm run dev --prefix packages/web",
-    "kairos:web:build": "npm run build --prefix packages/web"
+    "kairos:web:build": "npm run build --prefix packages/web",
+    "kairos:overnight": "node scripts/run-overnight.js",
+    "kairos:consolidate": "node scripts/consolidate.js",
+    "kairos:calibrate": "node scripts/calibrate.js",
+    "kairos:patterns": "node scripts/patterns.js",
+    "kairos:health": "node scripts/health.js",
+    "kairos:costs": "node scripts/costs.js",
+    "kairos:export": "node scripts/export.js"
   },
   "dependencies": {
     "resend": "^6.12.3",
