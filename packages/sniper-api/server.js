@@ -44,7 +44,6 @@ const {
   getReferralByCode,
 } = require('../sniper-db');
 const repGraph = require('../reputation-graph');
-const sovereign = require('../sovereign');
 const billing = require('../billing');
 const compliance = require('../compliance');
 const fsModule = require('fs');
@@ -1129,7 +1128,7 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 
     // ─── Agent task forces (operational view of the 18 agents) ──────────────
     if (method === 'GET' && url === '/api/taskforces') {
-      sendJson(res, 200, { taskForces: sovereign.listTaskForces() });
+      sendJson(res, 200, { taskForces: [] });
       return;
     }
     if (method === 'GET' && url === '/api/billing/plans') {

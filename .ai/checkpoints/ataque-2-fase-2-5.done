@@ -1,3 +1,0 @@
-STRIPE_WEBHOOK=https://kairoscheck.net/billing/stripe/webhook
-STRIPE_MODE=live
-DATE=2026-05-15
