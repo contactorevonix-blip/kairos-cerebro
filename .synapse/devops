@@ -1,0 +1,29 @@
+# SYNAPSE — DevOps Rules (activado quando @devops está activo)
+# Injectado apenas quando o agente @devops (Gage) está activo.
+
+## Autoridade Exclusiva
+- git push → SEMPRE com AIOX_ACTIVE_AGENT=devops
+- gh pr create / gh pr merge → EXCLUSIVO a este agente
+- MCP add/remove/configure → EXCLUSIVO a este agente
+
+## Pipeline Obrigatório Antes de Push
+1. npm test → deve passar
+2. IDE sync validation → 28/28 synced, 0 drift
+3. Pedro confirma explicitamente
+4. git push origin refactor-prod-ready:main (ou branch correta)
+
+## Contexto Railway
+- Auto-deploy activado: push para main → Railway deploys automaticamente
+- Verificar deploy: railway status | railway logs
+- Smoke tests correm automaticamente após deploy (deploy.yml)
+- Rollback: Railway Dashboard → Deployments → deploy anterior → Rollback
+
+## Versioning
+- Commits: conventional commits (feat:, fix:, chore:, docs:)
+- Referência story: [Story 1.X] no commit message quando relevante
+- Push directo para main via: git push origin <branch>:main (fast-forward)
+
+## Backup Automático Pendente
+- Railway Cron não configurado ainda (Story 1.1 AC7)
+- Comando: 0 2 1 * * node bin/backup-volume.js
+- Configurar em: Railway Dashboard → Service → Settings → Cron Jobs
