@@ -1,0 +1,156 @@
+version: 2
+language: "pt-BR"
+early_access: false
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_placeholder: "@coderabbitai summary"
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  abort_on_close: true
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/package-lock.json"
+    - "!**/.aiox-core/**"
+    - "!**/.claude/**"
+    - "!**/.synapse/metrics/**"
+    - "!**/.antigravity/**"
+    - "!**/.cursor/**"
+    - "!**/.gemini/**"
+    - "!**/.codex/**"
+    - "!**/.kimi/**"
+    - "!.kairos-data/**"
+
+  path_instructions:
+    - path: "packages/sniper-api/**/*.js"
+      instructions: |
+        API Express — Kairos Check scoring engine.
+
+        CRITICAL (bloquear imediatamente):
+        - Secrets ou API keys hardcoded
+        - SQL injection ou NoSQL injection
+        - XSS em respostas HTML geradas
+        - Dados sensíveis em logs (PII, tokens, hashes)
+        - Auth bypass — verificar checkAdminAuth() em rotas protegidas
+
+        HIGH (corrigir antes de merge):
+        - Input de utilizador não validado antes de usar
+        - Operações de ficheiro sem tratamento de erro
+        - Escrita não-atómica em JSONL (deve ser tmp+rename)
+        - Audit chain SHA-256 que possa ser quebrado
+
+        MEDIUM (documentar como dívida):
+        - Funções com mais de 60 linhas
+        - Duplicação de lógica entre rotas
+
+        NÃO SINALIZAR:
+        - Ausência de TypeScript (projecto é JS puro por design)
+        - Ausência de ORM (zero-dep é uma decisão de arquitectura)
+        - Comentários em português
+
+    - path: "packages/sniper-engine/**/*.js"
+      instructions: |
+        Motor de scoring anti-fraude — lógica crítica de negócio.
+
+        CRITICAL:
+        - Lógica de scoring que possa ser manipulada por input externo
+        - Bypass de verificações de reputação
+        - Dados de tenant a vazar entre requests
+
+        HIGH:
+        - Algoritmo de score que não segue os pesos documentados
+        - Cache poisoning no reputation graph
+
+    - path: "packages/vault/**/*.js"
+      instructions: |
+        Vault AES-256-GCM — dados sensíveis encriptados.
+
+        CRITICAL:
+        - Passphrase exposta em logs ou errors
+        - IV reutilizado em encriptação
+        - vault.json com permissões incorrectas
+        - Chave derivada de forma insegura
+
+        NUNCA APROVAR:
+        - Qualquer alteração que reduza a segurança criptográfica
+
+    - path: "packages/billing/**/*.js"
+      instructions: |
+        Integração Stripe — pagamentos em modo live.
+
+        CRITICAL:
+        - Stripe secret key exposta
+        - Webhook signature não verificada
+        - Price IDs hardcoded (deve vir de env vars)
+        - Lógica de billing bypassável
+
+    - path: "bin/**/*.js"
+      instructions: |
+        Scripts CLI — backup, rotação, health, stats.
+
+        CRITICAL:
+        - Credenciais R2/S3 em logs
+        - Operações destrutivas sem confirmação --dry-run
+
+        HIGH:
+        - Operações de ficheiro não-atómicas (deve ser tmp+rename)
+        - Scripts que carregam ficheiros grandes sem stream
+
+    - path: "**/*.test.js"
+      instructions: |
+        Testes Node.js.
+
+        VALIDAR:
+        - Cobertura de edge cases (401, 400, 200)
+        - Nomes descritivos
+        - Sem código de produção nos testes
+
+        NÃO SINALIZAR:
+        - Estilo de formatação
+        - Ausência de TypeScript
+
+    - path: ".env.example"
+      instructions: |
+        CRITICAL: Verificar que não contém valores reais — apenas placeholders.
+        Variáveis obrigatórias devem estar documentadas com comentário.
+
+    - path: "docs/**"
+      instructions: |
+        Documentação do projecto. Validar clareza e exemplos correctos.
+        NÃO sinalizar preferências de estilo Markdown.
+
+    - path: ".github/workflows/**"
+      instructions: |
+        GitHub Actions — pipeline CI/CD.
+
+        CRITICAL:
+        - Secrets expostos em logs (echo de variáveis de ambiente)
+        - Permissões desnecessariamente elevadas
+        - Comandos que afectam produção sem gate de qualidade
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  learnings:
+    scope: "auto"
+  issues:
+    scope: "auto"
+  pull_requests:
+    scope: "auto"
