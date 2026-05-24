@@ -1411,6 +1411,19 @@ try {
 } catch { /* graph optional — server runs without it */ }
 
 if (require.main === module) {
+  // Auto-init vault on startup if passphrase is set but vault.json doesn't exist yet
+  if (process.env.KAIROS_MASTER_PASSPHRASE) {
+    try {
+      const vault = require('../vault');
+      if (!vault.isVaultInitialized()) {
+        vault.initVault();
+        console.log('  ✓ Vault initialised automatically (KAIROS_MASTER_PASSPHRASE was set)');
+      }
+    } catch (e) {
+      console.warn('  ⚠  Vault auto-init failed:', e.message);
+    }
+  }
+
   const boot = bootstrapIfEmpty();
   server.listen(PORT, '0.0.0.0', () => {
     logEvent('server.boot', {
