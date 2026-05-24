@@ -1,0 +1,26 @@
+# SYNAPSE — IDS Rules (activado quando *create ou *modify é invocado)
+# Incremental Development System — nunca criar sem verificar primeiro.
+
+## Decision Hierarchy (inviolável)
+- REUSE (relevância >= 90%) → usar directamente, sem modificação
+- ADAPT (relevância 60-89%) → modificar < 30% do original, não quebrar consumers
+- CREATE (sem match) → justificação obrigatória + registar em 24h
+
+## Antes de Criar Qualquer Componente
+- Correr SEMPRE: @aiox-master *ids check "{intenção}"
+- O registry tem 821 entidades — alta probabilidade de encontrar algo reutilizável
+- Se REUSE ou ADAPT disponível → usar em vez de criar novo
+
+## Registry Disponível
+- Ficheiro: .aiox-core/data/entity-registry.yaml (821 entidades, 100% resolution)
+- Comandos: *ids check, *ids impact, *ids register, *ids health, *ids stats
+
+## Spec Pipeline — Para Features Novas Não-Triviais
+- Invocar SEMPRE antes de implementar features novas: @aiox-master *workflow spec-pipeline
+- Fases: Gather → Assess → Research → Write → Critique (3-6 fases por complexidade)
+- Output: spec.md validado antes de qualquer linha de código
+
+## Worktrees — Isolamento por Story
+- Cada story tem o seu branch: @devops *create-worktree {story-id}
+- Merge quando story Done: @devops *merge-worktree
+- Listar activos: @devops *list-worktrees

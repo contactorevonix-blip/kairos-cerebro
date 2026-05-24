@@ -21,3 +21,7 @@ QUALITY_STATE=active
 # Regras DevOps — activadas quando @devops está activo
 DEVOPS_AGENT_TRIGGER=devops
 DEVOPS_STATE=active
+
+# IDS — activado quando *create ou *modify é invocado (keyword trigger)
+IDS_RECALL=create,modify,new component,novo componente,criar,adicionar
+IDS_STATE=active

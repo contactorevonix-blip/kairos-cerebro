@@ -1,0 +1,52 @@
+{
+  "totalDuration": 29.141,
+  "hookBootMs": 0,
+  "bracket": "FRESH",
+  "layersLoaded": 1,
+  "layersSkipped": 7,
+  "layersErrored": 0,
+  "totalRules": 14,
+  "perLayer": {
+    "constitution": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "global": {
+      "duration": 0.4816,
+      "status": "ok",
+      "rules": 14
+    },
+    "agent": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "workflow": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "task": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "squad": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "keyword": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    },
+    "star-command": {
+      "duration": 0,
+      "status": "skipped",
+      "rules": 0
+    }
+  },
+  "timestamp": "2026-05-24T22:43:58.922Z"
+}

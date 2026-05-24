@@ -23,6 +23,17 @@
 - Referência story: [Story 1.X] no commit message quando relevante
 - Push directo para main via: git push origin <branch>:main (fast-forward)
 
+## QA Gate — Obrigatório Antes de Push
+- Para stories: @qa *qa-gate DEVE correr antes de qualquer push
+- Veredictos: PASS/CONCERNS → pode pushar | FAIL → volta para @dev
+- QA Loop disponível para revisão iterativa: *workflow qa-loop (max 5 iterações)
+- Workflow completo: @qa *qa-gate → PASS → @devops *push
+
+## Release Management
+- SOP canónico em: docs/guides/release-procedure.md
+- Comando: @devops *release (changelog automático + semver + GitHub release)
+- Sempre verificar smoke tests após deploy: GitHub Actions deploy.yml
+
 ## Backup Automático Pendente
 - Railway Cron não configurado ainda (Story 1.1 AC7)
 - Comando: 0 2 1 * * node bin/backup-volume.js

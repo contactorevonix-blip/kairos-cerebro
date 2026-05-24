@@ -1,0 +1,7 @@
+npm run validate:claude-sync --silent && npm run validate:claude-integration --silent
+
+# CodeRabbit — corre se instalado, salta graciosamente se não
+if wsl bash -c "test -f ~/.local/bin/coderabbit" 2>/dev/null; then
+  echo "Running CodeRabbit pre-push review..."
+  wsl bash -c "cd /mnt/c/Users/lealp/KAIROS_CEREBRO && ~/.local/bin/coderabbit --prompt-only -t uncommitted" || true
+fi
