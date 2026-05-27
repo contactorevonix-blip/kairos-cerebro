@@ -55,3 +55,24 @@ packages/web/.next
 .vercel
 
 .ai/design-ref/
+
+# Environment & Secrets (AIOX)
+.env.local
+.env.*.local
+
+# Dependencies (AIOX)
+node_modules
+
+# Build & Logs (AIOX)
+dist/
+build/
+logs/
+
+# IDE & OS (AIOX)
+.idea/
+*.swp
+
+# AIOX Local (AIOX)
+.aiox-core/local/
+.claude/settings.local.json
+.aiox/install-log.txt

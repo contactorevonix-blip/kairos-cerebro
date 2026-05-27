@@ -7,6 +7,8 @@ const nextConfig = {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
 
+  turbopack: {},
+
   webpack: (config) => {
     /* Three.js WASM/worker compatibility */
     config.module.rules.push({
