@@ -1,0 +1,20 @@
+version: "1.0.0"
+last_updated: "2026-05-28"
+total_squads: 0
+
+squads: {}
+
+domain_index: {}
+
+# Preenchido automaticamente por refresh-registry.md
+# Formato de cada squad:
+# {slug}:
+#   name: "Squad Name"
+#   domain: "copywriting"
+#   purpose: "..."
+#   keywords: ["copy", "sales page", "email"]
+#   orchestrator: "copy-chief"
+#   agents_count: 8
+#   quality_score: 8.5
+#   created: "2026-05-28"
+#   status: active | draft | archived

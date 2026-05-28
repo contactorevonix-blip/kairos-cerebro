@@ -1,0 +1,35 @@
+name: squad-creator
+version: "1.0.0"
+domain: meta
+purpose: "Criar, clonar, validar e orquestrar squads de agentes baseados em elite minds reais"
+philosophy: "Clone minds > create bots"
+orchestrator: squad-chief
+
+agents:
+  - id: squad-chief
+    tier: orchestrator
+    file: agents/squad-chief.md
+    role: "Orquestra criação completa de squads"
+  - id: oalanicolas
+    tier: 1
+    file: agents/oalanicolas.md
+    role: "Mind cloning — Voice DNA + Thinking DNA"
+  - id: pedro-valerio
+    tier: 1
+    file: agents/pedro-valerio.md
+    role: "Process absolutist — workflow validation + veto conditions"
+
+workflows:
+  - wf-create-squad.yaml
+  - mind-research-loop.md
+  - wf-clone-mind.yaml
+
+quality:
+  minimum_score: 7.0
+  smoke_tests: 3
+  fidelity_minimum: 85
+
+structure:
+  canonical_folders: 22
+  root_files: 5
+  total_components: 27

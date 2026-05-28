@@ -1,0 +1,19 @@
+squad: squad-creator
+version: "1.0.0"
+
+settings:
+  default_mode: quality        # yolo | quality | hybrid
+  min_fidelity: 85             # mínimo para aprovar clone
+  min_quality_score: 7.0       # mínimo para aprovar squad
+  smoke_tests_required: 3      # smoke tests obrigatórios por agent
+  research_iterations: 3       # iterações mínimas no mind-research-loop
+  devil_advocate: true         # activar devil's advocate nas iterações
+
+paths:
+  root: squads/squad-creator/
+  tasks: squads/squad-creator/tasks/
+  workflows: squads/squad-creator/workflows/
+  templates: squads/squad-creator/templates/
+  checklists: squads/squad-creator/checklists/
+  data: squads/squad-creator/data/
+  config: squads/squad-creator/config/

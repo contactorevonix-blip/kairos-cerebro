@@ -1,0 +1,78 @@
+gates:
+  QG-SC-1.1:
+    name: Structure Validation
+    type: auto
+    check: "Squad tem as 22 pastas + 5 ficheiros raiz"
+    blocking: true
+
+  QG-SC-1.2:
+    name: Schema Compliance
+    type: auto
+    check: "squad.yaml e config.yaml são YAML válido"
+    blocking: true
+
+  QG-SC-2.1:
+    name: Reference Integrity
+    type: auto
+    check: "Todos os ficheiros referenciados em squad.yaml existem"
+    blocking: true
+
+  QG-SC-3.1:
+    name: Veto Scan
+    type: auto
+    check: "Tasks têm veto_conditions definidas"
+    blocking: false
+
+  QG-SC-4.1:
+    name: Coherence Check
+    type: hybrid
+    check: "Agentes do squad são coerentes com o domínio"
+    blocking: false
+
+  QG-SC-5.1:
+    name: DNA Review
+    type: hybrid
+    description: "Conferir trabalho do oalanicolas antes de passar ao pedro-valerio"
+    checks:
+      - "15+ citações com [SOURCE:]"
+      - "5+ signature phrases verificáveis"
+      - "Heuristics têm QUANDO usar"
+      - "Zero inferências não marcadas"
+    pass_action: "Aprovar e passar para pedro-valerio"
+    fail_action: "Devolver para oalanicolas com lista do que falta"
+    blocking: true
+
+  QG-SC-5.2:
+    name: Smoke Test Review
+    type: hybrid
+    checks:
+      - "3 smoke tests PASSAM por agent"
+      - "Comportamento real, não placeholders"
+    blocking: true
+
+  QG-SC-6.1:
+    name: Squad Review
+    type: hybrid
+    checks:
+      - "Veto conditions existem em tasks"
+      - "Fluxo unidirecional nos workflows"
+      - "Handoffs definidos"
+      - "Output examples concretos"
+    blocking: true
+
+  QG-SC-6.2:
+    name: Handoff Review
+    type: hybrid
+    check: "Handoffs entre agentes sem gap de tempo"
+    blocking: false
+
+agent_quality_gate:
+  id: SC_AGT_001
+  required:
+    - "voice_dna com signature phrases rastreáveis a [SOURCE:]"
+    - "thinking_dna com heuristics que têm QUANDO usar"
+    - "3 smoke tests que PASSAM"
+    - "handoffs definidos"
+    - "anti_patterns específicos do expert"
+    - "output_examples >= 3 concretos"
+  minimum_score: 7.0

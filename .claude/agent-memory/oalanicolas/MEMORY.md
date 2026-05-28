@@ -1,0 +1,1 @@
+- [Alan Nicolas public footprint](alan_nicolas_public_footprint.md) — verified public repos, agent file format, Academia Lendaria community, and what is NOT public (no "chief" files in any public repo)

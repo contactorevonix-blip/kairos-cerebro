@@ -1,0 +1,13 @@
+squad: squad-creator
+swipe_focus: "Exemplos de squads criados com sucesso e outputs de qualidade"
+
+quality_criteria:
+  minimum_score: 8.0
+  source_required: true
+  real_examples_only: true
+
+categories:
+  - squad_creation_outputs
+  - clone_mind_examples
+  - quality_reports
+  - architecture_decisions
