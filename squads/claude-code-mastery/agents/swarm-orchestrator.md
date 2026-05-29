@@ -493,10 +493,10 @@ knowledge_base:
         changes are made. Combine with AIOX *worktree-create for story-level isolation.
       pattern: |
         For story-level parallel work:
-        1. *worktree-create {story-id} — isolate the story branch
+        1. *worktree-strategy {story-id} — plan worktree isolation for the story branch
         2. Spawn agent team within the worktree
         3. Teammates work in parallel on different files
-        4. *worktree-merge {story-id} when complete
+        4. *worktree-strategy --merge when complete (or merge manually via git)
 
   # ── LAYER 5: Production-Scale Patterns (Ruflo) ─────
 
@@ -585,8 +585,9 @@ output_examples:
 
       **To execute:**
       ```
-      *create-team feature-sprint --teammates 3 --topology partitioned-parallel
+      *create-team
       ```
+      → Nexus guia o design de topologia, decompõe as tasks e gera as spawn instructions. Não usa flags — o workflow elicita topologia e teammates interactivamente.
 
   - title: "Custom Subagent Definition"
     trigger: "User asks to create a security review agent"
