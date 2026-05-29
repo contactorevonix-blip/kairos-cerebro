@@ -1,0 +1,10 @@
+# Mind DNA — Cochrane Collaboration
+# Status: CLONED — squads/deep-research/data/minds/cochrane_dna.yaml
+# Agent: cochrane
+mind:
+  name: "Cochrane Collaboration"
+  slug: "cochrane-collaboration"
+  domain: "Systematic reviews, PRISMA, GRADE evidence hierarchy"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/cochrane_dna.yaml"
+quality: { fidelity: 93, status: EXTRACTED }

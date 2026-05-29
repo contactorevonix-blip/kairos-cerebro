@@ -1,0 +1,24 @@
+name: aiox-cerebro
+version: "1.0.0"
+created: "2026-05-29"
+domain: "AIOX Intelligence — Audit, Gap Analysis, Knowledge Extraction"
+purpose: "Kronos — motor cognitivo para auditar instalações AIOX, detectar gaps, extrair mecanismos de ouro e clonar estruturas. Zero invenção. Paths reais."
+orchestrator: aiox-cerebro
+
+agents:
+  - id: aiox-cerebro
+    tier: 1
+    file: .claude/agents/aiox-cerebro.md
+    role: "Foundation Analysis — audit, gap detection, gold mechanisms"
+    clone_required: false
+
+tasks:
+  total: 7
+  path: squads/aiox-cerebro/tasks/
+
+quality:
+  maturity_score: 10.0
+  maturity_level: "Nivel 3+ EXCELLENT"
+  blocking_checks: 24/24
+  sc_agt_004: PASS
+  built_from_real_files: 12

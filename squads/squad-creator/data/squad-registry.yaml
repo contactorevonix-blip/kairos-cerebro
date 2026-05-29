@@ -1,10 +1,91 @@
 version: "1.0.0"
-last_updated: "2026-05-28"
-total_squads: 0
+last_updated: "2026-05-29"
+total_squads: 4
 
-squads: {}
+squads:
+  claude-code-mastery:
+    name: "Claude Code Mastery Squad"
+    domain: "Claude Code — Full Spectrum Expertise"
+    purpose: "Full-spectrum expertise: hooks, MCP, skills, subagents, agent teams, config, CI/CD, roadmap"
+    keywords: ["claude-code", "hooks", "mcp", "skills", "subagents", "permissions", "ci-cd", "context-engineering"]
+    orchestrator: "claude-mastery-chief"
+    agents_count: 8
+    quality_score: null
+    created: "2026-03-01"
+    cloned_at: "2026-05-28"
+    source: "https://github.com/SynkraAI/aiox-core/tree/main/squads/claude-code-mastery"
+    status: active
+    tiers:
+      tier_0: ["claude-mastery-chief"]
+      tier_1: ["hooks-architect", "mcp-integrator", "swarm-orchestrator", "config-engineer"]
+      tier_2: ["skill-craftsman", "project-integrator", "roadmap-sentinel"]
+    validate_script: "squads/claude-code-mastery/scripts/validate-setup.js"
+    last_validation_score: 100
+    squad_yaml: true
+    architecture_md: true
+    headline_md: true
+    memory_md: true
+    swipe_config: true
+    outputs_minds: 8
+    dna_status: "PENDING — requires @oalanicolas"
 
-domain_index: {}
+  aiox-cerebro:
+    name: "AIOX Cerebro"
+    domain: "AIOX Intelligence — Audit, Gap Analysis, Knowledge Extraction"
+    purpose: "Kronos — motor cognitivo para auditar AIOX, detectar gaps, extrair mecanismos de ouro. Zero invenção."
+    keywords: ["audit", "gap-analysis", "gold-mechanisms", "aiox", "intelligence", "cerebro", "kronos"]
+    orchestrator: "aiox-cerebro"
+    agents_count: 1
+    quality_score: 10.0
+    maturity_level: "Nivel 3+ EXCELLENT"
+    created: "2026-05-29"
+    status: active
+    tiers:
+      tier_1: ["aiox-cerebro"]
+    built_from_files: 12
+    sc_agt_004: PASS
+
+  deep-research:
+    name: "Deep Research Squad"
+    domain: "Evidence-Based Research Pipeline"
+    purpose: "Pipeline 3-tier de investigação profunda: diagnóstico → execução → QA. 11 agentes baseados em elite minds reais — de EBM (Sackett) a Competitive Intelligence (Gilad), com QA obrigatório (Ioannidis + Kahneman)."
+    keywords: ["deep-research", "evidence-based", "systematic-review", "competitive-intelligence", "osint", "decision-science", "bias-detection", "pico", "dora-metrics", "sensemaking"]
+    orchestrator: "dr-orchestrator"
+    agents_count: 11
+    quality_score: null
+    created: "2026-02-07"
+    cloned_at: "2026-05-29"
+    source: "https://github.com/SynkraAI/aiox-squads/tree/main/squads/deep-research"
+    status: active
+    tiers:
+      orchestrator: ["dr-orchestrator"]
+      tier_0: ["sackett", "booth", "creswell"]
+      tier_1: ["forsgren", "cochrane", "higgins", "klein", "gilad"]
+      qa: ["ioannidis", "kahneman"]
+    use_cases:
+      UC-001: "Technical Deep Dive — forsgren + cochrane"
+      UC-002: "Strategic Decision Support — klein + gilad"
+      UC-003: "Competitive Intelligence — gilad + higgins"
+      UC-004: "Evidence Synthesis — cochrane + forsgren"
+
+domain_index:
+  claude-code: "claude-code-mastery"
+  hooks: "claude-code-mastery"
+  mcp: "claude-code-mastery"
+  skills: "claude-code-mastery"
+  subagents: "claude-code-mastery"
+  permissions: "claude-code-mastery"
+  context-engineering: "claude-code-mastery"
+  deep-research: "deep-research"
+  evidence-based: "deep-research"
+  systematic-review: "deep-research"
+  competitive-intelligence: "deep-research"
+  osint: "deep-research"
+  decision-science: "deep-research"
+  bias-detection: "deep-research"
+  pico: "deep-research"
+  sensemaking: "deep-research"
+  research: "deep-research"
 
 # Preenchido automaticamente por refresh-registry.md
 # Formato de cada squad:

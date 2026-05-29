@@ -1,0 +1,88 @@
+name: claude-code-mastery
+version: "1.0.0"
+created: "2026-03-01"
+cloned_at: "2026-05-28"
+source: "https://github.com/SynkraAI/aiox-core/tree/main/squads/claude-code-mastery"
+domain: "Claude Code — Full Spectrum Expertise"
+purpose: "Full-spectrum expertise in Claude Code: hooks, skills, subagents, MCP, plugins, agent teams, customization, integration, and roadmap awareness."
+philosophy: "Master the tool to master the craft."
+orchestrator: claude-mastery-chief
+
+agents:
+  - id: claude-mastery-chief
+    tier: orchestrator
+    file: agents/claude-mastery-chief.md
+    role: "Triage, routing, cross-cutting knowledge, AIOX-core awareness"
+    based_on: "Original (Orchestrator)"
+    clone_required: false
+
+  - id: hooks-architect
+    tier: 1
+    file: agents/hooks-architect.md
+    role: "17 hook events, automation pipelines, damage control"
+    based_on: "disler (IndyDevDan)"
+    clone_required: true
+
+  - id: mcp-integrator
+    tier: 1
+    file: agents/mcp-integrator.md
+    role: "MCP servers, tool discovery, context budget"
+    based_on: "Peter Steinberger (@steipete)"
+    clone_required: true
+
+  - id: swarm-orchestrator
+    tier: 1
+    file: agents/swarm-orchestrator.md
+    role: "Agent teams, subagents, parallel execution, worktrees"
+    based_on: "Kieran Klaassen + Reuven Cohen"
+    clone_required: true
+
+  - id: config-engineer
+    tier: 1
+    file: agents/config-engineer.md
+    role: "Settings, permissions, CLAUDE.md, sandbox"
+    based_on: "SuperClaude-Org"
+    clone_required: true
+
+  - id: skill-craftsman
+    tier: 2
+    file: agents/skill-craftsman.md
+    role: "Skills, plugins, commands, context engineering"
+    based_on: "BMAD-CODE-ORG"
+    clone_required: true
+
+  - id: project-integrator
+    tier: 2
+    file: agents/project-integrator.md
+    role: "Project setup, CI/CD, brownfield integration, AIOX bridge"
+    based_on: "Daniel Miessler (PAI)"
+    clone_required: true
+
+  - id: roadmap-sentinel
+    tier: 2
+    file: agents/roadmap-sentinel.md
+    role: "Roadmap, changelog, feature adoption, plan-first"
+    based_on: "Boris Cherny"
+    clone_required: true
+
+tasks:
+  total: 35
+  path: tasks/
+
+workflows:
+  - wf-project-setup.yaml
+  - wf-audit-complete.yaml
+  - wf-knowledge-update.yaml
+
+quality:
+  minimum_score: 7.0
+  smoke_tests_required: 3
+  fidelity_minimum: 85
+  overall_score: 8.9
+
+structure:
+  total_agents: 8
+  tier_0: 1
+  tier_1: 4
+  tier_2: 3
+  cloned_minds: 7

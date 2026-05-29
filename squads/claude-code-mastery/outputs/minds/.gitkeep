@@ -1,0 +1,11 @@
+# outputs/minds/ — Mind DNA extractions
+# Populate with: @oalanicolas *clone-mind "{expert-name}"
+# Experts to clone:
+#   - disler (IndyDevDan) → hooks-architect
+#   - Peter Steinberger (@steipete) → mcp-integrator
+#   - Kieran Klaassen → swarm-orchestrator (parte 1)
+#   - Reuven Cohen → swarm-orchestrator (parte 2)
+#   - SuperClaude-Org → config-engineer
+#   - BMAD-CODE-ORG → skill-craftsman
+#   - Daniel Miessler → project-integrator
+#   - Boris Cherny → roadmap-sentinel

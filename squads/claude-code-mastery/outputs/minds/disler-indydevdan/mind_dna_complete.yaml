@@ -1,0 +1,37 @@
+# Mind DNA — disler (IndyDevDan)
+# Status: PENDING EXTRACTION — requires @oalanicolas *clone-mind "disler IndyDevDan"
+# Agent: hooks-architect (Latch)
+# Domain: Claude Code Hooks Mastery
+
+mind:
+  name: "disler (IndyDevDan)"
+  slug: "disler-indydevdan"
+  domain: "Claude Code Hooks & Meta-Agent Patterns"
+  source: "GitHub: github.com/disler"
+  extraction_status: PENDING
+  extraction_agent: "@oalanicolas"
+  extraction_command: "*clone-mind 'disler IndyDevDan'"
+
+# PENDING — to be filled by @oalanicolas
+voice_dna:
+  signature_phrases: []
+  tone: PENDING
+  power_words: []
+  anti_patterns: []
+
+# PENDING — to be filled by @oalanicolas
+thinking_dna:
+  primary_framework: PENDING
+  heuristics: []
+  decision_patterns: []
+  immune_system: []
+
+sources:
+  tier_0: []  # Primary sources — to be collected by @oalanicolas
+  tier_1: []
+  tier_2: []
+
+quality:
+  fidelity: 0
+  sources_count: 0
+  status: NOT_STARTED

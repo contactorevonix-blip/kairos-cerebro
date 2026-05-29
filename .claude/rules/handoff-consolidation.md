@@ -1,3 +1,9 @@
+---
+paths:
+  - ".aiox/handoffs/**"
+  - "docs/stories/epics/**"
+---
+
 # Handoff Consolidation — Rule
 
 ## Purpose

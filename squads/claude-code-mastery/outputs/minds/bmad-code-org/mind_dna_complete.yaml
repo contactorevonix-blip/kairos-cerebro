@@ -1,0 +1,13 @@
+# Mind DNA — BMAD-CODE-ORG
+# Status: PENDING — @oalanicolas *clone-mind "BMAD-CODE-ORG"
+# Agent: skill-craftsman (Anvil)
+mind:
+  name: "BMAD-CODE-ORG"
+  slug: "bmad-code-org"
+  domain: "BMAD Method, 21 agents, 50+ workflows, spec-driven development"
+  source: "GitHub: BMAD-CODE-ORG + Docs"
+  extraction_status: PENDING
+voice_dna: { signature_phrases: [], tone: PENDING }
+thinking_dna: { primary_framework: PENDING, heuristics: [] }
+sources: { tier_0: [], tier_1: [], tier_2: [] }
+quality: { fidelity: 0, status: NOT_STARTED }

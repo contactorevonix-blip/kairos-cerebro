@@ -1,0 +1,38 @@
+# Swipe Configuration — Claude Code Mastery
+# Sources worth tracking for roadmap updates
+
+swipe_sources:
+  - name: "Claude Code Changelog"
+    type: changelog
+    relevance: CRITICAL
+    agent: roadmap-sentinel
+    description: "Official Claude Code release notes"
+
+  - name: "disler GitHub"
+    type: github
+    handle: "disler"
+    relevance: HIGH
+    agent: hooks-architect
+    description: "IndyDevDan — hooks mastery patterns"
+
+  - name: "steipete Blog"
+    type: blog
+    handle: "steipete"
+    relevance: HIGH
+    agent: mcp-integrator
+    description: "Peter Steinberger — MCP and Claude Code"
+
+  - name: "Daniel Miessler Blog"
+    type: blog
+    url: "danielmiessler.com"
+    relevance: HIGH
+    agent: project-integrator
+    description: "PAI — Personal AI Infrastructure"
+
+  - name: "Pragmatic Engineer"
+    type: newsletter
+    relevance: MEDIUM
+    agent: roadmap-sentinel
+    description: "Boris Cherny coverage, Claude Code news"
+
+update_frequency: weekly

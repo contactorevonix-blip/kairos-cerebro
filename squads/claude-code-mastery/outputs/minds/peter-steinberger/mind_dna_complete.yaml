@@ -1,0 +1,13 @@
+# Mind DNA — Peter Steinberger (@steipete)
+# Status: PENDING — @oalanicolas *clone-mind "Peter Steinberger"
+# Agent: mcp-integrator (Piper)
+mind:
+  name: "Peter Steinberger (@steipete)"
+  slug: "peter-steinberger"
+  domain: "claude-code-mcp, multi-instance workflow, CLI-first philosophy"
+  source: "Blog + GitHub: steipete"
+  extraction_status: PENDING
+voice_dna: { signature_phrases: [], tone: PENDING }
+thinking_dna: { primary_framework: PENDING, heuristics: [] }
+sources: { tier_0: [], tier_1: [], tier_2: [] }
+quality: { fidelity: 0, status: NOT_STARTED }

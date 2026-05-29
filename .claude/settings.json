@@ -1,6 +1,107 @@
 {
   "language": "portuguese",
+  "worktree": {
+    "symlinkDirectories": ["node_modules", ".aiox"],
+    "baseRef": "head"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/post-tool-use-observer.cjs\"",
+            "timeout": 5,
+            "async": true,
+            "statusMessage": "A registar tool call..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/pre-commit-lint.cjs\"",
+            "timeout": 15,
+            "statusMessage": "A verificar terminologia antes do commit..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(git push*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-git-push-authority.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A verificar autoridade git push..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/prompt-router.cjs\"",
+            "timeout": 5,
+            "async": true
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/synapse-engine.cjs\"",
+            "timeout": 10,
+            "statusMessage": "Synapse Engine a processar..."
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\lealp\\.claude\\helpers\\precompact.cjs\"",
+            "timeout": 10,
+            "statusMessage": "A preservar contexto antes de compactar..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\lealp\\.claude\\helpers\\session-end.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A guardar estado da sessão..."
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently — no need to announce it.",
+            "timeout": 30,
+            "statusMessage": "A recarregar contexto após compactação..."
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
+    "defaultMode": "default",
+    "additionalDirectories": ["C:/Users/lealp/kairoscheck"],
     "allow": [
       "Edit(.aiox-core/core/config/schemas/**)",
       "Write(.aiox-core/core/config/schemas/**)",
@@ -13,6 +114,15 @@
       "Read(.aiox-core/**)"
     ],
     "deny": [
+      "Read(.env)",
+      "Edit(.env)",
+      "Write(.env)",
+      "Read(.env.*)",
+      "Edit(.env.*)",
+      "Write(.env.*)",
+      "Read(.env.local)",
+      "Edit(.env.local)",
+      "Write(.env.local)",
       "Edit(.aiox-core/core/code-intel/**)",
       "Write(.aiox-core/core/code-intel/**)",
       "Edit(.aiox-core/core/docs/**)",

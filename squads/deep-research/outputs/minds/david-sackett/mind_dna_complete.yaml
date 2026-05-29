@@ -1,0 +1,11 @@
+# Mind DNA — David Sackett (EBM founder)
+# Status: CLONED — available in squads/deep-research/data/minds/sackett_dna.yaml
+# Agent: sackett
+mind:
+  name: "David Sackett"
+  slug: "david-sackett"
+  domain: "Evidence-Based Medicine, PICO framework, 5-step EBM"
+  source: "Academic publications + EBM textbooks"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/sackett_dna.yaml"
+quality: { fidelity: 95, status: EXTRACTED }

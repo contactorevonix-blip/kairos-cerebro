@@ -1,0 +1,10 @@
+# Mind DNA — Eliot Higgins (Bellingcat)
+# Status: CLONED — squads/deep-research/data/minds/higgins_dna.yaml
+# Agent: higgins
+mind:
+  name: "Eliot Higgins"
+  slug: "eliot-higgins"
+  domain: "Bellingcat, OSINT methodology, digital forensics"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/higgins_dna.yaml"
+quality: { fidelity: 91, status: EXTRACTED }

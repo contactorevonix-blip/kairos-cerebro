@@ -1,0 +1,13 @@
+# Mind DNA — Boris Cherny
+# Status: PENDING — @oalanicolas *clone-mind "Boris Cherny"
+# Agent: roadmap-sentinel (Vigil)
+mind:
+  name: "Boris Cherny"
+  slug: "boris-cherny"
+  domain: "Claude Code creator, plan-first methodology, parallel instances"
+  source: "Blog + Pragmatic Engineer"
+  extraction_status: PENDING
+voice_dna: { signature_phrases: [], tone: PENDING }
+thinking_dna: { primary_framework: PENDING, heuristics: [] }
+sources: { tier_0: [], tier_1: [], tier_2: [] }
+quality: { fidelity: 0, status: NOT_STARTED }

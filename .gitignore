@@ -80,3 +80,10 @@ logs/
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# Claude Code logs (gerados automaticamente)
+.claude/logs/
+
+# VS Code workspace files (não pertencem ao repo)
+*.code-workspace
+.claude/agents/*.code-workspace

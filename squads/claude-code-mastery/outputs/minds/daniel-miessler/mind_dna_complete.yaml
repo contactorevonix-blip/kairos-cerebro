@@ -1,0 +1,13 @@
+# Mind DNA — Daniel Miessler
+# Status: PENDING — @oalanicolas *clone-mind "Daniel Miessler"
+# Agent: project-integrator (Conduit)
+mind:
+  name: "Daniel Miessler"
+  slug: "daniel-miessler"
+  domain: "Personal AI Infrastructure (PAI), Unix philosophy for AI"
+  source: "Blog: danielmiessler.com + GitHub"
+  extraction_status: PENDING
+voice_dna: { signature_phrases: [], tone: PENDING }
+thinking_dna: { primary_framework: PENDING, heuristics: [] }
+sources: { tier_0: [], tier_1: [], tier_2: [] }
+quality: { fidelity: 0, status: NOT_STARTED }
