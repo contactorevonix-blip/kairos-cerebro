@@ -97,6 +97,55 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/session-start.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A carregar contexto da sessão..."
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/subagent-stop-observer.cjs\"",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A task was just marked as completed. Before allowing it, verify: 1) Does the output match what was requested? 2) Were tests run and passing (if applicable)? 3) Would a staff engineer approve this? If stop_hook_active is true in the input, respond {\"ok\":true}. If all 3 verified, respond {\"ok\":true}. If incomplete, respond {\"ok\":false, \"reason\":\"specific missing work\"} and continue working.",
+            "timeout": 60,
+            "statusMessage": "A verificar se a task está realmente completa..."
+          }
+        ]
+      }
+    ],
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/config-change-audit.cjs\"",
+            "timeout": 5,
+            "async": true,
+            "statusMessage": "A auditar mudança de configuração..."
+          }
+        ]
+      }
     ]
   },
   "permissions": {

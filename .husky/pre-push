@@ -1,5 +1,8 @@
 npm run validate:claude-sync --silent && (npm run validate:claude-integration --silent || echo "⚠️  claude-integration: extra squad agents present (expected — squads added beyond AIOX base)")
 
+# IDS pre-push registry validation
+node .aiox-core/hooks/ids-pre-push.js || true
+
 # CodeRabbit — corre se instalado, salta graciosamente se não
 if wsl bash -c "test -f ~/.local/bin/coderabbit" 2>/dev/null; then
   echo "Running CodeRabbit pre-push review..."
