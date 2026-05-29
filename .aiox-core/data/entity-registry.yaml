@@ -14188,6 +14188,106 @@ entities:
       checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
       lastVerified: '2026-05-28T08:27:36.320Z'
   agents:
+    agent_copywriter:
+      path: .aiox-core/development/agents/agent_copywriter.md
+      layer: L2
+      type: agent
+      purpose: agent_copywriter
+      keywords:
+        - agent
+        - copywriter
+        - agent_copywriter
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:41602dc9761f15f08ba581a0739a9218a210aaed4677bb9485d3b1f4f507ca8a
+      lastVerified: '2026-05-27T16:50:39.047Z'
+    agent_ghost:
+      path: .aiox-core/development/agents/agent_ghost.md
+      layer: L2
+      type: agent
+      purpose: agent_ghost
+      keywords:
+        - agent
+        - ghost
+        - agent_ghost
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:44b5b20c3535d439e950fe87fed0c65a86598a3e39569104c2d1930301244e6e
+      lastVerified: '2026-05-27T16:50:39.047Z'
+    agent_growth:
+      path: .aiox-core/development/agents/agent_growth.md
+      layer: L2
+      type: agent
+      purpose: agent_growth
+      keywords:
+        - agent
+        - growth
+        - agent_growth
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:5eec03093eab3bad4ba2459a3d904022a9691b5357928d253ea4692cfa96ebb8
+      lastVerified: '2026-05-27T16:50:39.047Z'
+    agent_psycho:
+      path: .aiox-core/development/agents/agent_psycho.md
+      layer: L2
+      type: agent
+      purpose: agent_psycho
+      keywords:
+        - agent
+        - psycho
+        - agent_psycho
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:dc066ffe9e46e414d941e782c2e17b99bc7e88a21e2350cfeb614c77690835c1
+      lastVerified: '2026-05-27T16:50:39.048Z'
+    agent_sales:
+      path: .aiox-core/development/agents/agent_sales.md
+      layer: L2
+      type: agent
+      purpose: agent_sales
+      keywords:
+        - agent
+        - sales
+        - agent_sales
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:983020ebd11c1b99ccf35c92e957db423e765fa7fbbbb4e8bafaece873774a73
+      lastVerified: '2026-05-27T16:50:39.048Z'
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
       layer: L2
@@ -15030,15 +15130,16 @@ entities:
       checksum: sha256:b6a552405cf1a1eab76e307a505e8b431bffa30ab9681a16169b1427373b8a99
       lastVerified: '2026-05-28T08:27:36.344Z'
     MEMORY:
-      path: .aiox-core/development/agents/analyst/MEMORY.md
+      path: .aiox-core/development/agents/agent_copywriter/MEMORY.md
       layer: L3
       type: agent
-      purpose: Analyst Agent Memory (Atlas)
+      purpose: agent_copywriter — Copy de Autoridade Forense
       keywords:
         - memory
-        - analyst
-        - agent
-        - (atlas)
+        - agent_copywriter
+        - copy
+        - autoridade
+        - forense
       usedBy: []
       dependencies: []
       externalDeps: []

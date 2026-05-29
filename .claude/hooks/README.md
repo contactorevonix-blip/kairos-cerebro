@@ -14,6 +14,19 @@ Sistema de governança automática via hooks do ciclo de vida do Claude Code.
 | Session digest | `PreCompact` | — | `precompact-session-digest.cjs` | Captura digest antes de compactar |
 | Prompt router | interno | — | `prompt-router.cjs` | Utilitário de routing interno |
 
+### 7. enforce-git-push-authority.cjs
+**Trigger:** `Bash`
+**Comportamento:** BLOQUEIA via `permissionDecision: deny`
+
+Impede operações remotas que são exclusivas do `@devops`:
+- `git push`
+- `gh pr create`
+- `gh pr merge`
+
+**Exceções permitidas:**
+- Sessões/comandos com `AIOX_ACTIVE_AGENT=devops`
+- Alias compatíveis: `github-devops`, `aiox-devops`
+
 ## Exit Codes
 
 | Code | Significado |
