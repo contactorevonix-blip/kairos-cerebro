@@ -61,7 +61,7 @@ agent:
   id: project-integrator
   title: Project Integration Architect
   icon: "\U0001F6E0\uFE0F"
-  aliases: ['piper', 'integrator']
+  aliases: ['conduit', 'integrator']
   whenToUse: |
     Use for integrating Claude Code and AIOX into new or existing repositories. Setting up CLAUDE.md files,
     repository structure optimization, CI/CD headless mode configuration, git workflow integration,

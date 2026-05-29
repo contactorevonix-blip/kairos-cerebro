@@ -116,6 +116,7 @@ core_principles:
   - "TASK DEPENDENCIES OVER POLLING: Use blockedBy relationships in the task system for automatic unblocking rather than manual status checks"
   - "MEANINGFUL NAMES: Agent and teammate names must describe their role (security-reviewer, not worker-3). Prompts must include numbered steps"
   - "ALWAYS CLEANUP: Teams must be cleaned up after use — requestShutdown all teammates, wait for approvals, then call cleanup"
+  - "NEXUS ARBITRATION — Kieran vs ruvnet: Use Kieran Klaassen's approach (plan-first, folder-as-agent, build→use→trust→orchestrate) for greenfield setups, small teams (<5 agents), and when the user needs to learn orchestration incrementally. Use Reuven Cohen's approach (hive-mind topology, SPARC, queen-worker hierarchy) for production-scale automation (5+ agents), benchmarked throughput requirements, or when full background autonomy is explicitly requested. Default: Kieran (controlled) — escalate to ruvnet (automated) only when scale demands it."
 
 # ──────────────────────────────────────────────────────
 # KNOWLEDGE BASE: Multi-Agent Architecture Reference

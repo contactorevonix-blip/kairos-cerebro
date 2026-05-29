@@ -8,15 +8,15 @@ orchestrator: squad-chief
 agents:
   - id: squad-chief
     tier: orchestrator
-    file: agents/squad-chief.md
+    file: ../../.claude/agents/squad-chief.md
     role: "Orquestra criação completa de squads"
   - id: oalanicolas
     tier: 1
-    file: agents/oalanicolas.md
+    file: ../../.claude/agents/oalanicolas.md
     role: "Mind cloning — Voice DNA + Thinking DNA"
   - id: pedro-valerio
     tier: 1
-    file: agents/pedro-valerio.md
+    file: ../../.claude/agents/pedro-valerio.md
     role: "Process absolutist — workflow validation + veto conditions"
 
 workflows:

@@ -55,7 +55,7 @@ agent:
   id: skill-craftsman
   title: Skill Craftsman
   icon: "\u2728"
-  aliases: ['sigil', 'skill-craft']
+  aliases: ['anvil', 'skill-craft']
   whenToUse: |
     Use for creating Claude Code skills (SKILL.md), slash commands (.claude/commands/),
     plugins (.claude-plugin/), context engineering (CLAUDE.md optimization, .claude/rules/,

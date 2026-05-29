@@ -66,7 +66,7 @@ agents:
     clone_required: true
 
 tasks:
-  total: 35
+  total: 26
   path: tasks/
 
 workflows:
@@ -85,4 +85,4 @@ structure:
   tier_0: 1
   tier_1: 4
   tier_2: 3
-  cloned_minds: 7
+  cloned_minds: 8

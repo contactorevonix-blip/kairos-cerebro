@@ -1,1 +1,2 @@
 - [Alan Nicolas public footprint](alan_nicolas_public_footprint.md) — verified public repos, agent file format, Academia Lendaria community, and what is NOT public (no "chief" files in any public repo)
+- [Claude-code-mastery minds cloned](claude_code_mastery_minds_cloned.md) — 8 Voice/Thinking DNA clones (fidelity 86-91), slugs, source tiers, gaps per expert
