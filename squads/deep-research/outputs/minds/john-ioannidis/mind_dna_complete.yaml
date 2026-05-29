@@ -1,0 +1,10 @@
+# Mind DNA — John Ioannidis
+# Status: CLONED — squads/deep-research/data/minds/ioannidis_dna.yaml
+# Agent: ioannidis
+mind:
+  name: "John Ioannidis"
+  slug: "john-ioannidis"
+  domain: "Meta-research, PPV, bias detection, research integrity"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/ioannidis_dna.yaml"
+quality: { fidelity: 94, status: EXTRACTED }

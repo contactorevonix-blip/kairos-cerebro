@@ -1,0 +1,10 @@
+# Mind DNA — Ben Gilad
+# Status: CLONED — squads/deep-research/data/minds/gilad_dna.yaml
+# Agent: gilad
+mind:
+  name: "Ben Gilad"
+  slug: "ben-gilad"
+  domain: "Competitive Intelligence, SCIP, strategic early warning"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/gilad_dna.yaml"
+quality: { fidelity: 91, status: EXTRACTED }

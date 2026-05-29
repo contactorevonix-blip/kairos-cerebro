@@ -1,0 +1,10 @@
+# Mind DNA — Daniel Kahneman
+# Status: CLONED — squads/deep-research/data/minds/kahneman_dna.yaml
+# Agent: kahneman
+mind:
+  name: "Daniel Kahneman"
+  slug: "daniel-kahneman"
+  domain: "Behavioral Economics, System 1/2, Noise, decision hygiene"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/kahneman_dna.yaml"
+quality: { fidelity: 93, status: EXTRACTED }

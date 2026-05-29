@@ -1,0 +1,43 @@
+philosophy: "Modelo mais barato que mantém qualidade"
+
+tiers:
+  haiku:
+    cost: "$1/$5 per MTok"
+    use_for: "Validação, scoring, admin, registry, comandos simples"
+  sonnet:
+    cost: "$3/$15 per MTok"
+    use_for: "Documentação, templates, análise moderada"
+  opus:
+    cost: "$5/$25 per MTok"
+    use_for: "DNA extraction, criação de agent, research profundo"
+
+tasks:
+  # Haiku — validação e admin
+  validate-squad.md: haiku
+  refresh-registry.md: haiku
+  squad-analytics.md: haiku
+  an-fidelity-score.md: haiku
+  an-clone-review.md: haiku
+  pv-axioma-assessment.md: haiku
+  qa-after-creation.md: haiku
+  install-commands.md: haiku
+  sync-ide-command.md: haiku
+
+  # Sonnet — documentação e templates
+  create-template.md: sonnet
+  create-task.md: sonnet
+  create-workflow.md: sonnet
+  arquitetura.md: sonnet
+  docs-generation.md: sonnet
+  update-mind.md: sonnet
+
+  # Opus — DNA e criação
+  extract-voice-dna.md: opus
+  extract-thinking-dna.md: opus
+  extract-knowledge.md: opus
+  create-agent.md: opus
+  create-squad.md: opus
+  deep-research-pre-agent.md: opus
+  collect-sources.md: opus
+  auto-acquire-sources.md: opus
+  mind-research-loop.md: opus

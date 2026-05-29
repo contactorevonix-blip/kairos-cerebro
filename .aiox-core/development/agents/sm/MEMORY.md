@@ -1,71 +1,31 @@
-# Scrum Master Agent Memory (River) — KAIROS Elite
+# Scrum Master Agent Memory (River)
 
-## Identidade e Missão
-Scrum Master do Kairos Check.
-Crias stories a partir de epics e PRDs. Facilitas o fluxo de trabalho.
-NÃO decides o quê — decides como estruturar o trabalho.
+## Active Patterns
+<!-- Current, verified patterns used by this agent -->
 
-## Autoridade Exclusiva
-- Criação de stories (`*draft`, `*create-story`) a partir de epics
-- Selecção de templates de story
-- Facilitação do fluxo: Draft → Ready → InProgress → Done
+### Key Patterns
+- CommonJS (`require`/`module.exports`), NOT ES Modules
+- ES2022, Node.js 18+, 2-space indent, single quotes
+- kebab-case for files, PascalCase for components
 
-## Recebe Pedidos De
-- @pm (Morgan) → epics e PRDs para transformar em stories
-- @po (Pax) → feedback sobre stories mal estruturadas
+### Project Structure
+- `docs/stories/epics/` — Epic directories with INDEX.md + stories
+- `.aiox-core/development/templates/` — Story templates
+- `.aiox-core/development/checklists/` — Draft checklists
 
-## Entrega Para
-- @po (Pax) → stories em Draft para validar
-
-## NUNCA FAÇAS
-- Validar stories (→ @po)
-- Criar epics ou PRDs (→ @pm)
-- Escrever código (→ @dev)
-- Fazer git push (→ @devops)
-- Decidir prioridade (→ @pm e @po)
-
-## Story Template KAIROS
-```yaml
-Story ID: KAIROS-{N}
-Title: {verbo + objecto + contexto}
-Epic: {epic-id}
-Status: Draft
-
-Description:
-  Como [tipo de utilizador], quero [acção], para [benefício de negócio].
-
-Acceptance Criteria:
-  - Given [contexto], When [acção], Then [resultado verificável]
-
-Scope:
-  IN: [o que está incluído]
-  OUT: [o que NÃO está incluído nesta story]
-
-Dependencies:
-  - [ficheiros críticos: stripe-webhook.js? sniper-db? server.js?]
-  - [stories pré-requisito]
-
-Complexity: [XS/S/M/L/XL]
-Risk: [LOW/MEDIUM/HIGH]
-Business Value: [impacto em €/clientes/retenção]
-```
-
-## Convenções KAIROS
-- Stories de billing → Risk: HIGH → Quinn audit obrigatório
-- Stories de UI → mencionar JS Syntax Gate no AC
-- Stories de sniper-db → mencionartoken economy no risk
-- Naming: `story-KAIROS-{N}-{slug}.md`
-
-## Lifecycle
-```
-@sm cria (Draft) → @po valida (Ready) → @dev implementa (InProgress)
-→ @qa aprova (InReview) → @devops push (Done)
-```
-
-## Git Rules
+### Git Rules
 - NEVER push — delegate to @devops
-- Conventional commits: `docs:` para story files
+- Conventional commits: `docs:` for story creation
+
+### Story Conventions
+- Story naming: `story-{PREFIX}-{N}-{slug}.md`
+- Epic INDEX.md tracks all stories with status
+- Stories flow: Draft → Ready → InProgress → InReview → Done
 
 ## Promotion Candidates
+<!-- Patterns seen across 3+ agents — candidates for CLAUDE.md or .claude/rules/ -->
+<!-- Format: - **{pattern}** | Source: {agent} | Detected: {YYYY-MM-DD} -->
 
 ## Archived
+<!-- Patterns no longer relevant — kept for history -->
+<!-- Format: - ~~{pattern}~~ | Archived: {YYYY-MM-DD} | Reason: {reason} -->

@@ -1,0 +1,112 @@
+name: wf-create-squad
+version: "1.0.0"
+description: "Workflow mestre de criação de squad — 6 fases com checkpoints e veto conditions"
+orchestrator: squad-chief
+duration_estimate: "4-8 horas"
+modes:
+  yolo: "Autónomo, 60-75% fidelidade, mínima interação"
+  quality: "Com validações, 85-95% fidelidade"
+  hybrid: "Mix por expert"
+
+phases:
+  - id: phase-0
+    name: Discovery
+    agent: squad-chief
+    objective: "Validar domínio e verificar se squad já existe"
+    steps:
+      - "Ler squads/squad-creator/data/squad-registry.yaml"
+      - "Verificar se domínio já tem cobertura"
+      - "Se existe: apresentar opções (usar/estender/criar novo)"
+      - "Se não existe: avançar para Phase 1"
+    veto_conditions:
+      - "STOP se squad idêntico já existe e utilizador não confirma criar novo"
+    output: "Decisão de criação confirmada"
+
+  - id: phase-1
+    name: Research
+    agent: squad-chief
+    objective: "Identificar elite minds com frameworks documentados"
+    steps:
+      - "Executar mind-research-loop.md (mínimo 3 iterações)"
+      - "Aplicar devil's advocate em cada iteração"
+      - "Validar frameworks com SC_FV_001"
+      - "Apresentar lista final ao utilizador"
+      - "Aguardar aprovação antes de avançar"
+    veto_conditions:
+      - "STOP se menos de 3 minds aprovados"
+      - "STOP se nenhum mind tem score >= 9/15"
+      - "NUNCA criar sem aprovação do utilizador"
+    output: "Lista aprovada de elite minds com tiers"
+
+  - id: phase-2
+    name: Architecture
+    agent: squad-chief
+    objective: "Definir estrutura do squad — tiers, handoffs, fluxo"
+    steps:
+      - "Classificar cada mind por tier (0/1/2/orchestrator)"
+      - "Definir handoffs entre agentes"
+      - "Criar arquitetura.md com visão geral"
+      - "Verificar: existe Tier 0 (diagnóstico)?"
+    veto_conditions:
+      - "STOP se não há agente de Tier 0 (diagnóstico é obrigatório)"
+      - "STOP se handoffs não estão definidos"
+    output: "arquitetura.md aprovado, tiers definidos"
+
+  - id: phase-3
+    name: Creation
+    agent: squad-chief
+    objective: "Clonar cada mind e criar agentes"
+    steps:
+      - "Para cada mind aprovado:"
+      - "  1. Delegar a oalanicolas: *clone-mind {nome}"
+      - "  2. oalanicolas preenche: voice/ phrases/ frameworks/ swipe/ authority/"
+      - "  3. squad-chief review: QG-SC-5.1 (DNA Review)"
+      - "  4. Se PASS: squad-chief cria agents/{nome}.md com DNA"
+      - "  5. Se FAIL: devolver a oalanicolas"
+      - "Executar quality gate SC_AGT_001 por agent"
+    veto_conditions:
+      - "STOP se oalanicolas não passa QG-SC-5.1 após 2 tentativas"
+      - "STOP se agent não passa SC_AGT_001"
+    output: "Todos os agentes criados e validados"
+
+  - id: phase-4
+    name: Integration
+    agent: squad-chief
+    objective: "Criar tasks, workflows, templates e infraestrutura"
+    steps:
+      - "Criar tasks/ baseadas nas missões do dispatcher"
+      - "Criar workflows/ com pedro-valerio para validar veto conditions"
+      - "Criar templates/ de output"
+      - "Criar checklists/ de qualidade"
+      - "Criar data/knowledge-base.md"
+      - "Criar memory/MEMORY.md template"
+      - "Actualizar squad-registry.yaml"
+    veto_conditions:
+      - "STOP se tasks não têm veto_conditions"
+      - "STOP se workflows não são unidirecionais"
+    output: "Infraestrutura completa criada"
+
+  - id: phase-5
+    name: Validation
+    agent: squad-chief
+    objective: "Quality gates finais"
+    steps:
+      - "Executar *validate-squad {nome}"
+      - "Score mínimo: 7.0/10"
+      - "3 smoke tests por agent PASSAM"
+      - "Todas as 22 pastas + 5 ficheiros existem"
+    veto_conditions:
+      - "STOP se score < 7.0 — corrigir antes de finalizar"
+      - "STOP se qualquer smoke test falha"
+    output: "Score >= 7.0, todos os gates PASS"
+
+  - id: phase-6
+    name: Handoff
+    agent: squad-chief
+    objective: "Dashboard final e próximos passos"
+    steps:
+      - "Gerar dashboard de qualidade"
+      - "Listar todos os agentes criados com scores"
+      - "Mostrar comandos de activação"
+      - "Sugerir próximos squads ou extensões"
+    output: "Squad pronto para uso"

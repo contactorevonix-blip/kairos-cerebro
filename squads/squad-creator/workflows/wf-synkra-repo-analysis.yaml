@@ -1,0 +1,168 @@
+name: wf-synkra-repo-analysis
+version: "1.0.0"
+description: |
+  Workflow completo de análise, curadoria e clonagem dos repos SynkraAI.
+  Analisa aiox-core (scripts) + aiox-squads (squads públicos),
+  avalia o que é ouro vs bronze, e clona seletivamente para o projeto.
+
+orchestrator: aiox-master
+
+repos:
+  aiox_core:
+    url: "https://github.com/SynkraAI/aiox-core"
+    focus: "scripts/ folder + raiz do repo"
+    sync_tool: ".aiox-core/scripts/update-aiox.sh"
+  aiox_squads:
+    url: "https://github.com/SynkraAI/aiox-squads"
+    focus: "packages/ folder (squads públicos)"
+    registry: "https://raw.githubusercontent.com/SynkraAI/aiox-squads/main/registry.json"
+    download_tool: ".aiox-core/development/scripts/squad/squad-downloader.js"
+
+phases:
+
+  - id: phase-0
+    name: "Descoberta — Inventário Completo"
+    agent: analyst
+    duration: "30-60 min"
+    objective: "Ler os dois repos e inventariar tudo que existe"
+    steps:
+      - name: "Ler registry de squads públicos"
+        tool: WebFetch
+        url: "https://raw.githubusercontent.com/SynkraAI/aiox-squads/main/registry.json"
+        extracts: ["official squads", "community squads"]
+        writes_to: "squads/squad-creator/reference/synkra-squads-inventory.json"
+
+      - name: "Ler estrutura raiz do aiox-core repo"
+        tool: WebFetch
+        url: "https://api.github.com/repos/SynkraAI/aiox-core/contents"
+        extracts: ["pastas na raiz", "scripts/ se existir"]
+        writes_to: "squads/squad-creator/reference/synkra-core-inventory.json"
+
+      - name: "Inventariar scripts importantes no aiox-core"
+        tool: WebFetch
+        urls:
+          - "https://api.github.com/repos/SynkraAI/aiox-core/contents/scripts"
+          - "https://api.github.com/repos/SynkraAI/aiox-core/contents/.aiox-core/development/scripts"
+        writes_to: "squads/squad-creator/reference/synkra-scripts-inventory.json"
+
+      - name: "Ler o que já temos localmente"
+        reads:
+          - "squads/squad-creator/data/squad-registry.yaml"
+          - "squads/business/scripts/"
+        purpose: "Gap analysis — upstream vs local"
+
+    output: "squads/squad-creator/reference/full-inventory-{date}.md"
+    veto_conditions:
+      - "STOP se registry.json não é acessível"
+      - "STOP se inventário local não pode ser lido"
+
+  - id: phase-1
+    name: "Curadoria — Ouro / Prata / Bronze"
+    agent: oalanicolas
+    duration: "45-90 min"
+    objective: "Classificar cada item do inventário por valor"
+    reads_first:
+      - "squads/squad-creator/reference/full-inventory-{date}.md"
+      - "squads/squad-creator/data/squad-registry.yaml"
+
+    curation_criteria:
+      OURO:
+        squad:
+          - "Domínio não coberto pelo business squad"
+          - "Tem agents + tasks + workflows completos"
+          - "Qualidade documentada (tem squad.yaml + README)"
+          - "Não duplica o que temos"
+        script:
+          - "Funcionalidade em falta nos nossos scripts/"
+          - "Usa Node.js (compatível)"
+          - "Tem documentação inline"
+          - "Não existe equivalente em squads/business/scripts/"
+      PRATA:
+        - "Tem valor mas adaptação manual é melhor que clone directo"
+        - "Duplica parcialmente — só partes são úteis"
+      BRONZE:
+        - "Domínio já coberto"
+        - "Qualidade desconhecida"
+        - "Contexto demasiado específico para outro projecto"
+
+    output: "squads/squad-creator/reference/curation-report-{date}.md"
+    veto_conditions:
+      - "STOP se classificação não tem [SOURCE:] para cada item"
+      - "STOP se lista OURO tem > 10 items sem justificação adicional"
+      - "NUNCA classificar ouro sem verificar duplicação"
+
+  - id: phase-2
+    name: "Verificação de Conflitos"
+    agent: architect
+    duration: "30 min"
+    objective: "Verificar que items OURO não conflituam com setup actual"
+    reads_first:
+      - "squads/squad-creator/reference/curation-report-{date}.md"
+      - "squads/business/arquitetura.md"
+      - ".aiox-core/package.json"
+    checks:
+      - "Algum squad OURO duplica o business squad?"
+      - "Scripts têm dependências fora de .aiox-core/package.json?"
+      - "Naming conventions são consistentes?"
+      - "Paths são compatíveis com Windows (backslash)?"
+    output: "squads/squad-creator/reference/conflict-analysis-{date}.md"
+    veto_conditions:
+      - "STOP se conflito crítico de paths"
+      - "STOP se dependência incompatível"
+
+  - id: phase-3
+    name: "Clonagem Selectiva"
+    agent: dev
+    duration: "60-120 min"
+    objective: "Clonar os items OURO aprovados"
+    reads_first:
+      - "squads/squad-creator/reference/curation-report-{date}.md"
+      - "squads/squad-creator/reference/conflict-analysis-{date}.md"
+
+    for_squads_ouro:
+      method_1: "node .aiox-core/development/scripts/squad/squad-downloader.js download {name}"
+      method_2: "@squad-creator *download-squad {name}"
+      target: "squads/{name}/"
+
+    for_scripts_ouro:
+      method_1: "bash .aiox-core/scripts/update-aiox.sh (syncs .aiox-core/ completo)"
+      method_2: "WebFetch raw file → guardar em local"
+      check_first: "O script já está em .aiox-core/ após update-aiox.sh?"
+
+    writes_log: "squads/squad-creator/reference/clone-log-{date}.yaml"
+    veto_conditions:
+      - "STOP se SQUAD_EXISTS sem --overwrite explícito"
+      - "STOP se script tem eval() ou execução de código dinâmico"
+      - "STOP se RATE_LIMIT (definir GITHUB_TOKEN)"
+
+  - id: phase-4
+    name: "Integração e Registo"
+    agent: aiox-master
+    duration: "30 min"
+    steps:
+      - command: "*refresh-registry"
+        updates: "squads/squad-creator/data/squad-registry.yaml"
+      - command: "*ids register {script-path}"
+        for_each: "novo script"
+      - command: "node squads/{name}/scripts/validate-squad.js"
+        for_each: "squad clonado"
+        threshold: "PASS obrigatório"
+      - updates: "squads/squad-creator/memory/MEMORY.md"
+        section: "Squads e Scripts Clonados do Upstream"
+
+    veto_conditions:
+      - "STOP se validate-squad falha no squad clonado"
+
+  - id: phase-5
+    name: "Relatório Final"
+    agent: aiox-master
+    duration: "15 min"
+    output: "squads/squad-creator/reference/synkra-clone-final-{date}.md"
+
+completion_criteria:
+  - "reference/full-inventory criado"
+  - "reference/curation-report com [SOURCE:] em todos os items"
+  - "reference/conflict-analysis sem conflitos críticos"
+  - "Todos items OURO clonados"
+  - "validate-squad PASS em novos squads"
+  - "squad-registry.yaml actualizado"

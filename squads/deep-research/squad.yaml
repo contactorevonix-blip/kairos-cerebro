@@ -1,0 +1,116 @@
+name: deep-research
+version: "1.0.0"
+created: "2026-02-07"
+domain: Evidence-Based Research Pipeline
+purpose: "Pipeline 3-tier de investigação profunda: Diagnostic (Tier 0), Execution (Tier 1), QA. 11 agents baseados em elite minds reais."
+philosophy: "Every research question deserves a structured, evidence-based answer."
+orchestrator: dr-orchestrator
+
+agents:
+  - id: dr-orchestrator
+    tier: orchestrator
+    file: agents/dr-orchestrator.md
+    role: "Pipeline Coordinator — query classification, routing, quality gates, synthesis"
+    clone_required: false
+
+  - id: sackett
+    tier: 0
+    file: agents/sackett.md
+    role: "PICO question formulation, evidence levels, EBM 5-step workflow"
+    expert: "David Sackett"
+    fidelity: 95
+    clone_required: true
+
+  - id: booth
+    tier: 0
+    file: agents/booth.md
+    role: "Review methodology selection (14 types), SALSA/STARLITE frameworks"
+    expert: "Andrew Booth"
+    fidelity: 93
+    clone_required: true
+
+  - id: creswell
+    tier: 0
+    file: agents/creswell.md
+    role: "Qualitative/quantitative/mixed methods design, data integration strategy"
+    expert: "John Creswell"
+    fidelity: 92
+    clone_required: true
+
+  - id: forsgren
+    tier: 1
+    file: agents/forsgren.md
+    role: "Technical performance measurement, DORA metrics, SPACE framework"
+    expert: "Nicole Forsgren"
+    fidelity: 94
+    clone_required: true
+
+  - id: cochrane
+    tier: 1
+    file: agents/cochrane.md
+    role: "Systematic literature reviews, evidence synthesis, PRISMA, GRADE"
+    expert: "Cochrane Collaboration"
+    fidelity: 93
+    clone_required: true
+
+  - id: higgins
+    tier: 1
+    file: agents/higgins.md
+    role: "Open-source investigations, source verification, digital forensics"
+    expert: "Eliot Higgins"
+    fidelity: 91
+    clone_required: true
+
+  - id: klein
+    tier: 1
+    file: agents/klein.md
+    role: "Pattern recognition, sensemaking, NDM/RPD, pre-mortem"
+    expert: "Gary Klein"
+    fidelity: 92
+    clone_required: true
+
+  - id: gilad
+    tier: 1
+    file: agents/gilad.md
+    role: "Competitive intelligence, strategic early warning, blind spot detection"
+    expert: "Ben Gilad"
+    fidelity: 91
+    clone_required: true
+
+  - id: ioannidis
+    tier: qa
+    file: agents/ioannidis.md
+    role: "Evidence reliability audit, PPV calculation, bias detection"
+    expert: "John Ioannidis"
+    fidelity: 94
+    clone_required: true
+
+  - id: kahneman
+    tier: qa
+    file: agents/kahneman.md
+    role: "Cognitive bias audit, System 1/2, decision hygiene, pre-mortem analysis"
+    expert: "Daniel Kahneman"
+    fidelity: 93
+    clone_required: true
+
+tasks:
+  total: 17
+  path: tasks/
+
+workflows:
+  - wf-deep-research.yaml
+  - wf-quick-research.yaml
+  - wf-competitive-intel.yaml
+
+quality:
+  minimum_score: 7.0
+  smoke_tests_required: 3
+  fidelity_minimum: 85
+
+structure:
+  canonical_folders: 8
+  total_agents: 11
+  tasks_count: 17
+  workflows_count: 3
+  checklists_count: 6
+  minds_count: 10

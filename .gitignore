@@ -55,6 +55,10 @@ packages/web/.next
 .vercel
 
 .ai/design-ref/
+.claude/memory/snapshots/
+.claude/memory/state-ledger.jsonl
+.claude/.consensus-key
+*.tmp
 
 # Environment & Secrets (AIOX)
 .env.local
@@ -76,3 +80,10 @@ logs/
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# Claude Code logs (gerados automaticamente)
+.claude/logs/
+
+# VS Code workspace files (não pertencem ao repo)
+*.code-workspace
+.claude/agents/*.code-workspace

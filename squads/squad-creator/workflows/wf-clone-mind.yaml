@@ -1,0 +1,76 @@
+name: wf-clone-mind
+version: "1.0.0"
+description: "Pipeline de clonagem completa de uma mente — Voice DNA + Thinking DNA"
+primary_agent: oalanicolas
+orchestrator: squad-chief
+duration_estimate: "2-3 horas"
+
+inputs:
+  mind_name: "Nome do expert (ex: Gary Halbert)"
+  domain: "Domínio de aplicação (ex: copywriting)"
+  squad: "Squad de destino (ex: copy)"
+  focus: "voice | thinking | both (default: both)"
+
+phases:
+  - id: phase-1
+    name: Source Collection
+    task: collect-sources.md
+    description: "Recolher e validar fontes primárias"
+    minimum_sources: 5
+    source_types: ["livros", "artigos", "entrevistas", "podcasts", "vídeos", "cursos"]
+    veto_conditions:
+      - "STOP se menos de 5 fontes primárias verificadas"
+      - "STOP se todas as fontes são secundárias (citações de citações)"
+
+  - id: phase-2
+    name: Voice DNA Extraction
+    task: extract-voice-dna.md
+    description: "Extrair como o expert comunica"
+    outputs:
+      - "voice/{slug}-voice.md — tom, vocabulário, estilo completo"
+      - "phrases/{slug}-phrases.md — 20+ frases assinatura com [SOURCE:]"
+    quality_minimum: 8/10
+    veto_conditions:
+      - "STOP se menos de 15 citações com [SOURCE:]"
+      - "STOP se phrases não têm rastreabilidade"
+
+  - id: phase-3
+    name: Thinking DNA Extraction
+    task: extract-thinking-dna.md
+    description: "Extrair como o expert decide e pensa"
+    outputs:
+      - "frameworks/{slug}-framework.md — sistema operacional de decisão"
+    quality_minimum: 7/10
+    veto_conditions:
+      - "STOP se heurísticas não têm QUANDO usar"
+      - "STOP se framework não é replicável"
+
+  - id: phase-4
+    name: Authority & Swipe
+    description: "Credenciais e exemplos reais"
+    outputs:
+      - "authority/{slug}-authority.md — resultados, credenciais, skin-in-the-game"
+      - "swipe/{slug}-swipe.md — 10+ exemplos reais de outputs"
+      - "swipe-sources/{slug}-sources.md — fontes do swipe file"
+
+  - id: phase-5
+    name: Quality Review
+    gate: QG-SC-5.1
+    description: "squad-chief revê output do oalanicolas"
+    checks:
+      - "15+ citações com [SOURCE:]"
+      - "5+ signature phrases verificáveis"
+      - "Heuristics têm QUANDO usar"
+      - "Fidelidade >= 85%"
+    pass_action: "Aprovar — avançar para criação do agent"
+    fail_action: "Devolver a oalanicolas com lista específica do que falta"
+
+output:
+  structure:
+    - "voice/{slug}-voice.md"
+    - "phrases/{slug}-phrases.md"
+    - "frameworks/{slug}-framework.md"
+    - "authority/{slug}-authority.md"
+    - "swipe/{slug}-swipe.md"
+    - "swipe-sources/{slug}-sources.md"
+  next_step: "Criar agents/{slug}.md usando o DNA extraído (task: create-agent.md)"

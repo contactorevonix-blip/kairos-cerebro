@@ -44,7 +44,6 @@ const {
   getReferralByCode,
 } = require('../sniper-db');
 const repGraph = require('../reputation-graph');
-const sovereign = require('../sovereign');
 const billing = require('../billing');
 const compliance = require('../compliance');
 const fsModule = require('fs');
@@ -1129,7 +1128,7 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
 
     // ─── Agent task forces (operational view of the 18 agents) ──────────────
     if (method === 'GET' && url === '/api/taskforces') {
-      sendJson(res, 200, { taskForces: sovereign.listTaskForces() });
+      sendJson(res, 200, { taskForces: [] });
       return;
     }
     if (method === 'GET' && url === '/api/billing/plans') {
@@ -1412,6 +1411,19 @@ try {
 } catch { /* graph optional — server runs without it */ }
 
 if (require.main === module) {
+  // Auto-init vault on startup if passphrase is set but vault.json doesn't exist yet
+  if (process.env.KAIROS_MASTER_PASSPHRASE) {
+    try {
+      const vault = require('../vault');
+      if (!vault.isVaultInitialized()) {
+        vault.initVault();
+        console.log('  ✓ Vault initialised automatically (KAIROS_MASTER_PASSPHRASE was set)');
+      }
+    } catch (e) {
+      console.warn('  ⚠  Vault auto-init failed:', e.message);
+    }
+  }
+
   const boot = bootstrapIfEmpty();
   server.listen(PORT, '0.0.0.0', () => {
     logEvent('server.boot', {

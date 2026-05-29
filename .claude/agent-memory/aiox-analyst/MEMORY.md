@@ -1,0 +1,1 @@
+- [AIOX-Core Upstream Cherry-Pick](project_aiox-core-upstream.md) — o que é OURO no repo SynkraAI/aiox-core (scripts CI + squad claude-code-mastery)

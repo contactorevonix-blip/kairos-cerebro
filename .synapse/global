@@ -1,0 +1,26 @@
+# SYNAPSE — Global Rules (always injected)
+# Estas regras aplicam-se a TODOS os prompts, sem excepção.
+
+## Dados e Honestidade
+- NUNCA inventar dados: testimonials, contadores, actividade, métricas — apenas dados reais ou secções honestas
+- NUNCA inventar URLs — só usar URLs confirmadas ou fornecidas pelo utilizador
+- Contadores falsos detectados no código devem ser sinalizados imediatamente
+
+## Segurança
+- NUNCA commitar secrets, API keys, ou tokens em git
+- NUNCA colocar dados sensíveis em logs
+- Validar input externo — SQL injection, XSS, OWASP top 10
+
+## Ferramentas — Selecção Correcta
+- Ler ficheiros: usar Read tool — NUNCA PowerShell/cat (lê UTF-8 errado no Windows)
+- Pesquisar conteúdo: usar Grep tool — NUNCA grep/rg em Bash
+- Pesquisar ficheiros: usar Glob tool — NUNCA find em Bash
+
+## Erros e Debugging
+- Em qualquer erro inesperado → consultar `.claude/gotchas.md` ANTES de debugar
+- Erros já documentados no gotchas.md não devem ser reinvestigados — aplicar o fix directo
+
+## Código
+- Zero abstrações prematuras — resolver o problema específico, não o genérico imaginário
+- Sem error handling para cenários impossíveis
+- Sem comentários óbvios — só comentar o WHY não-óbvio

@@ -1,0 +1,206 @@
+# Canonical AIOX Baseline — Reference for Gap Detection
+# [SOURCE: agent-quality-gate.md v4.0, quality-gates.yaml, tier-system-framework.md]
+# Used by: Kronos gap detection engine
+
+version: "1.0.0"
+created: "2026-05-29"
+source_files:
+  - ".aiox-core/constitution.md"
+  - ".aiox-core/development/checklists/agent-quality-gate.md v4.0"
+  - "squads/squad-creator/config/quality-gates.yaml"
+
+# ─────────────────────────────────────────────────────────────
+# CANONICAL INSTALLATION FILES
+# ─────────────────────────────────────────────────────────────
+
+installation_required:
+  root_files:
+    - path: ".aiox-sync.yaml"
+      impact: CRITICAL
+      purpose: "Multi-IDE sync configuration"
+      fix: "*generate .aiox-sync.yaml"
+      agent: "aiox-cerebro"
+
+    - path: ".aiox-core/constitution.md"
+      impact: CRITICAL
+      purpose: "Framework constitution — 6 articles"
+
+    - path: ".aiox-core/data/aiox-kb.md"
+      impact: HIGH
+      purpose: "AIOX knowledge base"
+
+  aiox_core_files:
+    - path: ".aiox-core/development/tasks/create-agent.md"
+      purpose: "7-phase agent creation pipeline"
+    - path: ".aiox-core/development/checklists/agent-quality-gate.md"
+      purpose: "SC_AGT_001 + SC_AGT_004 quality gate"
+    - path: ".aiox-core/development/data/tier-system-framework.md"
+      purpose: "5-tier system classification"
+    - path: ".aiox-core/development/data/quality-dimensions-framework.md"
+      purpose: "10 quality dimensions with weights"
+    - path: ".aiox-core/development/data/decision-heuristics-framework.md"
+      purpose: "Heuristic anatomy and templates"
+    - path: ".aiox-core/data/workflow-chains.yaml"
+      purpose: "Workflow chain definitions for greeting suggestions"
+
+  claude_config:
+    - path: ".claude/rules/agent-handoff.md"
+      purpose: "Handoff protocol — 379 tokens"
+    - path: ".claude/rules/agent-authority.md"
+      purpose: "Agent authority matrix"
+    - path: ".claude/rules/story-lifecycle.md"
+      purpose: "Story status transitions"
+    - path: ".claude/rules/workflow-execution.md"
+      purpose: "4 primary workflows"
+
+# ─────────────────────────────────────────────────────────────
+# CANONICAL SQUAD STRUCTURE
+# [SOURCE: quality-gates.yaml QG-SC-1.1 — 22 pastas + 5 ficheiros]
+# ─────────────────────────────────────────────────────────────
+
+squad_canonical:
+  root_files_5:
+    - squad.yaml
+    - config.yaml
+    - README.md
+    - arquitetura.md
+    - swipe-config.yaml
+
+  folders_22:
+    - agents/
+    - tasks/
+    - workflows/
+    - templates/
+    - checklists/
+    - data/
+    - memory/
+    - config/
+    - scripts/
+    - minds/
+    - docs/
+    - voice/
+    - phrases/
+    - authority/
+    - frameworks/
+    - "outputs/minds/"
+    - archive/
+    - handoffs/
+    - lib/
+    - projects/
+    - reference/
+    - state/
+
+  per_agent_required:
+    # [SOURCE: agent-quality-gate.md v4.0]
+    blocking:
+      - "activation-instructions"
+      - "IDE-FILE-RESOLUTION com base_path"
+      - "REQUEST-RESOLUTION"
+      - "command_loader"
+      - "CRITICAL_LOADER_RULE (LOOKUP+STOP+LOAD+VERIFY+EXECUTE+FAILURE)"
+      - "agent.name"
+      - "agent.id kebab-case"
+      - "agent.tier (1, 2 ou 3)"
+      - "agent.whenToUse (20+ chars)"
+      - "persona (role, style, identity, focus)"
+      - "core_principles (5-9 items)"
+      - "operational_frameworks (1+ com name+philosophy+steps+examples)"
+      - "commands (5+ incluindo *help e *exit)"
+      - "voice_dna.vocabulary.always_use (5+)"
+      - "voice_dna.vocabulary.never_use (3+)"
+      - "output_examples (3+ com task/input/output)"
+      - "anti_patterns.never_do (5+)"
+      - "completion_criteria.task_done_when"
+      - "completion_criteria.handoff_to (1+)"
+      - "integration.tier_position"
+      - "integration.workflow_integration.position_in_flow"
+      - "activation.greeting (50+ chars)"
+    recommended:
+      - "800+ linhas"
+      - "persona.background (3+ parágrafos)"
+      - "voice_dna.sentence_starters (5+)"
+      - "voice_dna.metaphors (3+)"
+      - "voice_dna.behavioral_states (2+)"
+      - "voice_dna.signature_phrases (5+)"
+      - "objection_algorithms (3+)"
+      - "templates para cada output type"
+
+# ─────────────────────────────────────────────────────────────
+# MATURITY SCORE FORMULA
+# [SOURCE: agent-quality-gate.md v4.0 Phase 6.3]
+# ─────────────────────────────────────────────────────────────
+
+maturity_formula:
+  identity: { weight: 1.0, check: "agent + persona completo" }
+  thinking_dna: { weight: 1.5, check: "operational_frameworks com steps" }
+  voice_dna: { weight: 1.5, check: "vocabulary + sentence_starters" }
+  output_examples: { weight: 1.0, check: "3+ com task/input/output" }
+  command_loader: { weight: 1.5, check: "todos os comandos mapeados" }
+  tasks_coverage: { weight: 1.5, check: "task file por comando operacional" }
+  templates: { weight: 1.0, check: "template por output type" }
+  checklists: { weight: 0.5, check: "1+ checklist com blocking items" }
+  data_files: { weight: 0.5, check: "1+ data file de referência" }
+  max_score: 10.0
+  levels:
+    nivel_1: "0-4 — FAIL (persona only)"
+    nivel_2: "4-7 — CONDITIONAL"
+    nivel_3: "7-9 — PASS (determinístico)"
+    nivel_3_plus: "9-10 — EXCELLENT (integrado)"
+
+# ─────────────────────────────────────────────────────────────
+# AIOX SYNC TEMPLATE
+# ─────────────────────────────────────────────────────────────
+
+aiox_sync_template: |
+  # .aiox-sync.yaml — Multi-IDE Sync Configuration
+  active_ides:
+    - claude  # .claude/commands/
+    # - cursor  # .cursor/rules/
+    # - gemini  # .gemini/
+
+  squad_aliases:
+    claude-code-mastery: Claude-Code-Mastery
+    deep-research: Deep-Research
+    # {slug}: {Human-Readable-Prefix}
+
+  sync_mappings:
+    squad_agents:
+      source: "squads/*/agents/"
+      destinations:
+        claude:
+          - path: ".claude/commands/{squad_alias}/agents/"
+            format: md
+
+# ─────────────────────────────────────────────────────────────
+# SCORING WEIGHTS FOR INSTALLATION AUDIT
+# ─────────────────────────────────────────────────────────────
+
+installation_scoring:
+  aiox_core:
+    max: 25
+    checks:
+      - constitution_exists: 5
+      - create_agent_exists: 5
+      - quality_gate_exists: 5
+      - workflow_chains_exists: 5
+      - tier_framework_exists: 5
+  squads:
+    max: 25
+    per_squad:
+      - squad_yaml: 5
+      - agents_complete: 5
+      - outputs_minds: 5
+      - checklists: 5
+      - canonical_22_folders: 5
+  claude_config:
+    max: 25
+    checks:
+      - rules_complete: 10
+      - agents_registered: 10
+      - skills_complete: 5
+  wiring:
+    max: 25
+    checks:
+      - aiox_sync_yaml: 10
+      - commands_generated: 10
+      - entity_registry: 5

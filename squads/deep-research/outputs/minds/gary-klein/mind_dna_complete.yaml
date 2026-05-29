@@ -1,0 +1,10 @@
+# Mind DNA — Gary Klein
+# Status: CLONED — squads/deep-research/data/minds/klein_dna.yaml
+# Agent: klein
+mind:
+  name: "Gary Klein"
+  slug: "gary-klein"
+  domain: "Naturalistic Decision Making, Recognition-Primed Decision"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/klein_dna.yaml"
+quality: { fidelity: 92, status: EXTRACTED }

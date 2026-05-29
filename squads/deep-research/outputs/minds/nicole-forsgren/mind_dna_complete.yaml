@@ -1,0 +1,10 @@
+# Mind DNA — Nicole Forsgren
+# Status: CLONED — squads/deep-research/data/minds/forsgren_dna.yaml
+# Agent: forsgren
+mind:
+  name: "Nicole Forsgren"
+  slug: "nicole-forsgren"
+  domain: "DORA metrics, SPACE framework, Accelerate book"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/forsgren_dna.yaml"
+quality: { fidelity: 94, status: EXTRACTED }

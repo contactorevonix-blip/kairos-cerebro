@@ -1,0 +1,27 @@
+# Kairos Check — Synapse Domain Manifest
+# Format: {DOMAIN}_{ATTRIBUTE}=value
+# ALWAYS_ON=true  → injectado em todos os prompts
+# AGENT_TRIGGER   → injectado apenas quando agente está activo
+# STATE=active    → domínio activo
+
+DEVMODE=false
+
+# Regras globais — always on
+GLOBAL_ALWAYS_ON=true
+GLOBAL_STATE=active
+
+# Contexto do projecto Kairos — always on
+KAIROS_ALWAYS_ON=true
+KAIROS_STATE=active
+
+# Regras de qualidade — always on
+QUALITY_ALWAYS_ON=true
+QUALITY_STATE=active
+
+# Regras DevOps — activadas quando @devops está activo
+DEVOPS_AGENT_TRIGGER=devops
+DEVOPS_STATE=active
+
+# IDS — activado quando *create ou *modify é invocado (keyword trigger)
+IDS_RECALL=create,modify,new component,novo componente,criar,adicionar
+IDS_STATE=active

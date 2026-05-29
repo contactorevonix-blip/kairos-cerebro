@@ -1,0 +1,10 @@
+# Mind DNA — John Creswell
+# Status: CLONED — squads/deep-research/data/minds/creswell_dna.yaml
+# Agent: creswell
+mind:
+  name: "John Creswell"
+  slug: "john-creswell"
+  domain: "Mixed methods research design, qual/quant integration"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/creswell_dna.yaml"
+quality: { fidelity: 92, status: EXTRACTED }

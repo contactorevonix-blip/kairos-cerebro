@@ -1,0 +1,11 @@
+# Mind DNA — Andrew Booth (SALSA framework)
+# Status: CLONED — available in squads/deep-research/data/minds/booth_dna.yaml
+# Agent: booth
+mind:
+  name: "Andrew Booth"
+  slug: "andrew-booth"
+  domain: "SALSA, STARLITE, 14 review types, information science"
+  source: "Grant & Booth (2009) + academic publications"
+  extraction_status: AVAILABLE
+  dna_file: "squads/deep-research/data/minds/booth_dna.yaml"
+quality: { fidelity: 93, status: EXTRACTED }

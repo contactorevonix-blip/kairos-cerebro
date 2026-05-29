@@ -1,0 +1,39 @@
+# SYNAPSE — Kairos Check Project Context (always injected)
+# Contexto específico do produto — injected em todos os prompts neste projecto.
+
+## Arquitectura de Produção
+- Backend: Node.js no Railway → https://api.kairoscheck.net (público) | kairos-cerebro.railway.internal (privado)
+- Frontend: Next.js no Vercel → https://kairoscheck.net
+- Volume Railway: /app/.kairos-data (produção) | .kairos-data (local)
+- Base de dados: JSONL files no volume + vault.json (AES-256-GCM)
+- Região: EU West (europe-west4) — GDPR-compliant
+
+## Scripts do Projecto
+- Sempre correr via: `node bin/kairos.js <comando>`
+- Comandos disponíveis: stats, supervisor, radar, health, respond
+- Backup: `npm run backup` → node bin/backup-volume.js (R2 Cloudflare)
+- Testes: `npm test` (5 testes, corre em pre-commit)
+- Quando health é mencionado → correr `/kairos` ou `node bin/kairos.js health` imediatamente
+
+## Variáveis de Ambiente Críticas
+- KAIROS_ADMIN_TOKEN → autenticação /dashboard e /api/stats/*
+- KAIROS_MASTER_PASSPHRASE → vault AES-256-GCM (auto-init no startup)
+- KAIROS_RG_ADAPTER → json (local) | redis (produção cross-tenant)
+- R2_BACKUP_BUCKET, R2_ENDPOINT, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY → backup
+
+## Contexto de Negócio
+- Produto: API de scoring anti-fraude OSINT-first, GDPR-native
+- Target: indie devs e solo founders, ACV ≤ €199/mês self-serve
+- Estado: pré-revenue (0 tenants activos)
+- Stack de billing: Stripe live mode
+
+## Convenções do Código
+- Zero dependências externas nos scripts core (crypto, fs, readline nativos)
+- Escrita atómica: writeFileSync(tmp) → renameSync(tmp, target)
+- Leitura de ficheiros grandes: readline stream (não carregar tudo em memória)
+- Audit chain: SHA-256(prevHash + body) — nunca invalidar ao rodar/arquivar
+
+## GitHub Actions Activos
+- test.yml: PRs + branches → npm test + audit chain
+- deploy.yml: push main → tests → Railway auto-deploy → smoke tests
+- smoke-test.yml: cron cada 10 min, 24/7 health monitoring
