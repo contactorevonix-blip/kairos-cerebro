@@ -1,3 +1,6 @@
+workflow:
+  id: wf-synkra-repo-analysis
+  name: "Synkra Repo Analysis"
 name: wf-synkra-repo-analysis
 version: "1.0.0"
 description: |

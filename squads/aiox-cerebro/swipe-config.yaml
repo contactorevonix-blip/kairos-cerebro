@@ -1,0 +1,30 @@
+swipe_sources:
+  - name: "AIOX Constitution"
+    path: ".aiox-core/constitution.md"
+    type: local
+    relevance: CRITICAL
+    description: "6 artigos inegociáveis — fonte de verdade para audits"
+
+  - name: "Agent Quality Gate v4.0"
+    path: ".aiox-core/development/checklists/agent-quality-gate.md"
+    type: local
+    relevance: CRITICAL
+    description: "SC_AGT_001 + SC_AGT_004 — fórmula de maturity score"
+
+  - name: "Tier System Framework"
+    path: ".aiox-core/development/data/tier-system-framework.md"
+    type: local
+    relevance: HIGH
+
+  - name: "Quality Dimensions"
+    path: ".aiox-core/development/data/quality-dimensions-framework.md"
+    type: local
+    relevance: HIGH
+
+  - name: "Workflow Chains"
+    path: ".aiox-core/data/workflow-chains.yaml"
+    type: local
+    relevance: HIGH
+    description: "SDC, QA Loop, Spec Pipeline — chains verificadas"
+
+update_frequency: on_demand

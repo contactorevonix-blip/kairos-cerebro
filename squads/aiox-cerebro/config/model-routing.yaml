@@ -1,0 +1,12 @@
+routing:
+  default: opus
+  rationale: "Análise cognitiva profunda requer o modelo mais capaz"
+
+  tasks:
+    audit-workflow.md: opus
+    gap-analysis-workflow.md: opus
+    gold-mechanisms-workflow.md: opus
+    generate-workflow.md: sonnet
+    self-audit-workflow.md: sonnet
+    clone-structure-workflow.md: sonnet
+    next-3-actions-workflow.md: opus

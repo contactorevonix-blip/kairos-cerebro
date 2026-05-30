@@ -1,3 +1,13 @@
+workflow:
+  id: wf-universal-factory
+  name: "Universal Factory"
+  sequence:
+    - classify
+    - research
+    - architecture
+    - planning
+    - creation
+    - verification
 name: wf-universal-factory
 version: "1.0.0"
 description: "Pipeline universal de 30 etapas para criar sistemas de elite. Da descrição em linguagem natural ao sistema em produção verificado."

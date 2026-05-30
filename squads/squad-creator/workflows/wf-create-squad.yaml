@@ -1,3 +1,6 @@
+workflow:
+  id: wf-create-squad
+  name: "Create Squad"
 name: wf-create-squad
 version: "1.0.0"
 description: "Workflow mestre de criação de squad — 6 fases com checkpoints e veto conditions"

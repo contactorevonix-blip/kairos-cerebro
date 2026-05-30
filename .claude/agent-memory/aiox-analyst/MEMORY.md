@@ -1,1 +1,2 @@
 - [AIOX-Core Upstream Cherry-Pick](project_aiox-core-upstream.md) — o que é OURO no repo SynkraAI/aiox-core (scripts CI + squad claude-code-mastery)
+- [Pedro Business Profile](project_pedro-business-profile.md) — solo founder técnico, tese faceless/alta-margem/B2B, stack Node+Railway+Stripe+Postgres, Kairos Check (fraud API)

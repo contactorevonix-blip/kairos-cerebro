@@ -1,3 +1,9 @@
+workflow:
+  id: wf-research-loop
+  name: "Research Loop"
+  sequence:
+    - pico-refinement
+    - source-expansion
 name: wf-research-loop
 version: "1.0.0"
 description: "Loop de research infinito — corre até confidence_score >= 8.0. Usado pela Fase 1 do wf-universal-factory."

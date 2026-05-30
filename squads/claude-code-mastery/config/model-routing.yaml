@@ -1,0 +1,13 @@
+routing:
+  claude-mastery-chief: sonnet
+  hooks-architect: sonnet
+  mcp-integrator: sonnet
+  swarm-orchestrator: opus
+  config-engineer: sonnet
+  skill-craftsman: sonnet
+  project-integrator: sonnet
+  roadmap-sentinel: sonnet
+
+rationale:
+  opus: "swarm-orchestrator precisa de raciocínio complexo para orquestrar agent teams"
+  sonnet: "restantes são especialistas com domínio definido — sonnet é suficiente"

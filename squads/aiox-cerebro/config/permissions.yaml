@@ -1,0 +1,14 @@
+permissions:
+  default_mode: bypassPermissions
+  rationale: "Kronos precisa de ler todos os ficheiros do sistema sem prompts para auditar correctamente"
+  tools_allowed:
+    - Read
+    - Grep
+    - Glob
+    - Write
+    - Edit
+    - Bash
+  tools_restricted:
+    - WebSearch
+    - WebFetch
+  rationale_restricted: "Kronos usa ficheiros locais + knowledge interno — sem dependências externas"

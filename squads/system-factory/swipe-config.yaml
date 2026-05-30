@@ -1,0 +1,17 @@
+swipe_sources:
+  - name: "AIOX Constitution"
+    path: ".aiox-core/constitution.md"
+    type: local
+    agent: forge-architect
+
+  - name: "create-agent.md v3.0"
+    path: ".aiox-core/development/tasks/create-agent.md"
+    type: local
+    agent: forge-builder
+
+  - name: "quality-gates.yaml"
+    path: "squads/squad-creator/config/quality-gates.yaml"
+    type: local
+    agent: forge-verifier
+
+update_frequency: on_demand

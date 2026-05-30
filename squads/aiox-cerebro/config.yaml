@@ -1,0 +1,27 @@
+squad:
+  name: aiox-cerebro
+  display_name: "AIOX Cerebro — Kronos Intelligence Engine"
+  version: "1.0.0"
+  domain: "AIOX Intelligence — Audit, Gap Analysis, Knowledge Extraction"
+  description: "Kronos: motor cognitivo para auditar AIOX, detectar gaps, extrair mecanismos de ouro. Zero invenção."
+  philosophy: "Verificar antes de afirmar. PATH antes de conclusão."
+  icon: "🧠"
+  entry_agent: aiox-cerebro
+  created_by: "craft + aria + aiox-master"
+  created_at: "2026-05-29"
+
+workspace_integration:
+  level: deep
+  rationale: "Kronos lê todos os ficheiros locais para auditar a instalação AIOX"
+
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true
+  activation:
+    prefix: "aiox-cerebro"
+
+quality_standards:
+  min_score: 7.0
+  maturity_level: "Nivel 3+ EXCELLENT"
+  sc_agt_004: PASS

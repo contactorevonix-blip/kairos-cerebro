@@ -1,0 +1,24 @@
+gates:
+  QG-SF-1:
+    name: "Complexity Classification"
+    agent: forge-classifier
+    check: "Sistema classificado como SIMPLE|STANDARD|COMPLEX com score"
+    blocking: true
+
+  QG-SF-2:
+    name: "Research Confidence"
+    agent: forge-researcher
+    check: "confidence_score >= 8.0"
+    blocking: true
+
+  QG-SF-3:
+    name: "Architecture Complete"
+    agent: forge-architect
+    check: "Tech stack + data model + security + min 3 ADRs"
+    blocking: true
+
+  QG-SF-4:
+    name: "Elite Score"
+    agent: forge-verifier
+    check: "elite_score >= 96 ELITE ou >= 90 PRODUCTION_READY"
+    blocking: true

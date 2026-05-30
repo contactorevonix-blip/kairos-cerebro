@@ -1,0 +1,24 @@
+gates:
+  QG-DR-1:
+    name: "PICO Question Quality"
+    agent: sackett
+    check: "PICO question bem formada com todos os 4 componentes"
+    blocking: true
+
+  QG-DR-2:
+    name: "Methodology Fit"
+    agent: booth
+    check: "Review type corresponde ao tipo de questão e evidência disponível"
+    blocking: true
+
+  QG-DR-3:
+    name: "Evidence Reliability"
+    agent: ioannidis
+    check: "PPV > threshold, bias detectados, evidência não fiável identificada"
+    blocking: true
+
+  QG-DR-4:
+    name: "Decision Quality"
+    agent: kahneman
+    check: "12-Question Checklist passed, cognitive biases auditados"
+    blocking: true

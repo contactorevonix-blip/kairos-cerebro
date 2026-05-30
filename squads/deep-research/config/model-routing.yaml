@@ -1,0 +1,16 @@
+routing:
+  dr-orchestrator: opus
+  sackett: sonnet
+  booth: sonnet
+  creswell: sonnet
+  forsgren: sonnet
+  cochrane: sonnet
+  higgins: sonnet
+  klein: opus
+  gilad: opus
+  ioannidis: sonnet
+  kahneman: opus
+
+rationale:
+  opus: "dr-orchestrator, klein, gilad, kahneman — raciocínio complexo, sensemaking, decision science"
+  sonnet: "restantes executam frameworks bem definidos"

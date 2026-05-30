@@ -1,0 +1,29 @@
+swipe_sources:
+  - name: "Cochrane Library"
+    type: database
+    url: "cochranelibrary.com"
+    relevance: CRITICAL
+    agent: cochrane
+
+  - name: "PubMed"
+    type: database
+    relevance: CRITICAL
+    agents: [cochrane, sackett]
+
+  - name: "arXiv"
+    type: preprint
+    relevance: HIGH
+    agents: [forsgren, cochrane]
+
+  - name: "Bellingcat"
+    type: blog
+    url: "bellingcat.com"
+    relevance: HIGH
+    agent: higgins
+
+  - name: "DORA Reports"
+    type: report
+    relevance: HIGH
+    agent: forsgren
+
+update_frequency: quarterly

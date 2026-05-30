@@ -1,0 +1,4 @@
+permissions:
+  default_mode: bypassPermissions
+  tools_allowed: [Read, Grep, Glob, Write, Edit, WebSearch, WebFetch]
+  rationale: "Agentes de pesquisa precisam de WebSearch/WebFetch para fontes primárias"

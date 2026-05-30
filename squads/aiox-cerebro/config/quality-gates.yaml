@@ -1,0 +1,24 @@
+gates:
+  QG-KC-1:
+    name: "Zero Invention Check"
+    type: auto
+    check: "Todos os factos citam [SOURCE: path] ou [knowledge interno]"
+    blocking: true
+
+  QG-KC-2:
+    name: "Score Calculado"
+    type: auto
+    check: "Score baseado em ficheiros lidos, não estimado"
+    blocking: true
+
+  QG-KC-3:
+    name: "Gaps Accionáveis"
+    type: auto
+    check: "Cada gap tem fix + agente responsável"
+    blocking: true
+
+  QG-KC-4:
+    name: "CRITICAL_LOADER_RULE"
+    type: auto
+    check: "Task file carregado antes de executar qualquer *comando"
+    blocking: true

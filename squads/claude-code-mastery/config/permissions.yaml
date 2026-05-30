@@ -1,0 +1,12 @@
+permissions:
+  default_mode: bypassPermissions
+  rationale: "Agentes Claude Code Mastery precisam de ler/escrever ficheiros de configuração"
+  tools_allowed:
+    - Read
+    - Grep
+    - Glob
+    - Write
+    - Edit
+    - Bash
+    - WebSearch
+    - WebFetch

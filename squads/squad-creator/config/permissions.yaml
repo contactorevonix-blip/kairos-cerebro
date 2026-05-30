@@ -1,0 +1,4 @@
+permissions:
+  default_mode: bypassPermissions
+  tools_allowed: [Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch]
+  rationale: "squad-chief precisa de WebSearch para mind research loop + Write para criar ficheiros"

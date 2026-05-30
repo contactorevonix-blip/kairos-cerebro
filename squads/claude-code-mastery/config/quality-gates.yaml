@@ -1,0 +1,18 @@
+gates:
+  QG-CCM-1:
+    name: "Claude Code Knowledge Accuracy"
+    type: auto
+    check: "Informação sobre Claude Code verificada contra documentação real"
+    blocking: true
+
+  QG-CCM-2:
+    name: "Routing Correct"
+    type: auto
+    check: "Orion roteia para o especialista correcto por domínio"
+    blocking: true
+
+  QG-CCM-3:
+    name: "Quick Answer + Route"
+    type: auto
+    check: "Orion dá resposta rápida E rota para especialista"
+    blocking: false

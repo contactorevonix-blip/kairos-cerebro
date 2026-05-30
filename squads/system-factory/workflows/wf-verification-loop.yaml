@@ -1,3 +1,10 @@
+workflow:
+  id: wf-verification-loop
+  name: "Verification Loop"
+  sequence:
+    - qa-gate
+    - security-scan
+    - score-calculation
 name: wf-verification-loop
 version: "1.0.0"
 description: "Loop de verificação infinito — corre até elite_score >= 96 ou utilizador aceita PRODUCTION READY. Usado pela Fase 5 do wf-universal-factory."

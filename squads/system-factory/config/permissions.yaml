@@ -1,0 +1,4 @@
+permissions:
+  default_mode: bypassPermissions
+  tools_allowed: [Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch]
+  rationale: "forge-researcher precisa de WebSearch/WebFetch para research profunda"

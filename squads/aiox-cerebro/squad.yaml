@@ -17,8 +17,9 @@ tasks:
   path: squads/aiox-cerebro/tasks/
 
 workflows:
-  - kairos-infra-master.yaml
-  total_workflows: 1
+  - audit-workflow.md
+  - gap-analysis-workflow.md
+  - gold-mechanisms-workflow.md
 
 quality:
   maturity_score: 10.0

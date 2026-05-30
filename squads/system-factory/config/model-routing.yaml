@@ -1,0 +1,11 @@
+routing:
+  forge-classifier: sonnet
+  forge-researcher: opus
+  forge-architect: opus
+  forge-planner: sonnet
+  forge-builder: sonnet
+  forge-verifier: opus
+
+rationale:
+  opus: "researcher (web research), architect (complex decisions), verifier (elite scoring)"
+  sonnet: "classifier, planner, builder — workflows bem definidos"

@@ -9,6 +9,16 @@ workflow:
     → development → content → squads → deploy.
     Cada fase tem checkpoint de aprovação humana antes de avançar.
   type: sequential
+  phases:
+    - auditoria
+    - strategy
+    - architecture
+    - dev-infra
+    - systems
+    - development
+    - content
+    - squads
+    - deploy
 
 context:
   target: squad
@@ -385,7 +395,8 @@ sequence:
       - "squads/system-factory/outputs/kairos-verification.md"
     checkpoint: true
     checkpoint_message: "Verificação FORGE concluída. Score atingido? Avançar para desenvolvimento."
-    on_failure: loop_back_to: "4-5"
+    on_failure:
+      loop_back_to: "4-5"
 
 # ═══════════════════════════════════════════════════════════
 #  FASE 5 — DESENVOLVIMENTO E QUALIDADE
@@ -415,7 +426,9 @@ sequence:
     outputs:
       - "stories actualizadas para status Ready"
     checkpoint: false
-    on_failure: loop_back_to: "5-1"
+    on_failure:
+
+      loop_back_to: "5-1"
 
   - id: "5-3"
     phase: 5
@@ -443,7 +456,9 @@ sequence:
       - "docs/qa/gate-report.md"
       - "stories actualizadas para status Done"
     checkpoint: false
-    on_failure: loop_back_to: "5-3"
+    on_failure:
+
+      loop_back_to: "5-3"
 
   - id: "5-5"
     phase: 5
@@ -456,7 +471,9 @@ sequence:
     outputs:
       - "docs/qa/security-report.md"
     checkpoint: false
-    on_failure: loop_back_to: "5-3"
+    on_failure:
+
+      loop_back_to: "5-3"
 
   - id: "5-6"
     phase: 5

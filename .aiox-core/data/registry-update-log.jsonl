@@ -5,3 +5,4 @@
 {"timestamp":"2026-05-30T11:38:37.358Z","action":"unlink","path":".aiox-core/development/tasks/db-rls-audit.md","trigger":"watcher"}
 {"timestamp":"2026-05-30T11:38:37.359Z","action":"unlink","path":".aiox-core/development/tasks/db-schema-audit.md","trigger":"watcher"}
 {"timestamp":"2026-05-30T11:38:37.360Z","action":"unlink","path":".aiox-core/development/tasks/db-supabase-setup.md","trigger":"watcher"}
+{"timestamp":"2026-05-30T11:40:11.033Z","action":"change","path":".aiox-core/development/agents/pm.md","trigger":"watcher"}

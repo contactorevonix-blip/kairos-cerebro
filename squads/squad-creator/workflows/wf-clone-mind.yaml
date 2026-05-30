@@ -1,3 +1,6 @@
+workflow:
+  id: wf-clone-mind
+  name: "Clone Mind"
 name: wf-clone-mind
 version: "1.0.0"
 description: "Pipeline de clonagem completa de uma mente — Voice DNA + Thinking DNA"

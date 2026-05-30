@@ -1,3 +1,6 @@
+workflow:
+  id: wf-quick-create
+  name: "Quick Create"
 name: wf-quick-create
 version: "1.0.0"
 description: "Fast path para sistemas SIMPLE (complexity score <= 8). 15 etapas em vez de 30. Estimativa: < 1 hora."
