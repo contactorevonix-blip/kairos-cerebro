@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-05-20T17:52:01.108Z'
-  entityCount: 821
+  lastUpdated: '2026-05-30T11:38:37.367Z'
+  entityCount: 815
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -388,8 +388,7 @@ entities:
         - create
         - epic
         - task
-      usedBy:
-        - pm
+      usedBy: []
       dependencies:
         - code-intel
         - planning-helper
@@ -427,8 +426,7 @@ entities:
         - create
         - story
         - task
-      usedBy:
-        - pm
+      usedBy: []
       dependencies:
         - po-master-checklist
         - po
@@ -782,7 +780,6 @@ entities:
         - task
       usedBy:
         - aiox-master
-        - pm
         - po
         - sm
       dependencies:
@@ -872,7 +869,6 @@ entities:
         - analyst
         - architect
         - data-engineer
-        - pm
       dependencies:
         - component-generator.js
         - pm
@@ -906,7 +902,6 @@ entities:
         - analyst
         - architect
         - data-engineer
-        - pm
         - ux-design-expert
       dependencies:
         - code-intel
@@ -1109,32 +1104,6 @@ entities:
         extensionPoints: []
       checksum: sha256:143b9bdf87a4eed0faac612e137965483dec1224a7579399a68b68b6bc0689b7
       lastVerified: '2026-05-20T17:52:00.545Z'
-    db-analyze-hotpaths:
-      path: .aiox-core/development/tasks/db-analyze-hotpaths.md
-      layer: L2
-      type: task
-      purpose: 'Task: Analyze Hot Query Paths'
-      keywords:
-        - db
-        - analyze
-        - hotpaths
-        - 'task:'
-        - hot
-        - query
-        - paths
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:0993cb6e5d0c4fb22f081060e47f303c3c745889cf7b583ea2a29ab0f3b0ac6e
-      lastVerified: '2026-05-20T17:52:00.546Z'
     db-apply-migration:
       path: .aiox-core/development/tasks/db-apply-migration.md
       layer: L2
@@ -1263,55 +1232,6 @@ entities:
         extensionPoints: []
       checksum: sha256:8a4674f5858ee709186690b45dd51fe5cbb28097a641f178e0e624e2a5331a44
       lastVerified: '2026-05-20T17:52:00.548Z'
-    db-explain:
-      path: .aiox-core/development/tasks/db-explain.md
-      layer: L2
-      type: task
-      purpose: 'Task: EXPLAIN (ANALYZE, BUFFERS)'
-      keywords:
-        - db
-        - explain
-        - 'task:'
-        - (analyze,
-        - buffers)
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:b96391756f45fc99b5cbd129921541060dc9ced1d1c269b820109d36fcd53530
-      lastVerified: '2026-05-20T17:52:00.548Z'
-    db-impersonate:
-      path: .aiox-core/development/tasks/db-impersonate.md
-      layer: L2
-      type: task
-      purpose: 'Task: Impersonate User (RLS Testing)'
-      keywords:
-        - db
-        - impersonate
-        - 'task:'
-        - user
-        - (rls
-        - testing)
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:31891339b082706882c3529d5fbae5a77e566dbe94dfb2cc011a70aef6721abd
-      lastVerified: '2026-05-20T17:52:00.549Z'
     db-load-csv:
       path: .aiox-core/development/tasks/db-load-csv.md
       layer: L2
@@ -1364,29 +1284,6 @@ entities:
         extensionPoints: []
       checksum: sha256:5069a7786ac2f5c032f9b4aeedaa90808bccb0ecc01456d72b11d111281c8497
       lastVerified: '2026-05-20T17:52:00.550Z'
-    db-rls-audit:
-      path: .aiox-core/development/tasks/db-rls-audit.md
-      layer: L2
-      type: task
-      purpose: 'Task: RLS Audit'
-      keywords:
-        - db
-        - rls
-        - audit
-        - 'task:'
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:b25183564fe08abdb5c563a19eac526ebbe14c10397cfb27e9b2f2c53f1c189b
-      lastVerified: '2026-05-20T17:52:00.550Z'
     db-rollback:
       path: .aiox-core/development/tasks/db-rollback.md
       layer: L2
@@ -1435,29 +1332,6 @@ entities:
         extensionPoints: []
       checksum: sha256:90b771db8d68c2cc3236aa371d24c2553175c4d39931fe3eb690cdd2ebaded1e
       lastVerified: '2026-05-20T17:52:00.551Z'
-    db-schema-audit:
-      path: .aiox-core/development/tasks/db-schema-audit.md
-      layer: L2
-      type: task
-      purpose: 'This task performs a thorough audit of your database schema, checking for:'
-      keywords:
-        - db
-        - schema
-        - audit
-        - 'task:'
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:4a70508b9d6bbe2b2e62265231682df371dc3a9295e285ef2e4356f81ed941e9
-      lastVerified: '2026-05-20T17:52:00.552Z'
     db-seed:
       path: .aiox-core/development/tasks/db-seed.md
       layer: L2
@@ -1556,33 +1430,6 @@ entities:
         extensionPoints: []
       checksum: sha256:13ce5e3226dadffad490752064169e124e2c989514e2e7b3c249445b9ad3485c
       lastVerified: '2026-05-20T17:52:00.553Z'
-    db-supabase-setup:
-      path: .aiox-core/development/tasks/db-supabase-setup.md
-      layer: L2
-      type: task
-      purpose: >-
-        This task guides you through setting up a new Supabase project with optimal configuration and DB Sage
-        integration.
-      keywords:
-        - db
-        - supabase
-        - setup
-        - 'task:'
-        - guide
-      usedBy: []
-      dependencies:
-        - README
-      externalDeps: []
-      plannedDeps:
-        - db-query-validator.js
-        - db-query.js
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:64e02b6c69bb87d0082590484fadc0510cb88e4a6dc01b3c7015e5e6e6bcb585
-      lastVerified: '2026-05-20T17:52:00.554Z'
     db-verify-order:
       path: .aiox-core/development/tasks/db-verify-order.md
       layer: L2
@@ -2177,7 +2024,6 @@ entities:
         - architect
         - data-engineer
         - dev
-        - pm
         - po
         - sm
         - ux-design-expert
@@ -2206,8 +2052,7 @@ entities:
         - epic
         - plan
         - task
-      usedBy:
-        - pm
+      usedBy: []
       dependencies:
         - pm
         - po
@@ -4468,8 +4313,7 @@ entities:
         - session
         - resume
         - task
-      usedBy:
-        - pm
+      usedBy: []
       dependencies:
         - session-state.js
       externalDeps: []
@@ -4657,7 +4501,6 @@ entities:
         - task
       usedBy:
         - aiox-master
-        - pm
         - po
       dependencies: []
       externalDeps: []
@@ -4781,7 +4624,6 @@ entities:
         - requirements
         - 'pipeline:'
       usedBy:
-        - pm
         - spec-pipeline
       dependencies:
         - pm
@@ -4835,7 +4677,6 @@ entities:
         - 'pipeline:'
         - specification
       usedBy:
-        - pm
         - spec-pipeline
       dependencies:
         - pm
@@ -5944,7 +5785,6 @@ entities:
         - tmpl
       usedBy:
         - aiox-master
-        - pm
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -6506,7 +6346,6 @@ entities:
         - tmpl
       usedBy:
         - aiox-master
-        - pm
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -14703,21 +14542,6 @@ entities:
       dependencies:
         - data-lifecycle-manager
         - bob-orchestrator
-        - create-doc
-        - correct-course
-        - create-deep-research-prompt
-        - brownfield-create-epic
-        - brownfield-create-story
-        - execute-checklist
-        - shard-doc
-        - spec-gather-requirements
-        - spec-write-spec
-        - session-resume
-        - execute-epic-plan
-        - prd-tmpl.yaml
-        - brownfield-prd-tmpl.yaml
-        - pm-checklist
-        - change-checklist
       externalDeps: []
       plannedDeps: []
       lifecycle: production
@@ -14725,8 +14549,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:8c81fd9b6df9b98fa3d3654062464498396ddb4eaf0b6dc3a644ae4227982f4b
-      lastVerified: '2026-05-20T17:52:00.957Z'
+      checksum: sha256:a78aa922d2d79c19d9240b359f792f0e28d142a5b3a31f10e05abd8ec1ecc3e6
+      lastVerified: '2026-05-30T11:38:37.351Z'
     po:
       path: .aiox-core/development/agents/po.md
       layer: L2
@@ -18491,7 +18315,6 @@ entities:
         - integrations
         - directory
       usedBy:
-        - db-supabase-setup
         - environment-bootstrap
       dependencies:
         - tool-resolver
@@ -18861,7 +18684,6 @@ entities:
         - qa-review-proposal
         - update-manifest
         - aiox-master
-        - pm
         - po
       dependencies: []
       externalDeps: []
@@ -19014,7 +18836,6 @@ entities:
         - requirements
       usedBy:
         - aiox-master
-        - pm
       dependencies: []
       externalDeps: []
       plannedDeps: []
