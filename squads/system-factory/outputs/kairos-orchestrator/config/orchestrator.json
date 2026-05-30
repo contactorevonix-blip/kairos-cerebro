@@ -1,0 +1,31 @@
+{
+  "loop": {
+    "minIterations": 10,
+    "maxIterations": 15,
+    "stopWhenStableFor": 2,
+    "iterationTimeoutMs": 30000
+  },
+  "circuitBreaker": {
+    "failureThreshold": 3,
+    "resetTimeoutMs": 60000,
+    "phaseTimeoutMs": 120000,
+    "globalDeadlockTimeoutMs": 600000
+  },
+  "mesh": {
+    "maxConcurrentAgents": 4,
+    "triggerDepthLimit": 8
+  },
+  "paths": {
+    "agentsDir": ".claude/agents",
+    "squadsDir": "squads",
+    "stateFile": "STATE.md",
+    "cerebroState": "squads/system-factory/outputs/kairos-orchestrator/state/cerebro.json",
+    "mindsDir": "squads"
+  },
+  "phases": [
+    "ingestao", "dna", "contextualizacao", "triagem", "sincronizacao",
+    "execucao-alpha", "validacao-cruzada", "auto-loop-tecnico", "enriquecimento",
+    "auto-loop-negocio", "consolidacao", "stress-testing", "lapidacao",
+    "commits-estado", "deploy-output"
+  ]
+}

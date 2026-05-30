@@ -1,0 +1,19 @@
+{
+  "name": "kairos-orchestrator",
+  "version": "1.0.0",
+  "description": "Sistema de Orquestracao Total do KAIROS CEREBRO — malha de agentes, loop de engenharia com self-healing, e Director das 15 fases. Zero dependencias externas (Node nativo).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "kairos-orchestrate": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dry-run": "node src/index.js --dry-run",
+    "status": "node src/index.js --status"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

@@ -1,0 +1,702 @@
+workflow:
+  id: kairos-infra-master
+  name: "Kairos Infrastructure Master"
+  version: "1.0.0"
+  description: >-
+    Workflow de bootstrapping completo da infraestrutura KAIROS_CEREBRO.
+    Orquestra todos os 55 agentes e 5 squads em 8 fases sequenciais para
+    construir uma base sólida: strategy → architecture → dev-infra → systems
+    → development → content → squads → deploy.
+    Cada fase tem checkpoint de aprovação humana antes de avançar.
+  type: sequential
+
+context:
+  target: squad
+  squad: aiox-cerebro
+
+metadata:
+  author: Pedro Leal
+  created_date: "2026-05-30"
+  last_modified: "2026-05-30"
+  tags:
+    - infrastructure
+    - bootstrap
+    - kairos-check
+    - master-workflow
+    - all-agents
+  elicit: true
+  confirmation_required: true
+  checkpoint_mode: per_phase
+
+# ═══════════════════════════════════════════════════════════
+#  INPUTS
+# ═══════════════════════════════════════════════════════════
+inputs:
+  project_name:
+    type: string
+    description: "Nome do produto (default: Kairos Check)"
+    required: false
+    default: "Kairos Check"
+  project_path:
+    type: string
+    description: "Path do projecto produto (default: C:/Users/lealp/kairoscheck)"
+    required: false
+    default: "C:/Users/lealp/kairoscheck"
+  execution_mode:
+    type: string
+    description: "guided (checkpoints manuais) | autonomous (auto-avança entre steps)"
+    required: false
+    default: "guided"
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 0 — AUDITORIA E PONTO DE PARTIDA
+# ═══════════════════════════════════════════════════════════
+sequence:
+
+  - id: "0-1"
+    phase: 0
+    phase_name: "Auditoria e Ponto de Partida"
+    step: "framework-audit"
+    agent: aiox-cerebro
+    command: "*audit"
+    action: "Auditoria completa do estado actual do KAIROS_CEREBRO — agentes, squads, rules, hooks, MCPs"
+    outputs:
+      - "docs/audits/framework-audit-{date}.md"
+    checkpoint: true
+    checkpoint_message: "Auditoria concluída. Revê o relatório antes de avançar para a Fase 1."
+    on_failure: escalate
+
+  - id: "0-2"
+    phase: 0
+    phase_name: "Auditoria e Ponto de Partida"
+    step: "ids-health-check"
+    agent: aiox-master
+    command: "*ids stats && *ids health && *validate-agents"
+    action: "IDS stats, framework health, validação de todos os agentes"
+    requires: "0-1"
+    outputs:
+      - "docs/audits/ids-health-{date}.md"
+    checkpoint: true
+    checkpoint_message: "Health check completo. Issues identificados? Corrigir antes de avançar."
+    on_failure: escalate
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 1 — INTELIGÊNCIA E ESTRATÉGIA
+# ═══════════════════════════════════════════════════════════
+
+  - id: "1-1"
+    phase: 1
+    phase_name: "Inteligência e Estratégia"
+    step: "deep-research"
+    agent: dr-orchestrator
+    squad: deep-research
+    command: "*research"
+    action: >-
+      Deep research de mercado: competidores do Kairos Check, pricing, gaps,
+      oportunidades. Pipeline completo: PICO → SALSA → evidence audit → síntese.
+    requires: "0-2"
+    outputs:
+      - "docs/research/market-research-{date}.md"
+      - "docs/research/competitor-analysis-{date}.md"
+    checkpoint: true
+    checkpoint_message: "Research concluído. Revê os findings antes do @pm criar o PRD."
+    on_failure: skip_to_next
+
+  - id: "1-2"
+    phase: 1
+    phase_name: "Inteligência e Estratégia"
+    step: "competitive-analysis"
+    agent: aiox-analyst
+    command: "*competitor-analysis && *calculate-roi"
+    action: "Análise competitiva detalhada + ROI estimado para o Kairos Check"
+    requires: "1-1"
+    outputs:
+      - "docs/research/competitive-analysis-deep.md"
+      - "docs/research/roi-analysis.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "1-3"
+    phase: 1
+    phase_name: "Inteligência e Estratégia"
+    step: "prd-creation"
+    agent: aiox-pm
+    command: "*create-doc prd"
+    action: "PRD completo do Kairos Check baseado no research e competitive analysis"
+    requires: "1-2"
+    outputs:
+      - "docs/prd.md"
+    checkpoint: true
+    checkpoint_message: "PRD criado. Approva o documento antes do @po criar os epics."
+    on_failure: escalate
+
+  - id: "1-4"
+    phase: 1
+    phase_name: "Inteligência e Estratégia"
+    step: "epic-backlog"
+    agent: aiox-po
+    command: "*create-epic && *backlog-prioritize"
+    action: "Epic principal + backlog inicial priorizado com base no PRD"
+    requires: "1-3"
+    outputs:
+      - "docs/stories/epics/epic-1-core.md"
+      - "docs/stories/backlog.md"
+    checkpoint: true
+    checkpoint_message: "Epic e backlog criados. Confirma prioridades antes da Fase 2."
+    on_failure: escalate
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 2 — ARQUITECTURA E DESIGN
+# ═══════════════════════════════════════════════════════════
+
+  - id: "2-1"
+    phase: 2
+    phase_name: "Arquitectura e Design"
+    step: "system-architecture"
+    agent: aiox-architect
+    command: "*create-doc architecture"
+    action: "System architecture completa: API design, escalabilidade, integrações (Stripe, Railway, Vercel)"
+    requires: "1-4"
+    outputs:
+      - "docs/architecture.md"
+    checkpoint: true
+    checkpoint_message: "Arquitectura definida. Revê antes do @data-engineer definir o schema."
+    on_failure: escalate
+
+  - id: "2-2"
+    phase: 2
+    phase_name: "Arquitectura e Design"
+    step: "database-design"
+    agent: db-sage
+    command: "*schema-design && *rls-audit"
+    action: "Schema da base de dados + RLS policies para o Kairos Check"
+    requires: "2-1"
+    outputs:
+      - "docs/architecture/database-schema.md"
+      - "docs/architecture/rls-policies.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "2-3"
+    phase: 2
+    phase_name: "Arquitectura e Design"
+    step: "ux-spec"
+    agent: aiox-ux
+    command: "*create-doc front-end-spec && *ux-user-research"
+    action: "UX spec completo + user research para o Kairos Check dashboard/API docs"
+    requires: "2-1"
+    outputs:
+      - "docs/architecture/ux-spec.md"
+      - "docs/research/user-research.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "2-4"
+    phase: 2
+    phase_name: "Arquitectura e Design"
+    step: "design-system"
+    agent: design-chief
+    squad: design-chief
+    command: "*design-system-audit && *token-extraction"
+    action: "Design system base: tokens, componentes, guidelines visuais"
+    requires: "2-3"
+    outputs:
+      - "docs/design/design-system.md"
+      - "docs/design/tokens.json"
+    checkpoint: true
+    checkpoint_message: "Arquitectura e design completos. Avançar para infraestrutura de desenvolvimento?"
+    on_failure: skip_to_next
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 3 — INFRAESTRUTURA DE DESENVOLVIMENTO
+# ═══════════════════════════════════════════════════════════
+
+  - id: "3-1"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "ccm-audit"
+    agent: claude-mastery-chief
+    squad: claude-code-mastery
+    command: "*audit-complete"
+    action: "Auditoria e setup completo: hooks, MCPs, skills, config, permissions"
+    requires: "2-4"
+    outputs:
+      - "docs/audits/ccm-audit-{date}.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "3-2"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "hooks-pipeline"
+    agent: hooks-architect
+    squad: claude-code-mastery
+    command: "*design-pipeline && *implement-hooks"
+    action: "Pipeline de hooks completo: PreToolUse, PostToolUse, Stop, SubagentStop, Notification"
+    requires: "3-1"
+    outputs:
+      - ".claude/settings.json (hooks section)"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "3-3"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "mcp-setup"
+    agent: mcp-integrator
+    squad: claude-code-mastery
+    command: "*discover && *configure"
+    action: "MCPs necessários: Stripe, Railway, Vercel, GitHub, Supabase — descoberta e configuração"
+    requires: "3-1"
+    outputs:
+      - ".claude/settings.json (mcp section)"
+      - "docs/infrastructure/mcps-configured.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "3-4"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "permissions-config"
+    agent: config-engineer
+    squad: claude-code-mastery
+    command: "*configure-permissions && *audit-settings"
+    action: "Settings.json completo: allowlists, deny rules, sandbox modes optimizados"
+    requires: "3-3"
+    outputs:
+      - ".claude/settings.json (final)"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "3-5"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "skills-optimization"
+    agent: skill-craftsman
+    squad: claude-code-mastery
+    command: "*audit-skills && *optimize"
+    action: "Auditoria e optimização de todas as skills e slash commands"
+    requires: "3-4"
+    outputs:
+      - "docs/audits/skills-audit.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "3-6"
+    phase: 3
+    phase_name: "Infraestrutura de Desenvolvimento"
+    step: "cicd-setup"
+    agent: aiox-devops
+    command: "*environment-bootstrap && *ci-cd-configuration"
+    action: "CI/CD completo: GitHub Actions, Railway deploy, Vercel deploy, pre-push quality gates"
+    requires: "3-5"
+    outputs:
+      - ".github/workflows/ci.yml"
+      - "docs/infrastructure/cicd.md"
+    checkpoint: true
+    checkpoint_message: "Infraestrutura de desenvolvimento pronta. Confirmar antes do FORGE criar os sistemas."
+    on_failure: escalate
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 4 — CRIAÇÃO DE SISTEMAS (FORGE)
+# ═══════════════════════════════════════════════════════════
+
+  - id: "4-1"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-classify"
+    agent: forge-classifier
+    squad: system-factory
+    command: "*classify"
+    action: "Classifica cada sistema do Kairos Check: scoring engine, OSINT module, billing, dashboard"
+    requires: "3-6"
+    outputs:
+      - "squads/system-factory/outputs/kairos-classification.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "4-2"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-research"
+    agent: forge-researcher
+    squad: system-factory
+    command: "*research"
+    action: "Research técnico por sistema: padrões, benchmarks, tecnologias, confidence ≥ 8.0/10"
+    requires: "4-1"
+    outputs:
+      - "squads/system-factory/outputs/kairos-research.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "4-3"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-architect"
+    agent: forge-architect
+    squad: system-factory
+    command: "*architect"
+    action: "Arquitectura de cada sistema com ADRs, security, scalability"
+    requires: "4-2"
+    outputs:
+      - "squads/system-factory/outputs/kairos-architecture.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "4-4"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-plan"
+    agent: forge-planner
+    squad: system-factory
+    command: "*plan"
+    action: "Epics, stories com acceptance criteria, dependências, roadmap"
+    requires: "4-3"
+    outputs:
+      - "squads/system-factory/outputs/kairos-plan.md"
+    checkpoint: true
+    checkpoint_message: "Plano de sistemas criado. Approva antes do FORGE Builder construir."
+    on_failure: escalate
+
+  - id: "4-5"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-build"
+    agent: forge-builder
+    squad: system-factory
+    command: "*build"
+    action: "Scaffold e código funcional: CLAUDE.md, hooks, estrutura, configuração completa"
+    requires: "4-4"
+    outputs:
+      - "scaffold completo em kairoscheck/"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "4-6"
+    phase: 4
+    phase_name: "Criação de Sistemas — FORGE"
+    step: "forge-verify"
+    agent: forge-verifier
+    squad: system-factory
+    command: "*verify"
+    action: "QA elite: 30 pontos, 100pts. Threshold: ≥96 ELITE, ≥90 PROD_READY. Loop fix→revalidar."
+    requires: "4-5"
+    outputs:
+      - "squads/system-factory/outputs/kairos-verification.md"
+    checkpoint: true
+    checkpoint_message: "Verificação FORGE concluída. Score atingido? Avançar para desenvolvimento."
+    on_failure: loop_back_to: "4-5"
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 5 — DESENVOLVIMENTO E QUALIDADE
+# ═══════════════════════════════════════════════════════════
+
+  - id: "5-1"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "story-creation"
+    agent: aiox-sm
+    command: "*draft"
+    action: "Stories para o primeiro epic, baseadas no PRD sharded"
+    requires: "4-6"
+    outputs:
+      - "docs/stories/1.1.story.md ... 1.N.story.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "5-2"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "story-validation"
+    agent: aiox-po
+    command: "*validate-story-draft"
+    action: "Validação das stories: 10-point checklist, GO/NO-GO"
+    requires: "5-1"
+    outputs:
+      - "stories actualizadas para status Ready"
+    checkpoint: false
+    on_failure: loop_back_to: "5-1"
+
+  - id: "5-3"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "implementation"
+    agent: aiox-dev
+    command: "*develop"
+    action: "Implementação das stories aprovadas com self-critique e CodeRabbit self-healing"
+    requires: "5-2"
+    outputs:
+      - "código implementado em kairoscheck/"
+      - "stories actualizadas para status InReview"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "5-4"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "qa-gate"
+    agent: aiox-qa
+    command: "*qa-gate && *qa-loop"
+    action: "QA gate completo: 7 quality checks, security, performance. Loop max 5 iterações."
+    requires: "5-3"
+    outputs:
+      - "docs/qa/gate-report.md"
+      - "stories actualizadas para status Done"
+    checkpoint: false
+    on_failure: loop_back_to: "5-3"
+
+  - id: "5-5"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "security-scan"
+    agent: cyber-chief
+    command: "*security-audit"
+    action: "Security scan completo: OWASP, secrets, SQL injection, authentication"
+    requires: "5-4"
+    outputs:
+      - "docs/qa/security-report.md"
+    checkpoint: false
+    on_failure: loop_back_to: "5-3"
+
+  - id: "5-6"
+    phase: 5
+    phase_name: "Desenvolvimento e Qualidade"
+    step: "process-validation"
+    agent: pedro-valerio
+    squad: squad-creator
+    command: "*validate-workflow"
+    action: "Validação de processos: zero wrong paths, veto conditions, checkpoint coverage"
+    requires: "5-5"
+    outputs:
+      - "docs/qa/process-validation.md"
+    checkpoint: true
+    checkpoint_message: "Desenvolvimento e qualidade completos. Avançar para conteúdo e crescimento?"
+    on_failure: escalate
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 6 — CONTEÚDO E CRESCIMENTO
+# ═══════════════════════════════════════════════════════════
+
+  - id: "6-1"
+    phase: 6
+    phase_name: "Conteúdo e Crescimento"
+    step: "mind-dna"
+    agent: oalanicolas
+    squad: squad-creator
+    command: "*extract-voice && *clone-thinking"
+    action: "Captura Voice DNA e Thinking DNA do Pedro — a voz e modelos mentais para todo o conteúdo"
+    requires: "5-6"
+    outputs:
+      - "docs/brand/pedro-voice-dna.md"
+      - "docs/brand/pedro-thinking-dna.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "6-2"
+    phase: 6
+    phase_name: "Conteúdo e Crescimento"
+    step: "copywriting"
+    agent: copy-chief
+    command: "*copy-landing && *copy-emails && *copy-onboarding"
+    action: "Copy completo: landing page, sequência de emails, onboarding flow — com a voz do Pedro"
+    requires: "6-1"
+    outputs:
+      - "docs/content/landing-copy.md"
+      - "docs/content/email-sequences.md"
+      - "docs/content/onboarding-copy.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "6-3"
+    phase: 6
+    phase_name: "Conteúdo e Crescimento"
+    step: "brand-narrative"
+    agent: story-chief
+    command: "*brand-story && *founder-story"
+    action: "Narrativa de marca: origin story, hero journey, brand positioning"
+    requires: "6-2"
+    outputs:
+      - "docs/brand/brand-narrative.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "6-4"
+    phase: 6
+    phase_name: "Conteúdo e Crescimento"
+    step: "traffic-strategy"
+    agent: traffic-masters-chief
+    command: "*strategy && *paid-traffic-plan"
+    action: "Estratégia de tráfego pago: canais, budget, targeting, métricas"
+    requires: "6-3"
+    outputs:
+      - "docs/growth/traffic-strategy.md"
+    checkpoint: true
+    checkpoint_message: "Conteúdo e crescimento definidos. Avançar para validação dos squads?"
+    on_failure: skip_to_next
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 7 — SQUADS E VALIDAÇÃO FINAL
+# ═══════════════════════════════════════════════════════════
+
+  - id: "7-1"
+    phase: 7
+    phase_name: "Squads e Validação Final"
+    step: "squad-audit"
+    agent: squad-chief
+    squad: squad-creator
+    command: "*list && *validate-all"
+    action: "Auditoria e upgrade de todos os 5 squads — garantir que todos estão funcionais e actualizados"
+    requires: "6-4"
+    outputs:
+      - "docs/audits/squads-audit.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "7-2"
+    phase: 7
+    phase_name: "Squads e Validação Final"
+    step: "parallel-validation"
+    agent: swarm-orchestrator
+    squad: claude-code-mastery
+    command: "*spawn-validation-swarm"
+    action: "Validação paralela de todos os agentes em worktrees isolados"
+    requires: "7-1"
+    outputs:
+      - "docs/audits/swarm-validation.md"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "7-3"
+    phase: 7
+    phase_name: "Squads e Validação Final"
+    step: "roadmap-monitoring"
+    agent: roadmap-sentinel
+    squad: claude-code-mastery
+    command: "*setup-monitoring && *check-changelog"
+    action: "Setup de monitoring do roadmap Claude Code + AIOX, tracking de features novas"
+    requires: "7-2"
+    outputs:
+      - "docs/infrastructure/roadmap-monitoring.md"
+    checkpoint: false
+    on_failure: skip_to_next
+
+  - id: "7-4"
+    phase: 7
+    phase_name: "Squads e Validação Final"
+    step: "skills-final"
+    agent: skill-craftsman
+    squad: claude-code-mastery
+    command: "*optimize-all && *reduce-token-waste"
+    action: "Optimização final de skills: context engineering, token waste reduction"
+    requires: "7-3"
+    outputs:
+      - ".claude/skills/ (optimizadas)"
+    checkpoint: true
+    checkpoint_message: "Squads e infra validados. Pronto para deploy final?"
+    on_failure: skip_to_next
+
+# ═══════════════════════════════════════════════════════════
+#  FASE 8 — DEPLOY E GO-LIVE
+# ═══════════════════════════════════════════════════════════
+
+  - id: "8-1"
+    phase: 8
+    phase_name: "Deploy e Go-Live"
+    step: "project-integration"
+    agent: project-integrator
+    squad: claude-code-mastery
+    command: "*integrate-github && *integrate-railway && *integrate-vercel"
+    action: "Integração completa: GitHub repo, Railway backend, Vercel frontend"
+    requires: "7-4"
+    outputs:
+      - "integrations confirmadas e documentadas"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "8-2"
+    phase: 8
+    phase_name: "Deploy e Go-Live"
+    step: "deploy"
+    agent: aiox-devops
+    command: "*push && *deploy-railway && *deploy-vercel"
+    action: "Deploy completo: Railway (API) + Vercel (frontend) + smoke tests em produção"
+    requires: "8-1"
+    outputs:
+      - "kairoscheck.net em produção"
+    checkpoint: false
+    on_failure: escalate
+
+  - id: "8-3"
+    phase: 8
+    phase_name: "Deploy e Go-Live"
+    step: "final-report"
+    agent: aiox-master
+    command: "*status && *ids stats"
+    action: "Relatório final de infraestrutura: o que foi construído, métricas, próximos passos"
+    requires: "8-2"
+    outputs:
+      - "docs/reports/infra-final-report-{date}.md"
+    checkpoint: true
+    checkpoint_message: "Infraestrutura completa! Kairos Check em produção."
+    on_failure: skip_to_next
+
+  - id: "complete"
+    phase: 8
+    step: "workflow-complete"
+    action: workflow_complete
+    requires: "8-3"
+
+# ═══════════════════════════════════════════════════════════
+#  OUTPUTS FINAIS
+# ═══════════════════════════════════════════════════════════
+outputs:
+  prd:
+    type: document
+    description: "PRD completo do Kairos Check"
+    source: "1-3.outputs.prd"
+  architecture:
+    type: document
+    description: "Arquitectura completa do sistema"
+    source: "2-1.outputs.architecture"
+  infrastructure:
+    type: config
+    description: "settings.json, hooks, MCPs, CI/CD configurados"
+    source: "3-6.outputs"
+  systems:
+    type: code
+    description: "Sistemas scaffoldados e verificados pelo FORGE"
+    source: "4-6.outputs"
+  product_live:
+    type: deployment
+    description: "Kairos Check em produção em kairoscheck.net"
+    source: "8-2.outputs"
+
+# ═══════════════════════════════════════════════════════════
+#  HANDOFF PROMPTS
+# ═══════════════════════════════════════════════════════════
+handoff_prompts:
+  phase_0_to_1: "Auditoria completa. Estado do framework conhecido. Iniciar estratégia com deep-research squad."
+  phase_1_to_2: "PRD e backlog aprovados. Iniciar arquitectura com base nos requisitos definidos."
+  phase_2_to_3: "Arquitectura definida. Configurar ambiente de desenvolvimento para implementação."
+  phase_3_to_4: "Dev infra pronta. FORGE vai scaffoldar os sistemas baseado na arquitectura."
+  phase_4_to_5: "Sistemas criados. Story Development Cycle para implementar features prioritárias."
+  phase_5_to_6: "Código em produção. Criar conteúdo e estratégia de crescimento."
+  phase_6_to_7: "Conteúdo pronto. Validar todos os squads e preparar deploy final."
+  phase_7_to_8: "Infra validada. Deploy Railway + Vercel + smoke tests."
+
+# ═══════════════════════════════════════════════════════════
+#  ERROR HANDLING GLOBAL
+# ═══════════════════════════════════════════════════════════
+global_error_handling:
+  on_error: "escalate_to_human"
+  escalation_agent: aiox-master
+  notification:
+    enabled: true
+    message: "Workflow kairos-infra-master bloqueado em step {step_id}. Intervenção necessária."
+
+security:
+  authorization_required: true
+  allowed_roles:
+    - owner
+    - lead
+  audit_logging: true

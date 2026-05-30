@@ -87,12 +87,12 @@ Parse `## Mission:` from your spawn prompt and match:
 ### Security & Performance
 | Mission Keyword | Task File | Extra Resources |
 |----------------|-----------|-----------------|
-| `rls-audit` | `db-rls-audit.md` | `rls-policies-tmpl.yaml` (template) |
+| `rls-audit` | `security-audit.md` | `rls-policies-tmpl.yaml` (template) |
 | `policy-apply` | `db-policy-apply.md` | `tmpl-rls-kiss-policy.sql`, `tmpl-rls-granular-policies.sql` (templates) |
-| `impersonate` | `db-impersonate.md` | — |
+| `impersonate` | `test-as-user.md` | — |
 | `verify-order` | `db-verify-order.md` | — |
-| `explain` | `db-explain.md` | — |
-| `analyze-hotpaths` | `db-analyze-hotpaths.md` | — |
+| `explain` | `analyze-performance.md` | — |
+| `analyze-hotpaths` | `analyze-performance.md` | — |
 | `optimize-queries` | `query-optimization.md` | `postgres-tuning-guide.md` (data) |
 | `schema-audit` / `audit-schema` | `schema-audit.md` | `database-design-checklist.md` (checklist) |
 | `audit-migration` | Execute checklist: `db-migration-audit-checklist.md` | — |

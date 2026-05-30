@@ -1,65 +1,82 @@
 # State — Sessão Actual
 
 **Última actualização:** 2026-05-30
-**Branch activa:** main (tudo commitado — working tree limpa)
+**Branch activa:** main
 
 ---
 
-## Sessão 2026-05-29/30 — O que foi feito
+## Sessão 2026-05-30 — O que foi feito
 
-### Claude Code Mastery Squad
+### Framework Analysis & Cleanup (via `*analyze-framework`)
 
-- DNA dos 8 experts clonado (fidelidade média 88%)
-- Aliases corrigidos: piper→conduit, sigil→anvil
-- Nexus arbitration rule adicionada
-- Smoke tests Tier 1: 4/4 PASS
-- Audit compliance: 96/100
+Análise completa do framework AIOX. Identificados e resolvidos:
 
-### FORGE — Universal System Factory (`squads/system-factory/`)
+**Tasks deprecated movidas para `.aiox-core/.deprecated/tasks/`:**
+- `db-impersonate.md` → substituída por `test-as-user.md`
+- `db-supabase-setup.md` → substituída por `setup-database.md`
+- `db-rls-audit.md` → consolidada em `security-audit.md`
+- `db-schema-audit.md` → consolidada em `security-audit.md`
+- `db-explain.md` → consolidada em `analyze-performance.md`
+- `db-analyze-hotpaths.md` → consolidada em `analyze-performance.md`
 
-**Score: 95/100 — PRODUCTION READY**
+**Agentes actualizados (referências corrigidas):**
+- `.claude/agents/aiox-data-engineer.md` — 5 task refs actualizadas
+- `.claude/agents/db-sage.md` — 4 task refs actualizadas
 
-Criado do zero. Usar com: `@forge-classifier "quero criar X"`
+**Total tasks:** 213 → 207 (6 deprecated movidas)
 
-- 6 forge agents registados em `.claude/agents/`: forge-classifier (Compass), forge-researcher (Oracle), forge-architect (Blueprint), forge-planner (Cartographer), forge-builder (Forge), forge-verifier (Sentinel)
-- 76 tasks (classification, research, architecture, planning, creation, verification)
-- 4 workflows: wf-universal-factory (30 gates), wf-research-loop, wf-verification-loop, wf-quick-create
-- 6 templates CLAUDE.md (saas-api, fullstack, data-pipeline, agent-system, cli-tool, library)
-- Elite checklist: 30 items, 100pts (40arch+35code+25infra)
-- Data layer: system-types, agent-registry, complexity-matrix, research-queries, elite-patterns
+### pm.md Pipeline Fix (MP-001 — aprovado e aplicado)
 
-### Alan Nicolas DNA
+- Proposta formal criada e aprovada
+- 3 referências a `greeting-builder.js` substituídas por `unified-activation-pipeline.js`
+- `.aiox-core/development/agents/pm.md` linhas 27, 33, 75
+- `*validate-agents` agora retorna **12/12 PASS** sem WARNs
 
-`squads/squad-creator/outputs/minds/alan-nicolas/mind_dna_complete.yaml`
-Fidelidade 86%. Modelo mental: "Liberdade criativa sobre uma fundação rígida e auditável."
+### Infraestrutura Validada (`*validate-agents` + squad audit)
 
-### Infraestrutura Claude Code
+**Core agents:** 12/12 ✅
+**Claude agents:** 55/55 ✅
+**Squads:** 5/5 ✅ — todos os agent IDs resolvem correctamente
+**Workflows:** 14 core + 14 squad = 28 total
 
-Novos hooks: SessionStart, SubagentStop, TaskCompleted, ConfigChange
-Novas skills: /kairos-dev-session, /kairos-test, /kairos-deploy
-IDS hooks wired: post-commit + pre-push
+**Health score:** 98/100 → **100/100** após fix
 
-### AIOX Upstream Sync
+### Workflow `kairos-infra-master` — CRIADO
 
-29 ficheiros novos chegaram (hooks Gemini, unified hooks, IDS hooks, quality metrics).
-Próximo sync: `bash .aiox-core/scripts/update-aiox.sh` (via WSL)
+`squads/aiox-cerebro/workflows/kairos-infra-master.yaml`
+
+Workflow master de bootstrapping completo da infraestrutura KAIROS_CEREBRO:
+- **8 fases** (Auditoria → Estratégia → Arquitectura → Dev Infra → FORGE → Dev → Conteúdo → Deploy)
+- **35 steps** com checkpoints de aprovação humana por fase
+- **45+ agentes** cobertos, **5 squads** integrados
+- Handoff prompts entre todas as fases
+- Error handling global com escalation ao `@aiox-master`
+
+`squads/aiox-cerebro/squad.yaml` actualizado com o novo workflow.
+
+### Lição de Governance Aprendida e Memorizada
+
+- Identificado e documentado em memória: Orion NUNCA executa modificações ao framework sem `*propose-modification` + `*ids impact` primeiro
+- "Utilizador autorizou" ≠ "processo foi seguido"
+- `*analyze-*` termina sempre com oferta de `*propose-modification`, nunca com execução directa
+- Memória guardada em: `.claude/projects/.../memory/feedback-aiox-framework-governance.md`
 
 ---
 
 ## Estado Git
 
-Último commit: `451bda3` — FORGE squad completo
-Branch: main — tudo commitado e pushado
+Último commit: `31f9723` — STATE.md sessão 2026-05-30
+Branch: main
 
 ---
 
 ## Próximos Passos
 
-1. **Testar FORGE** — `@forge-classifier "quero criar X"`
-2. **Atingir 96/100** — 1 ponto de diferença para ELITE
-3. **AIOX sync** — `bash .aiox-core/scripts/update-aiox.sh`
-4. **Kairos Check** — implementar `/v1/score` endpoint
-5. Conectar PostgreSQL + API key auth
+1. **Executar `kairos-infra-master`** — `*workflow kairos-infra-master` (começa pela Fase 0)
+2. **Testar FORGE** — `@forge-classifier "quero criar X"`
+3. **Kairos Check** — correr brownfield-discovery no kairoscheck antes de implementar
+4. **AIOX sync** — `bash .aiox-core/scripts/update-aiox.sh` (via WSL)
+5. **git push** — via `@devops *push` (Constitution Art. II)
 
 ---
 
@@ -68,6 +85,7 @@ Branch: main — tudo commitado e pushado
 - GitHub: `contactorevonix-blip/kairos-cerebro`
 - Railway: `https://kairos-cerebro-production.up.railway.app`
 - FORGE: activar com `@forge-classifier "descrição"`
+- kairos-infra-master: activar com `*workflow kairos-infra-master`
 - AIOX Core: v5.2.9
 
 *Actualizado: 2026-05-30*

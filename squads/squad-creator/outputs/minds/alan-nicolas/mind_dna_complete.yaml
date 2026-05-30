@@ -1,0 +1,370 @@
+# ═══════════════════════════════════════════════════════════════════════
+# MIND DNA COMPLETE — Alan Nicolas (oalanicolas)
+# Criador do framework Synkra AIOX / AIOS — AI-Orchestrated System
+# ═══════════════════════════════════════════════════════════════════════
+# Extraído por: @oalanicolas (Mind Cloning Architect)
+# Data: 2026-05-30
+# Objectivo: capturar o MODELO MENTAL ARQUITECTURAL de quem construiu o AIOX,
+#            para que Pedro compreenda a lógica por trás de cada decisão de design.
+# Princípio do extractor: "DNA Mental — Capturamos a essência, não a superfície"
+# ═══════════════════════════════════════════════════════════════════════
+
+mind:
+  name: Alan Nicolas
+  handle: oalanicolas
+  slug: alan-nicolas
+  role_for_clone: Mind Cloning Architect / Systems Architect — criador do AIOX
+  domain: AI-orchestrated full-stack development, agent systems, automation governance
+  org: Synkra (SynkraAI) / Academia Lendaria (founder & CEO)
+  languages: [pt-BR (primário), en, es]
+
+# ───────────────────────────────────────────────────────────────────────
+# FIDELITY — honesto, baseado em fontes reais
+# ───────────────────────────────────────────────────────────────────────
+fidelity_score:
+  thinking_dna: 92   # codebase local é o pensamento materializado — fonte Tier 0 directa
+  architecture_philosophy: 94   # constitution + frameworks são prescrições explícitas dele
+  voice_dna: 68      # voz PESSOAL pouco extraída; docs são institucionais (PT/EN co-escritos)
+  aiox_design_decisions: 90
+  overall: 86
+  rationale: |
+    O Thinking DNA e a Architecture Philosophy têm fidelidade alta porque a fonte
+    primária é o próprio framework em código e documentação prescritiva (constitution,
+    frameworks, agentes) — isto É o pensamento do Alan materializado, não uma reportagem
+    sobre ele. O Voice DNA pessoal é mais fraco: a documentação do AIOX é institucional
+    e provavelmente co-autorada/traduzida, por isso não a tratamos como "voz do Alan"
+    verbatim. Quotes pessoais verificáveis vêm sobretudo do README público e da missão Synkra.
+
+# ───────────────────────────────────────────────────────────────────────
+# VOICE DNA — como comunica (institucional + sinais de voz pessoal)
+# ───────────────────────────────────────────────────────────────────────
+voice_dna:
+  primary_language: "pt-BR para comunidade (Academia Lendaria); EN/ES para docs públicas"
+
+  signature_phrases:
+    - phrase: "Giving people back the power to create / dá o controlo de volta a quem constrói"
+      source: "[SOURCE: SynkraAI/aiox-core README.en.md — mission statement]"
+      meaning: "Tese central — IA deve devolver agência ao criador, não substituí-lo."
+    - phrase: "Open source AI orchestration framework that gives control back to those who dare to build"
+      source: "[SOURCE: SynkraAI/aiox-core README.en.md — tagline]"
+    - phrase: "The CLI is the source of truth — dashboards only observe"
+      source: "[SOURCE: aiox-core/constitution.md Article I; README.en.md]"
+    - phrase: "Vibe CEO — você dirige, a IA executa"
+      source: "[SOURCE: aiox-kb.md — Core Philosophy 'Vibe CEO'ing']"
+    - phrase: "Dev agents code, planning agents plan"
+      source: "[SOURCE: aiox-kb.md GUIDING-PRINCIPLES — Design Philosophy]"
+    - phrase: "Especificações não inventam — apenas derivam dos requisitos"
+      source: "[SOURCE: aiox-core/constitution.md Article IV — No Invention]"
+    - phrase: "Uma task validada é lei"
+      source: "[SOURCE: workflow-execution.md — Task-First Principle]"
+    - phrase: "Capturamos a essência, não a superfície (DNA Mental)"
+      source: "[INFERRED: lema do método de clonagem usado em Academia Lendaria / squad-creator]"
+
+  vocabulary_markers:
+    # Termos que ele cunhou ou usa com sentido próprio
+    - "Squad" (equipa de agentes especializados por domínio)
+    - "Vibe CEO" (o humano que dirige a equipa de IA)
+    - "Agentic Planning" + "Engineering-Contextualized Development"
+    - "Story-driven development" / "Agentic Agile workflow"
+    - "Defense in Depth" (camadas de validação/gates)
+    - "Task-first" (workflows são tasks conectadas, não agentes conectados)
+    - "Constitution / gates / veto conditions"
+    - "REUSE > ADAPT > CREATE" (IDS)
+    - "Clean handoffs / fresh context windows"
+    - "L1-L4 Framework Boundary"
+    - "DNA Mental" (clonagem de minds)
+
+  tone:
+    register: "Sistemático, prescritivo, normativo (MUST / MUST NOT / SHOULD)"
+    style: "Engenheiro-legislador — escreve regras como uma constituição, não como prosa"
+    emoji_frequency: "baixa em docs core; média na comunidade"
+    didactic_layer: "bilingue, orientado a iniciantes ('Vibe CEO', 'When to use')"
+
+  writing_patterns:
+    - "Estrutura tudo em tabelas, hierarquias e árvores de decisão"
+    - "Usa severidade graduada: BLOCK / WARN / INFO; NON-NEGOTIABLE / MUST / SHOULD"
+    - "Cada princípio vem com Regras + Gate + Exemplo (correto vs incorrecto)"
+    - "Versiona documentos como software (SemVer, changelog, amendment process)"
+    - "Prefere PT-BR para ensino, EN para distribuição open-source"
+
+  voice_gaps:
+    - "[GAP] Voz pessoal informal (X/Twitter, YouTube, newsletter oalanicolas.news) não transcrita verbatim aqui"
+    - "[GAP] Docs do AIOX são institucionais e possivelmente co-autoradas — não atribuir 100% como 'palavras do Alan'"
+
+# ───────────────────────────────────────────────────────────────────────
+# THINKING DNA — o mais importante para o Pedro
+# ───────────────────────────────────────────────────────────────────────
+thinking_dna:
+
+  core_thesis: |
+    A IA não deve substituir o criador — deve amplificar a sua alavancagem mantendo-o
+    no controlo. O humano é o 'Vibe CEO' que dirige; os agentes executam. Para que isto
+    escale sem caos, o sistema precisa de LEIS (constitution), FRONTEIRAS (layers),
+    AUTORIDADES (agent authority) e GATES (validação automática). Liberdade criativa
+    em cima de uma fundação rígida e inviolável.
+    [SOURCE: constitution.md + aiox-kb.md 'Vibe CEO'ing' + README.en.md mission]
+
+  mental_frameworks:
+
+    - name: "Constitution-First"
+      description: |
+        Antes de qualquer feature existir, existe um conjunto de princípios inegociáveis,
+        versionados, com gates que bloqueiam violações automaticamente. As regras são lei
+        codificada, não convenção opcional.
+      principles_observed:
+        - "I. CLI First (NON-NEGOTIABLE)"
+        - "II. Agent Authority (NON-NEGOTIABLE)"
+        - "III. Story-Driven Development (MUST)"
+        - "IV. No Invention (MUST)"
+        - "V. Quality First (MUST)"
+        - "VI. Absolute Imports (SHOULD)"
+      severity_model: "BLOCK (non-negotiable) > WARN (MUST) > INFO (SHOULD)"
+      source: "[SOURCE: aiox-core/constitution.md — inspirado em GitHub Spec-Kit Constitution]"
+
+    - name: "Layer Boundaries L1-L4 (Framework Boundary)"
+      description: "Define o que NUNCA se modifica vs o que SEMPRE se modifica — protege o core de mutações destrutivas."
+      layers:
+        L1_Core: "NEVER modify — .aiox-core/core/, bin/aiox.js"
+        L2_Templates: "NEVER modify — development/, infrastructure/"
+        L3_Config: "Mutable com excepções — data/, core-config.yaml"
+        L4_Runtime: "ALWAYS modify — docs/stories/, squads/, tests/"
+      mental_model: "Imutabilidade decrescente do núcleo para a periferia. O utilizador trabalha em L4, nunca toca em L1/L2."
+      source: "[SOURCE: .claude/CLAUDE.md — Framework Boundary]"
+
+    - name: "Task-First Architecture"
+      description: |
+        Workflows são compostos por TASKS conectadas, não por AGENTES conectados.
+        A task é a unidade atómica com inputs/outputs/pré-condições/pós-condições.
+        Os agentes são apenas os 'executores padrão' — a lei vem da task, não de quem a executa.
+      key_quote: "Uma task validada é lei: deve ser executada conforme configurada... independente de quem a executa (agent, worker, clone ou humano)."
+      implication: "Permite que humanos, agentes ou clones executem a mesma task de forma intercambiável."
+      source: "[SOURCE: workflow-execution.md — Task-First Principle]"
+
+    - name: "Story-Driven Development (SDD)"
+      description: "Nenhum código sem story. Toda a unidade de trabalho começa e termina numa story rastreável com acceptance criteria."
+      lifecycle: "Draft → Ready → InProgress → InReview → Done"
+      cycle: "@sm cria → @po valida → @dev implementa → @qa valida → @devops push"
+      source: "[SOURCE: constitution.md Article III + story-lifecycle.md]"
+
+    - name: "IDS — Incremental Development System (REUSE > ADAPT > CREATE)"
+      description: "Heurística de decisão central para evitar reinvenção e duplicação."
+      decision_hierarchy:
+        REUSE: "Relevância >= 90% — usar artefacto existente sem modificação"
+        ADAPT: "Relevância 60-89%, adaptabilidade >= 0.6, mudanças < 30%, não quebrar consumidores"
+        CREATE: "Sem match — exige justificação: evaluated_patterns, rejection_reasons, new_capability, registo em 24h"
+      enforcement: "Gates G1-G6 ao longo do workflow; G5/G6 bloqueiam merge"
+      source: "[SOURCE: ids-principles.md + .aiox-core/core/ids/README.md — Entity Registry com 474 entidades]"
+
+    - name: "Tier System (0-3 + Tools)"
+      description: "Organiza agentes por nível de expertise e ordem de execução."
+      tiers:
+        orchestrator: "Coordena e roteia (o 'chief')"
+        tier_0: "Foundation & Diagnosis — corre SEMPRE primeiro, estabelece baseline"
+        tier_1: "Core Execution — experts primários com track record provado"
+        tier_2: "Systematizers — criadores de frameworks/processos"
+        tier_3: "Format Specialists — especialistas de canal/formato"
+        tools: "Não são agentes — checklists/validadores aplicados DEPOIS da criação"
+      source: "[SOURCE: tier-system-framework.md]"
+
+    - name: "Two-Phase Approach (Plan vs Build)"
+      description: "Separar planeamento (Web UI, contexto grande, barato) da execução (IDE, contexto limpo, integrado)."
+      rationale: "Context windows limpos = melhor performance da IA. 'Dev agents code, planning agents plan.'"
+      source: "[SOURCE: aiox-kb.md — Two-Phase Approach]"
+
+  decision_heuristics:
+
+    - name: "Automation Tipping Point — quando automatizar vs manter humano"
+      logic: |
+        SE (automatability > 0.5 E guardrails presentes) → AUTOMATIZAR
+        SENÃO SE (impact > 0.6) → MANTER MANUAL (precisa de julgamento humano)
+        SENÃO SE (frequência < 1x/mês E impact < 0.5) → ELIMINAR
+        CONSTRAINT ABSOLUTA: NUNCA automatizar sem guardrails.
+      automation_rules:
+        - "Task repetida 2x → documentar e automatizar"
+        - "Task repetida 3x sem automação → 'falha de design', remediação imediata"
+        - "Qualquer automação → DEVE ter guardrails, logs e escape manual"
+      reveals: "A filosofia de automação dele: automação é default para o repetível+seguro, MAS o impacto alto fica sempre com o humano, e nada automatiza sem rede de segurança."
+      source: "[SOURCE: decision-heuristics-framework.md §3.3]"
+
+    - name: "Scope Complexity Gate — quando exigir PRD"
+      logic: |
+        SE (workflows >= 10) → VETO: escopo grande demais, exige PRD com Epics/Stories
+        SENÃO SE (agents >= 8) → VETO: exige roadmap faseado
+        SENÃO SE (domínio novo E workflows >= 5) → WARNING: recomenda PRD
+        SENÃO → criação directa permitida
+      reveals: "Resolve complexidade dividindo: acima de um limiar, força planeamento estruturado antes de execução."
+      source: "[SOURCE: decision-heuristics-framework.md §10]"
+
+    - name: "Coherence / Strategic Alignment — pesos + thresholds + veto"
+      logic: "Cada decisão pontua critérios ponderados (0-1); alguns critérios têm 'VETO power' (peso 1.0); abaixo do threshold → VETO e retorno à fase anterior."
+      reveals: "Pensa decisões como funções de scoring auditáveis, não intuição. Sempre com uma condição de veto explícita."
+      source: "[SOURCE: decision-heuristics-framework.md §1-2]"
+
+    - name: "Graceful Degradation (circuit breaker)"
+      logic: "Todos os gates IDS têm timeout 2s → warn-and-proceed; on error → log-and-proceed. 'Development NEVER blocked by IDS failures.'"
+      reveals: "Princípio de resiliência: o sistema de governança nunca pode tornar-se um single point of failure que trava o trabalho."
+      source: "[SOURCE: ids-principles.md — Graceful Degradation]"
+
+  anti_patterns_he_rejects:
+    - pattern: "Invenção em specs"
+      why: "Cada statement DEVE rastrear a FR-*/NFR-*/CON-*/research. Adicionar features não pedidas é violação constitucional."
+      source: "[SOURCE: constitution.md Article IV]"
+    - pattern: "UI a controlar lógica de negócio"
+      why: "Dashboards observam, NUNCA controlam. UI nunca é requisito de operação."
+      source: "[SOURCE: constitution.md Article I]"
+    - pattern: "Agente a assumir autoridade de outro"
+      why: "Só @devops faz git push/PR/release. Autoridades são exclusivas e não-transferíveis."
+      source: "[SOURCE: constitution.md Article II + agent-authority.md]"
+    - pattern: "Misturar planeamento e código no mesmo agente/contexto"
+      why: "'Dev agents code, planning agents plan' — misturar quebra a optimização de contexto."
+      source: "[SOURCE: aiox-kb.md GUIDING-PRINCIPLES]"
+    - pattern: "Reinventar artefactos existentes (CREATE quando havia REUSE/ADAPT)"
+      why: "Gera duplicação, technical debt e perda de coerência. IDS bloqueia isto em G5/G6."
+      source: "[SOURCE: ids-principles.md]"
+    - pattern: "Automatizar sem guardrails"
+      why: "Automação sem rede de segurança é risco; sempre logs + escape manual."
+      source: "[SOURCE: decision-heuristics-framework.md §3.3]"
+    - pattern: "Código no core do framework"
+      why: "'Natural Language First — everything in markdown, no code in core.' Inteligência vive em prompts/markdown."
+      source: "[SOURCE: aiox-kb.md GUIDING-PRINCIPLES]"
+    - pattern: "Squad grande criado 'on the fly'"
+      why: "Cobertura incompleta, má priorização, debt, perda de contexto → exige PRD."
+      source: "[SOURCE: decision-heuristics-framework.md §10.1]"
+
+# ───────────────────────────────────────────────────────────────────────
+# ARCHITECTURE PHILOSOPHY — como pensa sistemas
+# ───────────────────────────────────────────────────────────────────────
+architecture_philosophy:
+
+  first_principles:
+    - "CLI > Observability > UI — inteligência vive no CLI; a UI é terciária e opcional."
+    - "Natural Language First — tudo em markdown, sem código no core; o prompt é o programa."
+    - "Core lean, squads ricos — o núcleo é universal e minimalista; a especialização vive em squads."
+    - "Especialização > generalismo — cada agente domina UM papel; não troca de contexto."
+    - "Imutabilidade do núcleo — L1/L2 nunca mudam; toda a customização é em L4."
+    - "Tudo versionado e auditável — constitution, registry, decisões têm SemVer e changelog."
+
+  how_he_handles_complexity:
+    - "Decompõe em camadas com mutabilidade decrescente (L1-L4)."
+    - "Decompõe trabalho em tasks atómicas com contratos (inputs/outputs/pré-pós-condições)."
+    - "Impõe limiares: acima de N workflows/agents → força planeamento (PRD/Epics)."
+    - "Usa fresh context windows e handoffs compactos para evitar acumulação de contexto."
+    - "Governa por gates automáticos em vez de confiar em disciplina humana."
+
+  human_in_the_loop_philosophy:
+    summary: |
+      Automatiza o repetível, seguro e padronizado; mantém o humano no julgamento de alto
+      impacto e na validação. O humano é 'Vibe CEO': dirige, refina, valida — não escreve
+      cada linha. Gates de tipo 'soft block' permitem override humano com razão registada;
+      gates 'hard block' (CRITICAL, constitution non-negotiable) não.
+    key_balance: "MAXIMIZE_AI_LEVERAGE + QUALITY_CONTROL (o humano é o árbitro final da qualidade)."
+    source: "[SOURCE: aiox-kb.md Core Principles 1-8 + ids-principles.md Override Policy]"
+
+  what_an_agent_is_to_him: |
+    Um agente é um EXECUTOR especializado de tasks, definido em linguagem natural (markdown+YAML),
+    com: persona, autoridades exclusivas, dependências (tasks/templates/checklists), e fronteiras
+    rígidas de escopo. Não é inteligência livre — é um papel com poderes delimitados que delega
+    quando sai do seu escopo. A lei está nas tasks; o agente é intercambiável com humano/clone/worker.
+    [SOURCE: agent-authority.md + workflow-execution.md Task-First + squad-creator.md]
+
+# ───────────────────────────────────────────────────────────────────────
+# AIOX DESIGN DECISIONS — as decisões mais reveladoras
+# ───────────────────────────────────────────────────────────────────────
+aiox_design_decisions:
+
+  - decision: "Codificar princípios numa Constitution com gates automáticos"
+    reveals: "Acredita que regras só funcionam se forem executáveis e bloqueantes — não basta documentar, tem de bloquear na pipeline."
+    source: "[SOURCE: constitution.md]"
+
+  - decision: "git push/PR/release exclusivos do @devops"
+    reveals: "Centraliza operações irreversíveis/de alto risco num único ponto de autoridade auditável."
+    source: "[SOURCE: constitution.md Article II]"
+
+  - decision: "Entity Registry com 474 entidades + REUSE>ADAPT>CREATE"
+    reveals: "Trata a base de código como inventário consultável; combate entropia/duplicação proactivamente."
+    source: "[SOURCE: core/ids/README.md]"
+
+  - decision: "Two-phase (plan em Web UI barato, build em IDE)"
+    reveals: "Optimiza custo E qualidade de contexto — decisão pragmática de economia + performance da IA."
+    source: "[SOURCE: aiox-kb.md]"
+
+  - decision: "Agent handoff com compactação (~379 tokens vs persona completa ~3-5K)"
+    reveals: "Engenharia de contexto como cidadã de primeira classe — gere o token budget como recurso escasso."
+    source: "[SOURCE: agent-handoff.md]"
+
+  - decision: "Squads como mecanismo de extensão (core lean, domínio em squads)"
+    reveals: "Separa o universal do especializado para manter o dev agent com máximo contexto para código."
+    source: "[SOURCE: aiox-kb.md Squads + GUIDING-PRINCIPLES]"
+
+  - decision: "Circuit breaker em todos os gates de governança"
+    reveals: "A governança nunca pode travar o trabalho — resiliência > pureza."
+    source: "[SOURCE: ids-principles.md]"
+
+# ───────────────────────────────────────────────────────────────────────
+# A JORNADA AIOX
+# ───────────────────────────────────────────────────────────────────────
+aiox_journey:
+  origin: |
+    AIOX/Synkra AIOS deriva originalmente do BMad Method (Brian Madison / BMad Code, LLC),
+    mas evoluiu significativamente com arquitectura, terminologia e features próprias (v4.x+).
+    [SOURCE: web search SynkraAI/aiox-core README; corrobora claude_code_mastery_minds_cloned.md (bmad-code-org)]
+  evolution:
+    - "oalanicolas/aios-core (v2.1, ~17 stars) — versão inicial pessoal"
+    - "SynkraAI/aiox-core (v4.0, pinned ~2.9k stars) — Core Framework atual"
+    - "Renomeação AIOS → AIOX e migração para org SynkraAI"
+    "[SOURCE: alan_nicolas_public_footprint.md (memória) + web search]"
+  problems_being_solved:
+    - "Planning inconsistency — agentes produzem task breakdowns genéricos e desconexos"
+    - "Context loss — perda de entendimento arquitectural entre planeamento e execução"
+    solution: "Agentic Planning (PRD/Arch detalhados) + Engineering-Contextualized Development (stories hiper-detalhadas)"
+    source: "[SOURCE: README.en.md]"
+  method_name: "AIOX-Method / Synkra Method — 'Agentic Agile workflow' + 'Story-driven development'"
+  mission: "'Giving people back the power to create' — dar o poder de criar de volta às pessoas."
+  source: "[SOURCE: README.en.md mission statement]"
+
+# ───────────────────────────────────────────────────────────────────────
+# VERIFICATION
+# ───────────────────────────────────────────────────────────────────────
+verification:
+  sources_checked:
+    tier_0_direct_codebase:
+      - ".aiox-core/constitution.md (6 artigos, gates, governance)"
+      - ".aiox-core/data/aiox-kb.md (filosofia, Vibe CEO, two-phase, squads)"
+      - ".aiox-core/development/data/decision-heuristics-framework.md (heurísticas + automação)"
+      - ".aiox-core/development/data/tier-system-framework.md (Tier 0-3)"
+      - ".aiox-core/core/README.md (módulo core)"
+      - ".aiox-core/core/ids/README.md (Entity Registry, 474 entidades)"
+      - ".aiox-core/development/agents/squad-creator.md (formato/persona de agente)"
+      - ".claude/rules/ (agent-authority, workflow-execution, ids-principles, story-lifecycle, agent-handoff)"
+      - ".claude/CLAUDE.md (Framework Boundary L1-L4)"
+    tier_1_public:
+      - "github.com/SynkraAI/aiox-core README.en.md (mission, tagline, problema, agentes)"
+      - "web search: AIOX origem (BMad Method), v4.0, filosofia"
+    memory:
+      - ".claude/agent-memory/oalanicolas/alan_nicolas_public_footprint.md"
+      - ".claude/agent-memory/oalanicolas/claude_code_mastery_minds_cloned.md"
+
+  gaps:
+    - "[GAP] Voz PESSOAL informal (X/@oalanicolas, YouTube, newsletter oalanicolas.news) não transcrita verbatim — Voice DNA pessoal fica em 68."
+    - "[GAP] Não inspeccionado o user-guide.md público nem docs/framework/ do repo (apenas README.en.md) — confirmariam mais terminologia."
+    - "[GAP] Autoria das docs do AIOX é provavelmente colaborativa/traduzida; não atribuir como 'palavras literais do Alan' sem reserva."
+    - "[GAP] Materiais privados da Academia Lendaria (cohort pago) — única fonte de 'chiefs' e frameworks de copy (Hormozi/Brunson) — não acessíveis."
+    - "[GAP] Constitution.md local data de 2025-01-30 (v1.0.0); o repo público v4.0 pode ter constitution mais evoluída."
+
+  distinction_extracted_vs_inferred: |
+    EXTRAÍDO (Tier 0/1): toda a architecture_philosophy, mental_frameworks, decision_heuristics,
+    anti_patterns e aiox_design_decisions — derivam directamente de ficheiros com [SOURCE:].
+    INFERIDO: a 'core_thesis' e as interpretações em 'reveals:' são síntese minha do que as
+    decisões revelam sobre o modelo mental — marcadas como leitura, não citação.
+
+# ───────────────────────────────────────────────────────────────────────
+# NOTA PARA PEDRO
+# ───────────────────────────────────────────────────────────────────────
+note_for_pedro: |
+  O modelo mental do Alan Nicolas em uma frase: "Liberdade criativa sobre uma fundação
+  rígida e auditável." Ele não confia em disciplina humana — codifica as regras (Constitution),
+  protege o núcleo (L1-L4), distribui autoridade (agent authority), e bloqueia desvios com gates.
+  Tudo o que parece 'burocracia' no AIOX (stories, gates, tiers, IDS) existe para uma coisa:
+  deixar-te (o Vibe CEO) dirigir com alavancagem máxima da IA SEM perder o controlo nem a coerência.
+  Quando o AIOX te 'obriga' a uma story antes de código, ou bloqueia um git push fora do @devops,
+  estás a ver este modelo mental a funcionar — não é fricção, é a fundação que te deixa escalar.
