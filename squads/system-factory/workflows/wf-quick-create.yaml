@@ -1,0 +1,16 @@
+name: wf-quick-create
+version: "1.0.0"
+description: "Fast path para sistemas SIMPLE (complexity score <= 8). 15 etapas em vez de 30. Estimativa: < 1 hora."
+
+triggers:
+  - condition: "complexity_score <= 8"
+
+phases:
+  - classify: [G01, G02, G03]
+  - light_research: [G07, G09]
+  - architecture: [G13, G14, G15]
+  - planning: [G19, G20, G21]
+  - creation: [G24, G25, G27]
+  - verification: [G29, G30]
+
+human_checkpoints: [after_classify, after_architecture, after_verdict]

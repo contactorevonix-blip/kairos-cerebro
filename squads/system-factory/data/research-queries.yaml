@@ -1,0 +1,57 @@
+version: "1.0.0"
+description: "Queries PICO pré-construídas por tipo de sistema para arranque rápido de research"
+
+queries:
+  saas-api:
+    pico:
+      population: "developers e empresas que precisam de integrar {domain} nas suas aplicações"
+      intervention: "API SaaS com autenticação, rate limiting, billing, e documentação"
+      comparison: "alternativas: self-hosted, outros SaaS, in-house build"
+      outcome: "redução de time-to-market, fiabilidade, custo total de integração"
+    competitive_search_terms:
+      - "{domain} API SaaS market leaders"
+      - "{domain} API pricing models 2024 2025"
+      - "{domain} API developer experience benchmarks"
+      - "best {domain} API design patterns"
+    anti_pattern_search:
+      - "{domain} API failures post-mortem"
+      - "{domain} SaaS startup mistakes"
+
+  fullstack:
+    pico:
+      population: "utilizadores finais que precisam de {use_case}"
+      intervention: "aplicação web fullstack com UI intuitiva, performance, e segurança"
+      comparison: "alternativas: apps nativas, outras web apps, manual processes"
+      outcome: "adopção de utilizadores, retenção, NPS"
+    competitive_search_terms:
+      - "{domain} web app market leaders UX"
+      - "{domain} web app conversion rate optimization"
+      - "Next.js {domain} case studies performance"
+
+  data-pipeline:
+    pico:
+      population: "equipas de dados que processam {data_type}"
+      intervention: "pipeline ETL/ELT com garantias de idempotência, retry, e monitoring"
+      comparison: "alternativas: manual, cloud-native (AWS Glue, etc.), batch vs streaming"
+      outcome: "data freshness, error rate, custo por record processado"
+
+  agent-system:
+    pico:
+      population: "developers e equipas usando Claude Code para {workflow_type}"
+      intervention: "sistema de agents especializados com squads, DNA, hooks, e workflows"
+      comparison: "alternativas: prompt único, scripts manuais, outros frameworks de agents"
+      outcome: "redução de tempo de setup, qualidade de output, consistência"
+
+  cli-tool:
+    pico:
+      population: "developers que fazem {task} manualmente ou com scripts ad-hoc"
+      intervention: "CLI tool com boa UX, documentação, e distribuição npm"
+      comparison: "alternativas: scripts bash, ferramentas GUI, outros CLIs"
+      outcome: "adopção pela comunidade, redução de erros, produtividade"
+
+  library:
+    pico:
+      population: "developers que precisam de {capability} nas suas aplicações"
+      intervention: "biblioteca TypeScript com API minimal, bem tipada, e tree-shakeable"
+      comparison: "alternativas: implementação in-house, outras libraries, cloud services"
+      outcome: "downloads npm, issues abertas, performance benchmark"

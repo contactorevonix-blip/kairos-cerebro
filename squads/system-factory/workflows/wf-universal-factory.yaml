@@ -1,0 +1,327 @@
+name: wf-universal-factory
+version: "1.0.0"
+description: "Pipeline universal de 30 etapas para criar sistemas de elite. Da descrição em linguagem natural ao sistema em produção verificado."
+
+triggers:
+  - manual: "Activado por @forge-classifier quando sistema é STANDARD ou COMPLEX"
+  - command: "*workflow wf-universal-factory"
+
+inputs:
+  - name: system_description
+    type: string
+    required: true
+    description: "Descrição em linguagem natural do sistema a criar"
+  - name: user_context
+    type: string
+    required: false
+    description: "Contexto adicional sobre requisitos ou constraints"
+
+outputs:
+  - name: pipeline_state
+    path: "outputs/{system_name}/pipeline-state.yaml"
+  - name: classification_report
+    path: "outputs/{system_name}/classification-report.md"
+  - name: research_report
+    path: "outputs/{system_name}/research-report.md"
+  - name: architecture_doc
+    path: "outputs/{system_name}/architecture.md"
+  - name: stories
+    path: "outputs/{system_name}/stories/"
+  - name: elite_verdict
+    path: "outputs/{system_name}/elite-verdict.md"
+
+phases:
+
+  # ════════════════════════════════════════
+  # FASE 0 — INTAKE & CLASSIFICATION
+  # ════════════════════════════════════════
+  phase_0_intake:
+    name: "Intake & Classification"
+    agent: forge-classifier
+    gates: [G01, G02, G03, G04, G05]
+    human_checkpoint: true
+    checkpoint_message: "Classificação completa. Confirmas tipo e stack antes de avançar para research?"
+
+    steps:
+      - id: G01
+        name: "Parse Intent"
+        task: tasks/classification/parse-intent.md
+        blocking: true
+        rule: "Descrição com ambiguidade score > 0.3 → pedir clarificação antes de avançar"
+
+      - id: G02
+        name: "System Type Detection"
+        task: tasks/classification/detect-system-type.md
+        blocking: true
+        rule: "Confiança < 80% → segundo round de análise com perguntas adicionais"
+
+      - id: G03
+        name: "Complexity Scoring"
+        task: tasks/classification/score-complexity.md
+        blocking: false
+        rule: "Score produz path: SIMPLE → wf-quick-create, STANDARD/COMPLEX → continua aqui"
+
+      - id: G04
+        name: "Scope Gate"
+        task: tasks/classification/validate-scope.md
+        blocking: true
+        rule: "VETO se > 10 workflows estimados. Exige PRD antes de avançar."
+
+      - id: G05
+        name: "IDS Duplicate Check"
+        task: tasks/classification/ids-check.md
+        blocking: false
+        rule: "Sistema similar existe? → apresentar ao utilizador para REUSE/ADAPT/CREATE decision"
+
+  # ════════════════════════════════════════
+  # FASE 1 — RESEARCH PROFUNDA
+  # ════════════════════════════════════════
+  phase_1_research:
+    name: "Deep Research"
+    agent: forge-researcher
+    delegates: [dr-orchestrator, sackett, gilad, higgins, klein, ioannidis, kahneman]
+    gates: [G06, G07, G08, G09, G10, G11, G12]
+    human_checkpoint: false
+    loop_until: "research_confidence_score >= 8.0"
+
+    steps:
+      - id: G06
+        name: "PICO Formation"
+        task: tasks/research/pico-formulation.md
+        delegate: sackett
+        blocking: true
+        rule: "Questão PICO mal formada → @sackett reescreve até score >= 8/10"
+
+      - id: G07
+        name: "Competitive Intelligence"
+        task: tasks/research/competitive-intel.md
+        delegate: gilad
+        blocking: true
+        rule: "< 5 concorrentes com dados reais verificados → BLOCK, continuar research"
+
+      - id: G08
+        name: "Market & OSINT Patterns"
+        task: tasks/research/market-osint.md
+        delegate: higgins
+        blocking: false
+        rule: "Fontes primárias obrigatórias. INFERRED sem SOURCE → não conta."
+
+      - id: G09
+        name: "Tech Pattern Research"
+        task: tasks/research/tech-patterns.md
+        blocking: false
+        rule: "Mínimo 3 padrões validados para o tipo de sistema"
+
+      - id: G10
+        name: "Pattern Recognition"
+        task: tasks/research/pattern-recognition.md
+        delegate: klein
+        blocking: false
+        rule: "Padrões documentados com SOURCE verificável"
+
+      - id: G11
+        name: "Evidence Audit"
+        task: tasks/research/evidence-audit.md
+        delegate: ioannidis
+        blocking: true
+        rule: "PPV das fontes < 0.7 → marcar como INFERRED, não como facto"
+
+      - id: G12
+        name: "Research Loop Gate"
+        task: tasks/research/confidence-gate.md
+        delegate: kahneman
+        blocking: true
+        rule: "research_confidence_score < 8.0 → volta ao G06. Loop infinito até qualidade."
+
+  # ════════════════════════════════════════
+  # FASE 2 — ARQUITECTURA & SPEC
+  # ════════════════════════════════════════
+  phase_2_architecture:
+    name: "Architecture & Spec"
+    agent: forge-architect
+    delegates: [aiox-architect, aiox-data-engineer, aiox-pm]
+    gates: [G13, G14, G15, G16, G17, G18]
+    human_checkpoint: true
+    checkpoint_message: "Arquitectura completa. Approvas tech stack e design antes de planear?"
+
+    steps:
+      - id: G13
+        name: "Tech Stack Selection"
+        task: tasks/architecture/select-stack.md
+        blocking: true
+        rule: "Stack sem ADR com justificação → BLOCK"
+
+      - id: G14
+        name: "System Boundaries"
+        task: tasks/architecture/define-boundaries.md
+        blocking: true
+        rule: "Boundaries indefinidos → BLOCK. Cada módulo tem dono."
+
+      - id: G15
+        name: "Data Model Design"
+        task: tasks/architecture/design-data-model.md
+        delegate: aiox-data-engineer
+        blocking: true
+        rule: "Schema sem tipos, relações e RLS strategy → BLOCK"
+
+      - id: G16
+        name: "Security Architecture"
+        task: tasks/architecture/security-architecture.md
+        blocking: true
+        rule: "OWASP Top 10 checklist não completada → BLOCK"
+
+      - id: G17
+        name: "Spec Completeness Gate"
+        task: tasks/architecture/spec-completeness.md
+        delegate: aiox-pm
+        blocking: true
+        rule: "Feature sem FR-* ou NFR-* → BLOCK. Art. IV AIOX: No Invention."
+
+      - id: G18
+        name: "Architecture Critique Loop"
+        task: tasks/architecture/critique-architecture.md
+        blocking: true
+        rule: "Score < 4.0/5.0 → NEEDS_REVISION, volta G13. Score < 3.0 → BLOCKED."
+
+  # ════════════════════════════════════════
+  # FASE 3 — PLANEAMENTO
+  # ════════════════════════════════════════
+  phase_3_planning:
+    name: "Planning"
+    agent: forge-planner
+    delegates: [aiox-pm, aiox-sm, aiox-po]
+    gates: [G19, G20, G21, G22, G23]
+    human_checkpoint: false
+
+    steps:
+      - id: G19
+        name: "Epic Decomposition"
+        task: tasks/planning/decompose-epics.md
+        delegate: aiox-pm
+        blocking: true
+        rule: "< 3 stories por epic → BLOCK"
+
+      - id: G20
+        name: "Story Creation"
+        task: tasks/planning/create-stories.md
+        delegate: aiox-sm
+        blocking: true
+        rule: "Story sem acceptance criteria → BLOCK"
+
+      - id: G21
+        name: "Story Validation"
+        task: tasks/planning/validate-stories.md
+        delegate: aiox-po
+        blocking: true
+        rule: "Score @po < 7/10 → NO-GO com lista específica de fixes"
+
+      - id: G22
+        name: "Dependency Mapping"
+        task: tasks/planning/map-dependencies.md
+        blocking: true
+        rule: "Dependências circulares detectadas → BLOCK, redesenhar"
+
+      - id: G23
+        name: "Agent & Squad Creation Gate"
+        task: tasks/planning/agent-squad-creation.md
+        blocking: false
+        rule: "Agents existentes insuficientes → activar @squad-creator automaticamente"
+
+  # ════════════════════════════════════════
+  # FASE 4 — CRIAÇÃO
+  # ════════════════════════════════════════
+  phase_4_creation:
+    name: "Creation"
+    agent: forge-builder
+    delegates: [aiox-dev, project-integrator, skill-craftsman, squad-creator]
+    gates: [G24, G25, G26, G27, G28]
+    human_checkpoint: false
+
+    steps:
+      - id: G24
+        name: "Project Scaffold"
+        task: tasks/creation/scaffold-project.md
+        delegate: project-integrator
+        blocking: true
+        rule: "Estrutura incompleta vs template → BLOCK"
+
+      - id: G25
+        name: "CLAUDE.md Generation"
+        task: tasks/creation/generate-claude-md.md
+        blocking: true
+        rule: "CLAUDE.md com < 15 secções → BLOCK"
+
+      - id: G26
+        name: "Hooks & Config"
+        task: tasks/creation/configure-hooks.md
+        delegate: skill-craftsman
+        blocking: true
+        rule: "< 5 hook events configurados → WARNING"
+
+      - id: G27
+        name: "Story Implementation"
+        task: tasks/creation/implement-stories.md
+        delegate: aiox-dev
+        blocking: true
+        rule: "Story FAIL → devolver ao @dev com feedback específico"
+
+      - id: G28
+        name: "Squad & Config Activation"
+        task: tasks/creation/activate-squads.md
+        blocking: false
+        rule: ".aiox-sync.yaml actualizado com novo sistema"
+
+  # ════════════════════════════════════════
+  # FASE 5 — VERIFICAÇÃO INFINITA
+  # ════════════════════════════════════════
+  phase_5_verification:
+    name: "Elite Verification"
+    agent: forge-verifier
+    delegates: [aiox-qa, aiox-devops]
+    gates: [G29, G30]
+    loop_until: "elite_score >= 96 OR user_accepts_conditional"
+
+    steps:
+      - id: G29
+        name: "QA + Security + Performance Loop"
+        task: tasks/verification/qa-gate.md
+        delegate: aiox-qa
+        blocking: true
+        sub_tasks:
+          - tasks/verification/security-scan.md
+          - tasks/verification/performance-audit.md
+        rule: "QA FAIL → devolver à Fase 4. Security CRITICAL → BLOCK deploy. Performance fora de benchmarks → optimizar antes de G30."
+
+      - id: G30
+        name: "Elite Verification Gate"
+        task: tasks/verification/elite-checklist.md
+        blocking: true
+        rule: |
+          Score 96-100 → ★ ELITE MUNDIAL → deploy autorizado
+          Score 90-95  → ✓ PRODUCTION READY → deploy com lista de melhorias
+          Score 80-89  → ⚠ NEEDS WORK → volta à fase com score mais baixo
+          Score < 80   → ✗ RETRY → análise de root cause obrigatória
+
+  # ════════════════════════════════════════
+  # FASE 6 — DEPLOY & VEREDICTO
+  # ════════════════════════════════════════
+  phase_6_deploy:
+    name: "Deploy & Verdict"
+    agent: forge-verifier
+    delegates: [aiox-devops]
+    human_checkpoint: true
+    checkpoint_message: "Veredicto final gerado. Approvas o deploy para produção?"
+
+    steps:
+      - id: DEPLOY
+        name: "Production Deploy"
+        task: tasks/verification/deploy-production.md
+        delegate: aiox-devops
+        blocking: true
+        rule: "Deploy só autorizado com human checkpoint confirmado"
+
+      - id: VERDICT
+        name: "Elite Verdict Report"
+        task: tasks/verification/generate-verdict.md
+        blocking: false
+        rule: "Relatório completo gerado em outputs/{system_name}/elite-verdict.md"

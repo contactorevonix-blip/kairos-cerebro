@@ -1,0 +1,65 @@
+version: "1.0.0"
+description: "Schema do pipeline-state.yaml — memória partilhada entre todos os gates do FORGE pipeline"
+
+fields:
+  system:
+    name: string (required)
+    description: string (required)
+    created_at: ISO8601 (required)
+    created_by: "forge-classifier" (required)
+
+  classification:
+    type: enum[saas-api, fullstack, data-pipeline, agent-system, cli-tool, library]
+    confidence: integer 0-100
+    complexity_class: enum[SIMPLE, STANDARD, COMPLEX]
+    complexity_score: float
+    workflow: string (filename)
+    template: string (path)
+    stack: object
+    status: enum[pending, in_progress, complete, blocked]
+    completed_at: ISO8601 or null
+
+  research:
+    confidence_score: float 0-10
+    iterations: integer
+    sources_count: integer
+    competitive_intel: boolean
+    evidence_audited: boolean
+    status: enum[pending, in_progress, complete, blocked]
+
+  architecture:
+    tech_stack: object
+    boundaries_defined: boolean
+    data_model_complete: boolean
+    security_reviewed: boolean
+    adr_count: integer
+    spec_score: float 0-5
+    status: enum[pending, in_progress, complete, blocked]
+
+  planning:
+    epics_count: integer
+    stories_count: integer
+    stories_validated: boolean
+    dependencies_mapped: boolean
+    status: enum[pending, in_progress, complete, blocked]
+
+  creation:
+    scaffold_complete: boolean
+    claude_md_sections: integer
+    hooks_configured: integer
+    stories_done: integer
+    stories_total: integer
+    status: enum[pending, in_progress, complete, blocked]
+
+  verification:
+    qa_score: float
+    security_critical_issues: integer
+    elite_score: integer 0-100
+    elite_class: enum[ELITE MUNDIAL, PRODUCTION READY, NEEDS WORK, RETRY]
+    iterations: integer
+    status: enum[pending, in_progress, complete, blocked]
+
+  current_phase: string
+  current_gate: string
+  human_checkpoints_passed: array[string]
+  overall_status: enum[in_progress, complete, blocked, abandoned]

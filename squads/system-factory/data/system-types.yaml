@@ -1,0 +1,102 @@
+version: "1.0.0"
+
+system_types:
+  saas-api:
+    name: "SaaS API"
+    description: "API backend para produto SaaS — autenticação, billing, multi-tenancy"
+    complexity_multiplier: 1.3
+    workflow: "wf-universal-factory.yaml"
+    template: "templates/saas-api/CLAUDE.md"
+    required_agents: [forge-classifier, forge-researcher, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [claude-code-mastery, deep-research]
+    stack_defaults:
+      backend: "Node.js + Express"
+      database: "PostgreSQL"
+      auth: "JWT + API Keys"
+      billing: "Stripe"
+      deploy: "Railway"
+    typical_stories: 8
+    research_domains: ["API design patterns", "SaaS pricing models", "auth best practices", "rate limiting"]
+    anti_patterns: ["monolith without boundaries", "no rate limiting", "secrets in code"]
+
+  fullstack:
+    name: "Full Stack Application"
+    description: "Aplicação web completa com frontend e backend"
+    complexity_multiplier: 1.6
+    workflow: "wf-universal-factory.yaml"
+    template: "templates/fullstack/CLAUDE.md"
+    required_agents: [forge-classifier, forge-researcher, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [claude-code-mastery, deep-research]
+    stack_defaults:
+      frontend: "Next.js + TypeScript"
+      backend: "Node.js + API Routes"
+      database: "PostgreSQL + Prisma"
+      deploy: "Vercel + Railway"
+    typical_stories: 12
+    research_domains: ["UI/UX patterns", "performance optimization", "SEO", "accessibility"]
+    anti_patterns: ["client-side secrets", "no SSR strategy", "monolithic components"]
+
+  data-pipeline:
+    name: "Data Pipeline"
+    description: "Pipeline de dados — ingestão, transformação, output"
+    complexity_multiplier: 1.4
+    workflow: "wf-universal-factory.yaml"
+    template: "templates/data-pipeline/CLAUDE.md"
+    required_agents: [forge-classifier, forge-researcher, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [deep-research]
+    stack_defaults:
+      runtime: "Node.js ou Python"
+      storage: "PostgreSQL ou S3"
+      queue: "BullMQ ou SQS"
+      deploy: "Railway"
+    typical_stories: 6
+    research_domains: ["data contracts", "idempotency patterns", "retry strategies", "schema evolution"]
+    anti_patterns: ["no idempotency", "missing error handling", "hardcoded schemas"]
+
+  agent-system:
+    name: "Agent System"
+    description: "Sistema de agents de IA — squads, workflows, automação"
+    complexity_multiplier: 1.8
+    workflow: "wf-universal-factory.yaml"
+    template: "templates/agent-system/CLAUDE.md"
+    required_agents: [forge-classifier, forge-researcher, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [claude-code-mastery, squad-creator, deep-research]
+    stack_defaults:
+      framework: "AIOX"
+      runtime: "Claude Code"
+      hooks: "Node.js .cjs"
+      deploy: "local + CI/CD"
+    typical_stories: 10
+    research_domains: ["agent authority patterns", "context engineering", "hook design", "DNA extraction"]
+    anti_patterns: ["agents without authority", "no hook coverage", "missing DNA", "vague whenToUse"]
+
+  cli-tool:
+    name: "CLI Tool"
+    description: "Ferramenta de linha de comando — automação, scripts, developer tools"
+    complexity_multiplier: 1.0
+    workflow: "wf-quick-create.yaml"
+    template: "templates/cli-tool/CLAUDE.md"
+    required_agents: [forge-classifier, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [claude-code-mastery]
+    stack_defaults:
+      runtime: "Node.js + Commander.js"
+      publish: "npm"
+    typical_stories: 4
+    research_domains: ["CLI UX patterns", "command structure", "progressive disclosure"]
+    anti_patterns: ["no help text", "no error messages", "breaking changes without semver"]
+
+  library:
+    name: "Library / Package"
+    description: "Biblioteca reutilizável — npm package, utilitários, SDKs"
+    complexity_multiplier: 0.9
+    workflow: "wf-quick-create.yaml"
+    template: "templates/library/CLAUDE.md"
+    required_agents: [forge-classifier, forge-architect, forge-planner, forge-builder, forge-verifier]
+    recommended_squads: [claude-code-mastery]
+    stack_defaults:
+      runtime: "TypeScript"
+      test: "Vitest"
+      publish: "npm"
+    typical_stories: 5
+    research_domains: ["API design", "tree shaking", "backwards compatibility", "TypeScript patterns"]
+    anti_patterns: ["no types", "no backwards compat strategy", "breaking API without major version"]

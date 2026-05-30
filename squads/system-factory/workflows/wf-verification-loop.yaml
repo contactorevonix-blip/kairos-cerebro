@@ -1,0 +1,102 @@
+name: wf-verification-loop
+version: "1.0.0"
+description: "Loop de verificação infinito — corre até elite_score >= 96 ou utilizador aceita PRODUCTION READY. Usado pela Fase 5 do wf-universal-factory."
+
+loop_condition: "elite_score < 96 AND user_not_accepted"
+max_iterations: 5
+on_max_reached: "present_final_state_to_user_with_gap_list"
+
+inputs:
+  - name: system_name
+    type: string
+    required: true
+  - name: target_score
+    type: integer
+    default: 96
+    description: "Score mínimo para ELITE. 90 para PRODUCTION READY."
+
+iterations:
+
+  - step: qa_full_run
+    name: "QA Gate — Full Run"
+    task: tasks/verification/qa-gate.md
+    agent: forge-verifier
+    delegate: aiox-qa
+    blocking: true
+    rule: "QA FAIL → identificar stories problemáticas, devolver ao forge-builder"
+    output: qa_result
+
+  - step: security_scan
+    name: "Security Scan"
+    task: tasks/verification/security-scan.md
+    agent: forge-verifier
+    blocking: true
+    rule: "CRITICAL issue → BLOCK. HIGH issue → fix obrigatório antes de elite check."
+    output: security_result
+
+  - step: performance_audit
+    name: "Performance Audit"
+    task: tasks/verification/performance-audit.md
+    agent: forge-verifier
+    blocking: false
+    rule: "Benchmarks fora dos thresholds do template → WARNING + fix recomendado"
+    output: performance_result
+
+  - step: elite_checklist_run
+    name: "Elite Checklist — 30 Points"
+    task: tasks/verification/elite-checklist.md
+    agent: forge-verifier
+    blocking: true
+    rule: |
+      Score 96-100 → ELITE MUNDIAL → exit loop
+      Score 90-95  → PRODUCTION READY → apresentar ao utilizador (aceita ou continua)
+      Score 80-89  → NEEDS WORK → identificar secções com score mais baixo
+      Score < 80   → RETRY → root cause analysis obrigatória
+    output: elite_score
+
+  - step: gap_analysis
+    name: "Gap Analysis & Fix Routing"
+    task: tasks/verification/gap-analysis.md
+    agent: forge-verifier
+    condition: "elite_score < 96"
+    blocking: false
+    description: |
+      Identifica os pontos com menor score no elite checklist.
+      Roteia fixes para o agent correcto:
+        - Arquitectura gaps → forge-architect
+        - Código gaps → forge-builder / aiox-dev
+        - Infra gaps → aiox-devops
+        - Documentação gaps → forge-builder
+    output: fix_routing
+
+  - step: apply_fixes
+    name: "Apply Fixes"
+    condition: "elite_score < 96 AND iteration < max_iterations"
+    blocking: false
+    description: "Cada agent recebe os seus gaps específicos e corrige antes da próxima iteração"
+
+outputs:
+  - name: elite_score
+    type: integer
+  - name: elite_class
+    type: string
+    values: ["ELITE MUNDIAL", "PRODUCTION READY", "NEEDS WORK", "RETRY"]
+  - name: gap_report
+    path: "outputs/{system_name}/gap-report.md"
+  - name: elite_verdict
+    path: "outputs/{system_name}/elite-verdict.md"
+
+verdict_template: |
+  # Elite Verdict — {system_name}
+  Score: {elite_score}/100
+  Class: {elite_class}
+  Iterations needed: {iteration_count}
+
+  ## Pontos em destaque
+  {top_scoring_sections}
+
+  ## Gaps identificados
+  {gap_list}
+
+  ## Próximos passos
+  {recommendations}

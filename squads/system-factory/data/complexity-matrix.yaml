@@ -1,0 +1,74 @@
+version: "1.0.0"
+
+dimensions:
+  scope:
+    description: "Número de módulos/features distintas"
+    weight: 1.0
+    scores:
+      1: "1-2 módulos"
+      2: "3-4 módulos"
+      3: "5-6 módulos"
+      4: "7-9 módulos"
+      5: "10+ módulos"
+
+  integrations:
+    description: "APIs externas e serviços terceiros"
+    weight: 1.2
+    scores:
+      1: "0 integrações"
+      2: "1-2 integrações"
+      3: "3-4 integrações"
+      4: "5-6 integrações"
+      5: "7+ integrações"
+
+  infrastructure:
+    description: "Mudanças de infraestrutura necessárias"
+    weight: 1.1
+    scores:
+      1: "Deploy simples"
+      2: "Multi-environment"
+      3: "Microservices ou queues"
+      4: "Multi-region ou high availability"
+      5: "Custom infra ou on-prem"
+
+  knowledge:
+    description: "Familiaridade da equipa com o domínio"
+    weight: 0.8
+    scores:
+      1: "Domínio totalmente conhecido"
+      2: "Maioria conhecido"
+      3: "50% conhecido"
+      4: "Maioria desconhecido"
+      5: "Domínio totalmente novo"
+
+  risk:
+    description: "Criticidade e impacto de falhas"
+    weight: 1.0
+    scores:
+      1: "Interno, baixo impacto"
+      2: "Interno, médio impacto"
+      3: "Externo, baixo impacto"
+      4: "Externo, alto impacto"
+      5: "Missão crítica, zero downtime"
+
+thresholds:
+  SIMPLE:
+    max: 8
+    workflow: "wf-quick-create.yaml"
+    stages: 15
+    research_required: false
+
+  STANDARD:
+    min: 9
+    max: 15
+    workflow: "wf-universal-factory.yaml"
+    stages: 30
+    research_required: true
+
+  COMPLEX:
+    min: 16
+    workflow: "wf-universal-factory.yaml"
+    stages: 30
+    research_required: true
+    prd_required: true
+    expert_review_required: true

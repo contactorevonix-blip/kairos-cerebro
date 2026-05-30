@@ -13,6 +13,7 @@ squad_aliases:
   deep-research: Deep-Research
   squad-creator: Squad-Creator
   aiox-cerebro: AIOX-Cerebro
+  system-factory: System-Factory
 
 # Mapeamentos de sincronização
 sync_mappings:
@@ -43,3 +44,4 @@ active_squads:
   - deep-research
   - squad-creator
   - aiox-cerebro
+  - system-factory

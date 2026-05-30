@@ -1,0 +1,60 @@
+version: "1.0.0"
+description: "Mapeamento de que agents AIOX existentes usar para cada fase do pipeline"
+
+phases:
+  classification:
+    primary: forge-classifier
+    aiox_delegates: []
+    squads: []
+
+  research:
+    primary: forge-researcher
+    aiox_delegates:
+      - dr-orchestrator
+      - sackett
+      - booth
+      - gilad
+      - higgins
+      - klein
+      - ioannidis
+      - kahneman
+    squads: [deep-research]
+
+  architecture:
+    primary: forge-architect
+    aiox_delegates:
+      - aiox-architect
+      - aiox-data-engineer
+    squads: []
+
+  planning:
+    primary: forge-planner
+    aiox_delegates:
+      - aiox-pm
+      - aiox-sm
+      - aiox-po
+    squads: []
+
+  creation:
+    primary: forge-builder
+    aiox_delegates:
+      - aiox-dev
+      - project-integrator
+      - skill-craftsman
+      - squad-creator
+    squads: [claude-code-mastery, squad-creator]
+
+  verification:
+    primary: forge-verifier
+    aiox_delegates:
+      - aiox-qa
+      - aiox-devops
+    squads: [claude-code-mastery]
+
+agent_creation_triggers:
+  - condition: "system_type == agent-system AND no_existing_squad_covers_domain"
+    action: "activate @squad-creator to create new squad"
+  - condition: "complexity == COMPLEX AND domain_novelty == HIGH"
+    action: "activate @oalanicolas to clone domain expert DNA"
+  - condition: "research_gaps > 3"
+    action: "activate additional dr-squad specialists"

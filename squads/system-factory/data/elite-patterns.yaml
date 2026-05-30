@@ -1,0 +1,69 @@
+version: "1.0.0"
+description: "Padrões gold standard extraídos de sistemas elite. Actualizado após cada sistema criado."
+
+patterns:
+  saas-api:
+    - name: "Tenant-per-row RLS"
+      description: "Row Level Security com tenant_id em cada tabela. current_setting('app.tenant_id') injected per request."
+      source: "Supabase, PostgREST patterns"
+      verified: true
+
+    - name: "API Key Prefix Pattern"
+      description: "API keys com prefixo identificador: kc_live_xxx, kc_test_xxx. Stored as hash, never plain."
+      source: "Stripe API design, GitHub API"
+      verified: true
+
+    - name: "Idempotency Keys"
+      description: "Todas as operações mutating aceitam Idempotency-Key header. 24h TTL para deduplication."
+      source: "Stripe API documentation"
+      verified: true
+
+  fullstack:
+    - name: "Server Components by Default"
+      description: "Next.js App Router: componentes são Server Components por default. Client Components só quando necessário (interactividade, hooks)."
+      source: "Next.js documentation, Vercel best practices"
+      verified: true
+
+    - name: "Optimistic Updates"
+      description: "Para acções de utilizador: actualizar UI imediatamente, sincronizar com servidor em background, reverter em caso de erro."
+      source: "React Query patterns, SWR"
+      verified: true
+
+  agent-system:
+    - name: "Constitution-First"
+      description: "Definir princípios inegociáveis antes de qualquer feature. Gates automáticos que bloqueiam violações."
+      source: "Alan Nicolas / SynkraAI AIOX constitution.md"
+      verified: true
+
+    - name: "Task-First Architecture"
+      description: "Workflows compostos por tasks conectadas, não por agents. Task validada é lei."
+      source: "AIOX workflow-execution.md"
+      verified: true
+
+    - name: "Agent Handoff Compaction"
+      description: "Switch de agent compacta o anterior (~379 tokens) em vez de acumular (~3-5K). 33% reduction per switch."
+      source: "AIOX agent-handoff.md"
+      verified: true
+
+  data-pipeline:
+    - name: "Outbox Pattern"
+      description: "Escrever evento para outbox table na mesma transação que a mutação. Worker processa outbox assincronamente."
+      source: "microservices.io patterns"
+      verified: true
+
+  anti_patterns:
+    - name: "God Service"
+      description: "Um serviço que faz tudo. Quebra: responsabilidade única, testabilidade, deployability."
+      affects: [saas-api, fullstack, data-pipeline]
+
+    - name: "Hardcoded Secrets"
+      description: "Secrets no código ou git. Nunca. Usar .env + secrets manager."
+      affects: [saas-api, fullstack, data-pipeline, agent-system, cli-tool, library]
+
+    - name: "No Idempotency"
+      description: "Operações mutating sem garantia de idempotência. Retry cria duplicados."
+      affects: [saas-api, data-pipeline]
+
+    - name: "Sync Operations for Async Work"
+      description: "Processar jobs pesados sincronamente no request handler. Usar queues."
+      affects: [saas-api, data-pipeline]

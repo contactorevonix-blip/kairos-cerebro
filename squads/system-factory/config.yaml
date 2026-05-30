@@ -1,0 +1,37 @@
+name: system-factory
+version: "1.0.0"
+domain: meta
+type: factory
+
+activation:
+  primary: "@forge-classifier"
+  alias: "@compass"
+  trigger: "quero criar um sistema de X"
+
+pipeline:
+  entry_point: forge-classifier
+  workflow: wf-universal-factory.yaml
+  fast_path: wf-quick-create.yaml
+  research_loop: wf-research-loop.yaml
+  verification_loop: wf-verification-loop.yaml
+
+quality:
+  elite_threshold: 96
+  production_ready_threshold: 90
+  research_confidence_minimum: 8.0
+  story_validation_minimum: 7.0
+  architecture_critique_minimum: 4.0
+  max_verification_iterations: 5
+
+human_checkpoints:
+  - after_classification
+  - after_architecture
+  - after_elite_verdict
+
+model_routing:
+  classification: sonnet
+  research: opus
+  architecture: opus
+  planning: sonnet
+  creation: sonnet
+  verification: sonnet

@@ -1,0 +1,32 @@
+name: wf-research-loop
+version: "1.0.0"
+description: "Loop de research infinito — corre até confidence_score >= 8.0. Usado pela Fase 1 do wf-universal-factory."
+
+loop_condition: "research_confidence_score < 8.0"
+max_iterations: 10
+on_max_reached: "escalate to human with current research state"
+
+iterations:
+  - step: pico-refinement
+    task: tasks/research/pico-formulation.md
+    agent: forge-researcher
+    delegate: sackett
+
+  - step: source-expansion
+    task: tasks/research/expand-sources.md
+    agent: forge-researcher
+
+  - step: competitive-deepen
+    task: tasks/research/competitive-intel.md
+    agent: forge-researcher
+    delegate: gilad
+
+  - step: evidence-reaudit
+    task: tasks/research/evidence-audit.md
+    agent: forge-researcher
+    delegate: ioannidis
+
+  - step: confidence-check
+    task: tasks/research/confidence-gate.md
+    agent: forge-researcher
+    output: research_confidence_score

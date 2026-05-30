@@ -1,0 +1,65 @@
+name: system-factory
+version: "1.0.0"
+created: "2026-05-30"
+domain: "Universal System Factory"
+purpose: "Cria sistemas completos do zero com nível elite mundial — da descrição em linguagem natural ao sistema em produção, com research profunda, arquitectura validada, e verificação automática de elite."
+philosophy: "Classify first, research deep, build right, verify infinitely."
+orchestrator: forge-classifier
+
+agents:
+  - id: forge-classifier
+    tier: orchestrator
+    file: agents/forge-classifier.md
+    role: "Classifica sistemas, pontua complexidade, mapeia agents/squads, inicia pipeline"
+    alias: compass
+
+  - id: forge-researcher
+    tier: 1
+    file: agents/forge-researcher.md
+    role: "Research profunda com dados reais — mercado, padrões, concorrentes, evidence audit"
+    alias: oracle
+
+  - id: forge-architect
+    tier: 1
+    file: agents/forge-architect.md
+    role: "Arquitectura completa — tech stack, boundaries, data model, security, ADRs"
+    alias: blueprint
+
+  - id: forge-planner
+    tier: 1
+    file: agents/forge-planner.md
+    role: "Epics, stories, acceptance criteria, dependências, agent/squad mapping"
+    alias: cartographer
+
+  - id: forge-builder
+    tier: 1
+    file: agents/forge-builder.md
+    role: "Scaffold, CLAUDE.md, hooks, código, squads, config — construção real"
+    alias: forge
+
+  - id: forge-verifier
+    tier: 2
+    file: agents/forge-verifier.md
+    role: "QA, security, performance, elite verification — guardião do nível"
+    alias: sentinel
+
+workflows:
+  - wf-universal-factory.yaml
+  - wf-research-loop.yaml
+  - wf-verification-loop.yaml
+  - wf-quick-create.yaml
+
+quality:
+  minimum_score: 9.0
+  elite_threshold: 96
+  smoke_tests_required: 5
+  research_confidence_minimum: 8.0
+  elite_checklist_points: 30
+
+structure:
+  total_agents: 6
+  total_tasks: 76
+  total_workflows: 4
+  total_templates: 6
+  elite_gates: 30
+  total_processes: 50
