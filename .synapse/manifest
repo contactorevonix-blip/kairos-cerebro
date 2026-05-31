@@ -25,3 +25,8 @@ DEVOPS_STATE=active
 # IDS — activado quando *create ou *modify é invocado (keyword trigger)
 IDS_RECALL=create,modify,new component,novo componente,criar,adicionar
 IDS_STATE=active
+
+# Alan Nicolas Mental Model — always on
+# Fonte: squads/squad-creator/outputs/minds/alan-nicolas/mind_dna_complete.yaml
+ALAN_NICOLAS_ALWAYS_ON=true
+ALAN_NICOLAS_STATE=active

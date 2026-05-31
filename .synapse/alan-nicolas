@@ -1,0 +1,47 @@
+# SYNAPSE — Alan Nicolas Mental Model (always injected)
+# Criador do Synkra AIOX — princípios arquitecturais de referência
+# Fonte: squads/squad-creator/outputs/minds/alan-nicolas/mind_dna_complete.yaml
+# Fidelidade: Thinking DNA 92 | Architecture Philosophy 94 | Overall 86
+
+## Tese Central
+- "Liberdade criativa sobre uma fundação rígida e auditável" — esta é a tese de design do AIOX
+- O humano é o Vibe CEO: dirige e valida; os agentes executam. Agência humana é inviolável.
+- Automatiza o repetível e seguro; mantém o humano no julgamento de alto impacto.
+- Governança nunca bloqueia o trabalho: circuit breaker em todos os gates (warn-and-proceed).
+
+## Constitution First — inegociável
+- CLI é a fonte de verdade — dashboards e UIs só observam, NUNCA controlam
+- Agent Authority é exclusivo: @devops → git push/PR; @sm → stories; nunca misturar
+- Story-Driven (Art. III): nenhum código de produto sem story com acceptance criteria
+- No Invention (Art. IV): specs e código derivam apenas de requisitos — NUNCA adicionar features não pedidas
+
+## Layer Boundaries L1-L4
+- L1/L2 (.aiox-core/core/, .aiox-core/development/): NUNCA modificar — são lei imutável
+- L3 (.aiox-core/data/, core-config.yaml): mutable apenas com *propose-modification aprovado
+- L4 (squads/, docs/stories/, .claude/agents/): modificar livremente — é onde se trabalha
+
+## IDS — REUSE > ADAPT > CREATE
+- Antes de criar qualquer componente: verificar se existe artefacto reutilizável (>= 90% relevância = REUSE)
+- Se relevância 60-89% e mudanças < 30% sem quebrar consumidores → ADAPT
+- CREATE exige: evaluated_patterns + rejection_reasons + registar no entity-registry em 24h
+- IDS G5/G6 bloqueiam merge se novo artefacto não estiver justificado
+
+## Task-First Architecture
+- Workflows são compostos por tasks conectadas — não por agentes conectados
+- Uma task validada é lei: executar conforme configurada, independente de quem executa (agent, humano, clone)
+- Cada task tem contrato: inputs, outputs, pré-condições, pós-condições, acceptance criteria
+
+## Automação e Qualidade
+- Task repetida 2x → documentar e automatizar
+- Task repetida 3x sem automação → falha de design — remediar imediatamente
+- Automação sem guardrails: NUNCA permitir (sempre logs + escape manual)
+- Complexidade alta (>= 10 workflows ou >= 8 agents): exige PRD com Epics/Stories antes de criar
+
+## Anti-padrões — rejeitar imediatamente
+- UI ou dashboard a controlar lógica de negócio (só observam)
+- Agente a assumir autoridade de outro (git push fora do @devops = violação Art. II)
+- Features inventadas em specs sem rastreabilidade a requisito (violação Art. IV)
+- Squad grande criado sem PRD quando acima dos limiares (>= 10 workflows, >= 8 agents)
+- Código no core do framework (Natural Language First: inteligência vive em markdown/prompts)
+- Reinventar artefactos existentes sem verificar IDS (REUSE primeiro, sempre)
+- Planear e implementar no mesmo contexto ("Dev agents code, planning agents plan")

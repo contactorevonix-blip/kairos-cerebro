@@ -1,11 +1,11 @@
 {
-  "totalDuration": 26.0967,
-  "hookBootMs": 52.3499,
-  "bracket": "MODERATE",
+  "totalDuration": 3.6483,
+  "hookBootMs": 54.4793,
+  "bracket": "FRESH",
   "layersLoaded": 1,
   "layersSkipped": 7,
   "layersErrored": 0,
-  "totalRules": 14,
+  "totalRules": 25,
   "perLayer": {
     "constitution": {
       "duration": 0,
@@ -13,9 +13,9 @@
       "rules": 0
     },
     "global": {
-      "duration": 0.5052,
+      "duration": 0.4844,
       "status": "ok",
-      "rules": 14
+      "rules": 25
     },
     "agent": {
       "duration": 0,
@@ -48,5 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-05-31T01:00:05.118Z"
+  "timestamp": "2026-05-31T01:05:57.165Z"
 }
