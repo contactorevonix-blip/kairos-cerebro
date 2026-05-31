@@ -1,0 +1,42 @@
+workflow:
+  id: wf-{kebab-name}
+  name: "{Human Name}"
+  version: "1.0.0"
+  sequence:
+    - phase-1
+    - phase-2
+    - phase-3
+
+name: wf-{kebab-name}
+version: "1.0.0"
+description: "{Descrição do workflow}"
+orchestrator: {agent-id}
+
+inputs:
+  - name: {input_name}
+    type: string
+    required: true
+    description: "{Descrição}"
+
+phases:
+  - id: phase-1
+    name: "{Nome da Fase 1}"
+    agent: {agent-id}
+    task: tasks/{task-file}.md
+    checkpoint: true
+    checkpoint_message: "{Mensagem de checkpoint}"
+    on_failure: escalate
+
+  - id: phase-2
+    name: "{Nome da Fase 2}"
+    agent: {agent-id}
+    task: tasks/{task-file}.md
+    on_failure: escalate
+
+  - id: phase-3
+    name: "{Nome da Fase 3}"
+    agent: {agent-id}
+    task: tasks/{task-file}.md
+    outputs:
+      - "{output-file}"
+    on_failure: escalate
