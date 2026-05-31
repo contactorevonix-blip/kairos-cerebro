@@ -32,7 +32,7 @@
         ]
       },
       {
-        "matcher": "Bash(git push*)",
+        "matcher": "Bash(*git push*)",
         "hooks": [
           {
             "type": "command",
