@@ -39,7 +39,7 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "resend": "^6.12.3",
-    "stripe": "^16.0.0"
+    "stripe": "^22.2.0"
   },
   "engines": {
     "node": ">=18.0.0",
