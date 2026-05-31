@@ -58,6 +58,13 @@
             "command": "node \".claude/hooks/synapse-engine.cjs\"",
             "timeout": 10,
             "statusMessage": "Synapse Engine a processar..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/synapse-wrapper.cjs\"",
+            "timeout": 10,
+            "async": true,
+            "statusMessage": "Synapse Wrapper a processar..."
           }
         ]
       }
@@ -70,6 +77,18 @@
             "command": "node \"C:\\Users\\lealp\\.claude\\helpers\\precompact.cjs\"",
             "timeout": 10,
             "statusMessage": "A preservar contexto antes de compactar..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/precompact-session-digest.cjs\"",
+            "timeout": 10,
+            "statusMessage": "A gerar digest da sessão antes de compactar..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/precompact-wrapper.cjs\"",
+            "timeout": 10,
+            "statusMessage": "A executar wrapper de pré-compactação..."
           }
         ]
       }

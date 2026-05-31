@@ -59,6 +59,21 @@ Comandos com prefixo `*`: `*help`, `*create-story`, `*task {name}`, `*exit`
 
 Referência: `.claude/settings.json` (deny/allow rules), `.claude/rules/agent-authority.md`
 
+## Framework vs Project Boundary
+
+O AIOX usa um modelo de 4 camadas (L1-L4) para separar artefactos do framework e do projecto. Deny rules em `.claude/settings.json` reforçam isso deterministicamente.
+
+| Camada | Mutabilidade | Paths | Notas |
+|--------|-------------|-------|-------|
+| **L1** Framework Core | NEVER modify | `.aiox-core/core/`, `.aiox-core/constitution.md`, `bin/aiox.js`, `bin/aiox-init.js` | Protegido por deny rules |
+| **L2** Framework Templates | NEVER modify | `.aiox-core/development/tasks/`, `.aiox-core/development/templates/`, `.aiox-core/development/checklists/`, `.aiox-core/development/workflows/`, `.aiox-core/infrastructure/` | Extend-only |
+| **L3** Project Config | Mutable (exceptions) | `.aiox-core/data/`, `agents/*/MEMORY.md`, `core-config.yaml` | Allow rules permitem |
+| **L4** Project Runtime | ALWAYS modify | `docs/stories/`, `packages/`, `squads/`, `tests/` | Trabalho do projecto |
+
+**Toggle:** `core-config.yaml` → `boundary.frameworkProtection: true/false` controla se deny rules são activas (default: true para projectos, false para contribuidores do framework).
+
+> **Referência formal:** `.claude/settings.json` (deny/allow rules), `.claude/rules/agent-authority.md`
+
 ## Development Methodology
 
 - **Story-Driven**: todo desenvolvimento começa numa story em `docs/stories/`
