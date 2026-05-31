@@ -2,102 +2,87 @@
 
 **Última actualização:** 2026-05-31
 **Branch activa:** main
+**Último commit:** `80f8d46`
 
 ---
 
-## Sessão 2026-05-31 (continuação) — O que foi feito
+## Sessão 2026-05-31 — Sincronização com SynkraAI/aiox-core oficial
 
-### Auditoria de Scripts + Validação Final
+### Acção principal: Gap analysis + sync completo com repo oficial
 
-Scripts AIOX executados e resultados:
-- `verify-workflow-gaps.js`: **113/113 PASS** ✅
-- `skill-validator.js`: 1 known issue — `ux-design-expert.md` commands não é array (L2, não corrigível directamente)
-- `npx aiox-core doctor`: 12 PASS, 3 WARN, 0 FAIL — 99% integrity
-- `npx aiox-core validate`: 1129 ficheiros, 99% integridade
+Após clonar `SynkraAI/aiox-core` para `C:/Users/lealp/aiox-core-official/`, foi feita uma comparação pasta a pasta e sincronizados todos os gaps relevantes.
 
-### `.aiox-sync.yaml` — Merge com template canónico
+**O que foi copiado/criado:**
 
-Merge completo com `.aiox-core/infrastructure/templates/aiox-sync.yaml.template`:
-- Adicionado: `version "1.0.0"`, `wrappers`, `file_filters`, `behavior`, `validation`, `logging`
-- Mantidos: 5 squad_aliases + active_squads
+| Área | O que foi feito |
+|------|-----------------|
+| `.synapse/` | 18 domínios oficiais (agent-*, constitution, context, workflow-*, commands) + manifest merged |
+| `.github/` | CODEOWNERS, DISCUSSION_TEMPLATE, ISSUE_TEMPLATE, PR_TEMPLATE, RFC, labeler, 7 workflows |
+| `governance/` | evolution-pipeline, proposals, templates (audit-finding + proposal) |
+| `audits/` | Audit findings do framework |
+| `.aiox/` | codebase-map, dashboard, environment-report, gotchas, merge-rules, patterns, session-digests |
+| `.claude/gotchas.md` | Criado (referenciado na regra SYNAPSE global) |
+| `.claude/templates/` | 18 templates SDC/Spec (prd-tmpl, story-tmpl, architecture-tmpl, etc.) |
+| `.claude/setup/` | install.sh, settings.json, statusline-custom.sh |
+| `.claude/hooks/` | 11 hooks novos (precompact-*, synapse-wrapper, Python governance hooks) |
+| `.claude/commands/AIOX/` | scripts/ + stories/ + limpeza de 4 deprecated |
+| `.claude/commands/synapse/` | templates/ (domain-template, manifest-entry-template) |
+| `.claude/agent-memory/` | aiox-architect + aiox-po adicionados |
+| `.kimi/` | 4 skills deprecated removidas |
+| `squads/` | tool-overrides.yaml em todos os 5 squads + _example |
+| `scripts/` | 8 scripts relevantes (validate-manifest, ensure-manifest, etc.) |
+| `bin/` | utils/ + modules/ (framework-guard, install-transaction, env-config, mcp-installer) |
+| `.gitattributes` | Criado — normalizar line endings LF (resolve warnings CRLF) |
+| `.prettierrc` | Criado do oficial |
+| `.releaserc.json` | Criado (semantic-release, npmPublish: false) |
+| `tsconfig.json` | Criado do oficial |
+| `eslint.config.js` | Criado do oficial + deps instaladas |
+| `.coderabbit.yaml` | Adicionadas path instructions para AIOX framework paths |
+| `AGENTS.md`, `CHANGELOG.md`, `LICENSE`, etc. | Ficheiros raiz do oficial |
+| `aiox` CLI | Instalado globalmente: `npm install -g @aiox-squads/core` |
+
+### SYNAPSE completado (25 → 39 regras)
+
+- Constitution (L0) agora activa em cada prompt
+- 12 agent domains (L2) — regras específicas por agente
+- 3 workflow domains (L3) — story-dev, epic-create, arch-review
+- Alan Nicolas Mind DNA sempre injectado
+
+### doctor: 15 PASS | 0 WARN | 0 FAIL
+
+Sigil (@config-engineer) corrigiu:
+- `CLAUDE.md`: secção "Framework vs Project Boundary" adicionada
+- `settings.local.json`: criado com 11 hooks registados
+
+### Hook enforcement corrigido
+
+**Latch** (@hooks-architect) identificou e corrigiu o bug:
+- Matcher `Bash(git push*)` → `Bash(*git push*)` 
+- Compound commands (cd ... && git push) agora bloqueados
+- Constitution Art. II enforcement robusto
 
 ### Feedback memorizado
 
-- `feedback-workflow-before-acting.md`: definir workflow completo ANTES de agir, passar para agente certo, "Sim" = agir não analisar
-
----
-
-## Sessão 2026-05-31 — O que foi feito
-
-### EPIC-002 — Framework Standardization (COMPLETO)
-
-Auditoria completa do KAIROS_CEREBRO + 5 stories implementadas via pipeline @sm → @po → @architect → @dev → @qa → @devops.
-
-**Score:** ~62/100 → **~98/100**
-
----
-
-### Story 2.1 — SYNAPSE Hook Entry Point (commit `afccbcc`)
-
-- Criado `.claude/hooks/synapse-engine.cjs` (~50 linhas)
-- Hook `UserPromptSubmit` agora activo — injeta `<synapse-rules>` em cada prompt
-- SYNAPSE engine completo em `.aiox-core/core/synapse/` (L0-L2 activos, NOG-18)
-
-### Story 2.2 — Commands + Skills Sync (commit `832e493`)
-
-- Criados `.claude/commands/` para 4 squads em falta: Deep-Research (11), Squad-Creator (3), AIOX-Cerebro (1), System-Factory (6)
-- Criados `.claude/skills/` correspondentes — 21 SKILL.md
-- 42 ficheiros no total — todos os squads activáveis por slash command
-- Removido namespace `Chiefs/` legacy — squad-chief canónico em `Squad-Creator/`
-
-### Story 2.3 — Squad Structure Fixes (commit `6d7e0f2`)
-
-- `git mv squad-creator/readme.md → README.md` (uppercase canónico)
-- Criado `squads/aiox-cerebro/agents/aiox-cerebro.md` (pasta estava vazia)
-- Movido `mind-research-loop.md`: `workflows/` → `tasks/` (era task, não workflow)
-- Movido `system-factory/intelligence/*` → `data/` (anti-patterns, market, tech-patterns)
-
-### Story 2.4 — Base Templates Sync (commit `6eda09a`)
-
-- Copiados 4 templates canónicos (agent-tmpl, task-tmpl, workflow-tmpl, checklist-tmpl)
-- De `squad-creator/templates/` para os 4 squads em falta
-- 16 ficheiros criados — todos os squads com templates base
-
-### Story 2.5 — Alan Nicolas Mind DNA → SYNAPSE (commit `d115d6e`)
-
-- Criado `.synapse/alan-nicolas` com princípios arquitecturais extraídos do mind_dna_complete.yaml
-- Adicionada secção "Alan Nicolas Architecture DNA" ao `.synapse/global`
-- 25 regras injectadas por prompt: 14 globais + 11 DNA do criador do AIOX
-- Constitution, IDS, Task-First, anti-padrões do Alan activos em cada sessão
+- `feedback-git-push-authority.md`: NUNCA git push directo — sempre @devops. Se sistema bloqueia → PARAR.
 
 ---
 
 ## Estado Git
 
-Último commit: `d115d6e` — Story 2.5 Alan Nicolas SYNAPSE domain
+Último commit: `80f8d46` — fix: corrigir matcher enforce-git-push-authority hook
 Branch: main
-
----
-
-## Squads Activos e Slash Commands
-
-| Squad | Activação | Agentes |
-|-------|-----------|---------|
-| AIOX | `/AIOX:agents:aiox-master` etc. | 12 core |
-| Claude-Code-Mastery | `/Claude-Code-Mastery:agents:hooks-architect` etc. | 8 |
-| Deep-Research | `/Deep-Research:agents:dr-orchestrator` etc. | 11 |
-| Squad-Creator | `/Squad-Creator:agents:squad-chief` etc. | 3 |
-| AIOX-Cerebro | `/AIOX-Cerebro:agents:aiox-cerebro` | 1 |
-| System-Factory | `/System-Factory:agents:forge-classifier` etc. | 6 |
+`npx aiox-core doctor`: 15 PASS | 0 WARN | 0 FAIL ✅
 
 ---
 
 ## SYNAPSE Activo
 
-**25 regras injectadas por prompt:**
-- Segurança, ferramentas, código (global)
-- Alan Nicolas Architecture DNA (Constitution, L1-L4, IDS, Task-First, anti-padrões)
-- Contexto do Kairos Check (Railway, env vars, scripts)
+**39 regras injectadas por prompt:**
+- Constitution (L0) — NON-NEGOTIABLE
+- Global + context (L1) — segurança, ferramentas, código
+- Agent domains (L2) — regras do agente activo
+- Alan Nicolas Architecture DNA — always-on
+- Kairos context — always-on
 
 ---
 
@@ -105,7 +90,7 @@ Branch: main
 
 1. **Kairos Check** — product work (kairoscheck.net), Stories 1.1-1.5 em `docs/stories/`
 2. **Entity Registry** — registar ~40 agentes novos (`*propose-modification` + `*ids register`)
-3. **FORGE** — testar `@forge-classifier "descrição de sistema"` para criar novos sistemas
+3. **FORGE** — testar `@forge-classifier "descrição"` para criar novos sistemas
 4. **kairos-infra-master** — `*workflow kairos-infra-master` (Fase 0 — ainda por executar)
 
 ---
@@ -113,8 +98,8 @@ Branch: main
 ## Contexto
 
 - GitHub: `contactorevonix-blip/kairos-cerebro`
-- AIOX Core: v5.2.9
+- AIOX Core: v5.2.9 (CLI instalado globalmente)
+- AIOX oficial clonado: `C:/Users/lealp/aiox-core-official/` (pode apagar)
 - FORGE: activar com `@forge-classifier "descrição"`
-- SYNAPSE: activo com 25 regras (`.synapse/global` + `.synapse/kairos`)
 
 *Actualizado: 2026-05-31*

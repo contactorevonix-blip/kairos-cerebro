@@ -1,19 +1,19 @@
 {
-  "totalDuration": 3.7973,
-  "hookBootMs": 53.6263,
-  "bracket": "FRESH",
+  "totalDuration": 28.0994,
+  "hookBootMs": 53.1903,
+  "bracket": "MODERATE",
   "layersLoaded": 2,
   "layersSkipped": 6,
   "layersErrored": 0,
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.6456,
+      "duration": 0.7694,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.3973,
+      "duration": 0.4784,
       "status": "ok",
       "rules": 39
     },
@@ -48,5 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-05-31T02:13:13.987Z"
+  "timestamp": "2026-05-31T10:27:18.955Z"
 }
