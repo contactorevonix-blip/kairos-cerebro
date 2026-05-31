@@ -5,6 +5,28 @@
 
 ---
 
+## Sessão 2026-05-31 (continuação) — O que foi feito
+
+### Auditoria de Scripts + Validação Final
+
+Scripts AIOX executados e resultados:
+- `verify-workflow-gaps.js`: **113/113 PASS** ✅
+- `skill-validator.js`: 1 known issue — `ux-design-expert.md` commands não é array (L2, não corrigível directamente)
+- `npx aiox-core doctor`: 12 PASS, 3 WARN, 0 FAIL — 99% integrity
+- `npx aiox-core validate`: 1129 ficheiros, 99% integridade
+
+### `.aiox-sync.yaml` — Merge com template canónico
+
+Merge completo com `.aiox-core/infrastructure/templates/aiox-sync.yaml.template`:
+- Adicionado: `version "1.0.0"`, `wrappers`, `file_filters`, `behavior`, `validation`, `logging`
+- Mantidos: 5 squad_aliases + active_squads
+
+### Feedback memorizado
+
+- `feedback-workflow-before-acting.md`: definir workflow completo ANTES de agir, passar para agente certo, "Sim" = agir não analisar
+
+---
+
 ## Sessão 2026-05-31 — O que foi feito
 
 ### EPIC-002 — Framework Standardization (COMPLETO)
