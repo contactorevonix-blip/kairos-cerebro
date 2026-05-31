@@ -1,7 +1,7 @@
 {
-  "totalDuration": 3.5684,
-  "hookBootMs": 57.7313,
-  "bracket": "FRESH",
+  "totalDuration": 28.0703,
+  "hookBootMs": 52.3992,
+  "bracket": "MODERATE",
   "layersLoaded": 1,
   "layersSkipped": 7,
   "layersErrored": 0,
@@ -13,7 +13,7 @@
       "rules": 0
     },
     "global": {
-      "duration": 0.4278,
+      "duration": 0.6013,
       "status": "ok",
       "rules": 14
     },
@@ -48,5 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-05-31T00:32:12.430Z"
+  "timestamp": "2026-05-31T00:47:48.588Z"
 }
