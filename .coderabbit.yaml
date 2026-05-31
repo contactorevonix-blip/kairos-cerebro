@@ -135,6 +135,52 @@ reviews:
         Documentação do projecto. Validar clareza e exemplos correctos.
         NÃO sinalizar preferências de estilo Markdown.
 
+    # ── AIOX Framework paths ───────────────────────────────────────────────
+    - path: ".aiox-core/core/**"
+      instructions: |
+        CRITICAL PATH: Core framework modules — L1, nunca modificar directamente.
+        Verificar error handling com try/catch e contexto de erro adequado.
+        Verificar race conditions em módulos de orquestração (lock-manager, session-state).
+        Validar async/await e ausência de unhandled promise rejections.
+        Garantir backwards compatibility — core é consumido por todos os agentes.
+        Verificar input validation nos métodos públicos da API.
+        Verificar que existe cobertura de testes para funções novas/modificadas.
+        Sinalizar paths hardcoded, credenciais ou valores environment-specific.
+
+    - path: ".aiox-core/development/agents/**"
+      instructions: |
+        Verificar que o agente segue estrutura YAML AIOX (persona_profile, commands, dependencies).
+        Verificar persona_profile: archetype, communication style, greeting_levels.
+        Validar que todos os commands têm task dependencies correspondentes.
+        Verificar visibility metadata nos commands.
+        Sem credenciais hardcoded ou dados sensíveis.
+
+    - path: ".aiox-core/development/tasks/**"
+      instructions: |
+        Verificar que a task segue AIOX task format com elicitation points claros.
+        Verificar que os deliverables estão bem definidos.
+        Validar que as dependencies referenciadas existem no codebase.
+        Garantir que a task tem guidance de error handling.
+
+    - path: ".aiox-core/development/workflows/**"
+      instructions: |
+        Verificar que o YAML do workflow é válido.
+        Verificar ordem dos steps e que as dependências fazem sentido.
+        Validar que os agents e tasks referenciados existem.
+
+    - path: ".claude/agents/**"
+      instructions: |
+        Agentes L4 — verificar que seguem o padrão canónico AIOX.
+        Verificar command_loader e CRITICAL_LOADER_RULE presente.
+        Sem credenciais ou dados sensíveis.
+
+    - path: ".synapse/**"
+      instructions: |
+        Domínios SYNAPSE — verificar formato KEY=VALUE do manifest.
+        Verificar que domain files são plain text sem syntax errors.
+        Sinalizar regras contraditórias ou que violem a Constitution.
+
+    # ── GitHub Actions ──────────────────────────────────────────────────────
     - path: ".github/workflows/**"
       instructions: |
         GitHub Actions — pipeline CI/CD.
