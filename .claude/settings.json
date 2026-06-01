@@ -1,7 +1,10 @@
 {
   "language": "portuguese",
   "worktree": {
-    "symlinkDirectories": ["node_modules", ".aiox"],
+    "symlinkDirectories": [
+      "node_modules",
+      ".aiox"
+    ],
     "baseRef": "head"
   },
   "hooks": {
@@ -169,7 +172,9 @@
   },
   "permissions": {
     "defaultMode": "default",
-    "additionalDirectories": ["C:/Users/lealp/kairoscheck"],
+    "additionalDirectories": [
+      "C:/Users/lealp/kairoscheck"
+    ],
     "allow": [
       "Edit(.aiox-core/core/config/schemas/**)",
       "Write(.aiox-core/core/config/schemas/**)",

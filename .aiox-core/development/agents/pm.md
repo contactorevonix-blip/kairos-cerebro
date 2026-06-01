@@ -24,13 +24,13 @@ activation-instructions:
         - Read config.user_profile (defaults to 'advanced' if missing)
         - If user_profile === 'bob':
           → Load bob-orchestrator.js module from .aiox-core/core/orchestration/bob-orchestrator.js
-          → unified-activation-pipeline.js will handle the greeting with bob mode redirect
+          → greeting-builder.js will handle the greeting with bob mode redirect
           → PM operates as Bob: orchestrates other agents via TerminalSpawner
         - If user_profile === 'advanced':
           → PM operates as standard Product Manager (no orchestration)
           → Normal greeting and command set
       Module: .aiox-core/core/config/config-resolver.js
-      Integration: unified-activation-pipeline.js already handles profile-aware filtering
+      Integration: greeting-builder.js already handles profile-aware filtering
   - STEP 3: |
       Display greeting using native context (zero JS execution):
       0. GREENFIELD GUARD: If gitStatus in system prompt says "Is a git repository: false" OR git commands return "not a git repository":
@@ -72,7 +72,7 @@ activation-instructions:
          - HALT and wait for user selection BEFORE displaying normal greeting
 
       4. If no session OR after user completes resume flow:
-         - Continue with normal greeting from unified-activation-pipeline.js
+         - Continue with normal greeting from greeting-builder.js
 
       Module: .aiox-core/core/orchestration/bob-orchestrator.js (Story 12.5)
       Module: .aiox-core/core/orchestration/data-lifecycle-manager.js (Story 12.5)

@@ -108,7 +108,7 @@ function main() {
       'deny',
       'Hook failed to parse PreToolUse input. Blocking remote Git operation for safety; retry via @devops.',
     );
-    process.exit(2);
+    return;
   }
 
   const command = input?.tool_input?.command || '';
@@ -127,7 +127,6 @@ function main() {
     'deny',
     `${operation.operation} is exclusive to @devops (Constitution Article II). Current agent: ${activeAgent || '@unknown'}.`,
   );
-  process.exit(2);
 }
 
 if (require.main === module) {

@@ -60,8 +60,8 @@ Parse `## Mission:` from your spawn prompt and match:
 | `migration` / `apply-migration` | `db-apply-migration.md` | `dba-predeploy-checklist.md` (checklist), `tmpl-migration-script.sql` (template), `migration-safety-guide.md` (data) |
 | `dry-run` | `db-dry-run.md` | — |
 | `rollback` | `db-rollback.md` | `dba-rollback-checklist.md` (checklist), `tmpl-rollback-script.sql` (template) |
-| `rls-audit` | `security-audit.md` | `rls-policies-tmpl.yaml` (template) |
-| `schema-audit` | `security-audit.md` | `database-design-checklist.md` (checklist) |
+| `rls-audit` | `db-rls-audit.md` | `rls-policies-tmpl.yaml` (template) |
+| `schema-audit` | `db-schema-audit.md` | `database-design-checklist.md` (checklist) |
 | `validate-kiss` | `db-validate-kiss.md` | `db-kiss-validation-checklist.md` (checklist) |
 | `load-schema` | `db-load-schema.md` | — |
 | `load-csv` | `db-load-csv.md` | — |
@@ -75,10 +75,10 @@ Parse `## Mission:` from your spawn prompt and match:
 | `squad-integration` | `db-expansion-pack-integration.md` | — |
 | `security-audit` | `security-audit.md` | — |
 | `analyze-performance` | `analyze-performance.md` | `postgres-tuning-guide.md` (data) |
-| `analyze-hotpaths` | `analyze-performance.md` | — |
-| `test-as-user` / `impersonate` | `test-as-user.md` | — |
+| `analyze-hotpaths` | `db-analyze-hotpaths.md` | — |
+| `test-as-user` / `impersonate` | `db-impersonate.md` | — |
 | `verify-order` | `db-verify-order.md` | — |
-| `explain` | `analyze-performance.md` | — |
+| `explain` | `db-explain.md` | — |
 | `research` | `create-deep-research-prompt.md` | — |
 | `execute-checklist` | `execute-checklist.md` | Target checklist passed in prompt |
 | `create-migration-plan` | `create-doc.md` | `migration-plan-tmpl.yaml` (template) |
