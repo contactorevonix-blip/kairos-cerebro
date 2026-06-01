@@ -1,2 +1,4 @@
 - [AIOX-Core Upstream Cherry-Pick](project_aiox-core-upstream.md) — o que é OURO no repo SynkraAI/aiox-core (scripts CI + squad claude-code-mastery)
 - [Pedro Business Profile](project_pedro-business-profile.md) — solo founder técnico, tese faceless/alta-margem/B2B, stack Node+Railway+Stripe+Postgres, Kairos Check (fraud API)
+- [SYNAPSE Engine Internals](project_synapse-engine-internals.md) — 8 layers L0-L7, brackets FRESH/MODERATE/DEPLETED/CRITICAL, token budget, degradação graciosa
+- [AIOX Governance Gates](project_aiox-governance-gates.md) — Bob mode, Tier System, Decision Heuristics, IDS Gates G1-G6
