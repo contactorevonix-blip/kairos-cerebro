@@ -1,0 +1,52 @@
+{
+  "_template": "process-definition-template v1.0",
+  "_instructions": "Preencher todos os campos. Remover este bloco _template e _instructions antes de usar. Guardar em squads/process-mapper/data/processes/{nome}.json",
+
+  "name": "{nome-do-processo}",
+  "title": "{Título Visual do Processo}",
+  "subtitle": "{descrição breve} · fonte: {ficheiro-fonte}",
+  "planning_track": "{Quick Flow / Standard / Enterprise} · {N} stories",
+
+  "phases": [
+    {
+      "id": "phase-1",
+      "label": "Fase 1",
+      "title": "{Nome da Fase}",
+      "agent": "@{agente} ({Persona})",
+      "color": "mapper",
+      "_color_options": "mapper | architect | automation | qa | green",
+      "steps": [
+        "task: {nome-da-task.md}",
+        "Inputs: {o que recebe}",
+        "Output: {o que produz}",
+        "Status: {transição de status se aplicável}"
+      ]
+    }
+  ],
+
+  "quality_gates": [
+    {
+      "id": "QG-{SIGLA}-1",
+      "name": "{Nome do Gate}",
+      "threshold": 70,
+      "after_phase": "phase-1",
+      "path_no": "{Acção quando falha — destino exacto}",
+      "path_no_detail": "{Razão típica de falha}",
+      "path_yes": "Avança para {próxima fase ou entrega}"
+    }
+  ],
+
+  "delivery": {
+    "title": "{O QUE É ENTREGUE}",
+    "chips": [
+      "{deliverable 1}",
+      "{deliverable 2}"
+    ]
+  },
+
+  "out_of_scope": [
+    "{O que este processo NÃO faz — evitar confusão}"
+  ],
+
+  "_validation": "Após criar, executar: node squads/process-mapper/scripts/generate-process-map.js --config {este-ficheiro} --output docs/process-maps/{nome}.html"
+}
