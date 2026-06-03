@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIOX — Complete Process Map & Mental Model</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080B12; --bg2:#0F1117; --bg3:#161B24;
+  --border:rgba(255,255,255,.07);
+  --text:#E8EAF0; --muted:#9CA3AF; --dim:#4B5563;
+  --purple:#7C3AED; --purple-l:#A78BFA; --purple-ll:#C4B5FD;
+  --blue:#0EA5E9; --blue-l:#38BDF8;
+  --amber:#F59E0B; --amber-l:#FCD34D;
+  --green:#10B981; --green-l:#34D399;
+  --red:#EF4444; --orange:#F97316; --yellow:#EAB308;
+  --indigo:#6366F1; --indigo-l:#818CF8;
+  --pink:#EC4899; --teal:#14B8A6;
+}
+body{font-family:'Inter','Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.page{max-width:1200px;margin:0 auto;padding:40px 24px}
+
+/* ── HEADER ── */
+.hdr{text-align:center;margin-bottom:48px;padding:32px;background:var(--bg2);border-radius:16px;border:1px solid var(--border)}
+.hdr h1{font-size:26px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#A78BFA 0%,#38BDF8 50%,#34D399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hdr .sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.score-bar{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.score-item{font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid}
+
+/* ── SECTION HEADERS ── */
+.sec{margin:48px 0 20px}
+.sec h2{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:10px}
+.sec h2::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── CARD GRID ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gridauto{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+
+/* ── CARDS ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.card-colored{border-radius:10px;padding:16px 18px}
+.card h3{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.card p{font-size:12px;color:var(--muted);line-height:1.5}
+.card ul{list-style:none;padding:0}
+.card ul li{font-size:11px;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.card ul li:last-child{border-bottom:none}
+.card ul li code{font-size:10px;color:var(--purple-l);font-family:'Courier New',monospace}
+
+/* ── PIPELINE ROW ── */
+.pipeline{display:flex;align-items:center;gap:0;overflow-x:auto;padding:4px 0 12px}
+.pipe-step{flex-shrink:0;border-radius:8px;border:1px solid;padding:10px 14px;min-width:120px;text-align:center}
+.pipe-arrow{color:var(--dim);font-size:18px;padding:0 6px;flex-shrink:0}
+.pipe-agent{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.pipe-name{font-size:12px;font-weight:700;color:var(--text)}
+.pipe-task{font-size:9px;color:var(--dim);font-family:'Courier New',monospace;margin-top:2px}
+
+/* ── STATUS BADGE ── */
+.badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid}
+.badge-done{background:rgba(16,185,129,.12);color:var(--green-l);border-color:rgba(16,185,129,.25)}
+.badge-pending{background:rgba(245,158,11,.1);color:var(--amber-l);border-color:rgba(245,158,11,.2)}
+.badge-missing{background:rgba(239,68,68,.1);color:#FCA5A5;border-color:rgba(239,68,68,.2)}
+
+/* ── AGENT GRID ── */
+.agent-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.agent{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid}
+
+/* ── PROCESS LINKS ── */
+.plinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+.plink{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:8px 12px;text-decoration:none;color:inherit;transition:border-color .2s;cursor:pointer}
+.plink:hover{border-color:var(--purple-l)}
+.plink-name{font-size:11px;font-weight:700;color:var(--purple-ll)}
+.plink-meta{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+
+/* ── GATE ── */
+.gate{display:flex;align-items:center;gap:12px;background:var(--bg3);border-radius:8px;border:1px solid;padding:12px 16px;margin:6px 0}
+.gate-q{font-size:13px;font-weight:700;flex:1}
+.gate-paths{display:flex;gap:6px}
+.gp{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;border:2px solid}
+.tl-date{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.tl-title{font-size:12px;font-weight:700;margin:2px 0}
+.tl-sub{font-size:11px;color:var(--muted)}
+
+/* ── SCORE RING ── */
+.scores-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.score-card{background:var(--bg2);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border)}
+.score-num{font-size:26px;font-weight:900;letter-spacing:-.02em}
+.score-label{font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.score-sub{font-size:9px;color:var(--dim);margin-top:1px}
+
+/* ── NEXT STEPS ── */
+.ns-list{display:flex;flex-direction:column;gap:8px}
+.ns-item{display:flex;align-items:baseline;gap:10px;background:var(--bg2);border-radius:8px;padding:10px 14px;border:1px solid var(--border)}
+.ns-num{font-size:11px;font-weight:900;color:var(--purple-l);min-width:24px;flex-shrink:0}
+.ns-title{font-size:12px;font-weight:700}
+.ns-detail{font-size:11px;color:var(--muted);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="hdr">
+  <h1>AIOX — Complete Process Map & Mental Model</h1>
+  <p class="sub">Squad process-mapper · Todos os processos integrados · Estado actual + plano até 100/100</p>
+  <div class="score-bar">
+    <span class="score-item" style="border-color:#34D399;color:#34D399">D1 Process Maps 100%</span>
+    <span class="score-item" style="border-color:#38BDF8;color:#38BDF8">D2 Agent Maps 100%</span>
+    <span class="score-item" style="border-color:#A78BFA;color:#A78BFA">D3 Structure 100%</span>
+    <span class="score-item" style="border-color:#FCD34D;color:#FCD34D">D4 Files 100%</span>
+    <span class="score-item" style="border-color:#34D399;color:#34D399">D5 Evolution 100%</span>
+    <span class="score-item" style="border-color:#F87171;color:#F87171">Squad 92% · 2 gates pendentes</span>
+  </div>
+</div>
+
+<!-- ══════════════ 1 — MAPA MENTAL DO AIOX ══════════════ -->
+<div class="sec"><h2>1 · Mapa Mental — Como o AIOX funciona</h2></div>
+
+<div class="grid3">
+  <div class="card-colored" style="border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.08);border-radius:10px;padding:16px">
+    <h3 style="color:#818CF8;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">CONSTITUIÇÃO (inegociável)</h3>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Art.I — CLI First (UI nunca controla)</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Art.II — Agent Authority (devops exclusivo)</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Art.III — Story-Driven (sem código sem story)</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Art.IV — No Invention (spec = requisitos)</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Art.V — Quality First (lint/test/build OK)</li>
+    </ul>
+  </div>
+
+  <div class="card-colored" style="border:1px solid rgba(14,165,233,.3);background:rgba(14,165,233,.08);border-radius:10px;padding:16px">
+    <h3 style="color:#38BDF8;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">CAMADAS L1-L4</h3>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:11px;color:#EF4444;padding:3px 0">L1 — Core → NEVER modify</li>
+      <li style="font-size:11px;color:#F97316;padding:3px 0">L2 — Templates → Extend-only</li>
+      <li style="font-size:11px;color:#EAB308;padding:3px 0">L3 — Config → Mutable (exceptions)</li>
+      <li style="font-size:11px;color:#22C55E;padding:3px 0">L4 — Runtime → ALWAYS modify</li>
+    </ul>
+  </div>
+
+  <div class="card-colored" style="border:1px solid rgba(16,185,129,.3);background:rgba(16,185,129,.08);border-radius:10px;padding:16px">
+    <h3 style="color:#34D399;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">TESES CENTRAIS</h3>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">IDS: REUSE > ADAPT > CREATE</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Task-First: workflows = tasks conectadas</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Liberdade criativa + fundação rígida</li>
+      <li style="font-size:11px;color:#9CA3AF;padding:3px 0">Automação sem guardrails = NUNCA</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ 2 — PLANNING TRACKS ══════════════ -->
+<div class="sec"><h2>2 · Planning Tracks — Ponto de entrada</h2></div>
+<div class="grid3">
+  <div class="card-colored" style="border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#4ADE80;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">TRACK A — Quick Flow</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Bug fix · Config · &lt;2h</div>
+    <div style="font-size:11px;color:#9CA3AF">Directo para @dev · sem Spec Pipeline · &lt;5 stories</div>
+  </div>
+  <div class="card-colored" style="border:1px solid rgba(14,165,233,.3);background:rgba(14,165,233,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#38BDF8;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">TRACK B — Standard</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Feature nova · 2-5 dias</div>
+    <div style="font-size:11px;color:#9CA3AF">SDC completo · @sm→@po→@dev→@qa→@devops · 5-15 stories</div>
+  </div>
+  <div class="card-colored" style="border:1px solid rgba(124,58,237,.3);background:rgba(124,58,237,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#A78BFA;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">TRACK C — Enterprise</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Epic · Produto · &gt;15 stories</div>
+    <div style="font-size:11px;color:#9CA3AF">PRD + Spec Pipeline (F1-F6) + SDC por story</div>
+  </div>
+</div>
+
+<!-- ══════════════ 3 — SPEC PIPELINE ══════════════ -->
+<div class="sec"><h2>3 · Spec Pipeline — Enterprise Track (6 fases)</h2></div>
+<div class="pipeline">
+  <div class="pipe-step" style="border-color:#7C3AED;background:rgba(124,58,237,.1)">
+    <div class="pipe-agent" style="color:#A78BFA">@pm</div>
+    <div class="pipe-name">F1 GATHER</div>
+    <div class="pipe-task">requirements.json</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#0EA5E9;background:rgba(14,165,233,.1)">
+    <div class="pipe-agent" style="color:#38BDF8">@architect</div>
+    <div class="pipe-name">F2 ASSESS</div>
+    <div class="pipe-task">complexity.json</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#F59E0B;background:rgba(245,158,11,.1)">
+    <div class="pipe-agent" style="color:#FCD34D">@analyst</div>
+    <div class="pipe-name">F3 RESEARCH</div>
+    <div class="pipe-task">research.json</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#7C3AED;background:rgba(124,58,237,.1)">
+    <div class="pipe-agent" style="color:#A78BFA">@pm</div>
+    <div class="pipe-name">F4 SPEC</div>
+    <div class="pipe-task">spec.md</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#10B981;background:rgba(16,185,129,.1)">
+    <div class="pipe-agent" style="color:#34D399">@qa</div>
+    <div class="pipe-name">F5 CRITIQUE</div>
+    <div class="pipe-task">critique.json</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#0EA5E9;background:rgba(14,165,233,.1)">
+    <div class="pipe-agent" style="color:#38BDF8">@architect</div>
+    <div class="pipe-name">F6 PLAN</div>
+    <div class="pipe-task">implementation.yaml</div>
+  </div>
+</div>
+<div class="gate" style="border-color:#7C3AED">
+  <span style="font-size:14px">🔍</span>
+  <div class="gate-q">Critique Score médio ≥ 4.0?</div>
+  <div class="gate-paths">
+    <span class="gp" style="background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2)">NEEDS_REVISION → F5b</span>
+    <span class="gp" style="background:rgba(16,185,129,.1);color:#34D399;border:1px solid rgba(16,185,129,.2)">APPROVED → F6 PLAN</span>
+  </div>
+</div>
+
+<!-- ══════════════ 4 — SDC ══════════════ -->
+<div class="sec"><h2>4 · Story Development Cycle — SDC (workflow primário)</h2></div>
+<div class="pipeline">
+  <div class="pipe-step" style="border-color:#7C3AED;background:rgba(124,58,237,.1)">
+    <div class="pipe-agent" style="color:#A78BFA">@sm (River)</div>
+    <div class="pipe-name">CREATE</div>
+    <div class="pipe-task">create-next-story</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#8B5CF6;background:rgba(139,92,246,.1)">
+    <div class="pipe-agent" style="color:#DDD6FE">@po (Pax)</div>
+    <div class="pipe-name">VALIDATE</div>
+    <div class="pipe-task">10-point checklist</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#0EA5E9;background:rgba(14,165,233,.1)">
+    <div class="pipe-agent" style="color:#38BDF8">@dev (Dex)</div>
+    <div class="pipe-name">IMPLEMENT</div>
+    <div class="pipe-task">dev-develop-story</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#10B981;background:rgba(16,185,129,.1)">
+    <div class="pipe-agent" style="color:#34D399">@qa (Quinn)</div>
+    <div class="pipe-name">QA GATE</div>
+    <div class="pipe-task">7 quality checks</div>
+  </div><div class="pipe-arrow">→</div>
+  <div class="pipe-step" style="border-color:#F59E0B;background:rgba(245,158,11,.1)">
+    <div class="pipe-agent" style="color:#FCD34D">@devops (Gage)</div>
+    <div class="pipe-name">PUSH/PR</div>
+    <div class="pipe-task">git push (EXCLUSIVO)</div>
+  </div>
+</div>
+<div style="display:flex;align-items:center;gap:6px;margin:8px 0 4px;font-size:11px;color:#6B7280;flex-wrap:wrap;padding:8px 12px;background:var(--bg2);border-radius:6px">
+  <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#4B5563">Story Status:</span>
+  <span style="color:#A78BFA">Draft</span>→<span style="color:#38BDF8">Ready</span>→<span style="color:#FCD34D">InProgress</span>→<span style="color:#FB923C">InReview</span>→<span style="color:#34D399">Done</span>
+  <span style="margin-left:auto;font-size:10px">@po actualiza Draft→Ready · @dev actualiza →InProgress e →InReview · @qa actualiza →Done</span>
+</div>
+
+<!-- ══════════════ 5 — AGENT AUTHORITY ══════════════ -->
+<div class="sec"><h2>5 · Agent Authority — 12 agentes AIOX</h2></div>
+<div class="agent-row">
+  <span class="agent" style="border-color:#6366F1;color:#A5B4FC">@aiox-master — governa</span>
+  <span class="agent" style="border-color:#7C3AED;color:#C4B5FD">@pm — epic/PRD</span>
+  <span class="agent" style="border-color:#8B5CF6;color:#DDD6FE">@po — valida stories</span>
+  <span class="agent" style="border-color:#A78BFA;color:#EDE9FE">@sm — cria stories</span>
+  <span class="agent" style="border-color:#0EA5E9;color:#BAE6FD">@dev — implementa + git local</span>
+  <span class="agent" style="border-color:#10B981;color:#A7F3D0">@qa — quality gate</span>
+  <span class="agent" style="border-color:#F59E0B;color:#FDE68A;font-weight:900">@devops — git push EXCLUSIVO</span>
+  <span class="agent" style="border-color:#EC4899;color:#FBCFE8">@architect — arquitectura</span>
+  <span class="agent" style="border-color:#F97316;color:#FED7AA">@data-engineer — DB/RLS/migrations</span>
+  <span class="agent" style="border-color:#14B8A6;color:#99F6E4">@analyst — research F3</span>
+  <span class="agent" style="border-color:#E879F9;color:#F5D0FE">@ux — design/frontend</span>
+  <span class="agent" style="border-color:#64748B;color:#CBD5E1">@squad-creator — meta/DNA</span>
+</div>
+
+<!-- ══════════════ 6 — SQUAD PROCESS-MAPPER ══════════════ -->
+<div class="sec"><h2>6 · Squad process-mapper — O que faz e como</h2></div>
+<div class="grid2">
+  <div class="card">
+    <h3 style="color:#A78BFA;font-size:11px;margin-bottom:10px">ORQUESTRADOR: cartographer-chief</h3>
+    <ul class="card ul">
+      <li><code>*map-process {nome}</code> → fluxograma HTML + SVG Figma</li>
+      <li><code>*map-squad {nome}</code> → mapa completo de 1 squad</li>
+      <li><code>*audit-coverage</code> → % cobertura actual</li>
+      <li><code>*map-all</code> → gerar todos os mapas em falta</li>
+      <li><code>*map-evolution</code> → changelog visual AIOX</li>
+      <li><code>*validate-map {path}</code> → validar mapa existente</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3 style="color:#38BDF8;font-size:11px;margin-bottom:10px">7 SCRIPTS DE GERAÇÃO</h3>
+    <ul class="card ul">
+      <li><code>generate-process-map.js</code> → HTML interactivo + SVG</li>
+      <li><code>html-templates.js</code> → componentes visuais</li>
+      <li><code>generate-swimlane.js</code> → swim-lanes 12 agentes</li>
+      <li><code>structure-mapper.js</code> → L1-L4 + squad anatomy</li>
+      <li><code>task-parser.js</code> → 213 tasks indexadas</li>
+      <li><code>evolution-tracker.js</code> → timeline + process debt</li>
+      <li><code>coverage-audit.js</code> → audit 255/255 = 100%</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ 7 — MAPAS GERADOS ══════════════ -->
+<div class="sec"><h2>7 · Todos os mapas gerados (255/255 = 100%)</h2></div>
+<div class="plinks">
+  <a class="plink" href="sdc.html"><div class="plink-name">SDC</div><div class="plink-meta">D1 · 4 fases</div></a>
+  <a class="plink" href="qa-loop.html"><div class="plink-name">QA Loop</div><div class="plink-meta">D1 · max 5x</div></a>
+  <a class="plink" href="spec-pipeline.html"><div class="plink-name">Spec Pipeline</div><div class="plink-meta">D1 · 6 fases</div></a>
+  <a class="plink" href="brownfield.html"><div class="plink-name">Brownfield</div><div class="plink-meta">D1 · 10 fases</div></a>
+  <a class="plink" href="agent-authority.html"><div class="plink-name">Agent Authority</div><div class="plink-meta">D1 · regras</div></a>
+  <a class="plink" href="story-lifecycle.html"><div class="plink-name">Story Lifecycle</div><div class="plink-meta">D1 · 5 estados</div></a>
+  <a class="plink" href="planning-tracks.html"><div class="plink-name">Planning Tracks</div><div class="plink-meta">D1 · 3 tracks</div></a>
+  <a class="plink" href="agents/authority-map.html"><div class="plink-name">Authority Map</div><div class="plink-meta">D2 · 12 swim-lanes</div></a>
+  <a class="plink" href="agents/handoff-flows.html"><div class="plink-name">Handoff Flows</div><div class="plink-meta">D2 · 4 flows</div></a>
+  <a class="plink" href="structure/aiox-layers.html"><div class="plink-name">AIOX Layers</div><div class="plink-meta">D3 · L1-L4</div></a>
+  <a class="plink" href="structure/squad-anatomy.html"><div class="plink-name">Squad Anatomy</div><div class="plink-meta">D3 · 22 pastas</div></a>
+  <a class="plink" href="files/task-index.html"><div class="plink-name">Task Dictionary</div><div class="plink-meta">D4 · 213 tasks</div></a>
+  <a class="plink" href="files/rules-index.html"><div class="plink-name">Rules Dictionary</div><div class="plink-meta">D4 · 15 rules</div></a>
+  <a class="plink" href="evolution/timeline.html"><div class="plink-name">Evolution Timeline</div><div class="plink-meta">D5 · 19 events</div></a>
+  <a class="plink" href="aiox-master-map.html"><div class="plink-name">Master Map</div><div class="plink-meta">Integrado · todos</div></a>
+  <a class="plink" href="coverage-report.md"><div class="plink-name">Coverage Report</div><div class="plink-meta">Audit · 100%</div></a>
+</div>
+
+<!-- ══════════════ 8 — SCORES ══════════════ -->
+<div class="sec"><h2>8 · Scores actuais</h2></div>
+<div class="scores-grid">
+  <div class="score-card"><div class="score-num" style="color:#34D399">100%</div><div class="score-label">D1 Process Maps</div><div class="score-sub">7/7 processos</div></div>
+  <div class="score-card"><div class="score-num" style="color:#38BDF8">100%</div><div class="score-label">D2 Agent Maps</div><div class="score-sub">14/14 items</div></div>
+  <div class="score-card"><div class="score-num" style="color:#A78BFA">100%</div><div class="score-label">D3 Structure</div><div class="score-sub">2/2 mapas</div></div>
+  <div class="score-card"><div class="score-num" style="color:#FCD34D">100%</div><div class="score-label">D4 Files</div><div class="score-sub">230/230</div></div>
+  <div class="score-card"><div class="score-num" style="color:#34D399">100%</div><div class="score-label">D5 Evolution</div><div class="score-sub">2/2 items</div></div>
+  <div class="score-card"><div class="score-num" style="color:#FB923C">92%</div><div class="score-label">Squad Valid.</div><div class="score-sub">24/26 gates</div></div>
+  <div class="score-card"><div class="score-num" style="color:#34D399">100%</div><div class="score-label">Coverage Global</div><div class="score-sub">255/255</div></div>
+  <div class="score-card"><div class="score-num" style="color:#34D399">5/5</div><div class="score-label">Tests passam</div><div class="score-sub">handleApiCheck</div></div>
+</div>
+
+<!-- ══════════════ 9 — PLANO ATÉ 100/100 ══════════════ -->
+<div class="sec"><h2>9 · Plano para 100/100 — o que falta criar</h2></div>
+<div class="ns-list">
+  <div class="ns-item">
+    <div class="ns-num">PM-7.2</div>
+    <div>
+      <div class="ns-title">DNA dos 7 agentes <span class="badge badge-missing">MISSING</span></div>
+      <div class="ns-detail">via squad-creator (oalanicolas) · Gene Kim (flow-architect) · Rummler-Brache (agent-cartographer) · W.E. Deming (map-validator) · Tom Gilb (evolution-tracker) · cartographer-chief · process-auditor · structure-mapper</div>
+    </div>
+  </div>
+  <div class="ns-item">
+    <div class="ns-num">PM-7.3</div>
+    <div>
+      <div class="ns-title">6 Tasks do squad <span class="badge badge-missing">MISSING</span></div>
+      <div class="ns-detail">map-process.md · map-squad.md · audit-coverage.md · map-evolution.md · validate-map.md · generate-all-maps.md — cada uma com veto_conditions</div>
+    </div>
+  </div>
+  <div class="ns-item">
+    <div class="ns-num">PM-7.3b</div>
+    <div>
+      <div class="ns-title">4 Workflows do squad <span class="badge badge-missing">MISSING</span></div>
+      <div class="ns-detail">wf-map-process.yaml · wf-map-squad.yaml · wf-audit-coverage.yaml · wf-map-evolution.yaml — fluxo unidirecional + quality gates</div>
+    </div>
+  </div>
+  <div class="ns-item">
+    <div class="ns-num">PM-Gate</div>
+    <div>
+      <div class="ns-title">Gate pré-criação <span class="badge badge-done">ACTIVO</span></div>
+      <div class="ns-detail">.claude/hooks/process-map-gate.cjs — interceta *create-* com @ ou * prefix · bypass --skip-map-gate · 4º hook UserPromptSubmit</div>
+    </div>
+  </div>
+  <div class="ns-item">
+    <div class="ns-num">PM-Reg</div>
+    <div>
+      <div class="ns-title">Squad no squad-registry <span class="badge badge-done">FEITO</span></div>
+      <div class="ns-detail">squads/squad-creator/data/squad-registry.yaml actualizado · 5 squads registados (era 4)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 10 — FLUXO COMPLETO ══════════════ -->
+<div class="sec"><h2>10 · Fluxo completo de uma ideia até entrega</h2></div>
+<div style="background:var(--bg2);border-radius:12px;border:1px solid var(--border);padding:24px;font-size:12px;line-height:2">
+  <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+    <span style="background:rgba(99,102,241,.15);color:#818CF8;padding:3px 10px;border-radius:4px;font-weight:700">IDEIA</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(124,58,237,.15);color:#A78BFA;padding:3px 10px;border-radius:4px">Track Selector</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(124,58,237,.12);color:#C4B5FD;padding:3px 10px;border-radius:4px">se Enterprise: Spec Pipeline F1→F6</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(124,58,237,.1);color:#A78BFA;padding:3px 10px;border-radius:4px">@pm *create-epic</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(139,92,246,.1);color:#DDD6FE;padding:3px 10px;border-radius:4px">@sm *draft story</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(139,92,246,.08);color:#EDE9FE;padding:3px 10px;border-radius:4px">@po *validate (10pts)</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(14,165,233,.1);color:#BAE6FD;padding:3px 10px;border-radius:4px">@dev *develop (YOLO/Interactive)</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(14,165,233,.08);color:#7DD3FC;padding:3px 10px;border-radius:4px">CodeRabbit self-heal (max 2x)</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(16,185,129,.1);color:#A7F3D0;padding:3px 10px;border-radius:4px">@qa *gate (7 checks)</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(16,185,129,.08);color:#6EE7B7;padding:3px 10px;border-radius:4px">se FAIL: QA Loop max 5x</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(245,158,11,.15);color:#FDE68A;padding:3px 10px;border-radius:4px;font-weight:900">@devops *push + PR</span>
+    <span style="color:#4B5563">→</span>
+    <span style="background:rgba(16,185,129,.2);color:#34D399;padding:3px 10px;border-radius:4px;font-weight:900">✅ ENTREGA</span>
+  </div>
+</div>
+
+<!-- ══════════════ 11 — PRÓXIMAS SESSÕES ══════════════ -->
+<div class="sec"><h2>11 · Próximas sessões — ordem recomendada</h2></div>
+<div class="grid3">
+  <div class="card-colored" style="border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#F87171;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">PRÓXIMA SESSÃO</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">PM-7.2 + PM-7.3</div>
+    <div style="font-size:11px;color:#9CA3AF">Clonar DNA dos 7 agentes + criar 6 tasks + 4 workflows → squad 100/100</div>
+  </div>
+  <div class="card-colored" style="border:1px solid rgba(14,165,233,.3);background:rgba(14,165,233,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#38BDF8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">SESSÃO 2</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Kairos Check</div>
+    <div style="font-size:11px;color:#9CA3AF">EPIC-KCC stories 4.2-4.4 pendentes · kairoscheck.net · Railway + Vercel + Stripe</div>
+  </div>
+  <div class="card-colored" style="border:1px solid rgba(124,58,237,.3);background:rgba(124,58,237,.06);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:700;color:#A78BFA;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">SESSÃO 3</div>
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">AIOX Academy</div>
+    <div style="font-size:11px;color:#9CA3AF">stories epic-1-foundation/ 1.3 + 1.4 · Fumadocs v16 · content extraction</div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:48px;padding:20px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)">
+  AIOX process-mapper · Gerado 2026-06-03 · <a href="validate-squad.js" style="color:var(--purple-l)">validate-squad.js</a> para score actualizado · <a href="coverage-report.md" style="color:var(--purple-l)">coverage-report.md</a>
+</div>
+
+</div>
+</body>
+</html>
