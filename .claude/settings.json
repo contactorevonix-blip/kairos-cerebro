@@ -90,6 +90,12 @@
             "timeout": 10,
             "async": true,
             "statusMessage": "Synapse Wrapper a processar..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/process-map-gate.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A verificar mapa de processo..."
           }
         ]
       }

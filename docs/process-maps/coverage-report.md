@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 18:12
+**Data:** 2026-06-03 18:16
 **Story:** PM-1.7
 
 ---
@@ -9,9 +9,9 @@
 ## Score Global
 
 ```
-Mapeado: 239 / 254 artefactos
-Cobertura: 94%  (alvo: ≥ 90%)
-███████████████████░  94%
+Mapeado: 255 / 255 artefactos
+Cobertura: 100%  (alvo: ≥ 90%)
+████████████████████  100%
 ```
 
 ---
@@ -64,17 +64,13 @@ Cobertura: 94%  (alvo: ≥ 90%)
 
 ### D4 — File Maps
 
-`█████████░`  214/229 (93%)
+`██████████`  230/230 (100%)
 > 213 tasks + 15 rules
 
 | Artefacto | Status |
 |-----------|--------|
-| task-index.html (213 tasks consolidado) | ✅ MAPPED |
-| rules/ (15 ficheiros) | ⬜ GAP — fichas individuais pendentes |
-| add-mcp.md | ⬜ COVERED by task-index |
-| advanced-elicitation.md | ⬜ COVERED by task-index |
-| analyst-facilitate-brainstorming.md | ⬜ COVERED by task-index |
-| ... e mais 210 tasks | ⬜ COVERED by task-index |
+| task-index.html (213 tasks) | ✅ MAPPED |
+| rules-index.html (15 rules) | ✅ MAPPED |
 
 ### D5 — Evolution Maps
 
@@ -89,14 +85,8 @@ Cobertura: 94%  (alvo: ≥ 90%)
 
 ## Próximas Acções (por prioridade)
 
-5 artefactos por mapear:
-
-- **D4 — File Maps** → `rules/ (15 ficheiros)`
-- **D4 — File Maps** → `add-mcp.md`
-- **D4 — File Maps** → `advanced-elicitation.md`
-- **D4 — File Maps** → `analyst-facilitate-brainstorming.md`
-- **D4 — File Maps** → `... e mais 210 tasks`
+✅ Todos os artefactos mapeados! Alvo ≥ 90% atingido.
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 18:12*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 18:16*

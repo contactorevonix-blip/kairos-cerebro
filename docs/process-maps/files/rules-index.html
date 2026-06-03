@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>AIOX Rules Dictionary</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0D0F14;color:#E8EAF0;padding:32px 20px}
+h1{text-align:center;font-size:18px;font-weight:700;color:#A78BFA;margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.meta{text-align:center;font-size:12px;color:#6B7280;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;max-width:1200px;margin:0 auto}
+.rule-card{background:#0F1117;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px}
+.rule-name{font-size:12px;font-weight:700;color:#FCD34D;margin-bottom:4px}
+.rule-desc{font-size:10px;color:#9CA3AF;margin-bottom:6px;line-height:1.4}
+.rule-file{font-size:9px;color:#4B5563;font-family:'Courier New',monospace}
+</style>
+</head>
+<body>
+<h1>AIOX Rules Dictionary</h1>
+<p class="meta">15 rules · fonte: .claude/rules/ · Story PM-4.2</p>
+<div class="grid"><div class="rule-card">
+  <div class="rule-name">agent-authority</div>
+  <div class="rule-desc">Delegation matrix — quem pode fazer o que, operações exclusivas e bloqueadas</div>
+  <code class="rule-file">agent-authority.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">agent-handoff</div>
+  <div class="rule-desc">Protocolo de handoff entre agentes — compactação de contexto entre switches</div>
+  <code class="rule-file">agent-handoff.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">agent-memory-imports</div>
+  <div class="rule-desc">Lifecycle de memória de agentes e CLAUDE.md ownership</div>
+  <code class="rule-file">agent-memory-imports.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">coderabbit-integration</div>
+  <div class="rule-desc">Regras de integração com CodeRabbit — automated code review</div>
+  <code class="rule-file">coderabbit-integration.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">confidence-scoring</div>
+  <div class="rule-desc">Tiers de acção por score de confiança (≥90% / 70-89% / &lt;70%)</div>
+  <code class="rule-file">confidence-scoring.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">handoff-consolidation</div>
+  <div class="rule-desc">Consolidação de handoffs YAML em RUN-LOG.md após 5+ handoffs</div>
+  <code class="rule-file">handoff-consolidation.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">ids-principles</div>
+  <div class="rule-desc">IDS — REUSE &gt; ADAPT &gt; CREATE: princípio de reutilização incremental</div>
+  <code class="rule-file">ids-principles.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">mcp-usage</div>
+  <div class="rule-desc">Governança de MCP servers — tool selection priority, Docker MCP toolkit</div>
+  <code class="rule-file">mcp-usage.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">planning-tracks</div>
+  <div class="rule-desc">Quick Flow / Standard / Enterprise — selector de profundidade por scope</div>
+  <code class="rule-file">planning-tracks.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">smart-routing</div>
+  <div class="rule-desc">Guia de routing automático para Pedro — diagnóstico antes de agir</div>
+  <code class="rule-file">smart-routing.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">story-lifecycle</div>
+  <div class="rule-desc">Draft→Ready→InProgress→InReview→Done — transições e responsáveis</div>
+  <code class="rule-file">story-lifecycle.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">token-budget</div>
+  <div class="rule-desc">Budget por complexidade: Simple 200 / Medium 1000 / Complex 2500 tokens</div>
+  <code class="rule-file">token-budget.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">tool-examples</div>
+  <div class="rule-desc">Exemplos concretos de selecção de tools — context7, git, browser, supabase</div>
+  <code class="rule-file">tool-examples.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">tool-response-filtering</div>
+  <div class="rule-desc">Filtragem de respostas de tools — redução de ruído no contexto</div>
+  <code class="rule-file">tool-response-filtering.md</code>
+</div><div class="rule-card">
+  <div class="rule-name">workflow-execution</div>
+  <div class="rule-desc">4 workflows primários: SDC / QA Loop / Spec Pipeline / Brownfield Discovery</div>
+  <code class="rule-file">workflow-execution.md</code>
+</div></div>
+</body>
+</html>

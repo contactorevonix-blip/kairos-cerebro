@@ -102,25 +102,23 @@ function auditFileMaps() {
   const rules    = listFiles(rulesDir, '.md');
 
   const fileMapsDir = path.join(MAPS_DIR, 'files');
-  const htmls   = fs.existsSync(fileMapsDir) ? listFiles(fileMapsDir, '.html') : [];
-  const hasIndex = htmls.includes('task-index.html');
+  const htmls      = fs.existsSync(fileMapsDir) ? listFiles(fileMapsDir, '.html') : [];
+  const hasTaskIdx = htmls.includes('task-index.html');
+  const hasRuleIdx = htmls.includes('rules-index.html');
 
-  // task-index.html consolidado = cobre todas as tasks
-  const mappedTasks  = hasIndex ? tasks.length : 0;
-  const mappedRules  = 0; // rules ainda sem mapa individual
-  const total = tasks.length + rules.length;
-  const mapped = mappedTasks + mappedRules + (hasIndex ? 1 : 0);
+  const mappedTasks = hasTaskIdx ? tasks.length : 0;
+  const mappedRules = hasRuleIdx ? rules.length : 0;
+  const total  = tasks.length + rules.length;
+  const mapped = mappedTasks + mappedRules + (hasTaskIdx ? 1 : 0) + (hasRuleIdx ? 1 : 0);
 
   return {
     domain: 'D4 — File Maps',
-    target: total + 1, // +1 para o índice consolidado
+    target: total + 2,
     mapped,
     note: `${tasks.length} tasks + ${rules.length} rules`,
     items: [
-      { name: `task-index.html (${tasks.length} tasks consolidado)`, status: hasIndex ? 'MAPPED' : 'GAP — PM-4.2' },
-      { name: `rules/ (${rules.length} ficheiros)`, status: 'GAP — fichas individuais pendentes' },
-      ...tasks.slice(0,3).map(t => ({ name: t, status: hasIndex ? 'COVERED by task-index' : 'GAP' })),
-      { name: `... e mais ${tasks.length - 3} tasks`, status: hasIndex ? 'COVERED by task-index' : 'GAP' },
+      { name: `task-index.html (${tasks.length} tasks)`, status: hasTaskIdx ? 'MAPPED' : 'GAP — PM-4.2' },
+      { name: `rules-index.html (${rules.length} rules)`, status: hasRuleIdx ? 'MAPPED' : 'GAP — PM-4.2' },
     ],
   };
 }
