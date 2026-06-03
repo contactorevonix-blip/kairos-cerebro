@@ -1,0 +1,74 @@
+{
+  "name": "planning-tracks",
+  "title": "Planning Tracks — Selector de Profundidade",
+  "subtitle": "Quick Flow · Standard · Enterprise · fonte: planning-tracks.md",
+  "phases": [
+    {
+      "id": "diagnose",
+      "label": "Entrada",
+      "title": "Diagnóstico da Task",
+      "agent": "Pedro (owner)",
+      "color": "mapper",
+      "steps": [
+        "É bug fix / config change / < 2h? → Quick Flow",
+        "É feature nova / melhoria 2-5 dias? → Standard",
+        "É epic nova / produto / > 15 stories? → Enterprise",
+        "Não é claro? → fazer 1-2 perguntas de clarificação"
+      ]
+    },
+    {
+      "id": "quick",
+      "label": "Track A",
+      "title": "Quick Flow (< 5 stories)",
+      "agent": "@dev (directo)",
+      "color": "qa",
+      "steps": [
+        "Ir directamente para @dev",
+        "Sem Spec Pipeline",
+        "Respeita Art.I (CLI First) e Art.II (Agent Authority)",
+        "Commit convencional obrigatório"
+      ]
+    },
+    {
+      "id": "standard",
+      "label": "Track B",
+      "title": "Standard (5-15 stories)",
+      "agent": "@sm → @po → @dev → @qa → @devops",
+      "color": "architect",
+      "steps": [
+        "@sm *draft → story criada",
+        "@po *validate → GO/NO-GO",
+        "@dev *develop → implementação",
+        "@qa *gate → validação",
+        "@devops *push → PR"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "label": "Track C",
+      "title": "Enterprise (> 15 stories)",
+      "agent": "@pm → Spec Pipeline → SDC",
+      "color": "automation",
+      "steps": [
+        "@pm *create-epic → PRD obrigatório",
+        "Spec Pipeline completo (F1-F6)",
+        "SDC por epic/story",
+        "PRD + spec.md + implementation.yaml antes de qualquer código"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-PT-1",
+      "name": "Track Selector",
+      "threshold": 70,
+      "after_phase": "diagnose",
+      "path_no": "Track errado → reencaminhar para o correcto",
+      "path_yes": "Track correcto → executar workflow correspondente"
+    }
+  ],
+  "delivery": {
+    "title": "Track Correcto Seleccionado",
+    "chips": ["Quick / Standard / Enterprise", "Workflow definido", "Art.I+II respeitados", "Complexidade avaliada"]
+  }
+}

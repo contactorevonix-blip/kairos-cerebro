@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 17:53
+**Data:** 2026-06-03 17:57
 **Story:** PM-1.7
 
 ---
@@ -9,9 +9,9 @@
 ## Score Global
 
 ```
-Mapeado: 4 / 250 artefactos
-Cobertura: 2%  (alvo: ≥ 90%)
-░░░░░░░░░░░░░░░░░░░░  2%
+Mapeado: 7 / 250 artefactos
+Cobertura: 3%  (alvo: ≥ 90%)
+█░░░░░░░░░░░░░░░░░░░  3%
 ```
 
 ---
@@ -20,7 +20,7 @@ Cobertura: 2%  (alvo: ≥ 90%)
 
 ### D1 — Process Maps
 
-`██████░░░░`  4/7 (57%)
+`██████████`  7/7 (100%)
 
 | Artefacto | Status |
 |-----------|--------|
@@ -28,9 +28,9 @@ Cobertura: 2%  (alvo: ≥ 90%)
 | qa-loop | ✅ MAPPED |
 | spec-pipeline | ✅ MAPPED |
 | brownfield | ✅ MAPPED |
-| agent-authority | ⬜ GAP |
-| story-lifecycle | ⬜ GAP |
-| planning-tracks | ⬜ GAP |
+| agent-authority | ✅ MAPPED |
+| story-lifecycle | ✅ MAPPED |
+| planning-tracks | ✅ MAPPED |
 
 ### D2 — Agent Maps
 
@@ -82,11 +82,8 @@ Cobertura: 2%  (alvo: ≥ 90%)
 
 ## Próximas Acções (por prioridade)
 
-20 artefactos por mapear:
+17 artefactos por mapear:
 
-- **D1 — Process Maps** → `agent-authority`
-- **D1 — Process Maps** → `story-lifecycle`
-- **D1 — Process Maps** → `planning-tracks`
 - **D2 — Agent Maps** → `aiox-master`
 - **D2 — Agent Maps** → `pm`
 - **D2 — Agent Maps** → `po`
@@ -94,9 +91,12 @@ Cobertura: 2%  (alvo: ≥ 90%)
 - **D2 — Agent Maps** → `dev`
 - **D2 — Agent Maps** → `qa`
 - **D2 — Agent Maps** → `architect`
+- **D2 — Agent Maps** → `data-engineer`
+- **D2 — Agent Maps** → `ux`
+- **D2 — Agent Maps** → `devops`
 
-> ... e mais 10 artefactos. Ver domínios acima.
+> ... e mais 7 artefactos. Ver domínios acima.
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 17:53*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 17:57*

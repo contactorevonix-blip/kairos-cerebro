@@ -1,0 +1,70 @@
+{
+  "name": "agent-authority",
+  "title": "Agent Authority — Quem pode fazer o quê",
+  "subtitle": "Delegação, exclusividade e escalação · fonte: agent-authority.md",
+  "phases": [
+    {
+      "id": "devops-exclusive",
+      "label": "Exclusivo",
+      "title": "@devops (Gage) — Operações Externas",
+      "agent": "@devops (Gage)",
+      "color": "qa",
+      "steps": [
+        "git push / git push --force",
+        "gh pr create / gh pr merge",
+        "MCP add/remove/configure",
+        "CI/CD pipeline management",
+        "Release management e tags"
+      ]
+    },
+    {
+      "id": "creation-chain",
+      "label": "Criação",
+      "title": "Cadeia de Criação de Artefactos",
+      "agent": "@pm → @sm → @po → @dev → @qa → @devops",
+      "color": "mapper",
+      "steps": [
+        "@pm *create-epic → PRD + Epics",
+        "@sm *draft → Story (Draft)",
+        "@po *validate → GO/NO-GO (10 pontos)",
+        "@dev *develop → Implementação (local git only)",
+        "@qa *gate → PASS/FAIL",
+        "@devops *push → PR + Release"
+      ]
+    },
+    {
+      "id": "delegation",
+      "label": "Delegação",
+      "title": "Padrões de Delegação",
+      "agent": "@aiox-master (orchestrator)",
+      "color": "architect",
+      "steps": [
+        "Git Push: ANY agent → @devops",
+        "Schema Design: @architect → @data-engineer",
+        "Story Flow: @sm → @po → @dev → @qa → @devops",
+        "Epic Flow: @pm → @sm (por story)",
+        "Escalação: ANY agent → @aiox-master"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-AA-1",
+      "name": "Authority Check",
+      "threshold": 70,
+      "after_phase": "creation-chain",
+      "path_no": "Agente fora do seu escopo → delegar ao agente certo",
+      "path_no_detail": "Violação detectada → BLOCK + require fix",
+      "path_yes": "Autoridade correcta → prosseguir"
+    }
+  ],
+  "delivery": {
+    "title": "Operação Autorizada",
+    "chips": ["Agente correcto", "Escopo respeitado", "Art.II Constitution", "Zero violações"]
+  },
+  "out_of_scope": [
+    "@dev fazer git push (exclusivo @devops)",
+    "@sm modificar AC de stories (exclusivo @po)",
+    "Qualquer agente assumir autoridade de outro"
+  ]
+}

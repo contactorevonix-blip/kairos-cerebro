@@ -1,0 +1,82 @@
+{
+  "name": "story-lifecycle",
+  "title": "Story Lifecycle — Estados e Transições",
+  "subtitle": "Draft → Ready → InProgress → InReview → Done · fonte: story-lifecycle.md",
+  "phases": [
+    {
+      "id": "draft",
+      "label": "Estado 1",
+      "title": "Draft",
+      "agent": "@sm (River)",
+      "color": "mapper",
+      "steps": [
+        "@sm cria story com *create-next-story.md",
+        "Story tem: título, descrição, AC, scope, deps",
+        "Status inicial: Draft",
+        "Entrar em validação com @po"
+      ]
+    },
+    {
+      "id": "ready",
+      "label": "Estado 2",
+      "title": "Ready",
+      "agent": "@po (Pax)",
+      "color": "architect",
+      "steps": [
+        "@po valida com checklist 10 pontos",
+        "GO ≥ 7/10 → @po actualiza status para Ready",
+        "NO-GO < 7/10 → lista de fixes → volta a @sm",
+        "CRITICAL: @po DEVE actualizar status (nunca deixar em Draft)"
+      ]
+    },
+    {
+      "id": "inprogress",
+      "label": "Estado 3",
+      "title": "InProgress → InReview",
+      "agent": "@dev (Dex)",
+      "color": "automation",
+      "steps": [
+        "@dev inicia: Ready → InProgress (log no Change Log)",
+        "Implementação com modo YOLO/Interactive/Pre-Flight",
+        "CodeRabbit self-heal max 2x",
+        "@dev completa: InProgress → InReview (log obrigatório)"
+      ]
+    },
+    {
+      "id": "done",
+      "label": "Estado 4",
+      "title": "Done",
+      "agent": "@qa (Quinn)",
+      "color": "qa",
+      "steps": [
+        "@qa executa 7 quality checks",
+        "PASS/CONCERNS/WAIVED → InReview → Done",
+        "FAIL → InReview → InProgress (volta a @dev)",
+        "@devops push só após story = Done"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-SL-1",
+      "name": "Story Validation",
+      "threshold": 70,
+      "after_phase": "ready",
+      "path_no": "< 7/10 → fixes + volta a @sm",
+      "path_yes": "≥ 7/10 → Ready (status actualizado por @po)"
+    },
+    {
+      "id": "QG-SL-2",
+      "name": "QA Gate",
+      "threshold": 70,
+      "after_phase": "done",
+      "path_no": "FAIL → @dev corrige (QA Loop max 5x)",
+      "path_no_detail": "BLOCKED → @aiox-master imediatamente",
+      "path_yes": "PASS → Done → @devops *push"
+    }
+  ],
+  "delivery": {
+    "title": "Story Done — pronta para @devops",
+    "chips": ["Status: Done", "QA PASS", "Change Log actualizado", "File List completa"]
+  }
+}
