@@ -103,7 +103,7 @@ Title: "Implement daily usage data archival to S3 + local cleanup"
 Effort: 6 sp
 Priority: MEDIUM
 Assigned To: @dev
-Status: Draft
+Status: InProgress (implementation started)
 
 Description:
   DailyUsage table grows unbounded; retention > 1 year causes query slowness.
@@ -118,10 +118,10 @@ Acceptance Criteria:
   - [ ] Tests mock S3 and verify archival logic
   
 File List:
-  - packages/sniper-api/jobs/archive-daily-usage.js (⏳ new — archival job)
-  - packages/sniper-api/lib/s3-archiver.js (⏳ new — S3 upload + compression)
+  - packages/sniper-api/jobs/archive-daily-usage.js (✅ created)
+  - packages/sniper-api/lib/s3-archiver.js (✅ created — S3 upload + compression)
   - .env.example (⏳ add AWS_REGION, AWS_ACCESS_KEY, S3_BUCKET_BACKUPS)
-  - tests/integration/sprint-2.test.ts (⏳ add S2.3 tests)
+  - tests/integration/sprint-2-s2.3.test.ts (✅ created — archival tests)
 
 Change Log:
   2026-06-24 — Story created (draft)
