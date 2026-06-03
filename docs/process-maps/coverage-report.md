@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 18:16
+**Data:** 2026-06-03 18:24
 **Story:** PM-1.7
 
 ---
@@ -89,4 +89,4 @@ Cobertura: 100%  (alvo: ≥ 90%)
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 18:16*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 18:24*

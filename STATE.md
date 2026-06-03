@@ -2,15 +2,24 @@
 
 **Última actualização:** 2026-06-03
 **Branch activa:** main
-**Último commit:** `46ca998`
+**Último commit:** (este commit)
 
 ---
 
 ## PRÓXIMA SESSÃO — O que falta
 
-1. Integrar `process-map-updater.cjs` no `settings.json` (PostToolUse hook)
-2. Kairos Check — EPIC-KCC stories 4.2-4.4 (kairoscheck.net)
-3. AIOX Academy — epic-1-foundation/ stories 1.3 + 1.4
+1. Kairos Check — EPIC-KCC stories 4.2-4.4 (kairoscheck.net)
+2. AIOX Academy — epic-1-foundation/ stories 1.3 + 1.4
+
+## Sessão 2026-06-03 — Environment Bootstrap + Hook Integration
+
+### Concluído nesta sessão
+
+- ✅ Environment audit: git 2.54, gh 2.92, node v24, railway 4.57 — todos OK
+- ✅ CodeRabbit v0.5.3 instalado no WSL + autenticado (contactorevonix-blip)
+- ✅ `process-map-updater.cjs` integrado em `.claude/settings.json` como PostToolUse hook (matchers: Write + Edit)
+- ✅ Gotcha documentado: URL correcto do CodeRabbit CLI install script (`cli.coderabbit.ai`)
+- ✅ QA gate CONCERNS passado por Quinn (@qa) — sem issues CRITICAL/HIGH
 
 ## Squad process-mapper — COMPLETO
 
@@ -188,3 +197,78 @@ D5 Evolution       2/2    100%
 **Branch:** main
 **Commit:** feat: squad process-mapper estruturalmente completo — todas as pastas preenchidas [EPIC-PM]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:08
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:10
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:11
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:12
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:14
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:18
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:18
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:20
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:23
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:24
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:26
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:28
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:41
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:42
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: ee8da74 — 2026-06-03 20:43
+**Branch:** main
+**Commit:** chore: STATE.md sessao 2026-06-03 finalizada — squad process-mapper 100/100
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md

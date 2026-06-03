@@ -209,12 +209,40 @@ const MDX = data.body;
 
 ---
 
+---
+
+## CodeRabbit CLI
+
+### URL de instalação errada no task file
+
+**[MEDIUM]**
+
+**Wrong:**
+```bash
+curl -fsSL https://coderabbit.ai/install.sh | bash
+```
+
+**Right:**
+```bash
+curl -fsSL https://cli.coderabbit.ai/install.sh | sh
+```
+
+**Reason:** O domínio correcto é `cli.coderabbit.ai`, não `coderabbit.ai`. O task file `environment-bootstrap.md` tinha o URL errado. Retorna HTTP 404.
+
+**Severity:** Medium
+
+**Discovered:** environment-bootstrap audit (2026-06-03)
+
+**Related Files:** .aiox-core/development/tasks/environment-bootstrap.md
+
+---
+
 ## Statistics
 
 | Metric            | Value |
 | ----------------- | ----- |
-| Total Gotchas     | 4     |
-| Categories        | 3     |
+| Total Gotchas     | 5     |
+| Categories        | 4     |
 | Insights Scanned  | 1     |
 | Duplicates Merged | 0     |
 

@@ -20,6 +20,30 @@
             "statusMessage": "A registar tool call..."
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
+            "timeout": 35,
+            "async": true,
+            "statusMessage": "A actualizar process maps..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
+            "timeout": 35,
+            "async": true,
+            "statusMessage": "A actualizar process maps..."
+          }
+        ]
       }
     ],
     "PreToolUse": [

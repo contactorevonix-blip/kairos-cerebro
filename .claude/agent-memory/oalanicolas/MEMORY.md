@@ -1,3 +1,5 @@
 - [Alan Nicolas public footprint](alan_nicolas_public_footprint.md) — verified public repos, agent file format, Academia Lendaria community, and what is NOT public (no "chief" files in any public repo)
 - [Claude-code-mastery minds cloned](claude_code_mastery_minds_cloned.md) — 8 Voice/Thinking DNA clones (fidelity 86-91), slugs, source tiers, gaps per expert
 - [Alan Nicolas mind DNA](alan_nicolas_mind_dna.md) — AIOX creator's thinking/architecture frameworks (fidelity 86), output path, "rigid foundation + creative freedom" model
+- [Gene Kim mind DNA](gene_kim_mind_dna.md) — Three Ways + Value Stream Mapping cloned for process-mapper flow-architect (fidelity 88, Tier 0 sources)
+- [Process-mapper minds cloned](process_mapper_minds_cloned.md) — Geary Rummler → agent-cartographer (swim-lanes/white-space, Tier 0); squad based_on map for other specialists
