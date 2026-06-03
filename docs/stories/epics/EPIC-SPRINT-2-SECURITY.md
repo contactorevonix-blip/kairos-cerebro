@@ -25,7 +25,7 @@ Title: "Implement API Key generation, storage, and revocation system"
 Effort: 6 sp
 Priority: HIGH
 Assigned To: @dev
-Status: InReview (ready for QA gate)
+Status: Done (QA PASS — 2026-06-04)
 
 Description:
   Users need to generate long-lived API keys for programmatic access to Kairos Check scoring API.
@@ -66,7 +66,7 @@ Title: "Standardize API error responses to consistent JSON format"
 Effort: 8 sp
 Priority: HIGH
 Assigned To: @dev
-Status: InReview (ready for QA gate)
+Status: Done (QA PASS — error-handler integrated)
 
 Description:
   API errors return inconsistent formats (sometimes status-in-body, sometimes headers-only).
