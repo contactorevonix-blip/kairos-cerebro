@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Academy — Master the Framework</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 3em; margin-bottom: 10px; font-weight: 700; }
+        .tagline { color: #cbd5e1; font-size: 1.2em; margin-bottom: 20px; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-val { color: #6366f1; font-size: 2em; font-weight: bold; }
+        .stat-label { color: #94a3b8; font-size: 0.9em; }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .resource {
+            background: rgba(99, 102, 241, 0.05);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .resource:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
+            transform: translateY(-4px);
+        }
+
+        .resource-icon { font-size: 2.5em; margin-bottom: 15px; }
+        .resource-title { color: #818cf8; font-size: 1.3em; font-weight: 600; margin-bottom: 10px; }
+        .resource-desc { color: #cbd5e1; font-size: 0.95em; margin-bottom: 15px; }
+
+        .resource-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #86efac;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .badge.interactive { background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #6366f1;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .cta-button:hover { background: #4f46e5; }
+
+        .quick-start {
+            background: rgba(245, 158, 11, 0.1);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 60px;
+        }
+        .quick-start h2 { color: #f59e0b; margin-bottom: 20px; font-size: 1.5em; }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .resources { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AIOX Academy</h1>
+            <p class="tagline">Master Synkra AIOX Framework — The Complete Learning Platform</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-val">7</div>
+                    <div class="stat-label">Learning Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">13</div>
+                    <div class="stat-label">Agents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">4</div>
+                    <div class="stat-label">Workflows</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">70 min</div>
+                    <div class="stat-label">To Mastery</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="resources">
+            <div class="resource">
+                <div class="resource-icon">🗺️</div>
+                <div class="resource-title">Visual Architecture Map</div>
+                <div class="resource-desc">Complete AIOX system visualization with 7 interconnected Mermaid diagrams showing agents, workflows, gates, and authority flows.</div>
+                <div class="resource-meta">
+                    <span class="badge interactive">Mermaid</span>
+                    <span class="badge">Architecture</span>
+                </div>
+                <a href="visual-map.html" class="cta-button">Explore Map →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">🎓</div>
+                <div class="resource-title">Interactive Course</div>
+                <div class="resource-desc">4-phase structured learning course with quizzes and progress tracking. Foundation → Mental Maps → Processing → Mastery.</div>
+                <div class="resource-meta">
+                    <span class="badge interactive">Quizzes</span>
+                    <span class="badge">70 minutes</span>
+                </div>
+                <a href="course.html" class="cta-button">Start Course →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">🔍</div>
+                <div class="resource-title">Reference Dashboard</div>
+                <div class="resource-desc">Searchable lookup for all 13 agents, 4 workflows, 6 constitution articles, and exclusive operations with filters.</div>
+                <div class="resource-meta">
+                    <span class="badge">Searchable</span>
+                    <span class="badge">Instant Lookup</span>
+                </div>
+                <a href="reference-dashboard.html" class="cta-button">Open Dashboard →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">🎮</div>
+                <div class="resource-title">Decision Simulator</div>
+                <div class="resource-desc">5-question scenario game testing your AIOX knowledge. Make decisions, see consequences, master authority boundaries.</div>
+                <div class="resource-meta">
+                    <span class="badge interactive">Game</span>
+                    <span class="badge">Expert Level</span>
+                </div>
+                <a href="decision-simulator.html" class="cta-button">Play Game →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">⚡</div>
+                <div class="resource-title">Terminal Card</div>
+                <div class="resource-desc">Zero-friction quick reference with terminal-style lookup. Agents, workflows, constitution, exclusive ops, decision trees.</div>
+                <div class="resource-meta">
+                    <span class="badge">Terminal Style</span>
+                    <span class="badge">Quick Reference</span>
+                </div>
+                <a href="terminal-card.html" class="cta-button">View Card →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">📚</div>
+                <div class="resource-title">Workflows Guide</div>
+                <div class="resource-desc">Detailed reference for all 4 workflows (SDC, Spec Pipeline, QA Loop, Brownfield) with phases, examples, and decision criteria.</div>
+                <div class="resource-meta">
+                    <span class="badge">Complete Guide</span>
+                    <span class="badge">With Examples</span>
+                </div>
+                <a href="workflows-guide.html" class="cta-button">Read Guide →</a>
+            </div>
+
+            <div class="resource">
+                <div class="resource-icon">🎪</div>
+                <div class="resource-title">Playground</div>
+                <div class="resource-desc">6 real-world scenarios to practice decision-making. Urgent bugs, features, boundaries, validation, QA loops, legacy systems.</div>
+                <div class="resource-meta">
+                    <span class="badge interactive">Scenarios</span>
+                    <span class="badge">Real Cases</span>
+                </div>
+                <a href="playground.html" class="cta-button">Play Scenarios →</a>
+            </div>
+        </div>
+
+        <div class="quick-start">
+            <h2>🚀 Quick Start Path</h2>
+            <p style="color: #cbd5e1; margin-bottom: 20px;">
+                <strong>1️⃣ Visual Map</strong> (10 min) → <strong>2️⃣ Course</strong> (70 min) → <strong>3️⃣ Reference Tools</strong> (anytime) → <strong>4️⃣ Games</strong> (15 min)
+            </p>
+            <p style="color: #94a3b8;"><strong>Total: ~2 hours to complete AIOX mastery</strong></p>
+        </div>
+
+        <footer>
+            <p>🎓 AIOX Academy — Complete Framework Learning Platform</p>
+            <p>Crafted by Anvil · AIOX v2.1 · Learn. Master. Execute. Ship.</p>
+            <p style="margin-top: 15px; opacity: 0.6;">All tools are interactive, self-contained HTML files. No installation needed.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Map — Framework Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 2rem;
+            color: white;
+            border-bottom: 2px solid #60a5fa;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.2);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+        .authority-matrix {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        .matrix-header {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .matrix-header h2 {
+            color: #60a5fa;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #0f172a;
+            color: #60a5fa;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #334155;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #334155;
+        }
+        tr:hover {
+            background: #0f172a;
+        }
+        .exclusive {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        .delegated {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        .allowed {
+            color: #10b981;
+            font-weight: 600;
+        }
+        .workflow-section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .workflow-title {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .flow-box {
+            background: #0f172a;
+            border: 2px solid #3b82f6;
+            border-radius: 6px;
+            padding: 1rem 1.5rem;
+            color: #60a5fa;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .flow-arrow {
+            color: #60a5fa;
+            font-size: 1.5rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .stat-box {
+            background: #1e293b;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .agents-tree {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+            color: #cbd5e1;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid #334155;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .badge-exclusive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+        .badge-delegated {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+        .badge-allowed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #86efac;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🗺️ AIOX Map</h1>
+        <p>Synkra AIOX Framework Audit &amp; Authority Visualization</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">KAIROS_CEREBRO v2.1 | Generated: 2026-06-03</p>
+    </header>
+
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Agentes</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Tasks</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Workflows Primários</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">L1-L4</div>
+                <div class="stat-label">Boundary Layers</div>
+            </div>
+        </div>
+
+        <!-- Agents Registry -->
+        <div class="authority-matrix">
+            <div class="matrix-header">
+                <h2>📋 Agent Registry</h2>
+                <p>Personas e autoridades exclusivas do framework AIOX</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ícone</th>
+                        <th>Agent</th>
+                        <th>Persona</th>
+                        <th>Papel</th>
+                        <th>Exclusivas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💻</td>
+                        <td><strong>@dev</strong></td>
+                        <td>Dex</td>
+                        <td>Senior Software Engineer</td>
+                        <td><span class="allowed">git add/commit</span></td>
+                    </tr>
+                    <tr>
+                        <td>⚡</td>
+                        <td><strong>@devops</strong></td>
+                        <td>Gage</td>
+                        <td>DevOps &amp; Repository Guardian</td>
+                        <td><span class="exclusive">git push, gh pr, MCP mgmt, CI/CD</span></td>
+                    </tr>
+                    <tr>
+                        <td>📋</td>
+                        <td><strong>@pm</strong></td>
+                        <td>Morgan</td>
+                        <td>Product Manager</td>
+                        <td><span class="delegated">*execute-epic, *create-epic</span></td>
+                    </tr>
+                    <tr>
+                        <td>✅</td>
+                        <td><strong>@qa</strong></td>
+                        <td>Quinn</td>
+                        <td>Test Architect</td>
+                        <td><span class="allowed">qa-gate verdicts</span></td>
+                    </tr>
+                    <tr>
+                        <td>🏗️</td>
+                        <td><strong>@architect</strong></td>
+                        <td>Aria</td>
+                        <td>Architecture Authority</td>
+                        <td><span class="delegated">System design, tech selection</span></td>
+                    </tr>
+                    <tr>
+                        <td>📊</td>
+                        <td><strong>@po</strong></td>
+                        <td>Pax</td>
+                        <td>Product Owner</td>
+                        <td><span class="delegated">*validate-story-draft</span></td>
+                    </tr>
+                    <tr>
+                        <td>📝</td>
+                        <td><strong>@sm</strong></td>
+                        <td>River</td>
+                        <td>Scrum Master</td>
+                        <td><span class="delegated">*draft, *create-story</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔍</td>
+                        <td><strong>@analyst</strong></td>
+                        <td>Alex</td>
+                        <td>Research &amp; Analysis</td>
+                        <td><span class="allowed">elicitation, research</span></td>
+                    </tr>
+                    <tr>
+                        <td>💾</td>
+                        <td><strong>@data-engineer</strong></td>
+                        <td>Dara</td>
+                        <td>Database Specialist</td>
+                        <td><span class="delegated">DDL, RLS, migrations (from @architect)</span></td>
+                    </tr>
+                    <tr>
+                        <td>🎨</td>
+                        <td><strong>@ux-design-expert</strong></td>
+                        <td>Uma</td>
+                        <td>UX/UI Design</td>
+                        <td><span class="allowed">design specs, components</span></td>
+                    </tr>
+                    <tr>
+                        <td>🛠️</td>
+                        <td><strong>@squad-creator</strong></td>
+                        <td>Scout</td>
+                        <td>Squad Orchestration</td>
+                        <td><span class="allowed">squad lifecycle</span></td>
+                    </tr>
+                    <tr>
+                        <td>⚙️</td>
+                        <td><strong>@aiox-master</strong></td>
+                        <td>Orion</td>
+                        <td>Framework Governance</td>
+                        <td><span class="exclusive">Constitution enforcement</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Authority Matrix -->
+        <div class="workflow-section">
+            <h3 class="workflow-title">🔐 Authority Matrix — Operations &amp; Delegation</h3>
+            <p style="color: #cbd5e1; margin-bottom: 1.5rem;">Quem pode fazer o quê no framework AIOX</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operação</th>
+                        <th>Agent</th>
+                        <th>Tipo</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>git push / gh pr</strong></td>
+                        <td>@devops APENAS</td>
+                        <td><span class="badge badge-exclusive">EXCLUSIVE</span></td>
+                        <td>Todos os outros agents BLOQUEADOS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MCP add/remove</strong></td>
+                        <td>@devops APENAS</td>
+                        <td><span class="badge badge-exclusive">EXCLUSIVE</span></td>
+                        <td>Configuração de infraestrutura</td>
+                    </tr>
+                    <tr>
+                        <td><strong>*create-epic</strong></td>
+                        <td>@pm APENAS</td>
+                        <td><span class="badge badge-delegated">DELEGATED</span></td>
+                        <td>Epic orchestration e leadership</td>
+                    </tr>
+                    <tr>
+                        <td><strong>*validate-story-draft</strong></td>
+                        <td>@po APENAS</td>
+                        <td><span class="badge badge-delegated">DELEGATED</span></td>
+                        <td>10-point checklist, verdicts GO/NO-GO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>*draft / *create-story</strong></td>
+                        <td>@sm APENAS</td>
+                        <td><span class="badge badge-delegated">DELEGATED</span></td>
+                        <td>Story creation from epic/PRD</td>
+                    </tr>
+                    <tr>
+                        <td><strong>git add/commit</strong></td>
+                        <td>@dev</td>
+                        <td><span class="badge badge-allowed">ALLOWED</span></td>
+                        <td>Story development local</td>
+                    </tr>
+                    <tr>
+                        <td><strong>qa-gate verdicts</strong></td>
+                        <td>@qa</td>
+                        <td><span class="badge badge-allowed">ALLOWED</span></td>
+                        <td>PASS/CONCERNS/FAIL/WAIVED</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Schema DDL design</strong></td>
+                        <td>@data-engineer (via @architect)</td>
+                        <td><span class="badge badge-delegated">DELEGATED</span></td>
+                        <td>@architect decides tech → @dara implements</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Story Development Cycle -->
+        <div class="workflow-section">
+            <h3 class="workflow-title">🔄 Story Development Cycle (SDC) — Primary Workflow</h3>
+            <p style="color: #cbd5e1; margin-bottom: 1.5rem;">Complete 5-phase flow for all development: create → validate → implement → qa-gate → push</p>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Phase 1: Create (@sm)</h4>
+                <p style="color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Task:</strong> create-next-story.md | <strong>Input:</strong> PRD, epic context | <strong>Output:</strong> story.md (Draft)</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">📝 @sm *draft</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="color: #cbd5e1;">{epicNum}.{storyNum}.story.md</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Phase 2: Validate (@po)</h4>
+                <p style="color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Task:</strong> validate-next-story.md | <strong>Decision:</strong> GO (≥7/10) → Ready | NO-GO → fixes</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">✅ @po *validate</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="color: #cbd5e1;">10-point checklist</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Phase 3: Implement (@dev)</h4>
+                <p style="color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Task:</strong> dev-develop-story.md | <strong>Modes:</strong> YOLO | Interactive | Pre-Flight | <strong>CodeRabbit:</strong> max 2 iter</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">💻 @dev *develop</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="color: #cbd5e1;">Ready → InProgress → InReview</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Phase 4: QA Gate (@qa)</h4>
+                <p style="color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Task:</strong> qa-gate.md | <strong>7 quality checks</strong> | <strong>Verdicts:</strong> PASS/CONCERNS → Done | FAIL → @dev</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">🧪 @qa *qa-gate</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="color: #cbd5e1;">PASS/CONCERNS/FAIL/WAIVED</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="color: #60a5fa; margin-bottom: 1rem;">Phase 5: Push (@devops)</h4>
+                <p style="color: #cbd5e1; margin-bottom: 0.5rem;"><strong>Authority:</strong> Only after QA PASS/CONCERNS/WAIVED</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">⚡ @devops *push</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="color: #cbd5e1;">git push + gh pr create</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Framework Boundary -->
+        <div class="authority-matrix">
+            <div class="matrix-header">
+                <h2>🚧 Framework Boundary (L1-L4)</h2>
+                <p>Separação entre core framework e projeto runtime</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Camada</th>
+                        <th>Mutabilidade</th>
+                        <th>Paths</th>
+                        <th>Proteção</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>L1 Core</strong></td>
+                        <td><span class="exclusive">NEVER modify</span></td>
+                        <td><code>.aiox-core/core/</code>, <code>bin/aiox.js</code>, <code>constitution.md</code></td>
+                        <td>Deny rules (mandatory)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L2 Templates</strong></td>
+                        <td><span class="exclusive">NEVER modify</span></td>
+                        <td><code>.aiox-core/development/</code>, <code>.aiox-core/infrastructure/</code></td>
+                        <td>Deny rules (extend-only)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L3 Config</strong></td>
+                        <td><span class="delegated">Mutable (exceptions)</span></td>
+                        <td><code>.aiox-core/data/</code>, <code>core-config.yaml</code>, agent MEMORY.md</td>
+                        <td>Allow rules</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L4 Runtime</strong></td>
+                        <td><span class="allowed">ALWAYS modify</span></td>
+                        <td><code>docs/stories/</code>, <code>packages/</code>, <code>squads/</code>, project files</td>
+                        <td>Nenhuma (working area)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Constitution Principles -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">🎯 Article I: CLI First</div>
+                <p><strong>Severidade:</strong> NON-NEGOTIABLE</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Todos os workflows começam no CLI. UI é secundária.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🤖 Article II: Agent Authority</div>
+                <p><strong>Severidade:</strong> NON-NEGOTIABLE</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Agentes especializados com autoridades exclusivas.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📖 Article III: Story-Driven</div>
+                <p><strong>Severidade:</strong> MUST</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Todo desenvolvimento em <code>docs/stories/</code>.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🚫 Article IV: No Invention</div>
+                <p><strong>Severidade:</strong> MUST</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Tudo deve traçar para specs ou requisitos reais.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">✅ Article V: Quality First</div>
+                <p><strong>Severidade:</strong> MUST</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Quality gates não-negociáveis. CodeRabbit self-healing.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📦 Article VI: Absolute Imports</div>
+                <p><strong>Severidade:</strong> SHOULD</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Agentes carregam MEMORY.md de memória compartilhada.</p>
+            </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="workflow-section">
+            <h3 class="workflow-title">📊 Framework Metrics</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Total Agentes</strong></td>
+                        <td style="padding: 0.75rem;">12 (1 master + 11 especialistas)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Total Tasks</strong></td>
+                        <td style="padding: 0.75rem;">150+ executable workflows</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Primary Workflows</strong></td>
+                        <td style="padding: 0.75rem;">4 (SDC, QA Loop, Spec Pipeline, Brownfield)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Exclusive Operations</strong></td>
+                        <td style="padding: 0.75rem;">@devops: 5, @pm: 2, @po: 1, @sm: 2</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Framework Rules</strong></td>
+                        <td style="padding: 0.75rem;">8 rules in .claude/rules/</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem;"><strong>Constitution Articles</strong></td>
+                        <td style="padding: 0.75rem;">6 articles, 5 NON-NEGOTIABLE/MUST</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Generated by AIOX Map Skill — Synkra AIOX Framework Cartographer</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Kairos Check | Pedro Leal | KAIROS_CEREBRO</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: #475569;">For full framework documentation, see: .aiox-core/constitution.md</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Terminal Card</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Monaco', 'Courier New', monospace;
+            background: #0f172a;
+            color: #10b981;
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .terminal {
+            background: #000;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #10b981;
+            margin-bottom: 20px;
+        }
+        .title { font-size: 1.4em; color: #10b981; font-weight: bold; margin-bottom: 5px; }
+        .subtitle { color: #6ee7b7; font-size: 0.9em; }
+        .content { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
+        .section {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 4px;
+            padding: 15px;
+        }
+        .section-title {
+            color: #10b981;
+            font-weight: bold;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .item { margin-bottom: 10px; line-height: 1.5; }
+        .cmd { color: #6ee7b7; font-weight: bold; }
+        .key { color: #fbbf24; }
+        .val { color: #e2e8f0; }
+        .exclusive { color: #f87171; font-weight: bold; }
+        footer { text-align: center; padding: 20px; color: #6ee7b7; font-size: 0.85em; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="terminal">
+            <div class="header">
+                <div class="title">⚡ AIOX Terminal Card</div>
+                <div class="subtitle">Quick lookup reference — instant answers</div>
+            </div>
+
+            <div class="content">
+                <!-- Agents -->
+                <div class="section">
+                    <div class="section-title">/agent [name]</div>
+                    <div class="item"><span class="cmd">@dev</span> → Implementation (git add, git commit)</div>
+                    <div class="item"><span class="cmd">@qa</span> → QA Gate (7-point review)</div>
+                    <div class="item"><span class="cmd">@po</span> → Story Validation (10-point gate)</div>
+                    <div class="item"><span class="cmd">@sm</span> → Story Creation (*create-story)</div>
+                    <div class="item"><span class="cmd">@pm</span> → Epic Orchestration (*execute-epic)</div>
+                    <div class="item"><span class="exclusive">@devops</span> → git push EXCLUSIVE ⚡</div>
+                    <div class="item"><span class="cmd">@architect</span> → Design Authority</div>
+                    <div class="item"><span class="cmd">@data-engineer</span> → Schema Design</div>
+                </div>
+
+                <!-- Workflows -->
+                <div class="section">
+                    <div class="section-title">/workflow [type]</div>
+                    <div class="item"><span class="cmd">SDC</span> → Story Dev Cycle (5 phases)</div>
+                    <div class="item"><span class="cmd">Spec Pipeline</span> → Requirements (6 phases)</div>
+                    <div class="item"><span class="cmd">QA Loop</span> → Review-Fix (max 5 iter)</div>
+                    <div class="item"><span class="cmd">Brownfield</span> → Tech Debt (10 phases)</div>
+                </div>
+
+                <!-- Constitution -->
+                <div class="section">
+                    <div class="section-title">/constitution [article]</div>
+                    <div class="item"><span class="key">I</span> → CLI First (NON-NEGOTIABLE)</div>
+                    <div class="item"><span class="key">II</span> → Agent Authority (NON-NEGOTIABLE)</div>
+                    <div class="item"><span class="key">III</span> → Story-Driven (MUST)</div>
+                    <div class="item"><span class="key">IV</span> → No Invention (MUST)</div>
+                    <div class="item"><span class="key">V</span> → Quality First (MUST)</div>
+                    <div class="item"><span class="key">VI</span> → Absolute Imports (SHOULD)</div>
+                </div>
+
+                <!-- Exclusive Ops -->
+                <div class="section">
+                    <div class="section-title">/exclusive [operation]</div>
+                    <div class="item"><span class="exclusive">git push</span> → @devops ONLY</div>
+                    <div class="item"><span class="exclusive">gh pr create</span> → @devops ONLY</div>
+                    <div class="item"><span class="exclusive">*create-story</span> → @sm ONLY</div>
+                    <div class="item"><span class="exclusive">*validate-story</span> → @po ONLY</div>
+                    <div class="item"><span class="exclusive">*execute-epic</span> → @pm ONLY</div>
+                    <div class="item"><span class="exclusive">7-point gate</span> → @qa ONLY</div>
+                </div>
+
+                <!-- Quality Gates -->
+                <div class="section">
+                    <div class="section-title">/gates [qa-checkpoints]</div>
+                    <div class="item"><span class="cmd">@po Gate</span> (10 checks)</div>
+                    <div class="item">→ AC clarity, scope fit, dependencies</div>
+                    <div class="item"><span class="cmd">@qa Gate</span> (7 checks)</div>
+                    <div class="item">→ Tests, lint, typecheck, build, CodeRabbit</div>
+                </div>
+
+                <!-- Decision Tree -->
+                <div class="section">
+                    <div class="section-title">/decide [scenario]</div>
+                    <div class="item"><span class="key">Need story?</span> → @sm creates</div>
+                    <div class="item"><span class="key">Need validation?</span> → @po gates</div>
+                    <div class="item"><span class="key">Need code?</span> → @dev implements</div>
+                    <div class="item"><span class="key">Need review?</span> → @qa gates</div>
+                    <div class="item"><span class="key">Need push?</span> → @devops only</div>
+                </div>
+
+                <!-- Framework Layers -->
+                <div class="section">
+                    <div class="section-title">/layers [l1-l4]</div>
+                    <div class="item"><span class="key">L1 Core</span> → NEVER modify</div>
+                    <div class="item"><span class="key">L2 Templates</span> → NEVER modify</div>
+                    <div class="item"><span class="key">L3 Config</span> → Conditional mutations</div>
+                    <div class="item"><span class="key">L4 Runtime</span> → ALWAYS mutable</div>
+                </div>
+
+                <!-- DNA Patterns -->
+                <div class="section">
+                    <div class="section-title">/dna [pattern]</div>
+                    <div class="item">Agent Specialization (exclusive ops)</div>
+                    <div class="item">Story-Driven Development</div>
+                    <div class="item">Quality Gates Non-Negotiable</div>
+                    <div class="item">Authority Hierarchy</div>
+                    <div class="item">Framework Layer Immutability</div>
+                    <div class="item">No Invention Principle</div>
+                    <div class="item">IDS (REUSE > ADAPT > CREATE)</div>
+                    <div class="item">Task-First Execution</div>
+                </div>
+
+                <!-- Quick Lookup -->
+                <div class="section">
+                    <div class="section-title">/help [command]</div>
+                    <div class="item"><span class="cmd">Who can git push?</span></div>
+                    <div class="item">→ @devops (exclusive)</div>
+                    <div class="item"><span class="cmd">Who validates stories?</span></div>
+                    <div class="item">→ @po (10-point gate)</div>
+                    <div class="item"><span class="cmd">No story yet?</span></div>
+                    <div class="item">→ Ask @sm to create</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>⚡ AIOX Terminal Card — Zero-friction instant lookup</p>
+        <p>Type a query, get instant answers</p>
+    </footer>
+</body>
+</html>

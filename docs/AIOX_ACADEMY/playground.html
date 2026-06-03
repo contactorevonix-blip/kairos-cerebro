@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Playground</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 2em; margin-bottom: 10px; }
+        .scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .scenario-card {
+            background: rgba(99, 102, 241, 0.05);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .scenario-card:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+        .scenario-title { color: #818cf8; font-weight: 600; margin-bottom: 8px; font-size: 1.1em; }
+        .scenario-desc { color: #cbd5e1; font-size: 0.9em; margin-bottom: 12px; }
+        .scenario-difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #86efac;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .scenario-difficulty.medium { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .scenario-difficulty.hard { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+        .simulator {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            display: none;
+        }
+        .simulator.active { display: block; }
+        .close-btn {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .close-btn button {
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            border: 1px solid #818cf8;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .scenario-title-large { color: #818cf8; font-size: 1.5em; margin-bottom: 10px; }
+        .scenario-desc-large { color: #cbd5e1; font-size: 0.95em; margin-bottom: 20px; line-height: 1.8; }
+        .challenge { background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #f59e0b; }
+        .challenge-title { color: #f59e0b; font-weight: 600; margin-bottom: 10px; }
+        .challenge-text { color: #e2e8f0; }
+        .buttons { display: flex; flex-direction: column; gap: 12px; }
+        .action-btn {
+            padding: 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            color: #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .action-btn:hover { background: rgba(99, 102, 241, 0.2); border-color: #6366f1; }
+        .action-btn.correct { background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #86efac; }
+        .action-btn.wrong { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #fca5a5; }
+        .result-msg {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result-msg.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #86efac;
+        }
+        .result-msg.failure {
+            display: block;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+        footer { text-align: center; padding: 20px; opacity: 0.7; font-size: 0.85em; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 AIOX Playground</h1>
+            <p>Real-world scenarios to master your AIOX skills</p>
+        </header>
+
+        <div class="scenarios" id="scenarioList"></div>
+
+        <div class="simulator" id="simulator">
+            <div class="close-btn"><button onclick="closeSim()">← Back to Scenarios</button></div>
+            <div id="simContent"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🎮 AIOX Playground — Learn by simulating real situations</p>
+        <p>Make decisions, see consequences, level up your AIOX mastery</p>
+    </footer>
+
+    <script>
+        const scenarios = [
+            {
+                id: 1,
+                title: "The Urgent Bug",
+                desc: "Production bug reported. Customer impact. What do you do?",
+                difficulty: "easy",
+                challenge: "You discover a critical bug affecting user authentication. It needs to be fixed ASAP. Do you:",
+                actions: [
+                    { text: "✓ Create story → @po validate → @dev fix → @qa review → @devops push", correct: true, reason: "Even urgent bugs follow SDC! Exception: quick review instead of full 10-point." },
+                    { text: "✗ Jump directly to code and push to main", correct: false, reason: "Violates Agent Authority (Art. II) and Story-Driven (Art. III). No story = no acceptance criteria." },
+                    { text: "✗ Ask @devops to push your code without QA", correct: false, reason: "@devops pushes AFTER @qa approval. Never skip gates." }
+                ]
+            },
+            {
+                id: 2,
+                title: "New Feature Request",
+                desc: "Product team wants a new email notification system. Estimate: 5 days. What workflow?",
+                difficulty: "medium",
+                challenge: "The feature requires changes across 4 different modules: auth, email service, UI, and database. Should you use Spec Pipeline?",
+                actions: [
+                    { text: "✓ Yes. Use Spec Pipeline (6 phases) → Then SDC for each story", correct: true, reason: "5 days = medium complexity. Spec Pipeline ensures clarity before coding." },
+                    { text: "✗ No. Just create stories and start coding immediately", correct: false, reason: "Without Spec Pipeline, you risk discovering requirements during implementation." },
+                    { text: "⚠️ Start coding, adjust spec later if needed", correct: false, reason: "Article IV (No Invention) forbids this. Specs come BEFORE code." }
+                ]
+            },
+            {
+                id: 3,
+                title: "Boundary Violation",
+                desc: "You finish code. @qa approves. Now you want to git push.",
+                difficulty: "easy",
+                challenge: "You have code ready to merge. What's your next move?",
+                actions: [
+                    { text: "✓ Ask @devops to git push to main", correct: true, reason: "@devops is EXCLUSIVE (Art. II). No one else can push." },
+                    { text: "✗ git push yourself. You have authority as the author.", correct: false, reason: "Authority is not based on authorship. @devops is the ONLY one." },
+                    { text: "✗ Create a PR and merge it yourself", correct: false, reason: "Again, @devops EXCLUSIVE. You cannot merge." }
+                ]
+            },
+            {
+                id: 4,
+                title: "Story Validation Chaos",
+                desc: "@po says 'Story needs more clarity on acceptance criteria.'",
+                difficulty: "easy",
+                challenge: "You created a story with vague ACs. @po rejected it. What now?",
+                actions: [
+                    { text: "✓ Revise ACs to be clear, testable, and SMART. Resubmit to @po.", correct: true, reason: "@po's job is validation. Fix ACs, get them approved, THEN code." },
+                    { text: "✗ Start coding anyway. You'll figure out ACs later.", correct: false, reason: "Article III (Story-Driven): ACs are the contract. Code without them = rework." },
+                    { text: "✗ Tell @po to just approve it", correct: false, reason: "@po's 10-point gate is non-negotiable (Art. V: Quality First)." }
+                ]
+            },
+            {
+                id: 5,
+                title: "The QA Loop Crisis",
+                desc: "@qa found issues 3 times in a row. You're frustrated.",
+                difficulty: "hard",
+                challenge: "You've gone through 3 QA iterations. @qa finds new issues each time. Do you:",
+                actions: [
+                    { text: "✓ Continue fixing (max 5 iterations). If 5th also fails, escalate to @aiox-master.", correct: true, reason: "QA Loop allows up to 5 iterations by design. Escalate only after max reached." },
+                    { text: "✗ Skip QA gate and push to main", correct: false, reason: "Quality gates are non-negotiable (Art. V). Skipping = system breaks." },
+                    { text: "✗ Ask your manager to override @qa's decision", correct: false, reason: "No manager override exists. Constitution is absolute." }
+                ]
+            },
+            {
+                id: 6,
+                title: "Legacy Codebase",
+                desc: "Joining a project with 5 years of existing code. No documentation.",
+                difficulty: "hard",
+                challenge: "You need to understand the system before implementing. What workflow?",
+                actions: [
+                    { text: "✓ Use Brownfield Discovery (10 phases) to audit system, map tech debt, THEN plan epics.", correct: true, reason: "Brownfield is designed for legacy codebases. It gives you the full picture before you code." },
+                    { text: "✗ Dive in and start implementing new features", correct: false, reason: "You'll step on technical debt landmines. Audit first." },
+                    { text: "✗ Ask developers for verbal explanations of the codebase", correct: false, reason: "Brownfield Discovery gives you an audit trail + documentation." }
+                ]
+            }
+        ];
+
+        function renderScenarios() {
+            const list = document.getElementById('scenarioList');
+            list.innerHTML = scenarios.map(s => `
+                <div class="scenario-card" onclick="startScenario(${s.id})">
+                    <div class="scenario-title">${s.title}</div>
+                    <div class="scenario-desc">${s.desc}</div>
+                    <div class="scenario-difficulty ${s.difficulty}">${s.difficulty.toUpperCase()}</div>
+                </div>
+            `).join('');
+        }
+
+        function startScenario(id) {
+            const scenario = scenarios.find(s => s.id === id);
+            let html = `
+                <div class="scenario-title-large">${scenario.title}</div>
+                <div class="scenario-desc-large">${scenario.desc}</div>
+                <div class="challenge">
+                    <div class="challenge-title">🎯 Challenge</div>
+                    <div class="challenge-text">${scenario.challenge}</div>
+                </div>
+                <div class="buttons">
+            `;
+
+            scenario.actions.forEach((action, idx) => {
+                const btnClass = action.correct ? 'correct' : 'wrong';
+                html += `<button class="action-btn" onclick="evaluateAction(${id}, ${idx})">${action.text}</button>`;
+            });
+
+            html += `</div><div class="result-msg" id="resultMsg"></div>`;
+
+            document.getElementById('simContent').innerHTML = html;
+            document.getElementById('simulator').classList.add('active');
+            document.getElementById('scenarioList').style.display = 'none';
+        }
+
+        function evaluateAction(scenarioId, actionIdx) {
+            const scenario = scenarios.find(s => s.id === scenarioId);
+            const action = scenario.actions[actionIdx];
+            const resultDiv = document.getElementById('resultMsg');
+
+            if (action.correct) {
+                resultDiv.className = 'result-msg success';
+                resultDiv.innerHTML = `✓ <strong>Correct!</strong> ${action.reason}`;
+            } else {
+                resultDiv.className = 'result-msg failure';
+                resultDiv.innerHTML = `✗ <strong>Not the best choice.</strong> ${action.reason}`;
+            }
+        }
+
+        function closeSim() {
+            document.getElementById('simulator').classList.remove('active');
+            document.getElementById('scenarioList').style.display = 'grid';
+        }
+
+        renderScenarios();
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Workflows Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 2em; margin-bottom: 10px; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            color: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .tab-btn:hover { background: rgba(99, 102, 241, 0.2); }
+        .tab-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .workflow { display: none; }
+        .workflow.active { display: block; }
+        .workflow {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .workflow h2 { color: #818cf8; margin-bottom: 20px; font-size: 1.6em; }
+        .phase {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #10b981;
+        }
+        .phase-num { color: #6366f1; font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        .phase-title { color: #10b981; font-size: 1.1em; margin-bottom: 10px; font-weight: 600; }
+        .phase-desc { color: #cbd5e1; margin-bottom: 12px; }
+        .phase-meta { font-size: 0.85em; color: #94a3b8; }
+        .example {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #3b82f6;
+        }
+        .example-title { color: #3b82f6; font-weight: 600; margin-bottom: 8px; font-size: 0.95em; }
+        .example-content { font-family: 'Monaco', monospace; font-size: 0.85em; color: #e2e8f0; line-height: 1.6; }
+        .decision {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+        .decision-title { color: #f59e0b; font-weight: 600; margin-bottom: 12px; }
+        .decision-item { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .decision-item:before { content: '→'; position: absolute; left: 0; color: #f59e0b; }
+        footer { text-align: center; padding: 20px; opacity: 0.7; font-size: 0.85em; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 AIOX Workflows Guide</h1>
+            <p>Complete reference for all 4 primary workflows with examples</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showWorkflow('sdc')">Story Dev Cycle</button>
+            <button class="tab-btn" onclick="showWorkflow('spec')">Spec Pipeline</button>
+            <button class="tab-btn" onclick="showWorkflow('qa-loop')">QA Loop</button>
+            <button class="tab-btn" onclick="showWorkflow('brownfield')">Brownfield</button>
+        </div>
+
+        <!-- SDC -->
+        <div class="workflow active" id="sdc">
+            <h2>📝 Story Development Cycle (SDC) — 5 Phases</h2>
+            <p style="margin-bottom: 20px; color: #cbd5e1;">The primary workflow for all feature implementation. Covers create → validate → implement → QA → push.</p>
+
+            <div class="phase">
+                <div class="phase-num">Phase 1</div>
+                <div class="phase-title">CREATE (@sm — River)</div>
+                <div class="phase-desc">Create a new story from epic context and requirements.</div>
+                <div class="phase-meta">Input: PRD + Epic | Output: story.md (Draft) | Time: 30 min - 2h</div>
+                <div class="example">
+                    <div class="example-title">📌 Example</div>
+                    <div class="example-content">@sm reads: "Implement email notifications"<br>
+Creates: docs/stories/epics/1/1.2.story.md<br>
+Status: Draft<br>
+Ready for: @po validation</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 2</div>
+                <div class="phase-title">VALIDATE (@po — Pax)</div>
+                <div class="phase-desc">10-point checklist: AC clarity, scope, dependencies, etc.</div>
+                <div class="phase-meta">Input: story.md | Output: GO/NO-GO + Checklist | Time: 15-30 min | Gate: MUST PASS</div>
+                <div class="example">
+                    <div class="example-title">✓ Validation Checklist</div>
+                    <div class="example-content">1. AC clarity (clear? testable?)<br>
+2. Scope fit (fits epic?)<br>
+3. AC count (3-5 ACs?)<br>
+4. Dependencies mapped<br>
+5-10. [Others...]<br>
+<br>Result: GO ✓ → proceed to phase 3</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 3</div>
+                <div class="phase-title">IMPLEMENT (@dev — Dex)</div>
+                <div class="phase-desc">Code implementation following acceptance criteria.</div>
+                <div class="phase-meta">Input: Validated story | Output: Code + File List | Status: InProgress</div>
+                <div class="example">
+                    <div class="example-title">💻 Developer Workflow</div>
+                    <div class="example-content">1. git checkout -b feature/email-notifications<br>
+2. Implement ACs<br>
+3. npm run lint (pass)<br>
+4. npm run typecheck (pass)<br>
+5. npm test (pass)<br>
+6. Self-critique<br>
+7. git commit -m "feat: email notifications [1.2]"<br>
+8. Request @qa review</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 4</div>
+                <div class="phase-title">QA GATE (@qa — Quinn)</div>
+                <div class="phase-desc">7 mandatory quality checks before merge.</div>
+                <div class="phase-meta">Input: Code | Output: PASS/CONCERNS/FAIL | Gate: MUST PASS | Max Iterations: 5</div>
+                <div class="example">
+                    <div class="example-title">🧪 Quality Checks</div>
+                    <div class="example-content">1. npm run lint ✓<br>
+2. npm run typecheck ✓<br>
+3. npm test ✓<br>
+4. npm run build ✓<br>
+5. CodeRabbit (no CRITICAL) ✓<br>
+6. No secrets in code ✓<br>
+7. Story status = Done ✓<br>
+<br>Verdict: PASS ✓</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 5</div>
+                <div class="phase-title">PUSH (@devops — Gage)</div>
+                <div class="phase-desc">Deploy to main. EXCLUSIVE operation.</div>
+                <div class="phase-meta">Input: Approved code | Output: Commit on main | Authority: @devops ONLY</div>
+                <div class="example">
+                    <div class="example-title">🚀 Push Process</div>
+                    <div class="example-content">@devops executes:<br>
+git push origin feature/... → main<br>
+<br>Result: Code shipped to production ✓</div>
+                </div>
+            </div>
+
+            <div class="decision">
+                <div class="decision-title">🎯 When to Use SDC</div>
+                <div class="decision-item">Bug fix or config change → Quick Flow variant</div>
+                <div class="decision-item">New feature (1-3 stories) → Standard SDC</div>
+                <div class="decision-item">Estimated < 2 days → SDC without Spec Pipeline</div>
+                <div class="decision-item">Complex feature → Spec Pipeline FIRST, then SDC</div>
+            </div>
+        </div>
+
+        <!-- Spec Pipeline -->
+        <div class="workflow" id="spec">
+            <h2>🔬 Spec Pipeline — 6 Phases</h2>
+            <p style="margin-bottom: 20px; color: #cbd5e1;">Pre-implementation phase for complex features. Transforms requirements into executable specs.</p>
+
+            <div class="phase">
+                <div class="phase-num">Phase 1-2</div>
+                <div class="phase-title">Gather & Assess</div>
+                <div class="phase-desc">@pm gathers requirements. @architect assesses complexity.</div>
+                <div class="phase-meta">Output: requirements.json + complexity.json</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 3</div>
+                <div class="phase-title">Research (@analyst)</div>
+                <div class="phase-desc">Deep research if STANDARD/COMPLEX class.</div>
+                <div class="phase-meta">Skipped if SIMPLE class</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 4</div>
+                <div class="phase-title">Write Spec (@pm)</div>
+                <div class="phase-desc">Create spec.md with all requirements mapped to FR-*/NFR-*</div>
+                <div class="phase-meta">Constitution Article IV: ZERO invention</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 5</div>
+                <div class="phase-title">Critique (@qa)</div>
+                <div class="phase-desc">QA reviews spec for completeness and correctness.</div>
+                <div class="phase-meta">Verdict: APPROVED | NEEDS_REVISION | BLOCKED</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phase 6</div>
+                <div class="phase-title">Plan (@architect)</div>
+                <div class="phase-desc">Implementation plan if APPROVED.</div>
+                <div class="phase-meta">Then → proceed to SDC for each story</div>
+            </div>
+
+            <div class="decision">
+                <div class="decision-title">🎯 When to Use Spec Pipeline</div>
+                <div class="decision-item">Complex feature (>15 stories) → REQUIRED</div>
+                <div class="decision-item">New product/epic → REQUIRED</div>
+                <div class="decision-item">Uncertain scope → Use Spec Pipeline</div>
+                <div class="decision-item">Simple bug fix → Skip Spec Pipeline</div>
+            </div>
+        </div>
+
+        <!-- QA Loop -->
+        <div class="workflow" id="qa-loop">
+            <h2>🔁 QA Loop — Iterative Review-Fix</h2>
+            <p style="margin-bottom: 20px; color: #cbd5e1;">Automated review-fix cycle when QA finds issues.</p>
+
+            <div class="phase">
+                <div class="phase-num">Cycle</div>
+                <div class="phase-title">Review → Fix → Re-Review (max 5 iterations)</div>
+                <div class="phase-desc">@qa reviews code → verdict → @dev fixes → repeat</div>
+                <div class="phase-meta">Config: max 5 iterations | Escalate after max reached</div>
+                <div class="example">
+                    <div class="example-title">📋 Example Loop</div>
+                    <div class="example-content">Iteration 1:<br>
+@qa: "CONCERNS - missing test coverage"<br>
+@dev: Adds tests → commits<br>
+<br>Iteration 2:<br>
+@qa: "PASS ✓"<br>
+Result: Code shipped</div>
+                </div>
+            </div>
+
+            <div class="decision">
+                <div class="decision-title">🎯 Verdicts</div>
+                <div class="decision-item">PASS ✓ → Code ships (complete)</div>
+                <div class="decision-item">CONCERNS → @dev fixes (continue loop)</div>
+                <div class="decision-item">FAIL → Critical issue (return to Phase 3)</div>
+                <div class="decision-item">BLOCKED → Escalate immediately</div>
+            </div>
+        </div>
+
+        <!-- Brownfield -->
+        <div class="workflow" id="brownfield">
+            <h2>🏗️ Brownfield Discovery — 10 Phases</h2>
+            <p style="margin-bottom: 20px; color: #cbd5e1;">Technical debt assessment for legacy codebases.</p>
+
+            <div class="phase">
+                <div class="phase-num">Phases 1-3</div>
+                <div class="phase-title">Data Collection</div>
+                <div class="phase-desc">@architect, @data-engineer, @ux audit existing system</div>
+                <div class="phase-meta">Output: system-architecture.md, SCHEMA.md, frontend-spec.md</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phases 4-7</div>
+                <div class="phase-title">Draft & Validation</div>
+                <div class="phase-desc">@architect drafts tech debt. @data-engineer + @ux review.</div>
+                <div class="phase-meta">Gate: APPROVED | NEEDS_WORK</div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-num">Phases 8-10</div>
+                <div class="phase-title">Finalization</div>
+                <div class="phase-desc">Final assessment + executive report + ready-to-develop epics</div>
+                <div class="phase-meta">Output: technical-debt-assessment.md + TECHNICAL-DEBT-REPORT.md</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>📚 AIOX Workflows Guide — Complete reference with examples</p>
+        <p>Choose your workflow. Execute it perfectly. Ship with confidence.</p>
+    </footer>
+
+    <script>
+        function showWorkflow(name) {
+            document.querySelectorAll('.workflow').forEach(w => w.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(name).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

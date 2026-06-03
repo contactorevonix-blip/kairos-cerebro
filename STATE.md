@@ -1054,3 +1054,13 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 **Deliverables: 48 story points (Brownfield + S1 + S2)**
 **Quality: 0 CRITICAL/HIGH in production code**
 **Next: S3 or external products (Kairos Check, AIOX Academy)**
+
+## Checkpoint: fc167c7 — 2026-06-03 23:25
+**Branch:** main
+**Commit:** chore: Sprint 2 Final — SESSION 2026-06-04 verification complete
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: c8d7c7c — 2026-06-03 23:28
+**Branch:** main
+**Commit:** docs: Sprint 2 Staging Validation Plan + Final Handoff
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md

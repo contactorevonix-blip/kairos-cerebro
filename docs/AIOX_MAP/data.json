@@ -1,0 +1,265 @@
+{
+  "framework": {
+    "name": "Synkra AIOX",
+    "version": "2.1",
+    "generatedDate": "2026-06-03",
+    "description": "AI-Orchestrated System for Full Stack Development"
+  },
+  "statistics": {
+    "agents": 13,
+    "tasks": 120,
+    "workflows": 8,
+    "constitutionArticles": 6,
+    "frameworkLayers": 4
+  },
+  "agents": [
+    {
+      "id": "dev",
+      "name": "Dex",
+      "persona": "Developer",
+      "role": "Implementation",
+      "exclusive_operations": ["git add", "git commit"],
+      "blocked_operations": ["git push", "gh pr create"]
+    },
+    {
+      "id": "qa",
+      "name": "Quinn",
+      "persona": "QA Master",
+      "role": "Testing & Quality",
+      "exclusive_operations": ["*qa-loop"],
+      "blocked_operations": ["git push"]
+    },
+    {
+      "id": "architect",
+      "name": "Aria",
+      "persona": "System Architect",
+      "role": "Design & Architecture",
+      "exclusive_operations": ["architecture decisions"],
+      "blocked_operations": ["code implementation"]
+    },
+    {
+      "id": "pm",
+      "name": "Morgan",
+      "persona": "Product Manager",
+      "role": "Epic Orchestration",
+      "exclusive_operations": ["*execute-epic", "*create-epic"],
+      "blocked_operations": ["story details"]
+    },
+    {
+      "id": "po",
+      "name": "Pax",
+      "persona": "Product Owner",
+      "role": "Story Validation",
+      "exclusive_operations": ["*validate-story-draft"],
+      "blocked_operations": ["implementation"]
+    },
+    {
+      "id": "sm",
+      "name": "River",
+      "persona": "Scrum Master",
+      "role": "Story Creation",
+      "exclusive_operations": ["*draft", "*create-story"],
+      "blocked_operations": ["validation"]
+    },
+    {
+      "id": "analyst",
+      "name": "Alex",
+      "persona": "Analyst",
+      "role": "Research & Analysis",
+      "exclusive_operations": ["*research"],
+      "blocked_operations": []
+    },
+    {
+      "id": "data-engineer",
+      "name": "Dara",
+      "persona": "Data Engineer",
+      "role": "Database & Schema",
+      "exclusive_operations": ["schema design", "RLS policies"],
+      "blocked_operations": ["app code"]
+    },
+    {
+      "id": "ux-design-expert",
+      "name": "Uma",
+      "persona": "UX Designer",
+      "role": "Design Expert",
+      "exclusive_operations": ["design decisions"],
+      "blocked_operations": ["frontend implementation"]
+    },
+    {
+      "id": "devops",
+      "name": "Gage",
+      "persona": "DevOps",
+      "role": "CI/CD & Push",
+      "exclusive_operations": ["git push", "gh pr create", "MCP management", "CI/CD"],
+      "blocked_operations": []
+    },
+    {
+      "id": "aiox-master",
+      "name": "Orion",
+      "persona": "Framework Governor",
+      "role": "Governance",
+      "exclusive_operations": ["constitution enforcement"],
+      "blocked_operations": []
+    },
+    {
+      "id": "squad-creator",
+      "name": "Craft",
+      "persona": "Squad Creator",
+      "role": "Squad Creation",
+      "exclusive_operations": ["squad design"],
+      "blocked_operations": ["execution"]
+    },
+    {
+      "id": "business-chief",
+      "name": "Chief",
+      "persona": "Business Chief",
+      "role": "Strategy",
+      "exclusive_operations": ["epic decisions"],
+      "blocked_operations": ["dev execution"]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "sdc",
+      "name": "Story Development Cycle",
+      "description": "Primary workflow for all development",
+      "phases": [
+        {"phase": "Create", "agent": "@sm", "task": "create-next-story", "output": "story.md (Draft)"},
+        {"phase": "Validate", "agent": "@po", "task": "validate-next-story", "output": "Go/NoGo + checklist"},
+        {"phase": "Implement", "agent": "@dev", "task": "dev-develop-story", "output": "Code + File List"},
+        {"phase": "QA Gate", "agent": "@qa", "task": "qa-gate", "output": "PASS/CONCERNS/FAIL"},
+        {"phase": "Push", "agent": "@devops", "task": "git push", "output": "Commit on main"}
+      ]
+    },
+    {
+      "id": "spec-pipeline",
+      "name": "Spec Pipeline",
+      "description": "Pre-implementation transformation of requirements",
+      "phases": ["Gather", "Assess Complexity", "Research", "Write Spec", "Critique", "Plan"]
+    },
+    {
+      "id": "qa-loop",
+      "name": "QA Loop",
+      "description": "Iterative review-fix cycle (max 5 iterations)",
+      "pattern": "@qa review → verdict → @dev fixes → re-review"
+    },
+    {
+      "id": "brownfield",
+      "name": "Brownfield Discovery",
+      "description": "10-phase technical debt assessment",
+      "phases": ["Data Collection", "Draft & Validation", "Finalization"]
+    }
+  ],
+  "authority_matrix": {
+    "exclusive_operations": [
+      {
+        "operation": "git push",
+        "exclusive_agent": "@devops",
+        "impact": "Code integrity, audit trail"
+      },
+      {
+        "operation": "gh pr create/merge",
+        "exclusive_agent": "@devops",
+        "impact": "Release control, review workflow"
+      },
+      {
+        "operation": "*execute-epic",
+        "exclusive_agent": "@pm",
+        "impact": "Roadmap control, epic orchestration"
+      },
+      {
+        "operation": "*validate-story",
+        "exclusive_agent": "@po",
+        "impact": "Quality gates (10-point checklist)"
+      },
+      {
+        "operation": "*create-story / *draft",
+        "exclusive_agent": "@sm",
+        "impact": "Story derivation from PRD/epic"
+      }
+    ]
+  },
+  "framework_layers": [
+    {
+      "layer": "L1",
+      "name": "Framework Core",
+      "mutability": "NEVER modify",
+      "paths": [".aiox-core/core/", "bin/aiox.js"],
+      "protection": "Deny rules (automated)",
+      "examples": ["Execution engine", "Code intelligence", "Events"]
+    },
+    {
+      "layer": "L2",
+      "name": "Framework Templates",
+      "mutability": "NEVER modify (extend-only)",
+      "paths": [".aiox-core/development/", ".aiox-core/infrastructure/"],
+      "protection": "Deny rules",
+      "examples": ["Tasks", "Workflows", "Checklists"]
+    },
+    {
+      "layer": "L3",
+      "name": "Project Configuration",
+      "mutability": "Conditional (allow rules permit)",
+      "paths": [".aiox-core/data/", "agents/*/MEMORY.md"],
+      "protection": "Allow/deny rules",
+      "examples": ["Config data", "Agent memory"]
+    },
+    {
+      "layer": "L4",
+      "name": "Project Runtime",
+      "mutability": "ALWAYS modify",
+      "paths": ["docs/stories/", "squads/", "tests/"],
+      "protection": "None",
+      "examples": ["Stories", "Application code", "Tests"]
+    }
+  ],
+  "constitution": [
+    {
+      "article": "I",
+      "principle": "CLI First",
+      "severity": "NON-NEGOTIABLE"
+    },
+    {
+      "article": "II",
+      "principle": "Agent Authority",
+      "severity": "NON-NEGOTIABLE"
+    },
+    {
+      "article": "III",
+      "principle": "Story-Driven Development",
+      "severity": "MUST"
+    },
+    {
+      "article": "IV",
+      "principle": "No Invention",
+      "severity": "MUST"
+    },
+    {
+      "article": "V",
+      "principle": "Quality First",
+      "severity": "MUST"
+    },
+    {
+      "article": "VI",
+      "principle": "Absolute Imports",
+      "severity": "SHOULD"
+    }
+  ],
+  "audit_results": {
+    "passed": [
+      "All 13 agents defined with clear authority boundaries",
+      "No conflicting exclusive operations detected",
+      "Delegation chain is acyclic and valid",
+      "Layer protection enforced via deny rules",
+      "Constitution principles consistently applied (6/6)"
+    ],
+    "observations": [
+      "120+ tasks — consider periodic archiving",
+      "3 external executors configured",
+      "MCP governance delegated to @devops correctly",
+      "Synapse engine active"
+    ],
+    "issues": [],
+    "overall_status": "EXCELLENT — Framework health is sound"
+  }
+}

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Visual Map — Complete Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 2em; margin-bottom: 10px; }
+        .section {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            color: #818cf8;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+            padding-bottom: 10px;
+        }
+        .diagram {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .legend-item {
+            padding: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid;
+            border-radius: 4px;
+        }
+        .legend-item.agent { border-left-color: #6366f1; }
+        .legend-item.workflow { border-left-color: #10b981; }
+        .legend-item.gate { border-left-color: #f59e0b; }
+        .legend-item.exclusive { border-left-color: #ef4444; }
+        .legend-title { font-weight: bold; color: #818cf8; margin-bottom: 4px; font-size: 0.9em; }
+        .legend-desc { font-size: 0.85em; opacity: 0.8; }
+        footer { text-align: center; padding: 20px; opacity: 0.7; font-size: 0.9em; margin-top: 40px; }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover { background: rgba(99, 102, 241, 0.2); }
+        .tab-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗺️ AIOX Complete Visual Map</h1>
+            <p>Learn how all agents, workflows, and gates connect in Synkra AIOX</p>
+        </header>
+
+        <!-- 1. Agent Authority Flow -->
+        <div class="section">
+            <h2>1️⃣ Agent Authority & Delegation Chain</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph TD
+    PM["@pm<br/>(Morgan)<br/>Epic Orchestration"]
+    SM["@sm<br/>(River)<br/>Story Creation"]
+    PO["@po<br/>(Pax)<br/>Story Validation"]
+    DEV["@dev<br/>(Dex)<br/>Implementation"]
+    QA["@qa<br/>(Quinn)<br/>QA Gate"]
+    DEVOPS["@devops<br/>(Gage)<br/>git push EXCLUSIVE"]
+
+    ARCH["@architect<br/>(Aria)<br/>Design"]
+    DATA["@data-engineer<br/>(Dara)<br/>Schema"]
+    UX["@ux-design-expert<br/>(Uma)<br/>UI Design"]
+
+    PM -->|creates epic| SM
+    SM -->|creates story| PO
+    PO -->|validates| DEV
+    DEV -->|ready for review| QA
+    QA -->|approved| DEVOPS
+
+    ARCH -->|delegates DDL| DATA
+    ARCH -.->|informs| DEV
+    UX -.->|informs| DEV
+
+    style DEVOPS fill:#ff6b6b,stroke:#ff6b6b,color:#fff
+    style PM fill:#6366f1,stroke:#6366f1,color:#fff
+    style SM fill:#6366f1,stroke:#6366f1,color:#fff
+    style PO fill:#10b981,stroke:#10b981,color:#fff
+    style DEV fill:#3b82f6,stroke:#3b82f6,color:#fff
+    style QA fill:#f59e0b,stroke:#f59e0b,color:#fff
+                </div>
+            </div>
+            <div class="legend">
+                <div class="legend-item agent">
+                    <div class="legend-title">🔵 Agent</div>
+                    <div class="legend-desc">Specialized role (13 total)</div>
+                </div>
+                <div class="legend-item exclusive">
+                    <div class="legend-title">🔴 Exclusive Op</div>
+                    <div class="legend-desc">Only this agent can do it</div>
+                </div>
+                <div class="legend-item workflow">
+                    <div class="legend-title">→ Delegation</div>
+                    <div class="legend-desc">Flow of work/authority</div>
+                </div>
+                <div class="legend-item gate">
+                    <div class="legend-title">✓ Gate</div>
+                    <div class="legend-desc">Quality checkpoint</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Story Development Cycle -->
+        <div class="section">
+            <h2>2️⃣ Story Development Cycle (SDC) — 5 Phases</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph LR
+    A["📝 Phase 1<br/>@sm Creates<br/>story.md<br/>Status: Draft"]
+    B["✓ Phase 2<br/>@po Validates<br/>10-point gate<br/>GO or NO-GO"]
+    C["💻 Phase 3<br/>@dev Implements<br/>Code written<br/>Status: InProgress"]
+    D["🧪 Phase 4<br/>@qa QA Gate<br/>7 checks<br/>PASS/CONCERNS/FAIL"]
+    E["🚀 Phase 5<br/>@devops Push<br/>git push main<br/>SHIPPED"]
+
+    A -->|story validated| B
+    B -->|GO verdict| C
+    C -->|code ready| D
+    D -->|PASS verdict| E
+
+    B -.->|NO-GO| A
+    D -.->|CONCERNS| C
+
+    style A fill:#6366f1
+    style B fill:#10b981
+    style C fill:#3b82f6
+    style D fill:#f59e0b
+    style E fill:#22c55e
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Quality Gates -->
+        <div class="section">
+            <h2>3️⃣ Quality Gates — Mandatory Checkpoints</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph TD
+    STORY["Story Created<br/>by @sm"]
+
+    PO10["@po Gate<br/>10-Point Checklist"]
+    PO10_1["1. AC clarity"]
+    PO10_2["2. Scope fit"]
+    PO10_3["3. AC count"]
+    PO10_4["4. Dependencies"]
+    PO10_5["5-10. Others..."]
+
+    QA7["@qa Gate<br/>7-Point Checklist"]
+    QA7_1["1. ACs passing"]
+    QA7_2["2. No regressions"]
+    QA7_3["3. Code quality"]
+    QA7_4["4. Performance"]
+    QA7_5["5-7. Others..."]
+
+    STORY --> PO10
+    PO10 --> PO10_1
+    PO10 --> PO10_2
+    PO10 --> PO10_3
+    PO10 --> PO10_4
+    PO10 --> PO10_5
+
+    PO10 -->|PASS >= 7/10| QA7
+    QA7 --> QA7_1
+    QA7 --> QA7_2
+    QA7 --> QA7_3
+    QA7 --> QA7_4
+    QA7 --> QA7_5
+
+    QA7 -->|PASS all| SHIP["🚀 READY TO SHIP"]
+
+    style STORY fill:#6366f1,color:#fff
+    style PO10 fill:#10b981,color:#fff
+    style QA7 fill:#f59e0b,color:#fff
+    style SHIP fill:#22c55e,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Workflow Selection -->
+        <div class="section">
+            <h2>4️⃣ Workflow Selection — When to Use What</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph TD
+    START["Need to Ship Code?"]
+
+    Q1{"Simple Fix or<br/>New Feature?"}
+    Q2{"Complex?<br/>Needs Spec?"}
+    Q3{"Legacy<br/>Codebase?"}
+
+    START --> Q1
+    Q1 -->|Simple Bug| SDC["Story Development<br/>Cycle SDC<br/>5 phases"]
+    Q1 -->|New Feature| Q2
+
+    Q2 -->|No, straightforward| SDC
+    Q2 -->|Yes, complex| SPEC["Spec Pipeline<br/>6 phases<br/>THEN SDC"]
+
+    Q1 -->|Existing Project| Q3
+    Q3 -->|First time?| BF["Brownfield Discovery<br/>10 phases<br/>Assess tech debt"]
+    Q3 -->|Iterating QA| QL["QA Loop<br/>Review-Fix<br/>Max 5 iterations"]
+
+    style SDC fill:#10b981,color:#fff
+    style SPEC fill:#3b82f6,color:#fff
+    style BF fill:#f59e0b,color:#fff
+    style QL fill:#6366f1,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Authority Boundaries -->
+        <div class="section">
+            <h2>5️⃣ Authority Boundaries — What Each Agent CANNOT Do</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph LR
+    DEV["@dev<br/>CAN: git add<br/>git commit"]
+    CANNOTDEV["❌ CANNOT<br/>git push<br/>gh pr create"]
+
+    QA["@qa<br/>CAN: Review code<br/>Approve"]
+    CANNOTQA["❌ CANNOT<br/>Implement<br/>Push code"]
+
+    SM["@sm<br/>CAN: Create stories"]
+    CANNOTSM["❌ CANNOT<br/>Validate stories<br/>Implement"]
+
+    PO["@po<br/>CAN: Validate stories"]
+    CANNOTPO["❌ CANNOT<br/>Create stories<br/>Implement"]
+
+    DEVOPS["@devops<br/>CAN ONLY<br/>git push<br/>gh pr create"]
+
+    DEV -.->|asks| CANNOTDEV
+    QA -.->|asks| CANNOTQA
+    SM -.->|asks| CANNOTSM
+    PO -.->|asks| CANNOTPO
+
+    style DEV fill:#3b82f6
+    style QA fill:#f59e0b
+    style SM fill:#6366f1
+    style PO fill:#10b981
+    style DEVOPS fill:#ef4444,color:#fff
+    style CANNOTDEV fill:#ef4444,color:#fff
+    style CANNOTQA fill:#ef4444,color:#fff
+    style CANNOTSM fill:#ef4444,color:#fff
+    style CANNOTPO fill:#ef4444,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Constitution to Execution -->
+        <div class="section">
+            <h2>6️⃣ Constitution → Execution Flow</h2>
+            <div class="diagram">
+                <div class="mermaid">
+graph TD
+    CONST["Constitution<br/>6 Inviolable Articles<br/>I-VI"]
+
+    DNA["DNA Patterns<br/>8 Core Mental Models"]
+
+    WORKFLOWS["4 Primary Workflows<br/>SDC, Spec Pipeline,<br/>QA Loop, Brownfield"]
+
+    AGENTS["13 Agents<br/>Execute roles within<br/>authority boundaries"]
+
+    GATES["Quality Gates<br/>10-point + 7-point<br/>Mandatory checks"]
+
+    SHIP["✓ Code Ships<br/>to Production<br/>Ready & Tested"]
+
+    CONST --> DNA
+    DNA --> WORKFLOWS
+    WORKFLOWS --> AGENTS
+    AGENTS --> GATES
+    GATES --> SHIP
+
+    style CONST fill:#ef4444,color:#fff
+    style DNA fill:#6366f1,color:#fff
+    style WORKFLOWS fill:#10b981,color:#fff
+    style AGENTS fill:#3b82f6,color:#fff
+    style GATES fill:#f59e0b,color:#fff
+    style SHIP fill:#22c55e,color:#fff
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Real-World Scenario -->
+        <div class="section">
+            <h2>7️⃣ Real-World Scenario — From Idea to Shipped</h2>
+            <div class="diagram">
+                <div class="mermaid">
+sequenceDiagram
+    participant Product as 📊 Product<br/>(@pm)
+    participant Scrum as 📋 Scrum<br/>(@sm)
+    participant Owner as ✅ Owner<br/>(@po)
+    participant Dev as 💻 Dev<br/>(@dev)
+    participant QA as 🧪 QA<br/>(@qa)
+    participant DevOps as 🚀 DevOps<br/>(@devops)
+
+    Product->>Scrum: Epic: "Add email validation"
+    Scrum->>Owner: Story: "Validate email on signup"
+    Owner->>Owner: ✓ 10-point gate (GO)
+    Owner->>Dev: Story ready, implement ACs
+    Dev->>Dev: Code + tests + self-critique
+    Dev->>QA: Ready for review
+    QA->>QA: ✓ 7-point gate (PASS)
+    QA->>DevOps: Code approved
+    DevOps->>DevOps: git push main
+    DevOps-->>Product: ✨ Shipped!
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🗺️ AIOX Visual Architecture Map — Learn how everything connects</p>
+            <p>Crafted by Anvil · AIOX v2.1 · This is the DNA of how code ships</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>

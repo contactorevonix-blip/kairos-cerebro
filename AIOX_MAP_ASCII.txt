@@ -1,0 +1,520 @@
+================================================================================
+                        🗺️ AIOX MAP — FRAMEWORK AUDIT
+                 Synkra AIOX Framework Governance &amp; Authority Matrix
+================================================================================
+Date: 2026-06-03 | Framework v2.1 | Project: KAIROS_CEREBRO
+================================================================================
+
+📊 FRAMEWORK STATISTICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Total Agents:                12 (1 master + 11 specialists)
+  Total Tasks:                 150+ executable workflows
+  Primary Workflows:           4 (SDC, QA Loop, Spec Pipeline, Brownfield)
+  Framework Layers:            L1-L4 (Core, Templates, Config, Runtime)
+  Constitution Articles:       6 (5 NON-NEGOTIABLE/MUST, 1 SHOULD)
+  Exclusive Operations:        10 (devops:5, pm:2, po:1, sm:2, aiox-master:1)
+  Delegation Patterns:         Cross-agent, workflow-enforced, gate-protected
+  Framework Rules:             8 detailed rules in .claude/rules/
+
+
+🤖 AGENT REGISTRY — PERSONAS, ROLES &amp; AUTHORITIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Agent         │ Persona │ Role                            │ Exclusive Ops  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ @dev (Dex)    │ Dex     │ Senior Software Engineer        │ git add/commit │
+│ @devops       │ Gage    │ DevOps &amp; Repo Guardian        │ *git push*     │
+│ @pm (Morgan)  │ Morgan  │ Product Manager                 │ *create-epic   │
+│ @qa (Quinn)   │ Quinn   │ Test Architect &amp; QA          │ qa-gate        │
+│ @architect    │ Aria    │ Architecture Authority          │ Tech selection │
+│ @po (Pax)     │ Pax     │ Product Owner                   │ *validate      │
+│ @sm (River)   │ River   │ Scrum Master                    │ *draft         │
+│ @analyst      │ Alex    │ Research &amp; Analysis         │ elicitation    │
+│ @data-eng     │ Dara    │ Database Specialist            │ DDL/RLS        │
+│ @ux-designer  │ Uma     │ UX/UI Design Expert            │ design specs   │
+│ @squad-creat  │ Scout   │ Squad Orchestration            │ squad mgmt     │
+│ @aiox-master  │ Orion   │ Framework Governance           │ *Constitution  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+🔐 AUTHORITY MATRIX — OPERATIONS &amp; DELEGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXCLUSIVE OPERATIONS (BLOCKED for all others)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ⚡ @devops ONLY:
+     ├─ git push / git push --force
+     ├─ gh pr create / gh pr merge
+     ├─ MCP add/remove/configure
+     ├─ CI/CD pipeline management
+     └─ Release management &amp; versioning
+
+  ⚙️  @aiox-master ONLY:
+     ├─ Constitution enforcement
+     ├─ Framework governance decisions
+     ├─ Agent authority mediation
+     └─ Workflow-engine execution (explicit --force-execute)
+
+
+DELEGATED OPERATIONS (Specialized agents with exclusive authority)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📋 @pm (Epic Orchestration):
+     ├─ *create-epic
+     ├─ *execute-epic
+     ├─ Epic/PRD spec writing
+     └─ Requirements gathering
+
+  📊 @po (Story Validation):
+     ├─ *validate-story-draft
+     ├─ 10-point validation checklist
+     ├─ GO/NO-GO verdicts
+     └─ Story context tracking in epics
+
+  📝 @sm (Story Creation):
+     ├─ *draft / *create-story
+     ├─ Story template selection
+     └─ Epic context to story derivation
+
+  🏗️  @architect (System Design):
+     ├─ System architecture decisions
+     ├─ Technology selection
+     └─ High-level data architecture
+
+
+ALLOWED OPERATIONS (Within agent scope, no blocking)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  💻 @dev:
+     ├─ git add / git commit
+     ├─ git branch / git checkout (local)
+     ├─ git stash / git diff / git log
+     └─ Story file updates (File List, checkboxes)
+
+  ✅ @qa:
+     ├─ qa-gate verdicts (PASS/CONCERNS/FAIL/WAIVED)
+     ├─ 7 quality checks
+     └─ CodeRabbit-driven review
+
+  💾 @data-engineer (delegated from @architect):
+     ├─ Schema design (DDL)
+     ├─ RLS policy implementation
+     └─ Query optimization &amp; index strategy
+
+
+🔄 STORY DEVELOPMENT CYCLE (SDC) — PRIMARY WORKFLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Full 5-phase flow for ALL development work, enforced by gates and tasks.
+
+PHASE 1: CREATE (@sm)
+  Task: create-next-story.md
+  Trigger: @sm *draft {epic-context}
+  Input: PRD sharded, epic structure
+  Output: {epicNum}.{storyNum}.story.md (status: Draft)
+  ─────────────────────────────────────────────
+      ↓
+
+PHASE 2: VALIDATE (@po)
+  Task: validate-next-story.md
+  Trigger: @po *validate-story-draft {storyId}
+  Checklist: 10-point validation
+    1. Clear &amp; objective title
+    2. Complete description (problem/need)
+    3. Testable acceptance criteria (Given/When/Then)
+    4. Well-defined scope (IN and OUT)
+    5. Dependencies mapped
+    6. Complexity estimate (points or T-shirt)
+    7. Business value clear
+    8. Risks documented
+    9. Criteria of Done defined
+    10. Alignment with PRD/Epic
+  Decision: GO (≥7/10) → Status: Ready | NO-GO → fixes required
+  ─────────────────────────────────────────────
+      ↓
+
+PHASE 3: IMPLEMENT (@dev)
+  Task: dev-develop-story.md
+  Trigger: @dev *develop {storyId}
+  Execution Modes:
+    • YOLO (autonomous, 0-1 prompts)
+    • Interactive (5-10 prompts with checkpoints, DEFAULT)
+    • Pre-Flight (plan-first, 10-15 prompts then zero-ambiguity)
+  Status Transitions:
+    Ready → InProgress (when @dev starts)
+    InProgress → InReview (when @dev completes)
+  CodeRabbit Self-Healing:
+    iteration = 0
+    while CRITICAL issues found AND iteration < 2:
+      auto-fix CRITICAL/HIGH
+      iteration++
+    if CRITICAL persist after 2 iterations → HALT, manual intervention
+  ─────────────────────────────────────────────
+      ↓
+
+PHASE 4: QA GATE (@qa)
+  Task: qa-gate.md
+  Trigger: @qa *qa-gate {storyId}
+  7 Quality Checks:
+    1. Code review (patterns, readability, maintainability)
+    2. Unit tests (coverage, all passing)
+    3. Acceptance criteria (all met per story AC)
+    4. No regressions (existing functionality preserved)
+    5. Performance (within acceptable limits)
+    6. Security (OWASP basics verified)
+    7. Documentation (updated if necessary)
+  Verdicts:
+    • PASS → Story status: Done | Proceed to @devops
+    • CONCERNS → Story status: Done | Proceed to @devops (with notes)
+    • FAIL → Story status: InProgress | Return to @dev with feedback
+    • WAIVED → Story status: Done | Approve with waiver documented (rare)
+  ─────────────────────────────────────────────
+      ↓
+
+PHASE 5: PUSH (@devops)
+  Task: pre-push-quality-gate.md
+  Trigger: @devops *push {storyId} | *pre-push-quality-gate
+  Authority: ONLY after QA PASS/CONCERNS/WAIVED
+  Actions:
+    ├─ git push (remote)
+    ├─ gh pr create (GitHub PR)
+    └─ Release management (if applicable)
+  ─────────────────────────────────────────────
+      ✓ DONE
+
+
+⚙️  SECONDARY WORKFLOWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QA LOOP (Iterative Review-Fix)
+  Flow: @qa review → verdict → @dev fixes → re-review (max 5 iterations)
+  Commands:
+    • *qa-loop {storyId} — Start full loop
+    • *qa-loop-review — Resume from review
+    • *qa-loop-fix — Resume from fix
+    • *escalate-qa-loop — Force manual escalation
+  Escalation triggers:
+    • max_iterations_reached (5)
+    • verdict_blocked
+    • fix_failure (after retries)
+    • manual_escalate (user command)
+  Status tracking: qa/loop-status.json
+
+SPEC PIPELINE (Pre-Implementation Requirements)
+  Phases: 3-6 depending on complexity class
+  Complexity scoring (1-5 scale each):
+    • Scope: files affected
+    • Integration: external APIs
+    • Infrastructure: changes needed
+    • Knowledge: team familiarity
+    • Risk: criticality level
+  Classes:
+    • SIMPLE (score ≤8): 3 phases (gather → spec → critique)
+    • STANDARD (score 9-15): 6 phases (full pipeline)
+    • COMPLEX (score ≥16): 6 phases + revision cycle
+  Constitutional gate (Article IV): Every spec statement MUST trace to
+    requirement (FR-*, NFR-*, CON-*) or research finding. NO invention.
+
+BROWNFIELD DISCOVERY (Legacy Assessment)
+  10 phases: data collection (1-3) → draft (4-7) → finalization (8-10)
+  Outputs: technical-debt-assessment.md + epic for prioritized stories
+
+
+🚧 FRAMEWORK BOUNDARY (L1-L4)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Separation enforced by deny/allow rules in .claude/settings.json
+
+┌─────────┬───────────────────┬────────────────────────────┬─────────────────┐
+│ Layer   │ Mutability        │ Paths                      │ Protection      │
+├─────────┼───────────────────┼────────────────────────────┼─────────────────┤
+│ L1 Core │ ❌ NEVER modify   │ .aiox-core/core/           │ Deny rules      │
+│         │                   │ bin/aiox.js                │ (mandatory)     │
+│         │                   │ constitution.md            │                 │
+├─────────┼───────────────────┼────────────────────────────┼─────────────────┤
+│ L2 Tmpl │ ❌ NEVER modify   │ .aiox-core/development/    │ Deny rules      │
+│         │                   │ .aiox-core/infrastructure/ │ (extend-only)   │
+├─────────┼───────────────────┼────────────────────────────┼─────────────────┤
+│ L3 Cfg  │ ⚠️  Mutable       │ .aiox-core/data/           │ Allow rules     │
+│         │ (exceptions)      │ core-config.yaml           │ (conditional)   │
+│         │                   │ agent MEMORY.md            │                 │
+├─────────┼───────────────────┼────────────────────────────┼─────────────────┤
+│ L4 Rt   │ ✅ ALWAYS modify  │ docs/stories/              │ NONE            │
+│         │                   │ packages/                  │ (working area)  │
+│         │                   │ squads/                    │                 │
+│         │                   │ project files              │                 │
+└─────────┴───────────────────┴────────────────────────────┴─────────────────┘
+
+Toggle: core-config.yaml → boundary.frameworkProtection: true/false
+Default: true (projects) | false (framework contributors)
+
+
+⚖️  CONSTITUTION — INEGOTIABLE PRINCIPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Article I: CLI FIRST
+  Severity: NON-NEGOTIABLE | Gate: Automatic
+  All workflows originate in CLI. UI is secondary.
+  Impact: Every agent command starts with * prefix
+
+Article II: AGENT AUTHORITY
+  Severity: NON-NEGOTIABLE | Gate: Automatic
+  Specialized agents own exclusive operations. No cross-boundary violations.
+  Violators: System blocks with "agent-authority violation" error
+
+Article III: STORY-DRIVEN DEVELOPMENT
+  Severity: MUST | Gate: Enforced at commit time
+  Every development task begins with story in docs/stories/
+  Story ID must appear in git commit messages and task headers
+
+Article IV: NO INVENTION
+  Severity: MUST | Gate: G5 (QA), G6 (CI/CD)
+  Spec statements and code MUST trace to requirements.
+  Spec pipeline enforces: FR-*, NFR-*, CON-* references mandatory
+
+Article V: QUALITY FIRST
+  Severity: MUST | Gate: Automatic at @qa phase
+  Quality gates CANNOT be bypassed. CodeRabbit self-healing on CRITICAL/HIGH.
+  Waived gates require explicit reason + documentation
+
+Article VI: ABSOLUTE IMPORTS
+  Severity: SHOULD | Gate: Informational
+  Agents load MEMORY.md from shared knowledge repository.
+  Missing MEMORY = graceful fallback to defaults
+
+
+📚 RULES SYSTEM — 8 Contextual Rules
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Location: .claude/rules/ (auto-loaded by Claude Code)
+
+1. agent-authority.md
+   Delegation matrix, exclusive operations, escalation rules
+
+2. agent-handoff.md
+   Context compaction protocol when switching agents (~379 tokens/handoff)
+
+3. agent-memory-imports.md
+   Agent MEMORY.md lifecycle, canonical locations per agent
+
+4. coderabbit-integration.md
+   Self-healing configuration, severity handling, WSL execution
+
+5. ids-principles.md
+   Incremental Development System: REUSE > ADAPT > CREATE
+   6 verification gates (G1-G6) with circuit breaker fallback
+
+6. mcp-usage.md
+   MCP governance (@devops exclusive), tool selection priority
+   CRITICAL: Native tools before docker-gateway
+
+7. story-lifecycle.md
+   Status progression: Draft → Ready → InProgress → InReview → Done
+   Phase transitions with responsible agents
+
+8. workflow-execution.md
+   4 primary workflows with detailed execution rules
+   Task-first principle: dependencies matter more than agents
+
+
+🎯 PLANNING TRACKS — Scale-Domain-Adaptive
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Choose process based on task size and complexity:
+
+QUICK FLOW (< 5 stories, < 2 hours)
+  Process: @dev only (no Spec Pipeline)
+  When: Bug fixes, config changes, small features
+  Workflow: Minimal SDC (skip @pm, @po if trivial)
+
+STANDARD (5-15 stories, 2-5 days)
+  Process: Full SDC (@sm → @po → @dev → @qa → @devops)
+  When: Feature development, improvements
+  Workflow: Complete story lifecycle with gates
+
+ENTERPRISE (> 15 stories, complex/strategic)
+  Process: SDC + Spec Pipeline + PRD mandatory
+  When: Product launches, epics, transformations
+  Workflow: Requirements → Spec → Story → Dev → QA → Push
+
+
+🔌 MCP USAGE RULES — CRITICAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TOOL SELECTION PRIORITY (Always native before docker)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✅ USE THESE (Claude Code native tools):
+     • Read file     → Read tool
+     • Write file    → Write / Edit tools
+     • Run commands  → Bash tool
+     • Search files  → Glob tool
+     • Search text   → Grep tool
+     • Get metadata  → Bash (ls, stat, etc)
+
+  ❌ NEVER docker-gateway for file/command operations!
+
+DOCKER MCP SERVERS (via docker-gateway, @devops managed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Use ONLY when explicitly requested:
+  ├─ 🔍 EXA: Web search, research, competitor analysis
+  ├─ 📚 Context7: Library documentation lookup
+  ├─ 🕷️  Apify: Web scraping, Actors, social media data
+  └─ 🌐 playwright: Browser automation (direct, not docker)
+
+
+📋 KEY RULES SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SMART ROUTING (Before every task)
+  1. Diagnose request type
+  2. Show routing recommendation
+  3. Ask if user has questions
+  4. Execute with full context
+
+STORY FILE UPDATES (Permission matrix)
+  Who Can Edit:
+  • Title, Description, AC, Scope → @po ONLY
+  • File List, checkboxes, Dev Notes → @dev
+  • QA Results → @qa ONLY
+  • Change Log → Any agent (append-only)
+
+CONFIDENCE SCORING (Before execution)
+  ≥90%: Execute directly
+  70-89%: Present alternatives first
+  <70%: Ask clarification questions
+
+IDS DECISION HIERARCHY
+  1. REUSE (≥90% relevance) — use directly
+  2. ADAPT (60-89% relevance) — modify if adaptability ≥0.6
+  3. CREATE (no match) — with full justification &amp; registry entry
+
+TOKEN BUDGET (per task type)
+  Simple (typo, config) → 200 tokens
+  Medium (bug fix, small feature) → 1,000 tokens
+  Complex (new feature, refactor) → 2,500 tokens
+
+
+🎓 AGENT DEPENDENCY TREE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@aiox-master (Orion)
+├─ Framework Governance &amp; Constitution Enforcement
+│
+├─ @pm (Morgan) — Epic/PRD/Spec Leadership
+│  └─ @sm (River) — Story Creation
+│     └─ @po (Pax) — Story Validation (10-point checklist)
+│        └─ @dev (Dex) — Implementation
+│           ├─ @architect (Aria) — Architecture Decisions
+│           │  └─ @data-engineer (Dara) — Schema/RLS/Migrations
+│           └─ @ux-designer (Uma) — UI/UX Design
+│
+├─ @qa (Quinn) — Quality Gates &amp; Verdicts
+│  └─ @dev (Dex) — Fix Loop (if FAIL)
+│
+├─ @devops (Gage) — Git Push / Release Management
+│  └─ @dev (Dex) — Via explicit delegation
+│
+├─ @analyst (Alex) — Research &amp; Elicitation
+│  └─ @pm (Morgan) — PRD/Epic Context
+│
+└─ @squad-creator (Scout) — Squad Orchestration
+   └─ All agents (squad-level delegation)
+
+
+📍 FILE PATHS — CRITICAL LOCATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Framework Core:
+  .aiox-core/constitution.md              — 6 inegotiable principles
+  .aiox-core/core/                        — L1 protected core
+  .aiox-core/development/agents/          — 12 agent definitions
+  .aiox-core/development/tasks/           — 150+ executable tasks
+  .aiox-core/development/workflows/       — Primary workflow definitions
+  .aiox-core/development/checklists/      — Validation checklists
+
+Project Rules:
+  .claude/rules/                          — 8 contextual rules
+  .claude/rules/agent-authority.md        — Exclusive operations matrix
+  .claude/rules/agent-handoff.md          — Context compaction
+  .claude/rules/workflow-execution.md     — 4 workflows detailed
+  .claude/rules/story-lifecycle.md        — Status transitions
+
+Project Config:
+  .claude/settings.json                   — Deny/allow rules
+  .aiox-core/core-config.yaml             — Framework configuration
+  core-config.yaml                        — Project overrides
+
+Project Runtime:
+  docs/stories/                           — Story files (L4)
+  docs/stories/epics/                     — Epic structures
+  packages/                               — Code packages
+  squads/                                 — Squad definitions
+
+
+✅ FINAL CHECKLIST — FRAMEWORK COMPLIANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before executing ANYTHING:
+  ☐ Is this a CLI-first operation? (Article I)
+  ☐ Is the right agent doing it? (Article II)
+  ☐ Does it trace to a story? (Article III)
+  ☐ Does it trace to requirements? (Article IV)
+  ☐ Will it pass quality gates? (Article V)
+  ☐ Are memories loaded? (Article VI)
+
+Before committing:
+  ☐ Story status updated correctly?
+  ☐ Change Log entries made?
+  ☐ CodeRabbit CRITICAL/HIGH resolved?
+  ☐ All AC checkboxes checked?
+  ☐ File List updated?
+
+Before pushing:
+  ☐ QA verdict is PASS/CONCERNS/WAIVED?
+  ☐ Only @devops pushing?
+  ☐ Commit message follows conventional format?
+  ☐ PR references story ID?
+
+
+🎓 QUICK REFERENCE — COMMON COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EPIC &amp; STORY WORKFLOWS
+  @pm *create-epic {name}           — Create epic
+  @pm *execute-epic {epicId}        — Execute epic plan
+  @sm *draft {epicContext}          — Create story from epic
+  @po *validate-story-draft {id}    — Validate 10-point checklist
+  @po *go {storyId}                 — Mark Ready (after validation)
+
+DEVELOPMENT
+  @dev *develop {storyId}           — Implement story (YOLO/Interactive/Pre-Flight)
+  @dev *improve-code-quality        — Suggest refactorings
+  @dev *optimize-performance        — Performance improvements
+
+QUALITY &amp; TESTING
+  @qa *qa-gate {storyId}            — Run 7 quality checks
+  @qa *qa-loop {storyId}            — Start iterative review-fix loop
+  @qa *stop-qa-loop                 — Pause current loop
+
+GIT &amp; DEPLOYMENT
+  @devops *push {storyId}           — Pre-push quality gate + git push + gh pr
+  @devops *pre-push-quality-gate    — Run quality checks before push
+  @devops *create-release {ver}     — Create release &amp; tag
+
+FRAMEWORK
+  @aiox-master *help                — Framework help
+  @aiox-master *create-task         — Create new task definition
+  @aiox-master *create-workflow     — Create new workflow
+  *exit                             — Exit current agent mode
+
+
+================================================================================
+Generated by AIOX Map Skill | Synkra AIOX Framework Cartographer
+Pedro Leal | KAIROS_CEREBRO v2.1 | 2026-06-03
+For full documentation: .aiox-core/constitution.md
+================================================================================

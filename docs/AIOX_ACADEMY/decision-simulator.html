@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Decision Simulator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 2em; margin-bottom: 10px; }
+        .simulator {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .question {
+            margin-bottom: 30px;
+            display: none;
+        }
+        .question.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .q-title { color: #818cf8; font-size: 1.3em; margin-bottom: 20px; font-weight: 600; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option {
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover { background: rgba(99, 102, 241, 0.1); border-color: #6366f1; }
+        .option-text { font-weight: 500; }
+        .option-desc { font-size: 0.85em; color: #cbd5e1; margin-top: 6px; }
+        .result {
+            display: none;
+            padding: 30px;
+            background: rgba(10, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .result.active { display: block; }
+        .result-title { color: #10b981; font-size: 1.5em; margin-bottom: 15px; font-weight: 600; }
+        .result-desc { color: #e2e8f0; margin-bottom: 20px; line-height: 1.8; }
+        .result-next { color: #94a3b8; font-size: 0.9em; margin-top: 15px; }
+        .nav-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-reset { background: #6366f1; color: white; }
+        .btn-reset:hover { background: #4f46e5; }
+        .btn-restart { background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid #818cf8; }
+        .btn-restart:hover { background: rgba(99, 102, 241, 0.3); }
+        .progress { text-align: center; color: #94a3b8; font-size: 0.9em; margin-top: 20px; }
+        footer { text-align: center; padding: 20px; opacity: 0.7; font-size: 0.85em; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 AIOX Decision Simulator</h1>
+            <p>Play through real AIOX scenarios and master workflow decisions</p>
+        </header>
+
+        <div class="simulator">
+            <!-- Q1 -->
+            <div class="question active" id="q1">
+                <div class="q-title">🎯 Scenario 1: New Assignment</div>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">You're assigned a new task. What do you need to know first?</p>
+                <div class="options">
+                    <div class="option" onclick="answer('q1', 'story')">
+                        <div class="option-text">✓ Is there already a story for this?</div>
+                        <div class="option-desc">Check if a story exists with ACs in docs/stories/</div>
+                    </div>
+                    <div class="option" onclick="answer('q1', 'start')">
+                        <div class="option-text">✗ Just start coding</div>
+                        <div class="option-desc">Jump directly into implementation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question" id="q2">
+                <div class="q-title">📋 Story Status Check</div>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">The story exists. What's its status?</p>
+                <div class="options">
+                    <div class="option" onclick="answer('q2', 'validated')">
+                        <div class="option-text">✓ Story is VALIDATED by @po</div>
+                        <div class="option-desc">Ready to implement (proceed to @dev)</div>
+                    </div>
+                    <div class="option" onclick="answer('q2', 'draft')">
+                        <div class="option-text">⚠️ Story is in DRAFT</div>
+                        <div class="option-desc">Wait for @po validation first</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question" id="q3">
+                <div class="q-title">💻 Implementation Phase</div>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">You're ready to code. What's your workflow?</p>
+                <div class="options">
+                    <div class="option" onclick="answer('q3', 'correct')">
+                        <div class="option-text">✓ Create branch → Implement ACs → Self-critique → Commit → Ask @qa</div>
+                        <div class="option-desc">Follow Story Development Cycle phase 3</div>
+                    </div>
+                    <div class="option" onclick="answer('q3', 'wrong')">
+                        <div class="option-text">✗ Implement → git push directly to main</div>
+                        <div class="option-desc">Skip QA and devops gates</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question" id="q4">
+                <div class="q-title">🧪 QA Review</div>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">@qa says "CONCERNS - fix these issues"</p>
+                <div class="options">
+                    <div class="option" onclick="answer('q4', 'correct')">
+                        <div class="option-text">✓ Fix issues → Commit again → Ask @qa re-review</div>
+                        <div class="option-desc">Follow QA Loop (max 5 iterations)</div>
+                    </div>
+                    <div class="option" onclick="answer('q4', 'escalate')">
+                        <div class="option-text">⚠️ Escalate immediately to @aiox-master</div>
+                        <div class="option-desc">Only after max iterations reached</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question" id="q5">
+                <div class="q-title">🚀 Ready to Ship</div>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">@qa approved! Now what?</p>
+                <div class="options">
+                    <div class="option" onclick="answer('q5', 'correct')">
+                        <div class="option-text">✓ Ask @devops to git push to main</div>
+                        <div class="option-desc">@devops is the ONLY one allowed to push</div>
+                    </div>
+                    <div class="option" onclick="answer('q5', 'wrong')">
+                        <div class="option-text">✗ git push yourself</div>
+                        <div class="option-desc">You don't have authority (Art. II)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="result" id="result">
+                <div class="result-title" id="resultTitle">🎓 Simulation Complete!</div>
+                <div class="result-desc" id="resultDesc"></div>
+                <div class="result-next" id="resultNext"></div>
+                <div class="nav-btns">
+                    <button class="btn-restart" onclick="restart()">↻ Restart Scenario</button>
+                </div>
+            </div>
+
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <footer>
+            <p>🎮 AIOX Decision Simulator — Learn by doing</p>
+            <p>Master workflow decisions through interactive scenarios</p>
+        </footer>
+    </div>
+
+    <script>
+        let responses = {};
+        let currentQ = 1;
+
+        function answer(questionId, choice) {
+            responses[questionId] = choice;
+
+            if (questionId === 'q1' && choice === 'start') {
+                showResult('⚠️ Workflow Violation!',
+                    'Story-Driven Development (Art. III) requires EVERY feature to have a story with acceptance criteria.\n\nYou must check for an existing story FIRST. If none exists, ask @sm to create one.',
+                    'Start over and choose the correct path.');
+                return;
+            }
+
+            if (questionId === 'q2' && choice === 'draft') {
+                showResult('⚠️ Authority Violation!',
+                    'Story must be VALIDATED by @po before implementation (10-point gate).\n\nWait for @po to validate. Your job is @dev, not @po.',
+                    'Start over and make the right choice.');
+                return;
+            }
+
+            if (questionId === 'q3' && choice === 'wrong') {
+                showResult('🔴 CRITICAL VIOLATION!',
+                    'You CANNOT git push directly. @devops is the ONLY agent authorized to push (Art. II — Agent Authority).\n\nAlso, you skipped the @qa gate, violating Quality First (Art. V).',
+                    'This would break the entire AIOX system. Start over!');
+                return;
+            }
+
+            if (questionId === 'q4' && choice === 'escalate') {
+                showResult('⚠️ Premature Escalation',
+                    'You can fix and re-review up to 5 iterations before escalating.\n\nOnly escalate AFTER max iterations reached, or if @qa reports a BLOCKED verdict.',
+                    'Try again with the correct approach.');
+                return;
+            }
+
+            if (questionId === 'q5' && choice === 'wrong') {
+                showResult('🔴 Authority Violation!',
+                    'You are NOT authorized to git push. @devops (Gage) is the EXCLUSIVE agent (Art. II).\n\nDelegating is the ONLY option.',
+                    'This is a hard boundary. You cannot exceed your scope.');
+                return;
+            }
+
+            // If all correct
+            if (questionId === 'q5' && choice === 'correct') {
+                showResult('🎓 PERFECT! You Mastered the Workflow!',
+                    'You followed Story Development Cycle perfectly:\n✓ Checked for story\n✓ Waited for validation\n✓ Implemented with self-critique\n✓ Fixed issues in QA loop\n✓ Delegated push to @devops\n\nYou are now AIOX-proficient!',
+                    'You can handle real production scenarios confidently.');
+                return;
+            }
+
+            // Move to next question
+            currentQ++;
+            showQuestion(currentQ);
+        }
+
+        function showQuestion(num) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.getElementById('q' + num).classList.add('active');
+            document.getElementById('progress').textContent = `Question ${num} of 5`;
+        }
+
+        function showResult(title, desc, next) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.getElementById('result').classList.add('active');
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultDesc').textContent = desc;
+            document.getElementById('resultNext').textContent = '→ ' + next;
+            document.getElementById('progress').textContent = '';
+        }
+
+        function restart() {
+            responses = {};
+            currentQ = 1;
+            document.getElementById('result').classList.remove('active');
+            document.getElementById('progress').textContent = 'Question 1 of 5';
+            showQuestion(1);
+        }
+
+        document.getElementById('progress').textContent = 'Question 1 of 5';
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOX Academy — Master Course</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        h1 { color: #818cf8; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #cbd5e1; font-size: 1.1em; opacity: 0.9; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-val { color: #6366f1; font-size: 1.5em; font-weight: bold; }
+        .stat-label { font-size: 0.9em; color: #94a3b8; }
+
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .phase-btn {
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .phase-btn:hover { background: rgba(99, 102, 241, 0.2); border-color: #6366f1; }
+        .phase-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .phase-num { font-size: 2em; font-weight: bold; color: #818cf8; }
+        .phase-title { font-weight: 600; margin-top: 8px; }
+        .phase-time { font-size: 0.9em; opacity: 0.7; }
+
+        .content {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        .content.active { display: block; }
+        .content h2 { color: #818cf8; margin-bottom: 20px; font-size: 1.8em; }
+        .lesson { margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 8px; }
+        .lesson h3 { color: #10b981; margin-bottom: 10px; }
+        .lesson p { margin-bottom: 10px; }
+        .lesson ul { margin-left: 20px; margin-bottom: 10px; }
+        .lesson li { margin-bottom: 6px; }
+
+        .quiz { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 20px; border-radius: 8px; margin-top: 20px; }
+        .quiz-title { color: #10b981; font-weight: bold; margin-bottom: 15px; font-size: 1.1em; }
+        .quiz-q { margin-bottom: 15px; padding: 15px; background: rgba(0, 0, 0, 0.3); border-left: 3px solid #6366f1; border-radius: 4px; }
+        .quiz-q h4 { color: #e2e8f0; margin-bottom: 10px; }
+        .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+        .opt { padding: 10px 12px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+        .opt:hover { background: rgba(99, 102, 241, 0.2); }
+        .opt.correct { background: rgba(16, 185, 129, 0.3); border-color: #10b981; color: #86efac; }
+        .opt.wrong { background: rgba(239, 68, 68, 0.3); border-color: #ef4444; color: #fca5a5; }
+
+        .nav { display: flex; gap: 15px; justify-content: space-between; margin-top: 30px; }
+        button { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-prev { background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid #818cf8; }
+        .btn-prev:hover:not(:disabled) { background: rgba(99, 102, 241, 0.3); }
+        .btn-next { background: #6366f1; color: white; }
+        .btn-next:hover:not(:disabled) { background: #4f46e5; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        footer { text-align: center; padding: 20px; border-top: 1px solid rgba(99, 102, 241, 0.2); margin-top: 40px; opacity: 0.7; font-size: 0.9em; }
+
+        @media (max-width: 768px) {
+            .phases { grid-template-columns: repeat(2, 1fr); }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AIOX Academy</h1>
+            <p class="subtitle">Master Synkra AIOX Framework in 4 Structured Phases</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-val">70 min</div>
+                    <div class="stat-label">Duration</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">4</div>
+                    <div class="stat-label">Phases</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">40+</div>
+                    <div class="stat-label">Quiz Q's</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val" id="progress">0%</div>
+                    <div class="stat-label">Complete</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="phases">
+            <button class="phase-btn active" onclick="showPhase(0)">
+                <div class="phase-num">1</div>
+                <div class="phase-title">Foundation</div>
+                <div class="phase-time">10 min</div>
+            </button>
+            <button class="phase-btn" onclick="showPhase(1)">
+                <div class="phase-num">2</div>
+                <div class="phase-title">Mental Maps</div>
+                <div class="phase-time">15 min</div>
+            </button>
+            <button class="phase-btn" onclick="showPhase(2)">
+                <div class="phase-num">3</div>
+                <div class="phase-title">Processing</div>
+                <div class="phase-time">20 min</div>
+            </button>
+            <button class="phase-btn" onclick="showPhase(3)">
+                <div class="phase-num">4</div>
+                <div class="phase-title">Mastery</div>
+                <div class="phase-time">25 min</div>
+            </button>
+        </div>
+
+        <!-- Phase 1 -->
+        <div class="content active" id="phase0">
+            <h2>Phase 1: Foundation</h2>
+
+            <div class="lesson">
+                <h3>What is AIOX?</h3>
+                <p><strong>Synkra AIOX</strong> = AI-Orchestrated System for Full Stack Development</p>
+                <p>A meta-framework orchestrating 13 specialized agents through:</p>
+                <ul>
+                    <li>Non-negotiable principles (6 Constitution articles)</li>
+                    <li>Clear authority boundaries (exclusive operations)</li>
+                    <li>Story-driven workflows (documented everything)</li>
+                    <li>Quality gates (mandatory checkpoints)</li>
+                    <li>Framework boundaries L1-L4 (protection + freedom)</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>The 13 Agents</h3>
+                <p>@dev (Dex), @qa (Quinn), @architect (Aria), @pm (Morgan), @po (Pax), @sm (River), @analyst (Alex), @data-engineer (Dara), @ux-design-expert (Uma), <strong>@devops (Gage — EXCLUSIVE git push)</strong>, @aiox-master (Orion), @squad-creator (Craft), @business-chief (Chief)</p>
+            </div>
+
+            <div class="lesson">
+                <h3>6 Constitution Articles (Inviolable)</h3>
+                <p><strong>I. CLI First</strong> | <strong>II. Agent Authority</strong> | <strong>III. Story-Driven</strong> | <strong>IV. No Invention</strong> | <strong>V. Quality First</strong> | <strong>VI. Absolute Imports</strong></p>
+            </div>
+
+            <div class="quiz">
+                <div class="quiz-title">✓ Quiz</div>
+                <div class="quiz-q">
+                    <h4>Q1: Who can git push?</h4>
+                    <div class="quiz-opts">
+                        <div class="opt" onclick="checkAnswer(this, true)">A) @devops (EXCLUSIVE) ✓</div>
+                        <div class="opt" onclick="checkAnswer(this, false)">B) @dev</div>
+                        <div class="opt" onclick="checkAnswer(this, false)">C) @pm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="content" id="phase1">
+            <h2>Phase 2: Mental Maps</h2>
+
+            <div class="lesson">
+                <h3>8 DNA Patterns</h3>
+                <ul>
+                    <li>Agent Specialization (exclusive ops)</li>
+                    <li>Story-Driven Development (stories flow code)</li>
+                    <li>Quality Gates Non-Negotiable (7 + 10 point checks)</li>
+                    <li>Authority Hierarchy (clear delegation)</li>
+                    <li>Framework Layer Immutability (L1-L2 protected, L3-L4 mutable)</li>
+                    <li>No Invention (Article IV)</li>
+                    <li>IDS Principle (REUSE > ADAPT > CREATE)</li>
+                    <li>Task-First Execution (task chains, not agent chains)</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>Authority Boundaries</h3>
+                <p>Each agent has exclusive operations. Boundaries are inviolable. If crossed → escalate to @aiox-master.</p>
+            </div>
+
+            <div class="quiz">
+                <div class="quiz-title">✓ Quiz</div>
+                <div class="quiz-q">
+                    <h4>Q2: Can two agents share story responsibility?</h4>
+                    <div class="quiz-opts">
+                        <div class="opt" onclick="checkAnswer(this, false)">A) Yes</div>
+                        <div class="opt" onclick="checkAnswer(this, true)">B) No, one agent per phase ✓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="content" id="phase2">
+            <h2>Phase 3: Processing Maps</h2>
+
+            <div class="lesson">
+                <h3>Story Development Cycle (5 Phases)</h3>
+                <ul>
+                    <li><strong>1. Create (@sm)</strong> → story.md (Draft)</li>
+                    <li><strong>2. Validate (@po)</strong> → 10-point gate + verdict</li>
+                    <li><strong>3. Implement (@dev)</strong> → Code + File List</li>
+                    <li><strong>4. QA Gate (@qa)</strong> → 7-point check: PASS/CONCERNS/FAIL</li>
+                    <li><strong>5. Deploy (@devops)</strong> → git push to main</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>Quality Gates</h3>
+                <p><strong>@po's 10-Point:</strong> AC clarity, scope fit, AC count, dependencies, labels, single concern, estimation, DoD, risk, context</p>
+                <p><strong>@qa's 7-Point:</strong> ACs passing, no regressions, code quality, performance, error handling, docs, security</p>
+            </div>
+
+            <div class="quiz">
+                <div class="quiz-title">✓ Quiz</div>
+                <div class="quiz-q">
+                    <h4>Q3: SDC has how many phases?</h4>
+                    <div class="quiz-opts">
+                        <div class="opt" onclick="checkAnswer(this, false)">A) 3</div>
+                        <div class="opt" onclick="checkAnswer(this, false)">B) 4</div>
+                        <div class="opt" onclick="checkAnswer(this, true)">C) 5 ✓</div>
+                        <div class="opt" onclick="checkAnswer(this, false)">D) 6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="content" id="phase3">
+            <h2>Phase 4: Mastery</h2>
+
+            <div class="lesson">
+                <h3>Real-World Scenarios</h3>
+                <p><strong>Scenario 1:</strong> You finish code → Commit locally → Ask @qa review → If PASS: ask @devops push</p>
+                <p><strong>Scenario 2:</strong> Feature not in epic → Ask @pm to add to epic, then create story</p>
+                <p><strong>Scenario 3:</strong> Complex feature → Use Spec Pipeline (6 phases) FIRST, then SDC</p>
+                <p><strong>Scenario 4:</strong> @devops unavailable → Escalate to @aiox-master</p>
+            </div>
+
+            <div class="lesson">
+                <h3>Authority Violations</h3>
+                <p>If you cross boundary → System blocks it → Escalate. Examples: @dev can't push, @sm can't validate, @po can't implement, @dev can't approve.</p>
+            </div>
+
+            <div class="lesson">
+                <h3>🎓 Certificate of Completion</h3>
+                <p><strong>Congratulations!</strong> You are now AIOX-proficient and ready for production use.</p>
+                <p>Knowledge Areas: Foundation · Mental Models · Workflows · Real-World Mastery</p>
+            </div>
+
+            <div class="quiz">
+                <div class="quiz-title">✓ Final Quiz</div>
+                <div class="quiz-q">
+                    <h4>Q4: You finish code. What's next?</h4>
+                    <div class="quiz-opts">
+                        <div class="opt" onclick="checkAnswer(this, false)">A) git push directly</div>
+                        <div class="opt" onclick="checkAnswer(this, true)">B) Ask @qa review, then @devops push ✓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav">
+            <button class="btn-prev" id="prevBtn" onclick="prevPhase()" disabled>← Previous</button>
+            <button class="btn-next" id="nextBtn" onclick="nextPhase()">Next →</button>
+        </div>
+
+        <footer>
+            <p>🎓 AIOX Academy — Complete framework mastery course</p>
+            <p>Crafted by Anvil · AIOX v2.1 · Learn. Master. Execute. Ship.</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentPhase = 0;
+
+        function showPhase(n) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+
+            currentPhase = n;
+            document.getElementById('phase' + n).classList.add('active');
+            document.querySelectorAll('.phase-btn')[n].classList.add('active');
+
+            document.getElementById('progress').textContent = Math.round(((n + 1) / 4) * 100) + '%';
+            document.getElementById('prevBtn').disabled = (n === 0);
+            document.getElementById('nextBtn').disabled = (n === 3);
+        }
+
+        function nextPhase() {
+            if (currentPhase < 3) showPhase(currentPhase + 1);
+        }
+
+        function prevPhase() {
+            if (currentPhase > 0) showPhase(currentPhase - 1);
+        }
+
+        function checkAnswer(el, correct) {
+            el.parentElement.querySelectorAll('.opt').forEach(o => {
+                o.classList.remove('correct', 'wrong');
+            });
+            el.classList.add(correct ? 'correct' : 'wrong');
+            el.parentElement.querySelectorAll('.opt').forEach(o => {
+                if (o.textContent.includes('✓')) o.classList.add('correct');
+            });
+        }
+    </script>
+</body>
+</html>
