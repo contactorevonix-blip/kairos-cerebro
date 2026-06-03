@@ -1,0 +1,60 @@
+workflow:
+  id: wf-map-squad
+  name: "Map Squad — Mapa completo de 1 squad"
+  version: "1.0.0"
+  orchestrator: cartographer-chief
+  trigger: "*map-squad {nome}"
+  duration_estimate: "15-40 min"
+
+phases:
+  - id: phase-0
+    name: Discovery
+    agent: cartographer-chief
+    steps:
+      - "Verificar que squads/{nome}/ existe"
+      - "Ler squad.yaml: listar agentes, tiers, workflows"
+      - "Identificar processos do squad a mapear"
+    veto_conditions:
+      - "STOP se squad não existe em squads/"
+      - "STOP se squad.yaml é inválido"
+    output: "Lista de mapas a gerar para este squad"
+
+  - id: phase-1
+    name: Process Maps
+    agent: flow-architect
+    steps:
+      - "Para cada workflow em squads/{nome}/workflows/: executar wf-map-process"
+      - "Mapear o fluxo principal do squad (creation pipeline se aplicável)"
+    veto_conditions:
+      - "STOP se nenhum workflow encontrado"
+    output: "HTMLs de processos do squad"
+
+  - id: phase-2
+    name: Agent Maps
+    agent: agent-cartographer
+    steps:
+      - "Gerar swim-lane HTML para os agentes do squad"
+      - "Incluir: tiers, handoffs, operações exclusivas"
+      - "Guardar em docs/process-maps/agents/{squad}-swim-lanes.html"
+    veto_conditions:
+      - "STOP se squad.yaml não tem tiers definidos"
+    output: "docs/process-maps/agents/{squad}-swim-lanes.html"
+
+  - id: phase-3
+    name: Structure Map
+    agent: structure-mapper
+    steps:
+      - "Gerar mapa de pastas do squad"
+      - "Aplicar código de cores L4 (todo o squad é L4)"
+      - "Anotar propósito de cada pasta"
+    output: "docs/process-maps/structure/{squad}-anatomy.html"
+
+  - id: phase-4
+    name: Validate All
+    agent: map-validator
+    steps:
+      - "Validar TODOS os mapas gerados (score >= 90% cada)"
+      - "Reportar lista completa com scores"
+    veto_conditions:
+      - "STOP se qualquer mapa tem score < 90%"
+    output: "Relatório de validação + scores"

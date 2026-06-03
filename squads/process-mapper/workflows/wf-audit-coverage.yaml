@@ -1,0 +1,38 @@
+workflow:
+  id: wf-audit-coverage
+  name: "Audit Coverage — Estado actual dos mapas AIOX"
+  version: "1.0.0"
+  orchestrator: cartographer-chief
+  trigger: "*audit-coverage"
+  duration_estimate: "1-3 min"
+
+phases:
+  - id: phase-0
+    name: Scan
+    agent: process-auditor
+    steps:
+      - "Executar: node scripts/coverage-audit.js"
+      - "Inventariar: .aiox-core/development/tasks/ · .claude/rules/ · squads/"
+      - "Comparar com: docs/process-maps/"
+    veto_conditions:
+      - "STOP se coverage-audit.js não existe"
+      - "NUNCA inventar scores — apenas dados do script"
+    output: "coverage-report.md com scores D1-D5"
+
+  - id: phase-1
+    name: Debt Check
+    agent: evolution-tracker
+    steps:
+      - "Verificar process debt: source file mais recente que HTML?"
+      - "Listar mapas desactualizados"
+      - "Calcular: quanto tempo desde última actualização de cada mapa"
+    output: "Lista de process debt (pode ser 0)"
+
+  - id: phase-2
+    name: Recommend
+    agent: cartographer-chief
+    steps:
+      - "Ordenar gaps por prioridade: D1 → D2 → D3 → D4 → D5"
+      - "Sugerir próximas 3-5 acções com comandos exactos"
+      - "Ex: '@cartographer-chief *map-process agent-authority'"
+    output: "Lista de next actions com comandos"

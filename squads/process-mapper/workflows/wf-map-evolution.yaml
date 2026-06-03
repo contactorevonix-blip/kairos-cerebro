@@ -1,0 +1,48 @@
+workflow:
+  id: wf-map-evolution
+  name: "Map Evolution — Changelog visual do AIOX"
+  version: "1.0.0"
+  orchestrator: cartographer-chief
+  trigger: "*map-evolution"
+  duration_estimate: "2-5 min"
+
+phases:
+  - id: phase-0
+    name: Git Log
+    agent: evolution-tracker
+    steps:
+      - "Executar: node scripts/evolution-tracker.js"
+      - "Ler git log últimos 90 dias em ficheiros de processo"
+      - "Classificar: feature / fix / chore / docs"
+    veto_conditions:
+      - "STOP se git não disponível"
+      - "NUNCA inventar eventos — apenas git log real"
+    output: "Lista de eventos com hash, data, tipo"
+
+  - id: phase-1
+    name: Generate Timeline
+    agent: evolution-tracker
+    steps:
+      - "Gerar docs/process-maps/evolution/timeline.html"
+      - "Eventos ordenados cronologicamente"
+      - "Links para commits quando possível"
+    output: "docs/process-maps/evolution/timeline.html"
+
+  - id: phase-2
+    name: Process Debt Report
+    agent: evolution-tracker
+    steps:
+      - "Comparar source files vs HTMLs: qual é mais recente?"
+      - "Calcular process debt score"
+      - "Gerar docs/process-maps/evolution/process-debt.md"
+    veto_conditions:
+      - "STOP se process-registry.yaml não existe (PM-4.1 obrigatório)"
+    output: "docs/process-maps/evolution/process-debt.md"
+
+  - id: phase-3
+    name: Validate
+    agent: map-validator
+    steps:
+      - "Verificar timeline.html tem eventos reais (não placeholder)"
+      - "Verificar process-debt.md tem score numérico"
+    output: "PASS / FAIL"

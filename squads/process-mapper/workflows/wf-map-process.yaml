@@ -1,0 +1,62 @@
+workflow:
+  id: wf-map-process
+  name: "Map Process — Gerar fluxograma de 1 processo"
+  version: "1.0.0"
+  orchestrator: cartographer-chief
+  trigger: "*map-process {nome}"
+  duration_estimate: "2-10 min"
+
+phases:
+  - id: phase-0
+    name: Check Existing
+    agent: cartographer-chief
+    steps:
+      - "Verificar se docs/process-maps/{nome}.html já existe"
+      - "Se existe: verificar se está desactualizado (source mais recente)"
+      - "Se actualizado: reportar ALREADY_MAPPED, não re-gerar"
+    veto_conditions:
+      - "STOP se nome não corresponde a processo AIOX real (No Invention)"
+    output: "Decisão: GENERATE ou ALREADY_MAPPED"
+
+  - id: phase-1
+    name: Load Source
+    agent: flow-architect
+    steps:
+      - "Verificar squads/process-mapper/data/processes/{nome}.json"
+      - "Se não existe: ler ficheiro fonte (ex: .claude/rules/workflow-execution.md)"
+      - "Extrair: fases, agentes, quality gates, delivery"
+    veto_conditions:
+      - "STOP se ficheiro fonte não existe"
+      - "STOP se processo tem < 2 fases"
+    output: "config object com processo estruturado"
+
+  - id: phase-2
+    name: Generate
+    agent: flow-architect
+    steps:
+      - "Executar: node scripts/generate-process-map.js --config {json} --output docs/process-maps/{nome}.html"
+      - "Verificar: HTML gerado com sucesso"
+      - "Verificar: SVG gerado em docs/process-maps/figma/{nome}.svg"
+    veto_conditions:
+      - "STOP se HTML não foi gerado"
+      - "STOP se HTML < 1000 bytes (provavelmente vazio)"
+    output: "docs/process-maps/{nome}.html + figma/{nome}.svg"
+
+  - id: phase-3
+    name: Validate
+    agent: map-validator
+    steps:
+      - "Verificar que HTML tem fases + quality gates"
+      - "Calcular score (elementos rastreáveis / total)"
+      - "PASS se score >= 90%, FAIL com lista específica"
+    veto_conditions:
+      - "STOP se score < 90% sem lista de issues"
+    output: "PASS / FAIL + score"
+
+  - id: phase-4
+    name: Register
+    agent: cartographer-chief
+    steps:
+      - "Executar coverage-audit.js para actualizar coverage-report.md"
+      - "Confirmar que {nome} aparece como MAPPED no report"
+    output: "coverage-report.md actualizado"
