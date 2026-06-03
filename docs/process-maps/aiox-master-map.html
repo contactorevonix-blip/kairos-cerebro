@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIOX Master Process Map</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#080B12;color:#E8EAF0;padding:32px 20px;min-height:100vh}
+h1{text-align:center;font-size:22px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,#A78BFA,#38BDF8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.subtitle{text-align:center;font-size:12px;color:#6B7280;margin-bottom:36px}
+.master{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+
+/* ── ENTRY ── */
+.entry{background:rgba(99,102,241,.12);border:2px solid #6366F1;border-radius:12px;padding:18px 24px;text-align:center;margin-bottom:12px}
+.entry-label{font-size:10px;font-weight:700;letter-spacing:.14em;color:#818CF8;margin-bottom:6px;text-transform:uppercase}
+.entry-title{font-size:17px;font-weight:800;color:#C7D2FE}
+.entry-sub{font-size:11px;color:#6B7280;margin-top:4px}
+
+/* ── TRACK SELECTOR ── */
+.track-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.track{border-radius:10px;border:1px solid;padding:14px 16px;text-align:center}
+.track-quick{border-color:#22C55E;background:rgba(34,197,94,.08)}
+.track-std{border-color:#0EA5E9;background:rgba(14,165,233,.08)}
+.track-ent{border-color:#7C3AED;background:rgba(124,58,237,.08)}
+.track-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.track-quick .track-label{color:#4ADE80}
+.track-std .track-label{color:#38BDF8}
+.track-ent .track-label{color:#A78BFA}
+.track-title{font-size:13px;font-weight:800;color:#E8EAF0;margin-bottom:4px}
+.track-detail{font-size:10px;color:#9CA3AF}
+
+/* ── CONNECTOR ── */
+.conn{width:2px;height:20px;background:rgba(255,255,255,.12);margin:0 auto}
+.conn-wide{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.15),transparent);margin:8px 0}
+
+/* ── SECTION ── */
+.section-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;text-align:center;margin:8px 0 10px;padding:0 4px;display:flex;align-items:center;gap:8px}
+.section-title::before,.section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+/* ── PIPELINE STEPS ── */
+.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}
+.steps-row-4{grid-template-columns:repeat(4,1fr)}
+.step-box{border-radius:8px;border:1px solid;padding:10px 10px;text-align:center}
+.s-mapper{border-color:#7C3AED;background:rgba(124,58,237,.1)}
+.s-arch{border-color:#0EA5E9;background:rgba(14,165,233,.1)}
+.s-auto{border-color:#F59E0B;background:rgba(245,158,11,.1)}
+.s-qa{border-color:#10B981;background:rgba(16,185,129,.1)}
+.s-devops{border-color:#F97316;background:rgba(249,115,22,.1)}
+.step-agent{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;opacity:.8}
+.s-mapper .step-agent{color:#A78BFA}
+.s-arch .step-agent{color:#38BDF8}
+.s-auto .step-agent{color:#FCD34D}
+.s-qa .step-agent{color:#34D399}
+.s-devops .step-agent{color:#FB923C}
+.step-name{font-size:11px;font-weight:700;color:#E8EAF0;margin-bottom:3px}
+.step-task{font-size:9px;color:#6B7280;font-family:'Courier New',monospace}
+
+/* ── GATE ── */
+.gate-row{display:flex;justify-content:center;margin:8px 0}
+.gate{border-radius:8px;border:2px solid;padding:12px 20px;display:flex;align-items:center;gap:14px;min-width:400px}
+.gate-icon{font-size:16px}
+.gate-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.gate-question{font-size:13px;font-weight:800;color:#E8EAF0}
+.gate-paths{display:flex;gap:8px;margin-left:auto;flex-shrink:0}
+.gp{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px}
+.gp-no{background:rgba(239,68,68,.15);color:#F87171;border:1px solid rgba(239,68,68,.25)}
+.gp-yes{background:rgba(16,185,129,.15);color:#34D399;border:1px solid rgba(16,185,129,.25)}
+
+/* ── AGENTS STRIP ── */
+.agents-strip{display:flex;gap:4px;flex-wrap:wrap;margin:12px 0;justify-content:center}
+.agent-chip{font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid}
+
+/* ── LAYERS ── */
+.layers-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+.layer-box{border-radius:7px;border:1px solid;padding:8px 10px;text-align:center}
+.l-id{font-size:10px;font-weight:900;letter-spacing:.08em;display:block;margin-bottom:2px}
+.l-rule{font-size:9px;color:#9CA3AF}
+
+/* ── DELIVERY ── */
+.delivery{border-radius:12px;border:2px solid #10B981;background:rgba(16,185,129,.1);padding:20px 24px;text-align:center;margin-top:12px}
+.delivery-title{font-size:20px;font-weight:900;color:#34D399;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}
+.chip{font-size:10px;padding:3px 10px;border-radius:16px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#6EE7B7}
+
+/* ── MAP INDEX ── */
+.map-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin:12px 0}
+.map-item{background:#0F1117;border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:8px 10px;text-decoration:none;color:inherit;transition:border-color .2s}
+.map-item:hover{border-color:#A78BFA}
+.map-item-name{font-size:11px;font-weight:700;color:#C4B5FD;margin-bottom:2px}
+.map-item-type{font-size:9px;color:#6B7280;text-transform:uppercase;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<h1>AIOX Master Process Map</h1>
+<p class="subtitle">Todos os processos, agentes, camadas e fluxos numa única visão · 100% baseado em ficheiros reais</p>
+
+<div class="master">
+
+  <!-- ── ENTRY POINT ── -->
+  <div class="entry">
+    <div class="entry-label">Ponto de Entrada</div>
+    <div class="entry-title">Ideia / Requisito / Bug / Epic</div>
+    <div class="entry-sub">Toda a acção começa aqui — avaliar o track antes de agir</div>
+  </div>
+
+  <div class="conn"></div>
+
+  <!-- ── PLANNING TRACKS ── -->
+  <div class="section-title">Planning Tracks (fonte: planning-tracks.md)</div>
+  <div class="track-row">
+    <div class="track track-quick">
+      <div class="track-label">Track A</div>
+      <div class="track-title">Quick Flow</div>
+      <div class="track-detail">&lt; 5 stories · só @dev<br>Bug fix / config / &lt; 2h</div>
+    </div>
+    <div class="track track-std">
+      <div class="track-label">Track B</div>
+      <div class="track-title">Standard</div>
+      <div class="track-detail">5-15 stories · SDC completo<br>Feature nova / melhoria</div>
+    </div>
+    <div class="track track-ent">
+      <div class="track-label">Track C</div>
+      <div class="track-title">Enterprise</div>
+      <div class="track-detail">&gt; 15 stories · PRD + Spec + SDC<br>Epic / produto / squad novo</div>
+    </div>
+  </div>
+
+  <div class="conn-wide"></div>
+
+  <!-- ── SPEC PIPELINE (Enterprise only) ── -->
+  <div class="section-title">Spec Pipeline — só Enterprise (fonte: workflow-execution.md)</div>
+  <div class="steps-row" style="grid-template-columns:repeat(6,1fr)">
+    <div class="step-box s-mapper">
+      <div class="step-agent">@pm</div>
+      <div class="step-name">F1 GATHER</div>
+      <div class="step-task">requirements.json</div>
+    </div>
+    <div class="step-box s-arch">
+      <div class="step-agent">@architect</div>
+      <div class="step-name">F2 ASSESS</div>
+      <div class="step-task">complexity.json</div>
+    </div>
+    <div class="step-box s-auto">
+      <div class="step-agent">@analyst</div>
+      <div class="step-name">F3 RESEARCH</div>
+      <div class="step-task">research.json</div>
+    </div>
+    <div class="step-box s-mapper">
+      <div class="step-agent">@pm</div>
+      <div class="step-name">F4 SPEC</div>
+      <div class="step-task">spec.md</div>
+    </div>
+    <div class="step-box s-qa">
+      <div class="step-agent">@qa</div>
+      <div class="step-name">F5 CRITIQUE</div>
+      <div class="step-task">critique.json</div>
+    </div>
+    <div class="step-box s-arch">
+      <div class="step-agent">@architect</div>
+      <div class="step-name">F6 PLAN</div>
+      <div class="step-task">implementation.yaml</div>
+    </div>
+  </div>
+
+  <div class="gate-row">
+    <div class="gate" style="border-color:#7C3AED">
+      <span class="gate-icon">🔍</span>
+      <div><div class="gate-label" style="color:#A78BFA">Critique Gate</div><div class="gate-question">Score médio ≥ 4.0?</div></div>
+      <div class="gate-paths">
+        <span class="gp gp-no">NEEDS_REVISION → F5b</span>
+        <span class="gp gp-yes">APPROVED → F6</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="conn-wide"></div>
+
+  <!-- ── SDC ── -->
+  <div class="section-title">Story Development Cycle — SDC (fonte: workflow-execution.md + story-lifecycle.md)</div>
+  <div class="steps-row steps-row-4">
+    <div class="step-box s-mapper">
+      <div class="step-agent">@sm (River)</div>
+      <div class="step-name">Fase 1 · CREATE</div>
+      <div class="step-task">create-next-story.md</div>
+    </div>
+    <div class="step-box s-arch">
+      <div class="step-agent">@po (Pax)</div>
+      <div class="step-name">Fase 2 · VALIDATE</div>
+      <div class="step-task">validate-next-story.md</div>
+    </div>
+    <div class="step-box s-auto">
+      <div class="step-agent">@dev (Dex)</div>
+      <div class="step-name">Fase 3 · IMPLEMENT</div>
+      <div class="step-task">dev-develop-story.md</div>
+    </div>
+    <div class="step-box s-qa">
+      <div class="step-agent">@qa (Quinn)</div>
+      <div class="step-name">Fase 4 · QA GATE</div>
+      <div class="step-task">qa-gate.md · 7 checks</div>
+    </div>
+  </div>
+
+  <!-- Story Status -->
+  <div style="display:flex;justify-content:center;gap:6px;margin:8px 0;font-size:10px;color:#6B7280;flex-wrap:wrap">
+    <span style="color:#A78BFA">Draft</span>→<span style="color:#38BDF8">Ready</span>→<span style="color:#FCD34D">InProgress</span>→<span style="color:#FB923C">InReview</span>→<span style="color:#34D399">Done</span>
+    <span style="opacity:.4">·</span>
+    <span>@sm cria · @po valida · @dev implementa · @qa gate · @devops push</span>
+  </div>
+
+  <div class="gate-row">
+    <div class="gate" style="border-color:#0EA5E9">
+      <span class="gate-icon">✅</span>
+      <div><div class="gate-label" style="color:#38BDF8">Story Validation Gate (@po)</div><div class="gate-question">Checklist 10 pontos ≥ 7/10?</div></div>
+      <div class="gate-paths">
+        <span class="gp gp-no">NO-GO → @sm fixa</span>
+        <span class="gp gp-yes">GO → @dev implementa</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="gate-row">
+    <div class="gate" style="border-color:#10B981">
+      <span class="gate-icon">🛡️</span>
+      <div><div class="gate-label" style="color:#34D399">QA Gate (@qa)</div><div class="gate-question">7 checks · PASS / CONCERNS / FAIL / WAIVED?</div></div>
+      <div class="gate-paths">
+        <span class="gp gp-no">FAIL → QA Loop (max 5x)</span>
+        <span class="gp gp-yes">PASS → @devops *push</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="conn"></div>
+
+  <!-- ── AGENT AUTHORITY ── -->
+  <div class="section-title">Agent Authority (fonte: agent-authority.md)</div>
+  <div class="agents-strip">
+    <span class="agent-chip" style="border-color:#6366F1;color:#A5B4FC">@aiox-master — governa</span>
+    <span class="agent-chip" style="border-color:#7C3AED;color:#C4B5FD">@pm — epic/PRD</span>
+    <span class="agent-chip" style="border-color:#8B5CF6;color:#DDD6FE">@po — valida stories</span>
+    <span class="agent-chip" style="border-color:#A78BFA;color:#EDE9FE">@sm — cria stories</span>
+    <span class="agent-chip" style="border-color:#0EA5E9;color:#BAE6FD">@dev — implementa</span>
+    <span class="agent-chip" style="border-color:#10B981;color:#A7F3D0">@qa — quality gate</span>
+    <span class="agent-chip" style="border-color:#F59E0B;color:#FDE68A;font-weight:900">@devops — git push EXCLUSIVO</span>
+    <span class="agent-chip" style="border-color:#EC4899;color:#FBCFE8">@architect — arquitectura</span>
+    <span class="agent-chip" style="border-color:#F97316;color:#FED7AA">@data-engineer — DB</span>
+    <span class="agent-chip" style="border-color:#14B8A6;color:#99F6E4">@analyst — pesquisa</span>
+    <span class="agent-chip" style="border-color:#E879F9;color:#F5D0FE">@ux — design</span>
+    <span class="agent-chip" style="border-color:#64748B;color:#CBD5E1">@squad-creator — meta</span>
+  </div>
+
+  <!-- ── LAYERS ── -->
+  <div class="section-title">Framework Layers (fonte: .claude/CLAUDE.md Framework Boundary)</div>
+  <div class="layers-strip">
+    <div class="layer-box" style="border-color:#EF4444;background:rgba(239,68,68,.08)">
+      <span class="l-id" style="color:#EF4444">L1 — Core</span>
+      <div class="l-rule">NEVER modify<br><code style="font-size:8px">.aiox-core/core/ · bin/aiox.js</code></div>
+    </div>
+    <div class="layer-box" style="border-color:#F97316;background:rgba(249,115,22,.08)">
+      <span class="l-id" style="color:#F97316">L2 — Templates</span>
+      <div class="l-rule">Extend-only<br><code style="font-size:8px">.aiox-core/development/ · infrastructure/</code></div>
+    </div>
+    <div class="layer-box" style="border-color:#EAB308;background:rgba(234,179,8,.08)">
+      <span class="l-id" style="color:#EAB308">L3 — Config</span>
+      <div class="l-rule">Mutable (exceptions)<br><code style="font-size:8px">.aiox-core/data/ · core-config.yaml</code></div>
+    </div>
+    <div class="layer-box" style="border-color:#22C55E;background:rgba(34,197,94,.08)">
+      <span class="l-id" style="color:#22C55E">L4 — Runtime</span>
+      <div class="l-rule">ALWAYS modify<br><code style="font-size:8px">docs/ · squads/ · tests/</code></div>
+    </div>
+  </div>
+
+  <div class="conn"></div>
+
+  <!-- ── MAP INDEX ── -->
+  <div class="section-title">Mapas Gerados pelo squad process-mapper (255/255 = 100%)</div>
+  <div class="map-index">
+    <a class="map-item" href="sdc.html"><div class="map-item-name">SDC</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="qa-loop.html"><div class="map-item-name">QA Loop</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="spec-pipeline.html"><div class="map-item-name">Spec Pipeline</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="brownfield.html"><div class="map-item-name">Brownfield Discovery</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="agent-authority.html"><div class="map-item-name">Agent Authority</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="story-lifecycle.html"><div class="map-item-name">Story Lifecycle</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="planning-tracks.html"><div class="map-item-name">Planning Tracks</div><div class="map-item-type">D1 Process</div></a>
+    <a class="map-item" href="agents/authority-map.html"><div class="map-item-name">Authority Map</div><div class="map-item-type">D2 Agents · 12 swim-lanes</div></a>
+    <a class="map-item" href="agents/handoff-flows.html"><div class="map-item-name">Handoff Flows</div><div class="map-item-type">D2 Agents · 4 flows</div></a>
+    <a class="map-item" href="structure/aiox-layers.html"><div class="map-item-name">AIOX Layers L1-L4</div><div class="map-item-type">D3 Structure</div></a>
+    <a class="map-item" href="structure/squad-anatomy.html"><div class="map-item-name">Squad Anatomy</div><div class="map-item-type">D3 Structure</div></a>
+    <a class="map-item" href="files/task-index.html"><div class="map-item-name">Task Dictionary</div><div class="map-item-type">D4 Files · 213 tasks</div></a>
+    <a class="map-item" href="files/rules-index.html"><div class="map-item-name">Rules Dictionary</div><div class="map-item-type">D4 Files · 15 rules</div></a>
+    <a class="map-item" href="evolution/timeline.html"><div class="map-item-name">Evolution Timeline</div><div class="map-item-type">D5 Evolution · 19 events</div></a>
+    <a class="map-item" href="evolution/process-debt.md"><div class="map-item-name">Process Debt</div><div class="map-item-type">D5 Evolution · 0 issues</div></a>
+    <a class="map-item" href="coverage-report.md"><div class="map-item-name">Coverage Report</div><div class="map-item-type">Audit · 255/255</div></a>
+  </div>
+
+  <!-- ── DELIVERY ── -->
+  <div class="delivery">
+    <div class="delivery-title">🗺️ AIOX Totalmente Mapeado</div>
+    <div style="font-size:13px;color:#9CA3AF">squad process-mapper · 7 scripts · gate pré-criação activo</div>
+    <div class="chips">
+      <span class="chip">D1 100% · 7 processos</span>
+      <span class="chip">D2 100% · 12 agentes</span>
+      <span class="chip">D3 100% · L1-L4</span>
+      <span class="chip">D4 100% · 228 ficheiros</span>
+      <span class="chip">D5 100% · timeline + debt</span>
+      <span class="chip">Gate activo</span>
+      <span class="chip">SVG Figma de todos</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
