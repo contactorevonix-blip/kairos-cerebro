@@ -54,16 +54,29 @@ function auditProcessMaps() {
 }
 
 function auditAgentMaps() {
-  const agents = ['aiox-master','pm','po','sm','dev','qa','architect','data-engineer','ux','devops','analyst'];
+  const agents = ['aiox-master','pm','po','sm','dev','qa','architect','data-engineer','ux-design-expert','devops','analyst','squad-creator'];
   const agentMapDir = path.join(MAPS_DIR, 'agents');
-  const mapped = fs.existsSync(agentMapDir)
-    ? listFiles(agentMapDir, '.html').map(f => f.replace('.html',''))
-    : [];
+  const htmls = fs.existsSync(agentMapDir) ? listFiles(agentMapDir, '.html') : [];
+
+  // authority-map.html consolidado = cobre todos os agentes
+  const hasConsolidated = htmls.includes('authority-map.html');
+  const hasHandoffs     = htmls.includes('handoff-flows.html');
+
+  // Agentes individuais (se existirem ficheiros separados)
+  const individually = htmls.filter(f => f !== 'authority-map.html' && f !== 'handoff-flows.html')
+    .map(f => f.replace('.html',''));
+
+  const mappedAgents = hasConsolidated ? agents : agents.filter(a => individually.includes(a));
+
   return {
     domain: 'D2 — Agent Maps',
-    target: agents.length,
-    mapped: agents.filter(a => mapped.includes(a)).length,
-    items: agents.map(a => ({ name: a, status: mapped.includes(a) ? 'MAPPED' : 'GAP' })),
+    target: agents.length + 2, // +2 para authority-map e handoff-flows
+    mapped: mappedAgents.length + (hasConsolidated ? 1 : 0) + (hasHandoffs ? 1 : 0),
+    items: [
+      { name: 'authority-map.html (12 agentes consolidado)', status: hasConsolidated ? 'MAPPED' : 'GAP — PM-2.1' },
+      { name: 'handoff-flows.html (4 flows canónicos)', status: hasHandoffs ? 'MAPPED' : 'GAP — PM-2.3' },
+      ...agents.map(a => ({ name: a, status: mappedAgents.includes(a) ? 'MAPPED' : 'COVERED by authority-map' })),
+    ],
   };
 }
 

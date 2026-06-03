@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIOX Agent Authority Map</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0D0F14;color:#E8EAF0;padding:24px 16px;min-height:100vh}
+h1{text-align:center;font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A78BFA;margin-bottom:4px}
+.subtitle{text-align:center;font-size:12px;color:#6B7280;margin-bottom:24px}
+.swimlane-grid{display:flex;gap:8px;overflow-x:auto;padding-bottom:16px;min-height:600px}
+.agent-col{min-width:160px;max-width:200px;flex:1;border-radius:8px;border:1px solid rgba(255,255,255,.08);overflow:hidden;display:flex;flex-direction:column}
+.agent-header{padding:10px 8px;text-align:center}
+.agent-name{font-size:11px;font-weight:800;color:#fff;letter-spacing:.04em}
+.agent-persona{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
+.agent-tier{font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.agent-body{flex:1;padding:8px;background:#0F1117;display:flex;flex-direction:column;gap:8px}
+.op-section{display:flex;flex-direction:column;gap:3px}
+.op-label{font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#4B5563;margin-bottom:2px;padding-top:2px;border-top:1px solid rgba(255,255,255,.05)}
+.op{font-size:10px;padding:4px 6px;border-radius:4px;display:flex;align-items:flex-start;gap:4px;line-height:1.3}
+.op-icon{flex-shrink:0;font-size:9px;margin-top:1px}
+.op-exclusive{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.op-blocked{background:rgba(107,114,128,.08);border:1px solid rgba(107,114,128,.15);color:#9CA3AF}
+.op-delegate{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);color:#A5B4FC}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#9CA3AF}
+.legend-dot{width:10px;height:10px;border-radius:2px}
+</style>
+</head>
+<body>
+<h1>AIOX Agent Authority Map</h1>
+<p class="subtitle">12 agentes · Swim-lanes · fonte: agent-authority.md · Rummler-Brache pattern</p>
+<div class="swimlane-grid">
+<div class="agent-col" id="agent-aiox-master">
+  <div class="agent-header" style="background:#6366F1">
+    <div class="agent-name">@aiox-master</div>
+    <div class="agent-persona">Orion</div>
+    <div class="agent-tier">Tier orchestrator</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Framework governance</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Constitutional enforcement</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Cross-agent orchestration</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>gh pr create → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>MCP manage → @devops</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Story creation → @sm</div><div class="op op-delegate"><span class="op-icon">➡️</span>Epic/PRD → @pm</div><div class="op op-delegate"><span class="op-icon">➡️</span>Implementation → @dev</div><div class="op op-delegate"><span class="op-icon">➡️</span>QA → @qa</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-pm">
+  <div class="agent-header" style="background:#7C3AED">
+    <div class="agent-name">@pm</div>
+    <div class="agent-persona">Morgan</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*create-epic</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*execute-epic</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>EPIC-{ID}-EXECUTION.yaml</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Requirements gathering</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Spec writing</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>Story validation → @po</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Story creation → @sm</div><div class="op op-delegate"><span class="op-icon">➡️</span>Complexity → @architect</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-po">
+  <div class="agent-header" style="background:#8B5CF6">
+    <div class="agent-name">@po</div>
+    <div class="agent-persona">Pax</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*validate-story-draft (10-point checklist)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Story context tracking</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Backlog prioritization</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>Story creation → @sm</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Implementation → @dev</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-sm">
+  <div class="agent-header" style="background:#A78BFA">
+    <div class="agent-name">@sm</div>
+    <div class="agent-persona">River</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*draft / *create-story</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Story template selection</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>Story validation → @po</div><div class="op op-blocked"><span class="op-icon">⛔</span>AC/scope changes → @po</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Validation → @po</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-dev">
+  <div class="agent-header" style="background:#0EA5E9">
+    <div class="agent-name">@dev</div>
+    <div class="agent-persona">Dex</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Implementação de código</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>git add/commit/branch (local)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Story checkboxes + File List</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>gh pr → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>AC/scope/title edits → @po</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Push/PR → @devops</div><div class="op op-delegate"><span class="op-icon">➡️</span>QA → @qa</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-qa">
+  <div class="agent-header" style="background:#10B981">
+    <div class="agent-name">@qa</div>
+    <div class="agent-persona">Quinn</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*qa-gate (7 checks)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>QA Loop (max 5x)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Gate verdicts: PASS/FAIL/CONCERNS/WAIVED</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>Story implementation → @dev</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Push após PASS → @devops</div><div class="op op-delegate"><span class="op-icon">➡️</span>Fixes → @dev</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-devops">
+  <div class="agent-header" style="background:#F59E0B">
+    <div class="agent-name">@devops</div>
+    <div class="agent-persona">Gage</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>git push / git push --force</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>gh pr create / gh pr merge</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>MCP add/remove/configure</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>CI/CD pipeline</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Releases e tags</div></div>
+    
+    
+  </div>
+</div>
+<div class="agent-col" id="agent-architect">
+  <div class="agent-header" style="background:#EC4899">
+    <div class="agent-name">@architect</div>
+    <div class="agent-persona">Aria</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>System architecture decisions</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Technology selection</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Complexity assessment</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>DDL/queries → @data-engineer</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Schema design → @data-engineer</div><div class="op op-delegate"><span class="op-icon">➡️</span>Query optimization → @data-engineer</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-data-engineer">
+  <div class="agent-header" style="background:#F97316">
+    <div class="agent-name">@data-engineer</div>
+    <div class="agent-persona">Dara</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Schema design (DDL)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Query optimization</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>RLS policies</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Migration planning</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div><div class="op op-blocked"><span class="op-icon">⛔</span>App code → @dev</div><div class="op op-blocked"><span class="op-icon">⛔</span>System architecture → @architect</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Push → @devops</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-analyst">
+  <div class="agent-header" style="background:#14B8A6">
+    <div class="agent-name">@analyst</div>
+    <div class="agent-persona">Alex</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Research e análise</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Competitive intelligence</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Spec research (F3 Spec Pipeline)</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Findings → @pm/@architect</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-ux-design-expert">
+  <div class="agent-header" style="background:#E879F9">
+    <div class="agent-name">@ux</div>
+    <div class="agent-persona">Uma</div>
+    <div class="agent-tier">Tier 1</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>UX/UI design</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Frontend architecture</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Design system</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>Frontend spec</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Implementation → @dev</div></div>
+  </div>
+</div>
+<div class="agent-col" id="agent-squad-creator">
+  <div class="agent-header" style="background:#64748B">
+    <div class="agent-name">@squad-creator</div>
+    <div class="agent-persona">Squad Chief</div>
+    <div class="agent-tier">Tier meta</div>
+  </div>
+  <div class="agent-body">
+    <div class="op-section"><div class="op-label">EXCLUSIVO</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*create-squad</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*validate-squad</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>*clone-mind (via oalanicolas)</div><div class="op op-exclusive" title="EXCLUSIVO"><span class="op-icon">🔒</span>squad-registry management</div></div>
+    <div class="op-section"><div class="op-label">DELEGA</div><div class="op op-blocked"><span class="op-icon">⛔</span>git push → @devops</div></div>
+    <div class="op-section"><div class="op-label">HANDOFF</div><div class="op op-delegate"><span class="op-icon">➡️</span>Mind cloning → oalanicolas</div><div class="op op-delegate"><span class="op-icon">➡️</span>Process validation → pedro-valerio</div><div class="op op-delegate"><span class="op-icon">➡️</span>Push → @devops</div></div>
+  </div>
+</div></div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(239,68,68,.4)"></div>🔒 Exclusivo (só este agente)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(107,114,128,.3)"></div>⛔ Delega para agente correcto</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(99,102,241,.3)"></div>➡️ Handoff / Output</div>
+</div>
+</body>
+</html>

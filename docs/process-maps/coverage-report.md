@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 17:57
+**Data:** 2026-06-03 18:02
 **Story:** PM-1.7
 
 ---
@@ -9,9 +9,9 @@
 ## Score Global
 
 ```
-Mapeado: 7 / 250 artefactos
-Cobertura: 3%  (alvo: ≥ 90%)
-█░░░░░░░░░░░░░░░░░░░  3%
+Mapeado: 21 / 253 artefactos
+Cobertura: 8%  (alvo: ≥ 90%)
+██░░░░░░░░░░░░░░░░░░  8%
 ```
 
 ---
@@ -34,21 +34,24 @@ Cobertura: 3%  (alvo: ≥ 90%)
 
 ### D2 — Agent Maps
 
-`░░░░░░░░░░`  0/11 (0%)
+`██████████`  14/14 (100%)
 
 | Artefacto | Status |
 |-----------|--------|
-| aiox-master | ⬜ GAP |
-| pm | ⬜ GAP |
-| po | ⬜ GAP |
-| sm | ⬜ GAP |
-| dev | ⬜ GAP |
-| qa | ⬜ GAP |
-| architect | ⬜ GAP |
-| data-engineer | ⬜ GAP |
-| ux | ⬜ GAP |
-| devops | ⬜ GAP |
-| analyst | ⬜ GAP |
+| authority-map.html (12 agentes consolidado) | ✅ MAPPED |
+| handoff-flows.html (4 flows canónicos) | ✅ MAPPED |
+| aiox-master | ✅ MAPPED |
+| pm | ✅ MAPPED |
+| po | ✅ MAPPED |
+| sm | ✅ MAPPED |
+| dev | ✅ MAPPED |
+| qa | ✅ MAPPED |
+| architect | ✅ MAPPED |
+| data-engineer | ✅ MAPPED |
+| ux-design-expert | ✅ MAPPED |
+| devops | ✅ MAPPED |
+| analyst | ✅ MAPPED |
+| squad-creator | ✅ MAPPED |
 
 ### D3 — Structure Maps
 
@@ -82,21 +85,15 @@ Cobertura: 3%  (alvo: ≥ 90%)
 
 ## Próximas Acções (por prioridade)
 
-17 artefactos por mapear:
+6 artefactos por mapear:
 
-- **D2 — Agent Maps** → `aiox-master`
-- **D2 — Agent Maps** → `pm`
-- **D2 — Agent Maps** → `po`
-- **D2 — Agent Maps** → `sm`
-- **D2 — Agent Maps** → `dev`
-- **D2 — Agent Maps** → `qa`
-- **D2 — Agent Maps** → `architect`
-- **D2 — Agent Maps** → `data-engineer`
-- **D2 — Agent Maps** → `ux`
-- **D2 — Agent Maps** → `devops`
-
-> ... e mais 7 artefactos. Ver domínios acima.
+- **D3 — Structure Maps** → `aiox-layers (L1-L4)`
+- **D3 — Structure Maps** → `squad-anatomy (22 pastas)`
+- **D4 — File Maps** → `tasks/ (213 ficheiros)`
+- **D4 — File Maps** → `rules/ (15 ficheiros)`
+- **D5 — Evolution Maps** → `timeline.html`
+- **D5 — Evolution Maps** → `process-debt.md`
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 17:57*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 18:02*
