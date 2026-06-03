@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "timestamp": "2026-06-03T14:02:46.442Z",
+      "path": ".aiox-core/constitution.md",
+      "allowed": false,
+      "layer": "L1",
+      "reason": "Path .aiox-core/constitution.md is blocked (L1)"
+    },
+    {
+      "timestamp": "2026-06-03T14:02:46.446Z",
+      "path": "docs/stories/kcc-test.md",
+      "allowed": true,
+      "layer": "L4"
+    }
+  ]
+}

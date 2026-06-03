@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAIROS Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <span class="topbar__brand">⬡ KAIROS CC</span>
+    <nav class="topbar__nav">
+      <button class="tab-btn active" data-tab="home">🏠 Home</button>
+      <button class="tab-btn" data-tab="explorer">📁 Explorer</button>
+      <button class="tab-btn" data-tab="agents">👥 Agents</button>
+      <button class="tab-btn" data-tab="stories">📋 Stories</button>
+      <button class="tab-btn" data-tab="studio">🔬 Studio</button>
+      <button class="tab-btn" data-tab="console">💬 Console</button>
+      <button class="tab-btn" data-tab="brainstorm">📌 Brainstorm</button>
+      <button class="tab-btn" data-tab="observatory">🔭 Observatory</button>
+      <button class="tab-btn" data-tab="manual">📖 Manual</button>
+    </nav>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar__section">
+        <span class="sidebar__label">Quick</span>
+        <div id="sidebar-next-action" class="loading">A carregar...</div>
+      </div>
+      <div class="sidebar__section">
+        <span class="sidebar__label">Health</span>
+        <div id="sidebar-health" class="loading">...</div>
+      </div>
+      <div class="sidebar__section">
+        <span class="sidebar__label">Story</span>
+        <div id="sidebar-story" class="loading">...</div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- TAB: HOME -->
+      <div class="tab-panel active" id="tab-home">
+        <div id="home-next-action"></div>
+        <div class="dashboard-grid">
+          <div class="metric-card" id="health-card">
+            <div class="metric-card__label">System Health</div>
+            <div class="metric-card__value" id="health-value">—</div>
+            <div class="metric-card__sub" id="health-sub">A verificar...</div>
+          </div>
+          <div class="metric-card" id="story-card">
+            <div class="metric-card__label">Story Activa</div>
+            <div class="metric-card__value" id="story-value">—</div>
+            <div class="metric-card__sub" id="story-sub">A carregar...</div>
+          </div>
+          <div class="metric-card" id="product-card">
+            <div class="metric-card__label">Produto</div>
+            <div class="metric-card__value" id="product-value" style="font-size:14px">Kairos Check</div>
+            <div class="metric-card__sub">AIOX Academy</div>
+          </div>
+        </div>
+        <div id="home-git" class="card" style="font-size:13px; color: var(--kcc-text-secondary);">A carregar git state...</div>
+      </div>
+
+      <!-- TAB: EXPLORER (Story 4.2) -->
+      <div class="tab-panel" id="tab-explorer">
+        <p class="loading">Explorer — implementado em Story 4.2</p>
+      </div>
+
+      <!-- TAB: AGENTS (Story 4.3) -->
+      <div class="tab-panel" id="tab-agents">
+        <p class="loading">Agent Hub — implementado em Story 4.3</p>
+      </div>
+
+      <!-- TAB: STORIES (Story 4.4) -->
+      <div class="tab-panel" id="tab-stories">
+        <p class="loading">Story Manager — implementado em Story 4.4</p>
+      </div>
+
+      <!-- TAB: STUDIO (Story 4.5+) -->
+      <div class="tab-panel" id="tab-studio">
+        <p class="loading">Creator Studio — implementado em Sprint 2</p>
+      </div>
+
+      <!-- TAB: CONSOLE (Story 4.7) -->
+      <div class="tab-panel" id="tab-console">
+        <p class="loading">Problem Console — implementado em Sprint 2</p>
+      </div>
+
+      <!-- TAB: BRAINSTORM (Story 4.9+) -->
+      <div class="tab-panel" id="tab-brainstorm">
+        <p class="loading">Mesa de Criação — implementado em Sprint 3</p>
+      </div>
+
+      <!-- TAB: OBSERVATORY (Story 4.4) -->
+      <div class="tab-panel" id="tab-observatory">
+        <p class="loading">Observatory — implementado em Story 4.4</p>
+      </div>
+
+      <!-- TAB: MANUAL (Story 4.8) -->
+      <div class="tab-panel" id="tab-manual">
+        <p class="loading">Manual — implementado em Sprint 2</p>
+      </div>
+
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <div class="sidebar__label" style="margin-bottom: var(--kcc-space-3)">Next Step</div>
+      <div id="right-next-step" class="loading">A carregar...</div>
+    </aside>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <footer class="statusbar">
+    <span class="statusbar__dot"></span>
+    <span id="status-branch">main</span>
+    <span>·</span>
+    <span id="status-story">Story: —</span>
+    <span>·</span>
+    <span id="status-health">— PASS</span>
+    <span>·</span>
+    <span id="status-bracket">FRESH</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
