@@ -1064,3 +1064,8 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 **Branch:** main
 **Commit:** docs: Sprint 2 Staging Validation Plan + Final Handoff
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8ac06e0 — 2026-06-03 23:29
+**Branch:** main
+**Commit:** chore: sync metrics before push
+**Files changed:** none
