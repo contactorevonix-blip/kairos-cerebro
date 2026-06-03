@@ -25,6 +25,8 @@ const { verifyPayload } = require('../sniper-engine');
 const { scanUrl } = require('../sniper-scraper');
 const { authenticate } = require('./auth');
 const { consume, purgeStale } = require('./rate-limit');
+const { errorHandler } = require('./middleware/error-handler');
+const { ApiError, ValidationError, InternalError } = require('./lib/api-errors');
 const {
   bootstrapIfEmpty,
   readGlobalMetrics,
@@ -620,7 +622,8 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       } catch (err) {
         let result = {};
         try { result = JSON.parse((err.stdout || '').trim().split('\n').pop()); } catch {}
-        sendJson(res, 500, { ok: false, error: err.message.slice(0, 200), ...result });
+        const apiErr = new InternalError('Backup failed: ' + err.message.slice(0, 100));
+        errorHandler(apiErr, res, { sendJson, logEvent });
       }
       return;
     }
@@ -660,15 +663,17 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       } catch (err) {
         const msg = err.message || '';
         console.error('[chat] Error:', msg);
+        let apiErr;
         if (msg.includes('ANTHROPIC_API_KEY')) {
-          sendJson(res, 503, { error: 'Chat temporarily unavailable — API key not configured' });
+          apiErr = new InternalError('Chat service unavailable (missing API key)');
         } else if (msg.includes('401') || msg.includes('403')) {
-          sendJson(res, 503, { error: 'Chat unavailable — check ANTHROPIC_API_KEY in Railway' });
+          apiErr = new InternalError('Chat service unavailable (auth issue)');
         } else if (msg.includes('timeout')) {
-          sendJson(res, 504, { error: 'Chat timed out — Claude API took too long' });
+          apiErr = new InternalError('Chat request timeout');
         } else {
-          sendJson(res, 500, { error: 'Chat error: ' + msg.slice(0, 100) });
+          apiErr = new InternalError('Chat error: ' + msg.slice(0, 100));
         }
+        errorHandler(apiErr, res, { sendJson, logEvent });
       }
       return;
     }
@@ -1108,7 +1113,11 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       }
       let event;
       try { event = JSON.parse(rawBody); }
-      catch { sendJson(res, 400, { error: 'invalid_json' }); return; }
+      catch (err) {
+        const apiErr = new ValidationError('Invalid JSON in webhook body');
+        errorHandler(apiErr, res, { sendJson, logEvent });
+        return;
+      }
       // Stripe retries deliveries on failure — we must process each event.id
       // exactly once. claimEventId is atomic at the file level.
       if (!billing.claimEventId(event.id)) {
@@ -1168,7 +1177,8 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       try {
         scraped = await scanUrl(payload.url);
       } catch (err) {
-        sendJson(res, 422, { error: 'scan_failed', detail: err.message });
+        const apiErr = new ApiError('SCAN_FAILED', 'URL scan failed', 422, err.message);
+        errorHandler(apiErr, res, { sendJson, logEvent });
         return;
       }
       const verdict = verifyPayload({
@@ -1355,16 +1365,11 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
       return;
     }
 
-    sendJson(res, 404, { error: 'Not found', code: 'ROUTE_NOT_FOUND' });
+    const notFoundErr = new ApiError('NOT_FOUND', 'Route not found', 404, `No handler for ${method} ${url}`);
+    errorHandler(notFoundErr, res, { sendJson, logEvent });
   } catch (err) {
-    logEvent('server.error', {
-      method,
-      url,
-      message: err.message,
-    });
-    if (!res.headersSent) {
-      sendJson(res, 500, { error: 'internal_error', detail: err.message });
-    }
+    const apiErr = err instanceof ApiError ? err : new InternalError('Internal server error');
+    errorHandler(apiErr, res, { sendJson, logEvent });
   } finally {
     logEvent('http.request', {
       method,
