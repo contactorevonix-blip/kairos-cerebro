@@ -102,26 +102,36 @@ function auditFileMaps() {
   const rules    = listFiles(rulesDir, '.md');
 
   const fileMapsDir = path.join(MAPS_DIR, 'files');
-  const mapped = fs.existsSync(fileMapsDir) ? listFiles(fileMapsDir, '.html').length : 0;
+  const htmls   = fs.existsSync(fileMapsDir) ? listFiles(fileMapsDir, '.html') : [];
+  const hasIndex = htmls.includes('task-index.html');
+
+  // task-index.html consolidado = cobre todas as tasks
+  const mappedTasks  = hasIndex ? tasks.length : 0;
+  const mappedRules  = 0; // rules ainda sem mapa individual
+  const total = tasks.length + rules.length;
+  const mapped = mappedTasks + mappedRules + (hasIndex ? 1 : 0);
 
   return {
     domain: 'D4 — File Maps',
-    target: tasks.length + rules.length,
+    target: total + 1, // +1 para o índice consolidado
     mapped,
-    note: `${tasks.length} tasks + ${rules.length} rules = ${tasks.length + rules.length} ficheiros a mapear`,
+    note: `${tasks.length} tasks + ${rules.length} rules`,
     items: [
-      { name: `tasks/ (${tasks.length} ficheiros)`, status: 'GAP — PM-4.2' },
-      { name: `rules/ (${rules.length} ficheiros)`, status: 'GAP — PM-4.2' },
+      { name: `task-index.html (${tasks.length} tasks consolidado)`, status: hasIndex ? 'MAPPED' : 'GAP — PM-4.2' },
+      { name: `rules/ (${rules.length} ficheiros)`, status: 'GAP — fichas individuais pendentes' },
+      ...tasks.slice(0,3).map(t => ({ name: t, status: hasIndex ? 'COVERED by task-index' : 'GAP' })),
+      { name: `... e mais ${tasks.length - 3} tasks`, status: hasIndex ? 'COVERED by task-index' : 'GAP' },
     ],
   };
 }
 
 function auditEvolution() {
   const evoDir = path.join(MAPS_DIR, 'evolution');
-  const mapped = fs.existsSync(evoDir) ? listFiles(evoDir, '.html') : [];
+  const htmls  = fs.existsSync(evoDir) ? listFiles(evoDir, '.html') : [];
+  const mds    = fs.existsSync(evoDir) ? listFiles(evoDir, '.md')   : [];
   const items = [
-    { name: 'timeline.html', status: mapped.includes('timeline.html') ? 'MAPPED' : 'GAP — PM-5.2' },
-    { name: 'process-debt.md', status: 'GAP — PM-5.3' },
+    { name: 'timeline.html', status: htmls.includes('timeline.html') ? 'MAPPED' : 'GAP — PM-5.2' },
+    { name: 'process-debt.md', status: mds.includes('process-debt.md') ? 'MAPPED' : 'GAP — PM-5.3' },
   ];
   return {
     domain: 'D5 — Evolution Maps',

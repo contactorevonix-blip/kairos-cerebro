@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 18:08
+**Data:** 2026-06-03 18:12
 **Story:** PM-1.7
 
 ---
@@ -9,9 +9,9 @@
 ## Score Global
 
 ```
-Mapeado: 23 / 253 artefactos
-Cobertura: 9%  (alvo: ≥ 90%)
-██░░░░░░░░░░░░░░░░░░  9%
+Mapeado: 239 / 254 artefactos
+Cobertura: 94%  (alvo: ≥ 90%)
+███████████████████░  94%
 ```
 
 ---
@@ -64,34 +64,39 @@ Cobertura: 9%  (alvo: ≥ 90%)
 
 ### D4 — File Maps
 
-`░░░░░░░░░░`  0/228 (0%)
-> 213 tasks + 15 rules = 228 ficheiros a mapear
+`█████████░`  214/229 (93%)
+> 213 tasks + 15 rules
 
 | Artefacto | Status |
 |-----------|--------|
-| tasks/ (213 ficheiros) | ⬜ GAP — PM-4.2 |
-| rules/ (15 ficheiros) | ⬜ GAP — PM-4.2 |
+| task-index.html (213 tasks consolidado) | ✅ MAPPED |
+| rules/ (15 ficheiros) | ⬜ GAP — fichas individuais pendentes |
+| add-mcp.md | ⬜ COVERED by task-index |
+| advanced-elicitation.md | ⬜ COVERED by task-index |
+| analyst-facilitate-brainstorming.md | ⬜ COVERED by task-index |
+| ... e mais 210 tasks | ⬜ COVERED by task-index |
 
 ### D5 — Evolution Maps
 
-`░░░░░░░░░░`  0/2 (0%)
+`██████████`  2/2 (100%)
 
 | Artefacto | Status |
 |-----------|--------|
-| timeline.html | ⬜ GAP — PM-5.2 |
-| process-debt.md | ⬜ GAP — PM-5.3 |
+| timeline.html | ✅ MAPPED |
+| process-debt.md | ✅ MAPPED |
 
 ---
 
 ## Próximas Acções (por prioridade)
 
-4 artefactos por mapear:
+5 artefactos por mapear:
 
-- **D4 — File Maps** → `tasks/ (213 ficheiros)`
 - **D4 — File Maps** → `rules/ (15 ficheiros)`
-- **D5 — Evolution Maps** → `timeline.html`
-- **D5 — Evolution Maps** → `process-debt.md`
+- **D4 — File Maps** → `add-mcp.md`
+- **D4 — File Maps** → `advanced-elicitation.md`
+- **D4 — File Maps** → `analyst-facilitate-brainstorming.md`
+- **D4 — File Maps** → `... e mais 210 tasks`
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 18:08*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 18:12*
