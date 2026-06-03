@@ -1,97 +1,113 @@
 # State — Sessão Actual
 
-**Última actualização:** 2026-05-31
+**Última actualização:** 2026-06-03
 **Branch activa:** main
-**Último commit:** `80f8d46`
+**Último commit:** `845a570`
 
 ---
 
-## Sessão 2026-05-31 — Sincronização com SynkraAI/aiox-core oficial
+## Sessão 2026-06-03 — Squad process-mapper EPIC-PM completo
 
-### Acção principal: Gap analysis + sync completo com repo oficial
+### Acção principal: Design, spec e implementação do squad process-mapper
 
-Após clonar `SynkraAI/aiox-core` para `C:/Users/lealp/aiox-core-official/`, foi feita uma comparação pasta a pasta e sincronizados todos os gaps relevantes.
+A sessão começou com brainstorming e mapeamento visual de todos os processos AIOX,
+evoluiu para a criação completa do squad `process-mapper` com Spec Pipeline Enterprise
+(F1-F6) e implementação de todas as Waves (1→4).
 
-**O que foi copiado/criado:**
+---
 
-| Área | O que foi feito |
-|------|-----------------|
-| `.synapse/` | 18 domínios oficiais (agent-*, constitution, context, workflow-*, commands) + manifest merged |
-| `.github/` | CODEOWNERS, DISCUSSION_TEMPLATE, ISSUE_TEMPLATE, PR_TEMPLATE, RFC, labeler, 7 workflows |
-| `governance/` | evolution-pipeline, proposals, templates (audit-finding + proposal) |
-| `audits/` | Audit findings do framework |
-| `.aiox/` | codebase-map, dashboard, environment-report, gotchas, merge-rules, patterns, session-digests |
-| `.claude/gotchas.md` | Criado (referenciado na regra SYNAPSE global) |
-| `.claude/templates/` | 18 templates SDC/Spec (prd-tmpl, story-tmpl, architecture-tmpl, etc.) |
-| `.claude/setup/` | install.sh, settings.json, statusline-custom.sh |
-| `.claude/hooks/` | 11 hooks novos (precompact-*, synapse-wrapper, Python governance hooks) |
-| `.claude/commands/AIOX/` | scripts/ + stories/ + limpeza de 4 deprecated |
-| `.claude/commands/synapse/` | templates/ (domain-template, manifest-entry-template) |
-| `.claude/agent-memory/` | aiox-architect + aiox-po adicionados |
-| `.kimi/` | 4 skills deprecated removidas |
-| `squads/` | tool-overrides.yaml em todos os 5 squads + _example |
-| `scripts/` | 8 scripts relevantes (validate-manifest, ensure-manifest, etc.) |
-| `bin/` | utils/ + modules/ (framework-guard, install-transaction, env-config, mcp-installer) |
-| `.gitattributes` | Criado — normalizar line endings LF (resolve warnings CRLF) |
-| `.prettierrc` | Criado do oficial |
-| `.releaserc.json` | Criado (semantic-release, npmPublish: false) |
-| `tsconfig.json` | Criado do oficial |
-| `eslint.config.js` | Criado do oficial + deps instaladas |
-| `.coderabbit.yaml` | Adicionadas path instructions para AIOX framework paths |
-| `AGENTS.md`, `CHANGELOG.md`, `LICENSE`, etc. | Ficheiros raiz do oficial |
-| `aiox` CLI | Instalado globalmente: `npm install -g @aiox-squads/core` |
+### O que foi feito
 
-### SYNAPSE completado (25 → 39 regras)
+#### Mapeamentos visuais (pré-squad)
+- Mapeamentos ASCII de todos os processos AIOX (SDC, QA Loop, Spec Pipeline, Brownfield, Planning Tracks, Agent Authority)
+- Ficheiro HTML `docs/process-maps/aiox-squad-creation-pipeline.html` (prova de conceito)
 
-- Constitution (L0) agora activa em cada prompt
-- 12 agent domains (L2) — regras específicas por agente
-- 3 workflow domains (L3) — story-dev, epic-create, arch-review
-- Alan Nicolas Mind DNA sempre injectado
+#### Spec Pipeline completa (F1-F6)
+| Fase | Output | Resultado |
+|------|--------|-----------|
+| F1 GATHER | `requirements.json` | 6 FR + 3 NFR + 5 CON |
+| F2 ASSESS | `complexity.json` | Score 19/25 → COMPLEX |
+| F3 RESEARCH | `research.json` | Gene Kim, Rummler, SVG/Figma, hooks |
+| F4 SPEC | `spec.md v1.1` | 8 features, Art.IV compliant |
+| F5 CRITIQUE | `critique.json` | Score 4.1 → APPROVED_WITH_CONDITIONS |
+| F6 PLAN | `implementation.yaml` | 7 epics, 32 stories |
 
-### doctor: 15 PASS | 0 WARN | 0 FAIL
+#### Squad process-mapper — implementação completa
 
-Sigil (@config-engineer) corrigiu:
-- `CLAUDE.md`: secção "Framework vs Project Boundary" adicionada
-- `settings.local.json`: criado com 11 hooks registados
+**Wave 1 — EPIC-PM-001 + EPIC-PM-007:**
+- `squads/process-mapper/` — estrutura completa (squad.yaml, 7 agentes, config, scripts)
+- Scripts: `generate-process-map.js` + `html-templates.js` + `coverage-audit.js`
+- Mapas: SDC · QA Loop · Spec Pipeline · Brownfield · Agent Authority · Story Lifecycle · Planning Tracks (HTML + SVG Figma)
+- Fix stop hook: `update-state.js` — stderr do git silenciado
 
-### Hook enforcement corrigido
+**Wave 2 — EPIC-PM-002 + EPIC-PM-003:**
+- `generate-swimlane.js` — 12 agentes AIOX em swim-lanes (Rummler-Brache)
+- `docs/process-maps/agents/` — authority-map.html + handoff-flows.html
+- `structure-mapper.js` — L1-L4 com cores + squad anatomy
+- `docs/process-maps/structure/` — aiox-layers.html + squad-anatomy.html
 
-**Latch** (@hooks-architect) identificou e corrigiu o bug:
-- Matcher `Bash(git push*)` → `Bash(*git push*)` 
-- Compound commands (cd ... && git push) agora bloqueados
-- Constitution Art. II enforcement robusto
+**Wave 3 — EPIC-PM-004 + EPIC-PM-005:**
+- `task-parser.js` — 213 tasks indexadas + `process-registry.yaml` preenchido
+- `evolution-tracker.js` + `generate-rules-index.js`
+- `docs/process-maps/files/` — task-index.html + rules-index.html (15 rules)
+- `docs/process-maps/evolution/` — timeline.html + process-debt.md
 
-### Feedback memorizado
+**Wave 4 — EPIC-PM-006 (Gate Pré-Criação):**
+- `.claude/hooks/process-map-gate.cjs` — interceta `*create-*`/`*draft` só com `@`/`*` prefix
+- Adicionado como 4º hook `UserPromptSubmit` em `.claude/settings.json`
+- Bypass: `--skip-map-gate`
 
-- `feedback-git-push-authority.md`: NUNCA git push directo — sempre @devops. Se sistema bloqueia → PARAR.
+#### Coverage final: 255/255 = 100%
+```
+D1 Process Maps    7/7    100%
+D2 Agent Maps     14/14   100%
+D3 Structure Maps  2/2    100%
+D4 File Maps     230/230  100%
+D5 Evolution       2/2    100%
+```
+
+---
+
+### Commits desta sessão
+
+| Hash | Descrição |
+|------|-----------|
+| `8c0028c` | feat: squad process-mapper Wave 1 completa — EPIC-PM-001 Done |
+| `9ff212c` | feat: D1 Process Maps 100% — agent-authority + story-lifecycle + planning-tracks |
+| `352e12d` | feat: EPIC-PM-002 Done — Agent Maps 12 agentes (D2 100%) |
+| `b1cabce` | feat: EPIC-PM-003 Done — Structure Maps L1-L4 + squad anatomy (D3 100%) |
+| `e684467` | feat: Wave 3 Done — File Maps + Evolution Tracker (coverage 94%) |
+| `845a570` | feat: EPIC-PM completo — D4 100% + gate pré-criação activo |
 
 ---
 
 ## Estado Git
 
-Último commit: `80f8d46` — fix: corrigir matcher enforce-git-push-authority hook
-Branch: main
-`npx aiox-core doctor`: 15 PASS | 0 WARN | 0 FAIL ✅
+**Último commit:** `845a570` — feat: EPIC-PM completo — D4 100% + gate pré-criacao activo
+**Branch:** main (em sync com remote)
+**5 testes passam:** handleApiCheck × 5
 
 ---
 
-## SYNAPSE Activo
+## Squads Activos
 
-**39 regras injectadas por prompt:**
-- Constitution (L0) — NON-NEGOTIABLE
-- Global + context (L1) — segurança, ferramentas, código
-- Agent domains (L2) — regras do agente activo
-- Alan Nicolas Architecture DNA — always-on
-- Kairos context — always-on
+| Squad | Status | Notas |
+|-------|--------|-------|
+| process-mapper | **NOVO — Done** | 7 scripts, 255/255 mapas, gate activo |
+| squad-creator | active | 7 agentes, squad-registry actualizado (5 squads) |
+| claude-code-mastery | active | hooks, MCP, skills |
+| deep-research | active | 11 agentes evidence-based |
+| system-factory | active | pipeline universal de criação |
+| aiox-cerebro | active | intelligence engine |
 
 ---
 
 ## Próximos Passos
 
-1. **Kairos Check** — product work (kairoscheck.net), Stories 1.1-1.5 em `docs/stories/`
-2. **Entity Registry** — registar ~40 agentes novos (`*propose-modification` + `*ids register`)
-3. **FORGE** — testar `@forge-classifier "descrição"` para criar novos sistemas
-4. **kairos-infra-master** — `*workflow kairos-infra-master` (Fase 0 — ainda por executar)
+1. **process-mapper** — criar os 7 agentes com DNA real via `squad-creator` (PM-7.2)
+2. **Kairos Check** — retomar `kairoscheck.net` (EPIC-KCC stories 4.2-4.4 pendentes)
+3. **AIOX Academy** — stories EPIC-003 pendentes (`docs/stories/epic-1-foundation/`)
+4. **gate pré-criação** — monitorizar comportamento em produção, ajustar regex se necessário
 
 ---
 
@@ -99,142 +115,7 @@ Branch: main
 
 - GitHub: `contactorevonix-blip/kairos-cerebro`
 - AIOX Core: v5.2.9 (CLI instalado globalmente)
-- AIOX oficial clonado: `C:/Users/lealp/aiox-core-official/` (pode apagar)
 - FORGE: activar com `@forge-classifier "descrição"`
+- process-mapper: `@cartographer-chief *audit-coverage` para ver estado
 
-*Actualizado: 2026-05-31*
-
-## Checkpoint: e065e54 — 2026-06-02 09:19
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json
-
-## Checkpoint: e065e54 — 2026-06-03 12:08
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:09
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:09
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:10
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:11
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:18
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:21
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:28
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:36
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:43
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 12:54
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:04
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:12
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:17
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:21
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:28
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:35
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:41
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:43
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:48
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:51
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:53
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:57
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 13:58
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 14:03
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
-
-## Checkpoint: e065e54 — 2026-06-03 14:05
-**Branch:** main
-**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
-**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+*Actualizado: 2026-06-03*
