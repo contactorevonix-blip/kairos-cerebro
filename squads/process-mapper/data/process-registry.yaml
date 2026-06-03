@@ -1,0 +1,21 @@
+# process-registry.yaml
+# Mapeamento: ficheiro fonte → processos que devem ser re-gerados quando o ficheiro muda
+# Mantido por: evolution-tracker
+# Usado por: process-map-updater.cjs (FEAT-07 / PM-4.3)
+# Formato: {source_file: path, maps_to: [lista de IDs de processo]}
+
+version: "1.0.0"
+last_updated: "2026-06-03"
+note: "Preenchido por PM-4.1. Esta versão inicial é estrutura base sem entradas."
+
+mappings: []
+
+# Exemplo de entrada (adicionado por PM-4.1):
+# - source_file: ".claude/rules/workflow-execution.md"
+#   maps_to: ["sdc", "qa-loop", "spec-pipeline", "brownfield"]
+#
+# - source_file: ".claude/rules/agent-authority.md"
+#   maps_to: ["agent-authority", "handoff-flows", "escalation-tree"]
+#
+# - source_file: ".claude/rules/story-lifecycle.md"
+#   maps_to: ["sdc", "story-lifecycle"]

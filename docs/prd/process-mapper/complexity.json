@@ -1,0 +1,130 @@
+{
+  "project": "process-mapper",
+  "assessed_by": "@architect (Aria)",
+  "date": "2026-06-03",
+  "prd_source": "docs/prd/process-mapper/PRD.md",
+  "requirements_source": "docs/prd/process-mapper/requirements.json",
+
+  "dimensions": {
+    "scope": {
+      "score": 5,
+      "max": 5,
+      "rationale": "Breadth máximo no AIOX: 7 agentes novos, 5 domínios completamente distintos, ~100+ ficheiros de input, gate pré-criação que afecta os 5 squads existentes + 4 workflows primários, 29-37 stories estimadas (maior squad criado até agora), outputs em 2 formatos distintos. Toca em TODA a estrutura do AIOX.",
+      "evidence": [
+        "7 agentes a criar do zero — nenhum reutilizável dos squads existentes",
+        "5 domínios (Process, Agent, Structure, File, Evolution) — cada um exige skills distintos",
+        "~100+ tasks em .aiox-core/development/tasks/ como input",
+        "Gate pré-criação intercepta fluxo de TODOS os squads existentes",
+        "squads/: 5 squads × N workflows cada = scope de leitura massivo"
+      ]
+    },
+    "integration": {
+      "score": 2,
+      "max": 5,
+      "rationale": "Sem APIs externas, sem base de dados, sem autenticação. Inputs são exclusivamente ficheiros locais (.aiox-core/, .claude/rules/, squads/). A única integração é leitura do sistema de ficheiros local e escrita em docs/process-maps/.",
+      "evidence": [
+        "Sem Railway, Vercel, Stripe, ou qualquer API externa",
+        "Sem Supabase ou PostgreSQL",
+        "Inputs: Read tool em ficheiros locais existentes",
+        "Outputs: Write tool em docs/ (L4)"
+      ]
+    },
+    "infrastructure": {
+      "score": 4,
+      "max": 5,
+      "rationale": "FR-03 (gate pré-criação) requer mecanismo de intercepção de comandos AIOX — implementável via Claude Code hooks (UserPromptSubmit ou PreToolUse em .claude/settings.json). FR-05 (actualização automática) requer detecção de mudanças — PostToolUse hook ou trigger baseado em writes. Ambos afectam a configuração de hooks existente e requerem calibração cuidadosa para não bloquear fluxos legítimos.",
+      "evidence": [
+        "FR-03: gate pré-criação → Claude Code hook PreToolUse/UserPromptSubmit",
+        "FR-05: detecção de mudanças → PostToolUse hook em Write/Edit",
+        ".claude/settings.json: hooks existentes podem entrar em conflito",
+        "Bypass de emergência necessário (ex: --skip-map-gate flag) para evitar bloqueio total"
+      ],
+      "critical_risk": "Gate pré-criação mal calibrado BLOQUEIA todo o desenvolvimento AIOX — requer modo de bypass de emergência antes de activar"
+    },
+    "knowledge": {
+      "score": 4,
+      "max": 5,
+      "rationale": "Process mapping é domínio completamente novo no AIOX. Requer: (1) metodologias de swim-lane diagrams (Rummler-Brache), (2) value stream mapping (Gene Kim), (3) geração de HTML interactivo com qualidade Figma-exportável, (4) SVG estruturado compatível com Figma import, (5) integração com hook system do Claude Code. Nenhum agente existente tem este DNA.",
+      "evidence": [
+        "Zero squads existentes com domínio de process mapping",
+        "HTML + SVG para Figma: nenhum output deste tipo existe hoje em docs/",
+        "Hook system do Claude Code: domínio especializado (claude-code-mastery squad cobre parcialmente)",
+        "Gene Kim, Rummler-Brache, Deming: elite minds não clonados ainda"
+      ],
+      "reuse_opportunity": "claude-code-mastery squad tem hooks-architect agent — reutilizar conhecimento de hooks para FR-03/FR-05"
+    },
+    "risk": {
+      "score": 4,
+      "max": 5,
+      "rationale": "Três riscos críticos: (1) FR-03 gate pré-criação pode bloquear desenvolvimento se mal calibrado — impacto máximo, afecta todos os fluxos; (2) FR-05 actualização automática pode entrar em loop se trigger for Write em docs/ (o próprio squad escreve em docs/); (3) map-validator com critérios errados bloqueia mapas correctos ou aprova mapas incorrectos.",
+      "evidence": [
+        "RISCO-1: gate activa em *create-* → se regex demasiado amplo, bloqueia comandos legítimos não relacionados",
+        "RISCO-2: FR-05 write-trigger + squad escreve em docs/ = potencial loop infinito",
+        "RISCO-3: map-validator score subjectivo → calibração necessária com exemplos reais primeiro",
+        "RISCO-4: squad afecta 5 squads existentes — falha tem impacto em toda a plataforma"
+      ],
+      "mitigations_required": [
+        "Bypass flag --skip-map-gate para emergências",
+        "Exclusão explícita de docs/process-maps/ do trigger de actualização automática",
+        "map-validator: começar com thresholds baixos (70%) e aumentar gradualmente",
+        "Fase A (Process Maps) implementar e validar ANTES de activar o gate pré-criação (FR-03)"
+      ]
+    }
+  },
+
+  "scoring_summary": {
+    "scope": 5,
+    "integration": 2,
+    "infrastructure": 4,
+    "knowledge": 4,
+    "risk": 4,
+    "total": 19,
+    "max_possible": 25
+  },
+
+  "complexity_class": "COMPLEX",
+  "threshold_reference": "COMPLEX = score >= 16 (source: .claude/rules/workflow-execution.md)",
+
+  "spec_pipeline_decision": {
+    "class": "COMPLEX",
+    "phases_required": "ALL 6 + possível ciclo de revisão",
+    "phases": [
+      {"phase": 1, "name": "GATHER", "status": "DONE", "output": "requirements.json"},
+      {"phase": 2, "name": "ASSESS", "status": "DONE", "output": "complexity.json (este ficheiro)"},
+      {"phase": 3, "name": "RESEARCH", "status": "PENDING", "agent": "@analyst", "output": "research.json"},
+      {"phase": 4, "name": "WRITE SPEC", "status": "PENDING", "agent": "@pm", "output": "spec.md"},
+      {"phase": 5, "name": "CRITIQUE", "status": "PENDING", "agent": "@qa", "output": "critique.json"},
+      {"phase": 6, "name": "PLAN", "status": "PENDING", "agent": "@architect", "output": "implementation.yaml"}
+    ]
+  },
+
+  "architectural_recommendations": [
+    {
+      "id": "ADR-PM-001",
+      "title": "Gate pré-criação via Claude Code hooks",
+      "decision": "Implementar FR-03 como UserPromptSubmit hook em .claude/settings.json que interceta comandos *create-*, *draft, *create-epic antes de qualquer agente os processar",
+      "rationale": "É o único mecanismo que garante intercepção universal sem modificar cada agente individualmente",
+      "constraint": "Requer bypass --skip-map-gate e exclusão de docs/ do trigger de actualização"
+    },
+    {
+      "id": "ADR-PM-002",
+      "title": "Fase A primeiro, gate último",
+      "decision": "Implementar os 5 domínios por fase A→B→C→D→E. Apenas activar gate pré-criação (FR-03) DEPOIS de EPIC-PM-001 (Fase A) estar completo e validado",
+      "rationale": "Se o gate é activado antes de existirem mapas, bloqueia tudo. Fase A gera os primeiros mapas válidos que o gate pode verificar"
+    },
+    {
+      "id": "ADR-PM-003",
+      "title": "Reutilizar hooks-architect do claude-code-mastery",
+      "decision": "Para implementar FR-03 e FR-05, coordenar com squad claude-code-mastery/agents/hooks-architect.md",
+      "rationale": "IDS principle: REUSE > ADAPT > CREATE. hooks-architect tem o DNA de hooks do Claude Code"
+    },
+    {
+      "id": "ADR-PM-004",
+      "title": "HTML gerado por Node.js script, não por agente em runtime",
+      "decision": "flow-architect gera os HTMLs via script Node.js em docs/process-maps/ (executável com Bash tool). Não gerar HTML inline em contexto do agente",
+      "rationale": "HTML complexo com quality gates interactivos é mais confiável como artefacto de ficheiro do que output inline"
+    }
+  ],
+
+  "next_action": "Fase 3 RESEARCH — @analyst pesquisa: (1) Gene Kim value stream mapping, (2) Rummler-Brache swim-lanes, (3) SVG/HTML geração para Figma-compatible output, (4) Claude Code hooks para intercepção de comandos"
+}

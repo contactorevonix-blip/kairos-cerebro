@@ -1,0 +1,198 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Squad: process-mapper
+# Domain: Process Mapping & Governance
+# Created: 2026-06-03
+# Version: 1.0.0
+# Story: PM-7.1
+# ═══════════════════════════════════════════════════════════════════════════════
+
+squad:
+  name: process-mapper
+  display_name: "Process Mapper Squad"
+  version: "1.0.0"
+  domain: "Process Mapping & Governance"
+  description: |
+    Squad de observabilidade de processos para o AIOX. Gera fluxogramas visuais
+    (HTML interactivo + SVG Figma-exportável) de todos os processos, agentes,
+    estrutura e evolução do AIOX. Actua como gate pré-criação automático —
+    nenhum artefacto AIOX é criado sem mapa de processo validado.
+
+  philosophy: |
+    "Torna o invisível visível. Nenhuma criação sem mapa validado."
+    O squad não modifica código nem controla decisões — gera mapas e valida
+    que os processos existem antes de qualquer criação. Observabilidade pura.
+
+  keywords:
+    - process-mapping
+    - flowcharts
+    - diagrams
+    - figma
+    - html
+    - svg
+    - governance
+    - observability
+    - pre-creation-gate
+    - swim-lanes
+    - coverage-audit
+
+  entry_agent: cartographer-chief
+  orchestrator: cartographer-chief
+  created_by: "@dev (Dex)"
+  created_at: "2026-06-03"
+  spec_source: "docs/prd/process-mapper/spec.md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIER ARCHITECTURE
+# ─────────────────────────────────────────────────────────────────────────────
+
+tiers:
+  orchestrator:
+    name: "Orchestration & Gate"
+    agents:
+      - cartographer-chief
+    purpose: "Orquestra todos os domínios, interceta comandos de criação, verifica coverage"
+
+  tier_0:
+    name: "Diagnosis & Coverage Audit"
+    agents:
+      - process-auditor
+    purpose: "Current State Map — o que existe, o que falta, coverage %"
+
+  tier_1:
+    name: "Mapping Specialists"
+    agents:
+      - flow-architect
+      - structure-mapper
+      - agent-cartographer
+      - evolution-tracker
+    purpose: "Especialistas em cada domínio de mapeamento"
+
+  tier_2:
+    name: "Quality & Validation"
+    agents:
+      - map-validator
+    purpose: "Valida fidelidade mapa vs ficheiros reais"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AGENT REGISTRY
+# ─────────────────────────────────────────────────────────────────────────────
+
+agents:
+  cartographer-chief:
+    file: agents/cartographer-chief.md
+    tier: orchestrator
+    based_on: "Original (Orchestrator)"
+    icon: "🗺️"
+    focus: "Orchestração, gate pré-criação, routing por domínio"
+    commands:
+      - "*map-process {nome}"
+      - "*map-squad {nome}"
+      - "*audit-coverage"
+      - "*map-all"
+      - "*map-evolution"
+      - "*validate-map {path}"
+
+  process-auditor:
+    file: agents/process-auditor.md
+    tier: 0
+    based_on: "Gene Kim (Current State Mapping)"
+    icon: "🔍"
+    focus: "Coverage audit, gap detection, Current State Map"
+
+  flow-architect:
+    file: agents/flow-architect.md
+    tier: 1
+    based_on: "Gene Kim (Value Stream Mapping)"
+    icon: "📊"
+    focus: "Fluxogramas HTML interactivos + SVG Figma-exportável"
+
+  structure-mapper:
+    file: agents/structure-mapper.md
+    tier: 1
+    based_on: "Original"
+    icon: "🏗️"
+    focus: "Pastas L1-L4, 22 pastas canónicas, mutabilidade visual"
+
+  agent-cartographer:
+    file: agents/agent-cartographer.md
+    tier: 1
+    based_on: "Geary Rummler (Swim-Lane Diagrams)"
+    icon: "🏊"
+    focus: "Swim-lanes, authority diagrams, delegation trees, handoffs"
+
+  evolution-tracker:
+    file: agents/evolution-tracker.md
+    tier: 1
+    based_on: "Tom Gilb (Evolutionary Delivery)"
+    icon: "📈"
+    focus: "Changelog visual, process debt, timeline de evolução AIOX"
+
+  map-validator:
+    file: agents/map-validator.md
+    tier: 2
+    based_on: "W.E. Deming (Quality)"
+    icon: "✅"
+    focus: "Fidelidade mapa vs ficheiros reais, score ≥ 90%"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HANDOFF MATRIX
+# ─────────────────────────────────────────────────────────────────────────────
+
+handoffs:
+  cartographer-chief:
+    routes_to: [process-auditor, flow-architect, structure-mapper, agent-cartographer, evolution-tracker]
+    validates_with: [map-validator]
+
+  process-auditor:
+    output_to: [flow-architect]
+    escalates_to: [cartographer-chief]
+
+  flow-architect:
+    validates_with: [map-validator]
+    escalates_to: [cartographer-chief]
+
+  structure-mapper:
+    validates_with: [map-validator]
+    escalates_to: [cartographer-chief]
+
+  agent-cartographer:
+    validates_with: [map-validator]
+    escalates_to: [cartographer-chief]
+
+  evolution-tracker:
+    collaborates_with: [process-auditor]
+    escalates_to: [cartographer-chief]
+
+  map-validator:
+    escalates_to: [cartographer-chief]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OUTPUTS
+# ─────────────────────────────────────────────────────────────────────────────
+
+outputs:
+  location: "docs/process-maps/"
+  formats:
+    - html_interactive
+    - svg_figma_compatible
+  structure:
+    process_maps: "docs/process-maps/{nome}.html"
+    figma_exports: "docs/process-maps/figma/{nome}.svg"
+    agent_maps: "docs/process-maps/agents/{agente}.html"
+    structure_maps: "docs/process-maps/structure/"
+    evolution: "docs/process-maps/evolution/"
+    coverage: "docs/process-maps/coverage-report.md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SETTINGS
+# ─────────────────────────────────────────────────────────────────────────────
+
+settings:
+  quality:
+    min_score: 7.0
+    map_validator_threshold: 90
+    smoke_tests: 3
+
+  activation:
+    prefix: "process-mapper"
+    example: "@process-mapper:flow-architect"

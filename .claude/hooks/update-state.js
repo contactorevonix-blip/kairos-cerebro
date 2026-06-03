@@ -15,7 +15,7 @@ const PROJECT_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const STATE_FILE = path.join(PROJECT_ROOT, 'STATE.md');
 
 function git(cmd) {
-  return execSync(cmd, { cwd: PROJECT_ROOT, encoding: 'utf8' }).trim();
+  return execSync(cmd, { cwd: PROJECT_ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
 }
 
 function safeGit(cmd, fallback = '') {

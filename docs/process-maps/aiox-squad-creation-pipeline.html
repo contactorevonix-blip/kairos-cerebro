@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIOX Squad Creation Pipeline — Process Map</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #0D0F14;
+    color: #E8EAF0;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #A78BFA;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 48px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── PIPELINE CONTAINER ── */
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── PHASE BLOCK ── */
+  .phase {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 20px 28px;
+    position: relative;
+  }
+  .phase-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .phase-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .steps {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .step {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #D1D5DB;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-num {
+    font-size: 10px;
+    font-weight: 700;
+    opacity: 0.5;
+    min-width: 18px;
+  }
+
+  /* PHASE COLOURS */
+  .phase-mapper  { border-color: #7C3AED; background: rgba(124,58,237,0.08); }
+  .phase-mapper .phase-label { color: #A78BFA; }
+  .phase-mapper .phase-title { color: #C4B5FD; }
+
+  .phase-architect { border-color: #0EA5E9; background: rgba(14,165,233,0.08); }
+  .phase-architect .phase-label { color: #38BDF8; }
+  .phase-architect .phase-title { color: #7DD3FC; }
+
+  .phase-automation { border-color: #F59E0B; background: rgba(245,158,11,0.08); }
+  .phase-automation .phase-label { color: #FCD34D; }
+  .phase-automation .phase-title { color: #FDE68A; }
+
+  .phase-qa { border-color: #10B981; background: rgba(16,185,129,0.08); }
+  .phase-qa .phase-label { color: #34D399; }
+  .phase-qa .phase-title { color: #6EE7B7; }
+
+  /* ── QUALITY GATE ── */
+  .qg-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4px 0;
+  }
+  .connector-line {
+    width: 2px;
+    height: 24px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(255,255,255,0.15));
+  }
+  .qg-block {
+    width: 360px;
+    border-radius: 10px;
+    padding: 16px 24px;
+    border: 2px solid;
+    position: relative;
+  }
+  .qg-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .qg-badge {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .qg-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #E8EAF0;
+  }
+  .qg-question {
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .qg-paths {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .qg-path {
+    flex: 1;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .qg-path-label {
+    font-size: 16px;
+    font-weight: 900;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .qg-path-desc {
+    font-size: 11px;
+    color: #9CA3AF;
+    line-height: 1.4;
+  }
+
+  /* QG colours */
+  .qg-1 { border-color: #7C3AED; background: rgba(124,58,237,0.12); }
+  .qg-1 .qg-badge { background: #7C3AED; color: #fff; }
+  .qg-1 .qg-question { color: #C4B5FD; }
+
+  .qg-2 { border-color: #0EA5E9; background: rgba(14,165,233,0.12); }
+  .qg-2 .qg-badge { background: #0EA5E9; color: #fff; }
+  .qg-2 .qg-question { color: #7DD3FC; }
+
+  .qg-3 { border-color: #F59E0B; background: rgba(245,158,11,0.12); }
+  .qg-3 .qg-badge { background: #F59E0B; color: #0D0F14; }
+  .qg-3 .qg-question { color: #FDE68A; }
+
+  .qg-4 { border-color: #10B981; background: rgba(16,185,129,0.12); }
+  .qg-4 .qg-badge { background: #10B981; color: #0D0F14; }
+  .qg-4 .qg-question { color: #6EE7B7; }
+
+  .path-yes { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); }
+  .path-yes .qg-path-label { color: #34D399; }
+  .path-no  { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); }
+  .path-no  .qg-path-label { color: #F87171; }
+
+  /* ── DELIVERY ── */
+  .delivery {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #10B981;
+    background: rgba(16,185,129,0.12);
+    padding: 24px 28px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .delivery-icon { font-size: 28px; margin-bottom: 8px; }
+  .delivery-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #34D399;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .delivery-meta {
+    font-size: 13px;
+    color: #6B7280;
+  }
+  .delivery-chips {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .chip {
+    background: rgba(52,211,153,0.12);
+    border: 1px solid rgba(52,211,153,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #6EE7B7;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    max-width: 900px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #9CA3AF;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  /* ── EXPORT BUTTON ── */
+  .export-bar {
+    max-width: 900px;
+    margin: 32px auto 0;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary { background: #7C3AED; color: #fff; }
+  .btn-secondary { background: rgba(255,255,255,0.08); color: #D1D5DB; border: 1px solid rgba(255,255,255,0.12); }
+</style>
+</head>
+<body>
+
+<h1>AIOX Squad Creation Pipeline</h1>
+<p class="subtitle">Process Map · 4 Fases · 4 Quality Gates · Threshold 70%</p>
+
+<div class="pipeline">
+
+  <!-- ═══════════════════════════════════ FASE 1 ═══════════════ -->
+  <div class="phase phase-mapper">
+    <div class="phase-label">Fase 1 · Process Mapper</div>
+    <div class="phase-title">Discovery &amp; Process Design</div>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span> Discovery Process — Identificar domínio, scope e elite minds candidatos</div>
+      <div class="step"><span class="step-num">02</span> Verificar squad-registry.yaml — REUSE > ADAPT > CREATE</div>
+      <div class="step"><span class="step-num">03</span> Definir propósito, filosofia e orchestrator do squad</div>
+      <div class="step"><span class="step-num">04</span> Create Process — Mapear agentes necessários por tier (0/1/2/orchestrator)</div>
+    </div>
+  </div>
+
+  <!-- QG 1 -->
+  <div class="qg-wrapper">
+    <div class="connector-line"></div>
+    <div class="qg-block qg-1">
+      <div class="qg-header">
+        <span class="qg-badge">QG-1</span>
+        <span class="qg-name">Discovery Validation</span>
+      </div>
+      <div class="qg-question">Score ≥ 70%?</div>
+      <div class="qg-paths">
+        <div class="qg-path path-no">
+          <span class="qg-path-label">NO</span>
+          <span class="qg-path-desc">Volta a Discovery<br>Escopo insuficiente ou<br>squad duplicado</span>
+        </div>
+        <div class="qg-path path-yes">
+          <span class="qg-path-label">YES</span>
+          <span class="qg-path-desc">Avança para<br>ARCHITECT<br>Domínio validado ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="connector-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ FASE 2 ═══════════════ -->
+  <div class="phase phase-architect">
+    <div class="phase-label">Fase 2 · Architect</div>
+    <div class="phase-title">Design Architecture &amp; Executors</div>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span> Design Architecture — Classificar minds por tier, definir handoffs</div>
+      <div class="step"><span class="step-num">02</span> Verificar: existe Tier 0 obrigatório (diagnóstico)?</div>
+      <div class="step"><span class="step-num">03</span> Design Executors — Clonar cada mind via oalanicolas (Voice DNA + Thinking DNA)</div>
+      <div class="step"><span class="step-num">04</span> Create Task Definitions — Tasks com veto_conditions e outputs</div>
+      <div class="step"><span class="step-num">05</span> Criar agents/*.md com DNA completo e SC_AGT_001 gate</div>
+    </div>
+  </div>
+
+  <!-- QG 2 -->
+  <div class="qg-wrapper">
+    <div class="connector-line"></div>
+    <div class="qg-block qg-2">
+      <div class="qg-header">
+        <span class="qg-badge">QG-2</span>
+        <span class="qg-name">Architecture Validation</span>
+      </div>
+      <div class="qg-question">Score ≥ 70%?</div>
+      <div class="qg-paths">
+        <div class="qg-path path-no">
+          <span class="qg-path-label">NO</span>
+          <span class="qg-path-desc">Back to Architecture<br>Tier 0 ausente / DNA<br>insuficiente / tasks fracas</span>
+        </div>
+        <div class="qg-path path-yes">
+          <span class="qg-path-label">YES</span>
+          <span class="qg-path-desc">Avança para<br>AUTOMATION<br>Agentes validados ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="connector-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ FASE 3 ═══════════════ -->
+  <div class="phase phase-automation">
+    <div class="phase-label">Fase 3 · Automation Architect</div>
+    <div class="phase-title">Design Workflow &amp; Integration</div>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span> Design Workflow — Criar workflows/ com pedro-valerio a validar veto conditions</div>
+      <div class="step"><span class="step-num">02</span> Garantir fluxo unidirecional (sem ciclos proibidos)</div>
+      <div class="step"><span class="step-num">03</span> Criar templates/, checklists/, data/knowledge-base.md</div>
+      <div class="step"><span class="step-num">04</span> Actualizar squad-registry.yaml e memory/MEMORY.md</div>
+      <div class="step"><span class="step-num">05</span> Verificar: 22 pastas + 5 ficheiros raiz presentes</div>
+    </div>
+  </div>
+
+  <!-- QG 3 -->
+  <div class="qg-wrapper">
+    <div class="connector-line"></div>
+    <div class="qg-block qg-3">
+      <div class="qg-header">
+        <span class="qg-badge">QG-3</span>
+        <span class="qg-name">Workflow &amp; Integration</span>
+      </div>
+      <div class="qg-question">Score ≥ 70%?</div>
+      <div class="qg-paths">
+        <div class="qg-path path-no">
+          <span class="qg-path-label">NO</span>
+          <span class="qg-path-desc">Back to Task Defs<br>Workflows com ciclos /<br>veto_conditions ausentes</span>
+        </div>
+        <div class="qg-path path-yes">
+          <span class="qg-path-label">YES</span>
+          <span class="qg-path-desc">Avança para<br>QA FINAL<br>Integração completa ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="connector-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ FASE 4 ═══════════════ -->
+  <div class="phase phase-qa">
+    <div class="phase-label">Fase 4 · QA</div>
+    <div class="phase-title">Design QA Gates &amp; Execute Checklist</div>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span> Design QA Gates — Definir gates específicos do squad (blocking + non-blocking)</div>
+      <div class="step"><span class="step-num">02</span> Execute Checklist — Executar *validate-squad com score mínimo 7.0/10</div>
+      <div class="step"><span class="step-num">03</span> 3 smoke tests por agente PASSAM (comportamento real, sem placeholders)</div>
+      <div class="step"><span class="step-num">04</span> Verificar: 15+ citações [SOURCE:] / 5+ signature phrases / handoffs completos</div>
+    </div>
+  </div>
+
+  <!-- QG 4 -->
+  <div class="qg-wrapper">
+    <div class="connector-line"></div>
+    <div class="qg-block qg-4">
+      <div class="qg-header">
+        <span class="qg-badge">QG-4 FINAL</span>
+        <span class="qg-name">Quality Validation Gate</span>
+      </div>
+      <div class="qg-question">Score ≥ 70%?</div>
+      <div class="qg-paths">
+        <div class="qg-path path-no">
+          <span class="qg-path-label">NO</span>
+          <span class="qg-path-desc">Volta ao ponto de falha<br>Diagnóstico exacto /<br>corrigir e re-validar</span>
+        </div>
+        <div class="qg-path path-yes">
+          <span class="qg-path-label">YES</span>
+          <span class="qg-path-desc">ENTREGA<br>Squad pronto para uso ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="connector-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ ENTREGA ═══════════════ -->
+  <div class="delivery">
+    <div class="delivery-icon">🚀</div>
+    <div class="delivery-title">ENTREGA — Squad Operacional</div>
+    <div class="delivery-meta">Todos os 4 Quality Gates PASS · Score ≥ 70% em todas as fases</div>
+    <div class="delivery-chips">
+      <span class="chip">squad.yaml validado</span>
+      <span class="chip">config.yaml activo</span>
+      <span class="chip">Agentes com DNA completo</span>
+      <span class="chip">3 smoke tests PASS/agente</span>
+      <span class="chip">Workflows unidirecionais</span>
+      <span class="chip">squad-registry.yaml actualizado</span>
+    </div>
+  </div>
+
+</div><!-- /pipeline -->
+
+<!-- ── LEGEND ── -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#7C3AED"></div> Process Mapper</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0EA5E9"></div> Architect</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div> Automation Architect</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#10B981"></div> QA / Entrega</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F87171"></div> NO — loop de retorno</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#34D399"></div> YES — avança</div>
+</div>
+
+<!-- ── EXPORT BAR ── -->
+<div class="export-bar">
+  <button class="btn btn-secondary" onclick="window.print()">Imprimir / Save PDF</button>
+  <button class="btn btn-primary" onclick="copySVG()">Copiar para Figma (SVG)</button>
+</div>
+
+<script>
+function copySVG() {
+  // Serializa o pipeline como texto descritivo para clipboard
+  const text = `AIOX Squad Creation Pipeline
+=================================
+
+FASE 1 — PROCESS MAPPER
+  1. Discovery Process
+  2. Verificar squad-registry (REUSE > ADAPT > CREATE)
+  3. Definir propósito e orchestrator
+  4. Create Process — mapear agentes por tier
+
+┌─ QG-1: Discovery Validation ─────────────────┐
+│  Score ≥ 70%?                                 │
+│  NO  → Volta a Discovery                      │
+│  YES → Avança para ARCHITECT                  │
+└───────────────────────────────────────────────┘
+
+FASE 2 — ARCHITECT
+  1. Design Architecture — tiers + handoffs
+  2. Verificar Tier 0 obrigatório
+  3. Design Executors — clonar minds (oalanicolas)
+  4. Create Task Definitions com veto_conditions
+
+┌─ QG-2: Architecture Validation ──────────────┐
+│  Score ≥ 70%?                                 │
+│  NO  → Back to Architecture                   │
+│  YES → Avança para AUTOMATION ARCHITECT       │
+└───────────────────────────────────────────────┘
+
+FASE 3 — AUTOMATION ARCHITECT
+  1. Design Workflow com pedro-valerio
+  2. Garantir fluxo unidirecional
+  3. Criar templates, checklists, knowledge-base
+  4. Actualizar squad-registry.yaml
+
+┌─ QG-3: Workflow & Integration ───────────────┐
+│  Score ≥ 70%?                                 │
+│  NO  → Back to Task Definitions               │
+│  YES → Avança para QA                         │
+└───────────────────────────────────────────────┘
+
+FASE 4 — QA
+  1. Design QA Gates (blocking + non-blocking)
+  2. Execute Checklist (*validate-squad score ≥ 7.0)
+  3. 3 smoke tests/agente PASSAM
+  4. Verificar citações [SOURCE:] e signature phrases
+
+┌─ QG-4 FINAL: Quality Validation ─────────────┐
+│  Score ≥ 70%?                                 │
+│  NO  → Volta ao ponto de falha exacto         │
+│  YES → ENTREGA                                │
+└───────────────────────────────────────────────┘
+
+ENTREGA — Squad Operacional
+  ✓ squad.yaml validado
+  ✓ Agentes com DNA completo
+  ✓ Smoke tests a passar
+  ✓ Workflows unidirecionais`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Processo copiado! Cola no Figma como text layer ou importa o SVG via plugin FigJam.');
+  });
+}
+</script>
+
+</body>
+</html>

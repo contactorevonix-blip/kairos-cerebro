@@ -1,0 +1,32 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Config: process-mapper
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: process-mapper
+version: "1.0.0"
+domain: process-mapping
+orchestrator: cartographer-chief
+philosophy: "Torna o invisível visível. Nenhuma criação sem mapa validado."
+
+capabilities:
+  - process_mapping
+  - agent_mapping
+  - structure_mapping
+  - file_mapping
+  - evolution_tracking
+  - pre_creation_gate
+  - coverage_audit
+
+output_formats:
+  - html_interactive
+  - svg_figma_compatible
+
+output_location: "docs/process-maps/"
+
+activation:
+  command: "@cartographer-chief"
+  skill: "process-mapper"
+
+spec_source: "docs/prd/process-mapper/spec.md"
+prd_source: "docs/prd/process-mapper/PRD.md"
+implementation_plan: "docs/prd/process-mapper/implementation.yaml"

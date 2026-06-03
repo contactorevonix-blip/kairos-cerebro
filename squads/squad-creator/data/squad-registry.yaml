@@ -1,6 +1,6 @@
 version: "1.0.0"
-last_updated: "2026-05-29"
-total_squads: 4
+last_updated: "2026-06-03"
+total_squads: 5
 
 squads:
   claude-code-mastery:
@@ -67,6 +67,24 @@ squads:
       UC-002: "Strategic Decision Support — klein + gilad"
       UC-003: "Competitive Intelligence — gilad + higgins"
       UC-004: "Evidence Synthesis — cochrane + forsgren"
+
+  process-mapper:
+    name: "Process Mapper Squad"
+    domain: "Process Mapping & Governance"
+    purpose: "Torna o invisível visível. Gera fluxogramas HTML + SVG Figma de todos os processos AIOX. Gate pré-criação automático."
+    keywords: ["process-mapping", "flowcharts", "diagrams", "figma", "svg", "governance", "swim-lanes", "coverage-audit", "pre-creation-gate"]
+    orchestrator: "cartographer-chief"
+    agents_count: 7
+    quality_score: null
+    created: "2026-06-03"
+    status: draft
+    tiers:
+      orchestrator: ["cartographer-chief"]
+      tier_0: ["process-auditor"]
+      tier_1: ["flow-architect", "structure-mapper", "agent-cartographer", "evolution-tracker"]
+      tier_2: ["map-validator"]
+    spec_source: "docs/prd/process-mapper/spec.md"
+    story_pm71: "docs/stories/epics/EPIC-PM-process-mapper/PM-7.1.squad-structure.story.md"
 
 domain_index:
   claude-code: "claude-code-mastery"

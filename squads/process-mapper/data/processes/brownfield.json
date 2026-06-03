@@ -1,0 +1,59 @@
+{
+  "name": "brownfield",
+  "title": "Brownfield Discovery",
+  "subtitle": "10 fases · avaliação de codebase legado · fonte: workflow-execution.md",
+  "phases": [
+    {
+      "id": "phase-dc",
+      "label": "Fases 1-3",
+      "title": "Data Collection",
+      "agent": "@architect + @data-eng + @ux",
+      "color": "architect",
+      "steps": [
+        "F1 @architect → system-architecture.md",
+        "F2 @data-engineer → SCHEMA.md + DB-AUDIT.md",
+        "F3 @ux-design-expert → frontend-spec.md"
+      ]
+    },
+    {
+      "id": "phase-dv",
+      "label": "Fases 4-7",
+      "title": "Draft & Validation",
+      "agent": "@architect + @data-eng + @ux + @qa",
+      "color": "automation",
+      "steps": [
+        "F4 @architect → technical-debt-DRAFT.md",
+        "F5 @data-engineer → db-specialist-review.md",
+        "F6 @ux → ux-specialist-review.md",
+        "F7 @qa → qa-review.md (QA Gate)"
+      ]
+    },
+    {
+      "id": "phase-fi",
+      "label": "Fases 8-10",
+      "title": "Finalization",
+      "agent": "@architect + @analyst + @pm",
+      "color": "qa",
+      "steps": [
+        "F8 @architect → technical-debt-assessment.md (final)",
+        "F9 @analyst → TECHNICAL-DEBT-REPORT.md (executivo)",
+        "F10 @pm → Epic + stories prontas para SDC"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-BF-1",
+      "name": "QA Gate (Fase 7)",
+      "threshold": 70,
+      "after_phase": "phase-dv",
+      "path_no": "NEEDS WORK → volta a Fase 4",
+      "path_no_detail": "Gaps não endereçados / dependências por mapear",
+      "path_yes": "APPROVED → Finalization (F8-F10)"
+    }
+  ],
+  "delivery": {
+    "title": "Epic + Stories → SDC",
+    "chips": ["Technical debt mapeado", "Epics definidas", "Stories prontas", "SDC pode começar"]
+  }
+}

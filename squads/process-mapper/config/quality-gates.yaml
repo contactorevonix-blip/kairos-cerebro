@@ -1,0 +1,36 @@
+gates:
+  QG-PM-1:
+    name: Map Fidelity
+    type: auto
+    check: "map-validator score ≥ 90% — cada elemento do mapa rastreia para ficheiro real"
+    blocking: true
+
+  QG-PM-2:
+    name: HTML Valid
+    type: auto
+    check: "HTML gerado abre no browser sem erros JavaScript"
+    blocking: true
+
+  QG-PM-3:
+    name: SVG Figma Import
+    type: hybrid
+    check: "SVG importa no Figma como vector group com layers nomeadas"
+    blocking: true
+
+  QG-PM-4:
+    name: Coverage Target
+    type: auto
+    check: "coverage-report.md mostra ≥ 90% após Fase E completa"
+    blocking: true
+
+  QG-PM-5:
+    name: Gate No False Positives
+    type: hybrid
+    check: "gate pré-criação não bloqueia comandos sem *create-/ *draft"
+    blocking: true
+
+  QG-PM-6:
+    name: No Update Loop
+    type: auto
+    check: "PostToolUse não entra em loop — docs/process-maps/ excluído do trigger"
+    blocking: true

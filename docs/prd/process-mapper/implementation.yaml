@@ -1,0 +1,516 @@
+plan:
+  project: process-mapper
+  planned_by: "@architect (Aria)"
+  date: "2026-06-03"
+  spec_source: "docs/prd/process-mapper/spec.md v1.1"
+  total_epics: 7
+  total_stories_estimated: 32
+  track: Enterprise
+  critical_constraint: "EPIC-PM-006 (gate pré-criação) BLOQUEADO até EPIC-PM-001 Done — ADR-PM-002"
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-001 — Process Maps Foundation (Fase A)
+# Prioridade: 1 (primeiro a implementar — sem dependências)
+# Desbloqueia: EPIC-PM-006
+# ════════════════════════════════════════════════════
+epics:
+  - id: EPIC-PM-001
+    name: "Process Maps Foundation"
+    phase: A
+    priority: 1
+    spec_features: [FEAT-01, FEAT-02, FEAT-03]
+    depends_on: []
+    stories:
+
+      - id: PM-1.1
+        name: "Script Node.js base — gerador HTML de processos"
+        agent: "@dev"
+        spec: FEAT-01
+        description: "Criar scripts/generate-process-map.js — função core que recebe {nome, fases[], qualityGates[]} e gera HTML auto-contido em docs/process-maps/{nome}.html"
+        acceptance_criteria:
+          - "Dado um objecto de processo com 4 fases e 2 quality gates, quando o script é executado, então gera .html que abre no browser sem erros"
+          - "HTML é auto-contido (sem dependências externas, sem servidor)"
+          - "Fases têm código de cor distinto por tipo (mapper/architect/automation/qa)"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/generate-process-map.js"
+          - "squads/process-mapper/scripts/html-templates.js"
+
+      - id: PM-1.2
+        name: "Template HTML — quality gates interactivos"
+        agent: "@dev"
+        spec: FEAT-01, FR-06
+        description: "Expandir PM-1.1 com quality gates visuais: threshold ≥ X%, path YES (verde), path NO (vermelho com destino explícito), loops de retorno com seta identificada"
+        depends_on: [PM-1.1]
+        acceptance_criteria:
+          - "Quality gate mostra threshold configurável (ex: ≥ 70%)"
+          - "Path YES avança para próxima fase — visível"
+          - "Path NO mostra destino exacto do loop (ex: 'Volta a Discovery')"
+          - "Prova: aiox-squad-creation-pipeline.html como referência visual"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/html-templates.js"
+
+      - id: PM-1.3
+        name: "Mapa SDC — Story Development Cycle"
+        agent: "@dev"
+        spec: FEAT-01
+        description: "Gerar docs/process-maps/sdc.html baseado em .claude/rules/workflow-execution.md (secção SDC) e .claude/rules/story-lifecycle.md"
+        depends_on: [PM-1.2]
+        acceptance_criteria:
+          - "4 fases (Create/Validate/Implement/QA) com agentes correctos (@sm/@po/@dev/@qa)"
+          - "Status transitions visíveis: Draft→Ready→InProgress→InReview→Done"
+          - "QA gate com 4 veredictos (PASS/CONCERNS/FAIL/WAIVED)"
+          - "Cada elemento rastreia para ficheiro fonte (map-validator confirma)"
+        estimate: S
+        source_files: [".claude/rules/workflow-execution.md", ".claude/rules/story-lifecycle.md"]
+
+      - id: PM-1.4
+        name: "Mapa QA Loop"
+        agent: "@dev"
+        spec: FEAT-01
+        description: "Gerar docs/process-maps/qa-loop.html baseado em .claude/rules/workflow-execution.md (secção QA Loop)"
+        depends_on: [PM-1.2]
+        acceptance_criteria:
+          - "Loop iterativo visível com contador max 5 iterações"
+          - "3 veredictos (APPROVE/REJECT/BLOCKED) com caminhos distintos"
+          - "4 escalation triggers documentados"
+        estimate: S
+        source_files: [".claude/rules/workflow-execution.md"]
+
+      - id: PM-1.5
+        name: "Mapa Spec Pipeline"
+        agent: "@dev"
+        spec: FEAT-01
+        description: "Gerar docs/process-maps/spec-pipeline.html — 6 fases + classes de complexidade (SIMPLE/STANDARD/COMPLEX)"
+        depends_on: [PM-1.2]
+        acceptance_criteria:
+          - "6 fases visíveis com agent assignments"
+          - "Tabela de complexity classes com scores e fases aplicáveis"
+          - "Critique verdicts com scores e next steps"
+        estimate: S
+        source_files: [".claude/rules/workflow-execution.md"]
+
+      - id: PM-1.6
+        name: "Mapa Brownfield Discovery"
+        agent: "@dev"
+        spec: FEAT-01
+        description: "Gerar docs/process-maps/brownfield.html — 10 fases em 3 blocos (Data Collection / Draft & Validation / Finalization)"
+        depends_on: [PM-1.2]
+        acceptance_criteria:
+          - "10 fases com agent assignments correctos"
+          - "3 blocos visualmente distintos"
+          - "QA Gate Fase 7 com loop APPROVED/NEEDS WORK"
+        estimate: S
+        source_files: [".claude/rules/workflow-execution.md"]
+
+      - id: PM-1.7
+        name: "Coverage Audit — process-auditor (Tier 0)"
+        agent: "@dev"
+        spec: FEAT-03
+        description: "Implementar process-auditor: lê .aiox-core/development/tasks/, .claude/rules/, squads/*/squad.yaml → compara com docs/process-maps/ → gera coverage-report.md"
+        depends_on: [PM-1.3, PM-1.4, PM-1.5, PM-1.6]
+        acceptance_criteria:
+          - "coverage-report.md gerado com % por domínio"
+          - "Lista de gaps com prioridade"
+          - "Score alvo ≥ 90% documentado"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/coverage-audit.js"
+          - "docs/process-maps/coverage-report.md"
+
+      - id: PM-1.8
+        name: "SVG Figma-export — template directo + Mermaid opcional"
+        agent: "@dev"
+        spec: FEAT-02
+        description: "Implementar geração SVG: (1) template Node.js directo como fallback garantido, (2) @mermaid-js/mermaid-cli se disponível. Output: docs/process-maps/figma/{nome}.svg"
+        depends_on: [PM-1.2]
+        acceptance_criteria:
+          - "SVG gerado com viewBox='0 0 900 600' e elementos com id nomeados"
+          - "SVG importa no Figma como vector group editável"
+          - "Se mermaid CLI ausente, fallback SVG por template é usado automaticamente"
+          - "Fallback produz SVG válido sem erros"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/generate-svg.js"
+          - "docs/process-maps/figma/"
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-002 — Agent Maps (Fase B)
+# Prioridade: 2
+# Depende de: EPIC-PM-001 (PM-1.1, PM-1.2 para base de templates)
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-002
+    name: "Agent Maps — Swim-Lanes"
+    phase: B
+    priority: 2
+    spec_features: [FEAT-04]
+    depends_on: [EPIC-PM-001]
+    stories:
+
+      - id: PM-2.1
+        name: "Swim-lane HTML template (CSS grid, 1 lane/agente)"
+        agent: "@dev"
+        spec: FEAT-04, QA-02_fix
+        description: "Swim-lanes como tabela HTML com CSS grid — colunas = agentes, rows = fases temporais. Handoffs marcados com símbolo visual distinto (diamante SVG inline)."
+        acceptance_criteria:
+          - "Tabela CSS grid com 1 coluna por agente"
+          - "Handoffs cruzam lanes com seta diamante visível"
+          - "Responsive — legível em ecrã largo"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/generate-swimlane.js"
+
+      - id: PM-2.2
+        name: "Mapa de autoridade dos 10 agentes"
+        agent: "@dev"
+        spec: FEAT-04
+        description: "Gerar docs/process-maps/agents/authority-map.html baseado em .claude/rules/agent-authority.md — operações exclusivas, bloqueadas, e delegadas por agente"
+        depends_on: [PM-2.1]
+        acceptance_criteria:
+          - "10 agentes com swim lanes"
+          - "Operações EXCLUSIVE marcadas a vermelho"
+          - "Operações BLOCKED marcadas a cinzento"
+          - "Delegations com seta para agente destino"
+        estimate: M
+        source_files: [".claude/rules/agent-authority.md"]
+
+      - id: PM-2.3
+        name: "Diagrama de handoffs canónicos (Story Flow / Epic Flow / Git Push)"
+        agent: "@dev"
+        spec: FEAT-04
+        description: "Gerar docs/process-maps/agents/handoff-flows.html — os 4 flows canónicos: Git Push Flow, Schema Design Flow, Story Flow, Epic Flow"
+        depends_on: [PM-2.2]
+        acceptance_criteria:
+          - "4 flows visíveis como sequências lineares"
+          - "Cada handoff tem agente de origem e destino"
+          - "Git Push Flow mostra que ANY agent → @devops"
+        estimate: S
+        source_files: [".claude/rules/agent-authority.md"]
+
+      - id: PM-2.4
+        name: "Escalation tree — quando agente não consegue completar"
+        agent: "@dev"
+        spec: FEAT-04
+        description: "Gerar docs/process-maps/agents/escalation-tree.html baseado nas 4 escalation rules de agent-authority.md"
+        depends_on: [PM-2.2]
+        acceptance_criteria:
+          - "4 escalation triggers visíveis como árvore"
+          - "Cada trigger aponta para @aiox-master"
+          - "Constitutional violation path claramente destacado"
+        estimate: S
+        source_files: [".claude/rules/agent-authority.md"]
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-003 — Structure Maps (Fase C)
+# Prioridade: 3
+# Depende de: EPIC-PM-001 (base scripts)
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-003
+    name: "Structure Maps — L1-L4 e Pastas"
+    phase: C
+    priority: 3
+    spec_features: [FEAT-05]
+    depends_on: [EPIC-PM-001]
+    stories:
+
+      - id: PM-3.1
+        name: "structure-mapper — lê .claude/CLAUDE.md Framework Boundary"
+        agent: "@dev"
+        spec: FEAT-05, QA-03_fix
+        description: "Script que lê a tabela Framework vs Project Boundary de .claude/CLAUDE.md e classifica cada pasta em L1-L4 automaticamente"
+        acceptance_criteria:
+          - "Parser lê tabela Markdown de .claude/CLAUDE.md"
+          - "Cada path classificado correctamente: .aiox-core/core/ = L1, squads/ = L4"
+          - "Output é objecto JSON {path: string, layer: 1|2|3|4, mutability: string}"
+        estimate: M
+        source_files: [".claude/CLAUDE.md"]
+        files:
+          - "squads/process-mapper/scripts/structure-mapper.js"
+
+      - id: PM-3.2
+        name: "Mapa visual L1-L4 com código de cores"
+        agent: "@dev"
+        spec: FEAT-05
+        description: "Gerar docs/process-maps/structure/aiox-layers.html — árvore de directórios com cores L1=#EF4444, L2=#F97316, L3=#EAB308, L4=#22C55E"
+        depends_on: [PM-3.1]
+        acceptance_criteria:
+          - "Todas as pastas principais visíveis com cor correcta"
+          - "Legenda de cores com regras de mutabilidade"
+          - "Clique em pasta mostra regra (ex: 'NEVER modify')"
+        estimate: M
+        files:
+          - "docs/process-maps/structure/aiox-layers.html"
+
+      - id: PM-3.3
+        name: "Mapa das 22 pastas canónicas de squad"
+        agent: "@dev"
+        spec: FEAT-05
+        description: "Gerar docs/process-maps/structure/squad-anatomy.html — as 22 pastas canónicas de um squad com propósito de cada uma"
+        depends_on: [PM-3.1]
+        acceptance_criteria:
+          - "22 pastas listadas com propósito"
+          - "Exemplo concreto de ficheiro em cada pasta"
+          - "Código de cores L4 (todas são modificáveis)"
+        estimate: S
+        source_files: ["squads/squad-creator/squad.yaml", "squads/claude-code-mastery/"]
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-004 — File Maps + Automação (Fase D)
+# Prioridade: 4
+# Depende de: EPIC-PM-001 completo
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-004
+    name: "File Maps + Actualização Automática"
+    phase: D
+    priority: 4
+    spec_features: [FEAT-07]
+    depends_on: [EPIC-PM-001]
+    stories:
+
+      - id: PM-4.1
+        name: "process-registry.yaml — registry ficheiro→processo"
+        agent: "@dev"
+        spec: FEAT-07, QA-05_fix
+        description: "Criar squads/process-mapper/data/process-registry.yaml com mapeamento de todos os ficheiros de processo para os nomes dos mapas que devem ser re-gerados quando o ficheiro muda"
+        acceptance_criteria:
+          - "Registry cobre todos os ficheiros em .claude/rules/ com mapas associados"
+          - "Formato: {source_file, maps_to: [lista de processos]}"
+          - "Registry é YAML válido"
+        estimate: S
+        files:
+          - "squads/process-mapper/data/process-registry.yaml"
+
+      - id: PM-4.2
+        name: "Parser de task.md — extrai inputs/outputs automaticamente"
+        agent: "@dev"
+        spec: FEAT-03
+        description: "Script que lê cada task.md e extrai estrutura (inputs, outputs, steps, veto_conditions) para gerar ficha automática"
+        depends_on: [PM-4.1]
+        acceptance_criteria:
+          - "Parse bem-sucedido em ≥ 80% das ~100 tasks existentes"
+          - "Output: JSON por task com {name, inputs, outputs, agent, veto_conditions}"
+          - "Tasks sem estrutura clara ficam marcadas como 'manual review needed'"
+        estimate: L
+        files:
+          - "squads/process-mapper/scripts/task-parser.js"
+
+      - id: PM-4.3
+        name: "PostToolUse hook — actualização automática de mapas"
+        agent: "@dev"
+        spec: FEAT-07
+        description: "Implementar squads/process-mapper/hooks/process-map-updater.cjs — hook async que detecta Write/Edit em ficheiros de processo e re-gera mapas afectados via process-registry.yaml"
+        depends_on: [PM-4.1]
+        acceptance_criteria:
+          - "Trigger em Write/Edit — excluindo docs/process-maps/ (anti-loop)"
+          - "Re-geração assíncrona (async: true) — não bloqueia trabalho"
+          - "Falha regista em .aiox/process-map-errors.log sem bloquear"
+          - "Teste: modificar workflow-execution.md → mapas SDC/QA/Spec/Brownfield re-gerados"
+        estimate: M
+        files:
+          - "squads/process-mapper/hooks/process-map-updater.cjs"
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-005 — Evolution Tracker (Fase E)
+# Prioridade: 5
+# Depende de: EPIC-PM-001
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-005
+    name: "Evolution Tracker"
+    phase: E
+    priority: 5
+    spec_features: [FEAT-08]
+    depends_on: [EPIC-PM-001]
+    stories:
+
+      - id: PM-5.1
+        name: "evolution-tracker — lê git log + STATE.md"
+        agent: "@dev"
+        spec: FEAT-08
+        description: "Script que lê git log dos últimos 90 dias para ficheiros em .claude/rules/ e squads/*/workflows/ → estrutura eventos por data e tipo de mudança"
+        acceptance_criteria:
+          - "Lê git log com filtro de paths de processo"
+          - "Classifica tipo de mudança: nova fase, agente removido, threshold alterado, workflow novo"
+          - "Output: JSON estruturado {date, file, change_type, commit_message}"
+        estimate: M
+        files:
+          - "squads/process-mapper/scripts/evolution-tracker.js"
+
+      - id: PM-5.2
+        name: "Timeline HTML visual do AIOX"
+        agent: "@dev"
+        spec: FEAT-08
+        description: "Gerar docs/process-maps/evolution/timeline.html — linha do tempo com eventos de evolução do AIOX, clicáveis para detalhes"
+        depends_on: [PM-5.1]
+        acceptance_criteria:
+          - "Dado git log dos últimos 90 dias, quando *map-evolution é invocado, então timeline.html mostra cada commit relevante como evento com data, ficheiro, e tipo de mudança"
+          - "Eventos ordenados cronologicamente"
+          - "Clique num evento mostra diff ou contexto"
+        estimate: M
+        files:
+          - "docs/process-maps/evolution/timeline.html"
+
+      - id: PM-5.3
+        name: "Process debt report"
+        agent: "@dev"
+        spec: FEAT-08
+        description: "Gerar docs/process-maps/evolution/process-debt.md — lista de processos sem mapa, mapas desactualizados (ficheiro mais recente que o mapa), e processos órfãos"
+        depends_on: [PM-5.1]
+        acceptance_criteria:
+          - "Lista processos sem mapa (gap da coverage audit)"
+          - "Lista mapas cujo source_file foi modificado depois do mapa"
+          - "Score de process debt: 0 = sem dívida, 100 = tudo em dívida"
+        estimate: S
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-006 — Gate Pré-Criação (Infra)
+# Prioridade: 6
+# BLOQUEADO até EPIC-PM-001 Done — ADR-PM-002
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-006
+    name: "Gate Pré-Criação Automático"
+    phase: Infra
+    priority: 6
+    spec_features: [FEAT-06]
+    depends_on: [EPIC-PM-001]
+    blocking_note: "NÃO iniciar antes de EPIC-PM-001 Done. Gate sem mapas = bloqueio total do AIOX."
+    stories:
+
+      - id: PM-6.1
+        name: "process-map-gate.cjs — lógica de verificação"
+        agent: "@dev"
+        spec: FEAT-06, ADR-PM-001
+        description: "Criar .claude/hooks/process-map-gate.cjs — verifica se existe mapa validado para o processo invocado. Se não existe → retorna mensagem bloqueante com instrução *map-process {processo}"
+        acceptance_criteria:
+          - "Dado comando *create-story sem mapa de SDC, quando gate é invocado, então retorna mensagem bloqueante com instrução *map-process sdc"
+          - "Dado comando *create-story com mapa SDC score ≥ 90%, quando gate é invocado, então não bloqueia"
+          - "Flag --skip-map-gate desactiva o gate para aquele comando"
+        estimate: M
+        files:
+          - ".claude/hooks/process-map-gate.cjs"
+
+      - id: PM-6.2
+        name: "Matcher regex preciso — evitar falsos positivos"
+        agent: "@dev"
+        spec: FEAT-06, QA-04_concern
+        description: "Gate activa apenas quando prompt começa com '@' ou '*' seguido de create/draft/create-epic/create-story/create-agent/create-squad. Não activa em perguntas naturais."
+        depends_on: [PM-6.1]
+        acceptance_criteria:
+          - "Prompt '@sm *create-story' → gate activa"
+          - "Prompt 'como funciona o create-story?' → gate NÃO activa"
+          - "Prompt 'explica o *draft' → gate NÃO activa"
+        estimate: S
+
+      - id: PM-6.3
+        name: "Integração em .claude/settings.json como 4º UserPromptSubmit hook"
+        agent: "@dev"
+        spec: FEAT-06, ADR-PM-001, RF-02
+        description: "Adicionar process-map-gate.cjs como 4º hook em UserPromptSubmit em .claude/settings.json, síncrono (sem async)"
+        depends_on: [PM-6.1, PM-6.2]
+        acceptance_criteria:
+          - ".claude/settings.json actualizado com o hook"
+          - "Hook é síncrono — bloqueia antes de processar o prompt"
+          - "3 hooks existentes continuam a funcionar (regressão zero)"
+        estimate: S
+        files:
+          - ".claude/settings.json"
+
+# ════════════════════════════════════════════════════
+# EPIC-PM-007 — Squad Structure (Meta — pode correr em paralelo)
+# Prioridade: 7 (mas pode começar imediatamente em paralelo)
+# Depende de: spec.md aprovada (já está)
+# ════════════════════════════════════════════════════
+  - id: EPIC-PM-007
+    name: "Squad Structure — squad.yaml + 7 Agentes"
+    phase: Meta
+    priority: 7
+    spec_features: []
+    depends_on: []
+    can_run_in_parallel_with: [EPIC-PM-001]
+    stories:
+
+      - id: PM-7.1
+        name: "squad.yaml + config.yaml + estrutura de pastas"
+        agent: "@dev via squad-creator"
+        description: "Criar estrutura completa squads/process-mapper/ com squad.yaml, config.yaml, config/quality-gates.yaml, config/model-routing.yaml, config/permissions.yaml"
+        acceptance_criteria:
+          - "squad.yaml válido com 7 agentes referenciados"
+          - "22 pastas canónicas presentes"
+          - "squad-registry.yaml actualizado"
+        estimate: M
+        files:
+          - "squads/process-mapper/squad.yaml"
+          - "squads/process-mapper/config.yaml"
+
+      - id: PM-7.2
+        name: "7 agentes com DNA — oalanicolas clona minds"
+        agent: "squad-creator (oalanicolas)"
+        description: "Clonar 4 elite minds: Gene Kim (flow-architect), Geary Rummler (agent-cartographer), W.E. Deming (map-validator), Tom Gilb (evolution-tracker). cartographer-chief e process-auditor criados por squad-chief."
+        acceptance_criteria:
+          - "Cada agente tem ≥ 15 citações [SOURCE:]"
+          - "≥ 5 signature phrases verificáveis"
+          - "3 smoke tests PASSAM por agente"
+          - "QG-SC-5.1 (DNA Review) PASS"
+        estimate: L
+        files:
+          - "squads/process-mapper/agents/*.md (7 ficheiros)"
+
+      - id: PM-7.3
+        name: "Tasks + Workflows + Checklists"
+        agent: "@dev"
+        depends_on: [PM-7.2]
+        description: "Criar as 6 tasks (map-process, map-squad, audit-coverage, map-evolution, validate-map, generate-all-maps) e 4 workflows (wf-map-process, wf-map-squad, wf-audit-coverage, wf-map-evolution)"
+        acceptance_criteria:
+          - "6 task files com veto_conditions definidas"
+          - "4 workflow files com fluxo unidirecional"
+          - "pedro-valerio valida veto_conditions (QG-SC-6.1)"
+        estimate: M
+        files:
+          - "squads/process-mapper/tasks/*.md (6 ficheiros)"
+          - "squads/process-mapper/workflows/*.yaml (4 ficheiros)"
+
+# ════════════════════════════════════════════════════
+# SEQUÊNCIA DE IMPLEMENTAÇÃO RECOMENDADA
+# ════════════════════════════════════════════════════
+implementation_sequence:
+  wave_1:
+    name: "Fundação paralela"
+    epics: [EPIC-PM-007, EPIC-PM-001]
+    note: "EPIC-PM-007 (squad structure) e EPIC-PM-001 (process maps) em paralelo. Independentes."
+    duration_estimate: "2-3 semanas"
+
+  wave_2:
+    name: "Mapas especializados"
+    epics: [EPIC-PM-002, EPIC-PM-003]
+    depends_on: [EPIC-PM-001]
+    note: "Agent Maps e Structure Maps após HTML base funcional"
+    duration_estimate: "1-2 semanas"
+
+  wave_3:
+    name: "Automação e evolução"
+    epics: [EPIC-PM-004, EPIC-PM-005]
+    depends_on: [EPIC-PM-001]
+    note: "File Maps (automação) e Evolution Tracker"
+    duration_estimate: "1-2 semanas"
+
+  wave_4:
+    name: "Gate pré-criação"
+    epics: [EPIC-PM-006]
+    depends_on: [EPIC-PM-001]
+    blocking_gate: "APENAS após EPIC-PM-001 Done e validado — ADR-PM-002"
+    duration_estimate: "1 semana"
+
+# ════════════════════════════════════════════════════
+# PRÓXIMOS PASSOS — SDC
+# ════════════════════════════════════════════════════
+next_steps:
+  - step: 1
+    action: "@sm *draft EPIC-PM-007 PM-7.1"
+    note: "Começar pela estrutura do squad — sem stories não há desenvolvimento"
+  - step: 2
+    action: "@sm *draft EPIC-PM-001 PM-1.1"
+    note: "Script base HTML — fundação de tudo o resto"
+  - step: 3
+    action: "@po *validate cada story antes de @dev implementar"
+  - step: 4
+    action: "@devops *push após @qa PASS em cada epic"

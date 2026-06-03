@@ -1,0 +1,172 @@
+{
+  "project": "process-mapper",
+  "critiqued_by": "@qa (Quinn)",
+  "date": "2026-06-03",
+  "spec_source": "docs/prd/process-mapper/spec.md",
+  "verdict_threshold": 4.0,
+
+  "feature_scores": [
+    {
+      "feature": "FEAT-01",
+      "name": "HTML Interactivo",
+      "scores": {
+        "completude": 5,
+        "testabilidade": 5,
+        "rastreabilidade": 5,
+        "realismo": 5,
+        "coerencia": 4
+      },
+      "average": 4.8,
+      "verdict": "PASS",
+      "notes": "Prova de conceito já existe (aiox-squad-creation-pipeline.html). Critérios claros. Único ponto: a spec não define a lista exacta de processos a cobrir na v1.0, mas isso é scope do PLAN (F6), não da spec."
+    },
+    {
+      "feature": "FEAT-02",
+      "name": "SVG Figma-compatível",
+      "scores": {
+        "completude": 3,
+        "testabilidade": 4,
+        "rastreabilidade": 4,
+        "realismo": 3,
+        "coerencia": 4
+      },
+      "average": 3.6,
+      "verdict": "ISSUE",
+      "issue_id": "QA-01",
+      "issue": "Fallback quando @mermaid-js/mermaid-cli não está instalado não está definido. A spec diz 'verificar em package.json antes de usar' mas não especifica o comportamento alternativo — gera SVG por template directo? Aborta? Gera só HTML? Esta ambiguidade bloqueia implementação."
+    },
+    {
+      "feature": "FEAT-03",
+      "name": "Coverage Audit",
+      "scores": {
+        "completude": 5,
+        "testabilidade": 5,
+        "rastreabilidade": 5,
+        "realismo": 5,
+        "coerencia": 5
+      },
+      "average": 5.0,
+      "verdict": "PASS",
+      "notes": "Melhor feature da spec. Completamente verificável, fonte de verdade clara (.aiox-core/development/tasks/, .claude/rules/, squads/), output concreto (coverage-report.md). Zero ambiguidade."
+    },
+    {
+      "feature": "FEAT-04",
+      "name": "Agent Maps (Swim-Lanes)",
+      "scores": {
+        "completude": 3,
+        "testabilidade": 4,
+        "rastreabilidade": 5,
+        "realismo": 4,
+        "coerencia": 4
+      },
+      "average": 4.0,
+      "verdict": "CONCERN",
+      "issue_id": "QA-02",
+      "concern": "O formato HTML dos swim-lanes não está definido (tabela CSS? CSS grid? SVG? div absoluto?). Um dev pode implementar de forma muito diferente do que Pedro visualiza. Recomendo adicionar 1 linha: 'swim-lanes implementadas como tabela HTML com CSS grid — colunas = agentes, rows = fases temporais'."
+    },
+    {
+      "feature": "FEAT-05",
+      "name": "Structure Maps L1-L4",
+      "scores": {
+        "completude": 3,
+        "testabilidade": 4,
+        "rastreabilidade": 4,
+        "realismo": 4,
+        "coerencia": 3
+      },
+      "average": 3.6,
+      "verdict": "ISSUE",
+      "issue_id": "QA-03",
+      "issue": "A spec diz 'código de cores derivado de layer model documentado' mas não identifica QUAL ficheiro é a fonte de verdade para classificar cada pasta como L1/L2/L3/L4. Se o dev lê o CLAUDE.md, o agent-authority.md, ou o core-config.yaml, obtém respostas diferentes. A spec DEVE identificar o ficheiro canónico de classificação."
+    },
+    {
+      "feature": "FEAT-06",
+      "name": "Gate Pré-Criação",
+      "scores": {
+        "completude": 4,
+        "testabilidade": 5,
+        "rastreabilidade": 5,
+        "realismo": 4,
+        "coerencia": 4
+      },
+      "average": 4.4,
+      "verdict": "CONCERN",
+      "issue_id": "QA-04",
+      "concern": "O matcher de UserPromptSubmit usa detecção de texto (*create-*, *draft). Falso positivo potencial: se Pedro escreve 'como se cria um hook?' ou 'explica o que create-next-story faz', o gate pode activar incorrectamente. Recomendo: matcher baseado em regex mais preciso, ex: apenas quando a mensagem começa com '@' ou '*' seguido de create/draft."
+    },
+    {
+      "feature": "FEAT-07",
+      "name": "Actualização Automática",
+      "scores": {
+        "completude": 3,
+        "testabilidade": 4,
+        "rastreabilidade": 5,
+        "realismo": 3,
+        "coerencia": 4
+      },
+      "average": 3.8,
+      "verdict": "ISSUE",
+      "issue_id": "QA-05",
+      "issue": "O mapeamento ficheiro→processo é crítico mas não está definido na spec. A spec diz 'ex: workflow-execution.md → re-gera SDC, QA Loop, Spec Pipeline, Brownfield' mas não define onde este mapeamento vive. É hardcoded no script? É um YAML de configuração? Quem o mantém quando novos processos são criados? Sem esta definição, FEAT-07 não pode ser implementada sem inventar a solução."
+    },
+    {
+      "feature": "FEAT-08",
+      "name": "Evolution Tracker",
+      "scores": {
+        "completude": 3,
+        "testabilidade": 3,
+        "rastreabilidade": 4,
+        "realismo": 4,
+        "coerencia": 4
+      },
+      "average": 3.6,
+      "verdict": "CONCERN",
+      "issue_id": "QA-06",
+      "concern": "O timeline.html não tem critérios de completude testáveis. 'Mostra mudanças de processo ao longo do tempo' é demasiado vago — qual é o critério de aceitação? Proposta: 'dado git log dos últimos 90 dias em ficheiros de .claude/rules/ e squads/*/workflows/, quando *map-evolution é invocado, então timeline.html mostra cada commit relevante como evento com data, ficheiro, e tipo de mudança'."
+    }
+  ],
+
+  "summary": {
+    "scores_by_feature": {
+      "FEAT-01": 4.8,
+      "FEAT-02": 3.6,
+      "FEAT-03": 5.0,
+      "FEAT-04": 4.0,
+      "FEAT-05": 3.6,
+      "FEAT-06": 4.4,
+      "FEAT-07": 3.8,
+      "FEAT-08": 3.6
+    },
+    "average_score": 4.1,
+    "issues_blocking": [
+      "QA-01 — FEAT-02: fallback SVG quando mermaid CLI ausente não definido",
+      "QA-03 — FEAT-05: ficheiro canónico para classificação L1-L4 não identificado",
+      "QA-05 — FEAT-07: process-file registry não definido (onde vive o mapeamento ficheiro→processo)"
+    ],
+    "concerns_non_blocking": [
+      "QA-02 — FEAT-04: formato HTML swim-lanes não especificado (tabela? grid? SVG?)",
+      "QA-04 — FEAT-06: matcher gate pode ter falsos positivos em perguntas naturais",
+      "QA-06 — FEAT-08: critérios de aceitação do timeline demasiado vagos"
+    ]
+  },
+
+  "verdict": "APPROVED_WITH_CONDITIONS",
+  "verdict_explanation": "Score médio 4.1 ≥ 4.0 — aprova borderline. No entanto, 3 issues bloqueantes (QA-01, QA-03, QA-05) devem ser resolvidos na spec ANTES do PLAN (F6). Os 3 concerns (QA-02, QA-04, QA-06) podem ser resolvidos durante o PLAN ou nas acceptance criteria das stories individuais.",
+
+  "required_fixes_before_plan": [
+    {
+      "id": "QA-01",
+      "fix": "Adicionar a FEAT-02: 'Se @mermaid-js/mermaid-cli não estiver instalado, flow-architect gera SVG por template Node.js directo (sem Mermaid). @mermaid-js/mermaid-cli é opcional — melhora qualidade mas não é bloqueante.'"
+    },
+    {
+      "id": "QA-03",
+      "fix": "Adicionar a FEAT-05: 'Fonte de verdade para classificação L1-L4: .claude/CLAUDE.md secção Framework Boundary (tabela L1-L4 com paths). structure-mapper lê este ficheiro como input.'"
+    },
+    {
+      "id": "QA-05",
+      "fix": "Adicionar a FEAT-07: 'Mapeamento ficheiro→processo definido em squads/process-mapper/data/process-registry.yaml. Formato: {source_file: path, maps_to: [processo1, processo2]}. evolution-tracker cria e mantém este registry.'"
+    }
+  ],
+
+  "next_action": "F5b — @pm aplica os 3 fixes na spec.md, depois avança para F6 PLAN"
+}

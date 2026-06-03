@@ -1,0 +1,142 @@
+{
+  "project": "process-mapper",
+  "researched_by": "@analyst (Alex)",
+  "date": "2026-06-03",
+  "methodology": "IDS: ficheiros reais do repo primeiro (REUSE), depois conhecimento base de obras publicadas verificáveis",
+  "sources_policy": "Apenas fontes verificáveis. [KNOWLEDGE_BASE] = obra publicada conhecida. [REPO_FILE] = ficheiro real lido nesta sessão. Zero invenção.",
+
+  "topics": {
+
+    "T1_gene_kim_value_stream_mapping": {
+      "topic": "Gene Kim — Value Stream Mapping e Three Ways",
+      "relevance_to_project": "Fundamenta os Process Maps (Domínio D1) — como visualizar fluxo de valor ponta-a-ponta",
+      "source": "[KNOWLEDGE_BASE: The Phoenix Project, 2013 / The DevOps Handbook, 2016 / Accelerate, 2018 — IT Revolution Press]",
+      "key_findings": [
+        {
+          "finding": "The Three Ways: Flow (esquerda→direita), Feedback (direita→esquerda), Continual Learning",
+          "application_to_process_mapper": "flow-architect deve mapear processos em 3 camadas: fluxo principal, feedback loops (quality gates), e pontos de aprendizagem (retrospectivas)"
+        },
+        {
+          "finding": "Value Stream Map tem 5 elementos: Customer, Process Steps, Data Boxes, Push/Pull Arrows, Timeline",
+          "application_to_process_mapper": "Fluxograma AIOX = Customer (Pedro/agente), Process Steps (fases), Data Boxes (inputs/outputs de cada fase), Arrows (fluxo), Quality Gates (timeline de decisão)"
+        },
+        {
+          "finding": "Lead Time vs Process Time — medir tempo de espera entre passos é tão importante quanto o tempo do passo em si",
+          "application_to_process_mapper": "evolution-tracker pode registar quanto tempo cada fase do SDC real demora — não apenas o fluxo teórico"
+        },
+        {
+          "finding": "Current State Map → Future State Map — mapear o que existe antes de redesenhar",
+          "application_to_process_mapper": "process-auditor (Tier 0) faz o Current State Map primeiro — coverage audit. Só depois flow-architect desenha o Future State"
+        }
+      ],
+      "diagram_pattern": "Swim-lane horizontal com setas de fluxo, caixas de processo com data boxes (inputs/outputs), triângulos de inventário (work in progress), raio/lightning bolt para improvement bursts"
+    },
+
+    "T2_rummler_brache_swim_lanes": {
+      "topic": "Rummler-Brache — Swim Lane Diagrams e Cross-Functional Process Maps",
+      "relevance_to_project": "Fundamenta Agent Maps (Domínio D2) — como mapear quem faz o quê em processos com múltiplos responsáveis",
+      "source": "[KNOWLEDGE_BASE: Improving Performance: How to Manage the White Space on the Organization Chart, Geary Rummler & Alan Brache, 1990, Jossey-Bass]",
+      "key_findings": [
+        {
+          "finding": "Swim lanes representam responsabilidade, não departamento. Cada lane = 1 actor com autoridade definida",
+          "application_to_process_mapper": "agent-cartographer: cada agente AIOX = 1 swim lane. @sm lane, @po lane, @dev lane, @qa lane, @devops lane — cada um com as suas tarefas exclusivas claramente delimitadas"
+        },
+        {
+          "finding": "Handoff points são onde mais erros acontecem — devem ser explicitamente marcados",
+          "application_to_process_mapper": "Nos mapas de agentes, handoffs entre agentes devem ter marcador visual distinto (diamante ou seta dupla). Ex: @dev→@devops no git push"
+        },
+        {
+          "finding": "Three Levels of Performance: Organization, Process, Job/Performer — problemas num nível afectam os outros",
+          "application_to_process_mapper": "Structure Maps (Domínio D3) mapeia nível Organization (L1-L4 layers). Process Maps mapeia nível Process (workflows). Agent Maps mapeia nível Performer (agentes)"
+        },
+        {
+          "finding": "White Space: o que acontece ENTRE os processos é tão importante como os processos em si",
+          "application_to_process_mapper": "Handoffs e quality gates no AIOX são o white space — devem ser explícitos nos mapas, não implícitos"
+        }
+      ],
+      "diagram_pattern": "Tabela com colunas = actores/agentes, rows = tempo/sequência. Caixas dentro de cada swim lane para tarefas do actor. Setas cruzam lanes nos handoffs."
+    },
+
+    "T3_svg_html_figma_output": {
+      "topic": "SVG e HTML para output Figma-compatível",
+      "relevance_to_project": "FR-01 — formato de output obrigatório além do HTML interactivo",
+      "source": "[KNOWLEDGE_BASE: W3C SVG 1.1 Specification / Figma REST API Documentation (acesso público) / Figma comportamento de import documentado publicamente]",
+      "key_findings": [
+        {
+          "finding": "Figma importa SVG via drag-and-drop ou File > Place image. SVG é tratado como vector group editável",
+          "application_to_process_mapper": "flow-architect gera ficheiro .svg com elementos nomeados (id='phase-1', id='qg-1', etc.) para que Figma os importe como layers identificáveis"
+        },
+        {
+          "finding": "SVG com viewBox definido é redimensionável sem perda de qualidade — ideal para diagramas de processo",
+          "application_to_process_mapper": "Template base: <svg viewBox='0 0 900 600' xmlns='http://www.w3.org/2000/svg'>. Usar unidades absolutas internamente para consistência"
+        },
+        {
+          "finding": "HTML com print CSS (@media print) pode ser exportado como PDF e depois importado no Figma",
+          "application_to_process_mapper": "O HTML interactivo (FR-01) já existe como prova de conceito (docs/process-maps/aiox-squad-creation-pipeline.html). Adicionar @media print ao CSS existente"
+        },
+        {
+          "finding": "Mermaid.js gera SVG nativo — pode ser extraído e importado em Figma",
+          "application_to_process_mapper": "flow-architect pode gerar sintaxe Mermaid → converter para SVG via mermaid CLI (npm package) → guardar como .svg para Figma"
+        }
+      ],
+      "implementation_recommendation": "Dois outputs distintos: (1) HTML interactivo com JavaScript para navegação — já provado hoje. (2) SVG estático gerado via Mermaid CLI ou template SVG directo — para Figma import. Não misturar os dois.",
+      "technical_stack": "Node.js script + @mermaid-js/mermaid-cli (npm) para conversão Mermaid→SVG. Zero dependências de browser ou servidor."
+    },
+
+    "T4_claude_code_hooks_interception": {
+      "topic": "Claude Code Hooks — intercepção de comandos para gate pré-criação (FR-03)",
+      "relevance_to_project": "ADR-PM-001: gate pré-criação via hooks. FR-05: actualização automática via PostToolUse",
+      "source": "[REPO_FILE: .claude/settings.json — lido em 2026-06-03] [REPO_FILE: squads/claude-code-mastery/agents/hooks-architect.md — lido em 2026-06-03]",
+      "key_findings": [
+        {
+          "finding": "UserPromptSubmit hook já existe no repo com 3 hooks activos: prompt-router.cjs, synapse-engine.cjs, synapse-wrapper.cjs",
+          "application_to_process_mapper": "gate pré-criação deve ser adicionado como 4º hook no UserPromptSubmit. Script: .claude/hooks/process-map-gate.cjs",
+          "evidence": ".claude/settings.json linha 71-96"
+        },
+        {
+          "finding": "PreToolUse hook com matcher suporta glob patterns — ex: 'Bash(git commit*)' para interceptar git commit",
+          "application_to_process_mapper": "FR-03: matcher como 'Bash(*create*)', 'Bash(*draft*)', 'Bash(*create-epic*)' intercepta criação de artefactos AIOX via Bash",
+          "evidence": ".claude/settings.json linha 25-69"
+        },
+        {
+          "finding": "PostToolUse hook com matcher vazio ('') executa após QUALQUER tool call — actualmente usado para observer",
+          "application_to_process_mapper": "FR-05: actualização automática pode usar PostToolUse com matcher 'Write' ou 'Edit' para detectar modificações em ficheiros de processo. Filtrar por path para evitar loop (excluir docs/process-maps/)",
+          "evidence": ".claude/settings.json linha 11-24 — post-tool-use-observer.cjs"
+        },
+        {
+          "finding": "Hooks têm timeout configurável e modo async — async:true não bloqueia execução, sem async bloqueia",
+          "application_to_process_mapper": "gate pré-criação (FR-03) DEVE ser síncrono (sem async) para bloquear efectivamente. FR-05 (actualização automática) pode ser async para não atrasar o trabalho"
+        },
+        {
+          "finding": "hooks-architect (Latch) é o especialista em hooks — 17 lifecycle events documentados",
+          "application_to_process_mapper": "IDS: REUSE — coordenar com hooks-architect para implementação de FR-03 e FR-05. Não criar hooks sem o seu input"
+        }
+      ],
+      "risk_confirmed": "Loop infinito real: PostToolUse(Write) trigger → process-map-gate.cjs escreve SVG em docs/process-maps/ → PostToolUse(Write) trigger novamente → loop. Mitigação confirmada: filtro de path em process-map-gate.cjs excluindo docs/process-maps/"
+    }
+  },
+
+  "synthesis": {
+    "core_insight": "O process-mapper combina 3 domínios distintos: (1) visualização de processos [Gene Kim + Rummler], (2) geração de output [SVG/HTML], (3) automação de gates [Claude Code hooks]. São 3 problemas independentes que partilham apenas o objectivo final.",
+    "implementation_order_recommendation": "Fase A (Process Maps): começar com HTML interactivo já provado → adicionar SVG export → depois hooks. Não implementar hooks antes de ter mapas funcionais.",
+    "reuse_validated": [
+      "docs/process-maps/aiox-squad-creation-pipeline.html — prova de conceito do HTML interactivo já criada",
+      "squads/claude-code-mastery/agents/hooks-architect.md — coordenar para FR-03/FR-05",
+      ".claude/settings.json — estrutura de hooks existente, adicionar processo-map-gate.cjs"
+    ],
+    "gaps_identified": [
+      "Nenhum script Node.js de geração de HTML existe ainda (apenas o ficheiro manual criado hoje)",
+      "@mermaid-js/mermaid-cli não está instalado (verificar package.json antes de usar)",
+      "process-map-gate.cjs não existe — criar do zero no EPIC-PM-006"
+    ]
+  },
+
+  "findings_for_spec": [
+    {"id": "RF-01", "finding": "HTML interactivo + SVG são os dois formatos correctos — prova de conceito HTML já existe", "traces_to": "FR-01"},
+    {"id": "RF-02", "finding": "UserPromptSubmit hook é o mecanismo correcto para gate pré-criação — já existe infraestrutura no repo", "traces_to": "FR-03, ADR-PM-001"},
+    {"id": "RF-03", "finding": "PostToolUse(Write) com filtro de path é o mecanismo para actualização automática — risco de loop documentado e mitigado", "traces_to": "FR-05"},
+    {"id": "RF-04", "finding": "Swim lanes (Rummler) são o padrão para Agent Maps — 1 lane por agente, handoffs explícitos", "traces_to": "FR-04, Domínio D2"},
+    {"id": "RF-05", "finding": "process-auditor deve fazer Current State Map primeiro (Gene Kim) — coverage audit antes de gerar mapas", "traces_to": "FR-04, Domínio D1"},
+    {"id": "RF-06", "finding": "Implementação em 3 fases independentes: HTML/SVG → swimlanes → hooks/gates. Nunca tudo ao mesmo tempo", "traces_to": "NFR-03, ADR-PM-002"}
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "name": "sdc",
+  "title": "Story Development Cycle — SDC",
+  "subtitle": "Workflow primário do AIOX · 4 fases · fonte: workflow-execution.md + story-lifecycle.md",
+  "planning_track": "Standard · 5-15 stories",
+  "phases": [
+    {
+      "id": "phase-1",
+      "label": "Fase 1",
+      "title": "Create",
+      "agent": "@sm (River)",
+      "color": "mapper",
+      "steps": [
+        "task: create-next-story.md",
+        "Inputs: PRD sharded + epic context",
+        "Output: {epicNum}.{storyNum}.story.md",
+        "Status: Draft"
+      ]
+    },
+    {
+      "id": "phase-2",
+      "label": "Fase 2",
+      "title": "Validate",
+      "agent": "@po (Pax)",
+      "color": "architect",
+      "steps": [
+        "task: validate-next-story.md",
+        "Checklist 10 pontos (AC, scope, value, risks...)",
+        "GO ≥ 7/10 → status Draft → Ready",
+        "NO-GO < 7/10 → fixes listados → volta a @sm"
+      ]
+    },
+    {
+      "id": "phase-3",
+      "label": "Fase 3",
+      "title": "Implement",
+      "agent": "@dev (Dex)",
+      "color": "automation",
+      "steps": [
+        "task: dev-develop-story.md",
+        "Modos: YOLO / Interactive / Pre-Flight",
+        "CodeRabbit self-heal: max 2 iterações",
+        "Status: Ready → InProgress → InReview"
+      ]
+    },
+    {
+      "id": "phase-4",
+      "label": "Fase 4",
+      "title": "QA Gate",
+      "agent": "@qa (Quinn)",
+      "color": "qa",
+      "steps": [
+        "task: qa-gate.md · 7 quality checks",
+        "Veredictos: PASS / CONCERNS / FAIL / WAIVED",
+        "PASS/CONCERNS/WAIVED → status Done",
+        "FAIL → volta a @dev (QA Loop max 5x)"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-SDC-1",
+      "name": "Story Validation (@po)",
+      "threshold": 70,
+      "after_phase": "phase-2",
+      "path_no": "Volta a @sm — correcções",
+      "path_no_detail": "Score < 7/10: AC/scope/value insuficiente",
+      "path_yes": "Avança para Implement"
+    },
+    {
+      "id": "QG-SDC-2",
+      "name": "QA Gate (@qa)",
+      "threshold": 70,
+      "after_phase": "phase-4",
+      "path_no": "FAIL → @dev corrige (QA Loop)",
+      "path_no_detail": "Issues HIGH/CRITICAL · max 5 iterações",
+      "path_yes": "PASS → @devops *push"
+    }
+  ],
+  "delivery": {
+    "title": "Story Done → @devops *push",
+    "chips": [
+      "story.Status = Done",
+      "QA Gate PASS",
+      "@devops cria PR",
+      "Commit: feat/fix/chore [Story X.Y]"
+    ]
+  },
+  "out_of_scope": [
+    "git push directo por @dev (exclusivo @devops)",
+    "Story sem acceptance criteria",
+    "Código sem story associada (Art.III)"
+  ]
+}

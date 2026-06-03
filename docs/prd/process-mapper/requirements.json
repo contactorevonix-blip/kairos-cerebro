@@ -1,0 +1,147 @@
+{
+  "project": "process-mapper",
+  "squad_name": "process-mapper",
+  "version": "1.0",
+  "captured_by": "@pm (Morgan)",
+  "date": "2026-06-03",
+  "source_session": "Brainstorm + validação Pedro — 2026-06-03",
+  "status": "APPROVED_BY_OWNER",
+
+  "functional_requirements": [
+    {
+      "id": "FR-01",
+      "title": "Formatos de output obrigatórios",
+      "description": "O squad DEVE gerar mapas de processo em dois formatos: (1) Figma-exportável — SVG/HTML estruturado que pode ser importado directamente no Figma; (2) HTML interactivo — com navegação, quality gates clicáveis e loops de retorno visíveis.",
+      "source": "Pedro — sessão 2026-06-03",
+      "priority": "MUST",
+      "acceptance": "Dado um processo AIOX qualquer, quando o squad é invocado, então produz um ficheiro .html interactivo E um SVG/estrutura compatível com import Figma"
+    },
+    {
+      "id": "FR-02",
+      "title": "Consumidor único — Pedro",
+      "description": "Na versão 1.0, os outputs são produzidos para uso exclusivo de Pedro. Não há requisito de partilha pública, multi-user, ou permissões. Os ficheiros vivem localmente em docs/process-maps/.",
+      "source": "Pedro — sessão 2026-06-03",
+      "priority": "MUST",
+      "acceptance": "Ficheiros gerados em docs/process-maps/ acessíveis localmente sem autenticação"
+    },
+    {
+      "id": "FR-03",
+      "title": "Gate automático pré-criação",
+      "description": "O squad DEVE ser invocado automaticamente ANTES de qualquer artefacto AIOX ser criado — squad, agente, task, story, workflow, epic, PRD. O mapa do processo de criação é gerado e validado antes de a criação acontecer. Sem mapa aprovado → criação bloqueada.",
+      "source": "Pedro — sessão 2026-06-03",
+      "priority": "MUST",
+      "acceptance": "Dado que se tenta criar qualquer artefacto AIOX, quando o gate é activado, então o fluxograma do processo é gerado primeiro, e só após validação a criação prossegue"
+    },
+    {
+      "id": "FR-04",
+      "title": "Cobertura completa de artefactos AIOX",
+      "description": "O squad DEVE mapear TODOS os processos, artefactos e estruturas do AIOX: os 4 workflows primários (SDC, QA Loop, Spec Pipeline, Brownfield), todos os agentes com autoridade e handoffs, estrutura de pastas L1-L4, cada task.md individual, cada workflow.yaml, inter-relações entre squads, evolução/changelog.",
+      "source": "Pedro — sessão 2026-06-03 (CON-02)",
+      "priority": "MUST",
+      "acceptance": "Coverage audit report mostra ≥ 90% de artefactos AIOX mapeados"
+    },
+    {
+      "id": "FR-05",
+      "title": "Actualização automática de mapas existentes",
+      "description": "Quando um processo muda (nova fase adicionada, agente criado, task modificada), o squad DEVE detectar a mudança e re-gerar o mapa afectado automaticamente. O mapa desactualizado é substituído; o changelog de evolução é actualizado.",
+      "source": "Pedro — sessão 2026-06-03 (CON-01)",
+      "priority": "MUST",
+      "acceptance": "Dado que um ficheiro de processo é modificado, quando o squad detecta a mudança, então o mapa correspondente é re-gerado sem intervenção manual"
+    },
+    {
+      "id": "FR-06",
+      "title": "Quality gates em cada mapa",
+      "description": "Cada mapa gerado DEVE incluir os quality gates do processo que documenta, com indicação visual de: threshold (%), paths YES/NO, loops de retorno ao ponto exacto de falha.",
+      "source": "Pedro — sessão 2026-06-03",
+      "priority": "MUST",
+      "acceptance": "Dado um processo com quality gates, quando o mapa é gerado, então os gates são visíveis com threshold, path YES (avança), path NO (retorna a ponto específico)"
+    }
+  ],
+
+  "non_functional_requirements": [
+    {
+      "id": "NFR-01",
+      "title": "Qualidade máxima acima de velocidade",
+      "description": "A geração de um mapa NÃO tem requisito de tempo. O critério é qualidade máxima: todos os processos mapeados, todos os quality gates presentes, todos os loops de retorno correctos. Um mapa errado ou incompleto é pior do que nenhum mapa.",
+      "source": "Pedro — sessão 2026-06-03",
+      "priority": "MUST",
+      "acceptance": "Map-validator score ≥ 90% em completude e fidelidade ao processo real"
+    },
+    {
+      "id": "NFR-02",
+      "title": "Validação máxima — processos reais",
+      "description": "Todo o mapa gerado DEVE ser validado contra os ficheiros reais do AIOX (.aiox-core/, .claude/rules/, squads/). Nenhum mapa pode conter elementos inventados que não existam nos ficheiros fonte.",
+      "source": "Pedro — sessão 2026-06-03 (No Invention)",
+      "priority": "MUST",
+      "acceptance": "Cada elemento do mapa rastreia para um ficheiro real. Map-validator confirma rastreabilidade 100%"
+    },
+    {
+      "id": "NFR-03",
+      "title": "Processo mais complexo bem feito",
+      "description": "O squad DEVE implementar o processo de mapeamento mais robusto possível — incluindo os 5 domínios (Process Maps, Agent Maps, Structure Maps, File Maps, Evolution Maps), mesmo que isso implique múltiplas fases e epics longas.",
+      "source": "Pedro — sessão 2026-06-03 (CON-02)",
+      "priority": "MUST",
+      "acceptance": "Todos os 5 domínios implementados com quality gates próprios antes de considerar o squad completo"
+    }
+  ],
+
+  "constraints": [
+    {
+      "id": "CON-01",
+      "title": "L4 only — outputs em docs/",
+      "description": "Todos os mapas e outputs do squad vivem exclusivamente em docs/process-maps/ (L4 — sempre modificável). O squad NUNCA modifica .aiox-core/core/, .aiox-core/development/, ou qualquer L1/L2.",
+      "source": "AIOX Constitution Art.I + Layer Model",
+      "priority": "MUST NOT violate"
+    },
+    {
+      "id": "CON-02",
+      "title": "CLI first",
+      "description": "O squad DEVE ser acessível via comando CLI (@cartographer-chief *map-process, *audit-coverage, etc.) antes de qualquer interface visual. O HTML é output, não interface de controlo.",
+      "source": "AIOX Constitution Art.I — CLI First",
+      "priority": "MUST"
+    },
+    {
+      "id": "CON-03",
+      "title": "Sem invenção — ficheiros reais como fonte",
+      "description": "O squad NÃO pode inventar processos, agentes, ou estruturas. Todos os elementos dos mapas DEVEM existir nos ficheiros reais do AIOX. Se um processo não tem ficheiro de origem, não é mapeado — é sinalizado como gap.",
+      "source": "AIOX Constitution Art.IV — No Invention",
+      "priority": "MUST NOT violate"
+    },
+    {
+      "id": "CON-04",
+      "title": "Agent Authority — @devops para push",
+      "description": "Quando os mapas são publicados (git push), apenas @devops executa o push. O squad process-mapper não tem autoridade de push.",
+      "source": "AIOX Constitution Art.II — Agent Authority",
+      "priority": "MUST NOT violate"
+    },
+    {
+      "id": "CON-05",
+      "title": "Enterprise Track obrigatório",
+      "description": "Este squad tem 7 agentes, 5 domínios, estimativa > 15 stories. O Enterprise Track é obrigatório: PRD + Spec Pipeline completa + SDC por epic.",
+      "source": "AIOX Planning Tracks — rules/planning-tracks.md",
+      "priority": "MUST"
+    }
+  ],
+
+  "squad_design": {
+    "name": "process-mapper",
+    "philosophy": "Torna o invisível visível. Nenhum processo sem diagrama. Nenhuma criação sem mapa validado.",
+    "orchestrator": "cartographer-chief",
+    "agents": [
+      {"id": "cartographer-chief", "tier": "orchestrator", "role": "Orquestra todos os domínios de mapeamento"},
+      {"id": "process-auditor", "tier": 0, "role": "Diagnóstico — o que existe, o que falta, coverage %"},
+      {"id": "flow-architect", "tier": 1, "role": "Converte processos em fluxogramas HTML + Figma"},
+      {"id": "structure-mapper", "tier": 1, "role": "Mapeia pastas, camadas L1-L4, regras de mutabilidade"},
+      {"id": "agent-cartographer", "tier": 1, "role": "Swim-lanes, authority diagrams, delegation trees"},
+      {"id": "evolution-tracker", "tier": 1, "role": "Versioning, changelog, process debt tracking"},
+      {"id": "map-validator", "tier": 2, "role": "Valida que cada mapa reflecte a realidade dos ficheiros"}
+    ],
+    "domains": [
+      {"id": "D1", "name": "Process Maps", "phase": "A", "priority": 1},
+      {"id": "D2", "name": "Agent Maps", "phase": "B", "priority": 2},
+      {"id": "D3", "name": "Structure Maps", "phase": "C", "priority": 3},
+      {"id": "D4", "name": "File Maps", "phase": "D", "priority": 4},
+      {"id": "D5", "name": "Evolution Maps", "phase": "E", "priority": 5}
+    ]
+  }
+}

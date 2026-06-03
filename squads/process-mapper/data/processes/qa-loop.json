@@ -1,0 +1,56 @@
+{
+  "name": "qa-loop",
+  "title": "QA Loop — Revisão Iterativa",
+  "subtitle": "Ciclo de review-fix · max 5 iterações · fonte: workflow-execution.md",
+  "phases": [
+    {
+      "id": "phase-1",
+      "label": "Fase 1",
+      "title": "QA Review",
+      "agent": "@qa (Quinn)",
+      "color": "qa",
+      "steps": [
+        "*qa-loop {storyId} — iniciar loop",
+        "Verificar: code review · tests · AC · regressions · security",
+        "Emitir veredicto: APPROVE / REJECT / BLOCKED"
+      ]
+    },
+    {
+      "id": "phase-2",
+      "label": "Fase 2",
+      "title": "Dev Fix",
+      "agent": "@dev (Dex)",
+      "color": "automation",
+      "steps": [
+        "Receber feedback específico de @qa",
+        "Aplicar correcções identificadas",
+        "iteration++ (contador interno)",
+        "Re-submeter para revisão"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-QL-1",
+      "name": "Verdict Gate",
+      "threshold": 70,
+      "after_phase": "phase-1",
+      "path_no": "REJECT → @dev fixa → re-review",
+      "path_no_detail": "BLOCKED → escalar @aiox-master imediatamente",
+      "path_yes": "APPROVE → Story Done ✓"
+    },
+    {
+      "id": "QG-QL-2",
+      "name": "Iteration Limit",
+      "threshold": 70,
+      "after_phase": "phase-2",
+      "path_no": "≥ 5 iterações → escalar @aiox-master",
+      "path_no_detail": "Triggers: max_iterations_reached · fix_failure",
+      "path_yes": "< 5 iterações → volta a QA Review"
+    }
+  ],
+  "delivery": {
+    "title": "APPROVE — Story Done",
+    "chips": ["Veredicto: APPROVE", "QA Loop terminado", "Story → Done"]
+  }
+}

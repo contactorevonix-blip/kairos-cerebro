@@ -1,0 +1,80 @@
+{
+  "name": "spec-pipeline",
+  "title": "Spec Pipeline — Pré-Implementação",
+  "subtitle": "6 fases · transforma requisitos em spec executável · fonte: workflow-execution.md",
+  "planning_track": "Enterprise · score ≥ 16 (COMPLEX)",
+  "phases": [
+    {
+      "id": "phase-1",
+      "label": "F1",
+      "title": "GATHER",
+      "agent": "@pm (Morgan)",
+      "color": "mapper",
+      "steps": ["Recolher requisitos (FR/NFR/CON)", "Output: requirements.json", "NEVER SKIP"]
+    },
+    {
+      "id": "phase-2",
+      "label": "F2",
+      "title": "ASSESS",
+      "agent": "@architect (Aria)",
+      "color": "architect",
+      "steps": ["5 dimensões × score 1-5: Scope·Integration·Infra·Knowledge·Risk", "Output: complexity.json", "SKIP se source=simple"]
+    },
+    {
+      "id": "phase-3",
+      "label": "F3",
+      "title": "RESEARCH",
+      "agent": "@analyst (Alex)",
+      "color": "automation",
+      "steps": ["Pesquisa de elite minds e padrões técnicos", "Output: research.json", "SKIP se classe SIMPLE"]
+    },
+    {
+      "id": "phase-4",
+      "label": "F4",
+      "title": "WRITE SPEC",
+      "agent": "@pm (Morgan)",
+      "color": "mapper",
+      "steps": ["spec.md com Art.IV gate (No Invention)", "Cada statement rastreia para FR/NFR/CON/research", "NEVER SKIP"]
+    },
+    {
+      "id": "phase-5",
+      "label": "F5",
+      "title": "CRITIQUE",
+      "agent": "@qa (Quinn)",
+      "color": "qa",
+      "steps": ["Score por feature: Completude·Testabilidade·Rastreabilidade·Realismo·Coerência", "Output: critique.json", "NEVER SKIP"]
+    },
+    {
+      "id": "phase-6",
+      "label": "F6",
+      "title": "PLAN",
+      "agent": "@architect (Aria)",
+      "color": "architect",
+      "steps": ["Epics + stories com dependências", "Output: implementation.yaml", "SKIP se APPROVED directo"]
+    }
+  ],
+  "quality_gates": [
+    {
+      "id": "QG-SP-1",
+      "name": "Complexity Gate",
+      "threshold": 70,
+      "after_phase": "phase-2",
+      "path_no": "Score ≤ 8 (SIMPLE) → pula F3",
+      "path_yes": "Score ≥ 9 → executa F3 RESEARCH"
+    },
+    {
+      "id": "QG-SP-2",
+      "name": "Critique Verdict",
+      "threshold": 70,
+      "after_phase": "phase-5",
+      "path_no": "NEEDS_REVISION (3.0-3.9) → F5b revise · BLOCKED (<3.0) → @architect",
+      "path_no_detail": "Média < 4.0 bloqueia avanço para PLAN",
+      "path_yes": "APPROVED ≥ 4.0 → F6 PLAN"
+    }
+  ],
+  "delivery": {
+    "title": "Spec APPROVED → SDC",
+    "chips": ["spec.md Art.IV compliant", "implementation.yaml pronto", "Epics/stories definidas", "SDC pode começar"]
+  },
+  "out_of_scope": ["Implementar código antes da spec", "Features não pedidas nos requisitos"]
+}

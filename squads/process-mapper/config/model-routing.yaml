@@ -1,0 +1,15 @@
+routing:
+  default: claude-sonnet-4-6
+
+  by_task:
+    coverage_audit: claude-sonnet-4-6
+    generate_html: claude-sonnet-4-6
+    generate_svg: claude-sonnet-4-6
+    validate_map: claude-sonnet-4-6
+    evolution_tracking: claude-sonnet-4-6
+    agent_dna_cloning: claude-opus-4-8
+
+  by_complexity:
+    simple: claude-haiku-4-5
+    medium: claude-sonnet-4-6
+    high: claude-opus-4-8

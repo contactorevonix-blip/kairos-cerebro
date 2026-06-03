@@ -1,0 +1,23 @@
+permissions:
+  read:
+    - ".claude/rules/**"
+    - ".aiox-core/development/tasks/**"
+    - ".aiox-core/development/workflows/**"
+    - "squads/**"
+    - "docs/**"
+    - ".claude/CLAUDE.md"
+    - ".claude/settings.json"
+
+  write:
+    - "docs/process-maps/**"
+    - "squads/process-mapper/data/process-registry.yaml"
+    - ".aiox/process-map-errors.log"
+
+  deny:
+    - ".aiox-core/core/**"
+    - ".aiox-core/constitution.md"
+    - "bin/**"
+
+  hooks:
+    manage: false
+    note: "hooks geridos por hooks-architect do squad claude-code-mastery"
