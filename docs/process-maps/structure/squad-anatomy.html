@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIOX Squad Anatomy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0D0F14;color:#E8EAF0;padding:40px 24px;min-height:100vh}
+h1{text-align:center;font-size:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A78BFA;margin-bottom:6px}
+.subtitle{text-align:center;font-size:12px;color:#6B7280;margin-bottom:32px}
+.section{background:#0F1117;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px 20px;margin-bottom:16px;max-width:800px;margin-left:auto;margin-right:auto}
+.section-title{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;margin-bottom:10px}
+.item-row{display:flex;align-items:baseline;gap:8px;padding:5px 8px;border-radius:5px;background:rgba(255,255,255,.03);margin-bottom:4px;flex-wrap:wrap}
+.item-code{font-size:12px;font-family:'Courier New',monospace;font-weight:600;flex-shrink:0}
+.item-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid;letter-spacing:.08em;flex-shrink:0}
+.item-desc{font-size:11px;color:#9CA3AF;line-height:1.4}
+</style>
+</head>
+<body>
+<h1>AIOX Squad Anatomy</h1>
+<p class="subtitle">Estrutura canónica de um squad · fonte: squads/claude-code-mastery/ (estrutura real)</p>
+<div class="section">
+  <div class="section-title">Ficheiros Raiz (7 ficheiros)</div>
+  
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">squad.yaml</code>
+      <span class="item-desc">Definição do squad: agentes, tiers, handoffs, outputs</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">config.yaml</code>
+      <span class="item-desc">Domínio, orchestrator, filosofia, capabilities</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">README.md</code>
+      <span class="item-desc">Comandos, agentes, outputs, constraints</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">ARCHITECTURE.md</code>
+      <span class="item-desc">Arquitectura detalhada do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">CHANGELOG.md</code>
+      <span class="item-desc">Histórico de mudanças</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">swipe-config.yaml</code>
+      <span class="item-desc">Configuração de swipe patterns</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#60A5FA">tool-overrides.yaml</code>
+      <span class="item-desc">Overrides de ferramentas específicas</span>
+    </div>
+</div>
+<div class="section">
+  <div class="section-title">Pastas (12 pastas)</div>
+  
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">agents/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">DNA de cada agente (voice + thinking + smoke tests)</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">tasks/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Task definitions com veto_conditions e outputs</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">workflows/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Workflow YAML com fases e quality gates</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">checklists/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Quality checklists específicos do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">data/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Knowledge base, registries, benchmarks</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">config/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">quality-gates.yaml · model-routing.yaml · permissions.yaml</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">templates/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Output templates específicos do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">outputs/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Outputs gerados (minds, reports, artefactos)</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">scripts/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Scripts Node.js de automação do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">hooks/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">Claude Code hooks específicos do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#EAB308">memory/</code>
+      <span class="item-badge" style="background:#EAB30822;color:#EAB308;border-color:#EAB30844">L3</span>
+      <span class="item-desc">MEMORY.md — memória persistente do squad</span>
+    </div>
+    <div class="item-row">
+      <code class="item-code" style="color:#22C55E">minds/</code>
+      <span class="item-badge" style="background:#22C55E22;color:#22C55E;border-color:#22C55E44">L4</span>
+      <span class="item-desc">DNA completo de elite minds clonados</span>
+    </div>
+</div>
+</body>
+</html>

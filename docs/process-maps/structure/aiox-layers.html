@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIOX Layer Map — L1 a L4</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0D0F14;color:#E8EAF0;padding:40px 24px;min-height:100vh}
+h1{text-align:center;font-size:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A78BFA;margin-bottom:6px}
+.subtitle{text-align:center;font-size:12px;color:#6B7280;margin-bottom:32px}
+.layers{display:flex;flex-direction:column;gap:16px;max-width:800px;margin:0 auto}
+.layer-card{border-radius:10px;border:1px solid;padding:16px 20px}
+.layer-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
+.layer-badge{font-size:11px;font-weight:900;padding:4px 10px;border-radius:5px;color:#fff;white-space:nowrap;letter-spacing:.08em}
+.layer-name{font-size:15px;font-weight:800}
+.layer-rule{font-size:11px;font-weight:700;color:#9CA3AF;margin-top:2px}
+.layer-note{font-size:11px;color:#6B7280;margin-bottom:10px;padding-left:2px}
+.layer-paths{display:flex;flex-direction:column;gap:6px}
+.path-row{display:flex;align-items:baseline;gap:10px;background:rgba(255,255,255,.04);border-radius:6px;padding:6px 10px}
+.path-code{font-size:12px;font-family:'Courier New',monospace;font-weight:600;white-space:nowrap;flex-shrink:0}
+.path-desc{font-size:11px;color:#9CA3AF;line-height:1.4}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#9CA3AF}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+</style>
+</head>
+<body>
+<h1>AIOX Layer Map</h1>
+<p class="subtitle">4 camadas de mutabilidade · fonte: .claude/CLAUDE.md "Framework vs Project Boundary"</p>
+<div class="layers">
+<div class="layer-card" style="border-color:#EF4444;background:rgba(239,68,68,0.1)">
+  <div class="layer-header">
+    <span class="layer-badge" style="background:#EF4444">L1</span>
+    <div>
+      <div class="layer-name" style="color:#EF4444">L1 — Framework Core</div>
+      <div class="layer-rule">NEVER modify</div>
+    </div>
+  </div>
+  <div class="layer-note">Protegido por deny rules em .claude/settings.json</div>
+  <div class="layer-paths">
+      <div class="path-row">
+        <code class="path-code" style="color:#EF4444">.aiox-core/core/</code>
+        <span class="path-desc">Motor do framework — lógica de execução, registry, sessions</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#EF4444">.aiox-core/constitution.md</code>
+        <span class="path-desc">Princípios inegociáveis AIOX</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#EF4444">bin/aiox.js</code>
+        <span class="path-desc">CLI entry point</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#EF4444">bin/aiox-init.js</code>
+        <span class="path-desc">Inicialização de projecto</span>
+      </div></div>
+</div>
+<div class="layer-card" style="border-color:#F97316;background:rgba(249,115,22,0.1)">
+  <div class="layer-header">
+    <span class="layer-badge" style="background:#F97316">L2</span>
+    <div>
+      <div class="layer-name" style="color:#F97316">L2 — Framework Templates</div>
+      <div class="layer-rule">NEVER modify (extend-only)</div>
+    </div>
+  </div>
+  <div class="layer-note">Adicionar novos ficheiros OK; editar existentes BLOQUEADO</div>
+  <div class="layer-paths">
+      <div class="path-row">
+        <code class="path-code" style="color:#F97316">.aiox-core/development/tasks/</code>
+        <span class="path-desc">~100+ task definitions executáveis</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#F97316">.aiox-core/development/templates/</code>
+        <span class="path-desc">Templates de documentos (PRD, story, etc.)</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#F97316">.aiox-core/development/checklists/</code>
+        <span class="path-desc">Checklists de qualidade</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#F97316">.aiox-core/development/workflows/</code>
+        <span class="path-desc">Workflow definitions</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#F97316">.aiox-core/infrastructure/</code>
+        <span class="path-desc">Infrastructure templates</span>
+      </div></div>
+</div>
+<div class="layer-card" style="border-color:#EAB308;background:rgba(234,179,8,0.1)">
+  <div class="layer-header">
+    <span class="layer-badge" style="background:#EAB308">L3</span>
+    <div>
+      <div class="layer-name" style="color:#EAB308">L3 — Project Config</div>
+      <div class="layer-rule">Mutable (exceptions)</div>
+    </div>
+  </div>
+  <div class="layer-note">Allow rules em .claude/settings.json permitem modificações específicas</div>
+  <div class="layer-paths">
+      <div class="path-row">
+        <code class="path-code" style="color:#EAB308">.aiox-core/data/</code>
+        <span class="path-desc">Entity registry, tool examples, mcp catalog</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#EAB308">agents/*/MEMORY.md</code>
+        <span class="path-desc">Memória persistente de cada agente</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#EAB308">core-config.yaml</code>
+        <span class="path-desc">Toggle boundary.frameworkProtection (true/false)</span>
+      </div></div>
+</div>
+<div class="layer-card" style="border-color:#22C55E;background:rgba(34,197,94,0.1)">
+  <div class="layer-header">
+    <span class="layer-badge" style="background:#22C55E">L4</span>
+    <div>
+      <div class="layer-name" style="color:#22C55E">L4 — Project Runtime</div>
+      <div class="layer-rule">ALWAYS modify</div>
+    </div>
+  </div>
+  <div class="layer-note">Todo o trabalho do projecto vive aqui</div>
+  <div class="layer-paths">
+      <div class="path-row">
+        <code class="path-code" style="color:#22C55E">docs/stories/</code>
+        <span class="path-desc">Stories de desenvolvimento + epics</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#22C55E">docs/prd/</code>
+        <span class="path-desc">PRDs, specs, complexity, research, implementation plans</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#22C55E">squads/</code>
+        <span class="path-desc">Squad definitions, agents DNA, workflows, tasks</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#22C55E">tests/</code>
+        <span class="path-desc">Testes do projecto</span>
+      </div>
+      <div class="path-row">
+        <code class="path-code" style="color:#22C55E">packages/</code>
+        <span class="path-desc">Código de produto (Kairos Check, etc.)</span>
+      </div></div>
+</div></div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>L1 — NEVER modify</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F97316"></div>L2 — Extend-only</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#EAB308"></div>L3 — Mutable (exceptions)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#22C55E"></div>L4 — ALWAYS modify</div>
+</div>
+</body>
+</html>

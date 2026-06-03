@@ -1,7 +1,7 @@
 # AIOX Process Mapper — Coverage Report
 
 **Gerado por:** process-auditor (Tier 0) — coverage-audit.js
-**Data:** 2026-06-03 18:02
+**Data:** 2026-06-03 18:08
 **Story:** PM-1.7
 
 ---
@@ -9,9 +9,9 @@
 ## Score Global
 
 ```
-Mapeado: 21 / 253 artefactos
-Cobertura: 8%  (alvo: ≥ 90%)
-██░░░░░░░░░░░░░░░░░░  8%
+Mapeado: 23 / 253 artefactos
+Cobertura: 9%  (alvo: ≥ 90%)
+██░░░░░░░░░░░░░░░░░░  9%
 ```
 
 ---
@@ -55,12 +55,12 @@ Cobertura: 8%  (alvo: ≥ 90%)
 
 ### D3 — Structure Maps
 
-`░░░░░░░░░░`  0/2 (0%)
+`██████████`  2/2 (100%)
 
 | Artefacto | Status |
 |-----------|--------|
-| aiox-layers (L1-L4) | ⬜ GAP |
-| squad-anatomy (22 pastas) | ⬜ GAP |
+| aiox-layers (L1-L4) | ✅ MAPPED |
+| squad-anatomy (22 pastas) | ✅ MAPPED |
 
 ### D4 — File Maps
 
@@ -85,10 +85,8 @@ Cobertura: 8%  (alvo: ≥ 90%)
 
 ## Próximas Acções (por prioridade)
 
-6 artefactos por mapear:
+4 artefactos por mapear:
 
-- **D3 — Structure Maps** → `aiox-layers (L1-L4)`
-- **D3 — Structure Maps** → `squad-anatomy (22 pastas)`
 - **D4 — File Maps** → `tasks/ (213 ficheiros)`
 - **D4 — File Maps** → `rules/ (15 ficheiros)`
 - **D5 — Evolution Maps** → `timeline.html`
@@ -96,4 +94,4 @@ Cobertura: 8%  (alvo: ≥ 90%)
 
 ---
 
-*Coverage Report — process-mapper v1.0 — 2026-06-03 18:02*
+*Coverage Report — process-mapper v1.0 — 2026-06-03 18:08*
