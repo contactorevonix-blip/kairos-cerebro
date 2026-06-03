@@ -2,7 +2,21 @@
 
 **Última actualização:** 2026-06-03
 **Branch activa:** main
-**Último commit:** `845a570`
+**Último commit:** `46ca998`
+
+---
+
+## PRÓXIMA SESSÃO — O que falta
+
+1. Integrar `process-map-updater.cjs` no `settings.json` (PostToolUse hook)
+2. Kairos Check — EPIC-KCC stories 4.2-4.4 (kairoscheck.net)
+3. AIOX Academy — epic-1-foundation/ stories 1.3 + 1.4
+
+## Squad process-mapper — COMPLETO
+
+`node squads/process-mapper/scripts/validate-squad.js` → 26/26 = 100%
+`node squads/process-mapper/scripts/coverage-audit.js` → 255/255 = 100%
+Todas as 12 pastas preenchidas. Gate pré-criação activo.
 
 ---
 
@@ -119,3 +133,58 @@ D5 Evolution       2/2    100%
 - process-mapper: `@cartographer-chief *audit-coverage` para ver estado
 
 *Actualizado: 2026-06-03*
+
+## Checkpoint: 1437d0a — 2026-06-03 18:21
+**Branch:** main
+**Commit:** chore: actualizar STATE.md — sessao 2026-06-03 EPIC-PM completo
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 461e801 — 2026-06-03 18:27
+**Branch:** main
+**Commit:** feat: aiox-master-map.html + validate-squad.js — score 24/26 = 92% [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 76c585c — 2026-06-03 18:34
+**Branch:** main
+**Commit:** feat: AIOX-COMPLETE-PROCESS-MAP.html — mapa mental integrado completo [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 25d2971 — 2026-06-03 18:41
+**Branch:** main
+**Commit:** docs: squad-creator validation plan — insights, gaps e smoke tests [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 65ee2cb — 2026-06-03 18:46
+**Branch:** main
+**Commit:** docs: smoke test results CP-1/CP-2/CP-3 — squad-creator PRONTOS para PM-7.2
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 3d93fcb — 2026-06-03 18:56
+**Branch:** main
+**Commit:** feat: PM-7.2 + PM-7.3 Done — squad process-mapper 100/100 [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 3d93fcb — 2026-06-03 19:53
+**Branch:** main
+**Commit:** feat: PM-7.2 + PM-7.3 Done — squad process-mapper 100/100 [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: d5883bd — 2026-06-03 19:58
+**Branch:** main
+**Commit:** feat: AIOX-COMPLETE-PROCESS-MAP.html actualizado + 4 workflows criados [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: d5883bd — 2026-06-03 19:59
+**Branch:** main
+**Commit:** feat: AIOX-COMPLETE-PROCESS-MAP.html actualizado + 4 workflows criados [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: d5883bd — 2026-06-03 20:01
+**Branch:** main
+**Commit:** feat: AIOX-COMPLETE-PROCESS-MAP.html actualizado + 4 workflows criados [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
+
+## Checkpoint: 46ca998 — 2026-06-03 20:06
+**Branch:** main
+**Commit:** feat: squad process-mapper estruturalmente completo — todas as pastas preenchidas [EPIC-PM]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/oalanicolas/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/process-maps/coverage-report.md
