@@ -103,7 +103,7 @@ Title: "Implement daily usage data archival to S3 + local cleanup"
 Effort: 6 sp
 Priority: MEDIUM
 Assigned To: @dev
-Status: InProgress (implementation started)
+Status: Done (QA PASS)
 
 Description:
   DailyUsage table grows unbounded; retention > 1 year causes query slowness.
