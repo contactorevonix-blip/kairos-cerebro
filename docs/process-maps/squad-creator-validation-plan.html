@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Squad Creator — Insights, Gaps & Validation Plan</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#080B12;color:#E8EAF0;padding:32px 20px}
+.page{max-width:1100px;margin:0 auto}
+
+/* header */
+.hdr{text-align:center;padding:28px;background:#0F1117;border-radius:14px;border:1px solid rgba(255,255,255,.07);margin-bottom:40px}
+.hdr h1{font-size:22px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,#F59E0B,#EC4899,#6366F1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.hdr .sub{font-size:12px;color:#6B7280}
+
+/* sections */
+.sec{margin:40px 0 16px;display:flex;align-items:center;gap:10px}
+.sec h2{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#4B5563;white-space:nowrap}
+.sec::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+
+/* grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* agent profile */
+.agent-card{border-radius:12px;border:2px solid;padding:20px}
+.ag-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.ag-badge{font-size:10px;font-weight:800;padding:4px 10px;border-radius:5px;color:#0D0F14;white-space:nowrap}
+.ag-name{font-size:17px;font-weight:900}
+.ag-role{font-size:11px;color:#9CA3AF;margin-top:2px}
+.ag-model{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid;margin-top:4px;display:inline-block}
+.ag-section{margin-bottom:12px}
+.ag-section-title{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-bottom:6px}
+.tag-row{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:10px;padding:3px 8px;border-radius:4px;font-weight:600}
+.tag-green{background:rgba(16,185,129,.12);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.tag-red{background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2)}
+.tag-blue{background:rgba(14,165,233,.1);color:#38BDF8;border:1px solid rgba(14,165,233,.2)}
+.tag-amber{background:rgba(245,158,11,.1);color:#FCD34D;border:1px solid rgba(245,158,11,.2)}
+.tag-grey{background:rgba(107,114,128,.1);color:#9CA3AF;border:1px solid rgba(107,114,128,.2)}
+
+/* score bar */
+.score-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.sc{font-size:11px;font-weight:700;padding:4px 12px;border-radius:6px;border:1px solid}
+
+/* gaps */
+.gap-list{display:flex;flex-direction:column;gap:6px}
+.gap-item{display:flex;align-items:flex-start;gap:10px;background:#0F1117;border-radius:7px;padding:10px 14px;border:1px solid rgba(239,68,68,.2)}
+.gap-sev{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;min-width:50px;flex-shrink:0;margin-top:1px}
+.gap-body .gap-title{font-size:12px;font-weight:700;margin-bottom:2px}
+.gap-body .gap-desc{font-size:11px;color:#9CA3AF;line-height:1.4}
+.gap-body .gap-fix{font-size:10px;color:#34D399;margin-top:4px}
+
+/* pipeline */
+.pipeline{display:flex;align-items:center;gap:0;overflow-x:auto;padding:4px 0 8px;margin:8px 0}
+.ps{flex-shrink:0;border-radius:8px;border:1px solid;padding:10px 12px;min-width:110px;text-align:center;position:relative}
+.ps-phase{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;opacity:.7}
+.ps-name{font-size:11px;font-weight:800}
+.ps-agent{font-size:9px;color:#6B7280;margin-top:2px}
+.ps-veto{font-size:8px;color:#F87171;margin-top:4px}
+.pa{color:#4B5563;font-size:18px;padding:0 4px;flex-shrink:0}
+
+/* validation checklist */
+.vcheck-list{display:flex;flex-direction:column;gap:8px}
+.vcheck{background:#0F1117;border-radius:9px;border:1px solid rgba(255,255,255,.06);padding:14px 16px}
+.vcheck-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.vcheck-num{font-size:10px;font-weight:900;color:#A78BFA;min-width:28px}
+.vcheck-title{font-size:13px;font-weight:700}
+.vcheck-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid;margin-left:auto}
+.vcheck-items{display:flex;flex-direction:column;gap:4px}
+.vi{display:flex;align-items:baseline;gap:8px;font-size:11px;color:#9CA3AF}
+.vi-check{flex-shrink:0;font-size:11px}
+.vi code{font-size:10px;color:#A78BFA;font-family:'Courier New',monospace}
+
+/* smoke tests */
+.smoke-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.smoke{background:#0F1117;border-radius:8px;border:1px solid rgba(255,255,255,.06);padding:12px}
+.smoke-title{font-size:11px;font-weight:700;margin-bottom:6px}
+.smoke-prompt{font-size:10px;color:#9CA3AF;font-family:'Courier New',monospace;background:rgba(255,255,255,.03);padding:6px 8px;border-radius:4px;margin-bottom:6px}
+.smoke-expect{font-size:10px;color:#34D399}
+
+/* readiness */
+.ready-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.ready-card{border-radius:10px;border:2px solid;padding:16px;text-align:center}
+.ready-score{font-size:32px;font-weight:900;margin-bottom:4px}
+.ready-label{font-size:11px;font-weight:700;margin-bottom:4px}
+.ready-verdict{font-size:10px;color:#9CA3AF}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="hdr">
+  <h1>Squad Creator — Insights, Gaps & Validation Plan</h1>
+  <p class="sub">squad-chief · oalanicolas · pedro-valerio · análise baseada em ficheiros reais · plano para PM-7.2</p>
+</div>
+
+<!-- ══ 1 — PERFIS DOS 3 AGENTES ══ -->
+<div class="sec"><h2>1 · Perfis reais dos 3 agentes (fonte: squads/squad-creator/agents/)</h2></div>
+<div class="g3">
+
+  <!-- squad-chief -->
+  <div class="agent-card" style="border-color:#F59E0B;background:rgba(245,158,11,.06)">
+    <div class="ag-header">
+      <div>
+        <span class="ag-badge" style="background:#F59E0B">ORCHESTRATOR</span>
+        <div class="ag-name" style="color:#FDE68A">squad-chief</div>
+        <div class="ag-role">Squad Architect — Clone minds > create bots</div>
+        <span class="ag-model" style="border-color:#F59E0B;color:#FCD34D">claude-opus · bypassPermissions</span>
+      </div>
+    </div>
+
+    <div class="ag-section">
+      <div class="ag-section-title">FAZ</div>
+      <div class="tag-row">
+        <span class="tag tag-green">Pesquisa elite minds (3-5 iterações)</span>
+        <span class="tag tag-green">Orquestra @oalanicolas</span>
+        <span class="tag tag-green">Cria estrutura 22 pastas</span>
+        <span class="tag tag-green">Valida SC_AGT_001 + SC_AGT_004</span>
+        <span class="tag tag-green">Estende squads existentes</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">NÃO FAZ</div>
+      <div class="tag-row">
+        <span class="tag tag-grey">DNA extraction → @oalanicolas</span>
+        <span class="tag tag-grey">Veto validation → @pedro-valerio</span>
+        <span class="tag tag-grey">git push → @devops</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">TOOLS</div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Read</span><span class="tag tag-blue">Grep</span><span class="tag tag-blue">Glob</span>
+        <span class="tag tag-blue">Write</span><span class="tag tag-blue">Edit</span><span class="tag tag-blue">Bash</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">INSIGHT CHAVE</div>
+      <div style="font-size:11px;color:#9CA3AF;line-height:1.5">"Clone minds = 85-95% fidelidade. Bots genéricos = 60-75%." Diferença de 25-30% de qualidade que justifica o custo de Opus.</div>
+    </div>
+  </div>
+
+  <!-- oalanicolas -->
+  <div class="agent-card" style="border-color:#EC4899;background:rgba(236,72,153,.06)">
+    <div class="ag-header">
+      <div>
+        <span class="ag-badge" style="background:#EC4899">TIER 1 — DNA</span>
+        <div class="ag-name" style="color:#F9A8D4">oalanicolas</div>
+        <div class="ag-role">Mind Cloning Architect — Voice + Thinking DNA</div>
+        <span class="ag-model" style="border-color:#EC4899;color:#F9A8D4">claude-opus · acceptEdits</span>
+      </div>
+    </div>
+
+    <div class="ag-section">
+      <div class="ag-section-title">FAZ</div>
+      <div class="tag-row">
+        <span class="tag tag-green">Extrai Voice DNA (signature phrases)</span>
+        <span class="tag tag-green">Extrai Thinking DNA (frameworks)</span>
+        <span class="tag tag-green">Avalia fontes Tier 0/1/2</span>
+        <span class="tag tag-green">Gera mind_dna_complete.yaml</span>
+        <span class="tag tag-green">Todos os items com [SOURCE:]</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">TOOLS (inclui WebSearch!)</div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Read</span><span class="tag tag-blue">Grep</span>
+        <span class="tag tag-green">WebSearch</span><span class="tag tag-green">WebFetch</span>
+        <span class="tag tag-blue">Write</span><span class="tag tag-blue">Edit</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">OUTPUT ÚNICO EXISTENTE</div>
+      <div style="font-size:11px;color:#9CA3AF">outputs/minds/alan-nicolas/ · score geral 86 · Thinking DNA 92 · Voice DNA 68 (fraco — docs institucionais)</div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">FIDELIDADE REAL (alan-nicolas)</div>
+      <div class="score-row">
+        <span class="sc" style="border-color:#22C55E;color:#4ADE80">Thinking DNA: 92</span>
+        <span class="sc" style="border-color:#F97316;color:#FB923C">Voice DNA: 68</span>
+        <span class="sc" style="border-color:#22C55E;color:#4ADE80">Overall: 86</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- pedro-valerio -->
+  <div class="agent-card" style="border-color:#6366F1;background:rgba(99,102,241,.06)">
+    <div class="ag-header">
+      <div>
+        <span class="ag-badge" style="background:#6366F1">TIER 1 — PROCESS</span>
+        <div class="ag-name" style="color:#A5B4FC">pedro-valerio</div>
+        <div class="ag-role">Process Absolutist — zero caminhos errados</div>
+        <span class="ag-model" style="border-color:#6366F1;color:#A5B4FC">claude-sonnet · acceptEdits</span>
+      </div>
+    </div>
+
+    <div class="ag-section">
+      <div class="ag-section-title">FAZ</div>
+      <div class="tag-row">
+        <span class="tag tag-green">Audita veto conditions</span>
+        <span class="tag tag-green">Garante fluxo unidireccional</span>
+        <span class="tag tag-green">Elimina gaps entre handoffs</span>
+        <span class="tag tag-green">Valida steps determinísticos</span>
+        <span class="tag tag-green">Revê output do @oalanicolas</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">TOOLS (sem WebSearch!)</div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Read</span><span class="tag tag-blue">Grep</span><span class="tag tag-blue">Glob</span>
+        <span class="tag tag-blue">Write</span><span class="tag tag-blue">Edit</span>
+        <span class="tag tag-red">❌ SEM WebSearch</span><span class="tag tag-red">❌ SEM WebFetch</span>
+      </div>
+    </div>
+    <div class="ag-section">
+      <div class="ag-section-title">FILOSOFIA CHAVE</div>
+      <div style="font-size:11px;color:#9CA3AF;line-height:1.5">"Se o executor CONSEGUE improvisar, vai improvisar." → Veto conditions explícitas em cada checkpoint eliminam ambiguidade.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2 — FLUXOGRAMA DO SQUAD-CREATOR ══ -->
+<div class="sec"><h2>2 · Fluxograma squad-creator (fonte: wf-create-squad.yaml)</h2></div>
+<div class="pipeline">
+  <div class="ps" style="border-color:#6366F1;background:rgba(99,102,241,.1)">
+    <div class="ps-phase" style="color:#818CF8">Phase 0</div>
+    <div class="ps-name">Discovery</div>
+    <div class="ps-agent">squad-chief</div>
+    <div class="ps-veto">STOP se squad duplicado</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#EC4899;background:rgba(236,72,153,.1)">
+    <div class="ps-phase" style="color:#F472B6">Phase 1</div>
+    <div class="ps-name">Research</div>
+    <div class="ps-agent">squad-chief</div>
+    <div class="ps-veto">STOP &lt;3 minds · score&lt;9</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#F59E0B;background:rgba(245,158,11,.1)">
+    <div class="ps-phase" style="color:#FCD34D">Phase 2</div>
+    <div class="ps-name">Architecture</div>
+    <div class="ps-agent">squad-chief</div>
+    <div class="ps-veto">STOP sem Tier 0</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#EC4899;background:rgba(236,72,153,.1)">
+    <div class="ps-phase" style="color:#F472B6">Phase 3</div>
+    <div class="ps-name">Creation</div>
+    <div class="ps-agent">@oalanicolas</div>
+    <div class="ps-veto">QG-SC-5.1 DNA Review</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#6366F1;background:rgba(99,102,241,.1)">
+    <div class="ps-phase" style="color:#818CF8">Phase 4</div>
+    <div class="ps-name">Integration</div>
+    <div class="ps-agent">squad-chief + @pedro-valerio</div>
+    <div class="ps-veto">QG-SC-6.1 Squad Review</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#10B981;background:rgba(16,185,129,.1)">
+    <div class="ps-phase" style="color:#34D399">Phase 5</div>
+    <div class="ps-name">Validation</div>
+    <div class="ps-agent">squad-chief</div>
+    <div class="ps-veto">score&lt;7.0 · smoke tests</div>
+  </div><div class="pa">→</div>
+  <div class="ps" style="border-color:#22C55E;background:rgba(34,197,94,.1)">
+    <div class="ps-phase" style="color:#4ADE80">Phase 6</div>
+    <div class="ps-name">Handoff</div>
+    <div class="ps-agent">squad-chief</div>
+    <div class="ps-veto">dashboard + próximos passos</div>
+  </div>
+</div>
+
+<!-- Gates do workflow -->
+<div style="display:flex;flex-direction:column;gap:6px;margin:8px 0">
+  <div style="display:flex;align-items:center;gap:12px;background:#0F1117;border-radius:7px;border:1px solid rgba(236,72,153,.25);padding:10px 14px">
+    <span style="font-size:11px;font-weight:800;color:#F472B6;min-width:80px">QG-SC-5.1</span>
+    <span style="font-size:12px;font-weight:700">DNA Review (oalanicolas)</span>
+    <span style="font-size:11px;color:#9CA3AF;flex:1">≥15 citações [SOURCE:] · ≥5 signature phrases · heuristics com QUANDO usar · zero inferências não marcadas</span>
+    <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2)">BLOCKING</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;background:#0F1117;border-radius:7px;border:1px solid rgba(99,102,241,.25);padding:10px 14px">
+    <span style="font-size:11px;font-weight:800;color:#818CF8;min-width:80px">QG-SC-6.1</span>
+    <span style="font-size:12px;font-weight:700">Squad Review (pedro-valerio)</span>
+    <span style="font-size:11px;color:#9CA3AF;flex:1">veto conditions existem · fluxo unidireccional · handoffs definidos · output examples concretos</span>
+    <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2)">BLOCKING</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;background:#0F1117;border-radius:7px;border:1px solid rgba(16,185,129,.25);padding:10px 14px">
+    <span style="font-size:11px;font-weight:800;color:#34D399;min-width:80px">QG-SC-5.2</span>
+    <span style="font-size:12px;font-weight:700">Smoke Test (squad-chief)</span>
+    <span style="font-size:11px;color:#9CA3AF;flex:1">3 smoke tests PASSAM por agente · comportamento real, sem placeholders</span>
+    <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2)">BLOCKING</span>
+  </div>
+</div>
+
+<!-- ══ 3 — GAPS REAIS ══ -->
+<div class="sec"><h2>3 · Gaps identificados (dados reais dos ficheiros)</h2></div>
+<div class="gap-list">
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#EF4444">CRÍTICO</div>
+    <div class="gap-body">
+      <div class="gap-title">oalanicolas: só 1 DNA extraído (alan-nicolas)</div>
+      <div class="gap-desc">outputs/minds/ tem apenas alan-nicolas. Para criar o squad process-mapper (PM-7.2), precisa de clonar 4 novos minds: Gene Kim, Geary Rummler, W.E. Deming, Tom Gilb. Cada um requer 15+ citações [SOURCE:] verificáveis online.</div>
+      <div class="gap-fix">→ Fix: executar *clone-mind "Gene Kim" + *clone-mind "Geary Rummler" etc. com WebSearch activo</div>
+    </div>
+  </div>
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#EF4444">CRÍTICO</div>
+    <div class="gap-body">
+      <div class="gap-title">Voice DNA fraca (68/100) no único DNA existente</div>
+      <div class="gap-desc">O alan-nicolas tem Thinking DNA 92 (excelente) mas Voice DNA 68 (fraco). Causa: documentação AIOX é institucional/co-autorada, não voz pessoal. Para Gene Kim, Rummler e outros — os livros publicados são fontes Tier 0 e Voice DNA deve ser mais forte.</div>
+      <div class="gap-fix">→ Fix: usar livros publicados como fontes Tier 0 (The Phoenix Project, Improving Performance, etc.)</div>
+    </div>
+  </div>
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#F59E0B">ALTO</div>
+    <div class="gap-body">
+      <div class="gap-title">pedro-valerio sem WebSearch/WebFetch</div>
+      <div class="gap-desc">pedro-valerio só tem Read/Grep/Glob/Write/Edit. Não consegue verificar se fontes externas dos DNAs são legítimas. Só valida estrutura local dos ficheiros YAML. Isto é suficiente para validar veto conditions e fluxo, mas não para validar rastreabilidade de citações.</div>
+      <div class="gap-fix">→ Fix para PM-7.2: pedro-valerio valida apenas estrutura/veto/fluxo. A verificação de citações fica com oalanicolas + squad-chief (QG-SC-5.1).</div>
+    </div>
+  </div>
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#F59E0B">ALTO</div>
+    <div class="gap-body">
+      <div class="gap-title">Sem smoke tests documentados para oalanicolas e pedro-valerio</div>
+      <div class="gap-desc">QG-SC-5.2 exige 3 smoke tests por agente. Não existe nenhum ficheiro de smoke tests para os 3 agentes do squad-creator. Só existe o mind_dna_complete.yaml do alan-nicolas como prova de trabalho.</div>
+      <div class="gap-fix">→ Fix: definir 3 prompts de teste por agente antes de PM-7.2. Ver secção 5 deste documento.</div>
+    </div>
+  </div>
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#EAB308">MÉDIO</div>
+    <div class="gap-body">
+      <div class="gap-title">squad-chief tem bypassPermissions mas opera em contexto de segurança</div>
+      <div class="gap-desc">bypassPermissions significa que pode escrever em qualquer ficheiro sem confirmação. Para criar squads em L4 isso é correcto. Mas deve ser monitorizado quando opera em wf-create-squad.yaml para garantir que não toca em L1/L2 por engano.</div>
+      <div class="gap-fix">→ Fix: verificar deny rules em .claude/settings.json — estão activas para L1/L2, o que protege mesmo com bypass.</div>
+    </div>
+  </div>
+
+  <div class="gap-item">
+    <div class="gap-sev" style="color:#22C55E">BAIXO</div>
+    <div class="gap-body">
+      <div class="gap-title">squad-chief referencia mind-research-loop.md mas o ficheiro não foi verificado</div>
+      <div class="gap-desc">Phase 1 do wf-create-squad.yaml diz "Executar mind-research-loop.md (mínimo 3 iterações)". Precisamos confirmar que este ficheiro existe e tem o conteúdo correcto.</div>
+      <div class="gap-fix">→ Fix: verificar existência antes de activar o squad para PM-7.2.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ 4 — PLANO DE VALIDAÇÃO (4 checkpoints) ══ -->
+<div class="sec"><h2>4 · Plano de validação — 4 checkpoints antes de activar para PM-7.2</h2></div>
+<div class="vcheck-list">
+
+  <div class="vcheck">
+    <div class="vcheck-header">
+      <span class="vcheck-num">CP-1</span>
+      <span class="vcheck-title">Verificação de estrutura e ficheiros</span>
+      <span class="vcheck-badge" style="border-color:#22C55E;color:#34D399">AUTO — 5 min</span>
+    </div>
+    <div class="vcheck-items">
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/squad.yaml</code> — YAML válido com 3 agentes</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/config/quality-gates.yaml</code> — 9 gates definidos</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/agents/squad-chief.md</code> — Orchestrator configurado</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/agents/oalanicolas.md</code> — DNA Specialist configurado</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/agents/pedro-valerio.md</code> — Process Validator configurado</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span><code>squads/squad-creator/workflows/wf-create-squad.yaml</code> — 6 fases com veto conditions</span></div>
+      <div class="vi"><span class="vi-check">❓</span><span>Verificar <code>mind-research-loop.md</code> referenciado na Phase 1</span></div>
+    </div>
+  </div>
+
+  <div class="vcheck">
+    <div class="vcheck-header">
+      <span class="vcheck-num">CP-2</span>
+      <span class="vcheck-title">Validação do DNA de referência (alan-nicolas)</span>
+      <span class="vcheck-badge" style="border-color:#F59E0B;color:#FCD34D">MANUAL — 10 min</span>
+    </div>
+    <div class="vcheck-items">
+      <div class="vi"><span class="vi-check">✅</span><span>mind_dna_complete.yaml existe em <code>outputs/minds/alan-nicolas/</code></span></div>
+      <div class="vi"><span class="vi-check">✅</span><span>Score geral 86 — Thinking DNA 92, Voice DNA 68</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span>≥ 8 signature phrases com [SOURCE:] rastreável verificadas</span></div>
+      <div class="vi"><span class="vi-check">✅</span><span>Heuristics têm QUANDO usar definido</span></div>
+      <div class="vi"><span class="vi-check">⚠️</span><span>Voice DNA 68 — ACEITÁVEL (fontes institucionais). Novos minds devem usar livros publicados para Voice DNA mais alto</span></div>
+    </div>
+  </div>
+
+  <div class="vcheck">
+    <div class="vcheck-header">
+      <span class="vcheck-num">CP-3</span>
+      <span class="vcheck-title">Smoke tests dos 3 agentes</span>
+      <span class="vcheck-badge" style="border-color:#EC4899;color:#F9A8D4">EXECUTAR — 30 min</span>
+    </div>
+    <div class="vcheck-items">
+      <div class="vi"><span class="vi-check">⬜</span><span>squad-chief: activar e verificar greeting + comandos disponíveis</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>squad-chief: *help — listar comandos sem inventar</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>oalanicolas: activar e verificar que usa [SOURCE:] em todos os outputs</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>oalanicolas: pedir extracto de 1 frase de Gene Kim — verificar se cita fonte</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>pedro-valerio: activar e apresentar 1 workflow com gap — verificar se detecta</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>pedro-valerio: verificar que não improvisa quando falta veto_condition</span></div>
+    </div>
+  </div>
+
+  <div class="vcheck">
+    <div class="vcheck-header">
+      <span class="vcheck-num">CP-4</span>
+      <span class="vcheck-title">Pré-voo PM-7.2 — verificações antes de clonar minds</span>
+      <span class="vcheck-badge" style="border-color:#6366F1;color:#A5B4FC">OBRIGATÓRIO</span>
+    </div>
+    <div class="vcheck-items">
+      <div class="vi"><span class="vi-check">⬜</span><span>Confirmar 4 elite minds para process-mapper: Gene Kim · Geary Rummler · W.E. Deming · Tom Gilb</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>Cada mind tem fontes Tier 0 verificáveis: livros publicados, papers, entrevistas</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>Gene Kim — The Phoenix Project (2013), DevOps Handbook (2016), Accelerate (2018)</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>Rummler — Improving Performance: How to Manage the White Space (1990)</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>Deming — Out of the Crisis (1982), The New Economics (1993)</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>Gilb — Competitive Engineering (2005), Evolutionary Project Management</span></div>
+      <div class="vi"><span class="vi-check">⬜</span><span>oalanicolas tem WebSearch activo — confirmar que consegue aceder às fontes</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ 5 — SMOKE TESTS ══ -->
+<div class="sec"><h2>5 · Smoke tests a executar por agente</h2></div>
+<div class="smoke-grid">
+
+  <div class="smoke">
+    <div class="smoke-title" style="color:#FCD34D">squad-chief — 3 testes</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div>
+        <div class="smoke-prompt">Teste 1: activar e listar comandos</div>
+        <div class="smoke-expect">✓ Mostra *help sem inventar · referencia squad-registry</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 2: *validate-squad process-mapper</div>
+        <div class="smoke-expect">✓ Lê squad.yaml · reporta score · não inventa checks</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 3: squad já existe — tenta criar duplicado</div>
+        <div class="smoke-expect">✓ STOP — veto condition Phase 0 activada</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="smoke">
+    <div class="smoke-title" style="color:#F9A8D4">oalanicolas — 3 testes</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div>
+        <div class="smoke-prompt">Teste 1: citar 1 frase de Gene Kim</div>
+        <div class="smoke-expect">✓ Resposta inclui [SOURCE: livro/página] · não inventa</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 2: extrair 3 heuristics de Rummler</div>
+        <div class="smoke-expect">✓ Cada heuristic tem QUANDO usar · [SOURCE:] rastreável</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 3: pedir frase sem fonte disponível</div>
+        <div class="smoke-expect">✓ Marca como [INFERÊNCIA: não verificável] · não passa</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="smoke">
+    <div class="smoke-title" style="color:#A5B4FC">pedro-valerio — 3 testes</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div>
+        <div class="smoke-prompt">Teste 1: workflow sem veto_condition</div>
+        <div class="smoke-expect">✓ BLOQUEIA · lista os steps sem veto_condition · não continua</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 2: workflow com loop proibido (fase volta para si)</div>
+        <div class="smoke-expect">✓ Detecta ciclo · rejeita · sugere fluxo unidireccional</div>
+      </div>
+      <div>
+        <div class="smoke-prompt">Teste 3: handoff sem output definido</div>
+        <div class="smoke-expect">✓ Assinala gap de tempo · pede output explícito</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ 6 — READINESS SCORE ══ -->
+<div class="sec"><h2>6 · Readiness score actual — prontos para PM-7.2?</h2></div>
+<div class="ready-grid">
+  <div class="ready-card" style="border-color:#F59E0B;background:rgba(245,158,11,.06)">
+    <div class="ready-score" style="color:#FCD34D">85%</div>
+    <div class="ready-label">squad-chief</div>
+    <div class="ready-verdict">Estrutura OK · smoke tests pendentes · mind-research-loop a verificar</div>
+  </div>
+  <div class="ready-card" style="border-color:#EC4899;background:rgba(236,72,153,.06)">
+    <div class="ready-score" style="color:#F9A8D4">70%</div>
+    <div class="ready-label">oalanicolas</div>
+    <div class="ready-verdict">1 DNA feito · smoke tests pendentes · 4 novos minds por clonar para PM-7.2</div>
+  </div>
+  <div class="ready-card" style="border-color:#6366F1;background:rgba(99,102,241,.06)">
+    <div class="ready-score" style="color:#A5B4FC">80%</div>
+    <div class="ready-label">pedro-valerio</div>
+    <div class="ready-verdict">Sem WebSearch (limitação aceitável) · smoke tests pendentes · lógica de validação OK</div>
+  </div>
+</div>
+
+<div style="background:#0F1117;border-radius:10px;border:1px solid rgba(34,197,94,.2);padding:16px 20px;margin-top:16px">
+  <div style="font-size:12px;font-weight:700;color:#34D399;margin-bottom:8px">✅ VEREDICTO: Prontos para começar PM-7.2 após CP-3 (smoke tests)</div>
+  <div style="font-size:11px;color:#9CA3AF;line-height:1.6">
+    Os 3 agentes têm estrutura sólida e a lógica correcta. O bloqueador principal é a falta de smoke tests (CP-3) que confirmam comportamento real.
+    Após executar os 9 smoke tests (3 por agente) e confirmar que todos passam → activar squad-creator para PM-7.2:
+    <strong style="color:#E8EAF0">squad-chief orquestra → oalanicolas clona Gene Kim + Rummler + Deming + Gilb → pedro-valerio valida workflows → squad 100/100</strong>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:36px;font-size:11px;color:#4B5563;padding-top:16px;border-top:1px solid rgba(255,255,255,.05)">
+  squad-creator validation plan · 2026-06-03 · baseado em ficheiros reais · squad-chief.md · oalanicolas.md · pedro-valerio.md · wf-create-squad.yaml · quality-gates.yaml
+</div>
+
+</div>
+</body>
+</html>
