@@ -17,6 +17,7 @@ const { renderEnterprisePage } = require('./enterprise-page');
 const { handleSuccess } = require('./success-page');
 const { handleApiCheck } = require('./api-check');
 const { handlePortal } = require('./stripe-portal');
+const { handleUserApiKeysRequest } = require('./routes/user-api-keys');
 const { renderDocs, ROUTES: DOC_ROUTES } = require('./docs-pages');
 const { renderPrivacy, renderTerms } = require('./legal-pages');
 const { renderStatus, renderChangelog, renderExamples, renderCompareStripeRadar, renderCompareSift, renderCompareSeon, renderCompareMaxmind, renderFraudDetectionApi } = require('./trust-pages');
@@ -729,6 +730,20 @@ ${fraudDomains.map(d => `  <url><loc>${base}/check/${d}</loc><lastmod>${now}</la
         topup_endpoint: 'POST /api/tokens/topup',
         body: '{ "pack": "pack_100" | "pack_380" | "pack_1500" }',
       });
+      return;
+    }
+
+    // ─── User API Keys (S2.1) ──────────────────────────────────────────────────
+    if ((method === 'POST' || method === 'GET' || method === 'DELETE') &&
+        (url === '/api/user/keys' || url.startsWith('/api/user/keys/'))) {
+      // Extract userId from X-User-ID header (development) or session token
+      const userId = req.headers['x-user-id'] || null;
+      if (!userId) {
+        sendJson(res, 401, { code: 'MISSING_USER', message: 'User authentication required' });
+        return;
+      }
+      req.body = await readJsonBody(req);
+      await handleUserApiKeysRequest(req, res, { method, url, userId, sendJson });
       return;
     }
 

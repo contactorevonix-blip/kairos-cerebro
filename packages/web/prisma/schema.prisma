@@ -27,6 +27,7 @@ model User {
   transactions  Transaction[]
   subscriptions Subscription[]
   dailyUsage    DailyUsage[]
+  apiKeys       ApiKey[]
 
   @@index([email])
 }
@@ -70,12 +71,12 @@ model VerificationToken {
 
 model TokenBalance {
   id        String   @id @default(cuid())
-  userId    String   @unique
+  userId    String?  @unique
   balance   Int      @default(0)
-  lifetime  Int      @default(0) // total ever earned
+  lifetime  Int      @default(0)
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 }
 
 enum TransactionType {
@@ -141,4 +142,24 @@ model DailyUsage {
 
   @@unique([key, date])
   @@index([key, date])
+}
+
+// ─── API KEYS ──────────────────────────────────────────────────────────────
+
+model ApiKey {
+  id              String    @id @default(cuid())
+  userId          String
+  name            String    @default("My API Key")
+  keyHash         String    @unique // bcrypt hash of key
+  lastFourChars   String    // e.g., "a1b2c3d4"
+  lastUsedAt      DateTime?
+  revokedAt       DateTime? // NULL = active, not-NULL = revoked
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, revokedAt])
+  @@index([lastUsedAt])
 }
