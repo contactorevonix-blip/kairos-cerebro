@@ -103,3 +103,138 @@ Branch: main
 - FORGE: activar com `@forge-classifier "descrição"`
 
 *Actualizado: 2026-05-31*
+
+## Checkpoint: e065e54 — 2026-06-02 09:19
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: e065e54 — 2026-06-03 12:08
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:09
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:09
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:10
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:11
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:18
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:21
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:28
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:36
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:43
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 12:54
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:04
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:12
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:17
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:21
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:28
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:35
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:41
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:43
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:48
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:51
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:53
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:57
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 13:58
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 14:03
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md
+
+## Checkpoint: e065e54 — 2026-06-03 14:05
+**Branch:** main
+**Commit:** feat: AIOX Masterclass EPIC-003 completo + kairos-server [Epic 3]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/gotchas.md, .claude/settings.json, .synapse/metrics/hook-metrics.json, AGENTS.md, STATE.md

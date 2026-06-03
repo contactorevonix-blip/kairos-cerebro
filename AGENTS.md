@@ -1,78 +1,85 @@
-# AGENTS.md - Synkra AIOX
+# AGENTS.md — KAIROS_CEREBRO
 
-Este arquivo configura o comportamento esperado de agentes no Codex CLI neste repositorio.
+Meta-framework AIOX v5.x para desenvolvimento story-driven com agentes Claude Code especializados.
 
-## Constitution
+---
 
-Siga `.aiox-core/constitution.md` como fonte de verdade:
-- CLI First
-- Agent Authority
-- Story-Driven Development
-- No Invention
-- Quality First
-- Absolute Imports
+## Framework
 
-## Workflow Obrigatorio
+**AIOX v5.2.9** — CLI-first, story-driven, constitution-enforced.
+Ficheiro de autoridade: `.aiox-core/constitution.md`
+Diagnóstico: `npx aiox-core doctor`
 
-1. Inicie por uma story em `docs/stories/`
-2. Implemente apenas o que os acceptance criteria pedem
-3. Atualize checklist (`[ ]` -> `[x]`) e file list
-4. Execute quality gates antes de concluir
+---
 
-## Quality Gates
+## Squads Disponíveis
 
-```bash
-npm run lint
-npm run typecheck
-npm test
+| Squad | Activação | Domínio |
+|---|---|---|
+| claude-code-mastery | `/Claude-Code-Mastery:agents:claude-mastery-chief` | Hooks, MCP, skills, CI/CD, audit |
+| squad-creator | `/Chiefs:agents:squad-chief` | Criar e gerir squads, mind cloning |
+| deep-research | `/Deep-Research:agents:dr-orchestrator` | Pesquisa sistemática com evidências |
+| aiox-cerebro | `/AIOX-Cerebro:agents:aiox-cerebro` | Audit, gap analysis, clonagem |
+
+---
+
+## Agentes Core
+
+| Agente | Persona | Escopo | Activação |
+|---|---|---|---|
+| `@dev` | Dex | Implementação | `@dev` |
+| `@qa` | Quinn | Testes e qualidade | `@qa` |
+| `@architect` | Aria | Arquitectura | `@architect` |
+| `@pm` | Morgan | Product Management | `@pm` |
+| `@po` | Pax | Stories/epics | `@po` |
+| `@sm` | River | Scrum Master | `@sm` |
+| `@analyst` | Alex | Pesquisa | `@analyst` |
+| `@data-engineer` | Dara | Database | `@data-engineer` |
+| `@ux-design-expert` | Uma | UX/UI | `@ux-design-expert` |
+| `@devops` | Gage | CI/CD, git push (EXCLUSIVO) | `@devops` |
+
+---
+
+## Regras de Ouro
+
+1. **CLI First** — `npx aiox-core doctor` antes de qualquer sessão
+2. **Story-Driven** — todo desenvolvimento começa numa story em `docs/stories/`
+3. **No Invention** — nunca inventar dados; só artefactos existentes
+4. **Agent Authority** — git push e PRs exclusivos do @devops
+5. **Quality First** — quality gates obrigatórios antes de fechar stories
+
+---
+
+## Ciclo de Desenvolvimento (SDC)
+
+```
+@sm *draft  →  @po *validate  →  @dev *develop  →  @qa *qa-gate  →  @devops *push
 ```
 
-## Estrutura Principal
+1. **@sm** — cria story em `docs/stories/`
+2. **@po** — valida com checklist de 10 pontos (GO/NO-GO)
+3. **@dev** — implementa; actualiza checkboxes e file list
+4. **@qa** — quality gate (PASS/CONCERNS/FAIL/WAIVED)
+5. **@devops** — commit, push, PR
 
-- Core framework: `.aiox-core/`
-- CLI: `bin/`
-- Pacotes: `packages/`
-- Testes: `tests/`
-- Documentacao: `docs/`
+---
 
-## IDE/Agent Sync
+## Comandos Essenciais
 
-- Sincronizar regras/agentes: `npm run sync:ide`
-- Validar drift: `npm run sync:ide:check`
-- Rodar paridade multi-IDE (Claude/Codex/Gemini): `npm run validate:parity`
-- Sync Claude Code: `npm run sync:ide:claude`
-- Sincronizar Gemini CLI: `npm run sync:ide:gemini`
-- Validar Codex sync/integration: `npm run validate:codex-sync && npm run validate:codex-integration`
-- Gerar skills locais do Codex: `npm run sync:skills:codex`
-- Este repositorio usa **local-first**: prefira `.codex/skills` versionado no projeto
-- Use `sync:skills:codex:global` apenas para testes fora deste repo
+```bash
+npx aiox-core doctor          # health check (15 checks)
+npx aiox-core graph --stats   # estatísticas de entidades
+npx aiox-core graph --deps    # dependency tree
+```
 
-## Agent Shortcuts (Codex)
+---
 
-Preferencia de ativacao no Codex CLI:
-1. Use `/skills` e selecione `aiox-<agent-id>` vindo de `.codex/skills` (ex.: `aiox-architect`)
-2. Se preferir, use os atalhos abaixo (`@architect`, `/architect`, etc.)
+## Contexto de Trabalho
 
-Quando a mensagem do usuario for um atalho de agente, carregue o arquivo correspondente em `.aiox-core/development/agents/` (fallback: `.codex/agents/`), renderize o greeting via `generate-greeting.js` e assuma a persona ate receber `*exit`.
-
-Atalhos aceitos por agente:
-- `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
-- `@analyst`, `/analyst`, `/analyst.md` -> `.aiox-core/development/agents/analyst.md`
-- `@architect`, `/architect`, `/architect.md` -> `.aiox-core/development/agents/architect.md`
-- `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aiox-core/development/agents/data-engineer.md`
-- `@dev`, `/dev`, `/dev.md` -> `.aiox-core/development/agents/dev.md`
-- `@devops`, `/devops`, `/devops.md` -> `.aiox-core/development/agents/devops.md`
-- `@pm`, `/pm`, `/pm.md` -> `.aiox-core/development/agents/pm.md`
-- `@po`, `/po`, `/po.md` -> `.aiox-core/development/agents/po.md`
-- `@qa`, `/qa`, `/qa.md` -> `.aiox-core/development/agents/qa.md`
-- `@sm`, `/sm`, `/sm.md` -> `.aiox-core/development/agents/sm.md`
-- `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
-- `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aiox-core/development/agents/ux-design-expert.md`
-
-Resposta esperada ao ativar atalho:
-1. Confirmar agente ativado
-2. Mostrar 3-6 comandos principais (`*help`, etc.)
-3. Seguir na persona do agente
+- **AIOX Academy stories:** `docs/stories/epic-1-foundation/`
+- **States por contexto:** `docs/contexts/`
+- **Framework state:** `STATE.md` (raiz)
+- **Regras contextuais:** `.claude/rules/`
 
 ---
 

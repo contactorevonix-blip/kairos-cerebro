@@ -24,6 +24,28 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
+            "timeout": 3,
+            "statusMessage": "A autorizar WebSearch..."
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
+            "timeout": 3,
+            "statusMessage": "A autorizar WebFetch..."
+          }
+        ]
+      },
+      {
         "matcher": "Bash(git commit*)",
         "hooks": [
           {
@@ -106,6 +128,16 @@
             "statusMessage": "A guardar estado da sessão..."
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/update-state.js\"",
+            "timeout": 10,
+            "statusMessage": "A actualizar STATE.md..."
+          }
+        ]
       }
     ],
     "PostCompact": [
@@ -176,6 +208,8 @@
       "C:/Users/lealp/kairoscheck"
     ],
     "allow": [
+      "WebSearch",
+      "WebFetch",
       "Edit(.aiox-core/core/config/schemas/**)",
       "Write(.aiox-core/core/config/schemas/**)",
       "Edit(.aiox-core/core/config/template-overrides.js)",
