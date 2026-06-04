@@ -1,5 +1,8 @@
 # Architect Agent Memory
 
+## Pointers
+- [Control Plane Design](project-control-plane-design.md) — Monitor+Control Plane arch for 150+ Claude Code windows (Node/Fastify/SQLite-WAL/WS/React), ADRs + existing-artifact anchors
+
 ## EPIC-ACT Wave 2 Quality Gate Review (2026-02-06)
 - Reviewed: ACT-6 (Unified Activation Pipeline, 67 tests, APPROVED)
 - Total EPIC-ACT: 255 tests pass across 4 test suites (0 regressions)
