@@ -1,19 +1,36 @@
-# State — Session 2026-06-03 (COMPLETED)
+# State — Session 2026-06-04 (COMPLETE)
 
-**Session End:** 2026-06-03 23:55 UTC  
-**Duration:** 7 hours (Brownfield + Sprint 1 + Sprint 2)  
-**Completed:** ✅ Brownfield (100%) + S1 (100%) + S2 (100% — S2.1+S2.2+S2.3 ALL DONE)  
+**Session Start:** 2026-06-04 (River — Story Breakdown Phase)  
+**Session End:** 2026-06-04  
 **Branch:** main  
-**Latest Commit:** 9de21c8 (feat: S2.3 Complete — Sprint 2 100% DONE)
+**Latest Commit:** 1f14f1f (docs: breakdown dos 5 Epics — 21 stories prontas)
 
----
+## Sessão 2026-06-04 — PRD Complete → Story Breakdown → Validation
 
-## PRÓXIMA SESSÃO — O que falta
+### Concluído nesta sessão
 
-1. **Brownfield Discovery** — Fases 1-10 (✅ COMPLETO)
-2. **Sprint Planning** — Sprints 1-3 (DEBT FIX ROADMAP)
-3. Kairos Check — EPIC-KCC stories 4.2-4.4 (kairoscheck.net)
-4. AIOX Academy — epic-1-foundation/ stories 1.3 + 1.4
+- ✅ **Story Breakdown:** 21 stories criadas (5 epics, 184sp, 8 weeks)
+  - EPIC-1: Monitor Core (5 stories, 47sp)
+  - EPIC-2: Control Core (4 stories, 44sp)
+  - EPIC-3: Data Durability (3 stories, 33sp)
+  - EPIC-4: CLI + Config (3 stories, 26sp)
+  - EPIC-5: UI Layer (4 stories, 34sp)
+
+- ✅ **@po Validation:** All 21 stories PASS 10-point checklist (GO verdict)
+- ✅ **@architect Sign-off:** Tech stack + API design + dependencies validated (no gaps)
+- ✅ **Commit:** 1f14f1f (all stories + INDEX.md staged and committed)
+- ✅ **INDEX.md:** docs/stories/INDEX.md (roadmap + dependency graph)
+
+### Próxima Sessão — O que falta
+
+1. **Update story status:** Draft → Ready (via @po *validate in batch)
+2. **Begin Phase 1:** @dev starts Stories 1.1 + 1.3 (independent, paralelo)
+3. **Monitor & Control:** First 2 weeks = EPIC-1 execution
+
+1. ✅ **Brownfield Discovery** — Fases 1-10 (COMPLETO)
+2. ✅ **Research Phase** — Monitor Control Plane (COMPLETO)
+3. **Story Breakdown** — Epics 1-5 em stories (via @sm)
+4. **Build Phase 1** — Monitor Core (2 weeks)
 
 ## Sessão 2026-06-03 — Environment Bootstrap + Hook Integration
 
@@ -1069,3 +1086,328 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 **Branch:** main
 **Commit:** chore: sync metrics before push
 **Files changed:** none
+
+## Checkpoint: f6bbe57 — 2026-06-03 23:31
+**Branch:** main
+**Commit:** chore: SESSION 2026-06-04 FINAL — Sprint 2 deployed to staging, ready for 24h validation
+**Files changed:** none
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:33
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:34
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:35
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:38
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:41
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:47
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-03 23:55
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 00:04
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 00:15
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 00:33
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:37
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:39
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:44
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:45
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:45
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:45
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:46
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:46
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:47
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:47
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:48
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:48
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 17:59
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:12
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:22
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:23
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:34
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:48
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:52
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:56
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 18:59
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 20:58
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:04
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:06
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:19
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:20
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:21
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:24
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:27
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:29
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:30
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:32
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:35
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:35
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:36
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:40
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:42
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:44
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:44
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:50
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:51
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:52
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:52
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:53
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:55
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 77b5c36 — 2026-06-04 21:55
+**Branch:** main
+**Commit:** docs: Staging validation log — 24h monitoring started (Phase 1 PASS)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c8299ef — 2026-06-04 21:59
+**Branch:** main
+**Commit:** docs: PRD — KAIROS_CEREBRO Monitor Control Plane (5 Epics, 8-week roadmap)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c8299ef — 2026-06-04 22:00
+**Branch:** main
+**Commit:** docs: PRD — KAIROS_CEREBRO Monitor Control Plane (5 Epics, 8-week roadmap)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:01
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:01
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:03
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:07
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:32
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 53ae7d0 — 2026-06-04 22:33
+**Branch:** main
+**Commit:** docs: research phase — AIOX workflows, control plane design, project audit
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
