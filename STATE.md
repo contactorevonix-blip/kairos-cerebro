@@ -1573,3 +1573,38 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 ```
 
 ---
+
+## Checkpoint: 78904b0 — 2026-06-04 22:57
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 78904b0 — 2026-06-04 22:58
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 78904b0 — 2026-06-04 22:59
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 78904b0 — 2026-06-04 22:59
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 78904b0 — 2026-06-04 23:00
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 78904b0 — 2026-06-04 23:04
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/1/1.2.story.md
+
+## Checkpoint: 78904b0 — 2026-06-04 23:12
+**Branch:** main
+**Commit:** docs: Final STATE.md — 29sp delivered, session handoff ready (3 stories complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/1/1.2.story.md, package-lock.json, package.json, src/websocket/Broadcaster.ts, tests/websocket/Broadcaster.test.ts, tsconfig.json

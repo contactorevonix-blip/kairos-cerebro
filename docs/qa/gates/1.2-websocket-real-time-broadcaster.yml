@@ -1,0 +1,34 @@
+schema: 1
+story: '1.2'
+gate: PASS
+status_reason: 'All 5 prior FAIL issues resolved and independently re-verified: ws installed and resolves, real tsc --noEmit passes clean, 12/12 tests run and pass, selective per-client subscription filtering is implemented and proven end-to-end, perf test green (~188ms).'
+reviewer: 'Quinn'
+updated: '2026-06-05T00:30:00Z'
+top_issues: []
+waiver: { active: false }
+previously_resolved:
+  - id: 'REL-001'
+    severity: high
+    status: resolved
+    finding: "ws missing — TS2307, code could not run."
+    verification: "require.resolve('ws') -> node_modules/ws/index.js; ws@^8.21.0 in deps, @types/ws in devDeps; boot smoke test instantiates and stops cleanly (exit 0)."
+  - id: 'REQ-001'
+    severity: high
+    status: resolved
+    finding: "Selective subscription (?types=) parsed but never used to filter broadcasts."
+    verification: "broadcast() iterates wss.clients, applies per-client subscribedTypes via filterDelta(), skips clients with no changed subscribed types. Test 'sends only subscribed delta types to the client' (318ms) asserts no non-subscribed keys leak — passes."
+  - id: 'TEST-001'
+    severity: high
+    status: resolved
+    finding: "TS websocket tests never executed (jest/ts-jest absent)."
+    verification: "npm test runs sniper-api JS tests AND test:ws (node --import tsx --test). 5 + 7 = 12 pass, exit 0."
+  - id: 'MNT-001'
+    severity: medium
+    status: resolved
+    finding: "typecheck was an echo no-op; TS7006 implicit-any on req/client."
+    verification: "typecheck script is real tsc --noEmit -p tsconfig.json; req:IncomingMessage and client:SubscribedClient typed explicitly. tsc exit 0, no TS7006/TS2307."
+  - id: 'PERF-001'
+    severity: medium
+    status: resolved
+    finding: "Payload/concurrency asserted but never measured."
+    verification: "White-box perf test broadcasts ~100KB delta to 100 concurrent clients; asserts elapsed < 500ms and transient heap < 200MB. Measured ~188ms — passes."

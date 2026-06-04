@@ -10,11 +10,12 @@
     "start": "node bin/kairos.js start",
     "start:server": "node packages/sniper-api/server.js",
     "backup": "node bin/backup-volume.js",
-    "test": "node --test tests/*.test.js packages/sniper-api/*.test.js",
+    "test": "node --test packages/sniper-api/*.test.js && npm run test:ws",
+    "test:ws": "node --import tsx --test tests/websocket/Broadcaster.test.ts",
     "audit:verify": "node bin/kairos.js audit:verify",
     "compliance:purge": "node bin/kairos.js compliance:purge",
     "lint": "echo \"lint disabled — zero-dep JS core, see ADR-001\" && exit 0",
-    "typecheck": "echo \"no typescript at root — packages are zero-dep JS\" && exit 0",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "kairos:hyperdrive": "node packages/hyperdrive/src/cli.js",
     "kairos:ledger:verify": "node packages/hyperdrive/src/memory/ledger.js --verify",
     "kairos:kg:progress": "node packages/hyperdrive/src/memory/knowledge-graph.js --progress",
@@ -39,7 +40,8 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "resend": "^6.12.3",
-    "stripe": "^16.0.0"
+    "stripe": "^16.0.0",
+    "ws": "^8.21.0"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -47,8 +49,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/ws": "^8.18.1",
     "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
-    "eslint": "^10.4.1"
+    "eslint": "^10.4.1",
+    "tsx": "^4.22.4"
   }
 }
