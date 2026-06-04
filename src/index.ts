@@ -9,3 +9,11 @@ export type {
   HookState,
   WorkflowSnapshot,
 } from './monitor/types';
+
+// Audit module
+export { AuditLog } from './audit/AuditLog';
+export type {
+  AuditLogEntry,
+  AuditLogQueryFilter,
+  AuditLogConfig,
+} from './audit/types';
