@@ -1510,3 +1510,8 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 - 36655a2: Story 1.3 QA PASS
 
 **Next:** Story 1.2 (WebSocket, 8sp) ready to start
+
+## Checkpoint: e8609ce — 2026-06-04 22:55
+**Branch:** main
+**Commit:** chore: STATE update — Stories 1.1 + 1.3 COMPLETE (21sp delivered)
+**Files changed:** .synapse/metrics/hook-metrics.json, docs/stories/1/1.3.story.md

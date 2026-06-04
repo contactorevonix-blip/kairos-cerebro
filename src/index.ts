@@ -17,3 +17,7 @@ export type {
   AuditLogQueryFilter,
   AuditLogConfig,
 } from './audit/types';
+
+// WebSocket module
+export { Broadcaster } from './websocket/Broadcaster';
+export type { DeltaBroadcast, BroadcasterConfig } from './websocket/types';
