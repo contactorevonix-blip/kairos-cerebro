@@ -1,5 +1,8 @@
 # Pax (PO) Agent Memory
 
+## Index
+- [EPIC-2 Expert Cloning](project_epic2-expert-cloning.md) — CONCERNS verdict (2026-06-05), 3 refinos pendentes (AC vagos, sizing 2.1, path squad) antes de Ready
+
 ## IDS Epic Backlog Analysis (2026-02-09)
 - IDS-1/2/3: Done. Foundation solid (474 entities, RegistryLoader, DecisionEngine, RegistryUpdater all implemented).
 - IDS-4: 10 tasks, scope-expanded with Roundtable #6B/#6C (Performance + Quality Integrity). Oversized.

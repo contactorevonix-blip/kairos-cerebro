@@ -2,3 +2,4 @@
 - [Pedro Business Profile](project_pedro-business-profile.md) — solo founder técnico, tese faceless/alta-margem/B2B, stack Node+Railway+Stripe+Postgres, Kairos Check (fraud API)
 - [SYNAPSE Engine Internals](project_synapse-engine-internals.md) — 8 layers L0-L7, brackets FRESH/MODERATE/DEPLETED/CRITICAL, token budget, degradação graciosa
 - [AIOX Governance Gates](project_aiox-governance-gates.md) — Bob mode, Tier System, Decision Heuristics, IDS Gates G1-G6
+- [Framework Evolution Experts](project_framework-evolution-experts.md) — experts reais (Anthropic eng, spec-kit, Eads/RBAC, LangGraph) para validar evolução AIOX; top partner = spec-kit team
