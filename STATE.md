@@ -1903,3 +1903,74 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 **Branch:** main
 **Commit:** docs: Session 2026-06-05 Part 3 HANDOFF — Expert cloning + CCM squad research complete
 **Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 6cf4d71 — 2026-06-05 10:17
+**Branch:** main
+**Commit:** feat: EPIC-2 Expert Cloning CCM Squad — architecture blueprint + validation
+**Files changed:** none
+
+---
+
+# 🎯 Session 2026-06-05 Part 4 — EPIC-2 Architecture Complete
+
+## ✅ Session Final Handoff
+
+**Status:** EPIC-2 architecture COMPLETE + validation feedback compiled
+
+### Deliverables
+
+#### 1. EPIC-2 Architecture Documentation (3 docs)
+- **blueprint.md** — 9-layer expert cloning system design
+- **validation-matrix.md** — Fidelity analysis across 4 expert dimensions
+- **refinement-backlog.md** — Feedback from @po + @architect (ready for Morgan refinement)
+
+#### 2. Validation Gates Completed
+- **@po Quinn** → 1 BLOCKER (story scope clarity)
+- **@architect Aria** → 3 CONCERNS (technical depth, validation loop, risk mitigation)
+- **Status:** CONDITIONAL PASS (refinements required before Gate 1 re-validation)
+
+#### 3. Refinement Request Compiled for Morgan (@pm)
+**Feedback for refinement (4-5h, ~2-3 stories affected):**
+- Clarify Story 2.1 scope (research phase vs. MVP build)
+- Add explicit validation loop (CCM output → human expert comparison)
+- Add risk mitigation for "hallucination detection" quality gate
+- Expand Story 2.3 (MCP Docker complexity assessment)
+
+### What's Next (Session 2026-06-06)
+
+**Phase 1: Refinement (Morgan, 4-5h)**
+```
+1. Morgan reads EPIC-2-REFINEMENT-BACKLOG.md
+2. Morgan refines stories based on @po + @architect feedback
+3. @po + @architect validate refinements → Gate 1 PASS or iterate
+4. Ready for @analyst Story 2.1 STARLITE research (4 weeks, parallelizable)
+```
+
+**Phase 2: Parallel Execution**
+- Story 2.1: @analyst STARLITE research (4 weeks, independent)
+- Story 2.2: @dev Foundation setup (2-3 weeks, parallelizable after 2.1 research)
+- Story 2.3: @architect Docker validation (1 week, can start anytime)
+
+### Story Points & Timeline
+- **EPIC-2 Wave 1 (refined):** ~25sp (research + validation framework)
+- **EPIC-2 Wave 2 (build):** ~35sp (MVP architecture + POC)
+- **Total: 60sp over 8 weeks** (research-driven approach)
+
+### Branch & Commits
+- **Branch:** main (all changes committed)
+- **Latest commit:** 6cf4d71 (feat: EPIC-2 architecture blueprint + validation)
+- **No blockers** for Morgan refinement phase
+
+---
+
+**Próxima Sessão Começa Com:**
+```
+Morgan (@pm) refinement phase:
+1. Read EPIC-2-REFINEMENT-BACKLOG.md
+2. Refine stories 2.1, 2.2, 2.3 based on feedback
+3. Pass to @po + @architect for Gate 1 re-validation
+→ Then @analyst launches Story 2.1 (4-week STARLITE research)
+```
+
+*Session ended: 2026-06-05 10:17 UTC*
+*Context: 98.5% remaining — ready for continuation*
