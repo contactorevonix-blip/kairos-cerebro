@@ -17,9 +17,9 @@ complexity: HIGH (3 agents, 4 stories, 4-5 weeks)
 - ✅ 99.5%+ SLO achievement (infrastructure confidence)
 - ✅ 40% reduction in architecture debt cycles
 
-**Timeline:** 4-5 weeks  
-**Team:** @analyst (research), @dev (infrastructure), @architect (review), @po (validation)  
-**Investment:** ~150 hours development + $200/mo infrastructure
+**Timeline:** 4.5-5.5 weeks (refined: +3-5 days buffer for PoC validation loop)  
+**Team:** @analyst (research + validation loop), @dev (infrastructure), @architect (review), @po (validation)  
+**Investment:** ~150-160 hours development + $200/mo infrastructure
 
 ---
 
@@ -28,10 +28,13 @@ complexity: HIGH (3 agents, 4 stories, 4-5 weeks)
 ### Story 2.1: STARLITE Research — Expert Discovery
 **Assigned to:** @analyst (Atlas)  
 **Duration:** 4 weeks  
-**Story Points:** 13sp (research-heavy)
+**Story Points:** 13sp (research-heavy)  
+**Status:** Research phase ONLY (no clone build; Story 2.3 owns PoC)
 
 #### Objective
-Execute full STARLITE framework to identify 3 expert profiles per domain gap:
+Execute full STARLITE framework to identify 3 expert profiles per domain gap. **This story delivers research findings only.** Clone building is Story 2.3's responsibility.
+
+**Expert domains:**
 1. System Complexity Architect (multi-agent orchestration)
 2. Governance & Authority Designer (Constitutional authority)
 3. Operational Excellence (agent infrastructure + SLOs)
@@ -60,11 +63,13 @@ Execute full STARLITE framework to identify 3 expert profiles per domain gap:
   - Decision matrix created (performance vs complexity trade-offs)
   - Effectiveness tested (can patterns be applied?)
   
-- [ ] Gate 1: Research approval
+- [ ] Gate 1: Research approval (RESEARCH FINDINGS ONLY, NOT WORKING CLONE)
   - [ ] All 3 expert profiles documented (80%+ confidence)
   - [ ] Evidence sources verified + linked
   - [ ] Braistorm notes on CCM squad applications
-  - [ ] Pedro approves findings OR requests refinement
+  - [ ] DNA profiles ready for Vector DB (seed data format documented)
+  - [ ] Pedro + @architect approve research findings OR request refinement
+  - [ ] **NOTE:** No working clone expected; Story 2.3 (PoC) builds the actual system
 
 #### File List
 - `docs/stories/epics/expert-cloning/research-findings.md` — Validated expert profiles
@@ -113,11 +118,19 @@ Build MCP Docker server + Supabase vector database infrastructure to load and in
   - [ ] State management functional (memory persistence)
   - [ ] 10+ test scenarios pass (85%+ coverage)
   
+- [ ] Risk mitigation & operational readiness
+  - [ ] Failure modes documented (Docker down, pgvector latency, Railway billing spike)
+  - [ ] Rollback plan defined: If MCP Docker causes >10% latency, fallback strategy documented
+  - [ ] Cost tracking setup: Monitor ACTUAL vs $200/mo model; alert on overages
+  - [ ] Deployment complexity validated: Local spin-up <1h; if longer, architecture review required
+  - [ ] Team readiness: Training required for @dev to operate MCP Docker infrastructure documented
+  
 - [ ] Gate 2: Infrastructure validation
-  - [ ] All tests passing
-  - [ ] Cost model validated ($200/mo for production scale)
-  - [ ] Documentation complete (deployment guide)
-  - [ ] @architect approves architecture
+  - [ ] All tests passing (85%+ coverage)
+  - [ ] Cost model validated ($200/mo for production scale, with tracking setup)
+  - [ ] Risk assessment complete (failure modes + mitigations)
+  - [ ] Documentation complete (deployment guide + operational runbook)
+  - [ ] @architect approves architecture (including risk mitigation strategy)
 
 #### File List
 - `infrastructure/mcp-docker/Dockerfile`
@@ -154,8 +167,23 @@ Clone Expert #1 (System Complexity Architect), validate fidelity 85%+, and test 
   - [ ] Decision pattern match: 85%+ (expert gives 3+ alternatives consistently)
   - [ ] Vocabulary match: 80%+ (signature phrases, terminology)
   - [ ] Architecture alignment: 80%+ (known preferences match recommendations)
-  - [ ] Confidence calibration: High (stated confidence ≈ actual accuracy)
   - [ ] All measurements documented + scored
+  
+- [ ] Hallucination detection audit (NEW — @architect feedback)
+  - [ ] Confidence calibration: 80%+ match (stated confidence ≈ actual accuracy)
+  - [ ] Uncertainty detection: Clone flags uncertain answers <60% confidence
+  - [ ] Edge case testing: 20+ scenarios where expert might hallucinate; validate clone refuses or flags uncertainty
+  - [ ] Risk profile documented: Known limitations + hallucination patterns per expert type
+  - [ ] Criterion: Calibration score ≥80% OR known limitations explicitly documented
+  
+- [ ] **Validation loop with refinement (NEW — @po feedback)**
+  - **If fidelity <85% after initial test:**
+    - [ ] @analyst reviews DNA profile vs actual decisions
+    - [ ] @analyst refines voice DNA + thinking DNA (max 2 iterations)
+    - [ ] Vector DB updated with refined profiles
+    - [ ] Re-test cycle: Max 2 iterations, 3-5 days per cycle
+  - **Exit criteria:** Fidelity ≥85% achieved OR limitations documented + accepted
+  - [ ] **Timeline:** Add 3-5 days buffer for potential iteration loop
   
 - [ ] Reproducibility test
   - [ ] Another person (not Pedro) uses expert
