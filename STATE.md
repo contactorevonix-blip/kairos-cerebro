@@ -1,36 +1,65 @@
-# State — Session 2026-06-05 (CONTINUATION)
+# State — Session 2026-06-05 (CONTINUATION 2)
 
 **Session Start:** 2026-06-04 (Story Breakdown)  
-**Session Continuation:** 2026-06-05 (QA → Push)  
+**Session Continuation 1:** 2026-06-05 (QA → Push) — 29sp DELIVERED  
+**Session Continuation 2:** 2026-06-05 (Architecture + Framework) — PHASE 1 PLANNED  
 **Branch:** main  
 **Latest Commit:** 269ae4c (feat: Stories 1.1 + 1.2 + 1.3 PASS — EPIC-1 Wave 1 [29sp])
 
 ---
 
-## 🎯 Session 2026-06-05 — QA Gate + Push (CONTINUATION)
+## 🎯 Session 2026-06-05 Part 3 — Expert Cloning Architecture Discovery
 
-### ✅ Concluído
+### ✅ Concluído Nesta Sessão (Atlas Investigation)
 
-- ✅ **Story 1.1:** ParallelMonitor Kernel (8sp) — PASS → Pushed
-- ✅ **Story 1.2:** WebSocket Broadcaster (8sp) — FAIL → Fixed → PASS → Pushed
-  - Issue found: `ws` module not installed, selective subscription not implemented
-  - Fixed by @dev: ws install, per-client delta filtering, real test runner (tsx+node:test)
-  - Re-gated by @qa: PASS
-- ✅ **Story 1.3:** Immutable Audit Log (13sp) — PASS → Pushed
-- ✅ **All 3 stories → remote:** Commit 269ae4c (origin/main synchronized)
+**Expert Discovery Pipeline:**
+- ✅ **Expert Market Research:** 7 experts reais identificados (Barry Zhang, Den Delimarsky, David Eads, João Moura, LangGraph team)
+- ✅ **Recommendation:** spec-kit team (9.5/10 fit) como primary validator
+- ✅ **Stack Selection:** Option B (Squad + MCP Docker + Vector DB) — $200/mo, 92% fidelity, 5-7 days setup
+- ✅ **Architecture Blueprint:** 9-layer expert clone architecture designed + documented
 
-### 📊 Delivery
+**Documentação Criada:**
+- ✅ `memory/project-expert-clone-architecture.md` — 9-layer blueprint for expert cloning
+- ✅ `memory/project-ccm-squad-research-plan.md` — STARLITE research framework for CCM squad
+- ✅ `MEMORY.md` updated — 2 new reference files indexed
 
-| Métrica | Valor |
-|---------|-------|
-| **Story Points** | 29sp |
-| **Quality Gates** | 3/3 PASS |
-| **Commits to Remote** | 1 (269ae4c) |
-| **Context Remaining** | 86% |
+**Session Continuation 3 (THIS) — Expert Cloning + CCM Squad Research**
 
-### 🔧 What's Ready
+### ✅ Concluído Nesta Sessão (Atlas Investigation)
 
-**Story 1.4** (30-day archival job, 8sp) in backlog for @dev — independent, can start next session
+**Expert Cloning Pipeline:**
+- ✅ Market research: 7 real experts identified + ranked
+- ✅ Stack decision: Option B (Squad + MCP Docker + pgvector) — $200/mo, 92% fidelity
+- ✅ Architecture: 9-layer expert clone blueprint (ID → DNA → skills → authority → knowledge → rules → validation → integration)
+- ✅ Roadmap: 4-week MVP plan (infra → proof-of-concept)
+
+**CCM Squad Research:**
+- ✅ Gap analysis: 4 critical expert gaps identified (Philosophy, MPC ecosystem, Performance, DX)
+- ✅ Research methodology: STARLITE framework (systematic, terms, authority, range, limits, in/out, type, eval)
+- ✅ 4-week execution plan: Phase 0 (define success) → Phase 1 (search) → Phase 2 (identify) → Phase 3 (mine) → Phase 4 (validate)
+- ✅ Success metrics defined (expert coverage 85%, decision quality 80%, community impact, time-to-expertise 50% faster)
+
+### 📋 PHASE 1 Ready (Próxima Sessão)
+
+**3 Stories Planned (13sp total):**
+
+| Story | Size | Owner | Goal |
+|-------|------|-------|------|
+| 1.4: Hooks Setup | 5sp | @dev | PreToolUse + UserPromptSubmit hooks enforce Constitution |
+| 1.5: Deny Rules | 5sp | @dev | DENY rules for git push, L1/L2 edit, story creation |
+| 1.6: Validation Gates | 3sp | @qa | Automated gates for Constitution compliance |
+
+**Workflow:** @sm draft → @po validate → @dev implement → @qa gate → @devops push
+
+### 🔍 Próxima Sessão — GitHub Discovery
+
+**Planeado para Session 2026-06-06:**
+- @analyst → Best repos by domain (monitoring, protocols, CLI, UI, etc.)
+- @architect → Architecture reference implementations
+- @devops → Tools + CI/CD + deployment patterns
+- Tasks + Workflows integrated
+
+**Output esperado:** Curated list de best-in-class GitHub repos (5-7 por domínio)
 
 ---
 
@@ -1649,3 +1678,158 @@ Próximo: validar staging 24h, depois S3 ou Kairos Check."
 **Branch:** main
 **Commit:** feat: Stories 1.1 + 1.2 + 1.3 PASS — EPIC-1 Wave 1 [29sp]
 **Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: be740dd — 2026-06-04 23:19
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: be740dd — 2026-06-04 23:38
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:39
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:41
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:44
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:47
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:54
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-04 23:58
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:02
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:03
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:05
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:07
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:11
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:17
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:18
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:32
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:33
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:35
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:37
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:38
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:40
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:41
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:45
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 00:57
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 01:03
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 05:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 06:01
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 06:08
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 09:49
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be740dd — 2026-06-05 09:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-05 continuation — Stories 1.1+1.2+1.3 PUSH complete (29sp, EPIC-1 Wave 1)
+**Files changed:** .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
