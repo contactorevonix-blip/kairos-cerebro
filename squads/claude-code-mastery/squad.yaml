@@ -8,6 +8,17 @@ purpose: "Full-spectrum expertise in Claude Code: hooks, skills, subagents, MCP,
 philosophy: "Master the tool to master the craft."
 orchestrator: claude-mastery-chief
 
+tiers:
+  orchestrator:
+    name: "Core Intelligence"
+    description: "Unified triage, routing, and cross-cutting AIOX awareness"
+  tier_1:
+    name: "Infrastructure Specialists"
+    description: "Deep expertise in hooks, MCP, agents, and configuration"
+  tier_2:
+    name: "Quality & Integration"
+    description: "Skills engineering, project integration, and roadmap awareness"
+
 agents:
   - id: claude-mastery-chief
     tier: orchestrator
@@ -64,6 +75,51 @@ agents:
     role: "Roadmap, changelog, feature adoption, plan-first"
     based_on: "Boris Cherny"
     clone_required: true
+
+handoff_matrix:
+  claude-mastery-chief:
+    routes_to: [hooks-architect, mcp-integrator, swarm-orchestrator, config-engineer, skill-craftsman, project-integrator, roadmap-sentinel]
+    escalates_to: []
+    validates_with: []
+  hooks-architect:
+    routes_to: [config-engineer, skill-craftsman, project-integrator]
+    escalates_to: [claude-mastery-chief]
+    validates_with: [skill-craftsman]
+  mcp-integrator:
+    routes_to: [config-engineer, project-integrator]
+    escalates_to: [claude-mastery-chief]
+    validates_with: [config-engineer]
+  swarm-orchestrator:
+    routes_to: [project-integrator]
+    escalates_to: [claude-mastery-chief]
+    validates_with: [project-integrator]
+  config-engineer:
+    routes_to: [hooks-architect, mcp-integrator, skill-craftsman]
+    escalates_to: [claude-mastery-chief]
+    validates_with: []
+  skill-craftsman:
+    routes_to: [project-integrator, roadmap-sentinel]
+    escalates_to: [claude-mastery-chief]
+    validates_with: [project-integrator]
+  project-integrator:
+    routes_to: [roadmap-sentinel]
+    escalates_to: [claude-mastery-chief]
+    validates_with: [skill-craftsman]
+  roadmap-sentinel:
+    routes_to: []
+    escalates_to: [claude-mastery-chief]
+    validates_with: [project-integrator]
+
+boundaries:
+  l1_protected:
+    - .aiox-core/core/
+    - bin/aiox.js
+    - bin/aiox-init.js
+  l2_protected:
+    - .aiox-core/development/
+    - .aiox-core/infrastructure/
+  constitution_articles: [I, II, III, IV, V, VI]
+  authority_articles: [II]
 
 tasks:
   total: 26
