@@ -1,0 +1,34 @@
+{
+  "denyRules": [
+    {
+      "id": "git-push-authority",
+      "pattern": "Bash(*git push*)",
+      "description": "Only @devops can execute git push",
+      "excludeAgents": ["@devops", "devops"],
+      "message": "❌ Only @devops can execute git push. Use @devops *push instead.",
+      "severity": "BLOCK"
+    },
+    {
+      "id": "l1-l2-protection",
+      "pattern": "Edit(.aiox-core/core/*)|Edit(.aiox-core/development/*)",
+      "description": "Framework core (L1) and templates (L2) are protected",
+      "excludeAgents": [],
+      "message": "❌ Framework core (L1/L2) is protected. Never modify .aiox-core/core/ or .aiox-core/development/. Contact @architect.",
+      "severity": "BLOCK"
+    },
+    {
+      "id": "story-creation-authority",
+      "pattern": "Write(docs/stories/*)",
+      "description": "Only @sm can create stories",
+      "excludeAgents": ["@sm", "sm"],
+      "message": "❌ Story creation is @sm exclusive. Use @sm *create-story instead.",
+      "severity": "BLOCK"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "enforced_by": ["pre-tool-use-validator.cjs", "user-prompt-submit-validator.cjs"],
+    "compliance": "Art II (Agent Authority) + Art III (Story-Driven)",
+    "last_updated": "2026-06-07"
+  }
+}
