@@ -1,6 +1,6 @@
 # Story: Workspace Reorganization & Cleanup
 
-**Status:** Draft  
+**Status:** Done  
 **Story ID:** WORKSPACE-CLEANUP-001  
 **Created:** 2026-06-07  
 **Session:** 2026-06-07  
@@ -72,34 +72,34 @@ Reorganize `KAIROS_CEREBRO/` workspace completo: remover lixo, estruturar fichei
 
 ---
 
-### **T4: Cleanup & Archive** (Blocked)
+### **T4: Cleanup & Archive** ✅ DONE
 **Owner:** @devops  
-**Depends on:** T3 PASS  
+**Depends on:** T3 PASS ✅  
 **Input:** Trash list  
 **Output:** Cleaned workspace + archive folder if needed  
-**Status:** ⏸️ **BLOCKED (awaiting @devops T3)**
+**Status:** ✅ **DONE** (2026-06-07 limpeza concluída)
 
 **Checkpoints:**
-- [ ] Identify files for deletion/archival
-- [ ] Move old files to `.archive/` or delete
-- [ ] Verify no breaking changes
-- [ ] Gate 4 Validation: Git status clean → PASS
+- [x] Identify files for deletion/archival ✅
+- [x] Move old files to `.archive/` or delete ✅
+- [x] Verify no breaking changes ✅ (tests PASS)
+- [x] Gate 4 Validation: Git status clean → PASS ✅
 
 ---
 
-### **T5: Verification & Commit** (Blocked)
+### **T5: Verification & Commit** ✅ DONE
 **Owner:** @devops  
-**Depends on:** T4 PASS  
+**Depends on:** T4 PASS ✅  
 **Input:** Reorganized workspace  
 **Output:** DONE + Commit to `main`  
-**Status:** ⏸️ **BLOCKED (awaiting @devops T4)**
+**Status:** ✅ **DONE** (2026-06-07 committed: b2f3f17)
 
 **Checkpoints:**
-- [ ] Run final validation checklist
-- [ ] Verify all ACs met
-- [ ] Prepare commit message
-- [ ] Delegate to @devops for git push
-- [ ] Gate 5 Validation: All ACs PASS → DONE
+- [x] Run final validation checklist ✅
+- [x] Verify all ACs met ✅ (AC1-AC8 PASS)
+- [x] Prepare commit message ✅
+- [x] Delegate to @devops for git push ✅
+- [x] Gate 5 Validation: All ACs PASS → DONE ✅
 
 ---
 
