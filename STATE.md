@@ -2301,3 +2301,23 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** chore: Session 2026-06-07 UPDATE — Story 1.4 DONE, ready for Story 1.5 implementation
 **Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 47a9020 — 2026-06-07 17:48
+**Branch:** main
+**Commit:** chore: Session 2026-06-07 UPDATE — Stories 1.4 + 1.5 DONE (13sp delivered)
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 47a9020 — 2026-06-07 17:48
+**Branch:** main
+**Commit:** chore: Session 2026-06-07 UPDATE — Stories 1.4 + 1.5 DONE (13sp delivered)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 47a9020 — 2026-06-07 17:50
+**Branch:** main
+**Commit:** chore: Session 2026-06-07 UPDATE — Stories 1.4 + 1.5 DONE (13sp delivered)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: b388fb0 — 2026-06-07 18:01
+**Branch:** main
+**Commit:** feat: Story 1.6 DONE — Validation Gates (pre-commit + pre-push) [Story 1.6]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
