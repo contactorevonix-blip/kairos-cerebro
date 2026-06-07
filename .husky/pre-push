@@ -3,22 +3,7 @@ set -e
 
 echo "🚀 Running pre-push validation gates..."
 
-# Validate syntax of all committed files
-echo "  → Checking syntax errors..."
-if ! npm run lint 2>/dev/null; then
-  echo "⚠️  Lint warnings detected (not blocking)"
-fi
-
-echo "  → Checking CodeRabbit score..."
-if command -v coderabbit &> /dev/null || [ -f ~/.local/bin/coderabbit ]; then
-  CODERABBIT_SCORE=$(coderabbit --prompt-only -t uncommitted 2>/dev/null | grep -i "score" | head -1 || echo "unknown")
-  if [ "$CODERABBIT_SCORE" != "unknown" ]; then
-    echo "    CodeRabbit: $CODERABBIT_SCORE"
-  else
-    echo "    CodeRabbit: not available (score check skipped)"
-  fi
-else
-  echo "    CodeRabbit not installed (check skipped)"
-fi
+# Run consolidated quality gate checks (NEW - Enhancement 2)
+node scripts/validate-quality-gates.js || exit 1
 
 echo "✅ Pre-push validation complete"

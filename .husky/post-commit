@@ -1,1 +1,7 @@
+#!/bin/sh
+
+# Existing IDS hook
 node .aiox-core/hooks/ids-post-commit.js
+
+# NEW - Enhancement 3: Generate handoff artifacts
+node scripts/generate-handoff-artifact.js
