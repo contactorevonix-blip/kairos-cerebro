@@ -121,6 +121,13 @@
           },
           {
             "type": "command",
+            "command": "node \".claude/hooks/agent-activation-tracker.cjs\"",
+            "timeout": 3,
+            "statusMessage": "A rastrear activação de agente...",
+            "async": true
+          },
+          {
+            "type": "command",
             "command": "node \".claude/hooks/synapse-engine.cjs\"",
             "timeout": 10,
             "statusMessage": "Synapse Engine a processar..."
