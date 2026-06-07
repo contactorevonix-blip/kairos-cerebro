@@ -274,6 +274,18 @@ Format: task → inputs → outputs → pre/post conditions → gate after.
 | `dev-develop-story.md` | validated story (Ready) | implementation_files, test_results, commit_hash (InReview) | **Gate: Article III story exists (BLOCK); Article I CLI First (WARN)** | CodeRabbit self-heal (≤2); then → @qa |
 | `qa-gate.md` | implementation, story AC | qa_report, quality_gate_status, final_status | story InReview | **PASS/CONCERNS/WAIVED→Done**; FAIL→InProgress |
 
+```mermaid
+graph TD
+    subgraph SDC_Tasks["SDC Task Chain Flows"]
+        create["create-next-story.md<br>(@sm)"] -->|validation_report| validate["validate-next-story.md<br>(@po)"]
+        validate -->|GO verdict >=7/10| develop["dev-develop-story.md<br>(@dev)"]
+        validate -->|NO-GO verdict <7/10| create
+        develop -->|InReview / CodeRabbit self-heal| qa["qa-gate.md<br>(@qa)"]
+        qa -->|PASS/CONCERNS/WAIVED| done["Done / pre-push quality gate<br>(@devops)"]
+        qa -->|FAIL verdict| develop
+    end
+```
+
 **Dependency:** strictly linear with two back-edges (validate→create on NO-GO; review→implement on FAIL).
 
 ## 2.2 QA Loop chain
@@ -283,6 +295,20 @@ Format: task → inputs → outputs → pre/post conditions → gate after.
 | `qa-review-story.md` | storyId, iteration, previousIssues | `gate-file.yaml`, verdict, issuesFound | story implemented | verdict gate (APPROVE/BLOCKED/REJECT) |
 | `qa-create-fix-request.md` | storyId, gateFile, iteration | `fix-request.md`, prioritizedIssues | verdict=REJECT | fallback: raw gate file |
 | `dev-apply-qa-fixes.md` | storyId, fixRequest, iteration | `fixes-applied.json`, issuesFixed | fix-request exists | retry x2; exhausted→escalate |
+
+```mermaid
+graph TD
+    subgraph QA_Loop_Tasks["QA Loop Task Chain Flows"]
+        review["qa-review-story.md<br>(@qa)"] -->|verdict| verdict{"Verdict?"}
+        verdict -->|APPROVE| complete["Story Approved (Done)"]
+        verdict -->|BLOCKED| escalate["Escalate to human"]
+        verdict -->|REJECT| fix_req["qa-create-fix-request.md<br>(@qa)"]
+        fix_req -->|fix-request.md| apply_fixes["dev-apply-qa-fixes.md<br>(@dev)"]
+        apply_fixes -->|fixes-applied.json| loop_check{"iter < 5?"}
+        loop_check -->|Yes| review
+        loop_check -->|No / Max iterations| escalate
+    end
+```
 
 **Dependency:** cyclic (steps 1-5 loop), bounded by maxIterations=5.
 
@@ -297,9 +323,40 @@ Format: task → inputs → outputs → pre/post conditions → gate after.
 | `spec-critique.md` | spec + requirements + complexity + research | `critique.json` | **Blocking gate (APPROVED/NEEDS_REVISION/BLOCKED)** |
 | `plan-create-implementation.md` | spec.md, complexity.json | `plan.json` | only if APPROVED |
 
+```mermaid
+graph TD
+    subgraph Spec_Pipeline_Tasks["Spec Pipeline Task Chain Flows"]
+        gather["spec-gather-requirements.md<br>(@pm)"] -->|requirements.json| assess["spec-assess-complexity.md<br>(@architect)"]
+        assess -->|complexity.json| research["spec-research-dependencies.md<br>(@analyst)"]
+        research -->|research.json| write_spec["spec-write-spec.md<br>(@pm)"]
+        write_spec -->|spec.md| critique["spec-critique.md<br>(@qa)"]
+        critique -->|verdict| v_critique{"Verdict?"}
+        v_critique -->|APPROVED| plan["plan-create-implementation.md<br>(@architect)"]
+        v_critique -->|NEEDS_REVISION (max 2)| revise["pm revise inline"] --> critique
+        v_critique -->|BLOCKED| halt["Halt & Escalate to @architect"]
+    end
+```
+
 ## 2.4 Brownfield chain
 
 Linear with one back-edge (P7 NEEDS WORK → P4). P10 story_creation `repeats: for_each_prioritized_debt`. Full requires/creates table in §1.4.
+
+```mermaid
+graph TD
+    subgraph Brownfield_Tasks["Brownfield Discovery Task Chain Flows"]
+        p1["document-project.md<br>(@architect)"] --> p4["Consolidate DRAFT"]
+        p2["db-schema-audit.md + security-audit.md<br>(@data-engineer)"] --> p4
+        p3["create-front-end-spec.md<br>(@ux-design-expert)"] --> p4
+        p4 -->|DRAFT.md| p5["db-specialist-review.md<br>(@data-engineer)"]
+        p5 --> p6["ux-specialist-review.md<br>(@ux-design-expert)"]
+        p6 --> p7["qa-general-review.md (QA GATE)<br>(@qa)"]
+        p7 -->|NEEDS WORK| p4
+        p7 -->|APPROVED| p8["technical-debt-assessment.md<br>(@architect)"]
+        p8 --> p9["TECHNICAL-DEBT-REPORT.md<br>(@analyst)"]
+        p9 --> p10e["brownfield-create-epic.md<br>(@pm)"]
+        p10e --> p10s["brownfield-create-story.md<br>(@pm)"]
+    end
+```
 
 ---
 
