@@ -74,6 +74,12 @@
         "hooks": [
           {
             "type": "command",
+            "command": "node \".claude/hooks/pre-commit-story-enforcement.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A validar Art. III (Story-Driven)..."
+          },
+          {
+            "type": "command",
             "command": "node \".claude/hooks/pre-commit-lint.cjs\"",
             "timeout": 15,
             "statusMessage": "A verificar terminologia antes do commit..."
@@ -190,6 +196,17 @@
             "command": "node \".claude/hooks/update-state.js\"",
             "timeout": 10,
             "statusMessage": "A actualizar STATE.md..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/post-push-handoff-consolidate.js\"",
+            "timeout": 30,
+            "async": true,
+            "statusMessage": "A consolidar handoffs..."
           }
         ]
       }
