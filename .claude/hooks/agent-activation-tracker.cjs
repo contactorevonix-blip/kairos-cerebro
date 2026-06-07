@@ -2,97 +2,162 @@
 'use strict';
 
 /**
- * Agent Activation Tracker Hook — UserPromptSubmit
+ * agent-activation-tracker.cjs
  *
- * Detects when @agent-name or /AIOX:agents:agent-name is invoked
- * and updates session.active_agent.id so that SYNAPSE L2+ layers load.
+ * Rastreia quando um agente é ativado (@agent invocação) e popula
+ * session.active_agent.id em hook-metrics.json para permitir que
+ * SYNAPSE Layers 2-7 carregues com as regras corretas.
  *
- * Runs BEFORE synapse-engine.cjs in the UserPromptSubmit hook chain.
- * Never blocks; always exits 0.
+ * Fluxo:
+ * 1. Lê stdin (hook input com session + prompt)
+ * 2. Detecta se há um agente ativo no prompt (@sm, @dev, @qa, etc.)
+ * 3. Popula hook-metrics.json com session.active_agent.id
+ * 4. SYNAPSE engine (próximo na cadeia) lê isto e carrega L2+ layers
  *
- * @module agent-activation-tracker
+ * Nunca bloqueia — graceful degradation em caso de erro.
  */
 
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
-const AGENT_PATTERNS = [
-  /@([a-z0-9\-]+)\b/gi,
-  /\/AIOX:agents:([a-z0-9\-]+)/gi,
+/** Agentes conhecidos do AIOX */
+const KNOWN_AGENTS = [
+  'sm', 'dev', 'qa', 'architect', 'pm', 'po', 'analyst',
+  'data-engineer', 'ux-design-expert', 'devops', 'aiox-master',
+  'business-chief', 'claude-mastery-chief'
 ];
 
-const VALID_AGENTS = [
-  'dev', 'qa', 'architect', 'pm', 'po', 'sm', 'devops',
-  'analyst', 'data-engineer', 'ux-design-expert', 'ux',
-  'aiox-master', 'squad-creator',
-];
+/** Padrão para detectar invocação de agente: @agent ou /AIOX:agents:agent */
+const AGENT_ACTIVATION_PATTERN = /(?:@|\/AIOX:agents:)([a-z\-]+)/g;
 
 /**
- * Extract agent ID from a matched pattern.
- * @param {string} matched - e.g. "@dev" or "dev" from regex capture
- * @returns {string|null} Agent ID if valid, null otherwise
+ * Detecta agentes ativados no prompt do utilizador.
+ * @param {string} prompt - User message
+ * @returns {string|null} Agent ID se detectado, null caso contrário
  */
-function parseAgentId(matched) {
-  const cleaned = matched.replace(/^@|^\/AIOX:agents:/, '').toLowerCase();
-  return VALID_AGENTS.includes(cleaned) ? cleaned : null;
+function detectActiveAgent(prompt) {
+  if (!prompt) return null;
+
+  let match;
+  while ((match = AGENT_ACTIVATION_PATTERN.exec(prompt)) !== null) {
+    const agentId = match[1];
+    if (KNOWN_AGENTS.includes(agentId)) {
+      return agentId;
+    }
+  }
+  return null;
 }
 
 /**
- * Update session file with new active_agent.id.
- * Fire-and-forget; never throws.
+ * Lê hook-metrics.json do sistema.
+ * @param {string} metricsPath - Path to hook-metrics.json
+ * @returns {object} Parsed metrics ou {}
  */
-function updateSessionAgentId(sessionId, sessionsDir, agentId) {
+function readMetrics(metricsPath) {
   try {
-    const sessionFile = path.join(sessionsDir, `${sessionId}.json`);
-    if (!fs.existsSync(sessionFile)) return;
-
-    const session = JSON.parse(fs.readFileSync(sessionFile, 'utf8'));
-    if (session.active_agent && session.active_agent.id !== agentId) {
-      session.active_agent.id = agentId;
-      session.active_agent.activated_at = new Date().toISOString();
-      fs.writeFileSync(sessionFile, JSON.stringify(session, null, 2), 'utf8');
+    if (fs.existsSync(metricsPath)) {
+      const content = fs.readFileSync(metricsPath, 'utf8');
+      return JSON.parse(content);
     }
-  } catch (_err) {
-    // Fire-and-forget: never block
+  } catch (_) {
+    // Falha silenciosa — criar novo
+  }
+  return {};
+}
+
+/**
+ * Escreve hook-metrics.json com nova informação de agente.
+ * @param {string} metricsPath - Path to hook-metrics.json
+ * @param {object} metrics - Current metrics
+ * @param {string} agentId - Active agent ID
+ */
+function writeMetrics(metricsPath, metrics, agentId) {
+  try {
+    const updated = {
+      ...metrics,
+      session: {
+        ...metrics.session,
+        active_agent: {
+          id: agentId,
+          activated_at: new Date().toISOString(),
+        },
+      },
+      timestamp: new Date().toISOString(),
+    };
+    const dir = path.dirname(metricsPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(metricsPath, JSON.stringify(updated, null, 2), 'utf8');
+  } catch (_) {
+    // Falha silenciosa — nunca bloqueia
   }
 }
 
-// Read stdin
-let input = '';
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', chunk => { input += chunk; });
-process.stdin.on('end', () => {
-  try {
-    const event = JSON.parse(input || '{}');
-    const prompt = event.message || event.user_message || '';
-    const sessionId = event.session_id || event.sessionId;
-    const cwd = event.cwd;
+/** Main hook execution */
+async function main() {
+  let raw = '';
+  process.stdin.setEncoding('utf8');
 
-    if (!prompt || !sessionId || !cwd) {
-      process.exit(0);
-    }
+  return new Promise((resolve) => {
+    process.stdin.on('data', (chunk) => { raw += chunk; });
+    process.stdin.on('end', () => {
+      try {
+        const event = JSON.parse(raw || '{}');
+        const prompt = event.message || event.user_message || '';
 
-    // Look for agent invocation
-    let agentId = null;
-    for (const pattern of AGENT_PATTERNS) {
-      const matches = prompt.matchAll(pattern);
-      for (const match of matches) {
-        const parsed = parseAgentId(match[0]);
-        if (parsed) {
-          agentId = parsed;
-          break;
+        // Detecta agente ativo
+        const activeAgent = detectActiveAgent(prompt);
+
+        if (activeAgent) {
+          // Resolve paths
+          const cwd = process.cwd();
+          const metricsPath = path.join(cwd, '.synapse', 'metrics', 'hook-metrics.json');
+
+          // Lê metrics atuais
+          const metrics = readMetrics(metricsPath);
+
+          // Escreve com novo agente ativo
+          writeMetrics(metricsPath, metrics, activeAgent);
+
+          // Log para debug (silent — não afecta stdout)
+          // console.error(`[agent-activation-tracker] Detectado agente: ${activeAgent}`);
         }
+
+        // Output vazio — não injeta nada no sistema prompt
+        // Apenas side-effect de actualizar hook-metrics.json
+        process.stdout.write('{}');
+      } catch (_) {
+        // Falha silenciosa
+        process.stdout.write('{}');
       }
-      if (agentId) break;
-    }
 
-    if (agentId) {
-      const sessionsDir = path.join(cwd, '.synapse', 'sessions');
-      updateSessionAgentId(sessionId, sessionsDir, agentId);
-    }
-  } catch (_err) {
-    // Fail silently
-  }
+      resolve();
+    });
+  });
+}
 
-  process.exit(0);
-});
+/** Run with timeout protection */
+function run() {
+  const timer = setTimeout(() => {
+    process.exit(0);
+  }, 3000); // 3s timeout
+
+  timer.unref();
+
+  main()
+    .then(() => {
+      clearTimeout(timer);
+      process.exitCode = 0;
+    })
+    .catch(() => {
+      clearTimeout(timer);
+      process.exitCode = 0;
+    });
+}
+
+if (require.main === module) {
+  run();
+}
+
+module.exports = { detectActiveAgent, readMetrics, writeMetrics, main };
