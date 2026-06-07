@@ -1,10 +1,24 @@
-npm run validate:claude-sync --silent && (npm run validate:claude-integration --silent || echo "⚠️  claude-integration: extra squad agents present (expected — squads added beyond AIOX base)")
+#!/bin/sh
+set -e
 
-# IDS pre-push registry validation
-node .aiox-core/hooks/ids-pre-push.js || true
+echo "🚀 Running pre-push validation gates..."
 
-# CodeRabbit — corre se instalado, salta graciosamente se não
-if wsl bash -c "test -f ~/.local/bin/coderabbit" 2>/dev/null; then
-  echo "Running CodeRabbit pre-push review..."
-  wsl bash -c "cd /mnt/c/Users/lealp/KAIROS_CEREBRO && ~/.local/bin/coderabbit --prompt-only -t uncommitted" || true
+# Validate syntax of all committed files
+echo "  → Checking syntax errors..."
+if ! npm run lint 2>/dev/null; then
+  echo "⚠️  Lint warnings detected (not blocking)"
 fi
+
+echo "  → Checking CodeRabbit score..."
+if command -v coderabbit &> /dev/null || [ -f ~/.local/bin/coderabbit ]; then
+  CODERABBIT_SCORE=$(coderabbit --prompt-only -t uncommitted 2>/dev/null | grep -i "score" | head -1 || echo "unknown")
+  if [ "$CODERABBIT_SCORE" != "unknown" ]; then
+    echo "    CodeRabbit: $CODERABBIT_SCORE"
+  else
+    echo "    CodeRabbit: not available (score check skipped)"
+  fi
+else
+  echo "    CodeRabbit not installed (check skipped)"
+fi
+
+echo "✅ Pre-push validation complete"

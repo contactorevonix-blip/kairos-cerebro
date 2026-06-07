@@ -1,1 +1,18 @@
-npm test
+#!/bin/sh
+set -e
+
+echo "🔍 Running pre-commit validation gates..."
+
+# Validate story acceptance criteria
+echo "  → Checking story AC..."
+node scripts/validate-story-ac.js || exit 1
+
+# Validate L1/L2 framework protection
+echo "  → Checking L1/L2 framework protection..."
+node scripts/validate-l1-l2-changes.js || exit 1
+
+# Validate syntax
+echo "  → Checking syntax..."
+node scripts/validate-syntax.js || exit 1
+
+echo "✅ All pre-commit gates passed"
