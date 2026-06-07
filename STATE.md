@@ -3,7 +3,7 @@
 **Session 2026-06-07:** PHASE 1 Constitutional Enforcement — Stories 1.4, 1.5, 1.6 CREATED ✅  
 **Previous:** Session 2026-06-05 Part 3 (Expert Cloning + CCM Squad Research) — COMPLETE  
 **Branch:** main  
-**Latest Commit:** 986aaef (docs: PHASE 1 Stories 1.4, 1.5, 1.6 created — Constitutional Enforcement gates ready)
+**Latest Commit:** 23ebfda (chore: Story 1.4 marked DONE — all AC completed ✅)
 
 ---
 
@@ -15,17 +15,19 @@
 
 | Story | File | AC | Effort | Status |
 |-------|------|----|---------|----|
-| **1.4** | `docs/stories/1.4-hooks-setup.md` | 4/4 ✅ | 5sp | ✅ GO — Ready for @dev |
-| **1.5** | `docs/stories/1.5-deny-rules.md` | 4/4 ✅ | 5sp | ✅ GO — Ready for @dev |
-| **1.6** | `docs/stories/1.6-validation-gates.md` | 4/4 ✅ | 3sp | ✅ GO — Ready for @qa |
+| **1.4** | `docs/stories/1.4-hooks-setup.md` | 4/4 ✅ | 5sp | ✅ **DONE** (`23ebfda`) |
+| **1.5** | `docs/stories/1.5-deny-rules.md` | 4/4 ✅ | 5sp | ⏳ Ready for @dev |
+| **1.6** | `docs/stories/1.6-validation-gates.md` | 4/4 ✅ | 3sp | ⏳ Ready for @qa |
 
 **Workflow Executed:**
-1. ✅ @sm (River) created 3 stories with full AC + Technical Notes + File List
+1. ✅ @sm (River) created 3 stories with full AC + Technical Notes + File List (`986aaef`)
 2. ✅ @po (Pax) validated all 3 stories (10-point checklist × 3 = 30/30 PASS)
-3. ✅ Git commit: `986aaef` — All stories committed to main
-4. ⏳ NEXT: @dev implements Stories 1.4 + 1.5 (Hooks Setup + Deny Rules)
-
-**Commit:** 986aaef — docs: PHASE 1 Stories 1.4, 1.5, 1.6 created
+3. ✅ @dev (Dex) implemented Story 1.4:
+   - Created: `.claude/hooks/pre-tool-use-validator.cjs` + `.claude/hooks/user-prompt-submit-validator.cjs`
+   - Modified: `.claude/settings.json` (registered both hooks in PreToolUse and UserPromptSubmit)
+   - All 4 AC PASS ✅ (git push blocked, L1/L2 edit blocked, story creation blocked, valid commands pass)
+   - Commits: `fecaa6b`, `23ebfda`
+4. ⏳ NEXT: @dev implements Story 1.5 (Deny Rules)
 
 ---
 
@@ -2284,4 +2286,14 @@ Morgan (@pm) refinement phase:
 ## Checkpoint: 6feb746 — 2026-06-07 17:35
 **Branch:** main
 **Commit:** chore: WORKSPACE-CLEANUP-001 marked DONE — all gates PASS
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 2c3c9c2 — 2026-06-07 17:39
+**Branch:** main
+**Commit:** chore: Session 2026-06-07 PHASE 1 Stories 1.4, 1.5, 1.6 created and validated ✅
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 2c3c9c2 — 2026-06-07 17:40
+**Branch:** main
+**Commit:** chore: Session 2026-06-07 PHASE 1 Stories 1.4, 1.5, 1.6 created and validated ✅
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
