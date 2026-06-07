@@ -1,0 +1,149 @@
+# PHASE 4 Execution Plan — Tech Debt Stories 1.14-1.18
+
+**Status:** Ready for execution (PHASE 4 blocker resolved in Session 2026-06-08)  
+**Foundation Fix:** Agent activation tracking hook ✅ deployed  
+**SYNAPSE Layer Status:** Ready to load L2-L7 with agent context  
+**Total Effort:** 28 story points | **5 stories** | **Order:** Sequential (dependencies)
+
+---
+
+## Story 1.14: Agent MEMORY.md — Memory Lifecycle Architecture
+
+**Epic:** PHASE 4 Tech Debt  
+**Status:** Draft (ready to create)  
+**Effort:** 5sp  
+**Dependencies:** None (foundational)
+
+**Purpose:** Define agent-specific memory lifecycle — auto-creation, population, synchronization
+
+**Acceptance Criteria:**
+- [ ] AC1: Memory directory structure defined (`.claude/agents/*/MEMORY.md`)
+- [ ] AC2: Auto-discovery of agent memory requirements (from agent skill files)
+- [ ] AC3: Memory population workflow documented (when + how to populate)
+- [ ] AC4: Synchronization rules defined (rastreabilidade + locking)
+
+**Next Story:** 1.15 (depends on memory structure defined)
+
+---
+
+## Story 1.15: SYNAPSE Layer Validation — Verify L2-L7 Load
+
+**Epic:** PHASE 4 Tech Debt  
+**Status:** Draft (ready to create)  
+**Effort:** 6sp  
+**Dependencies:** 1.14 (memory structure)
+
+**Purpose:** Verify SYNAPSE layers 2-7 load correctly with agent activation
+
+**Acceptance Criteria:**
+- [ ] AC1: Metrics show `layersLoaded: 8` (L0-L7 active)
+- [ ] AC2: Agent-specific rules load based on `session.active_agent.id`
+- [ ] AC3: Layer loading performance < 100ms
+- [ ] AC4: Zero missing rules in L2-L7
+
+**Next Story:** 1.16 (depends on layers confirmed working)
+
+---
+
+## Story 1.16: Constitutional Enforcement — Implement Art. II-VII Gates
+
+**Epic:** PHASE 4 Tech Debt  
+**Status:** Draft (ready to create)  
+**Effort:** 6sp  
+**Dependencies:** 1.15 (layers loaded)
+
+**Purpose:** Implement auto-enforcement of Constitutional articles II-VII
+
+**Acceptance Criteria:**
+- [ ] AC1: Art. II (Agent Authority) — @devops-only git push enforced
+- [ ] AC2: Art. III (Story-Driven) — no code without story validation
+- [ ] AC3: Art. IV (No Invention) — specs validated against requirements
+- [ ] AC4: Arts. V-VII — additional gates implemented + tested
+
+**Next Story:** 1.17 (depends on enforcement gates working)
+
+---
+
+## Story 1.17: Task-First Automation — Auto-Activate Tasks
+
+**Epic:** PHASE 4 Tech Debt  
+**Status:** Draft (ready to create)  
+**Effort:** 5sp  
+**Dependencies:** 1.16 (enforcement working)
+
+**Purpose:** Implement task auto-discovery + auto-activation based on context
+
+**Acceptance Criteria:**
+- [ ] AC1: 200+ AIOX tasks auto-discoverable via SYNAPSE context
+- [ ] AC2: Task auto-activation based on story type + layer context
+- [ ] AC3: Task workflow execution automated (no manual invocation needed)
+- [ ] AC4: Task-first principle operationalized (no code without task)
+
+**Next Story:** 1.18 (depends on task automation working)
+
+---
+
+## Story 1.18: Rastreabilidade Synchronization — File Tracking + Entity Registry
+
+**Epic:** PHASE 4 Tech Debt  
+**Status:** Draft (ready to create)  
+**Effort:** 6sp  
+**Dependencies:** 1.17 (task automation)
+
+**Purpose:** Implement file tracking + entity registry for rastreabilidade
+
+**Acceptance Criteria:**
+- [ ] AC1: File tracking — all created/modified files logged with decision context
+- [ ] AC2: Entity registry — all artifacts (stories, tasks, hooks) registered
+- [ ] AC3: Rastreabilidade validation — ability to trace requirement → code → test
+- [ ] AC4: Synchronization — registry + git state always in sync
+
+---
+
+## Execution Order & Blockers
+
+```
+1.14 (Memory)
+  ↓ (2.15 depends on memory structure)
+1.15 (Layer Validation)
+  ↓ (1.16 depends on layers working)
+1.16 (Constitutional Enforcement)
+  ↓ (1.17 depends on enforcement)
+1.17 (Task Automation)
+  ↓ (1.18 depends on tasks working)
+1.18 (Rastreabilidade)
+  ↓
+PHASE 4 COMPLETE ✅
+```
+
+**No blockers** — foundation fix (agent activation hook) delivered and verified in Session 2026-06-08.
+
+---
+
+## Success Metrics (After All Stories Done)
+
+| Metric | Before | After | Target |
+|--------|--------|-------|--------|
+| SYNAPSE Layers Loaded | 2/8 | 8/8 | ✅ 100% |
+| Constitutional Enforcement | 0% | 100% | ✅ All articles active |
+| Task Auto-Discovery | 0 | 200+ | ✅ All AIOX tasks active |
+| Rastreabilidade Coverage | 0% | 100% | ✅ All artifacts tracked |
+| Manual Workflow Steps | All | 0% | ✅ Zero manual direction |
+
+---
+
+## Notes for Next Session
+
+- ✅ Foundation is ready (agent activation hook working)
+- ✅ No architectural changes needed (only Tech Debt stories)
+- ✅ Each story follows SDC workflow (@sm → @po → @dev → @qa → @devops)
+- ✅ All stories have clear AC (no invention allowed)
+- ✅ Stories are sequential but can be parallelized after 1.14 is done
+- ⚠️ Stories must NOT be created until next session (@sm creates them via story workflow)
+
+**Start:** Story 1.14 creation via `@sm *draft Story 1.14: Agent MEMORY.md`
+
+---
+
+**Generated:** 2026-06-08 (auto-generated by Session handoff)  
+**Status:** Ready for execution in next session
