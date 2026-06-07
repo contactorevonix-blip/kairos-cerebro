@@ -1,0 +1,47 @@
+{
+  "sdc_e2e": {
+    "phases": [
+      "Draft",
+      "Ready",
+      "InProgress",
+      "InReview",
+      "Done"
+    ],
+    "tested": 5,
+    "passed": 5,
+    "status": "PASS"
+  },
+  "qa_loop": {
+    "iterations": [
+      "Review",
+      "Fix",
+      "Re-review"
+    ],
+    "tested": 3,
+    "passed": 3,
+    "status": "PASS"
+  },
+  "agent_handoffs": {
+    "transitions": [
+      "@sm→@po",
+      "@po→@dev",
+      "@dev→@qa",
+      "@qa→@devops"
+    ],
+    "tested": 4,
+    "passed": 4,
+    "status": "PASS"
+  },
+  "status_transitions": {
+    "states": [
+      "Draft→Ready",
+      "Ready→InProgress",
+      "InProgress→InReview",
+      "InReview→Done",
+      "InReview→InProgress"
+    ],
+    "tested": 5,
+    "passed": 5,
+    "status": "PASS"
+  }
+}
