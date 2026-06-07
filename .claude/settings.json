@@ -90,12 +90,29 @@
             "statusMessage": "A verificar autoridade git push..."
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/pre-tool-use-validator.cjs\"",
+            "timeout": 3,
+            "statusMessage": "A validar autoridades de tool use..."
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
       {
         "matcher": "",
         "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/user-prompt-submit-validator.cjs\"",
+            "timeout": 3,
+            "statusMessage": "A validar input de utilizador..."
+          },
           {
             "type": "command",
             "command": "node \".claude/hooks/prompt-router.cjs\"",
