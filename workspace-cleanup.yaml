@@ -1,0 +1,75 @@
+name: workspace-cleanup
+version: "1.0"
+description: "Reorganize KAIROS_CEREBRO workspace with complete rastreability"
+
+workflow:
+  phases:
+    - id: T1-Audit
+      name: "Audit & Discovery"
+      owner: Orion
+      status: DONE
+      gate: PASS
+      outputs:
+        - WORKSPACE-AUDIT.md
+
+    - id: T2-Plan
+      name: "Planning & Moves"
+      owner: Orion
+      depends_on: T1-Audit
+      gate_condition: "No conflicts in plan"
+      outputs:
+        - MOVES-PLAN.md
+
+    - id: T3-Execute
+      name: "Execute Moves"
+      owner: Orion
+      depends_on: T2-Plan
+      gate_condition: "All paths validated"
+      outputs:
+        - Reorganized workspace
+
+    - id: T4-Cleanup
+      name: "Cleanup & Archive"
+      owner: Orion
+      depends_on: T3-Execute
+      gate_condition: "Git status clean"
+      outputs:
+        - Deleted trash files
+
+    - id: T5-Verify
+      name: "Verification & Commit"
+      owner: "Orion → @devops"
+      depends_on: T4-Cleanup
+      gate_condition: "All ACs verified"
+      outputs:
+        - Commit to main
+
+quality_gates:
+  G1:
+    trigger: "After T1"
+    condition: "audit_completeness >= 100%"
+    pass_action: "proceed_to_T2"
+    fail_action: "halt_and_review"
+
+  G2:
+    trigger: "After T2"
+    condition: "plan_conflicts == 0"
+    pass_action: "proceed_to_T3"
+
+  G3:
+    trigger: "After T3"
+    condition: "broken_paths == 0"
+    pass_action: "proceed_to_T4"
+
+  G4:
+    trigger: "After T4"
+    condition: "git_status_clean == true"
+    pass_action: "proceed_to_T5"
+
+  G5:
+    trigger: "After T5"
+    condition: "all_acs_verified == true"
+    pass_action: "mark_story_DONE"
+
+story_file: "docs/stories/WORKSPACE-CLEANUP.story.md"
+audit_file: "WORKSPACE-AUDIT.md"

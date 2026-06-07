@@ -1,10 +1,11 @@
-# State — Session 2026-06-05 (CONTINUATION 2)
+# State — Session 2026-06-05 (CONTINUATION 3 COMPLETE)
 
 **Session Start:** 2026-06-04 (Story Breakdown)  
 **Session Continuation 1:** 2026-06-05 (QA → Push) — 29sp DELIVERED  
 **Session Continuation 2:** 2026-06-05 (Architecture + Framework) — PHASE 1 PLANNED  
+**Session Continuation 3:** 2026-06-05 (EPIC-2 Scope Research) — ✅ COMPLETE  
 **Branch:** main  
-**Latest Commit:** 269ae4c (feat: Stories 1.1 + 1.2 + 1.3 PASS — EPIC-1 Wave 1 [29sp])
+**Latest Commit:** bb6f1e2 (chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch)
 
 ---
 
@@ -2004,3 +2005,203 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** chore: Session 2026-06-05 Part 5 COMPLETE — EPIC-2 Gate 1 PASS
 **Files changed:** none
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:27
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** none
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:27
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:28
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:28
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:29
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:29
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:30
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:31
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:32
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:33
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:33
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 10:37
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 22:22
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 22:22
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 23:13
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 23:15
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 23:17
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 23:18
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-05 23:25
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 16:52
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 16:53
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 16:56
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 16:59
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:01
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:01
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:01
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:02
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:03
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:05
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:05
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:06
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:07
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:07
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:08
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:08
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:09
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:10
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:12
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:13
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb6f1e2 — 2026-06-07 17:14
+**Branch:** main
+**Commit:** chore: Session 2026-06-05 Part 5 FINAL — Story 2.1 ready to launch
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
