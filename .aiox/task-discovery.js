@@ -34,15 +34,30 @@ const DEFAULT_METRICS = path.join(PROJECT_ROOT, '.synapse', 'metrics', 'hook-met
 // --- Category inference -----------------------------------------------------
 
 // Ordered keyword → category rules. First match wins.
+//
+// FP-02 fix (Story 5.2 Framework Governance, Task 2.2): the previous ordering
+// let generic action verbs (create/build/add/generate) in the `feature`
+// bucket — and the catch-all `qa`/`db` buckets — swallow tasks that actually
+// belong to a concrete domain (e.g. `create-doc` → docs, `create-workflow`
+// → workflow, `create-agent` → squad). Domain signals are now matched BEFORE
+// generic action verbs so a task with an explicit domain noun is never
+// collapsed into a default bucket. The generic `feature` rule stays last as a
+// true fallback. `id` is weighted ahead of free-text content by inferCategory.
 const CATEGORY_RULES = [
+  // Concrete domain signals first (most specific → least specific).
   { category: 'db', patterns: [/^db-/, /\bdatabase\b/, /\bmigration\b/, /\bschema\b/, /\bsql\b/, /\brls\b/] },
-  { category: 'qa', patterns: [/\bqa\b/, /\breview\b/, /\bcritique\b/, /\bchecklist\b/, /\btest\b/, /\bgate\b/] },
-  { category: 'devops', patterns: [/\bdevops\b/, /\bci-cd\b/, /\bci\/cd\b/, /\bpush\b/, /\brelease\b/, /\bdeploy\b/, /\bpr\b/, /\bgithub\b/] },
-  { category: 'arch', patterns: [/\barchitect\b/, /\bdesign\b/, /\bpattern\b/, /\bimpact\b/, /\bbrownfield\b/] },
+  { category: 'devops', patterns: [/\bdevops\b/, /\bci-cd\b/, /\bci\/cd\b/, /\bpush\b/, /\brelease\b/, /\bdeploy\b/, /\bpipeline\b/, /-pr\b/, /\bgithub\b/] },
+  { category: 'workflow', patterns: [/\bworkflow\b/, /\borchestrat/, /\bwaves\b/] },
+  { category: 'squad', patterns: [/\bsquad\b/, /\bagent\b/, /\bpersona\b/] },
+  { category: 'docs', patterns: [/\bdoc\b/, /\bdocs\b/, /\bdocument\b/, /\breadme\b/, /\bgotcha\b/, /\bguide\b/] },
   { category: 'config', patterns: [/\bconfig\b/, /\bmcp\b/, /\bsetup\b/, /\benvironment\b/, /\bbootstrap\b/] },
-  { category: 'docs', patterns: [/\bdoc\b/, /\bdocs\b/, /\bdocument\b/, /\breadme\b/, /\bgotcha\b/] },
+  { category: 'arch', patterns: [/\barchitect\b/, /\bdesign\b/, /\bpattern\b/, /\bimpact\b/, /\bbrownfield\b/] },
+  // qa is a concrete domain but `gate`/`test`/`review` are common words, so it
+  // sits after the more specific domains to avoid over-capturing.
+  { category: 'qa', patterns: [/\bqa\b/, /\breview\b/, /\bcritique\b/, /\bchecklist\b/, /\btest\b/, /\bgate\b/] },
   { category: 'bug', patterns: [/\bfix\b/, /\bbug\b/, /\bpatch\b/, /\bcorrect\b/] },
   { category: 'refactor', patterns: [/\brefactor\b/, /\bcleanup\b/, /\boptimize\b/, /\bimprove\b/, /\bconsolidate\b/, /\bdeprecate\b/] },
+  // Generic action verbs LAST — true fallback for tasks with no domain noun.
   { category: 'feature', patterns: [/\bcreate\b/, /\bbuild\b/, /\badd\b/, /\bimplement\b/, /\bgenerate\b/, /\bdevelop\b/, /\bcompose\b/] },
 ];
 
@@ -57,6 +72,15 @@ const STORY_TYPE_RULES = [
 ];
 
 function inferCategory(id, content) {
+  // FP-02 fix: weight the task id ahead of free-text content. The id carries
+  // the strongest domain signal (e.g. `create-doc`, `create-workflow`), so a
+  // domain match in the id wins before the body text can pull the task into a
+  // generic/catch-all bucket. Only if the id is signal-free do we fall back to
+  // scanning the full content.
+  const idHay = String(id || '').toLowerCase();
+  for (const rule of CATEGORY_RULES) {
+    if (rule.patterns.some(p => p.test(idHay))) return rule.category;
+  }
   const haystack = `${id} ${content}`.toLowerCase();
   for (const rule of CATEGORY_RULES) {
     if (rule.patterns.some(p => p.test(haystack))) return rule.category;
@@ -191,14 +215,24 @@ function loadRegistry(registryPath = DEFAULT_REGISTRY, tasksDir = DEFAULT_TASKS_
 
 // --- Discovery / ranking ----------------------------------------------------
 
-// Map story types to the categories most relevant to them.
+// FP-01 fix (Story 5.2 Framework Governance, Task 2.2): the auto-activation
+// threshold is now a single exported source of truth, and scoreTask is
+// recalibrated so a confident category match + any keyword/trigger signal can
+// clear it. Previously the best possible score for a perfect category match
+// was 50 (+5 story-start = 55), permanently below the 70 threshold, so
+// taskAutoActivationRate was stuck at 0. See failure-patterns.json FP-01.
+const AUTO_ACTIVATION_THRESHOLD = 70;
+
+// Map story types to the categories most relevant to them. Extended to cover
+// the new concrete categories introduced by the FP-02 fix (workflow, squad,
+// docs) so those story types can actually rank their domain tasks.
 const TYPE_TO_CATEGORIES = {
   feature: ['feature', 'arch', 'qa'],
   bug: ['bug', 'qa', 'devops'],
   refactor: ['refactor', 'arch', 'qa'],
   arch: ['arch', 'feature', 'db'],
-  config: ['config', 'devops'],
-  docs: ['docs'],
+  config: ['config', 'devops', 'workflow'],
+  docs: ['docs', 'qa'],
 };
 
 // Workflow → ordered task ids that anchor each phase (SDC etc.).
@@ -217,8 +251,13 @@ function scoreTask(task, storyType, text) {
   let score = 0;
   const cats = TYPE_TO_CATEGORIES[storyType] || [storyType];
   const idx = cats.indexOf(task.category);
-  if (idx === 0) score += 50;
-  else if (idx > 0) score += 30 - idx * 5;
+  // FP-01 recalibration: a primary-category match is worth 60 (was 50) so that
+  // primary-category (60) + one keyword hit (8) + story-start (5) = 73 clears
+  // the 70 threshold for a genuinely relevant task. Secondary categories decay
+  // from 40 (was 30) to keep the relative ordering while lifting good matches
+  // into activatable range.
+  if (idx === 0) score += 60;
+  else if (idx > 0) score += 40 - idx * 5;
   const hay = String(text || '').toLowerCase();
   for (const kw of task.keywords) {
     if (hay.includes(kw)) score += 8;
@@ -244,10 +283,26 @@ function suggestTasks(text, opts = {}) {
     .filter(r => r.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map(r => ({ id: r.task.id, name: r.task.name, category: r.task.category, file: r.task.file, score: r.score }));
+    .map(r => ({
+      id: r.task.id,
+      name: r.task.name,
+      category: r.task.category,
+      file: r.task.file,
+      score: r.score,
+      // FP-01: expose whether this suggestion clears the auto-activation bar so
+      // consumers (and metrics) can compute taskAutoActivationRate honestly.
+      autoActivate: r.score >= AUTO_ACTIVATION_THRESHOLD,
+    }));
 
   const workflow = opts.workflow || null;
-  return { storyType, workflow, suggestions: ranked };
+  const autoActivatable = ranked.filter(s => s.autoActivate).length;
+  return {
+    storyType,
+    workflow,
+    threshold: AUTO_ACTIVATION_THRESHOLD,
+    autoActivatable,
+    suggestions: ranked,
+  };
 }
 
 /** Return the ordered anchor tasks for a workflow (AC3). */
@@ -303,6 +358,7 @@ module.exports = {
   suggestTasks,
   tasksForWorkflow,
   recordMetrics,
+  AUTO_ACTIVATION_THRESHOLD,
   DEFAULT_TASKS_DIR,
   DEFAULT_REGISTRY,
   WORKFLOW_TASKS,

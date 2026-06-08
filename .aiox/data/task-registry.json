@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T19:15:00.496Z",
+  "generatedAt": "2026-06-08T22:27:07.273Z",
   "sourceDir": ".aiox-core/development/tasks",
   "taskCount": 213,
   "tasks": [
@@ -7,7 +7,7 @@
       "id": "add-mcp",
       "name": "Add MCP Server Task",
       "file": ".aiox-core/development/tasks/add-mcp.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -56,7 +56,7 @@
       "id": "analyze-brownfield",
       "name": "Analyze Brownfield Project",
       "file": ".aiox-core/development/tasks/analyze-brownfield.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -72,9 +72,9 @@
       "id": "analyze-cross-artifact",
       "name": "Cross-Artifact Analysis Task",
       "file": ".aiox-core/development/tasks/analyze-cross-artifact.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -89,9 +89,9 @@
       "id": "analyze-framework",
       "name": "Task: Analyze Framework",
       "file": ".aiox-core/development/tasks/analyze-framework.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -138,9 +138,9 @@
       "id": "apply-qa-fixes",
       "name": "Apply Qa Fixes",
       "file": ".aiox-core/development/tasks/apply-qa-fixes.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -154,7 +154,7 @@
       "id": "architect-analyze-impact",
       "name": "Architect Analyze Impact",
       "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -171,9 +171,9 @@
       "id": "audit-codebase",
       "name": "Audit Codebase for UI Pattern Redundancy",
       "file": ".aiox-core/development/tasks/audit-codebase.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -187,9 +187,9 @@
       "id": "audit-tailwind-config",
       "name": "Audit Tailwind v4 Configuration & Utility Health",
       "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
-      "category": "qa",
+      "category": "config",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -204,9 +204,9 @@
       "id": "audit-utilities",
       "name": "audit-utilities",
       "file": ".aiox-core/development/tasks/audit-utilities.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -220,7 +220,7 @@
       "id": "bootstrap-shadcn-library",
       "name": "Bootstrap Shadcn/Radix Component Library",
       "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -237,7 +237,7 @@
       "id": "brownfield-create-epic",
       "name": "Create Brownfield Epic Task",
       "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -254,7 +254,7 @@
       "id": "brownfield-create-story",
       "name": "Create Brownfield Story Task",
       "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -271,9 +271,9 @@
       "id": "build-autonomous",
       "name": "Task: Build Autonomous",
       "file": ".aiox-core/development/tasks/build-autonomous.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -287,9 +287,9 @@
       "id": "build-component",
       "name": "Build Production-Ready Component",
       "file": ".aiox-core/development/tasks/build-component.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -319,7 +319,7 @@
       "id": "build-status",
       "name": "Task: Build Status",
       "file": ".aiox-core/development/tasks/build-status.md",
-      "category": "refactor",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -335,9 +335,9 @@
       "id": "build",
       "name": "Task: Build (Autonomous)",
       "file": ".aiox-core/development/tasks/build.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -366,9 +366,9 @@
       "id": "check-docs-links",
       "name": "check-docs-links",
       "file": ".aiox-core/development/tasks/check-docs-links.md",
-      "category": "devops",
+      "category": "docs",
       "triggers": [
-        "pre-commit",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -399,7 +399,7 @@
       "id": "cleanup-utilities",
       "name": "Cleanup Utilities Task",
       "file": ".aiox-core/development/tasks/cleanup-utilities.md",
-      "category": "db",
+      "category": "refactor",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -447,9 +447,9 @@
       "id": "compose-molecule",
       "name": "Compose Molecule from Atoms",
       "file": ".aiox-core/development/tasks/compose-molecule.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -463,7 +463,7 @@
       "id": "consolidate-patterns",
       "name": "Consolidate Patterns Using Intelligent Clustering",
       "file": ".aiox-core/development/tasks/consolidate-patterns.md",
-      "category": "db",
+      "category": "refactor",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -479,7 +479,7 @@
       "id": "correct-course",
       "name": "Correct Course Task",
       "file": ".aiox-core/development/tasks/correct-course.md",
-      "category": "db",
+      "category": "bug",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -495,9 +495,9 @@
       "id": "create-agent",
       "name": "Task: Create Squad Agent",
       "file": ".aiox-core/development/tasks/create-agent.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -511,7 +511,7 @@
       "id": "create-brownfield-story",
       "name": "Create Brownfield Story Task",
       "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -528,9 +528,9 @@
       "id": "create-deep-research-prompt",
       "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
       "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -546,9 +546,9 @@
       "id": "create-doc",
       "name": "Template selection determined dynamically during task execution",
       "file": ".aiox-core/development/tasks/create-doc.md",
-      "category": "qa",
+      "category": "docs",
       "triggers": [
-        "code-review",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -562,7 +562,7 @@
       "id": "create-next-story",
       "name": "Create Next Story Task",
       "file": ".aiox-core/development/tasks/create-next-story.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -579,9 +579,9 @@
       "id": "create-service",
       "name": "Create Service",
       "file": ".aiox-core/development/tasks/create-service.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -595,9 +595,9 @@
       "id": "create-suite",
       "name": "TODO: Create test-suite-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/create-suite.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -611,7 +611,7 @@
       "id": "create-task",
       "name": "TODO: Create task-validation-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/create-task.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -627,9 +627,9 @@
       "id": "create-workflow",
       "name": "TODO: Create workflow-validation-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/create-workflow.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -643,9 +643,9 @@
       "id": "create-worktree",
       "name": "create-worktree",
       "file": ".aiox-core/development/tasks/create-worktree.md",
-      "category": "devops",
+      "category": "feature",
       "triggers": [
-        "pre-commit",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -973,9 +973,9 @@
       "id": "delegate-to-external-executor",
       "name": "delegate-to-external-executor.md",
       "file": ".aiox-core/development/tasks/delegate-to-external-executor.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -990,7 +990,7 @@
       "id": "deprecate-component",
       "name": "TODO: Create deprecation-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/deprecate-component.md",
-      "category": "db",
+      "category": "refactor",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1006,9 +1006,9 @@
       "id": "dev-apply-qa-fixes",
       "name": "Dev Apply Qa Fixes",
       "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -1040,7 +1040,7 @@
       "id": "dev-develop-story",
       "name": "Develop Story Task",
       "file": ".aiox-core/development/tasks/dev-develop-story.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1057,7 +1057,7 @@
       "id": "dev-improve-code-quality",
       "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
       "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
-      "category": "db",
+      "category": "refactor",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1075,7 +1075,7 @@
       "id": "dev-optimize-performance",
       "name": "Optimize Performance - AIOX Developer Task",
       "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
-      "category": "db",
+      "category": "refactor",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1127,9 +1127,9 @@
       "id": "devops-pro-access-grant",
       "name": "Task: DevOps Pro Access Grant",
       "file": ".aiox-core/development/tasks/devops-pro-access-grant.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1270,9 +1270,9 @@
       "id": "document-gotchas",
       "name": "Document Gotchas Task",
       "file": ".aiox-core/development/tasks/document-gotchas.md",
-      "category": "db",
+      "category": "docs",
       "triggers": [
-        "story-start",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -1286,9 +1286,9 @@
       "id": "document-project",
       "name": "TODO: Create project-documentation-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/document-project.md",
-      "category": "db",
+      "category": "docs",
       "triggers": [
-        "story-start",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -1302,7 +1302,7 @@
       "id": "environment-bootstrap",
       "name": "environment-bootstrap",
       "file": ".aiox-core/development/tasks/environment-bootstrap.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1318,9 +1318,9 @@
       "id": "execute-checklist",
       "name": "No templates needed - this task executes existing checklists, doesn't create document outputs",
       "file": ".aiox-core/development/tasks/execute-checklist.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -1334,9 +1334,9 @@
       "id": "execute-epic-plan",
       "name": "Execute Epic Plan Task",
       "file": ".aiox-core/development/tasks/execute-epic-plan.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1351,7 +1351,7 @@
       "id": "export-design-tokens-dtcg",
       "name": "Export Design Tokens to W3C DTCG",
       "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1369,7 +1369,7 @@
       "id": "extend-pattern",
       "name": "Extend Existing Pattern",
       "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1385,7 +1385,7 @@
       "id": "extract-patterns",
       "name": "Extract Patterns",
       "file": ".aiox-core/development/tasks/extract-patterns.md",
-      "category": "arch",
+      "category": "workflow",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1435,9 +1435,9 @@
       "id": "fast-path-gate",
       "name": "Fast Path Gate",
       "file": ".aiox-core/development/tasks/fast-path-gate.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -1452,9 +1452,9 @@
       "id": "generate-ai-frontend-prompt",
       "name": "No checklists needed - this task generates prompts, validation is built into prompt generation methodology",
       "file": ".aiox-core/development/tasks/generate-ai-frontend-prompt.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1469,9 +1469,9 @@
       "id": "generate-documentation",
       "name": "Generate Pattern Library Documentation",
       "file": ".aiox-core/development/tasks/generate-documentation.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1502,9 +1502,9 @@
       "id": "generate-shock-report",
       "name": "Generate Visual Shock Report",
       "file": ".aiox-core/development/tasks/generate-shock-report.md",
-      "category": "qa",
+      "category": "feature",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1519,9 +1519,9 @@
       "id": "github-devops-github-pr-automation",
       "name": "github-pr-automation.md",
       "file": ".aiox-core/development/tasks/github-devops-github-pr-automation.md",
-      "category": "db",
+      "category": "devops",
       "triggers": [
-        "story-start",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1536,9 +1536,9 @@
       "id": "github-devops-pre-push-quality-gate",
       "name": "pre-push-quality-gate.md",
       "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
-      "category": "db",
+      "category": "devops",
       "triggers": [
-        "story-start",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1556,9 +1556,9 @@
       "id": "github-devops-repository-cleanup",
       "name": "repository-cleanup.md",
       "file": ".aiox-core/development/tasks/github-devops-repository-cleanup.md",
-      "category": "db",
+      "category": "devops",
       "triggers": [
-        "story-start",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1574,9 +1574,9 @@
       "id": "github-devops-version-management",
       "name": "version-management.md",
       "file": ".aiox-core/development/tasks/github-devops-version-management.md",
-      "category": "db",
+      "category": "devops",
       "triggers": [
-        "story-start",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1592,9 +1592,9 @@
       "id": "github-issue-triage",
       "name": "GitHub Issue Triage",
       "file": ".aiox-core/development/tasks/github-issue-triage.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1609,9 +1609,9 @@
       "id": "gotcha",
       "name": "Task: Add Gotcha",
       "file": ".aiox-core/development/tasks/gotcha.md",
-      "category": "db",
+      "category": "docs",
       "triggers": [
-        "story-start",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -1624,9 +1624,9 @@
       "id": "gotchas",
       "name": "Task: List Gotchas",
       "file": ".aiox-core/development/tasks/gotchas.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1639,7 +1639,7 @@
       "id": "ids-governor",
       "name": "Task: IDS Governor Commands",
       "file": ".aiox-core/development/tasks/ids-governor.md",
-      "category": "arch",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1687,9 +1687,9 @@
       "id": "improve-self",
       "name": "improve-self",
       "file": ".aiox-core/development/tasks/improve-self.md",
-      "category": "qa",
+      "category": "refactor",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1703,9 +1703,9 @@
       "id": "index-docs",
       "name": "No checklists needed - this task maintains documentation index, validation is through file system checks",
       "file": ".aiox-core/development/tasks/index-docs.md",
-      "category": "qa",
+      "category": "docs",
       "triggers": [
-        "code-review",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -1719,9 +1719,9 @@
       "id": "init-project-status",
       "name": "init-project-status",
       "file": ".aiox-core/development/tasks/init-project-status.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1736,7 +1736,7 @@
       "id": "integrate-squad",
       "name": "Integrate with Squad",
       "file": ".aiox-core/development/tasks/integrate-squad.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1816,7 +1816,7 @@
       "id": "mcp-workflow",
       "name": "MCP Workflow Creation Task",
       "file": ".aiox-core/development/tasks/mcp-workflow.md",
-      "category": "db",
+      "category": "workflow",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1832,9 +1832,9 @@
       "id": "merge-worktree",
       "name": "merge-worktree",
       "file": ".aiox-core/development/tasks/merge-worktree.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1848,9 +1848,9 @@
       "id": "modify-agent",
       "name": "Modify Agent Task",
       "file": ".aiox-core/development/tasks/modify-agent.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1880,9 +1880,9 @@
       "id": "modify-workflow",
       "name": "Modify Workflow Task",
       "file": ".aiox-core/development/tasks/modify-workflow.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1896,9 +1896,9 @@
       "id": "next",
       "name": "Next Command Suggestions",
       "file": ".aiox-core/development/tasks/next.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -1911,7 +1911,7 @@
       "id": "orchestrate-resume",
       "name": "\\orchestrate-resume Command",
       "file": ".aiox-core/development/tasks/orchestrate-resume.md",
-      "category": "general",
+      "category": "workflow",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1928,9 +1928,9 @@
       "id": "orchestrate-status",
       "name": "\\orchestrate-status Command",
       "file": ".aiox-core/development/tasks/orchestrate-status.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "agent": "aiox-master",
@@ -1945,7 +1945,7 @@
       "id": "orchestrate-stop",
       "name": "\\orchestrate-stop Command",
       "file": ".aiox-core/development/tasks/orchestrate-stop.md",
-      "category": "general",
+      "category": "workflow",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -1962,9 +1962,9 @@
       "id": "orchestrate",
       "name": "\\orchestrate Command",
       "file": ".aiox-core/development/tasks/orchestrate.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "agent": "aiox-master",
@@ -1978,9 +1978,9 @@
       "id": "patterns",
       "name": "Learned Patterns Management",
       "file": ".aiox-core/development/tasks/patterns.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -1993,7 +1993,7 @@
       "id": "plan-create-context",
       "name": "Plan Pipeline: Create Context",
       "file": ".aiox-core/development/tasks/plan-create-context.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2010,7 +2010,7 @@
       "id": "plan-create-implementation",
       "name": "Execution Pipeline: Create Implementation Plan",
       "file": ".aiox-core/development/tasks/plan-create-implementation.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2044,7 +2044,7 @@
       "id": "po-backlog-add",
       "name": "PO Task: Add Backlog Item",
       "file": ".aiox-core/development/tasks/po-backlog-add.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2060,9 +2060,9 @@
       "id": "po-close-story",
       "name": "PO Task: Close Story",
       "file": ".aiox-core/development/tasks/po-close-story.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2241,9 +2241,9 @@
       "id": "qa-after-creation",
       "name": "Task: QA After Creation",
       "file": ".aiox-core/development/tasks/qa-after-creation.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2257,9 +2257,9 @@
       "id": "qa-backlog-add-followup",
       "name": "QA Task: Add Follow-up to Backlog",
       "file": ".aiox-core/development/tasks/qa-backlog-add-followup.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2341,9 +2341,9 @@
       "id": "qa-fix-issues",
       "name": "QA Issue Fixer Task",
       "file": ".aiox-core/development/tasks/qa-fix-issues.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2357,9 +2357,9 @@
       "id": "qa-gate",
       "name": "qa-gate",
       "file": ".aiox-core/development/tasks/qa-gate.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2372,9 +2372,9 @@
       "id": "qa-generate-tests",
       "name": "TODO: Create test-generation-checklist.md for validation (follow-up story needed)",
       "file": ".aiox-core/development/tasks/qa-generate-tests.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2388,9 +2388,9 @@
       "id": "qa-library-validation",
       "name": "Library Validation Task",
       "file": ".aiox-core/development/tasks/qa-library-validation.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2420,9 +2420,9 @@
       "id": "qa-nfr-assess",
       "name": "nfr-assess",
       "file": ".aiox-core/development/tasks/qa-nfr-assess.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2436,9 +2436,9 @@
       "id": "qa-review-build",
       "name": "QA Review Build: 10-Phase Quality Assurance Review",
       "file": ".aiox-core/development/tasks/qa-review-build.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2452,9 +2452,9 @@
       "id": "qa-review-proposal",
       "name": "Review Proposal - AIOX Developer Task",
       "file": ".aiox-core/development/tasks/qa-review-proposal.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2468,9 +2468,9 @@
       "id": "qa-review-story",
       "name": "review-story",
       "file": ".aiox-core/development/tasks/qa-review-story.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2484,9 +2484,9 @@
       "id": "qa-risk-profile",
       "name": "risk-profile",
       "file": ".aiox-core/development/tasks/qa-risk-profile.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2500,9 +2500,9 @@
       "id": "qa-run-tests",
       "name": "Run Tests (with Code Quality Gate)",
       "file": ".aiox-core/development/tasks/qa-run-tests.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "agent": "qa",
@@ -2517,9 +2517,9 @@
       "id": "qa-security-checklist",
       "name": "Security Checklist Task",
       "file": ".aiox-core/development/tasks/qa-security-checklist.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2533,7 +2533,7 @@
       "id": "qa-test-design",
       "name": "test-design",
       "file": ".aiox-core/development/tasks/qa-test-design.md",
-      "category": "db",
+      "category": "arch",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2549,9 +2549,9 @@
       "id": "qa-trace-requirements",
       "name": "trace-requirements",
       "file": ".aiox-core/development/tasks/qa-trace-requirements.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2614,9 +2614,9 @@
       "id": "resolve-github-issue",
       "name": "resolve-github-issue.md",
       "file": ".aiox-core/development/tasks/resolve-github-issue.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2631,9 +2631,9 @@
       "id": "review-contributor-pr",
       "name": "Task: Review External Contributor PR",
       "file": ".aiox-core/development/tasks/review-contributor-pr.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2647,9 +2647,9 @@
       "id": "run-design-system-pipeline",
       "name": "Run Design System Pipeline",
       "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2665,9 +2665,9 @@
       "id": "run-workflow-engine",
       "name": "Workflow Runtime Engine Task",
       "file": ".aiox-core/development/tasks/run-workflow-engine.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -2682,9 +2682,9 @@
       "id": "run-workflow",
       "name": "Run Workflow Task",
       "file": ".aiox-core/development/tasks/run-workflow.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -2698,7 +2698,7 @@
       "id": "search-mcp",
       "name": "Search MCP Catalog Task",
       "file": ".aiox-core/development/tasks/search-mcp.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2746,9 +2746,9 @@
       "id": "session-resume",
       "name": "Session Resume Task",
       "file": ".aiox-core/development/tasks/session-resume.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -2778,7 +2778,7 @@
       "id": "setup-design-system",
       "name": "Setup Design System Structure",
       "file": ".aiox-core/development/tasks/setup-design-system.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2795,9 +2795,9 @@
       "id": "setup-github",
       "name": "setup-github",
       "file": ".aiox-core/development/tasks/setup-github.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2811,9 +2811,9 @@
       "id": "setup-llm-routing",
       "name": "setup-llm-routing",
       "file": ".aiox-core/development/tasks/setup-llm-routing.md",
-      "category": "qa",
+      "category": "config",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -2828,7 +2828,7 @@
       "id": "setup-mcp-docker",
       "name": "Setup Docker MCP Toolkit",
       "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
-      "category": "db",
+      "category": "config",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2845,9 +2845,9 @@
       "id": "setup-project-docs",
       "name": "Setup Project Documentation",
       "file": ".aiox-core/development/tasks/setup-project-docs.md",
-      "category": "qa",
+      "category": "docs",
       "triggers": [
-        "code-review",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -2862,9 +2862,9 @@
       "id": "shard-doc",
       "name": "No checklists needed - document processing task with built-in validation via md-tree tool",
       "file": ".aiox-core/development/tasks/shard-doc.md",
-      "category": "db",
+      "category": "docs",
       "triggers": [
-        "story-start",
+        "manual",
         "workflow-phase"
       ],
       "keywords": [
@@ -2878,7 +2878,7 @@
       "id": "sm-create-next-story",
       "name": "Create Next Story Task",
       "file": ".aiox-core/development/tasks/sm-create-next-story.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -2912,9 +2912,9 @@
       "id": "spec-critique",
       "name": "Spec Pipeline: Critique Specification",
       "file": ".aiox-core/development/tasks/spec-critique.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -2962,9 +2962,9 @@
       "id": "spec-write-spec",
       "name": "Spec Pipeline: Write Specification",
       "file": ".aiox-core/development/tasks/spec-write-spec.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -2978,9 +2978,9 @@
       "id": "squad-creator-analyze",
       "name": "analyzeSquad",
       "file": ".aiox-core/development/tasks/squad-creator-analyze.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -2995,9 +2995,9 @@
       "id": "squad-creator-create",
       "name": "Create Squad",
       "file": ".aiox-core/development/tasks/squad-creator-create.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3012,7 +3012,7 @@
       "id": "squad-creator-design",
       "name": "Design Squad from Documentation",
       "file": ".aiox-core/development/tasks/squad-creator-design.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3029,9 +3029,9 @@
       "id": "squad-creator-download",
       "name": "Download Squad",
       "file": ".aiox-core/development/tasks/squad-creator-download.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3046,7 +3046,7 @@
       "id": "squad-creator-extend",
       "name": "extendSquad",
       "file": ".aiox-core/development/tasks/squad-creator-extend.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3063,9 +3063,9 @@
       "id": "squad-creator-list",
       "name": "List Squads",
       "file": ".aiox-core/development/tasks/squad-creator-list.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3080,7 +3080,7 @@
       "id": "squad-creator-migrate",
       "name": "Migrate Squad",
       "file": ".aiox-core/development/tasks/squad-creator-migrate.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3097,9 +3097,9 @@
       "id": "squad-creator-publish",
       "name": "Publish Squad",
       "file": ".aiox-core/development/tasks/squad-creator-publish.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3114,9 +3114,9 @@
       "id": "squad-creator-sync-ide-command",
       "name": "Sync Command to IDE Configurations",
       "file": ".aiox-core/development/tasks/squad-creator-sync-ide-command.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3133,7 +3133,7 @@
       "id": "squad-creator-sync-synkra",
       "name": "Sync Squad to Synkra",
       "file": ".aiox-core/development/tasks/squad-creator-sync-synkra.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3151,7 +3151,7 @@
       "id": "squad-creator-validate",
       "name": "Validate Squad",
       "file": ".aiox-core/development/tasks/squad-creator-validate.md",
-      "category": "db",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3168,9 +3168,9 @@
       "id": "story-checkpoint",
       "name": "Task: Story Checkpoint",
       "file": ".aiox-core/development/tasks/story-checkpoint.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -3200,7 +3200,7 @@
       "id": "sync-registry-intel",
       "name": "Task: Sync Registry Intel",
       "file": ".aiox-core/development/tasks/sync-registry-intel.md",
-      "category": "general",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3233,9 +3233,9 @@
       "id": "test-as-user",
       "name": "Task: Test As User (RLS Testing)",
       "file": ".aiox-core/development/tasks/test-as-user.md",
-      "category": "db",
+      "category": "qa",
       "triggers": [
-        "story-start",
+        "code-review",
         "workflow-phase"
       ],
       "keywords": [
@@ -3266,9 +3266,9 @@
       "id": "triage-github-issues",
       "name": "triage-github-issues.md",
       "file": ".aiox-core/development/tasks/triage-github-issues.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -3283,9 +3283,9 @@
       "id": "undo-last",
       "name": "No checklists needed - rollback operation with built-in transaction validation",
       "file": ".aiox-core/development/tasks/undo-last.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3299,9 +3299,9 @@
       "id": "update-aiox",
       "name": "Task: Update AIOX Framework",
       "file": ".aiox-core/development/tasks/update-aiox.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -3315,9 +3315,9 @@
       "id": "update-manifest",
       "name": "Update Manifest",
       "file": ".aiox-core/development/tasks/update-manifest.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3331,9 +3331,9 @@
       "id": "update-source-tree",
       "name": "Update Source Tree Task",
       "file": ".aiox-core/development/tasks/update-source-tree.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3348,7 +3348,7 @@
       "id": "ux-create-wireframe",
       "name": "Create Wireframes & Interaction Flows",
       "file": ".aiox-core/development/tasks/ux-create-wireframe.md",
-      "category": "db",
+      "category": "feature",
       "triggers": [
         "story-start",
         "workflow-phase"
@@ -3396,9 +3396,9 @@
       "id": "validate-agents",
       "name": "Validate Agents Task",
       "file": ".aiox-core/development/tasks/validate-agents.md",
-      "category": "qa",
+      "category": "devops",
       "triggers": [
-        "code-review",
+        "pre-commit",
         "workflow-phase"
       ],
       "keywords": [
@@ -3429,9 +3429,9 @@
       "id": "validate-tech-preset",
       "name": "Validate Tech Preset",
       "file": ".aiox-core/development/tasks/validate-tech-preset.md",
-      "category": "qa",
+      "category": "squad",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3446,9 +3446,9 @@
       "id": "validate-workflow",
       "name": "Validate Workflow Task",
       "file": ".aiox-core/development/tasks/validate-workflow.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3478,9 +3478,9 @@
       "id": "waves",
       "name": "Task: waves - Wave Analysis",
       "file": ".aiox-core/development/tasks/waves.md",
-      "category": "qa",
+      "category": "workflow",
       "triggers": [
-        "code-review",
+        "story-start",
         "workflow-phase"
       ],
       "keywords": [
@@ -3493,7 +3493,7 @@
       "id": "yolo-toggle",
       "name": "yolo-toggle",
       "file": ".aiox-core/development/tasks/yolo-toggle.md",
-      "category": "config",
+      "category": "squad",
       "triggers": [
         "story-start",
         "workflow-phase"
