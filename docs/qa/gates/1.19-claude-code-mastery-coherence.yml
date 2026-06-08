@@ -1,0 +1,28 @@
+schema: 1
+story: '1.19'
+story_title: 'Fix Claude-Code-Mastery Coherence'
+story_file: 'docs/stories/1/1.19.story.md'
+gate: CONCERNS
+status_reason: 'All 5 ACs substantiated in actual artifacts: squad.yaml has tiers/handoff_matrix/boundaries sections, both new MEMORY.md files exist, and the coherence audit (96%) is present. Non-blocking concern: the audit document still self-identifies as "Story 1.16" throughout and its Next Steps use stale numbering, a traceability rot left over from the 1.16 -> 1.19 renumber.'
+reviewer: 'Quinn'
+updated: '2026-06-08T19:00:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'docs/CCM-COHERENCE-AUDIT.md header says "Story: 1.16 — Fix Claude-Code-Mastery Coherence" and Next Steps reference old 1.16/1.17/1.18 numbering. Story was renumbered to 1.19 (per 1.19 Change Log) but the audit doc was not updated.'
+    suggested_action: 'Update the audit doc to reference Story 1.19 and refresh the Next Steps section.'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'Coherence scores (67% baseline, 96% final) are self-reported in the audit narrative with no reproducible scoring script. Score is plausible and category-by-category justified, but not independently verifiable.'
+    suggested_action: 'Optional: capture the scoring rubric/script so future coherence audits are reproducible.'
+verification:
+  ac_met: '5/5'
+  squad_yaml: 'tiers (L11), handoff_matrix (L79), boundaries/l1_protected (L113) all present'
+  memories: '.claude/agents/claude-mastery-chief/MEMORY.md + config-engineer/MEMORY.md exist'
+  audit_doc: 'docs/CCM-COHERENCE-AUDIT.md exists, 96% reported'
+status_transition:
+  applied: true
+  from: 'InReview'
+  to: 'Done'
+  note: 'CONCERNS proceeds to Done with non-blocking issues documented.'
+waiver: { active: false }

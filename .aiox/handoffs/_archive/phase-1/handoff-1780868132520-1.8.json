@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-06-07T21:35:32.520Z",
+  "story_id": "1.8",
+  "story_path": "docs/stories/1.8-aiox-compliance-audit.md",
+  "story_status": "InReview",
+  "story_effort": 8,
+  "agent": "dev",
+  "action": "commit",
+  "notes": "Story 1.8 committed with status: InReview"
+}

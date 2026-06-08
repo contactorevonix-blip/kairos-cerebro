@@ -1,0 +1,3509 @@
+{
+  "generatedAt": "2026-06-08T19:15:00.496Z",
+  "sourceDir": ".aiox-core/development/tasks",
+  "taskCount": 213,
+  "tasks": [
+    {
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "add",
+        "mcp"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "advanced-elicitation",
+      "name": "advanced-elicitation",
+      "file": ".aiox-core/development/tasks/advanced-elicitation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "advanced",
+        "elicitation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyst-facilitate-brainstorming",
+      "name": "No checklists needed - this task facilitates brainstorming sessions, validation is through user interaction",
+      "file": ".aiox-core/development/tasks/analyst-facilitate-brainstorming.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyst",
+        "facilitate",
+        "brainstorming"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyze-brownfield",
+      "name": "Analyze Brownfield Project",
+      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "brownfield"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyze-cross-artifact",
+      "name": "Cross-Artifact Analysis Task",
+      "file": ".aiox-core/development/tasks/analyze-cross-artifact.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "cross",
+        "artifact"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyze-framework",
+      "name": "Task: Analyze Framework",
+      "file": ".aiox-core/development/tasks/analyze-framework.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "framework"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyze-performance",
+      "name": "Task: Analyze Performance",
+      "file": ".aiox-core/development/tasks/analyze-performance.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "performance"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "analyze-project-structure",
+      "name": "Analyze Project Structure",
+      "file": ".aiox-core/development/tasks/analyze-project-structure.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "project",
+        "structure"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "apply-qa-fixes",
+      "name": "Apply Qa Fixes",
+      "file": ".aiox-core/development/tasks/apply-qa-fixes.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "apply",
+        "fixes"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "architect",
+        "analyze",
+        "impact"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "audit-codebase",
+      "name": "Audit Codebase for UI Pattern Redundancy",
+      "file": ".aiox-core/development/tasks/audit-codebase.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "audit",
+        "codebase"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "audit-tailwind-config",
+      "name": "Audit Tailwind v4 Configuration & Utility Health",
+      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "audit",
+        "tailwind",
+        "config"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "audit-utilities",
+      "name": "audit-utilities",
+      "file": ".aiox-core/development/tasks/audit-utilities.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "audit",
+        "utilities"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "bootstrap-shadcn-library",
+      "name": "Bootstrap Shadcn/Radix Component Library",
+      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "bootstrap",
+        "shadcn",
+        "library"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "brownfield",
+        "create",
+        "epic"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "brownfield",
+        "create",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "build-autonomous",
+      "name": "Task: Build Autonomous",
+      "file": ".aiox-core/development/tasks/build-autonomous.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "build",
+        "autonomous"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "build-component",
+      "name": "Build Production-Ready Component",
+      "file": ".aiox-core/development/tasks/build-component.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "build",
+        "component"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "build-resume",
+      "name": "Task: Build Resume",
+      "file": ".aiox-core/development/tasks/build-resume.md",
+      "category": "feature",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "build",
+        "resume"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "build-status",
+      "name": "Task: Build Status",
+      "file": ".aiox-core/development/tasks/build-status.md",
+      "category": "refactor",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "build",
+        "status"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "build",
+      "name": "Task: Build (Autonomous)",
+      "file": ".aiox-core/development/tasks/build.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "build"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "calculate-roi",
+      "name": "Calculate ROI and Cost Savings",
+      "file": ".aiox-core/development/tasks/calculate-roi.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "calculate",
+        "roi"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "check-docs-links",
+      "name": "check-docs-links",
+      "file": ".aiox-core/development/tasks/check-docs-links.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "check",
+        "docs",
+        "links"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ci-cd-configuration",
+      "name": "Configure CI/CD Pipeline",
+      "file": ".aiox-core/development/tasks/ci-cd-configuration.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "agent": "github-devops",
+      "keywords": [
+        "configuration"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "cleanup-utilities",
+      "name": "Cleanup Utilities Task",
+      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "cleanup",
+        "utilities"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "cleanup-worktrees",
+      "name": "cleanup-worktrees",
+      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "category": "refactor",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "cleanup",
+        "worktrees"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "collaborative-edit",
+      "name": "collaborative-edit",
+      "file": ".aiox-core/development/tasks/collaborative-edit.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "collaborative",
+        "edit"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "compose-molecule",
+      "name": "Compose Molecule from Atoms",
+      "file": ".aiox-core/development/tasks/compose-molecule.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "compose",
+        "molecule"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "consolidate-patterns",
+      "name": "Consolidate Patterns Using Intelligent Clustering",
+      "file": ".aiox-core/development/tasks/consolidate-patterns.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "consolidate",
+        "patterns"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "correct",
+        "course"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-agent",
+      "name": "Task: Create Squad Agent",
+      "file": ".aiox-core/development/tasks/create-agent.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "agent"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "brownfield",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-deep-research-prompt",
+      "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
+      "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "deep",
+        "research",
+        "prompt"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "doc"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-next-story",
+      "name": "Create Next Story Task",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "next",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-service",
+      "name": "Create Service",
+      "file": ".aiox-core/development/tasks/create-service.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "service"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-suite",
+      "name": "TODO: Create test-suite-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/create-suite.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "suite"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-task",
+      "name": "TODO: Create task-validation-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/create-task.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "task"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-workflow",
+      "name": "TODO: Create workflow-validation-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/create-workflow.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "workflow"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "create-worktree",
+      "name": "create-worktree",
+      "file": ".aiox-core/development/tasks/create-worktree.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "worktree"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-analyze-hotpaths",
+      "name": "Task: Analyze Hot Query Paths",
+      "file": ".aiox-core/development/tasks/db-analyze-hotpaths.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "analyze",
+        "hotpaths"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-apply-migration",
+      "name": "Task: Apply Migration (with snapshot + advisory lock)",
+      "file": ".aiox-core/development/tasks/db-apply-migration.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "apply",
+        "migration"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-bootstrap",
+      "name": "Task: Bootstrap Supabase Project",
+      "file": ".aiox-core/development/tasks/db-bootstrap.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "bootstrap"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-domain-modeling",
+      "name": "Task: Domain Modeling Session",
+      "file": ".aiox-core/development/tasks/db-domain-modeling.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "domain",
+        "modeling"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-dry-run",
+      "name": "Task: Migration Dry-Run",
+      "file": ".aiox-core/development/tasks/db-dry-run.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dry",
+        "run"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-env-check",
+      "name": "Task: DB Env Check",
+      "file": ".aiox-core/development/tasks/db-env-check.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "env",
+        "check"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-explain",
+      "name": "Task: EXPLAIN (ANALYZE, BUFFERS)",
+      "file": ".aiox-core/development/tasks/db-explain.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "explain"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-impersonate",
+      "name": "Task: Impersonate User (RLS Testing)",
+      "file": ".aiox-core/development/tasks/db-impersonate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "impersonate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-load-csv",
+      "name": "Task: Load CSV Data Safely",
+      "file": ".aiox-core/development/tasks/db-load-csv.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "load",
+        "csv"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-policy-apply",
+      "name": "Task: Apply RLS Policy Template",
+      "file": ".aiox-core/development/tasks/db-policy-apply.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "policy",
+        "apply"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-rls-audit",
+      "name": "Task: RLS Audit",
+      "file": ".aiox-core/development/tasks/db-rls-audit.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "rls",
+        "audit"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-rollback",
+      "name": "Task: Rollback Database",
+      "file": ".aiox-core/development/tasks/db-rollback.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "rollback"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-run-sql",
+      "name": "Task: Run SQL",
+      "file": ".aiox-core/development/tasks/db-run-sql.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "run",
+        "sql"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-schema-audit",
+      "name": "Task: Schema Audit",
+      "file": ".aiox-core/development/tasks/db-schema-audit.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "schema",
+        "audit"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-seed",
+      "name": "Task: Apply Seed Data",
+      "file": ".aiox-core/development/tasks/db-seed.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "seed"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-smoke-test",
+      "name": "Task: DB Smoke Test",
+      "file": ".aiox-core/development/tasks/db-smoke-test.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "smoke",
+        "test"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-snapshot",
+      "name": "Task: Create Database Snapshot",
+      "file": ".aiox-core/development/tasks/db-snapshot.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "snapshot"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-squad-integration",
+      "name": "Database Integration Analysis for Squad",
+      "file": ".aiox-core/development/tasks/db-squad-integration.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "integration"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-supabase-setup",
+      "name": "Task: Supabase Setup Guide",
+      "file": ".aiox-core/development/tasks/db-supabase-setup.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "supabase",
+        "setup"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "db-verify-order",
+      "name": "Task: Verify DDL Ordering",
+      "file": ".aiox-core/development/tasks/db-verify-order.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "verify",
+        "order"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "delegate-to-external-executor",
+      "name": "delegate-to-external-executor.md",
+      "file": ".aiox-core/development/tasks/delegate-to-external-executor.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "delegate",
+        "external",
+        "executor"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "deprecate-component",
+      "name": "TODO: Create deprecation-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/deprecate-component.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "deprecate",
+        "component"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-apply-qa-fixes",
+      "name": "Dev Apply Qa Fixes",
+      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "apply",
+        "fixes"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-backlog-debt",
+      "name": "Dev Task: Register Technical Debt",
+      "file": ".aiox-core/development/tasks/dev-backlog-debt.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "backlog",
+        "debt"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-develop-story",
+      "name": "Develop Story Task",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "develop",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-improve-code-quality",
+      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
+      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "improve",
+        "code",
+        "quality"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-optimize-performance",
+      "name": "Optimize Performance - AIOX Developer Task",
+      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "optimize",
+        "performance"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-suggest-refactoring",
+      "name": "Suggest Refactoring - AIOX Developer Task",
+      "file": ".aiox-core/development/tasks/dev-suggest-refactoring.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "suggest",
+        "refactoring"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "dev-validate-next-story",
+      "name": "Validate Next Story Task",
+      "file": ".aiox-core/development/tasks/dev-validate-next-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "dev",
+        "validate",
+        "next",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-access-grant",
+      "name": "Task: DevOps Pro Access Grant",
+      "file": ".aiox-core/development/tasks/devops-pro-access-grant.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "access",
+        "grant"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-activate",
+      "name": "Task: DevOps Pro Activate",
+      "file": ".aiox-core/development/tasks/devops-pro-activate.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "activate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "check",
+        "access"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-request-reset",
+      "name": "Task: DevOps Pro Request Reset",
+      "file": ".aiox-core/development/tasks/devops-pro-request-reset.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "request",
+        "reset"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-resend-verification",
+      "name": "Task: DevOps Pro Resend Verification",
+      "file": ".aiox-core/development/tasks/devops-pro-resend-verification.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "resend",
+        "verification"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-reset-password",
+      "name": "Task: DevOps Pro Reset Password",
+      "file": ".aiox-core/development/tasks/devops-pro-reset-password.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "reset",
+        "password"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-validate-login",
+      "name": "Task: DevOps Pro Validate Login",
+      "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "validate",
+        "login"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "devops",
+        "pro",
+        "verify",
+        "status"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "document-gotchas",
+      "name": "Document Gotchas Task",
+      "file": ".aiox-core/development/tasks/document-gotchas.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "document",
+        "gotchas"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "document-project",
+      "name": "TODO: Create project-documentation-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/document-project.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "document",
+        "project"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "environment-bootstrap",
+      "name": "environment-bootstrap",
+      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "environment",
+        "bootstrap"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "execute-checklist",
+      "name": "No templates needed - this task executes existing checklists, doesn't create document outputs",
+      "file": ".aiox-core/development/tasks/execute-checklist.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "execute",
+        "checklist"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "execute-epic-plan",
+      "name": "Execute Epic Plan Task",
+      "file": ".aiox-core/development/tasks/execute-epic-plan.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "execute",
+        "epic",
+        "plan"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "export-design-tokens-dtcg",
+      "name": "Export Design Tokens to W3C DTCG",
+      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "export",
+        "design",
+        "tokens",
+        "dtcg"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "extend-pattern",
+      "name": "Extend Existing Pattern",
+      "file": ".aiox-core/development/tasks/extend-pattern.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "extend",
+        "pattern"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "extract-patterns",
+      "name": "Extract Patterns",
+      "file": ".aiox-core/development/tasks/extract-patterns.md",
+      "category": "arch",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "extract",
+        "patterns"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "extract-tokens",
+      "name": "Extract Design Tokens from Consolidated Patterns",
+      "file": ".aiox-core/development/tasks/extract-tokens.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "extract",
+        "tokens"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "facilitate-brainstorming-session",
+      "name": "Facilitate Brainstorming Session",
+      "file": ".aiox-core/development/tasks/facilitate-brainstorming-session.md",
+      "category": "collaboration",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "agent": "aiox-master",
+      "keywords": [
+        "facilitate",
+        "brainstorming",
+        "session"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "fast-path-gate",
+      "name": "Fast Path Gate",
+      "file": ".aiox-core/development/tasks/fast-path-gate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "fast",
+        "path",
+        "gate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "generate-ai-frontend-prompt",
+      "name": "No checklists needed - this task generates prompts, validation is built into prompt generation methodology",
+      "file": ".aiox-core/development/tasks/generate-ai-frontend-prompt.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "generate",
+        "frontend",
+        "prompt"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "generate-documentation",
+      "name": "Generate Pattern Library Documentation",
+      "file": ".aiox-core/development/tasks/generate-documentation.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "generate",
+        "documentation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "generate-migration-strategy",
+      "name": "Generate Phased Migration Strategy",
+      "file": ".aiox-core/development/tasks/generate-migration-strategy.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "generate",
+        "migration",
+        "strategy"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "generate-shock-report",
+      "name": "Generate Visual Shock Report",
+      "file": ".aiox-core/development/tasks/generate-shock-report.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "generate",
+        "shock",
+        "report"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "github-devops-github-pr-automation",
+      "name": "github-pr-automation.md",
+      "file": ".aiox-core/development/tasks/github-devops-github-pr-automation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "github",
+        "devops",
+        "automation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "github",
+        "devops",
+        "pre",
+        "push",
+        "quality",
+        "gate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "github-devops-repository-cleanup",
+      "name": "repository-cleanup.md",
+      "file": ".aiox-core/development/tasks/github-devops-repository-cleanup.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "github",
+        "devops",
+        "repository",
+        "cleanup"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "github-devops-version-management",
+      "name": "version-management.md",
+      "file": ".aiox-core/development/tasks/github-devops-version-management.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "github",
+        "devops",
+        "version",
+        "management"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "github-issue-triage",
+      "name": "GitHub Issue Triage",
+      "file": ".aiox-core/development/tasks/github-issue-triage.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "github",
+        "issue",
+        "triage"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "gotcha",
+      "name": "Task: Add Gotcha",
+      "file": ".aiox-core/development/tasks/gotcha.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "gotcha"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "gotchas",
+      "name": "Task: List Gotchas",
+      "file": ".aiox-core/development/tasks/gotchas.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "gotchas"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ids-governor",
+      "name": "Task: IDS Governor Commands",
+      "file": ".aiox-core/development/tasks/ids-governor.md",
+      "category": "arch",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "ids",
+        "governor"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ids-health",
+      "name": "IDS Registry Health Check Task",
+      "file": ".aiox-core/development/tasks/ids-health.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "ids",
+        "health"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ids-query",
+      "name": "idsQuery",
+      "file": ".aiox-core/development/tasks/ids-query.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "ids",
+        "query"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "improve-self",
+      "name": "improve-self",
+      "file": ".aiox-core/development/tasks/improve-self.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "improve",
+        "self"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "index-docs",
+      "name": "No checklists needed - this task maintains documentation index, validation is through file system checks",
+      "file": ".aiox-core/development/tasks/index-docs.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "index",
+        "docs"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "init-project-status",
+      "name": "init-project-status",
+      "file": ".aiox-core/development/tasks/init-project-status.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "init",
+        "project",
+        "status"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "integrate-squad",
+      "name": "Integrate with Squad",
+      "file": ".aiox-core/development/tasks/integrate-squad.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "integrate",
+        "squad"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "kb-mode-interaction",
+      "name": "No checklists needed - interactive KB mode facilitation task, no validation workflow required",
+      "file": ".aiox-core/development/tasks/kb-mode-interaction.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "mode",
+        "interaction"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "learn-patterns",
+      "name": "learn-patterns",
+      "file": ".aiox-core/development/tasks/learn-patterns.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "learn",
+        "patterns"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "category": "config",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "list",
+        "mcps"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "list-worktrees",
+      "name": "list-worktrees",
+      "file": ".aiox-core/development/tasks/list-worktrees.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "list",
+        "worktrees"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "mcp-workflow",
+      "name": "MCP Workflow Creation Task",
+      "file": ".aiox-core/development/tasks/mcp-workflow.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "mcp",
+        "workflow"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "merge-worktree",
+      "name": "merge-worktree",
+      "file": ".aiox-core/development/tasks/merge-worktree.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "merge",
+        "worktree"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "modify-agent",
+      "name": "Modify Agent Task",
+      "file": ".aiox-core/development/tasks/modify-agent.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "modify",
+        "agent"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "modify-task",
+      "name": "Modify Task Task",
+      "file": ".aiox-core/development/tasks/modify-task.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "modify",
+        "task"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "modify-workflow",
+      "name": "Modify Workflow Task",
+      "file": ".aiox-core/development/tasks/modify-workflow.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "modify",
+        "workflow"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "next",
+      "name": "Next Command Suggestions",
+      "file": ".aiox-core/development/tasks/next.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "next"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "orchestrate-resume",
+      "name": "\\orchestrate-resume Command",
+      "file": ".aiox-core/development/tasks/orchestrate-resume.md",
+      "category": "general",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "agent": "aiox-master",
+      "keywords": [
+        "orchestrate",
+        "resume"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "orchestrate-status",
+      "name": "\\orchestrate-status Command",
+      "file": ".aiox-core/development/tasks/orchestrate-status.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "agent": "aiox-master",
+      "keywords": [
+        "orchestrate",
+        "status"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "orchestrate-stop",
+      "name": "\\orchestrate-stop Command",
+      "file": ".aiox-core/development/tasks/orchestrate-stop.md",
+      "category": "general",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "agent": "aiox-master",
+      "keywords": [
+        "orchestrate",
+        "stop"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "orchestrate",
+      "name": "\\orchestrate Command",
+      "file": ".aiox-core/development/tasks/orchestrate.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "agent": "aiox-master",
+      "keywords": [
+        "orchestrate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "patterns",
+      "name": "Learned Patterns Management",
+      "file": ".aiox-core/development/tasks/patterns.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "patterns"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "plan-create-context",
+      "name": "Plan Pipeline: Create Context",
+      "file": ".aiox-core/development/tasks/plan-create-context.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "plan",
+        "create",
+        "context"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "plan-create-implementation",
+      "name": "Execution Pipeline: Create Implementation Plan",
+      "file": ".aiox-core/development/tasks/plan-create-implementation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "plan",
+        "create",
+        "implementation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "plan-execute-subtask",
+      "name": "Execute Subtask (Coder Agent)",
+      "file": ".aiox-core/development/tasks/plan-execute-subtask.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "plan",
+        "execute",
+        "subtask"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-backlog-add",
+      "name": "PO Task: Add Backlog Item",
+      "file": ".aiox-core/development/tasks/po-backlog-add.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "backlog",
+        "add"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-close-story",
+      "name": "PO Task: Close Story",
+      "file": ".aiox-core/development/tasks/po-close-story.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "close",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-manage-story-backlog",
+      "name": "manage-story-backlog",
+      "file": ".aiox-core/development/tasks/po-manage-story-backlog.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "manage",
+        "story",
+        "backlog"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-pull-story-from-clickup",
+      "name": "pull-story-from-clickup",
+      "file": ".aiox-core/development/tasks/po-pull-story-from-clickup.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "pull",
+        "story",
+        "from",
+        "clickup"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-pull-story",
+      "name": "pull-story",
+      "file": ".aiox-core/development/tasks/po-pull-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "pull",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-stories-index",
+      "name": "PO Task: Regenerate Story Index",
+      "file": ".aiox-core/development/tasks/po-stories-index.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "stories",
+        "index"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-sync-story-to-clickup",
+      "name": "sync-story-to-clickup",
+      "file": ".aiox-core/development/tasks/po-sync-story-to-clickup.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "sync",
+        "story",
+        "clickup"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "po-sync-story",
+      "name": "sync-story",
+      "file": ".aiox-core/development/tasks/po-sync-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "sync",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "pr-automation",
+      "name": "Automate Pull Request Creation for Open-Source Contributions",
+      "file": ".aiox-core/development/tasks/pr-automation.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "agent": "github-devops",
+      "keywords": [
+        "automation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "project-status",
+      "name": "Task: Project Status — Full Panorama",
+      "file": ".aiox-core/development/tasks/project-status.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "project",
+        "status"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "propose-modification",
+      "name": "Propose Modification - AIOX Developer Task",
+      "file": ".aiox-core/development/tasks/propose-modification.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "propose",
+        "modification"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "publish-npm",
+      "name": "npm Publishing Pipeline",
+      "file": ".aiox-core/development/tasks/publish-npm.md",
+      "category": "release",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "agent": "devops",
+      "keywords": [
+        "publish",
+        "npm"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-after-creation",
+      "name": "Task: QA After Creation",
+      "file": ".aiox-core/development/tasks/qa-after-creation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "after",
+        "creation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-backlog-add-followup",
+      "name": "QA Task: Add Follow-up to Backlog",
+      "file": ".aiox-core/development/tasks/qa-backlog-add-followup.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "backlog",
+        "add",
+        "followup"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-browser-console-check",
+      "name": "Browser Console Check Task",
+      "file": ".aiox-core/development/tasks/qa-browser-console-check.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "browser",
+        "console",
+        "check"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-create-fix-request",
+      "name": "Create Fix Request Task",
+      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "fix",
+        "request"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-evidence-requirements",
+      "name": "Evidence Requirements Task",
+      "file": ".aiox-core/development/tasks/qa-evidence-requirements.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "evidence",
+        "requirements"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-false-positive-detection",
+      "name": "False Positive Detection Task",
+      "file": ".aiox-core/development/tasks/qa-false-positive-detection.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "false",
+        "positive",
+        "detection"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-fix-issues",
+      "name": "QA Issue Fixer Task",
+      "file": ".aiox-core/development/tasks/qa-fix-issues.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "fix",
+        "issues"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-gate",
+      "name": "qa-gate",
+      "file": ".aiox-core/development/tasks/qa-gate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "gate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-generate-tests",
+      "name": "TODO: Create test-generation-checklist.md for validation (follow-up story needed)",
+      "file": ".aiox-core/development/tasks/qa-generate-tests.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "generate",
+        "tests"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-library-validation",
+      "name": "Library Validation Task",
+      "file": ".aiox-core/development/tasks/qa-library-validation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "library",
+        "validation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-migration-validation",
+      "name": "Migration Validation Task",
+      "file": ".aiox-core/development/tasks/qa-migration-validation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "migration",
+        "validation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-nfr-assess",
+      "name": "nfr-assess",
+      "file": ".aiox-core/development/tasks/qa-nfr-assess.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "nfr",
+        "assess"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-review-build",
+      "name": "QA Review Build: 10-Phase Quality Assurance Review",
+      "file": ".aiox-core/development/tasks/qa-review-build.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "review",
+        "build"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-review-proposal",
+      "name": "Review Proposal - AIOX Developer Task",
+      "file": ".aiox-core/development/tasks/qa-review-proposal.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "review",
+        "proposal"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-review-story",
+      "name": "review-story",
+      "file": ".aiox-core/development/tasks/qa-review-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "review",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-risk-profile",
+      "name": "risk-profile",
+      "file": ".aiox-core/development/tasks/qa-risk-profile.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "risk",
+        "profile"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-run-tests",
+      "name": "Run Tests (with Code Quality Gate)",
+      "file": ".aiox-core/development/tasks/qa-run-tests.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "agent": "qa",
+      "keywords": [
+        "run",
+        "tests"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-security-checklist",
+      "name": "Security Checklist Task",
+      "file": ".aiox-core/development/tasks/qa-security-checklist.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "security",
+        "checklist"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-test-design",
+      "name": "test-design",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "test",
+        "design"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "qa-trace-requirements",
+      "name": "trace-requirements",
+      "file": ".aiox-core/development/tasks/qa-trace-requirements.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "trace",
+        "requirements"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "release-management",
+      "name": "Manage Software Releases",
+      "file": ".aiox-core/development/tasks/release-management.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "agent": "github-devops",
+      "keywords": [
+        "release",
+        "management"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "remove-mcp",
+      "name": "remove-mcp",
+      "file": ".aiox-core/development/tasks/remove-mcp.md",
+      "category": "config",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "remove",
+        "mcp"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "remove-worktree",
+      "name": "remove-worktree",
+      "file": ".aiox-core/development/tasks/remove-worktree.md",
+      "category": "devops",
+      "triggers": [
+        "pre-commit",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "remove",
+        "worktree"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "resolve-github-issue",
+      "name": "resolve-github-issue.md",
+      "file": ".aiox-core/development/tasks/resolve-github-issue.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "resolve",
+        "github",
+        "issue"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "review-contributor-pr",
+      "name": "Task: Review External Contributor PR",
+      "file": ".aiox-core/development/tasks/review-contributor-pr.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "review",
+        "contributor"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "run-design-system-pipeline",
+      "name": "Run Design System Pipeline",
+      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "run",
+        "design",
+        "system",
+        "pipeline"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "run-workflow-engine",
+      "name": "Workflow Runtime Engine Task",
+      "file": ".aiox-core/development/tasks/run-workflow-engine.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "run",
+        "workflow",
+        "engine"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "run-workflow",
+      "name": "Run Workflow Task",
+      "file": ".aiox-core/development/tasks/run-workflow.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "run",
+        "workflow"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "search-mcp",
+      "name": "Search MCP Catalog Task",
+      "file": ".aiox-core/development/tasks/search-mcp.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "search",
+        "mcp"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "security-audit",
+      "name": "Task: Security Audit",
+      "file": ".aiox-core/development/tasks/security-audit.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "security",
+        "audit"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "security-scan",
+      "name": "security-scan",
+      "file": ".aiox-core/development/tasks/security-scan.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "security",
+        "scan"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "session-resume",
+      "name": "Session Resume Task",
+      "file": ".aiox-core/development/tasks/session-resume.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "session",
+        "resume"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-database",
+      "name": "Task: Setup Database",
+      "file": ".aiox-core/development/tasks/setup-database.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "database"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-design-system",
+      "name": "Setup Design System Structure",
+      "file": ".aiox-core/development/tasks/setup-design-system.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "design",
+        "system"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-github",
+      "name": "setup-github",
+      "file": ".aiox-core/development/tasks/setup-github.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "github"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-llm-routing",
+      "name": "setup-llm-routing",
+      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "llm",
+        "routing"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-mcp-docker",
+      "name": "Setup Docker MCP Toolkit",
+      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "mcp",
+        "docker"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "setup-project-docs",
+      "name": "Setup Project Documentation",
+      "file": ".aiox-core/development/tasks/setup-project-docs.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "setup",
+        "project",
+        "docs"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "shard-doc",
+      "name": "No checklists needed - document processing task with built-in validation via md-tree tool",
+      "file": ".aiox-core/development/tasks/shard-doc.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "shard",
+        "doc"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "sm-create-next-story",
+      "name": "Create Next Story Task",
+      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "next",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "spec-assess-complexity",
+      "name": "Spec Pipeline: Assess Complexity",
+      "file": ".aiox-core/development/tasks/spec-assess-complexity.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "spec",
+        "assess",
+        "complexity"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "spec-critique",
+      "name": "Spec Pipeline: Critique Specification",
+      "file": ".aiox-core/development/tasks/spec-critique.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "spec",
+        "critique"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "spec-gather-requirements",
+      "name": "Spec Pipeline: Gather Requirements",
+      "file": ".aiox-core/development/tasks/spec-gather-requirements.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "spec",
+        "gather",
+        "requirements"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "spec-research-dependencies",
+      "name": "Spec Pipeline: Research Dependencies",
+      "file": ".aiox-core/development/tasks/spec-research-dependencies.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "spec",
+        "research",
+        "dependencies"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "spec-write-spec",
+      "name": "Spec Pipeline: Write Specification",
+      "file": ".aiox-core/development/tasks/spec-write-spec.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "spec",
+        "write"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-analyze",
+      "name": "analyzeSquad",
+      "file": ".aiox-core/development/tasks/squad-creator-analyze.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "analyze"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-create",
+      "name": "Create Squad",
+      "file": ".aiox-core/development/tasks/squad-creator-create.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "create"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-design",
+      "name": "Design Squad from Documentation",
+      "file": ".aiox-core/development/tasks/squad-creator-design.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "design"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-download",
+      "name": "Download Squad",
+      "file": ".aiox-core/development/tasks/squad-creator-download.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "download"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-extend",
+      "name": "extendSquad",
+      "file": ".aiox-core/development/tasks/squad-creator-extend.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "extend"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-list",
+      "name": "List Squads",
+      "file": ".aiox-core/development/tasks/squad-creator-list.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "list"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-migrate",
+      "name": "Migrate Squad",
+      "file": ".aiox-core/development/tasks/squad-creator-migrate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "migrate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-publish",
+      "name": "Publish Squad",
+      "file": ".aiox-core/development/tasks/squad-creator-publish.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "publish"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-sync-ide-command",
+      "name": "Sync Command to IDE Configurations",
+      "file": ".aiox-core/development/tasks/squad-creator-sync-ide-command.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "sync",
+        "ide",
+        "command"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-sync-synkra",
+      "name": "Sync Squad to Synkra",
+      "file": ".aiox-core/development/tasks/squad-creator-sync-synkra.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "sync",
+        "synkra"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "squad-creator-validate",
+      "name": "Validate Squad",
+      "file": ".aiox-core/development/tasks/squad-creator-validate.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "squad",
+        "creator",
+        "validate"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "story-checkpoint",
+      "name": "Task: Story Checkpoint",
+      "file": ".aiox-core/development/tasks/story-checkpoint.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "story",
+        "checkpoint"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "sync-documentation",
+      "name": "sync-documentation",
+      "file": ".aiox-core/development/tasks/sync-documentation.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "sync",
+        "documentation"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "sync-registry-intel",
+      "name": "Task: Sync Registry Intel",
+      "file": ".aiox-core/development/tasks/sync-registry-intel.md",
+      "category": "general",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "sync",
+        "registry",
+        "intel"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "tailwind-upgrade",
+      "name": "Tailwind CSS v4 Upgrade Playbook",
+      "file": ".aiox-core/development/tasks/tailwind-upgrade.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "tailwind",
+        "upgrade"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "test-as-user",
+      "name": "Task: Test As User (RLS Testing)",
+      "file": ".aiox-core/development/tasks/test-as-user.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "test",
+        "user"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "test",
+        "validation",
+        "task"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "triage-github-issues",
+      "name": "triage-github-issues.md",
+      "file": ".aiox-core/development/tasks/triage-github-issues.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "triage",
+        "github",
+        "issues"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "undo-last",
+      "name": "No checklists needed - rollback operation with built-in transaction validation",
+      "file": ".aiox-core/development/tasks/undo-last.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "undo",
+        "last"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "update-aiox",
+      "name": "Task: Update AIOX Framework",
+      "file": ".aiox-core/development/tasks/update-aiox.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "update",
+        "aiox"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "update-manifest",
+      "name": "Update Manifest",
+      "file": ".aiox-core/development/tasks/update-manifest.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "update",
+        "manifest"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "update-source-tree",
+      "name": "Update Source Tree Task",
+      "file": ".aiox-core/development/tasks/update-source-tree.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "update",
+        "source",
+        "tree"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ux-create-wireframe",
+      "name": "Create Wireframes & Interaction Flows",
+      "file": ".aiox-core/development/tasks/ux-create-wireframe.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "create",
+        "wireframe"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ux-ds-scan-artifact",
+      "name": "Design System Artifact Scanner",
+      "file": ".aiox-core/development/tasks/ux-ds-scan-artifact.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "scan",
+        "artifact"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "ux-user-research",
+      "name": "User Research & Needs Analysis",
+      "file": ".aiox-core/development/tasks/ux-user-research.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "user",
+        "research"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "validate-agents",
+      "name": "Validate Agents Task",
+      "file": ".aiox-core/development/tasks/validate-agents.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "validate",
+        "agents"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "validate-next-story",
+      "name": "Validate Next Story Task",
+      "file": ".aiox-core/development/tasks/validate-next-story.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "validate",
+        "next",
+        "story"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "validate-tech-preset",
+      "name": "Validate Tech Preset",
+      "file": ".aiox-core/development/tasks/validate-tech-preset.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "validate",
+        "tech",
+        "preset"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "validate-workflow",
+      "name": "Validate Workflow Task",
+      "file": ".aiox-core/development/tasks/validate-workflow.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "validate",
+        "workflow"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "verify-subtask",
+      "name": "Verify Subtask",
+      "file": ".aiox-core/development/tasks/verify-subtask.md",
+      "category": "db",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "verify",
+        "subtask"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "waves",
+      "name": "Task: waves - Wave Analysis",
+      "file": ".aiox-core/development/tasks/waves.md",
+      "category": "qa",
+      "triggers": [
+        "code-review",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "waves"
+      ],
+      "automated": false,
+      "interactive": true
+    },
+    {
+      "id": "yolo-toggle",
+      "name": "yolo-toggle",
+      "file": ".aiox-core/development/tasks/yolo-toggle.md",
+      "category": "config",
+      "triggers": [
+        "story-start",
+        "workflow-phase"
+      ],
+      "keywords": [
+        "yolo",
+        "toggle"
+      ],
+      "automated": false,
+      "interactive": true
+    }
+  ]
+}

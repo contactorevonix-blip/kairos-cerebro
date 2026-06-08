@@ -1,0 +1,28 @@
+schema: 1
+story: '1.16'
+story_title: 'Constitutional Enforcement Gates'
+story_file: 'docs/stories/1/1.16.story.md'
+gate: PASS
+status_reason: 'All 6 ACs now implemented and verified; 23/23 enforcement tests pass; 4 gate hooks registered in settings.json; AC5 metrics schema and AC6 docs present. Supersedes prior FAIL (code was absent at first review, now delivered).'
+reviewer: 'Quinn'
+updated: '2026-06-08T19:00:00Z'
+top_issues:
+  - id: 'PROC-001'
+    severity: low
+    finding: 'Story Status field stale at Ready; @dev never bumped Ready → InProgress → InReview during implementation (story-lifecycle violation). Implementation is nonetheless complete and verified.'
+    suggested_action: 'Status corrected to Done by @qa as part of this gate; @dev should follow the status-transition block next time.'
+  - id: 'ARCH-002'
+    severity: low
+    finding: 'Duplicate story ID 1.16 historically collided with Claude-Code-Mastery Coherence; that story has since been renumbered to 1.19 (see 1.19 Change Log). Collision resolved.'
+    suggested_action: 'None — tracked as resolved. Ensure STATE.md story-point accounting reflects the renumber.'
+verification:
+  tests: '23/23 pass (node --test tests/hooks/enforcement.test.js)'
+  ac_met: '6/6'
+  file_list_verified: '8/8 artifacts exist; 4 enforcement hooks registered in .claude/settings.json'
+  metrics_schema: 'present — .synapse/metrics/hook-metrics.json.enforcement {gatesEnforced, violationsDetected, violationsBlocked, overridesUsed}'
+status_transition:
+  applied: true
+  from: 'Ready'
+  to: 'Done'
+  note: 'Story was Ready (stale); implementation verified complete, so @qa applies the terminal Done transition this gate.'
+waiver: { active: false }

@@ -1,0 +1,31 @@
+schema: 1
+story: '1.20'
+story_title: 'Handoff Consolidation Automation'
+story_file: 'docs/stories/1/1.20.story.md'
+gate: CONCERNS
+status_reason: 'All 5 ACs functionally implemented and verified: consolidate-handoffs.js exports consolidateHandoffs + groupByPipeline, threshold/archive/RUN-LOG logic present, post-push-handoff-consolidate.js registered as a Stop hook, _archive/ exists. However there is zero automated test coverage despite the Change Log claiming "consolidation script tested" — the load-bearing AC5 ("no handoff data lost") rests on untested rename/archive logic.'
+reviewer: 'Quinn'
+updated: '2026-06-08T21:30:00Z'
+top_issues:
+  - id: 'TEST-001'
+    severity: high
+    finding: 'No test file exists for the consolidation logic (glob tests/**/*consolidat* and tests/**/*handoff* return nothing; File List declares none). Sibling stories 1.17 and 1.18 each shipped test suites (12 and 9 tests). The Change Log entry "consolidation script tested" is not backed by any test artifact. AC5 "No handoff data lost (archive preserved)" is unverified — the archive path uses fs.renameSync, so a grouping/threshold bug could move handoffs without a RUN-LOG entry.'
+    suggested_action: 'Add tests against a temp fixture dir covering: (a) threshold gate (<5 skip, >=5 consolidate), (b) latest handoff stays individual, (c) archived files land in _archive/{pipeline}/ AND appear in RUN-LOG, (d) malformed JSON is skipped without throwing, (e) groupByPipeline maps story_id -> phase bucket correctly.'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'groupByPipeline buckets any handoff lacking story_id and not matching the 2.0-SYN filename branch into "unknown", which can mix unrelated pipelines into one RUN-LOG — contradicting the rule anti-pattern "Mix multiple pipelines in one RUN-LOG".'
+    suggested_action: 'Harden pipeline identification (read pipeline_id field first, fall back to filename slug) before consolidating "unknown" buckets.'
+verification:
+  files_exist: true
+  registered_in_settings: true   # post-push-handoff-consolidate.js wired as Stop hook (settings.json L293-301)
+  module_loads: 'consolidate-handoffs.js + post-push-handoff-consolidate.js load cleanly; exports [consolidateHandoffs, groupByPipeline]'
+  functional_smoke: 'groupByPipeline executes without throwing; archive dir present'
+  tests: 'NONE — no automated coverage (primary concern)'
+  typecheck: 'PASS (tsc --noEmit exit 0)'
+  lint: 'N/A — disabled by project policy (package.json, ADR-001 zero-dep core)'
+  coderabbit: 'Not run — WSL CLI not available in this review environment'
+status_transition:
+  applied: true
+  from: 'InReview'
+  to: 'Done'
+waiver: { active: false }

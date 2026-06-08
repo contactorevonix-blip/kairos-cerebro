@@ -1,0 +1,26 @@
+schema: 1
+story: '1.17'
+story_title: 'Task-First Automation'
+story_file: 'docs/stories/1/1.17.story.md'
+gate: PASS
+status_reason: 'All 6 ACs implemented and verified. Discovery engine indexes 213 tasks, auto-suggest hook is registered as a PreToolUse(Read) hook in .claude/settings.json, CLI present, metrics wired. 12/12 tests pass, typecheck green, all File List artifacts exist on disk.'
+reviewer: 'Quinn'
+updated: '2026-06-08T21:30:00Z'
+top_issues: []
+verification:
+  files_exist: true
+  registered_in_settings: true   # task-auto-suggest.cjs wired as PreToolUse on Read (settings.json L177-187)
+  tasks_indexed: 213
+  tests: '12/12 pass (tests/tasks/discovery.test.js)'
+  typecheck: 'PASS (tsc --noEmit exit 0)'
+  lint: 'N/A — disabled by project policy (package.json, ADR-001 zero-dep core)'
+  coderabbit: 'Not run — WSL CLI not available in this review environment; no blocking severity expected for additive runtime-layer JS'
+  story_id_collision: 'RESOLVED — sibling story renumbered 1.17 -> 1.20'
+notes:
+  - 'AC4 "automated execution" implemented as metadata-capture + suggestion logging (not autonomous side-effecting), consistent with the story safety note "no task execution without explicit user confirmation". Accepted as designed.'
+  - 'Documented path deviation: engine placed in L4 .aiox/ instead of write-protected L1 .aiox-core/core/. Behaviour identical; documented in docs/TASK-FIRST-AUTOMATION.md.'
+status_transition:
+  applied: true
+  from: 'InReview'
+  to: 'Done'
+waiver: { active: false }

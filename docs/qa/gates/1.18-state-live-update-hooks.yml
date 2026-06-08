@@ -1,0 +1,29 @@
+schema: 1
+story: '1.18'
+story_title: 'State.md Live-Update Hooks'
+story_file: 'docs/stories/1.18-state-live-update-hooks.md'
+gate: PASS
+status_reason: 'All 5 ACs met. The prior FAIL root cause (AC1 not wired) is resolved: post-story-update.js is now registered as a PostToolUse hook on Edit/Write/MultiEdit in .claude/settings.json. Lock hardened with stale-TTL + atomic acquire (REL-001). 9/9 tests pass including end-to-end stdin spawn and concurrency paths; typecheck green.'
+reviewer: 'Quinn'
+updated: '2026-06-08T21:30:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'Effort mismatch: story file states 5sp; mission/STATE.md reference 7sp for this story.'
+    suggested_action: 'Reconcile story-point value between story file and STATE.md (non-blocking, @po/@sm).'
+verification:
+  files_exist: true
+  registered_in_settings: true   # post-story-update.js wired PostToolUse on Write/Edit/MultiEdit (settings.json L36-39,54-59,65-72)
+  tests: '9/9 pass (tests/hooks/state-live-update.test.js)'
+  typecheck: 'PASS (tsc --noEmit exit 0)'
+  lint: 'N/A — disabled by project policy (package.json, ADR-001 zero-dep core)'
+  coderabbit: 'Not run — WSL CLI not available in this review environment'
+prior_issues_resolved:
+  - 'REQ-001 (high) RESOLVED — hook now registered in settings.json; AC1 satisfied'
+  - 'TEST-001 (high) RESOLVED — 9 tests added covering status-table update, commit extraction, timestamp, and lock/retry (AC5)'
+  - 'REL-001 (medium) RESOLVED — lock hardened with stale-TTL + atomic wx acquire; test "reclaims a stale lock" and "respects a fresh active lock" both pass'
+status_transition:
+  applied: true
+  from: 'InReview'
+  to: 'Done'
+waiver: { active: false }

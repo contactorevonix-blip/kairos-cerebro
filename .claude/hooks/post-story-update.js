@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { resolveStatePath } = require('./state-sync.js');
 
 // Hook: post-story-update
 // Triggers when story file is edited (via Edit/Write tools)
@@ -10,7 +11,9 @@ const { execSync } = require('child_process');
 
 async function updateStateOnStoryChange(filePath) {
   try {
-    if (!filePath.includes('docs/stories/') || !filePath.endsWith('.md')) {
+    // Normalize Windows backslashes so path matching is cross-platform.
+    const normalized = String(filePath).replace(/\\/g, '/');
+    if (!normalized.includes('docs/stories/') || !normalized.endsWith('.md')) {
       return; // Not a story file
     }
 
@@ -30,9 +33,11 @@ async function updateStateOnStoryChange(filePath) {
       latestCommit = 'N/A';
     }
 
-    // Update STATE.md with story info
-    const statePath = path.join(path.dirname(filePath), '..', '..', 'STATE.md');
-    updateStateMd(statePath, storyId, status, latestCommit);
+    // Update STATE.md with story info (walk up from the story dir to find it)
+    const statePath = resolveStatePath(path.dirname(filePath));
+    if (statePath) {
+      updateStateMd(statePath, storyId, status, latestCommit);
+    }
 
   } catch (error) {
     console.warn('⚠️  State update failed:', error.message);
@@ -67,11 +72,37 @@ function updateStateMd(statePath, storyId, status, latestCommit) {
   fs.writeFileSync(statePath, content, 'utf8');
 }
 
+// Extract the edited file path from a Claude Code PostToolUse event payload.
+// Supports Edit, Write, MultiEdit and NotebookEdit tool inputs.
+function extractFilePathFromEvent(event) {
+  if (!event || typeof event !== 'object') return null;
+  const input = event.tool_input || event.toolInput || {};
+  return input.file_path || input.filePath || input.notebook_path || null;
+}
+
 if (require.main === module) {
-  const filePath = process.argv[2];
-  if (filePath) {
-    updateStateOnStoryChange(filePath);
+  // Mode 1: manual / test invocation — `node post-story-update.js <filePath>`
+  const argvPath = process.argv[2];
+  if (argvPath) {
+    updateStateOnStoryChange(argvPath);
+  } else if (!process.stdin.isTTY) {
+    // Mode 2: Claude Code hook — event JSON arrives on stdin
+    let raw = '';
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', chunk => { raw += chunk; });
+    process.stdin.on('end', () => {
+      try {
+        const event = JSON.parse(raw || '{}');
+        const filePath = extractFilePathFromEvent(event);
+        if (filePath) {
+          updateStateOnStoryChange(filePath);
+        }
+      } catch {
+        // Non-blocking: never break the Claude flow
+      }
+      process.exit(0);
+    });
   }
 }
 
-module.exports = { updateStateOnStoryChange };
+module.exports = { updateStateOnStoryChange, updateStateMd, extractFilePathFromEvent };

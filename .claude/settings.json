@@ -30,6 +30,13 @@
             "timeout": 35,
             "async": true,
             "statusMessage": "A actualizar process maps..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/post-story-update.js\"",
+            "timeout": 10,
+            "async": true,
+            "statusMessage": "A sincronizar STATE.md (story update)..."
           }
         ]
       },
@@ -42,6 +49,25 @@
             "timeout": 35,
             "async": true,
             "statusMessage": "A actualizar process maps..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/post-story-update.js\"",
+            "timeout": 10,
+            "async": true,
+            "statusMessage": "A sincronizar STATE.md (story update)..."
+          }
+        ]
+      },
+      {
+        "matcher": "MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/post-story-update.js\"",
+            "timeout": 10,
+            "async": true,
+            "statusMessage": "A sincronizar STATE.md (story update)..."
           }
         ]
       }
@@ -74,7 +100,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \".claude/hooks/pre-commit-story-enforcement.cjs\"",
+            "command": "node \".claude/hooks/enforce-story-driven.cjs\"",
             "timeout": 5,
             "statusMessage": "A validar Art. III (Story-Driven)..."
           },
@@ -87,13 +113,76 @@
         ]
       },
       {
+        "matcher": "Bash(git merge*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A validar Art. V (Quality First) antes do merge..."
+          }
+        ]
+      },
+      {
         "matcher": "Bash(*git push*)",
         "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-agent-authority.cjs\"",
+            "timeout": 5,
+            "statusMessage": "A validar Art. II (Agent Authority)..."
+          },
           {
             "type": "command",
             "command": "node \".claude/hooks/enforce-git-push-authority.cjs\"",
             "timeout": 5,
             "statusMessage": "A verificar autoridade git push..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. IV (No Invention)..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. IV (No Invention)..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/task-auto-suggest.cjs\"",
+            "timeout": 5,
+            "async": true,
+            "statusMessage": "A sugerir tasks (Task-First)..."
           }
         ]
       },
