@@ -7,7 +7,7 @@
 1. **Diagnosticar** o tipo de pedido:
    - É uma feature/endpoint novo? → story first via @sm
    - É código a escrever? → @dev com story, não directamente
-   - É estratégia/negócio? → @business-chief
+   - É estratégia/negócio? → @pm (product strategy)
    - É configuração/hooks? → @hooks-architect ou @config-engineer
    - É arquitectura? → @architect
    - Não é claro? → fazer 1-2 perguntas de clarificação
