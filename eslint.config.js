@@ -171,12 +171,52 @@ module.exports = [
     },
   },
 
-  // Test files - more relaxed rules
+  // Test files - more relaxed rules. Covers TypeScript test files too, which
+  // previously lacked Node/test globals and produced spurious no-undef errors
+  // (V-ART5-001 remediation, Story 5.2 Framework Governance, Task 2.2).
   {
-    files: ['**/*.test.js', '**/*.spec.js', '**/tests/**/*.js'],
+    files: [
+      '**/*.test.js',
+      '**/*.spec.js',
+      '**/tests/**/*.js',
+      '**/*.test.ts',
+      '**/*.spec.ts',
+      '**/tests/**/*.ts',
+    ],
+    languageOptions: {
+      globals: {
+        // Node.js + test runner globals (node:test / jest-style)
+        process: 'readonly',
+        console: 'readonly',
+        Buffer: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        setImmediate: 'readonly',
+        performance: 'readonly',
+        global: 'readonly',
+        fetch: 'readonly',
+        AbortController: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        structuredClone: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        jest: 'readonly',
+      },
+    },
     rules: {
       'no-unused-vars': 'off',
-      'no-undef': 'off', // Jest globals
+      'no-undef': 'off', // test runner globals
     },
   },
 ];

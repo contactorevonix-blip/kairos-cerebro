@@ -144,7 +144,7 @@ function inferTriggers(category) {
 
 /** Build a single task entry from a file. Never throws. */
 function buildTaskEntry(filePath) {
-  let content = '';
+  let content;
   try {
     content = fs.readFileSync(filePath, 'utf8');
   } catch {
@@ -174,7 +174,7 @@ function buildTaskEntry(filePath) {
 
 /** Scan a directory of task .md files and return registry object. */
 function buildRegistry(tasksDir = DEFAULT_TASKS_DIR) {
-  let files = [];
+  let files;
   try {
     files = fs.readdirSync(tasksDir).filter(f => f.endsWith('.md'));
   } catch {

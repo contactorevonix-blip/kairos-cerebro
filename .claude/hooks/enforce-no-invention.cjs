@@ -134,6 +134,5 @@ module.exports = {
   isSpecFile,
   extractContent,
   findInventions,
-  isStrict,
   main,
 };
