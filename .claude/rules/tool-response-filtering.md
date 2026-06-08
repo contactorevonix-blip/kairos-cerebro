@@ -1,7 +1,6 @@
 ---
 paths:
   - .aiox-core/data/tool-registry.yaml
-  - .mcp.json
 ---
 # Tool Response Filtering — Dynamic Token Reduction
 
