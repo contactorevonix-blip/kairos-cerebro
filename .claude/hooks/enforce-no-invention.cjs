@@ -16,9 +16,9 @@
  * REQUIRED (the RFC-2119 vocabulary used in AIOX specs). A normative line with
  * NO traceable reference is an "invention".
  *
- * Default behaviour is WARN (soft violation) per the story: it surfaces the
- * untraceable lines but does not block, so authors can iterate. Set
- * AIOX_NO_INVENTION_STRICT=1 to BLOCK instead.
+ * Default behaviour is BLOCK (Constitution Art. IV is MUST, not soft). Set
+ * AIOX_NO_INVENTION_PERMISSIVE=1 to allow untraceable specs (rare: only for
+ * draft specs before research phase).
  */
 
 const gl = require('./lib/gate-logger.cjs');
@@ -57,8 +57,8 @@ function findInventions(content) {
   return inventions;
 }
 
-function isStrict() {
-  return process.env.AIOX_NO_INVENTION_STRICT === '1';
+function isPermissive() {
+  return process.env.AIOX_NO_INVENTION_PERMISSIVE === '1';
 }
 
 function main() {
@@ -91,7 +91,8 @@ function main() {
     .map((i) => `  • L${i.line}: "${i.text}"`)
     .join('\n');
 
-  if (isStrict()) {
+  // DEFAULT: BLOCK (Constitution Art. IV is MUST, not soft)
+  if (!isPermissive()) {
     gl.recordMetrics({ violationsBlocked: 1 });
     const reason = `Spec contains ${inventions.length} untraceable normative statement(s) (Constitution Article IV — No Invention). Every MUST/SHALL/REQUIRED must trace to FR-*, NFR-*, CON-*, or a [research:] finding:\n${summary}`;
     gl.logGateDecision({
@@ -107,18 +108,18 @@ function main() {
     return;
   }
 
-  // Soft violation — warn and proceed.
+  // Permissive mode (draft specs) — warn and proceed.
   gl.logGateDecision({
     article: ARTICLE,
     gate: 'no-invention',
     decision: 'warn',
-    reason: `${inventions.length} untraceable normative statement(s) (soft violation).`,
+    reason: `${inventions.length} untraceable normative statement(s) (permissive mode).`,
     file: filePath,
     inventions,
   });
   process.stderr.write(
     `⚠️  Art. IV (No Invention): ${inventions.length} normative statement(s) without FR-/NFR-/CON-/research reference:\n${summary}\n` +
-      'Add a requirement reference, or set AIOX_NO_INVENTION_STRICT=1 to enforce as a block.\n',
+      'Add a requirement reference (RECOMMENDED).\n',
   );
 }
 
