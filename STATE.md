@@ -1,14 +1,94 @@
-# ✅ Session 2026-06-09 (Cont 17) — STORY 5.2 TASK 2.5 PHASES 2-3 COMPLETE ✅
+# ✅ Session 2026-06-09 (Cont 19) — EPIC-5-3 STORIES CREATED + VALIDATED ✅
 
-**Session 2026-06-09 (Cont 17):** FRAMEWORK GOVERNANCE — **Task 2.5 Phase 2 + 3 100% DELIVERED TO MAIN**
-**Previous:** Session 2026-06-09 (Cont 16) — Task 2.4 complete, Task 2.5 Phase 1 FP-01/FP-02 fixed
+**Session 2026-06-09 (Cont 19):** EPIC-5-3 PLANNING & STORY CREATION — **4 Stories created, PO validated, implementation blocked by L1 boundary**
+**Previous:** Session 2026-06-09 (Cont 18) — Auto-contextualization framework delivered
 **Branch:** main (sync with remote)
-**Latest Commits:** 5a54b7c (push success), 3547245 (fix: test assertions), 3e8c01e (docs: story structure)
-**Status:** ✅ **TASK 2.5 PHASES 2-3 100% DELIVERED** — All gates LIVE, 68/68 tests PASS, push SUCCESS
+**Latest Commits:** tests/auto-contextualization/engine.test.js created
+**Status:** 🔄 **EPIC-5-3 READY FOR IMPLEMENTATION** — Blocked by framework boundary (L1/L2), needs @aiox-master *propose-modification
 
 ---
 
-## ✅ Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 Complete
+## 🔄 Session 2026-06-09 (Cont 19) — Epic-5-3 Stories Created & Validated
+
+### What Completed This Session (Cont 19)
+
+**EPIC CREATION (@pm)**
+- ✅ Epic-5-3: Permanent Auto-Contextualization System created
+- ✅ Scope: 4 stories, 23 story points
+- ✅ Executor assignments: @dev (2), @data-engineer (1), @qa (1)
+- ✅ Quality gate assignments verified
+
+**STORY CREATION (@sm)**
+- ✅ Story 5.3.1: Runtime Engine Implementation (13 sp, @dev, @architect QA)
+  - All 10 phases specified (INTAKE → PERSISTENCE)
+  - 13 detailed tasks with file list
+  - AC: All 8 criteria clear, testable
+- ✅ Story 5.3.2: Registration Hook Integration (5 sp, @dev, @architect QA)
+  - Phase 1-4 auto-trigger on agent activation
+  - Hook execution + session context population
+  - AC: All 8 criteria clear
+- ✅ Story 5.3.3: Registry Schema & Persistence (3 sp, @data-engineer, @dev QA)
+  - JSONL persistence, in-memory indices
+  - CRUD operations + integrity validation
+  - AC: All 8 criteria clear
+- ✅ Story 5.3.4: Test Suite & Validation (2 sp, @qa, @dev QA)
+  - 10 phase tests + hook tests + E2E tests
+  - Target ≥95% coverage
+  - AC: All 8 criteria clear
+
+**STORY VALIDATION (@po)**
+- ✅ 10-point PO checklist applied to all 4 stories
+- ✅ ALL STORIES: 10/10 score, **GO** status
+- ✅ Status transition: Draft → Ready
+
+**WORK IN PROGRESS**
+- 🔄 Story 5.3.1 implementation started
+  - Tests created: `tests/auto-contextualization/engine.test.js` ✅
+  - Engine code blocked by L1/L2 boundary (framework protection active)
+
+### Blocker for Next Session
+
+**Framework Boundary Protection:**
+```
+BLOCKED: .aiox-core/core/auto-contextualization/engine.js
+Reason: L1/L2 protected (framework layer)
+Fix: Either:
+  1. Route through @aiox-master *propose-modification
+  2. OR move engine to L4 (squads/) and import from there
+```
+
+---
+
+## ✅ Session 2026-06-09 (Cont 18) — Auto-Contextualization Engine Complete
+
+### What Completed This Session (Cont 18)
+
+**FRAMEWORK TASK: Auto-Contextualization-Engine (10 Phases)**
+- ✅ `docs/auto-contextualization-engine.md` (L4) — Executable task, Phase 1-10 detailed
+  - Phase 1: INTAKE — colhe intent (1 statement)
+  - Phase 2: GAP-ANALYSIS — detecta gaps automático (algoritmo)
+  - Phase 3: CONTEXT-COMPLETION — preenche gaps invisível (sources: registries, PROJECT.md, inference)
+  - Phase 4: VALIDATION — valida 100% completeness (8 validações)
+  - Phase 5: IDS-CHECK — REUSE > ADAPT > CREATE (registry queries)
+  - Phase 6: ROUTING — deterministic agent + workflow selection
+  - Phase 7: PRE-EXECUTION — carrega templates + dependencies
+  - Phase 8: EXECUTION — ativa agentes automaticamente
+  - Phase 9: HANDOFF — audit trail (`.aiox/handoffs/`)
+  - Phase 10: CONSTITUTION-VALIDATION — Art. I-VII verificação final
+
+**FRAMEWORK DESIGN DOCS**
+- ✅ `docs/META-FRAMEWORK-ARCHITECTURE.md` (L4) — 10 perguntas estruturadas + meta-workflows + 12 tasks complexas + 8 agentes
+- ✅ `docs/OPERATIONAL-DECISION-FRAMEWORK.md` (L4) — Decision tree determinística + routing + complexity classification
+
+**COMPLIANCE VERIFIED**
+- ✅ Constitution Art. I-VII: ALL PASS
+- ✅ IDS Compliance (Art. IV-A): REUSE decision documented (no invention)
+- ✅ Rastreabilidade: CON-001 + FR-001 + REUSE patterns
+
+**GIT DELIVERY**
+- ✅ Pre-commit gates: 100% PASS (lint, typecheck, tests)
+- ✅ Commit 9d5cad1: auto-contextualization-engine + 2 framework docs
+- ✅ Push to remote: SUCCESS
 
 ### What Completed This Session (Cont 17)
 
@@ -24,12 +104,49 @@
 - ✅ `docs/L2-AMENDMENTS.md` — Orphan story wiring (INDEX, WORKSPACE-CLEANUP)
 - ✅ Constitution alignment verified — All 7 articles respected, no amendments needed
 
+---
+
+## ⏭️ PRÓXIMA SESSÃO: Epic 5.3 Implementation (Permanent Auto-Contextualization)
+
+**Decision Taken (Session Cont 18):**
+- ✅ Auto-contextualization-engine task created (10 phases, executable, zero ambiguities)
+- ✅ System should carregue SEMPRE em qualquer mensagem
+- ✅ Implementar em `.synapse/` (runtime, não framework)
+- ✅ 100% contexto respondido SEMPRE (completeness = 1.0 antes de qualquer ação)
+- ✅ Epic 5.3 approved: 4 stories planned
+
+**Epic 5.3: Permanent Auto-Contextualization System**
+
+| Story | Scope | Status | Estimated |
+|-------|-------|--------|-----------|
+| **5.3.1** | Auto-Contextualization Runtime (`.synapse/` Phase 1-10 executable) | 📋 DRAFT → READY | 8sp |
+| **5.3.2** | Hook Integration (Pre-User-Message carrega SEMPRE) | 📋 DRAFT → READY | 6sp |
+| **5.3.3** | Context State Management (rastreia 100% completeness) | 📋 DRAFT → READY | 5sp |
+| **5.3.4** | Guardrails + Tests (validação automática) | 📋 DRAFT → READY | 4sp |
+
+**Workflow para próxima sessão:**
+1. @pm cria Epic 5.3 com PRD
+2. @sm cria 4 stories com AC claros
+3. @dev implementa 5.3.1 + 5.3.2 (runtime + hook)
+4. @data-engineer implementa 5.3.3 (state management)
+5. @qa implementa 5.3.4 (guardrails + tests)
+6. @devops push final
+
+**Result esperado:**
+- Sistema permanente ativo em `.synapse/`
+- Carrega automaticamente em QUALQUER mensagem
+- 100% contexto sempre respondido
+- Zero ambiguidades garantidas
+- Zero gaps preenchidos
+
+---
+
 **Root Cause Fixed:** unknown.json generation eliminated via story-registry.yaml + resolver  
 **Impact:** FP-03 resolved, governance infrastructure established, metrics accuracy restored
 
-### Status: ✅ DELIVERED TO MAIN
+### Status: ✅ DELIVERED TO MAIN (Cont 17)
 
-**@devops Operations (This Session):**
+**@devops Operations (Cont 17):**
 - ✅ Fixed story structure issues (1.19, 2.0-SYN1, 5.1 File List + Change Log)
 - ✅ Corrected test assertions (enforcement.test.js, handoff-consolidation.test.js)
 - ✅ Enhanced consolidate-handoffs.js with return values
@@ -4491,3 +4608,58 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:41
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:42
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:42
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:44
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:44
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:46
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:47
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:49
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:51
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:54
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/task-logs/2.0.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d5cad1 — 2026-06-09 22:55
+**Branch:** main
+**Commit:** docs: auto-contextualization-engine framework task — 10 phases, zero ambiguities, Constitution-compliant [Session 2026-06-09 Cont 18]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/task-logs/2.0.json, .synapse/metrics/hook-metrics.json, STATE.md
