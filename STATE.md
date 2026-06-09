@@ -4341,3 +4341,153 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** fix: correct test assertions and handoff consolidation logic [Story 5.2 Task 2.5]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 09:35
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: ff887e6 — 2026-06-09 21:14
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:21
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:25
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:30
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:39
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:42
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:46
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:50
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:54
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 21:59
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:02
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:06
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:11
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:15
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:17
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:20
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:23
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:24
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:27
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:28
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:29
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:30
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:32
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:34
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:35
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:36
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:37
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:39
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ff887e6 — 2026-06-09 22:40
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 DELIVERED
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
