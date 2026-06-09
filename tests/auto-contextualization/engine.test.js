@@ -75,3 +75,48 @@ test('AC8: CodeRabbit compliance', async (t) => {
   const engine = new ContextEngine();
   assert.ok(typeof engine.execute === 'function');
 });
+
+test('Phase 4: VALIDATION — 8-point completeness', async (t) => {
+  const Phase4Validation = require('../../.synapse/context-engine/phases/phase4-validation.js');
+  const phase = new Phase4Validation();
+  const context = {
+    'project-context': { resolved: true },
+    'story-context': { resolved: true }
+  };
+
+  const result = await phase.execute(context);
+
+  assert.ok('passed' in result);
+  assert.ok(Array.isArray(result.checks));
+  assert.equal(result.checks.length, 8);
+});
+
+test('Phase 5: IDS-CHECK — REUSE/ADAPT/CREATE decision', async (t) => {
+  const Phase5IdsCheck = require('../../.synapse/context-engine/phases/phase5-ids-check.js');
+  const phase = new Phase5IdsCheck();
+  const context = { 'engine-context': {} };
+
+  const result = await phase.execute(context);
+
+  assert.ok(['REUSE', 'ADAPT', 'CREATE'].includes(result.decision));
+  assert.ok(Array.isArray(result.reuse_patterns));
+  assert.ok(Array.isArray(result.adapt_patterns));
+});
+
+test('AC3: Phase 4 validation gates completion (fixed)', async (t) => {
+  const Phase4Validation = require('../../.synapse/context-engine/phases/phase4-validation.js');
+  const phase = new Phase4Validation();
+  const result = await phase.execute({});
+
+  assert.ok('can_proceed' in result);
+  assert.ok(result.passed_count <= 8);
+});
+
+test('AC4: Phase 5 IDS queries (fixed)', async (t) => {
+  const Phase5IdsCheck = require('../../.synapse/context-engine/phases/phase5-ids-check.js');
+  const phase = new Phase5IdsCheck();
+  const result = await phase.execute({});
+
+  assert.ok(result.ids_score >= 0 && result.ids_score <= 1.0);
+  assert.ok(['REUSE', 'ADAPT', 'CREATE'].includes(result.decision));
+});
