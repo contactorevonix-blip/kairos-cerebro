@@ -1,10 +1,10 @@
 # ✅ Session 2026-06-09 (Cont 17) — STORY 5.2 TASK 2.5 PHASES 2-3 COMPLETE ✅
 
-**Session 2026-06-09 (Cont 17):** FRAMEWORK GOVERNANCE — **Task 2.5 Phase 2 + 3 100% COMPLETE**
-**Previous:** Session 2026-06-09 (Cont 16) — Task 2.4 complete, Task 2.5 Phase 1 FP-01/FP-02 fixed, FP-03 validation pending
-**Branch:** main
-**Latest Commit:** 13099c2 (will update after @devops fixes story structure hooks)
-**Status:** ✅ **TASK 2.5 PHASES 2-3 100% COMPLETE** — Phase 2 (FP-03 fix: story-registry.yaml, resolvers, hooks, SOP, 16/16 tests PASS) + Phase 3 (L2-amendments.md, constitution alignment verified)
+**Session 2026-06-09 (Cont 17):** FRAMEWORK GOVERNANCE — **Task 2.5 Phase 2 + 3 100% DELIVERED TO MAIN**
+**Previous:** Session 2026-06-09 (Cont 16) — Task 2.4 complete, Task 2.5 Phase 1 FP-01/FP-02 fixed
+**Branch:** main (sync with remote)
+**Latest Commits:** 5a54b7c (push success), 3547245 (fix: test assertions), 3e8c01e (docs: story structure)
+**Status:** ✅ **TASK 2.5 PHASES 2-3 100% DELIVERED** — All gates LIVE, 68/68 tests PASS, push SUCCESS
 
 ---
 
@@ -27,9 +27,23 @@
 **Root Cause Fixed:** unknown.json generation eliminated via story-registry.yaml + resolver  
 **Impact:** FP-03 resolved, governance infrastructure established, metrics accuracy restored
 
-### Status: Ready for @devops commit + push
+### Status: ✅ DELIVERED TO MAIN
 
-All changes staged. Pre-commit hooks blocking unrelated story structure issues (1.19, 5.1 need File List/Change Log). Next session: @devops fixes and pushes.
+**@devops Operations (This Session):**
+- ✅ Fixed story structure issues (1.19, 2.0-SYN1, 5.1 File List + Change Log)
+- ✅ Corrected test assertions (enforcement.test.js, handoff-consolidation.test.js)
+- ✅ Enhanced consolidate-handoffs.js with return values
+- ✅ All 68 tests PASS (npm test)
+- ✅ Quality gates PASS (TypeScript, lint, tests)
+- ✅ **Commits:** 3e8c01e (story structure) → 3547245 (test fixes) → 5a54b7c (rebase+push success)
+- ✅ Remote main sync complete
+
+**Constitution Enforcement LIVE:**
+- Art. II (Agent Authority) — BLOCK @non-devops git push
+- Art. III (Story-Driven) — BLOCK commit without story ID
+- Art. IV (No Invention) — BLOCK spec without requirement
+- Art. V (Quality First) — BLOCK merge on test fail
+- Art. VI-VII (Framework Boundary) — BLOCK Write/Edit L1/L2
 
 ---
 
@@ -4307,3 +4321,23 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/data/story-registry.yaml, .aiox/amendments/CONST-v1.0.0-to-v1.1.0-PROPOSAL.md, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/handoffs/handoff-1780874027575-2.0-SYN1.json, .aiox/handoffs/handoff-1780874123590-2.0-SYN1.json
+
+## Checkpoint: 5a54b7c — 2026-06-09 09:32
+**Branch:** main
+**Commit:** fix: correct test assertions and handoff consolidation logic [Story 5.2 Task 2.5]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 5a54b7c — 2026-06-09 09:33
+**Branch:** main
+**Commit:** fix: correct test assertions and handoff consolidation logic [Story 5.2 Task 2.5]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5a54b7c — 2026-06-09 09:33
+**Branch:** main
+**Commit:** fix: correct test assertions and handoff consolidation logic [Story 5.2 Task 2.5]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5a54b7c — 2026-06-09 09:34
+**Branch:** main
+**Commit:** fix: correct test assertions and handoff consolidation logic [Story 5.2 Task 2.5]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
