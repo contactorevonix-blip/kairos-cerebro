@@ -144,16 +144,19 @@ test('AC3: research citation counts as traceable', () => {
   assert.strictEqual(noInvention.findInventions(content).length, 0);
 });
 
-test('AC3: default mode warns (exit 0), strict mode blocks (exit 2)', () => {
-  const payload = {
+test('AC3: permissive mode warns (exit 0), default mode blocks (exit 2)', () => {
+  const inventionPayload = {
     tool_input: { file_path: 'docs/x-spec.md', content: 'It MUST do magic.' },
   };
-  const warn = runHook('enforce-no-invention.cjs', payload);
-  assert.notStrictEqual(warn.code, 2);
+  // Default mode: BLOCK on invention
+  const blocked = runHook('enforce-no-invention.cjs', inventionPayload);
+  assert.strictEqual(blocked.code, 2);
+  assert.match(blocked.stdout, /Article IV/);
 
-  const strict = runHook('enforce-no-invention.cjs', payload, { AIOX_NO_INVENTION_STRICT: '1' });
-  assert.strictEqual(strict.code, 2);
-  assert.match(strict.stdout, /Article IV/);
+  // Permissive mode: WARN on invention
+  const warned = runHook('enforce-no-invention.cjs', inventionPayload, { AIOX_NO_INVENTION_PERMISSIVE: '1' });
+  assert.strictEqual(warned.code, 0);
+  assert.match(warned.stderr, /Art\. IV \(No Invention\)/);
 });
 
 // ---------------------------------------------------------------------------
