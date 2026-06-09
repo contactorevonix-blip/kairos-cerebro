@@ -15,7 +15,7 @@ metrics, and writes a decision log.
 |---------|------|------|-------------------|----------|
 | II — Agent Authority | Block remote git/PR from non-@devops | `.claude/hooks/enforce-agent-authority.cjs` | `Bash(*git push*)` | BLOCK |
 | III — Story-Driven | Block code commit without an active story | `.claude/hooks/enforce-story-driven.cjs` | `Bash(git commit*)` | BLOCK |
-| IV — No Invention | Flag spec statements without requirement traceability | `.claude/hooks/enforce-no-invention.cjs` | `Write` / `Edit` (`*spec.md`) | WARN (BLOCK if strict) |
+| IV — No Invention | Block spec statements without requirement traceability | `.claude/hooks/enforce-no-invention.cjs` | `Write` / `Edit` (`*spec.md`) | BLOCK |
 | V — Quality First | Block merge when quality gate failed | `.claude/hooks/enforce-quality-gates.cjs` | `Bash(git merge*)` | BLOCK |
 | VI-VII — Framework Boundary | Block Write/Edit to L1/L2 paths | `.claude/hooks/enforce-quality-gates.cjs` | `Write` / `Edit` | BLOCK |
 
@@ -37,7 +37,7 @@ A blocked gate is the default; an override is a deliberate, recorded exception.
 | `--skip-devops-check` | in the `git push` command | non-@devops to push | logged as `override` (Art. II) + `overridesUsed++` |
 | `[no-story-req]` | in the commit message | a config-only commit without a story | logged as `override` (Art. III) + `overridesUsed++` |
 | `--force-gate` / `AIOX_FORCE_GATE=1` | in the `git merge` command / env | merge despite failing quality gate | logged as `override` (Art. V) + `overridesUsed++` |
-| `AIOX_NO_INVENTION_STRICT=1` | env | flips Art. IV from WARN to BLOCK | n/a (changes severity, not an override) |
+| `AIOX_NO_INVENTION_PERMISSIVE=1` | env | downgrades Art. IV from BLOCK to WARN (permissive mode) | n/a (changes severity, not an override) |
 
 **Not overridable here:** framework-boundary writes (Art. VI-VII). The
 `settings.json` deny rules are the hard backstop; route legitimate framework
