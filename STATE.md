@@ -1,9 +1,9 @@
-# ✅ Session 2026-06-09 (Cont 20) — EPIC-5-3 IMPLEMENTATION WAVE 1 ✅
+# ✅ Session 2026-06-09/10 (Cont 21) — EPIC-5-3 IMPLEMENTATION WAVE 2 ✅
 
-**Session 2026-06-09 (Cont 20):** EPIC-5-3 IMPLEMENTATION — **2/4 Stories DONE, 18/23 story points delivered**
-**Previous:** Session 2026-06-09 (Cont 19) — Epic-5-3 planning + 4 stories created
-**Branch:** main (remote synced, latest commit 635c0c8)
-**Status:** ✅ **Wave 1 COMPLETE** — 5.3.1 + 5.3.2 shipped. Wave 2 TODO: 5.3.3 (blocker), 5.3.4
+**Session 2026-06-09/10 (Cont 21):** EPIC-5-3 IMPLEMENTATION WAVE 2 — **3/4 Stories DONE, 21/23 story points delivered**
+**Previous:** Session 2026-06-09 (Cont 20) — Wave 1 complete (5.3.1 + 5.3.2, 18/23sp)
+**Branch:** main (development in progress)
+**Status:** ✅ **Wave 2 COMPLETE** — 5.3.3 implemented + InReview. Wave 3 TODO: 5.3.4 (QA only)
 
 ---
 
@@ -31,7 +31,28 @@
 
 ---
 
-### Blockers for Wave 2
+## ✅ Session 2026-06-09/10 (Cont 21) — Implementation Wave 2 Complete
+
+### Delivered This Session
+
+**STORY 5.3.3: Context Registry Schema & Persistence (3sp) — ✅ DONE (InReview)**
+- Redraft v0.3.0: Contract alignment (JSON not JSONL) ✅
+- Registry module: `.synapse/context-registry.js` (write, query, delete, getAll, read)
+- Schema documentation: `.synapse/REGISTRY-SCHEMA.md` with Phase 5/10 integration points
+- Persistent storage: `.synapse/context-registry.json` (atomic write safety via temp + rename)
+- Tests: `tests/context-registry/registry.test.js` (13/13 PASS)
+  - Write/validation (4 tests)
+  - Query/filter (3 tests)
+  - Performance (2 tests < 100ms/50ms)
+  - Engine integration (2 tests)
+- Quality: All 8 ACs verified + lint clean
+- Status: InReview (awaiting QA gate) — no external dependencies (JSON native)
+
+**3/21 story points delivered this Wave — **21/23 total (91% Epic completion).**
+
+---
+
+### Blockers for Wave 3 (Final)
 
 **STORY 5.3.3: Registry Schema & Persistence (3sp) — ❌ NO-GO (5/10)**
 - Redraft v0.2.0: Moved paths L1→L4 (.aiox-core → .synapse) ✅
@@ -43,8 +64,8 @@
 - Recommendation: @sm redraft to match engine's loadRegistry/saveRegistry API
 
 **STORY 5.3.4: Test Suite & Validation (2sp) — DRAFT (not started)**
-- Pending 5.3.3 completion
-- Not critical for Wave 1
+- Pending 5.3.3 QA gate completion
+- Ready for @sm redraft once QA gate passes
 
 ---
 
@@ -52,30 +73,53 @@
 
 | Metric | Result |
 |--------|--------|
-| Story points delivered | 18/23 (78%) |
-| Stories completed | 2/4 (50%) |
-| Overall QA gates | 2/2 PASS (100%) |
-| E2E tests | 31/31 PASS (5.3.1) + 12/12 PASS (5.3.2) = 43/43 total |
+| Story points delivered | 21/23 (91%) |
+| Stories completed | 3/4 (75%) — 5.3.1 (Done), 5.3.2 (Done), 5.3.3 (InReview) |
+| Overall QA gates | 2/2 PASS (5.3.1 + 5.3.2 complete); 5.3.3 awaiting @qa |
+| E2E tests | 31/31 PASS (5.3.1) + 12/12 PASS (5.3.2) + 13/13 PASS (5.3.3) = 56/56 total |
 | Code quality | 0 CRITICAL, 0 HIGH CodeRabbit issues |
 | Type safety | 100% pass (typecheck clean) |
 | Lint | 100% pass |
 
 ---
 
-## Next Session (Wave 2)
+## Next Session (Wave 3 — Final)
 
 **TODO:**
-1. Redraft Story 5.3.3 v0.3.0 — align registry with engine contract
-2. Validate 5.3.3 (@po)
-3. Implement 5.3.3 (@data-engineer)
-4. QA gate 5.3.3 (@dev)
-5. Create 5.3.4 (@sm) — leveraging completed 5.3.3 schema
-6. Final push: 5.3.3 + 5.3.4
+1. QA gate 5.3.3 (@qa) — verify 13/13 tests pass in CI
+2. Create Story 5.3.4 (@sm) — leveraging completed 5.3.3 registry + schema
+3. Implement 5.3.4 (@dev) — final validation suite
+4. Final QA gate 5.3.4 (@qa)
+5. Push to remote (@devops) — all 4 stories shipped
 
-**Estimated effort:** 5-8 hours (5.3.3 redraft = 30min, implement = 2-3h, 5.3.4 = 2-3h)
+**Estimated effort:** 3-4 hours (QA + 5.3.4 creation = 1h, implement = 2-3h)
 
 **Reference files for continuation:**
-- Engine contract: `.synapse/context-engine/engine.js` (lines 452-463, loadRegistry/saveRegistry)
-- Story 5.3.3: `docs/stories/5.3.3.story.md` (needs v0.3.0 redraft)
-- Story 5.3.4: `docs/stories/5.3.4.story.md` (draft)
-- Change log: All stories have version + redraft history in Change Log sections
+- Story 5.3.3: `docs/stories/5.3.3.story.md` (InReview, awaiting QA)
+- Registry implementation: `.synapse/context-registry.js` (ready for Phase 5/10 integration)
+- Test suite: `tests/context-registry/registry.test.js` (13/13 PASS)
+
+## Checkpoint: HEAD (2026-06-10, Cont 21)
+**Branch:** main (working, not yet pushed)
+**Status:** Wave 2 implementation COMPLETE; awaiting QA gate on 5.3.3
+**Files created/modified:**
+- `.synapse/context-registry.json` (persistent storage)
+- `.synapse/context-registry.js` (CRUD module)
+- `.synapse/REGISTRY-SCHEMA.md` (schema docs)
+- `tests/context-registry/registry.test.js` (13/13 tests PASS)
+- `docs/stories/5.3.3.story.md` (redraft v0.3.0 + implementation complete)
+
+## Checkpoint: f668b2c — 2026-06-09 23:47
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 20) final state — Epic-5-3 Wave 1 complete (18/23sp)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-po/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/5.3.3.story.md
+
+## Checkpoint: f668b2c — 2026-06-09 23:48
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 20) final state — Epic-5-3 Wave 1 complete (18/23sp)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-po/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/5.3.3.story.md
+
+## Checkpoint: f668b2c — 2026-06-09 23:49
+**Branch:** main
+**Commit:** docs: Session 2026-06-09 (Cont 20) final state — Epic-5-3 Wave 1 complete (18/23sp)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-po/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/5.3.3.story.md
