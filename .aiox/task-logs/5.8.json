@@ -1,0 +1,42 @@
+{
+  "storyId": "5.8",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-08T21:10:54.103Z",
+  "suggestions": [
+    {
+      "id": "init-project-status",
+      "name": "init-project-status",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/init-project-status.md",
+      "score": 49
+    },
+    {
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "score": 41
+    },
+    {
+      "id": "create-workflow",
+      "name": "TODO: Create workflow-validation-checklist.md for validation (follow-up story needed)",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-workflow.md",
+      "score": 41
+    },
+    {
+      "id": "po-close-story",
+      "name": "PO Task: Close Story",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/po-close-story.md",
+      "score": 41
+    },
+    {
+      "id": "setup-project-docs",
+      "name": "Setup Project Documentation",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/setup-project-docs.md",
+      "score": 41
+    }
+  ]
+}

@@ -1,17 +1,41 @@
-# ✅ Session 2026-06-09 (Cont 15) — STORY 5.2 TASK 2.2 COMPLETE ✅
+# ✅ Session 2026-06-09 (Cont 17) — STORY 5.2 TASK 2.5 PHASES 2-3 COMPLETE ✅
 
-**Session 2026-06-09 (Cont 16):** FRAMEWORK GOVERNANCE — **Task 2.4 + 2.5 Phase 1 IN PROGRESS**
-**Previous:** Session 2026-06-09 (Cont 15) — Task 2.2 complete; Task 2.3 deferred; Task 2.4 started
+**Session 2026-06-09 (Cont 17):** FRAMEWORK GOVERNANCE — **Task 2.5 Phase 2 + 3 100% COMPLETE**
+**Previous:** Session 2026-06-09 (Cont 16) — Task 2.4 complete, Task 2.5 Phase 1 FP-01/FP-02 fixed, FP-03 validation pending
 **Branch:** main
-**Latest Commit:** 13099c2 — docs: implement AMB-002 clarification (enforcement-gates.md)
-**Next Session Actions:** Task 2.5 Phase 1 FP-03 validation + Phases 2-3 completion, then Phase 3
-**Session Status:** ✅ **TASK 2.4 100% COMPLETE** (4 ambiguities clarified) + ✅ **TASK 2.5 Phase 1 PARTIAL** (FP-01/FP-02 verified, FP-03 pending)
+**Latest Commit:** 13099c2 (will update after @devops fixes story structure hooks)
+**Status:** ✅ **TASK 2.5 PHASES 2-3 100% COMPLETE** — Phase 2 (FP-03 fix: story-registry.yaml, resolvers, hooks, SOP, 16/16 tests PASS) + Phase 3 (L2-amendments.md, constitution alignment verified)
+
+---
+
+## ✅ Session 2026-06-09 (Cont 17) — Task 2.5 Phase 2-3 Complete
+
+### What Completed This Session (Cont 17)
+
+**PHASE 2: FP-03 Story Traceability Fix + Governance Infrastructure**
+- ✅ `.aiox-core/data/story-registry.yaml` (L3) — Standard + whitelist resolver
+- ✅ `.claude/hooks/task-auto-suggest.cjs` (modified L4) — Loads registry, resolves storyId
+- ✅ `.claude/hooks/story-naming-validator.cjs` (L4) — PreToolUse validator
+- ✅ `docs/SOP-STORY-NAMING.md` (L4) — Governance rules + validation SOP
+- ✅ `tests/hooks/test-story-traceability.test.js` (L4) — **16/16 PASS** ✅
+- ✅ Quality Gate: **PASS** (lint clean, no regressions, Art. III/IV/V compliant)
+
+**PHASE 3: L2 Amendments Proposal**
+- ✅ `docs/L2-AMENDMENTS.md` — Orphan story wiring (INDEX, WORKSPACE-CLEANUP)
+- ✅ Constitution alignment verified — All 7 articles respected, no amendments needed
+
+**Root Cause Fixed:** unknown.json generation eliminated via story-registry.yaml + resolver  
+**Impact:** FP-03 resolved, governance infrastructure established, metrics accuracy restored
+
+### Status: Ready for @devops commit + push
+
+All changes staged. Pre-commit hooks blocking unrelated story structure issues (1.19, 5.1 need File List/Change Log). Next session: @devops fixes and pushes.
 
 ---
 
 ## ✅ Session 2026-06-09 (Cont 16) — Task 2.4 Complete + Task 2.5 Phase 1 Progress
 
-### What Completed This Session
+### What Completed This Session (Cont 16)
 
 1. **TASK 2.4: CLARIFY AMBIGUITIES** ✅ COMPLETE
    - ✅ All 4 ambiguities documented: AMB-001 (Art. II gate field), AMB-002 (Art. IV severity), AMB-003 (Framework boundary flag), AMB-004 (Absolute imports exception)
@@ -4213,3 +4237,73 @@ Morgan (@pm) refinement phase:
 **Branch:** main
 **Commit:** docs: implement AMB-002 clarification — Art. IV BLOCK-by-default in enforcement-gates.md [Story 5.2 Task 2.4]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:11
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:12
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:13
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:14
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:15
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:16
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:16
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:19
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:19
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:20
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:21
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.20.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/reference-remote-repo.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:23
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/data/story-registry.yaml, .aiox/amendments/CONST-v1.0.0-to-v1.1.0-PROPOSAL.md, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/handoffs/handoff-1780874027575-2.0-SYN1.json, .aiox/handoffs/handoff-1780874123590-2.0-SYN1.json
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:26
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/data/story-registry.yaml, .aiox/amendments/CONST-v1.0.0-to-v1.1.0-PROPOSAL.md, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/handoffs/handoff-1780874027575-2.0-SYN1.json, .aiox/handoffs/handoff-1780874123590-2.0-SYN1.json
+
+## Checkpoint: 3a53f7d — 2026-06-09 09:27
+**Branch:** main
+**Commit:** docs: session 2026-06-09 (Cont 16) — Task 2.4 COMPLETE + Task 2.5 Phase 1 progress [Story 5.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/data/story-registry.yaml, .aiox/amendments/CONST-v1.0.0-to-v1.1.0-PROPOSAL.md, .aiox/gate-logs/art-ii-agent-authority-2026-06-09.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-09.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-09.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-09.jsonl, .aiox/handoffs/handoff-1780874027575-2.0-SYN1.json, .aiox/handoffs/handoff-1780874123590-2.0-SYN1.json

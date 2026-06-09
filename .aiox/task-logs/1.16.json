@@ -1,0 +1,42 @@
+{
+  "storyId": "1.16",
+  "storyType": "refactor",
+  "suggestedAt": "2026-06-08T19:26:37.919Z",
+  "suggestions": [
+    {
+      "id": "build-status",
+      "name": "Task: Build Status",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/build-status.md",
+      "score": 63
+    },
+    {
+      "id": "cleanup-worktrees",
+      "name": "cleanup-worktrees",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "score": 55
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "db",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 45
+    },
+    {
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 44
+    },
+    {
+      "id": "create-agent",
+      "name": "Task: Create Squad Agent",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-agent.md",
+      "score": 36
+    }
+  ]
+}

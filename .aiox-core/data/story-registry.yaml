@@ -1,0 +1,48 @@
+# Story Registry — Single Source of Truth for Story Identity Resolution
+# Used by task-auto-suggest.cjs, story-lifecycle hooks, and rastreability system
+# Location: .aiox-core/data/ (L3 — mutable)
+#
+# Patterns:
+#   - Standard: /(\d+\.\d+)/ matched in filename → e.g., 5.2-script-lifecycle-testing.md
+#   - Whitelist: Named entries for special stories (INDEX, WORKSPACE-CLEANUP, etc.)
+
+patterns:
+  standard:
+    regex: '(\d+\.\d+)'
+    format: 'EPIC.STORY-{name}.md'
+    example: '5.2-script-lifecycle-testing.md'
+    description: 'Standard story naming pattern with numeric ID'
+
+  whitelist:
+    - id: 'INDEX'
+      path: 'docs/stories/INDEX.md'
+      type: 'meta'
+      resolveAs: 'INDEX'
+      description: 'Story catalogue and index'
+
+    - id: 'WORKSPACE-CLEANUP'
+      path: 'docs/stories/WORKSPACE-CLEANUP.story.md'
+      type: 'meta'
+      resolveAs: 'WORKSPACE-CLEANUP'
+      description: 'Maintenance and workspace cleanup'
+
+# Resolver algorithm (implemented in task-auto-suggest.cjs)
+resolution:
+  algorithm: |
+    function resolveStoryId(filePath, registry) {
+      // 1. Standard pattern — check regex match
+      const match = filePath.match(registry.patterns.standard.regex);
+      if (match) return match[1];
+
+      // 2. Whitelist — check path match
+      const whitelisted = registry.patterns.whitelist.find(w => {
+        return filePath.includes(w.path);
+      });
+      if (whitelisted) return whitelisted.resolveAs;
+
+      // 3. Fallback — triggers investigation alert
+      return 'unknown';
+    }
+
+  priority: ['standard', 'whitelist', 'fallback']
+  fallback_behavior: 'unknown (triggers alert hook for investigation)'

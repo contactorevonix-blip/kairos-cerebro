@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-01T17:41:57.539Z'
+  lastUpdated: '2026-06-08T23:44:48.883Z'
   entityCount: 822
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -14178,8 +14178,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a5262f2f58155917a118abc5a0a7da4e78004a20b483e2ef54d750b37fdddbc4
-      lastVerified: '2026-06-01T17:41:57.520Z'
+      checksum: sha256:dcf3f5b9e2d2e438f60f6ee20336e1cae2876a6a7ec449dc578dbf5cfe25b611
+      lastVerified: '2026-06-08T23:44:48.874Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md

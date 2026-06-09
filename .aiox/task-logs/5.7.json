@@ -1,0 +1,42 @@
+{
+  "storyId": "5.7",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-08T21:10:53.703Z",
+  "suggestions": [
+    {
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "score": 41
+    },
+    {
+      "id": "create-workflow",
+      "name": "TODO: Create workflow-validation-checklist.md for validation (follow-up story needed)",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-workflow.md",
+      "score": 41
+    },
+    {
+      "id": "execute-epic-plan",
+      "name": "Execute Epic Plan Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/execute-epic-plan.md",
+      "score": 41
+    },
+    {
+      "id": "qa-create-fix-request",
+      "name": "Create Fix Request Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
+      "score": 41
+    },
+    {
+      "id": "update-aiox",
+      "name": "Task: Update AIOX Framework",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/update-aiox.md",
+      "score": 41
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 ## Index
 - [EPIC-2 Expert Cloning](project_epic2-expert-cloning.md) — CONCERNS verdict (2026-06-05), 3 refinos pendentes (AC vagos, sizing 2.1, path squad) antes de Ready
+- [EPIC AIOX-OPS](project_epic-aiox-ops.md) — Stories 5.1-5.8 validated 2026-06-08: 7 GO, 1 NO-GO (5.4 invalid premise — hook already exists). 5.4 anti-pattern + path facts inside.
 
 ## IDS Epic Backlog Analysis (2026-02-09)
 - IDS-1/2/3: Done. Foundation solid (474 entities, RegistryLoader, DecisionEngine, RegistryUpdater all implemented).

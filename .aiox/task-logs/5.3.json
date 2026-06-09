@@ -1,0 +1,42 @@
+{
+  "storyId": "5.3",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-08T21:10:48.033Z",
+  "suggestions": [
+    {
+      "id": "extract-patterns",
+      "name": "Extract Patterns",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/extract-patterns.md",
+      "score": 55
+    },
+    {
+      "id": "ids-governor",
+      "name": "Task: IDS Governor Commands",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/ids-governor.md",
+      "score": 55
+    },
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "db",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 49
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "db",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 49
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "db",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 49
+    }
+  ]
+}

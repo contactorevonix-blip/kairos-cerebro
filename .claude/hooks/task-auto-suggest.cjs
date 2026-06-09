@@ -20,6 +20,33 @@ const path = require('path');
 const PROJECT_ROOT = process.cwd();
 const ENGINE = path.join(PROJECT_ROOT, '.aiox', 'task-discovery.js');
 const LOG_DIR = path.join(PROJECT_ROOT, '.aiox', 'task-logs');
+const REGISTRY_PATH = path.join(PROJECT_ROOT, '.aiox-core', 'data', 'story-registry.yaml');
+
+function loadRegistry() {
+  try {
+    const yaml = require('yaml');
+    const content = fs.readFileSync(REGISTRY_PATH, 'utf8');
+    return yaml.parse(content);
+  } catch {
+    return null;
+  }
+}
+
+function resolveStoryId(filePath, registry) {
+  if (!registry) {
+    const match = filePath.match(/(\d+\.\d+)/);
+    return match ? match[1] : 'unknown';
+  }
+
+  const standardRegex = registry.patterns.standard.regex;
+  const match = filePath.match(new RegExp(standardRegex));
+  if (match) return match[1];
+
+  const whitelisted = registry.patterns.whitelist.find(w => filePath.includes(w.path));
+  if (whitelisted) return whitelisted.resolveAs;
+
+  return 'unknown';
+}
 
 let raw = '';
 process.stdin.setEncoding('utf8');
@@ -36,8 +63,8 @@ process.stdin.on('end', () => {
       return process.exit(0);
     }
 
-    const storyMatch = normalized.match(/(\d+\.\d+)/);
-    const storyId = storyMatch ? storyMatch[1] : 'unknown';
+    const registry = loadRegistry();
+    const storyId = resolveStoryId(normalized, registry);
 
     // Load story text for type detection (best-effort).
     let storyText = path.basename(normalized, '.md');

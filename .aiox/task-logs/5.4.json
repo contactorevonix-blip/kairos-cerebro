@@ -1,0 +1,42 @@
+{
+  "storyId": "5.4",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-08T21:25:56.089Z",
+  "suggestions": [
+    {
+      "id": "analyze-cross-artifact",
+      "name": "Cross-Artifact Analysis Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/analyze-cross-artifact.md",
+      "score": 41
+    },
+    {
+      "id": "create-agent",
+      "name": "Task: Create Squad Agent",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-agent.md",
+      "score": 41
+    },
+    {
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "score": 41
+    },
+    {
+      "id": "generate-shock-report",
+      "name": "Generate Visual Shock Report",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/generate-shock-report.md",
+      "score": 41
+    },
+    {
+      "id": "run-design-system-pipeline",
+      "name": "Run Design System Pipeline",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
+      "score": 41
+    }
+  ]
+}

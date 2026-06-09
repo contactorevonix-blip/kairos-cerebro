@@ -1,0 +1,79 @@
+schema: 1
+story: '5.2'
+gate: CONCERNS
+status_reason: 'All 11 ACs empirically verified complete (lint exit 0, build script present, 3 data fixes applied, 8/8 routing tests, 15 gate blocks active). Residuals are boundary-deferred or out-of-scope, not unfixed defects.'
+reviewer: 'Quinn'
+updated: '2026-06-09T00:00:00Z'
+
+ac_verification:
+  - ac: 'AC1 — baseline-audit.json'
+    verdict: PASS
+    evidence: 'File present (9498 bytes), gaps + orphans mapped.'
+  - ac: 'AC2 — constitution-violations.json'
+    verdict: PASS
+    evidence: 'File present (13172 bytes), violations per article + 4 ambiguities.'
+  - ac: 'AC3 — failure-patterns.json'
+    verdict: PASS
+    evidence: 'File present (11076 bytes), FP-01/FP-02 root-caused.'
+  - ac: 'AC4 — data-integrity-report.json'
+    verdict: PASS
+    evidence: 'File present (2155 bytes), DR-001/002/003 identified.'
+  - ac: 'AC5 — SYNC-FINDINGS.md'
+    verdict: PASS
+    evidence: 'File present (21175 bytes), synthesis + remediation plan.'
+  - ac: 'AC6 — Remediate violations'
+    verdict: PASS
+    evidence: 'Independently re-verified: npm run lint exits 0 (real ESLint, no echo-stub); build script present (typecheck + kairos:web:build); frameworkProtection=true in core-config.yaml; commits 525f7f4/687db4a/e16e1de/585acdb exist. 5 violations resolved, V-DRIFT-004 correctly deferred (L1).'
+  - ac: 'AC7 — Fix data'
+    verdict: PASS
+    evidence: 'Independently re-verified in actual files: @business-chief absent from smart-routing.md; capture-session-insights absent from aiox-dev.md; .mcp.json absent from tool-response-filtering.md frontmatter. Commits ac3ead3/d7dc5b5/01a2f2a exist.'
+  - ac: 'AC8 — AMBIGUITIES-CLARIFIED.md'
+    verdict: PASS
+    evidence: 'File present (12842 bytes), 4 ambiguities (AMB-001..004) resolved, no gate weakened.'
+  - ac: 'AC9 — PROCESS-IMPROVEMENTS.md'
+    verdict: PASS
+    evidence: 'File present (17949 bytes), 9 improvements designed (propose-only, 6.25h).'
+  - ac: 'AC10 — SYNC-VALIDATION-FINAL.json'
+    verdict: PASS
+    evidence: 'File present (8133 bytes), before/after metrics, empirical re-validation methodology.'
+  - ac: 'AC11 — SYNC-COMPLETE-REPORT.md'
+    verdict: PASS
+    evidence: 'File present (16106 bytes), executive report PRODUCTION_READY_WITH_ROADMAP.'
+
+independent_verification:
+  method: 'No report trusted on its word. Re-ran sources of truth.'
+  checks:
+    - 'npm run lint => exit 0 (real ESLint over .claude/hooks, .aiox/task-discovery.js, tests/hooks)'
+    - 'package.json scripts.build = "npm run typecheck && npm run kairos:web:build" present'
+    - 'core-config.yaml boundary.frameworkProtection = true'
+    - 'constitution.md (L1) UNTOUCHED — no Art VII / Art IV-A, last modified in initial commit, clean working tree'
+    - '3 data fixes confirmed applied to actual L3/L4 files; DR-001 L2 residual correctly remains (deferred)'
+    - 'tests/hooks/task-discovery-routing.test.js => 8 pass / 0 fail'
+    - 'all 11 output files present and non-empty'
+    - 'all 7 claimed commits exist in git history'
+
+metrics_before_after:
+  constitution: { before: 62, after: 92, target: 95 }
+  data_integrity: { before: 94, after: 97, target: 98 }
+  structure: { before: 83, after: 83, target: 90 }
+  gate_blocks_active: 15
+
+top_issues:
+  - id: 'ARCH-001'
+    severity: medium
+    finding: 'V-DRIFT-004 — constitution.md still v1.0.0 without Art. VII / Art. IV-A (both enforced by hooks but undefined in the doc). Correctly NOT force-fixed (L1, NEVER modify).'
+    suggested_action: 'Route via @aiox-master *propose-modification (bump 1.0.0 -> 1.1.0, triple-sign).'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'Structure consistency 83 < 90 target — 3 MEDIUM + 5 LOW orphan (registered-but-unwired) checklists/templates. Out of scope for governance sync.'
+    suggested_action: 'Open a dedicated structure-cleanup story to wire or deregister.'
+  - id: 'TEST-001'
+    severity: low
+    finding: 'V-ART5-005 — npm test does not invoke tests/hooks/* locally (CI-covered).'
+    suggested_action: 'Add `node --test tests/hooks/*.test.js` to local test command.'
+  - id: 'REL-001'
+    severity: low
+    finding: 'Story lifecycle deviation: story Status was still Draft at gate time — skipped Ready/InProgress/InReview. Work is verified complete, so gate applied, but the SDC status chain was not maintained by @sm/@po/@dev.'
+    suggested_action: 'For future stories enforce Draft->Ready (@po) and Ready->InProgress->InReview (@dev) transitions before QA gate.'
+
+waiver: { active: false }

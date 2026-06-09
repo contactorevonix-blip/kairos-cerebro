@@ -1,0 +1,42 @@
+{
+  "storyId": "5.5",
+  "storyType": "config",
+  "suggestedAt": "2026-06-08T21:10:49.057Z",
+  "suggestions": [
+    {
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 63
+    },
+    {
+      "id": "remove-mcp",
+      "name": "remove-mcp",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/remove-mcp.md",
+      "score": 55
+    },
+    {
+      "id": "yolo-toggle",
+      "name": "yolo-toggle",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/yolo-toggle.md",
+      "score": 55
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 41
+    },
+    {
+      "id": "check-docs-links",
+      "name": "check-docs-links",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/check-docs-links.md",
+      "score": 33
+    }
+  ]
+}
