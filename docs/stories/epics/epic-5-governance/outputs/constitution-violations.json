@@ -1,0 +1,149 @@
+{
+  "$schema": "constitution-violations/v1",
+  "task": "1.2 — Constitution Validation",
+  "story": "5.2 — Framework Sync & Remediation Complete (epic-5-governance)",
+  "agent": "@qa (Quinn)",
+  "generated_at": "2026-06-08",
+  "constitution_version": "1.0.0",
+  "constitution_path": ".aiox-core/constitution.md",
+  "scope": {
+    "articles_evaluated": ["I", "II", "III", "IV", "V", "VI", "VI-VII (boundary)"],
+    "method": "Empirical — gate hooks inspected, gate-logs read, package.json/settings.json/core-config.yaml validated, rules cross-referenced",
+    "evidence_sources": [
+      ".aiox-core/constitution.md",
+      ".claude/hooks/enforce-*.cjs",
+      ".aiox/gate-logs/*.jsonl",
+      "package.json",
+      ".claude/settings.json",
+      ".aiox-core/core-config.yaml",
+      ".claude/rules/enforcement-gates.md",
+      ".claude/rules/ids-principles.md"
+    ]
+  },
+  "violations": [
+    {
+      "id": "V-ART5-001",
+      "article": "V",
+      "article_name": "Quality First",
+      "severity": "HIGH",
+      "violation_type": "quality_gate_disabled",
+      "location": "package.json:17",
+      "rule_violated": "MUST: `npm run lint` passa sem erros",
+      "evidence": "scripts.lint = 'echo \"lint disabled — zero-dep JS core, see ADR-001\" && exit 0'. O comando de lint nunca executa análise real — sempre retorna exit 0. Um gate que nunca corre não pode garantir 'passa sem erros'.",
+      "mitigating_context": "Justificado por ADR-001 (zero-dep JS core). Existe eslint nas devDependencies mas o script não o invoca. Decisão deliberada, não acidental.",
+      "recommendation": "Re-activar lint apontando para eslint com config zero-dep adequada, OU emendar a Constituição (Art. V) para reconhecer ADR-001 como excepção formal ao gate de lint. A discrepância actual entre 'MUST lint' e 'lint exit 0' é uma violação não documentada na Constituição."
+    },
+    {
+      "id": "V-ART5-002",
+      "article": "V",
+      "article_name": "Quality First",
+      "severity": "HIGH",
+      "violation_type": "quality_gate_missing",
+      "location": "package.json (scripts.build ausente)",
+      "rule_violated": "MUST: `npm run build` completa com sucesso",
+      "evidence": "Não existe script 'build' em package.json. `npm run build` falharia com 'Missing script: build'. O gate de Art. V em `pre-push.md` exige que build complete com sucesso, mas o comando não está definido.",
+      "mitigating_context": "Projecto é zero-dep JS core (sem step de bundling/transpile obrigatório para o backend Node.js). 'build' pode ser legitimamente N/A para parte do monorepo, mas há packages/web (Vercel frontend) que provavelmente exige build.",
+      "recommendation": "Definir `scripts.build` (mesmo que delegue a `kairos:web:build` ou seja um no-op explícito documentado), OU emendar Art. V para tornar o gate de build condicional à existência de targets buildable. Estado actual: gate inverificável."
+    },
+    {
+      "id": "V-ART67-003",
+      "article": "VI-VII",
+      "article_name": "Framework Boundary",
+      "severity": "MEDIUM",
+      "violation_type": "config_enforcement_inconsistency",
+      "location": ".aiox-core/core-config.yaml:369",
+      "rule_violated": "L1/L2 são read-only (protecção de framework boundary)",
+      "evidence": "core-config.yaml define `boundary.frameworkProtection: false`. A flag primária de protecção está DESLIGADA. No entanto, .claude/settings.json contém 97 deny rules activas cobrindo todos os paths L1/L2 (.aiox-core/core/**, development/tasks|templates|checklists|workflows/**, infrastructure/**, constitution.md, bin/aiox*.js), e o hook enforce-quality-gates.cjs bloqueia escritas a esses paths (confirmado em gate-log art-v-vii: BLOCK em .aiox-core/core/synapse/engine.js).",
+      "mitigating_context": "Defence-in-depth: settings.json deny rules + hook são a backstop real e ESTÃO activas. A protecção efectiva existe. O problema é a INCONSISTÊNCIA entre a flag de config (false) e o comportamento real (protegido).",
+      "recommendation": "Alinhar core-config.yaml `frameworkProtection: true` para coerência com as deny rules activas, OU documentar explicitamente que a flag controla apenas um subsistema e que settings.json é a fonte de verdade. Estado actual confunde futuros leitores sobre se L1/L2 estão ou não protegidos."
+    },
+    {
+      "id": "V-DRIFT-004",
+      "article": "VI-VII / IV-A",
+      "article_name": "Constitution Version Drift",
+      "severity": "MEDIUM",
+      "violation_type": "phantom_article_reference",
+      "location": ".claude/rules/enforcement-gates.md, .claude/rules/ids-principles.md",
+      "rule_violated": "Coerência interna da Constituição (Governance — Versioning)",
+      "evidence": "constitution.md v1.0.0 define apenas os Artigos I-VI. Porém: (a) enforcement-gates.md referencia 'Article VII' e 'Art. VI-VII' repetidamente; (b) ids-principles.md referencia 'Article IV-A: Incremental Development (Constitution Amendment)'. Estes artigos (VII, IV-A) NÃO existem no documento constitucional formal. As rules tratam-nos como vinculativos.",
+      "mitigating_context": "Os princípios subjacentes (framework boundary, incremental development) são sãos e implementados. O problema é puramente de versioning: amendments foram implementados em rules/hooks mas nunca propagados ao constitution.md (que continua v1.0.0 / Last Amended 2025-01-30).",
+      "recommendation": "Emendar constitution.md para incluir formalmente Art. VII (Framework Boundary) e Art. IV-A (Incremental Development), bump de versão para >=1.1.0 (MINOR — novos princípios), e actualizar 'Last Amended'. Sem isto, gates aplicam regras que a Constituição formal não cobre — risco de invalidação em disputa de autoridade."
+    },
+    {
+      "id": "V-ART5-005",
+      "article": "V",
+      "article_name": "Quality First",
+      "severity": "LOW",
+      "violation_type": "narrow_test_scope",
+      "location": "package.json:13",
+      "rule_violated": "MUST: `npm test` passa sem falhas (cobertura não diminui — SHOULD)",
+      "evidence": "scripts.test = 'node --test packages/sniper-api/*.test.js && npm run test:ws'. O comando de teste cobre apenas packages/sniper-api e websocket. Não inclui tests/hooks/ (enforcement.test.js, handoff-consolidation.test.js) que são referenciados nas rules como suite de qualidade dos gates constitucionais.",
+      "mitigating_context": "tests/hooks/ é coberto por CI (test.yml) segundo a Story 5.2 (AIOX-OPS) Dev Notes. O comando local `npm test` apenas não os invoca.",
+      "recommendation": "Adicionar tests/hooks/ ao comando `npm test` (ex: `node --test tests/hooks/*.test.js`) para que a validação local cubra os gates constitucionais, não apenas a API."
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "AMB-001",
+      "rule_file": ".aiox-core/constitution.md",
+      "article": "II",
+      "passage": "Gate: Implementado via definição de agentes (não requer gate adicional)",
+      "ambiguity_description": "Art. II declara que NÃO requer gate adicional ('implementado via definição de agentes'). Contradição com a realidade: existem DOIS hooks dedicados a aplicar Art. II (enforce-agent-authority.cjs + enforce-git-push-authority.cjs como defence-in-depth). A Constituição subestima o mecanismo de enforcement real. Ambíguo se a 'definição de agentes' é suficiente ou se os hooks são o backstop autoritativo.",
+      "recommendation": "Actualizar o campo Gate do Art. II para referenciar os hooks reais (enforce-agent-authority.cjs) como gate de enforcement, alinhando com enforcement-gates.md."
+    },
+    {
+      "id": "AMB-002",
+      "rule_file": ".claude/rules/enforcement-gates.md",
+      "article": "IV",
+      "passage": "IV — No Invention | WARN (BLOCK if strict) ... AIOX_NO_INVENTION_STRICT=1 flips Art. IV from WARN to BLOCK",
+      "ambiguity_description": "enforcement-gates.md descreve Art. IV como WARN por defeito (BLOCK só em strict mode). Porém, o commit f458793 ('fix: enforce-no-invention — BLOCK by default, not WARN') e os gate-logs (art-iv) mostram decisão 'block' a ser emitida por defeito. A documentação da rule está desactualizada relativamente ao comportamento real do hook. Ambíguo qual é a severidade canónica de Art. IV.",
+      "recommendation": "Actualizar enforcement-gates.md (tabela Gate Inventory + secção Override) para reflectir BLOCK-by-default, consistente com o commit f458793 e o comportamento observado nos gate-logs."
+    },
+    {
+      "id": "AMB-003",
+      "rule_file": ".aiox-core/core-config.yaml",
+      "article": "VI-VII",
+      "passage": "boundary.frameworkProtection: false",
+      "ambiguity_description": "A flag `frameworkProtection: false` sugere que a protecção de boundary está desligada, mas o sistema bloqueia escritas a L1/L2 na mesma (via settings.json deny rules + hook). Um leitor não consegue determinar, só da config, se L1/L2 estão protegidos. O comentário no CLAUDE.md diz 'default: true para projectos, false para contribuidores do framework' — não está claro qual é o caso de KAIROS_CEREBRO.",
+      "recommendation": "Resolver via AMB/V-ART67-003: definir frameworkProtection consistente com a intenção (projecto = true) e documentar a relação entre esta flag e as deny rules de settings.json."
+    },
+    {
+      "id": "AMB-004",
+      "rule_file": ".aiox-core/constitution.md",
+      "article": "VI",
+      "passage": "VI. Absolute Imports — EXCEPTION: Imports dentro do mesmo módulo/feature podem ser relativos",
+      "ambiguity_description": "A excepção de Art. VI ('mesmo módulo/feature podem ser relativos') não define o limite de 'mesmo módulo'. Sem fronteira clara (ex: mesmo directório? mesmo package? mesma feature folder?), a regra é interpretável de várias formas, tornando o gate ESLint inconsistente entre revisores.",
+      "recommendation": "Definir operacionalmente 'mesmo módulo' (ex: 'ficheiros no mesmo directório ou subdirectório directo da feature') na Constituição ou numa rule dedicada, para que o gate ESLint seja determinístico."
+    }
+  ],
+  "article_compliance": {
+    "I": { "status": "COMPLIANT", "severity": "none", "note": "CLI é fonte da verdade (bin/kairos.js). Sem UI a controlar lógica detectada. Sem violação." },
+    "II": { "status": "COMPLIANT_WITH_NOTE", "severity": "info", "note": "Gates enforce-agent-authority.cjs + enforce-git-push-authority.cjs activos. gate-logs confirmam block(dev)/allow(devops)/override(--skip-devops-check). Overrides audit-logged e legítimos. Ver AMB-001." },
+    "III": { "status": "COMPLIANT", "severity": "info", "note": "enforce-story-driven.cjs activo. gate-logs mostram override [no-story-req] para config-only commits — uso legítimo conforme design." },
+    "IV": { "status": "COMPLIANT", "severity": "info", "note": "enforce-no-invention.cjs activo, BLOCK-by-default desde commit f458793. gate-logs confirmam block. Doc da rule desactualizada (AMB-002) mas comportamento correcto." },
+    "V": { "status": "VIOLATED", "severity": "HIGH", "note": "2 violações HIGH (lint desactivado V-ART5-001, build ausente V-ART5-002) + 1 LOW (escopo de test V-ART5-005). typecheck OK. Gate Art. V parcialmente inverificável." },
+    "VI": { "status": "NOT_FULLY_VERIFIED", "severity": "low", "note": "SHOULD (não-bloqueante). Sem scan de imports relativos efectuado neste task. Ambiguidade na excepção (AMB-004)." },
+    "VI-VII": { "status": "PROTECTED_WITH_INCONSISTENCY", "severity": "MEDIUM", "note": "97 deny rules activas em settings.json + hook bloqueiam L1/L2 (confirmado em gate-log). MAS core-config frameworkProtection:false (V-ART67-003) e drift de versão constitucional Art.VII/IV-A inexistentes (V-DRIFT-004)." }
+  },
+  "summary": {
+    "total_violations": 5,
+    "by_severity": { "CRITICAL": 0, "HIGH": 2, "MEDIUM": 2, "LOW": 1 },
+    "total_ambiguities": 4,
+    "articles_compliant": ["I", "II", "III", "IV"],
+    "articles_violated": ["V"],
+    "articles_with_inconsistency": ["VI-VII"],
+    "articles_not_fully_verified": ["VI"]
+  },
+  "compliance_score": 62,
+  "compliance_score_rationale": "Base 100. Sem violações CRITICAL (gates de enforcement todos activos e funcionais — confirmado por gate-logs reais). Deduções: 2× HIGH Art.V (lint disabled + build missing) = -24; 2× MEDIUM (boundary config inconsistency + constitution version drift) = -12; 1× LOW (narrow test scope) = -2. Total = 100 - 24 - 12 - 2 = 62. Score reflecte um framework com enforcement estrutural sólido (Art. I-IV) mas com gates de qualidade Art. V não-operacionais e drift de versionamento constitucional não-propagado.",
+  "verdict": "NEEDS_WORK",
+  "blocking_for_phase2": false,
+  "priority_remediation_order": [
+    "V-DRIFT-004 (emendar Constituição p/ Art.VII + IV-A, bump versão) — desbloqueia coerência de todos os gates de boundary",
+    "V-ART5-001 (re-activar ou formalizar excepção de lint)",
+    "V-ART5-002 (definir build script ou tornar gate condicional)",
+    "V-ART67-003 (alinhar frameworkProtection flag)",
+    "AMB-002 (sincronizar doc de Art. IV com BLOCK-by-default)",
+    "V-ART5-005 + AMB-001/003/004 (limpeza)"
+  ]
+}

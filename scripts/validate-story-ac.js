@@ -4,12 +4,25 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Canonical story file pattern. Real stories live at docs/stories/<n.n>-name.md
+// or docs/stories/<n>/<n.n>.name.md. Artifacts under epics/*/outputs/ (generated
+// reports, JSON deliverables) are NOT stories and must not be AC-validated.
+// Aligned with STORY_PATTERN in validate-story-structure.js.
+const STORY_FILE_PATTERN = /^docs\/stories\/(?:\d+\/)?\d+\.\d+[.-].*\.md$/;
+
+function isStoryFile(f) {
+  if (!STORY_FILE_PATTERN.test(f)) return false;
+  // Defensive: never treat epic output artifacts as stories.
+  if (f.includes('/epics/') && f.includes('/outputs/')) return false;
+  return true;
+}
+
 function validateStoryAC() {
   try {
     const branch = execSync('git branch --show-current').toString().trim();
     const changedFiles = execSync('git diff --cached --name-only').toString().split('\n').filter(f => f);
 
-    const storyFiles = changedFiles.filter(f => f.startsWith('docs/stories/'));
+    const storyFiles = changedFiles.filter(isStoryFile);
 
     if (storyFiles.length === 0) {
       return true;

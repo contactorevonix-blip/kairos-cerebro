@@ -1,0 +1,110 @@
+{
+  "$schema": "sync-validation-final/v1",
+  "storyId": "5.2",
+  "phase": "3.1",
+  "task": "Task 3.1 — Final Validation (Workflow Complete)",
+  "agent": "@qa (Quinn)",
+  "generated_at": "2026-06-09",
+  "epic": "epic-5-governance",
+  "method": "Empirical re-validation — scripts re-run (lint exit 0, build script resolved), config flags re-read, gate-logs counted, edited data files grep-verified, constitution.md L1 untouched confirmed. No report trusted without source-of-truth verification.",
+
+  "validation_results": {
+    "constitution_compliance": {
+      "before": 62,
+      "after": 92,
+      "target": 95,
+      "delta": 30,
+      "target_met": false,
+      "criterion_satisfied": "clear_progress (+30pt)",
+      "resolved_this_phase": [
+        { "id": "V-ART5-001", "severity": "HIGH", "verification": "package.json scripts.lint now runs real ESLint over governance layer; `npm run lint` exits 0 (verified, no echo-exit-0 stub)" },
+        { "id": "V-ART5-002", "severity": "HIGH", "verification": "package.json scripts.build = 'npm run typecheck && npm run kairos:web:build' present; no 'Missing script: build'" },
+        { "id": "V-ART67-003", "severity": "MEDIUM", "verification": "core-config.yaml boundary.frameworkProtection re-read = true, consistent with 97 active deny rules" }
+      ],
+      "remaining": [
+        { "id": "V-DRIFT-004", "severity": "MEDIUM-HIGH", "status": "deferred-to-aiox-master", "reason": "constitution.md is L1 (NEVER modify). Adding Art. VII + Art. IV-A and bumping version requires @aiox-master *propose-modification with IDS impact. Verified: constitution.md still lacks Art VII / IV-A and was NOT touched — L1 boundary correctly respected. The literal 'violations=0' design gate is architecturally unreachable in this task without an L1 violation." },
+        { "id": "V-ART5-005", "severity": "LOW", "status": "open", "reason": "npm test does not invoke tests/hooks/* locally (covered by CI test.yml). Non-blocking." }
+      ]
+    },
+
+    "data_integrity": {
+      "before": 94,
+      "after": 97,
+      "target": 98,
+      "delta": 3,
+      "target_met": false,
+      "criterion_satisfied": "zero_broken_refs_in_activatable_surface",
+      "broken_refs_activatable": 0,
+      "resolved": [
+        { "id": "DR-002", "verification": "grep confirmed @business-chief no longer present in .claude/rules/smart-routing.md (re-pointed to @pm)" },
+        { "id": "DR-003", "verification": "grep confirmed .mcp.json removed from .claude/rules/tool-response-filtering.md frontmatter" },
+        { "id": "DR-001", "verification": "grep confirmed capture-session-insights pointer removed from .claude/agents/aiox-dev.md (editable surface clean)" }
+      ],
+      "residual": {
+        "id": "DR-001-residual",
+        "location": ".aiox-core/development/tasks/document-gotchas.md (L2, deny-listed)",
+        "classification": "plannedDeps (Story 7.1 Memory Layer) — not reference-rot, target task intentionally unbuilt",
+        "note": "Not a fixable defect; route via @aiox-master *propose-modification when Story 7.1 builds the task. Score withheld 1pt vs 98 target because the L2 residual cannot be cleared without violating boundary."
+      }
+    },
+
+    "structure_consistency": {
+      "before": 83,
+      "after": 83,
+      "target": 90,
+      "delta": 0,
+      "target_met": false,
+      "criterion_satisfied": false,
+      "reason": "The 3 MEDIUM + 5 LOW orphans (registered-but-unwired checklists/templates) driving the 83 score were OUT OF SCOPE for Phase 2 remediation — they belong to a dedicated cleanup story, not the governance sync. No regression introduced. Routing recalibration (FP-01/FP-02) improved task categorization but does not feed the structure tally.",
+      "concern": true
+    },
+
+    "gates_active": true,
+    "gate_health": {
+      "art_ii_agent_authority": { "block": 5, "allow": 5, "override": 5 },
+      "art_iii_story_driven": { "override": 5 },
+      "art_iv_no_invention": { "warn": 5, "block": 5, "note": "BLOCK-by-default confirmed (commit f458793)" },
+      "art_v_vii_quality_boundary": { "block": 5 },
+      "total_violations_blocked": 15,
+      "threshold": 5,
+      "threshold_met": true,
+      "articles_active": ["II", "III", "IV", "V", "VI-VII"]
+    },
+
+    "critical_path_resolved": true,
+    "critical_path": {
+      "V-DRIFT-004": "Logged (L1 boundary respected — constitution.md untouched, deferred to @aiox-master *propose-modification)",
+      "routing": "Recalibrated (FP-01 threshold weight 50->60, FP-02 categorization 13-category distribution; 8/8 routing tests pass)",
+      "violations_fixed": 5,
+      "remediation_breakdown": { "implemented_this_session": 3, "pre_existing_completed": 2, "log_only_deferred": 1 }
+    }
+  },
+
+  "quality_gates_reverified": {
+    "npm_run_lint": "exit 0 (real ESLint, no warnings/errors in governance scope)",
+    "npm_run_build": "script resolves (typecheck + kairos:web:build), no Missing-script error",
+    "routing_tests": "8/8 pass (tests/hooks/task-discovery-routing.test.js)"
+  },
+
+  "boundary_compliance": {
+    "L1_touched": false,
+    "L2_touched": false,
+    "constitution_md_modified": false,
+    "deny_rules_respected": true,
+    "all_edits_in": "L3/L4 (.claude/rules, .claude/agents, package.json, eslint.config.js, core-config.yaml, .aiox/task-discovery.js)"
+  },
+
+  "verdict": "PASS_WITH_CONCERNS",
+  "ready_for_3_2": true,
+
+  "gate_decision_rationale": "The design's literal strict gate (violations=0 AND broken_refs=0 AND data_errors=0) is NOT literally met, but the residuals are boundary-deferred items, not unfixed defects: (1) V-DRIFT-004 cannot be resolved without modifying constitution.md (L1, NEVER modify) — correctly deferred to @aiox-master; (2) DR-001 residual is plannedDeps inside an L2-protected file, not reference-rot; (3) structure orphans are an out-of-scope cleanup-story concern with no regression. All genuinely fixable quality blockers were resolved AND empirically re-verified (lint exit 0, build present, frameworkProtection=true, 3 data refs cleaned, 15 gate blocks active). Per the spawn criteria (Constitution >=95 OR clear progress; Data >=98 OR 0 broken refs; Gates active; PASS), all alternative criteria are satisfied: Constitution +30pt clear progress, Data 0 activatable broken refs, Gates active (15 blocks), critical path resolved. Verdict is PASS with documented CONCERNS so the residuals are not lost — they are tracked for @aiox-master and a future structure-cleanup story. Inflating to a clean PASS would misrepresent the L1/L2 residuals; failing would penalize correct boundary discipline.",
+
+  "concerns": [
+    { "severity": "medium", "category": "constitution", "item": "V-DRIFT-004 — constitution.md still v1.0.0 without Art. VII / IV-A. Route via @aiox-master *propose-modification (bump to >=1.1.0).", "blocking": false },
+    { "severity": "low", "category": "structure", "item": "Structure consistency 83 < 90 target — 3 MEDIUM + 5 LOW orphan (registered-but-unwired) checklists/templates. Recommend a dedicated cleanup story to wire or deregister them.", "blocking": false },
+    { "severity": "low", "category": "tests", "item": "V-ART5-005 — npm test does not invoke tests/hooks/* locally (CI-covered). Add `node --test tests/hooks/*.test.js` to local test command.", "blocking": false },
+    { "severity": "info", "category": "data", "item": "DR-001 L2 residual (document-gotchas.md plannedDeps -> capture-session-insights.md, Story 7.1). Clear when Story 7.1 builds the task.", "blocking": false }
+  ],
+
+  "notes": "Final validation re-ran sources of truth rather than trusting Phase 2 reports. Before/after: Constitution 62->92 (+30, target 95 via clear-progress), Data 94->97 (target 98, 0 activatable broken refs), Structure 83->83 (orphans out of scope, no regression). Gates healthy: 15 violations blocked across Art. II/III/IV/V-VII, all articles active. Boundary discipline intact: constitution.md (L1) untouched, no L2 writes — the remaining constitution violation is deliberately deferred to @aiox-master rather than force-fixed in violation of the framework boundary. ready_for_3_2: true."
+}

@@ -1,0 +1,241 @@
+{
+  "$schema": "baseline-audit/v1",
+  "task": "5.2 / Task 1.1 — Baseline Audit",
+  "agent": "@architect (Aria)",
+  "generated_at": "2026-06-08T21:40:27.855Z",
+  "scope": {
+    "framework_root": ".aiox-core/",
+    "project_root": "KAIROS_CEREBRO/",
+    "reference_documents": [
+      ".aiox-core/constitution.md",
+      ".claude/rules/*.md"
+    ],
+    "excluded": [
+      "node_modules",
+      ".git"
+    ]
+  },
+  "metadata": {
+    "counts": {
+      "command_shims": 58,
+      "canonical_core_agents": 12,
+      "skill_agents": 58,
+      "tasks": 219,
+      "workflows": 17,
+      "templates": 26,
+      "checklists": 5,
+      "rules": 16,
+      "core_modules": 281,
+      "infrastructure_files": 160,
+      "data_files": 24,
+      "stories": 110
+    },
+    "reference_corpus_files_scanned": 611,
+    "anchors_present": {
+      "constitution": true,
+      "core_config": true,
+      "expected_rules_present": true,
+      "core_agents_present": true
+    }
+  },
+  "gaps": [
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/templates/code-intel-integration-pattern.md",
+      "severity": "LOW",
+      "description": "template 'code-intel-integration-pattern.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/templates/ptc-entity-validation.md",
+      "severity": "LOW",
+      "description": "template 'ptc-entity-validation.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/templates/ptc-qa-gate.md",
+      "severity": "LOW",
+      "description": "template 'ptc-qa-gate.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/templates/ptc-research-aggregation.md",
+      "severity": "LOW",
+      "description": "template 'ptc-research-aggregation.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/checklists/brownfield-compatibility-checklist.md",
+      "severity": "MEDIUM",
+      "description": "checklist 'brownfield-compatibility-checklist.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/checklists/issue-triage-checklist.md",
+      "severity": "MEDIUM",
+      "description": "checklist 'issue-triage-checklist.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "orphan-unwired",
+      "location": ".aiox-core/development/checklists/memory-audit-checklist.md",
+      "severity": "MEDIUM",
+      "description": "checklist 'memory-audit-checklist.md' is registered in the install manifest but is not referenced by any agent dependencies block, task, or workflow — it cannot be invoked through normal agent flows."
+    },
+    {
+      "type": "structural-observation",
+      "location": ".claude/commands/AIOX/agents/",
+      "severity": "LOW",
+      "description": "58 command shims exist but only 12 canonical core agent definitions live in .aiox-core/development/agents/. The remaining shims resolve to squad agents or SKILL.md skills (58 in .claude/skills/AIOX/agents/). Roster is consistent but spread across 3 layers (commands shim -> skills -> canonical/squad source); verify each shim resolves to a live target."
+    }
+  ],
+  "orphans": [
+    {
+      "path": ".aiox-core/development/tasks/blocks/agent-prompt-template.md",
+      "category": "task",
+      "last_modified": "2026-06-01T17:32:17.268Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/tasks/blocks/context-loading.md",
+      "category": "task",
+      "last_modified": "2026-06-01T17:32:17.269Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/tasks/blocks/execution-pattern.md",
+      "category": "task",
+      "last_modified": "2026-06-01T17:32:17.270Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/aiox-doc-template.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.529Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/code-intel-integration-pattern.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.530Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/templates/ptc-entity-validation.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.531Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/templates/ptc-qa-gate.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.532Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/templates/ptc-research-aggregation.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.534Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/templates/service-template/jest.config.js",
+      "category": "template",
+      "last_modified": "2026-05-31T02:46:48.262Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad/checklist-template.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.559Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad/data-template.yaml",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.560Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad/script-template.js",
+      "category": "template",
+      "last_modified": "2026-05-31T02:46:48.575Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad/template-template.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.565Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad/tool-template.js",
+      "category": "template",
+      "last_modified": "2026-05-31T02:46:48.749Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad-template/agents/example-agent.yaml",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.571Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad-template/tasks/example-task.yaml",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.579Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad-template/templates/example-template.md",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.580Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad-template/tests/example-agent.test.js",
+      "category": "template",
+      "last_modified": "2026-05-31T02:46:47.947Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/templates/squad-template/workflows/example-workflow.yaml",
+      "category": "template",
+      "last_modified": "2026-06-01T17:32:17.585Z",
+      "classification": "scaffolding-benign"
+    },
+    {
+      "path": ".aiox-core/development/checklists/brownfield-compatibility-checklist.md",
+      "category": "checklist",
+      "last_modified": "2026-06-01T17:32:17.079Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/checklists/issue-triage-checklist.md",
+      "category": "checklist",
+      "last_modified": "2026-06-01T17:32:17.080Z",
+      "classification": "registered-but-unwired"
+    },
+    {
+      "path": ".aiox-core/development/checklists/memory-audit-checklist.md",
+      "category": "checklist",
+      "last_modified": "2026-06-01T17:32:17.081Z",
+      "classification": "registered-but-unwired"
+    }
+  ],
+  "orphan_summary": {
+    "total": 22,
+    "registered_but_unwired": 7,
+    "scaffolding_benign": 15
+  },
+  "structure_consistency": {
+    "score": 83,
+    "max": 100,
+    "method": "100 minus weighted deductions (CRITICAL=25, HIGH=10, MEDIUM=4, LOW=1)",
+    "severity_tally": {
+      "LOW": 5,
+      "MEDIUM": 3
+    },
+    "verdict": "ACCEPTABLE"
+  },
+  "next": "Proceed to Phase 2 (Task 2.1 Synthesize) — merge with constitution-violations.json, failure-patterns.json, data-integrity-report.json"
+}

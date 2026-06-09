@@ -1,0 +1,60 @@
+{
+  "task": "1.4 Data Integrity Check",
+  "story": "5.2 — Framework Governance Sync-Complete Workflow",
+  "generated_at": "2026-06-08T21:42:29.014Z",
+  "scope": {
+    "yaml_dirs_checked": [
+      ".aiox-core/data",
+      ".claude/rules",
+      ".aiox-core/development/workflows"
+    ],
+    "yaml_files_checked": 22,
+    "task_files_checked": 218,
+    "workflow_files_checked": 14,
+    "rule_files_checked": 16,
+    "agents_known": 61
+  },
+  "yaml_errors": [],
+  "broken_references": [
+    {
+      "source_file": ".aiox-core/development/tasks/document-gotchas.md",
+      "target_file": "capture-session-insights.md",
+      "reference_type": "task->task"
+    },
+    {
+      "source_file": ".claude/rules/smart-routing.md",
+      "target_file": "@business-chief",
+      "reference_type": "rule->agent"
+    }
+  ],
+  "dependency_cycles": [],
+  "path_errors": [
+    {
+      "rule_file": ".claude/rules/tool-response-filtering.md",
+      "invalid_path": ".mcp.json",
+      "expected_path": "existing file or directory matching glob prefix"
+    }
+  ],
+  "frontmatter_issues": [],
+  "summary_counts": {
+    "yaml": 0,
+    "refs": 2,
+    "cycles": 0,
+    "paths": 1,
+    "frontmatter": 0
+  },
+  "data_integrity_score": 94,
+  "validation_notes": [
+    "No YAML parser library (js-yaml/yaml) nor Python is available in this environment; YAML validation is structural-only (tabs-in-indentation + empty-file). Full semantic parse validation is recommended in CI where a parser is present.",
+    "Reference scanning ignores fenced code blocks (```...```) in task/rule .md files so that illustrative CLI examples are not counted as real dependencies.",
+    "Orchestration pseudo-agents (system/user/auto) and documentation placeholder handles (@agent, @agent-name, @import, @nome-do-agent) are whitelisted and not reported as broken agent references.",
+    "Rule files (.claude/rules/*.md) are filename-loaded context rules, not entity definitions, so name/description frontmatter is intentionally not required of them."
+  ],
+  "score_weights": {
+    "yaml": 3,
+    "dependency_cycle": 3,
+    "broken_reference": 2,
+    "path_error": 2,
+    "frontmatter_issue": 1
+  }
+}

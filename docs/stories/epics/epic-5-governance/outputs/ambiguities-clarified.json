@@ -1,0 +1,67 @@
+{
+  "$schema": "ambiguities-clarified/v1",
+  "storyId": "5.2",
+  "phase": "2.4",
+  "task": "2.4 — Clarify Ambiguities",
+  "agent": "@architect (Aria)",
+  "generated_at": "2026-06-09",
+  "input": "constitution-violations.json (ambiguities[] AMB-001..004)",
+  "ambiguities_clarified": 4,
+  "amendments_proposed": 4,
+  "blocking_for_phase2": false,
+  "ready_for_2_5": true,
+  "l1_modified": false,
+  "clarifications": [
+    {
+      "id": "AMB-001",
+      "article": "II",
+      "topic": "Gate field understates real enforcement",
+      "resolution": "Sync constitution.md Gate field to reference enforce-agent-authority.cjs as primary enforcement hook",
+      "target_doc": ".aiox-core/constitution.md (v1.1.0 amendment)",
+      "coupled_with": "V-DRIFT-004",
+      "runtime_impact": false
+    },
+    {
+      "id": "AMB-002",
+      "article": "IV",
+      "topic": "Documented severity (WARN) diverges from real behaviour (BLOCK)",
+      "resolution": "Update enforcement-gates.md to BLOCK-by-default, consistent with commit f458793 and gate-logs",
+      "target_doc": ".claude/rules/enforcement-gates.md",
+      "coupled_with": null,
+      "runtime_impact": false
+    },
+    {
+      "id": "AMB-003",
+      "article": "VI-VII",
+      "topic": "Config flag frameworkProtection:false contradicts effective L1/L2 protection",
+      "resolution": "Set frameworkProtection:true (project context) + document settings.json deny rules as source of truth",
+      "target_doc": ".aiox-core/core-config.yaml (L3) + CLAUDE.md",
+      "coupled_with": "V-ART67-003",
+      "runtime_impact": false
+    },
+    {
+      "id": "AMB-004",
+      "article": "VI",
+      "topic": "'Same module' import exception lacks operational boundary",
+      "resolution": "Define 'same module' as same directory or direct subdirectory of the feature folder; optionally express as ESLint rule",
+      "target_doc": ".aiox-core/constitution.md (v1.1.0) or new rule import-boundaries.md",
+      "coupled_with": null,
+      "runtime_impact": false
+    }
+  ],
+  "implementation_sequence": [
+    "AMB-002 (doc-only, no dependencies)",
+    "AMB-003 (with V-ART67-003)",
+    "AMB-001 + AMB-004 (bundled into constitution v1.1.0, required anyway for V-DRIFT-004)"
+  ],
+  "security_note": "No clarification weakens any gate. AMB-002 confirms the safer BLOCK-by-default state. AMB-003 corrects a misleading flag while real protection (deny rules) is already active.",
+  "backward_compat_note": "All resolutions are doc/config-level and idempotent. AMB-003 changes a flag but observable behaviour is unchanged (deny rules already block L1/L2). Zero breaking change expected.",
+  "success_criteria": {
+    "markdown_valid": true,
+    "four_ambiguities_documented": true,
+    "each_has_detection_statement_resolution_recommendation": true,
+    "json_valid": true,
+    "ready_for_2_5": true,
+    "l1_not_modified": true
+  }
+}

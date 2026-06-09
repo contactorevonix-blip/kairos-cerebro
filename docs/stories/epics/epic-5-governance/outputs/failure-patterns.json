@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "task": "1.3 — Failure Pattern Analysis",
+    "story": "5.2 — Framework Governance Sync-Complete Workflow",
+    "phase": "Phase 1 (Diagnosis)",
+    "analyst": "Atlas (AIOX Analyst)",
+    "generatedAt": "2026-06-08T21:40:00.000Z",
+    "confidence": "MEDIUM-HIGH",
+    "confidenceNote": "Quantitative aggregation of real artifacts (35 gate-log events, 16 task-logs / 80 suggestions, 7 handoffs, SYNAPSE hook-metrics). Limitation: gate-logs are dominated by Story 1.16 smoke-test fixtures, so operational failure history is thin (single day, 2026-06-08). Patterns about routing quality have stronger evidence than patterns about gate enforcement.",
+    "dataSources": [
+      ".aiox/gate-logs/art-ii-agent-authority-2026-06-08.jsonl",
+      ".aiox/gate-logs/art-iii-story-driven-2026-06-08.jsonl",
+      ".aiox/gate-logs/art-iv-no-invention-2026-06-08.jsonl",
+      ".aiox/gate-logs/art-v-vii-quality-boundary-2026-06-08.jsonl",
+      ".synapse/metrics/hook-metrics.json",
+      ".aiox/task-logs/*.json (16 files)",
+      ".aiox/handoffs/*.json (7 files)"
+    ]
+  },
+  "summary": {
+    "totalGateEvents": 35,
+    "gateDecisions": { "block": 15, "override": 10, "allow": 5, "warn": 5 },
+    "distinctGateTimestampsSeconds": 7,
+    "gateLogsAreSmokeTests": true,
+    "totalTaskLogs": 16,
+    "totalRoutingSuggestions": 80,
+    "suggestionsBelowAutoActivationThreshold": 80,
+    "maxSuggestionScore": 65,
+    "medianSuggestionScore": 44,
+    "autoActivationThreshold": 70,
+    "taskAutoActivationRate": 0,
+    "miscategorizedSuggestions": 24,
+    "miscategorizedPercent": 30,
+    "taskLogsWithUnknownStory": 1,
+    "headline": "There is NO evidence of operational gate-enforcement failures (gates behave correctly; the 15 blocks are the system blocking what it is designed to block). The dominant, real failure pattern is the task auto-routing layer: 100% of suggestions fall below the activation threshold and ~30% are miscategorized, so task auto-activation is effectively dead (rate 0)."
+  },
+  "patterns": [
+    {
+      "pattern_id": "FP-01",
+      "name": "Task auto-activation never triggers (all suggestion scores below threshold)",
+      "frequency": "80/80 suggestions (100%) across all 16 task-logs",
+      "severity": "HIGH",
+      "affected_components": [
+        ".synapse/metrics/hook-metrics.json (taskFirst.taskAutoActivationRate)",
+        ".aiox/task-logs/*.json",
+        "SYNAPSE task-suggestion scoring layer"
+      ],
+      "evidence": "Max score observed is 65; median is 44; the activation threshold is ~70. hook-metrics confirms taskAutoActivationRate: 0 despite tasksActivated: 5 and tasksIndexed: 213.",
+      "root_cause": "The relevance scoring formula systematically under-scores even good matches. Indexed task corpus (213 tasks) is large and generic, diluting story-specific signal; storyType-to-category matching is weak, so the best match for a config story (e.g. list-mcps at 63) still cannot cross 70. Net effect: a routing feature that is shipped but inert.",
+      "impact": "Story 5.2's sync-complete workflow assumes task routing helps orchestrate. If auto-activation is always off, the governance workflow silently degrades to manual task selection, undermining the 'sync-complete / zero-setup' goal."
+    },
+    {
+      "pattern_id": "FP-02",
+      "name": "Task category mislabeling (~30% of suggestions in wrong category)",
+      "frequency": "24/80 suggestions (30%)",
+      "severity": "MEDIUM",
+      "affected_components": [
+        ".aiox/task-logs/*.json (suggestion.category field)",
+        "task indexing / classification step (lastIndexedAt 2026-06-08T19:15:00Z)"
+      ],
+      "evidence": "github-devops-pre-push-quality-gate labeled category 'db' (should be devops/qa); create-doc, create-agent, create-workflow, generate-shock-report all labeled 'qa' regardless of their real domain (docs, squad-creation, workflow, reporting).",
+      "root_cause": "Classification appears to fall back to a default bucket ('qa' / 'db') when no confident category is derived from the task file's frontmatter. The index does not parse a reliable category signal, so unrelated tasks collapse into a few catch-all categories.",
+      "impact": "Wrong category lowers match scores for the correct story type (compounding FP-01) and surfaces irrelevant suggestions, eroding trust in the routing layer."
+    },
+    {
+      "pattern_id": "FP-03",
+      "name": "Story traceability gap — task-log emitted with storyId 'unknown'",
+      "frequency": "1/16 task-logs (unknown.json)",
+      "severity": "MEDIUM",
+      "affected_components": [
+        ".aiox/task-logs/unknown.json",
+        "active-story / agent-activation resolution (Constitution Art. III)"
+      ],
+      "evidence": "unknown.json (storyType 'arch', 2026-06-08T21:02:23Z) was written with no resolvable story context, despite Story-Driven Development (Art. III) requiring an active story.",
+      "root_cause": "The story-context resolver could not bind the active session to a story at that moment (no active_story set, or resolution ran before activation). This is the same class of resolution fragility documented for the Art. III / Art. V gates' graceful-degradation path.",
+      "impact": "Breaks audit traceability that the governance sync workflow depends on; an event with no story cannot be attributed, validated, or rolled up into an epic."
+    },
+    {
+      "pattern_id": "FP-04",
+      "name": "Gate audit trail is unrepresentative (dominated by smoke-test fixtures)",
+      "frequency": "35/35 gate events cluster into 7 distinct seconds, 5 identical repeated batches",
+      "severity": "LOW",
+      "affected_components": [
+        ".aiox/gate-logs/*.jsonl",
+        "Story 1.16 enforcement-gate test harness"
+      ],
+      "evidence": "All Art. IV events reference the same synthetic spec docs/x-spec.md ('It MUST do magic.'); all boundary events reference the same .aiox-core/core/synapse/engine.js; Art. II events repeat the identical dev->block / devops->allow / dev->override triple 5 times within milliseconds.",
+      "root_cause": "Enforcement gates were exercised by the Story 1.16 test/smoke suite, not by organic development. The decision log therefore measures test coverage, not production failure rates.",
+      "impact": "Low direct harm, but it means the gate-enforcement subsystem has near-zero REAL-world failure evidence. Any governance claim of 'gates are battle-tested' is currently unsupported by production data — a measurement gap, not a defect."
+    },
+    {
+      "pattern_id": "FP-05",
+      "name": "High override rate relative to organic traffic (overrides == allows)",
+      "frequency": "10 overrides vs 5 clean allows across gate events",
+      "severity": "LOW",
+      "affected_components": [
+        "Art. II (--skip-devops-check)",
+        "Art. III ([no-story-req])"
+      ],
+      "evidence": "Override decisions (10) outnumber clean allows (5). All overrides come from the same repeated fixture batches (non-@devops push with --skip-devops-check; config commit with [no-story-req]).",
+      "root_cause": "Test fixtures deliberately exercise the override paths. In organic use this ratio would signal override-as-habit, but here it is an artifact of the smoke suite.",
+      "impact": "Flagged as a watch-item, not a confirmed failure: if this ratio persisted in real traffic it would mean enforcement is routinely bypassed, defeating the gates."
+    }
+  ],
+  "timeline": [
+    { "ts": "2026-06-08T18:50:09Z", "event": "Gate smoke batch #1 (Art II block/allow/override, Art III override, Art IV warn+block, boundary block)", "type": "test-fixture", "pattern": "FP-04" },
+    { "ts": "2026-06-08T19:05:27Z", "event": "Gate smoke batch #2 (identical to #1)", "type": "test-fixture", "pattern": "FP-04" },
+    { "ts": "2026-06-08T19:06:20Z", "event": "Gate smoke batch #3", "type": "test-fixture", "pattern": "FP-04" },
+    { "ts": "2026-06-08T19:15:00Z", "event": "Task index rebuilt (213 tasks indexed)", "type": "system", "pattern": "FP-01" },
+    { "ts": "2026-06-08T19:15:17Z", "event": "Gate smoke batch #4", "type": "test-fixture", "pattern": "FP-04" },
+    { "ts": "2026-06-08T19:21:39Z", "event": "Gate smoke batch #5 (last gate event)", "type": "test-fixture", "pattern": "FP-04" },
+    { "ts": "2026-06-08T19:26:37Z", "event": "Task-log 1.16 — best score 63, no auto-activation", "type": "routing", "pattern": "FP-01" },
+    { "ts": "2026-06-08T19:26:45Z", "event": "Task-log 1.20 — pre-push-quality-gate miscategorized as 'db'", "type": "routing", "pattern": "FP-02" },
+    { "ts": "2026-06-08T21:02:23Z", "event": "Task-log written with storyId 'unknown' (traceability gap)", "type": "traceability", "pattern": "FP-03" },
+    { "ts": "2026-06-08T21:10:43Z", "event": "Story 5.x batch task-logs — all scores below 70", "type": "routing", "pattern": "FP-01" },
+    { "ts": "2026-06-08T21:37:27Z", "event": "Task-log 5.2 (this story) — best score 63, no auto-activation", "type": "routing", "pattern": "FP-01" }
+  ],
+  "impact_assessment": {
+    "score": 42,
+    "band": "MODERATE",
+    "scale": "0 = no impact, 100 = critical / system-breaking",
+    "rationale": "No NON-NEGOTIABLE constitutional gate is failing — Art. I/II enforcement works as designed, so there is no critical (>70) systemic risk. The material impact is the routing/auto-activation layer (FP-01, FP-02) which is effectively inert and partially miscategorized: this degrades the 'sync-complete / zero-setup' promise that Story 5.2 is built to deliver, hence MODERATE rather than LOW. Traceability gap (FP-03) adds audit risk. Pulled down from a higher band because the failures are quality/UX degradation, not data loss or security exposure.",
+    "subscores": {
+      "gateEnforcementReliability": 12,
+      "taskRoutingEffectiveness": 78,
+      "auditTraceability": 45,
+      "auditDataRepresentativeness": 60
+    },
+    "topRisks": [
+      "FP-01: auto-activation rate of 0 means the governance workflow's routing assist is non-functional in practice (HIGH).",
+      "FP-02: 30% miscategorization compounds FP-01 and surfaces noise (MEDIUM).",
+      "FP-03: storyId 'unknown' breaks the per-story audit chain the sync workflow relies on (MEDIUM)."
+    ]
+  },
+  "recommendations": [
+    "FP-01: Recalibrate the task-suggestion scoring so a confident category+storyType match can clear the ~70 activation threshold (or lower the threshold to the observed top-quartile, e.g. 60), then re-measure taskAutoActivationRate.",
+    "FP-02: Fix task classification to read a real 'category' from task frontmatter instead of defaulting to 'qa'/'db'; add a validation pass that rejects collapsing unrelated tasks into catch-all buckets.",
+    "FP-03: Make the story-context resolver fail loudly (or queue) instead of writing storyId 'unknown'; bind the active story before any task-log is emitted (Art. III).",
+    "FP-04/05: Tag smoke-test gate events (e.g. source: 'test') so production failure metrics can be computed separately from fixture noise; only then can governance claim real-world gate reliability."
+  ]
+}
