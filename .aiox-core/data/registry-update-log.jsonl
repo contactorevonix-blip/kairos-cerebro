@@ -25,3 +25,4 @@
 {"timestamp":"2026-06-01T17:41:57.530Z","action":"add","path":".aiox-core/development/tasks/db-supabase-setup.md","trigger":"watcher"}
 {"timestamp":"2026-06-01T17:41:57.531Z","action":"change","path":".aiox-core/infrastructure/scripts/validate-claude-integration.js","trigger":"watcher"}
 {"timestamp":"2026-06-08T23:44:48.875Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-09T09:32:26.054Z","action":"add","path":".aiox-core/data/story-registry.yaml","trigger":"watcher"}

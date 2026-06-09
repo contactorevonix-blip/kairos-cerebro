@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-08T23:44:48.883Z'
-  entityCount: 822
+  lastUpdated: '2026-06-09T09:32:26.063Z'
+  entityCount: 823
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -15704,6 +15704,28 @@ entities:
         extensionPoints: []
       checksum: sha256:68b26930b728908b6097fc91956c8c446e5cc0dbe627e3b737495ebcd7e9569b
       lastVerified: '2026-06-01T17:32:25.267Z'
+    story-registry:
+      path: .aiox-core/data/story-registry.yaml
+      layer: L3
+      type: data
+      purpose: Story Registry — Single Source of Truth for Story Identity Resolution
+      keywords:
+        - story
+        - registry
+        - single
+        - source
+        - truth
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:958323103268ab2f5f7aa6ba1537e2c44a23540aa341d41f8699e8d07e70b215
+      lastVerified: '2026-06-09T09:32:26.053Z'
   workflows:
     auto-worktree:
       path: .aiox-core/development/workflows/auto-worktree.yaml
