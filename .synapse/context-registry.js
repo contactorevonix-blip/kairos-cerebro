@@ -71,9 +71,9 @@ class ContextRegistry {
     try {
       fs.writeFileSync(tempPath, JSON.stringify(registry, null, 2));
       fs.renameSync(tempPath, this.filePath);
-    } catch (err) {
+    } catch {
       if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
-      throw new Error(`Failed to write registry: ${err.message}`);
+      throw new Error('Failed to write registry');
     }
   }
 
@@ -115,9 +115,9 @@ class ContextRegistry {
     try {
       fs.writeFileSync(tempPath, JSON.stringify(registry, null, 2));
       fs.renameSync(tempPath, this.filePath);
-    } catch (err) {
+    } catch {
       if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
-      throw new Error(`Failed to delete from registry: ${err.message}`);
+      throw new Error('Failed to delete from registry');
     }
   }
 
@@ -126,9 +126,9 @@ class ContextRegistry {
     try {
       fs.writeFileSync(tempPath, JSON.stringify({}, null, 2));
       fs.renameSync(tempPath, this.filePath);
-    } catch (err) {
+    } catch {
       if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
-      throw new Error(`Failed to clear registry: ${err.message}`);
+      throw new Error('Failed to clear registry');
     }
   }
 }

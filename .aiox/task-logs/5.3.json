@@ -1,47 +1,47 @@
 {
   "storyId": "5.3",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-10T00:01:24.650Z",
+  "storyType": "config",
+  "suggestedAt": "2026-06-10T14:50:17.154Z",
   "suggestions": [
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 81,
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 75,
       "autoActivate": true
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 81,
-      "autoActivate": true
-    },
-    {
-      "id": "qa-test-design",
-      "name": "test-design",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/qa-test-design.md",
-      "score": 81,
-      "autoActivate": true
-    },
-    {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "id": "setup-design-system",
+      "name": "Setup Design System Structure",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-design-system.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "export-design-tokens-dtcg",
-      "name": "Export Design Tokens to W3C DTCG",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
+      "id": "setup-llm-routing",
+      "name": "setup-llm-routing",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
       "score": 73,
       "autoActivate": true
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 67,
+      "autoActivate": false
+    },
+    {
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "score": 65,
+      "autoActivate": false
     }
   ]
 }

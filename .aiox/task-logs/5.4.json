@@ -1,42 +1,47 @@
 {
   "storyId": "5.4",
-  "storyType": "bug",
-  "suggestedAt": "2026-06-08T21:25:56.089Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-10T00:16:34.935Z",
   "suggestions": [
     {
-      "id": "analyze-cross-artifact",
-      "name": "Cross-Artifact Analysis Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/analyze-cross-artifact.md",
-      "score": 41
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "create-agent",
-      "name": "Task: Create Squad Agent",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/create-agent.md",
-      "score": 41
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "create-doc",
-      "name": "Template selection determined dynamically during task execution",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/create-doc.md",
-      "score": 41
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "generate-shock-report",
-      "name": "Generate Visual Shock Report",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/generate-shock-report.md",
-      "score": 41
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "run-design-system-pipeline",
-      "name": "Run Design System Pipeline",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
-      "score": 41
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 81,
+      "autoActivate": true
     }
   ]
 }
