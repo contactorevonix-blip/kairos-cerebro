@@ -1,9 +1,15 @@
 # Context Registry Schema
 
-**Version:** 1.0  
-**Location:** `.synapse/context-registry.yaml`  
-**Format:** YAML (key-value pairs)  
+**Version:** 1.1  
+**Location:** `.synapse/context-registry.json`  
+**Format:** JSON (key-value object; no external YAML dependency)  
 **Purpose:** Persistent storage of session context state for Pattern Reuse detection (Phase 5, IDS-CHECK)
+
+> **Note (Story 5.3.5 / REL-001):** The canonical store is the JSON file managed
+> by `.synapse/context-registry.js`. `engine.js` Phases 5 & 10 now delegate to
+> that module (`read()` / `saveRaw()`), reconciling the prior path/format
+> mismatch where the engine `JSON.parse()`'d a `.yaml`-named file. The example
+> below is shown as YAML for human readability; the on-disk format is JSON.
 
 ---
 
@@ -87,7 +93,7 @@ registry.write('session-2026-06-09-abc123', {
 ## File Safety
 
 - **Write:** Async-safe via atomic operation (write to temp file, then rename to final)
-- **Read:** Synchronous (YAML.parse or JSON fallback)
+- **Read:** Synchronous (`JSON.parse`; returns `{}` on read/parse error — graceful degradation)
 - **Locking:** File-system level (no additional mutex needed for single-process)
 
 ---
@@ -95,7 +101,7 @@ registry.write('session-2026-06-09-abc123', {
 ## Performance Target
 
 - **Query (< 100ms):** For files with 1000+ entries on typical hardware
-- **Write (< 50ms):** Atomic append to registry YAML
+- **Write (< 50ms):** Atomic write to registry JSON (temp file + rename)
 
 ---
 
@@ -116,7 +122,7 @@ If any required field is missing or invalid, reject the write and log an error.
 
 ## Registry Lifecycle
 
-1. **Create:** On first engine run, `.synapse/context-registry.yaml` is created (empty if not exists)
+1. **Create:** On first engine run, `.synapse/context-registry.json` is created (empty if not exists)
 2. **Write:** On Phase 10 (PERSISTENCE), session state is appended
 3. **Read:** On Phase 5 (IDS-CHECK), all entries are loaded and filtered by intent_type
 4. **Cleanup:** Manual (user deletes old entries if needed; no auto-expiration)

@@ -6,11 +6,18 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+// Story 5.3.5 AC3 (REL-001): wire the engine to the Story 5.3.3 registry module
+// so Phase 5 (IDS-CHECK) and Phase 10 (PERSISTENCE) share ONE canonical store
+// and format (.synapse/context-registry.json) instead of the engine's previous
+// inline loader that JSON.parse()'d a .yaml-named file.
+const ContextRegistry = require(path.join(__dirname, '..', 'context-registry.js'));
 
 class ContextEngine {
   constructor(config = {}) {
     this.logFile = path.join(process.cwd(), '.aiox', 'context-engine.log');
-    this.registryPath = path.join(process.cwd(), '.synapse', 'context-registry.yaml');
+    // Canonical registry store is the JSON file managed by context-registry.js.
+    this.registryPath = path.join(process.cwd(), '.synapse', 'context-registry.json');
+    this.registry = new ContextRegistry(this.registryPath);
     this.phases = [];
     this.state = {
       completeness: 0,
@@ -450,16 +457,14 @@ class ContextEngine {
   }
 
   async loadRegistry() {
-    try {
-      const content = await fs.readFile(this.registryPath, 'utf-8');
-      return JSON.parse(content);
-    } catch {
-      return {};
-    }
+    // Delegate to the canonical registry module (context-registry.js).
+    // read() returns {} on any read/parse error (graceful degradation).
+    return this.registry.read();
   }
 
   async saveRegistry(registry) {
-    await fs.writeFile(this.registryPath, JSON.stringify(registry, null, 2));
+    // Delegate to the canonical registry module's atomic raw-write path.
+    this.registry.saveRaw(registry);
   }
 
   log(message) {

@@ -99,3 +99,33 @@ corrections_applied:
 authority_note: 'Per @qa story-file-permissions: only Status field + Change Log (append) + this gate file were modified. Acceptance Criteria, title, scope, and source code were NOT altered. No git push performed (@devops exclusive).'
 
 waiver: { active: false }
+
+# ---------------------------------------------------------------------------
+# REMEDIATION CLOSURE (appended 2026-06-10 by @architect / Aria)
+# Story 5.3.5 closed all 5 top_issues. Each verified empirically (no report
+# trusted; sources of truth re-run). See docs/qa/gates/5.3.5-remediation.yml.
+# ---------------------------------------------------------------------------
+remediation_closure:
+  remediated_by: 'docs/stories/5.3.5.story.md'
+  gate: 'docs/qa/gates/5.3.5-remediation.yml'
+  verdict: PASS
+  closed_at: '2026-06-10T00:00:00Z'
+  reviewer: 'Aria (@architect)'
+  issues_resolved:
+    - id: 'TEST-001'
+      status: RESOLVED
+      evidence: 'Guard-timer .unref() removed in agent-activation-tracker.cjs (timer cleared in finally; separate run() unref()d 3s safety timer). npm test now exits 0 (80/80 + 7/7, 0 cancelled); hook glob 75/75; auto-contextualization-hook 12/12. Project source-of-truth is GREEN — the blocking issue is fixed.'
+    - id: 'REQ-001'
+      status: RESOLVED
+      evidence: 'Option (b): 5.3.1 AC1 reworded to class-only delivery (no false CLI claim); run-context-engine still NOT FOUND in bin/+.aiox-core; decision recorded in 5.3.1 Change Log v1.3.0 citing 5.3.5.'
+    - id: 'REL-001'
+      status: RESOLVED
+      evidence: 'engine.js now requires .synapse/context-registry.js; loadRegistry->read(), saveRegistry->saveRaw(); single JSON store; orphan .yaml deleted. registry 13/13 + phases/engine 41/41 still green.'
+    - id: 'MNT-001'
+      status: RESOLVED
+      evidence: 'Phases 6-10 confirmed inline in engine.js; 5.3.1 Tasks 7-11 [x]; Dev Record "Remaining Work" cleared; File List .yaml->.json; documented in 5.3.1 Change Log v1.3.0.'
+    - id: 'PROC-001'
+      status: RESOLVED
+      evidence: 'story-lifecycle.md gained "Post-Gate Status Update (MANDATORY)" atomic checklist (L4); qa-gate.md (L2) untouched. AC5 rule applied to 5.3.5 itself at verdict time.'
+  epic_gate_recommendation: 'CONCERNS -> PASS warranted: the sole blocking finding (TEST-001) is empirically resolved and all medium/low findings closed. Epic EPIC-5-3 can be honestly declared green. (Verdict field above left as historical record of the original audit; this closure block records the post-remediation state.)'
+  note: 'No git push performed (@devops exclusive). Only the Status field, Change Log, footer sync, the 5.3.5 gate file, and this closure annotation were modified.'

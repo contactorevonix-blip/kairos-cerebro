@@ -121,6 +121,35 @@ issues:
     recommendation: "..."
 ```
 
+### Post-Gate Status Update (MANDATORY)
+
+> **Origin:** Story 5.3.5 AC5 / PROC-001 — recurring Status-field drift across
+> 5.3.2 (stale header), 5.3.3 (duplicate Status line), 5.3.4 (no Change Log /
+> no recorded gate verdict), and STATE.md (stale branch/push status). This is the
+> same lifecycle-hygiene pattern previously flagged in the 5.2 gate (REL-001).
+
+**In the SAME step the verdict is decided — before reporting the gate result —
+the gate owner MUST perform all of the following atomically:**
+
+1. **Update the header `Status:` field** to reflect the verdict:
+   - PASS / CONCERNS / WAIVED → `Done`
+   - FAIL → `InProgress` (returns to @dev)
+2. **Append a Change Log row** capturing the gate verdict, the status transition,
+   and the date — e.g.
+   `| {YYYY-MM-DD} | {version} | QA gate {VERDICT} — Status: InReview → {Done|InProgress} | @qa |`
+3. **De-duplicate / sync any redundant Status lines** (e.g. a trailing footer
+   "Status:" or "Ready for:" line) so the header `Status:` field is the single
+   source of truth — no contradicting or stale status text may remain.
+
+**A gate verdict reported without (1)+(2)+(3) performed in the same step is a
+process violation.** Do not announce PASS/CONCERNS/FAIL/WAIVED until the story
+file reflects the outcome.
+
+> **Note:** This reinforcement lives here (L4 project runtime) and not in
+> `.aiox-core/development/tasks/qa-gate.md`, which is L2 (framework-protected,
+> NEVER modify — extend-only). It restates and operationalizes the qa-gate task's
+> "Post-Gate Status Update" discipline as a repeatable, atomic checklist.
+
 ## QA Loop (Iterative Review-Fix)
 
 ```
