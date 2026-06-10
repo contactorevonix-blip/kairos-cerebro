@@ -1,3 +1,107 @@
+# Session 2026-06-10 (Cont 25) — EPIC-7 AIOX CORE REALIGNMENT INVESTIGATION (PLAN MODE)
+
+**Session 2026-06-10 (Cont 25):** Investigação completa "KAIROS_CEREBRO vs SynkraAI/aiox-core@5.2.9" — **100% cobertura (2826 ficheiros upstream comparados por SHA), 14 itens identificados (~22.5sp), plano gravado mas NÃO implementado.**
+**Previous:** Session 2026-06-10 (Cont 24) — EPIC-6 ADE Owner Activation (10/10 Ready, 28sp, ainda não implementado)
+**Branch:** main (commit: 5e221fb, working changes pending — incl. 2 ficheiros novos `.aiox-core/development/workflows/{ALL-DIAGRAMS.md,brownfield-discovery-diagram.md}` que são objecto do item 7.3)
+**Status:** 📋 **EPIC-7 PLANEADO (Plan Mode)** — Pedro pediu "comparar tudo, clonar igual, apagar o que não é". Investigação corrigiu a premissa: projecto está >99% alinhado, NÃO está partido. Plano completo gravado em `C:\Users\lealp\.claude\plans\vectorized-brewing-flask.md`. Sessão terminou em plan mode (sem execução) — Pedro pediu nova sessão.
+
+---
+
+## ✅ Session 2026-06-10 (Cont 26) — EPIC-7 EXECUTION COMPLETE (3-Step Story Pipeline)
+
+**Passo 1: Audit Persistido** ✅
+- `docs/audits/AIOX-CORE-REALIGNMENT-AUDIT-2026-06-10.md` — Executive Summary, Tiers A-D, 14 gaps
+
+**Passo 2: Stories Criadas** ✅
+- `docs/stories/7.1.story.md` ... `7.14.story.md` (14 ficheiros, Draft status, 100% audit-driven)
+- Esforço total: ~22.5sp (confirmado)
+
+**Passo 3: Stories Validadas** ✅
+- @po: 10-point checklist, avg 8.9/10 (ALL GO)
+- Commit: **57e6166** — feat: EPIC-7 Story Creation (pre-commit gates ✅)
+
+**Próximas Fases (não executadas):** @dev implementação (Prio 0/1/2/3), @qa gates, @devops push
+
+---
+
+## 📋 Session 2026-06-10 (Cont 25) — EPIC-7 INVESTIGATION (Plan Mode, 100% Cobertura)
+
+### O que foi feito
+
+Pedro pediu reformulação completa do projecto vs AIOX oficial (`SynkraAI/aiox-core@main`,
+público, `gh api` autenticado). 5 invocações de agentes pesados (~500k tokens subagent),
+4 rondas, cobertura final **100% dos 2826 blobs do upstream**:
+
+| Ronda | Agente | Escopo | Resultado |
+|---|---|---|---|
+| 1 | `@aiox-analyst` | `.aiox-core/` (1174 ficheiros) | 99.5% idêntico |
+| 2 | `@dr-orchestrator` | ADE/aiox-cerebro/boundary/EPIC-6 overlap/viés | 5 questões esclarecidas |
+| 3 | `@aiox-analyst` | `.claude/.synapse/.codex/.github/.antigravity` (213) | 93.4% idêntico, settings.local.json problemático |
+| 4 | `@aiox-analyst` + `@dr-orchestrator` (paralelo) | resto do repo (`bin/`, `packages/`, `squads/`, `docs/`, `governance/`, `.husky/`, IDS, guides) | 100% cobertura |
+
+### Veredicto Principal
+
+**Projecto NÃO está partido.** >99% alinhado com upstream. Em vários pontos (constitution.md
+v1.1.0, `.claude/`, `.synapse/`) está **à frente** do upstream (2.75x mais conteúdo).
+
+### EPIC-7 — 14 Itens Identificados (~22.5sp)
+
+🔴 **Críticos:**
+- **7.7**: `.claude/settings.local.json` invertido — devia ter `permissions.allow` (8 entradas
+  upstream: npm lint/test, git add/commit/push), tem `hooks` duplicados em vez disso. **Coordenar
+  com Story 6.1** (mesmo ficheiro, AC adicional).
+- **7.3**: `.claude/settings.json` deny `Write/Edit(.aiox-core/development/workflows/**)` não
+  bloqueou criação de 2 ficheiros novos nesta sessão (`ALL-DIAGRAMS.md`,
+  `brownfield-discovery-diagram.md`) — possível gate enforcement bug (mesma classe que EPIC-6
+  1.1/1.2). Investigar gate-logs primeiro.
+
+**Funcionais:**
+- 7.1: `validate-claude-integration.js` — 153 vs 232 linhas upstream, falta lógica de validação
+- 7.2: `package.json` falta `ajv-formats@^3.0.1` (causa skip silencioso de validação de schema)
+- 7.9: 4 agentes do squad `claude-code-mastery` em drift vs upstream (config-engineer,
+  project-integrator, skill-craftsman, swarm-orchestrator)
+
+**Config/Doc:**
+- 7.4: `core-config.yaml` 3 chaves extra — confirmar consumo
+- 7.5: `aiox-cerebro` ausente da tabela Squads em CLAUDE.md
+- 7.6: persistir este audit em `docs/audits/AIOX-CORE-REALIGNMENT-AUDIT-2026-06-10.md`
+- 7.10: `docs/guides/ade-guide.md` (guia ADE completo) nunca instalado localmente
+- 7.11: documentar comando oficial de sync `npx aiox-core@latest install` (resposta directa ao
+  pedido "comando para sincronizar tudo")
+- 7.12: `.claude/rules/ids-principles.md` tem disclaimer desactualizado "Status: Planned" — IDS
+  já está parcialmente ACTIVO (registry, decision engine, governor, `*ids` commands, post-commit
+  hook)
+- 7.13: confirmar se G6 existe upstream em `core/ids/gates/` (local só tem G1-G5);
+  `ids-pre-push.js` órfão (não referenciado em `.husky/pre-push`)
+- 7.14: comparar `squads/_example/squad.yaml` (upstream template) vs `squads/aiox-cerebro/squad.yaml`
+
+### Não-Gaps Confirmados (fora de escopo EPIC-7)
+- ADE flags (`autoClaude.specPipeline/execution/qa: false`) — byte-idêntico ao upstream, é
+  decisão de produto se quiser activar
+- IDS "desligado" — falso, está parcialmente activo (ver 7.12)
+- `bin/aiox.js` em falta — não-gap (pacote NPM publicável vs projecto consumidor; CLI real =
+  `.aiox-core/cli/index.js`)
+- `docs/`, `tests/`, `.gemini/`, `.cursor/`, `.kimi/`, `outputs/qa/`, `compat/`,
+  `packages/installer/` — ausências esperadas
+- `*kb` — `@aiox-master *kb` carrega `.aiox-core/data/aiox-kb.md` (existe, funcional)
+- EPIC-6 (28sp, 10 stories, Ready) — zero overlap com EPIC-7, corre em paralelo
+- `update-aiox.sh` (sync em massa) — desproporcionado para 14 itens em 2826 ficheiros
+
+### Próxima Sessão (Cont 26+)
+
+**Sem PRD/Spec Pipeline necessário** — mesmo padrão que EPIC-6 (audit-driven, 10-15 stories =
+Standard Track). Fluxo:
+1. **7.6 primeiro** — persistir audit em `docs/audits/AIOX-CORE-REALIGNMENT-AUDIT-2026-06-10.md`
+   (consolidar as 4 rondas, conteúdo completo está no plano + nesta secção do STATE.md)
+2. `@sm *draft` — criar `docs/stories/7.1.story.md` … `7.14.story.md`
+3. `@po *validate-story-draft` (GO ≥7/10)
+4. Implementação por owner (ver tabela "Plano de Execução" no plano gravado), `@qa *qa-gate`,
+   `@devops *push`
+
+**Ficheiro do plano completo:** `C:\Users\lealp\.claude\plans\vectorized-brewing-flask.md`
+
+---
+
 # Session 2026-06-10 (Cont 24) — EPIC-6 ADE OWNER ACTIVATION + DEEP AUDIT
 
 **Session 2026-06-10 (Cont 24):** EPIC-6 Investigação Profunda + Ativação dos 5 ADE Owners — **10/10 Stories READY, 28sp, 5 ADE owners activated, zero blockers on critical path**
@@ -620,3 +724,43 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
 **Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 17:21
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: ecbbd7d — 2026-06-10 20:46
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 20:47
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 20:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 20:52
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 20:52
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 21:04
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ecbbd7d — 2026-06-10 21:05
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 24) FINAL — EPIC-6 ADE Owner Activation (10/10 Ready, dependencies mapped, go live)
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
