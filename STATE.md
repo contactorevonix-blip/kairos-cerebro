@@ -865,3 +865,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: EPIC-7 Prio 2 QA gates PASS — 5 stories Done [Stories 7.2, 7.5, 7.9, 7.11, 7.12]
 **Files changed:** .aiox-core/core-config.yaml, .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/7.4.story.md
+
+## Checkpoint: 46ff20b — 2026-06-10 21:57
+**Branch:** main
+**Commit:** feat: EPIC-7 Prio 3 Implementation (2 stories) [Stories 7.4, 7.10]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/7.10.json, .aiox/task-logs/7.4.json, .synapse/metrics/hook-metrics.json

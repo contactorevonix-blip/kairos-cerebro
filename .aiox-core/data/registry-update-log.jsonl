@@ -28,3 +28,4 @@
 {"timestamp":"2026-06-09T09:32:26.054Z","action":"add","path":".aiox-core/data/story-registry.yaml","trigger":"watcher"}
 {"timestamp":"2026-06-10T17:11:45.243Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779648649683","trigger":"watcher"}
 {"timestamp":"2026-06-10T17:11:45.246Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779900651717","trigger":"watcher"}
+{"timestamp":"2026-06-10T21:56:53.005Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}

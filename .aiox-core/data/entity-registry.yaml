@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-09T09:32:26.063Z'
+  lastUpdated: '2026-06-10T21:56:53.013Z'
   entityCount: 823
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -14165,10 +14165,15 @@ entities:
       path: .aiox-core/core-config.yaml
       layer: L4
       type: module
-      purpose: Entity at .aiox-core\core-config.yaml
+      purpose: Agent configuration locations — consumed by config-loader and audit-agent-config
       keywords:
         - core
         - config
+        - agent
+        - configuration
+        - locations
+        - consumed
+        - config-loader
       usedBy: []
       dependencies: []
       externalDeps: []
@@ -14178,8 +14183,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:dcf3f5b9e2d2e438f60f6ee20336e1cae2876a6a7ec449dc578dbf5cfe25b611
-      lastVerified: '2026-06-08T23:44:48.874Z'
+      checksum: sha256:71113b657d68b46e9c56fe0bfd447323d319dbcffe57b308d296948ec1a83e61
+      lastVerified: '2026-06-10T21:56:53.003Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
