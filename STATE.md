@@ -799,3 +799,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
 **Files changed:** .aiox/task-logs/7.13.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 3418fe7 — 2026-06-10 21:24
+**Branch:** main
+**Commit:** fix: Story 7.14 — Squad Template Investigation [Story 7.14]
+**Files changed:** none
