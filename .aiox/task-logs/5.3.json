@@ -1,8 +1,24 @@
 {
   "storyId": "5.3",
   "storyType": "arch",
-  "suggestedAt": "2026-06-10T00:01:24.650Z",
+  "suggestedAt": "2026-06-10T09:52:36.251Z",
   "suggestions": [
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
+      "autoActivate": true
+    },
     {
       "id": "brownfield-create-story",
       "name": "Create Brownfield Story Task",
@@ -25,22 +41,6 @@
       "category": "arch",
       "file": ".aiox-core/development/tasks/qa-test-design.md",
       "score": 81,
-      "autoActivate": true
-    },
-    {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "export-design-tokens-dtcg",
-      "name": "Export Design Tokens to W3C DTCG",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
-      "score": 73,
       "autoActivate": true
     }
   ]

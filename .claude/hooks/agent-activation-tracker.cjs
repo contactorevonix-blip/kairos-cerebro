@@ -201,7 +201,13 @@ async function runContextPhasesGuarded(userStatement, cwd) {
   let timer;
   const timeout = new Promise((resolve) => {
     timer = setTimeout(() => resolve(CONTEXT_TIMEOUT), CONTEXT_PHASES_TIMEOUT_MS);
-    if (timer && typeof timer.unref === 'function') timer.unref();
+    // NOTE: the guard timer is intentionally kept ref()'d while the Promise.race
+    // is pending. It is always cleared in the finally block below, so it can
+    // never keep the process alive beyond this function's own resolution. The
+    // standalone hook process is bounded separately by run()'s own unref()'d 3s
+    // safety timer. Keeping this timer ref()'d ensures the event loop has a live
+    // handle while awaiting the timeout budget — without it, node --test sees the
+    // loop resolve early and cancels the pending HANGING_ENGINE test (TEST-001).
   });
 
   try {

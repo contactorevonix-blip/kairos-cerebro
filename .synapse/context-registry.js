@@ -77,6 +77,30 @@ class ContextRegistry {
     }
   }
 
+  /**
+   * Persist a full registry object atomically (temp file + rename).
+   *
+   * Unlike write(), this does NOT enforce the per-session context-state schema.
+   * It is the single canonical write path used by engine.js (Phase 10) to store
+   * non-session metadata such as `last_context_engine_run`, so that the engine
+   * and this module share ONE store/format (.synapse/context-registry.json)
+   * instead of the engine maintaining its own inline JSON-into-.yaml writer
+   * (REL-001 reconciliation, Story 5.3.5 AC3).
+   *
+   * @param {object} registry - the full registry object to persist
+   */
+  saveRaw(registry) {
+    const obj = registry && typeof registry === 'object' ? registry : {};
+    const tempPath = this.filePath + '.tmp';
+    try {
+      fs.writeFileSync(tempPath, JSON.stringify(obj, null, 2));
+      fs.renameSync(tempPath, this.filePath);
+    } catch (err) {
+      if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+      throw new Error(`Failed to write registry: ${err.message}`);
+    }
+  }
+
   query(intentType) {
     const registry = this.read();
     const results = [];

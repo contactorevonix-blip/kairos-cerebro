@@ -1,0 +1,131 @@
+schema: 1
+story: '5.3'
+gate: CONCERNS
+status_reason: 'All 4 stories implemented and pushed (branch claude/kairos-cerebro-access-keuvye); registry 13/13 and phases+engine 41/41 re-verified green. BUT npm test exits 1 (9 cancelled hook tests from an unref()d timeout timer), 5.3.1 AC1 CLI does not exist, and the 5.3.3 registry module is not wired into the engine — so "99/99 PASS / CodeRabbit clean" is not empirically substantiated. Non-blocking but must be tracked.'
+reviewer: 'Quinn'
+updated: '2026-06-10T00:00:00Z'
+scope: 'Discrepancy audit of EPIC-5-3 (stories 5.3.1–5.3.4) + STATE.md vs. empirical sources of truth.'
+
+discrepancy_verdicts:
+  - id: 'D1'
+    target: '5.3.1 — Status "Done" but AC3 checkbox unmarked'
+    verdict: RESOLVED-BY-EVIDENCE
+    evidence: 'phase4-validation.js implements all 8 completeness checks (ProjectContext/Story/Epic/Schema/Workflow/Agent/Task/Rule); commit 780a89f records "QA gate PASS". AC3 (Phase 4 validation) IS implemented — the [ ] box is a stale artifact. AC content left unedited (=@po authority); documented in Change Log. Secondary findings raised as REQ-001 + MNT-001.'
+  - id: 'D2'
+    target: '5.3.2 — header "InReview" but Change Log v1.2.0 records architect PASS → Done'
+    verdict: CONFIRMED
+    evidence: 'Change Log v1.2.0 (@architect, 2026-06-10) explicitly states "Status InReview → Done" but header Status field was never updated. Transition is valid (Quality Gate = @architect per story header; story-lifecycle.md assigns InReview→Done to the gate owner). FIXED: header synced InReview → Done; Change Log v1.2.1 appended.'
+  - id: 'D3'
+    target: '5.3.3 — two "Status:" lines (header=Done, footer=Done(QA PASS, awaiting push))'
+    verdict: CONFIRMED
+    evidence: 'Both lines agreed on Done (no contradiction in verdict), but the trailing footer line is a redundant non-canonical artifact duplicating the header Status field. FIXED: redundant footer Status line removed; Change Log entry appended noting the consolidation + the engine-wiring finding (REL-001).'
+  - id: 'D4'
+    target: '5.3.4 — header "Done"/"Quality Gate: @dev" vs footer "Ready for: @dev review (Quality Gate)"'
+    verdict: CONFIRMED
+    evidence: 'Header asserts Done while footer asserts the @dev Quality Gate had not yet run. Story had NO Change Log and NO recorded InReview→Done gate verdict — the "Done" was set only via commit c6bcd32 message, never documented in-story per qa-gate.md. FIXED: added Change Log, synced footer. The "QA gate already ran" claim is only partially substantiated: commit message asserts PASS, but the story''s own AC2 test (auto-contextualization-hook.test.js) does NOT pass clean (see TEST-001).'
+  - id: 'D5'
+    target: 'STATE.md header — "WAVE 3 COMPLETE / push pending / Branch: main"'
+    verdict: RESOLVED-BY-EVIDENCE
+    evidence: 'Git confirms current branch = claude/kairos-cerebro-access-keuvye with commits c6bcd32, 1546106, e979236 present — the push ALREADY happened; "push pending" + "Branch: main" were stale. The final QA gate did NOT fully run empirically (npm test exits 1). FIXED: STATE.md header corrected to reflect pushed state + CONCERNS gate.'
+
+story_verification:
+  - story: '5.3.1 Runtime Engine'
+    verdict: CONCERNS
+    evidence: 'engine.js present (class ContextEngine, phases 1-10 methods inline; phase1-5 also as phases/*.js modules). phase4-validation.js = 8 checks (AC3 ok). BUT AC1 "executable via aiox run-context-engine" is FALSE — no such CLI in bin/ or .aiox-core/. Tasks 7-11 unchecked; Dev Record lists phases 6-11 as "Remaining Work". Status Done retained (commit 780a89f) with findings REQ-001 + MNT-001.'
+  - story: '5.3.2 Hook Integration'
+    verdict: CONCERNS
+    evidence: 'agent-activation-tracker.cjs extended with runContextPhases1To4 + runContextPhasesGuarded (Promise.race + 2000ms unref timer). Claimed "75/75 PASS"; empirical full hook suite = 75 collected / 66 pass / 9 cancelled / exit 1 (TEST-001). Status synced to Done (matches architect PASS).'
+  - story: '5.3.3 Context Registry'
+    verdict: CONCERNS
+    evidence: 'context-registry.js (CRUD) + REGISTRY-SCHEMA.md + registry.test.js present; registry.test.js re-ran 13/13 PASS exit 0. BUT engine.js never imports context-registry.js (requires only fs+path); engine uses its own inline loadRegistry/saveRegistry that JSON.parse()s a .yaml path. AC4/AC8 "integration with real engine" is exercised only by the module''s own test harness, not actual engine wiring (REL-001). Two registry files coexist (.json + .yaml).'
+  - story: '5.3.4 Test Suite & Validation'
+    verdict: CONCERNS
+    evidence: 'Test files all present. Claimed 43/43 (and epic 99/99). Empirical: auto-contextualization phases+engine = 41/41 PASS exit 0; registry 13/13 PASS; BUT auto-contextualization-hook.test.js (its own AC2 "hook tests") = 3 pass / 9 cancelled / exit 1. Therefore npm test (project source of truth) exits 1. AC5/AC8 "all tests pass without warnings/regressions" NOT met empirically. No prior Change Log / gate verdict recorded.'
+
+independent_verification:
+  method: 'No report trusted on its word. Re-ran sources of truth.'
+  checks:
+    - 'npm run lint => exit 0 (real ESLint over .claude/hooks, .aiox/task-discovery.js, tests/hooks)'
+    - 'npm run typecheck (tsc --noEmit) => exit 0'
+    - 'node --test tests/context-registry/registry.test.js => 13 pass / 0 fail / exit 0'
+    - 'node --test tests/auto-contextualization/phases/*.test.js tests/auto-contextualization/engine.test.js => 41 pass / 0 fail / exit 0'
+    - 'node --test tests/hooks/auto-contextualization-hook.test.js => 3 pass / 0 fail / 9 CANCELLED / exit 1'
+    - 'node --test tests/hooks/*.test.js (full hook glob) => 66 pass / 0 fail / 9 cancelled / exit 1'
+    - 'npm test (project source of truth) => 71 pass / 0 fail / 9 cancelled / exit 1'
+    - 'grep run-context-engine in bin/ + .aiox-core/ => NOT FOUND (5.3.1 AC1 CLI absent)'
+    - 'engine.js require graph => only fs + path; context-registry.js NOT imported (5.3.3 not wired)'
+    - 'git: 8 referenced commits (2901c55,2eb0941,635c0c8,780a89f,84c017a,9442851,c6bcd32,1546106) ALL exist'
+    - 'git: current branch claude/kairos-cerebro-access-keuvye contains c6bcd32/1546106/e979236 (push confirmed)'
+
+claim_vs_reality:
+  - claim: '99/99 PASS (56 existing + 43 new)'
+    reality: 'No single command yields 99 green. npm test exits 1 with 9 cancelled. Disjoint suites: registry 13 + autoctx 41 + hooks 66/75 (9 cancelled).'
+  - claim: '75/75 PASS (5.3.2 / hook suite)'
+    reality: '75 collected, 66 pass, 9 cancelled, exit 1.'
+  - claim: '0 CRITICAL / 0 HIGH / CodeRabbit clean'
+    reality: 'Not independently re-verifiable here; contradicted by a failing project test command (a non-green source of truth).'
+  - claim: '5.3.1 AC1 — executable via `aiox run-context-engine`'
+    reality: 'CLI does not exist. Engine is an importable class only.'
+
+top_issues:
+  - id: 'TEST-001'
+    severity: high
+    finding: 'npm test exits 1: 9 cancelled tests in tests/hooks/auto-contextualization-hook.test.js. The runContextPhasesGuarded timeout timer is unref()d (agent-activation-tracker.cjs:204), so when the HANGING_ENGINE test awaits the 2s budget the event loop has no live handle and node --test reports "Promise resolution is still pending but the event loop has already resolved", cancelling that test and cascading to 8 more. The stories report this same file as "75/75" / "8/8 PASS".'
+    suggested_action: 'Return @dev to fix: in the test, keep the loop alive during the timeout wait (e.g. a ref()d guard timer in the test, or fake timers); OR make the guard timer ref()d while awaiting and unref only on the production hook path. Re-run npm test to exit 0 before declaring the epic Done.'
+  - id: 'REQ-001'
+    severity: medium
+    finding: '5.3.1 AC1 claims executability via `aiox run-context-engine`; no such CLI exists in bin/ or .aiox-core/. Story is marked Done with an unmet AC.'
+    suggested_action: 'Either add the CLI binding (route via @dev) or have @po amend AC1 to reflect the class-only delivery; record the decision in the Change Log.'
+  - id: 'REL-001'
+    severity: medium
+    finding: '5.3.3 registry module (context-registry.js) is not imported by engine.js. Engine uses its own inline loadRegistry/saveRegistry against registryPath=.synapse/context-registry.yaml but JSON.parse()s it (and saveRegistry writes JSON into a .yaml-named file). Phase 5/10 "real engine integration" (AC4/AC8) is therefore not actually wired.'
+    suggested_action: 'Wire engine.js to require .synapse/context-registry.js (or reconcile path/format so engine + module use one store). Track as a follow-up story; current engine self-test masks the gap.'
+  - id: 'MNT-001'
+    severity: low
+    finding: '5.3.1 Tasks 7-11 (Phases 6-10 as phases/*.js modules) unchecked and Dev Record lists them as "Remaining Work", yet phases 6-10 exist inline in engine.js. Documentation/implementation drift on a Done story.'
+    suggested_action: 'Reconcile task checkboxes and Dev Record with the inline implementation, or split out modules to match the stated File List.'
+  - id: 'PROC-001'
+    severity: low
+    finding: 'Status-field drift: 5.3.2 header lagged its own Change Log (InReview vs Done); 5.3.3 had a duplicate trailing Status line; 5.3.4 had no Change Log and no recorded gate verdict; STATE.md header stale (branch main / push pending after push). Same lifecycle-hygiene pattern flagged in 5.2 gate (REL-001).'
+    suggested_action: 'Enforce qa-gate.md "Post-Gate Status Update (MANDATORY)" — update the header Status field + append a Change Log gate entry in the same step the verdict is decided.'
+
+corrections_applied:
+  - 'docs/stories/5.3.2.story.md — header Status InReview → Done; Change Log v1.2.1 appended.'
+  - 'docs/stories/5.3.3.story.md — removed redundant trailing Status line; Change Log audit entry appended.'
+  - 'docs/stories/5.3.4.story.md — added Change Log (was missing); footer synced from "@dev review" to "@devops push (CONCERNS)".'
+  - 'docs/stories/5.3.1.story.md — Change Log audit entry: AC3 RESOLVED-BY-EVIDENCE, AC1 CLI + Tasks 7-11 findings (AC checkbox left to @po authority).'
+  - 'STATE.md — header corrected: branch claude/kairos-cerebro-access-keuvye, push already done, epic gate CONCERNS.'
+
+authority_note: 'Per @qa story-file-permissions: only Status field + Change Log (append) + this gate file were modified. Acceptance Criteria, title, scope, and source code were NOT altered. No git push performed (@devops exclusive).'
+
+waiver: { active: false }
+
+# ---------------------------------------------------------------------------
+# REMEDIATION CLOSURE (appended 2026-06-10 by @architect / Aria)
+# Story 5.3.5 closed all 5 top_issues. Each verified empirically (no report
+# trusted; sources of truth re-run). See docs/qa/gates/5.3.5-remediation.yml.
+# ---------------------------------------------------------------------------
+remediation_closure:
+  remediated_by: 'docs/stories/5.3.5.story.md'
+  gate: 'docs/qa/gates/5.3.5-remediation.yml'
+  verdict: PASS
+  closed_at: '2026-06-10T00:00:00Z'
+  reviewer: 'Aria (@architect)'
+  issues_resolved:
+    - id: 'TEST-001'
+      status: RESOLVED
+      evidence: 'Guard-timer .unref() removed in agent-activation-tracker.cjs (timer cleared in finally; separate run() unref()d 3s safety timer). npm test now exits 0 (80/80 + 7/7, 0 cancelled); hook glob 75/75; auto-contextualization-hook 12/12. Project source-of-truth is GREEN — the blocking issue is fixed.'
+    - id: 'REQ-001'
+      status: RESOLVED
+      evidence: 'Option (b): 5.3.1 AC1 reworded to class-only delivery (no false CLI claim); run-context-engine still NOT FOUND in bin/+.aiox-core; decision recorded in 5.3.1 Change Log v1.3.0 citing 5.3.5.'
+    - id: 'REL-001'
+      status: RESOLVED
+      evidence: 'engine.js now requires .synapse/context-registry.js; loadRegistry->read(), saveRegistry->saveRaw(); single JSON store; orphan .yaml deleted. registry 13/13 + phases/engine 41/41 still green.'
+    - id: 'MNT-001'
+      status: RESOLVED
+      evidence: 'Phases 6-10 confirmed inline in engine.js; 5.3.1 Tasks 7-11 [x]; Dev Record "Remaining Work" cleared; File List .yaml->.json; documented in 5.3.1 Change Log v1.3.0.'
+    - id: 'PROC-001'
+      status: RESOLVED
+      evidence: 'story-lifecycle.md gained "Post-Gate Status Update (MANDATORY)" atomic checklist (L4); qa-gate.md (L2) untouched. AC5 rule applied to 5.3.5 itself at verdict time.'
+  epic_gate_recommendation: 'CONCERNS -> PASS warranted: the sole blocking finding (TEST-001) is empirically resolved and all medium/low findings closed. Epic EPIC-5-3 can be honestly declared green. (Verdict field above left as historical record of the original audit; this closure block records the post-remediation state.)'
+  note: 'No git push performed (@devops exclusive). Only the Status field, Change Log, footer sync, the 5.3.5 gate file, and this closure annotation were modified.'
