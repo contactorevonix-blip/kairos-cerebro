@@ -1,0 +1,47 @@
+{
+  "storyId": "7.1",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-10T21:34:13.329Z",
+  "suggestions": [
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 73,
+      "autoActivate": true
+    }
+  ]
+}

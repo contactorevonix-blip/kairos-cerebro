@@ -1,0 +1,47 @@
+{
+  "storyId": "7.12",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-10T21:42:06.554Z",
+  "suggestions": [
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "analyze-brownfield",
+      "name": "Analyze Brownfield Project",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
+      "score": 65,
+      "autoActivate": false
+    }
+  ]
+}

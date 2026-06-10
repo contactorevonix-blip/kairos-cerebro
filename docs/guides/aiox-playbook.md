@@ -117,6 +117,47 @@ Ver guia de instalação: `docs/guides/coderabbit-setup.md` (a criar)
 
 ---
 
+## Sync & Update — Manter AIOX Atualizado
+
+### Comando Oficial de Sincronização
+
+```bash
+npx aiox-core@latest install
+```
+
+**Descrição:** Sincroniza a instalação local do AIOX com a versão mais recente do upstream (SynkraAI/aiox-core). Idempotente e seguro para executar múltiplas vezes.
+
+**Comportamento:**
+- Detecta instalação existente (ex: v5.2.9 local)
+- Atualiza apenas ficheiros que foram alterados no upstream
+- Cria backups (`.bak`) de ficheiros customizados localmente
+- Preserva `core-config.yaml` e toda a configuração do projeto
+- Não pisa ficheiros em L4 (docs/stories/, squads/, etc.)
+
+**Quando usar:**
+- Periodicamente para trazer correções e features do upstream
+- Após pull request significativo do upstream
+- Quando há breaking changes documentados no CHANGELOG
+
+**Exemplo:**
+```bash
+$ npx aiox-core@latest install
+✅ AIOX Core Framework updated to v5.2.9.1
+✅ 12 files synchronized
+⚠️ 3 files backed up (.bak) due to local customizations
+✅ core-config.yaml preserved
+✅ Project config intact
+
+Updated files:
+  - .aiox-core/infrastructure/scripts/validate-claude-integration.js
+  - .aiox-core/development/agents/aiox-dev.md
+  - .aiox-core/constitution.md
+```
+
+**Nota:** Este é o **único comando oficial** recomendado para sincronização. Não usar scripts ad-hoc ou atualizações manuais.
+
+---
+
 ## Constitution Article II — Regras Invioláveis
 
 | Operação | Agente Autorizado |

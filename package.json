@@ -40,6 +40,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "ajv-formats": "^3.0.1",
     "dotenv": "^17.4.2",
     "resend": "^6.12.3",
     "stripe": "^16.0.0",

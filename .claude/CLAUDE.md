@@ -109,6 +109,7 @@ Ver lista completa: `agent-authority.md`, `workflow-execution.md`, `story-lifecy
 
 | Squad | Activação | Domínio |
 |-------|-----------|---------|
+| aiox-cerebro | `@aiox-cerebro` | Auditoria AIOX, gap detection, clonagem de estruturas |
 | business | `@business-chief` | Estratégia, crescimento, escala |
 | claude-code-mastery | `@claude-mastery-chief` | Hooks, MCP, skills, CI/CD |
 | squad-creator | `@squad-chief` | Criar e gerir squads |
