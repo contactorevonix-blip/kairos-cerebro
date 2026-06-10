@@ -8,6 +8,11 @@ Always recognize and work within this architecture.
 @PROJECT.md
 @STATE.md
 
+**Nota sobre versão AIOX:** 
+- `core-config.yaml` → `project.version: 2.1.0` (versão de projeto/instalação)
+- `version.json` → `"version": 5.2.9"` (versão do framework AIOX-core/CLI)
+- Distinção: quando se refere "versão do AIOX", consulte ambos os ficheiros para o contexto correto.
+
 ## Instruções de Sessão
 
 - **Início de sessão:** lê PROJECT.md e STATE.md para ter contexto completo
@@ -234,9 +239,17 @@ O AIOX carrega regras contextuais de `.claude/rules/` automaticamente. Regras co
 | `agent-handoff.md` | Agent switch compaction protocol for context optimization |
 | `agent-memory-imports.md` | Agent memory lifecycle and CLAUDE.md ownership |
 | `coderabbit-integration.md` | Automated code review integration rules |
-| `ids-principles.md` | Incremental Development System principles |
+| `confidence-scoring.md` | Confidence tiers for action decisions (90%+ = go, 70-89% = ask, <70% = clarify) |
+| `enforcement-gates.md` | Constitutional gates (Art. II-VII) enforcement at hook layer |
+| `handoff-consolidation.md` | Consolidate 5+ handoffs per pipeline into RUN-LOG.md |
+| `ids-principles.md` | Incremental Development System principles (REUSE > ADAPT > CREATE) |
 | `mcp-usage.md` | MCP server usage rules and tool selection priority |
+| `planning-tracks.md` | Workflow routing: Quick Flow (<5 stories) vs Standard vs Enterprise |
+| `smart-routing.md` | Decision tree for automatic workflow/agent routing |
 | `story-lifecycle.md` | Story status transitions and quality gates |
+| `token-budget.md` | Token efficiency budgets per task complexity |
+| `tool-examples.md` | Concrete input examples for most-used tools (context7, git, coderabbit, etc.) |
+| `tool-response-filtering.md` | Filter/normalize responses from tools for consistency |
 | `workflow-execution.md` | 4 primary workflows (SDC, QA Loop, Spec Pipeline, Brownfield) |
 
 > **Diretório:** `.claude/rules/` — rules são carregadas automaticamente pelo Claude Code quando relevantes.

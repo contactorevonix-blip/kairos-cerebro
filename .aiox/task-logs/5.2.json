@@ -1,47 +1,47 @@
 {
   "storyId": "5.2",
-  "storyType": "config",
-  "suggestedAt": "2026-06-09T09:13:21.318Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-10T15:00:11.659Z",
   "suggestions": [
     {
-      "id": "list-mcps",
-      "name": "list-mcps",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/list-mcps.md",
-      "score": 73,
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "setup-design-system",
-      "name": "Setup Design System Structure",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-design-system.md",
-      "score": 73,
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "github-devops-pre-push-quality-gate",
-      "name": "pre-push-quality-gate.md",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
-      "score": 67,
-      "autoActivate": false
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "add-mcp",
-      "name": "Add MCP Server Task",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/add-mcp.md",
-      "score": 65,
-      "autoActivate": false
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "audit-tailwind-config",
-      "name": "Audit Tailwind v4 Configuration & Utility Health",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
-      "score": 65,
-      "autoActivate": false
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 81,
+      "autoActivate": true
     }
   ]
 }

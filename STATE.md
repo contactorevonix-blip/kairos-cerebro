@@ -340,3 +340,93 @@
 **Branch:** main
 **Commit:** fix: Resolve MNT-001 and MNT-002 advisory notes + finalize EPIC-5-3
 **Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 92d7227 — 2026-06-10 14:56
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 92d7227 — 2026-06-10 14:56
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 14:58
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:00
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:01
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:03
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:03
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:05
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:05
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:06
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:07
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:08
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:12
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 15:13
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 16:50
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 16:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 16:51
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92d7227 — 2026-06-10 16:52
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md, .synapse/metrics/hook-metrics.json, STATE.md
