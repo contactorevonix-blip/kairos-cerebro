@@ -1,0 +1,18 @@
+schema: 1
+story: '7.9'
+gate: PASS
+status_reason: 'ade-guide.md (447 lines) copied from upstream with all 7 named Epics and autoClaude V3 schema present. Decision to keep both ade-guide and aiox-playbook is well-justified.'
+reviewer: 'Quinn'
+updated: '2026-06-10T22:50:00Z'
+top_issues: []
+waiver: { active: false }
+evidence:
+  ac_validated: 'AC1-AC6 all met'
+  files_verified:
+    - 'docs/guides/ade-guide.md — 447 lines (new file, commit 293e7af)'
+  runtime_checks:
+    - 'All 7 Epics named: Worktree Manager, Migration V2→V3, Spec Pipeline, Execution Engine, Recovery System, QA Evolution, Memory Layer'
+    - 'autoClaude V3 schema present (28 Epic/autoClaude references)'
+  security: 'Documentation-only. No secrets. Sourced from upstream SynkraAI/aiox-core.'
+  regressions: 'None. aiox-playbook.md retained as summary (intentional, AC6).'
+notes: 'Comprehensive reference guide. Minor encoding artifact observed in Epic 2 heading (V2â†’V3) — cosmetic only, does not affect content integrity.'

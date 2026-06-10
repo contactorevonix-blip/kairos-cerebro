@@ -1,0 +1,18 @@
+schema: 1
+story: '7.2'
+gate: PASS
+status_reason: 'ajv-formats@^3.0.1 added to package.json, resolves cleanly, and is consumed by core validation modules. AC5 (try/catch audit) correctly deferred as optional.'
+reviewer: 'Quinn'
+updated: '2026-06-10T22:50:00Z'
+top_issues: []
+waiver: { active: false }
+evidence:
+  ac_validated: 'AC1-AC4 met; AC5 deferred (optional, contextual)'
+  files_verified:
+    - 'package.json — dependencies.ajv-formats = "^3.0.1" (confirmed in commit 293e7af)'
+  runtime_checks:
+    - 'node -e "require(\"ajv-formats\")" → OK'
+    - 'package-lock.json updated (66 lines)'
+  security: 'No secrets or keys introduced. Dependency matches upstream v5.2.9 pin.'
+  regressions: 'None. Restores previously-silent schema validation path.'
+notes: 'AC5 deferral is sound — removing the try/catch is contextual and out of scope. Low-risk dependency addition that fixes silent validation failures.'

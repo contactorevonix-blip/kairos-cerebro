@@ -1,0 +1,22 @@
+schema: 1
+story: '7.11'
+gate: PASS
+status_reason: 'Sync & Update section added to aiox-playbook.md documenting npx aiox-core@latest install with description, behavior, backup, config-preservation, example, and "only official method" note.'
+reviewer: 'Quinn'
+updated: '2026-06-10T22:50:00Z'
+top_issues: []
+waiver: { active: false }
+evidence:
+  ac_validated: 'AC1-AC4 all met'
+  files_verified:
+    - 'docs/guides/aiox-playbook.md — Sync & Update section added (41 lines, commit 293e7af)'
+  content_checks:
+    - 'Idempotent + safe-to-rerun documented'
+    - 'Detects existing install, updates only changed files'
+    - '.bak backup of customizations documented'
+    - 'core-config.yaml + project config preservation noted'
+    - 'Usage example with sample output included'
+    - 'Marked as only official sync method'
+  security: 'Documentation-only. Example output is illustrative.'
+  regressions: 'None.'
+notes: 'Directly answers Pedro request for a single sync command (Cont 25). Example version label v5.2.9.1 is illustrative — acceptable for a docs example.'

@@ -1,0 +1,21 @@
+schema: 1
+story: '7.5'
+gate: PASS
+status_reason: 'aiox-cerebro added to CLAUDE.md squads table with accurate description; squad existence confirmed via glob (6 real squads). Alphabetical ordering preserved.'
+reviewer: 'Quinn'
+updated: '2026-06-10T22:50:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'Table still lists only 4 of 6 real squads (deep-research, system-factory, process-mapper omitted). Spec scoped AC5 to aiox-cerebro only, so this is acceptable but the gap remains.'
+    suggested_action: 'Consider a follow-up story to document the remaining 3 squads (deep-research, system-factory, process-mapper).'
+waiver: { active: false }
+evidence:
+  ac_validated: 'AC1-AC4 met; AC5 deferred per spec (aiox-cerebro only)'
+  files_verified:
+    - '.claude/CLAUDE.md — squads table row added (confirmed in commit 293e7af)'
+  runtime_checks:
+    - 'glob squads/*/squad.yaml → 6 squads (aiox-cerebro, business, claude-code-mastery, squad-creator, deep-research, system-factory, process-mapper)'
+  security: 'Documentation-only change. No secrets.'
+  regressions: 'None.'
+notes: 'aiox-cerebro is a legitimate local squad. Description is accurate. The 3 undocumented squads are a known low-severity gap, correctly out of this story scope.'
