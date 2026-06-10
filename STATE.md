@@ -24,6 +24,27 @@
 
 ---
 
+## ✅ Session 2026-06-10 (Cont 27) — EPIC-7 PRIO 0-1 EXECUTION (4 Stories → Ready for Review)
+
+**Prio 0 Implemented:**
+- ✅ Story 7.7 — `.claude/settings.local.json` restaurada (permissions.allow: 6 entradas). JSON validado.
+
+**Prio 1 Investigations (2 gaps, 2 findings, 0 gaps):**
+- ✅ Story 7.3 — Gate Enforcement: **NOT-A-GAP** — Framework boundary enforcement funciona (bloqueou tentativa de reprodução). Ficheiros L2 antigos removidos via `git clean`.
+- ✅ Story 7.14 — Squad Template: **FINDING** — Template `squads/_example/squad.yaml` não existe.
+- ✅ Story 7.13 — IDS Investigation: **2 GAPS:**
+  - **G6 Incomplete:** Documentado em ids-principles.md (CI/CD registry integrity) mas NÃO implementado em gates/ (só G1-G5)
+  - **ids-pre-push.js Orphaned:** Existe mas NÃO referenciado em .husky/pre-push
+
+**Commits:** 4 (7.7, 7.3, 7.14, 7.13) — All gates PASS
+
+**Próximas Fases Pendentes:**
+- Prio 2: @dev implementação (6 stories, ~12sp, fixes directos)
+- Prio 3: 2 stories (~1.5sp, documentação)
+- @qa gates + @devops push
+
+---
+
 ## 📋 Session 2026-06-10 (Cont 25) — EPIC-7 INVESTIGATION (Plan Mode, 100% Cobertura)
 
 ### O que foi feito
