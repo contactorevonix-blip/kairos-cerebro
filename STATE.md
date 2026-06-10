@@ -1,9 +1,9 @@
-# Session 2026-06-10 (Cont 23) — EPIC-6 STORY CREATION + AIOX AUDIT REMEDIATION
+# Session 2026-06-10 (Cont 24) — EPIC-6 ADE OWNER ACTIVATION + DEEP AUDIT
 
-**Session 2026-06-10 (Cont 23):** EPIC-6 Complete SDC Cycle: Create → Validate → Ready — **10/10 Stories READY, 28/28 story points (audit-driven, zero invenção)**
-**Previous:** Session 2026-06-10 (Cont 22) — EPIC-5-3 SHIPPED (23/23sp, 100% complete)
-**Branch:** main (commit: 26fe1ea)
-**Status:** ✅ **EPIC-6 READY FOR IMPLEMENTATION** — All stories validated (GO verdict), status Draft→Ready, committed. Ready for @dev phase by 5 ADE owners.
+**Session 2026-06-10 (Cont 24):** EPIC-6 Investigação Profunda + Ativação dos 5 ADE Owners — **10/10 Stories READY, 28sp, 5 ADE owners activated, zero blockers on critical path**
+**Previous:** Session 2026-06-10 (Cont 23) — EPIC-6 Story Creation (10/10 Ready)
+**Branch:** main (commit: 5e221fb, working changes pending commit)
+**Status:** ✅ **EPIC-6 GO LIVE** — All stories validated, dependencies mapped, 5 ADE owners ready to execute. Handoff protocol decision (6.4) is critical blocker for 6.5.
 
 ---
 
@@ -55,9 +55,16 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 2. @qa gate verification (QA Loop if needed)
 3. @devops push to remote
 
-**Blockers for Next Session:**
-- Story 6.4 (handoff protocol decision) — architecture decision required before 6.5 proceeds
-- Stories 6.8/6.9 — require user (Pedro) approval before completion
+**Blockers & Dependencies (Clear):**
+- **6.4 → 6.5:** Story 6.4 (handoff protocol decision) bloqueador para 6.5 (RUN-LOG)
+- **6.8/6.9:** Requerem confirmação de Pedro antes de arquivo/delete de hooks Python e shell scripts
+- **6.3:** Recomendado Option A decision para simplificar consolidação
+
+**Critical Path:**
+- @architect decides 6.4 (YAML vs JSON) → @dev executa 6.5 consolidação
+
+**Não-Bloqueadores:**
+- Todas as outras stories podem executar em paralelo
 
 ---
 
@@ -523,3 +530,93 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: EPIC-6 stories status Draft → Ready (PO validation GO verdict)
 **Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5e221fb — 2026-06-10 17:03
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) FINAL — EPIC-6 Ready for Implementation (10/10 stories, 28sp, @po GO verdict)
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 5e221fb — 2026-06-10 17:08
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) FINAL — EPIC-6 Ready for Implementation (10/10 stories, 28sp, @po GO verdict)
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5e221fb — 2026-06-10 17:09
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) FINAL — EPIC-6 Ready for Implementation (10/10 stories, 28sp, @po GO verdict)
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5e221fb — 2026-06-10 17:10
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) FINAL — EPIC-6 Ready for Implementation (10/10 stories, 28sp, @po GO verdict)
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5e221fb — 2026-06-10 17:11
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) FINAL — EPIC-6 Ready for Implementation (10/10 stories, 28sp, @po GO verdict)
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:11
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:11
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:12
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:13
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:14
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:15
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:15
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:16
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:16
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:17
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:18
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:18
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f277bbf — 2026-06-10 17:19
+**Branch:** main
+**Commit:** fix: remove redundant backup files from .aiox-core [Story 6.10]
+**Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
