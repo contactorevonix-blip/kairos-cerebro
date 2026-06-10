@@ -11,3 +11,5 @@
 {"timestamp":"2026-06-10T09:51:44.287Z","article":"art-iii-story-driven","gate":"story-driven","decision":"override","reason":"[no-story-req] tag present — config-only commit allowed without story.","override":"[no-story-req]"}
 {"timestamp":"2026-06-10T09:51:54.230Z","article":"art-iii-story-driven","gate":"story-driven","decision":"override","reason":"[no-story-req] tag present — config-only commit allowed without story.","override":"[no-story-req]"}
 {"timestamp":"2026-06-10T09:52:15.016Z","article":"art-iii-story-driven","gate":"story-driven","decision":"override","reason":"[no-story-req] tag present — config-only commit allowed without story.","override":"[no-story-req]"}
+{"timestamp":"2026-06-10T10:13:18.295Z","article":"art-iii-story-driven","gate":"story-driven","decision":"override","reason":"[no-story-req] tag present — config-only commit allowed without story.","override":"[no-story-req]"}
+{"timestamp":"2026-06-10T10:13:28.528Z","article":"art-iii-story-driven","gate":"story-driven","decision":"override","reason":"[no-story-req] tag present — config-only commit allowed without story.","override":"[no-story-req]"}
