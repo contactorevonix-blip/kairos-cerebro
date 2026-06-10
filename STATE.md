@@ -1,9 +1,9 @@
-# EPIC-5-3 — IMPLEMENTATION COMPLETE & PUSHED; EPIC GATE = CONCERNS (5.3 discrepancy audit 2026-06-10)
+# EPIC-5-3 — COMPLETE, ALL FINDINGS RESOLVED & INDEPENDENTLY VERIFIED (5.3.5 remediation, 2026-06-10)
 
 **Session 2026-06-10 (Cont 22):** EPIC-5-3 FINAL WAVE — **4/4 Stories implemented, 23/23 story points**
 **Previous:** Session 2026-06-09/10 (Cont 21) — Wave 2 (5.3.3, 21/23sp)
 **Branch:** `claude/kairos-cerebro-access-keuvye` — commits c6bcd32, 1546106, e979236 ALREADY PUSHED to this branch.
-**Status:** Implementation delivered AND pushed. The prior "WAVE 3 COMPLETE / push pending" line was stale — the push already happened (checkpoints 1546106 / e979236). 5.3 discrepancy audit (@qa Quinn, 2026-06-10) verdict: **CONCERNS** — `npm test` exits 1 (9 cancelled tests in `tests/hooks/auto-contextualization-hook.test.js`, caused by an `unref()`'d timeout timer; TEST-001), so the "99/99 PASS" / "CodeRabbit clean" claims are not empirically green; `aiox run-context-engine` CLI (5.3.1 AC1) does not exist; the 5.3.3 `context-registry.js` module is not imported by `engine.js`. Full evidence: `docs/qa/gates/5.3-epic-discrepancy-audit.yml`.
+**Status:** Implementation delivered AND pushed (branch `claude/kairos-cerebro-access-keuvye`). The 5.3 discrepancy audit (@qa Quinn, 2026-06-10) originally returned **CONCERNS** (5 findings: TEST-001/REQ-001/REL-001/MNT-001/PROC-001). Story **5.3.5** remediated all 5, gated **PASS** by @architect (Aria), then **independently re-verified PASS** by @qa (Quinn) — no report trusted on its word, every source of truth re-run. Empirical final state: `npm test` exits **0** (80/80 + 7/7, 0 cancelled, 0 failed — TEST-001 fixed by removing the guard-timer `unref()`, cleared in `finally`, separate `run()` 3s `unref()`'d safety timer intact); `lint` + `typecheck` exit 0; registry 13/13, phases/engine 41/41, hook 12/12, full hook glob 75/75 all green. `run-context-engine` CLI correctly absent (5.3.1 AC1 reworded to class-only — REQ-001); `engine.js` now `require`s `.synapse/context-registry.js`, single JSON store, stale `.yaml` deleted (REL-001); 5.3.1 Tasks 7-11 reconciled with inline Phases 6-10 (MNT-001); `story-lifecycle.md` gained "Post-Gate Status Update (MANDATORY)" with `qa-gate.md` (L2) untouched (PROC-001). One non-blocking cosmetic observation (OBS-001: 5.3.1 line-16 intro still says "via CLI" — descriptive prose, not the audited AC). **EPIC-5-3 can be honestly declared green.** Evidence: `docs/qa/gates/5.3.5-remediation.yml` (@architect) + `docs/qa/gates/5.3.5-independent-verification.yml` (@qa) + closure block in `docs/qa/gates/5.3-epic-discrepancy-audit.yml`.
 
 ---
 
@@ -302,3 +302,18 @@
 **Branch:** claude/kairos-cerebro-access-keuvye
 **Commit:** feat: create remediation story 5.3.5 for EPIC-5-3 audit findings [Story 5.3.5]
 **Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.3.json, .claude/hooks/agent-activation-tracker.cjs, .claude/rules/story-lifecycle.md, .synapse/REGISTRY-SCHEMA.md, .synapse/context-engine/engine.js, .synapse/context-registry.js
+
+## Checkpoint: 5fb0aca — 2026-06-10 09:45
+**Branch:** claude/kairos-cerebro-access-keuvye
+**Commit:** fix: resolve EPIC-5-3 audit findings TEST-001/REQ-001/REL-001/MNT-001/PROC-001 [Story 5.3.5]
+**Files changed:** none
+
+## Checkpoint: 5fb0aca — 2026-06-10 09:51
+**Branch:** claude/kairos-cerebro-access-keuvye
+**Commit:** fix: resolve EPIC-5-3 audit findings TEST-001/REQ-001/REL-001/MNT-001/PROC-001 [Story 5.3.5]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5fb0aca — 2026-06-10 09:51
+**Branch:** claude/kairos-cerebro-access-keuvye
+**Commit:** fix: resolve EPIC-5-3 audit findings TEST-001/REQ-001/REL-001/MNT-001/PROC-001 [Story 5.3.5]
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md

@@ -1,0 +1,147 @@
+schema: 1
+story: '5.3.5'
+gate: PASS
+status_reason: 'Independent second verification of the 5.3.5 remediation. No report trusted on its word — every source of truth re-run by @qa (Quinn), distinct from @architect''s 5.3.5-remediation.yml. All 5 parent findings (TEST-001/REQ-001/REL-001/MNT-001/PROC-001) confirmed RESOLVED empirically. npm test exits 0 (sniper-api+hooks 80/80, websocket 7/7, 0 cancelled, 0 failed) — the sole blocking finding (TEST-001) is fixed at the source (guard timer no longer unref()d, cleared in finally, separate run() 3s unref()d safety timer intact). lint exit 0, typecheck exit 0. registry 13/13, phases/engine 41/41, hook 12/12, full hook glob 75/75 — all exit 0, 0 cancelled. run-context-engine CLI correctly absent (class-only delivery). engine.js wired to context-registry.js (line 13); single JSON store; orphan .yaml deleted (git D). qa-gate.md (L2) provably untouched (0 diff lines HEAD~5..HEAD). story-lifecycle.md AC5 section present (line 124). One non-blocking informational observation logged (OBS-001). Score 100/100.'
+reviewer: 'Quinn (@qa — independent second verification)'
+updated: '2026-06-10T00:00:00Z'
+scope: 'Independent re-verification of the EPIC-5-3 remediation (Story 5.3.5) — same discipline as the parent audit gate docs/qa/gates/5.3-epic-discrepancy-audit.yml ("No report trusted on its word. Re-ran sources of truth."). Re-ran every command listed in the architect closure (docs/qa/gates/5.3.5-remediation.yml) plus the original audit checks, independently.'
+
+ac_verification:
+  - ac: 'AC1'
+    finding: 'TEST-001 (HIGH, BLOCKING) — npm test must exit 0, 0 cancelled, 0 failed'
+    verdict: PASS
+    evidence: |
+      Read .claude/hooks/agent-activation-tracker.cjs around runContextPhasesGuarded
+      (lines 196-230) and run() (lines 277-298) MYSELF:
+        - Guard timer setTimeout at line 203 has NO .unref() (comment lines 204-210
+          documents WHY: keeping it ref()'d gives the event loop a live handle while
+          awaiting the timeout budget, so node --test no longer cancels the pending
+          HANGING_ENGINE test).
+        - Timer ALWAYS cleared in finally{} (line 228: `if (timer) clearTimeout(timer)`),
+          so it can never keep the process alive beyond the function's own resolution.
+        - run() has a SEPARATE 3s safety timer (line 279) that IS unref()'d (line 283) —
+          this independently bounds the standalone hook process. So removing the guard-timer
+          unref() introduces NO risk of the hook process never terminating: the two timers
+          are distinct, and the process-level bound (unref'd) is intact. @dev/@architect
+          "production safe" reasoning independently confirmed.
+      Empirical re-run BY ME (now):
+        npm test                                                     => exit 0; 80/80 sniper-api+hooks, 7/7 websocket, 0 cancelled, 0 fail
+        node --test tests/hooks/auto-contextualization-hook.test.js  => 12 pass / 0 cancelled / exit 0
+        node --test tests/hooks/*.test.js (full hook glob)           => 75 pass / 0 cancelled / exit 0
+      Original audit baseline was: npm test 71 pass / 9 cancelled / exit 1; hook file 3 pass / 9 cancelled.
+      No regression; blocking issue empirically resolved.
+  - ac: 'AC2'
+    finding: 'REQ-001 (MEDIUM) — resolve 5.3.1 AC1 false-CLI claim'
+    verdict: PASS
+    evidence: |
+      `grep -rn run-context-engine bin/ .aiox-core/` => NOT FOUND (run by me) — consistent
+      with class-only delivery; option (b) honestly reflects reality.
+      Read docs/stories/5.3.1.story.md line 45: AC1 reworded to "importable ContextEngine
+      class ... invoked programmatically by the agent-activation lifecycle hook" with an
+      HTML comment citing Story 5.3.5 AC2 / @po option (b). No false CLI claim in the AC.
+      Decision recorded in 5.3.1 Change Log v1.3.0 (line 190) referencing docs/stories/5.3.5.story.md
+      and the 5.3.5 AC2 "Done when" clause (b). Resolution is correct and traceable.
+      NOTE (OBS-001, non-blocking): the 5.3.1 Overview paragraph (line 16) still contains the
+      legacy phrase "must be executable via CLI". This is descriptive intro prose, NOT the
+      Acceptance Criterion that REQ-001 targeted (AC1, line 45, IS corrected). The audited
+      contract is fixed; the stray intro phrase is cosmetic drift, logged for awareness only.
+  - ac: 'AC3'
+    finding: 'REL-001 (MEDIUM) — wire engine.js to context-registry.js, reconcile store/format'
+    verdict: PASS
+    evidence: |
+      Read .synapse/context-engine/engine.js MYSELF:
+        - line 13: `const ContextRegistry = require(path.join(__dirname, "..", "context-registry.js"))`
+          — engine NOW imports the canonical module (audit baseline: only fs + path).
+        - line 19: registryPath = .synapse/context-registry.json (JSON, not .yaml).
+        - line 20: constructor instantiates `new ContextRegistry(this.registryPath)`.
+        - line 462: loadRegistry() => `this.registry.read()`.
+        - line 467: saveRegistry() => `this.registry.saveRaw(registry)`.
+        - No `JSON.parse` against any .yaml path anywhere in engine.js (grep confirmed).
+      Read .synapse/context-registry.js: `saveRaw(registry)` present (line 92); `read()` (line 23).
+      Filesystem (ls run by me): only .synapse/context-registry.js + .synapse/context-registry.json
+      remain; .synapse/context-registry.yaml is DELETED — `git log --diff-filter=D` attributes
+      the deletion to commit 5fb0aca (Story 5.3.5).
+      Regression suites re-run by me:
+        node --test tests/context-registry/registry.test.js                       => 13/13 pass, 0 cancelled, exit 0
+        node --test tests/auto-contextualization/phases/*.test.js engine.test.js  => 41/41 pass, 0 cancelled, exit 0
+      Single reconciled store, engine wired, no regressions.
+  - ac: 'AC4'
+    finding: 'MNT-001 (LOW) — reconcile 5.3.1 Tasks 7-11 / Dev Record with inline Phases 6-10'
+    verdict: PASS
+    evidence: |
+      grep on engine.js (by me): phase6_routing (170), phase7_preExecution (193),
+      phase8_execution (215), phase9_handoff (236), phase10_persistence (269); orchestrated
+      inline at lines 323-336. Read docs/stories/5.3.1.story.md: Tasks 7-11 all [x]
+      (lines 107-111) with inline-method annotations; Dev Agent Record "Remaining Work"
+      (line 176) now reads "None remaining." with justification; File List (line 141)
+      references .synapse/context-registry.json (was .yaml). Change documented in 5.3.1
+      Change Log v1.3.0 (line 190). Story doc is coherent with the real code.
+  - ac: 'AC5'
+    finding: 'PROC-001 (LOW, PROCESS) — Post-Gate Status Update discipline in L4'
+    verdict: PASS
+    evidence: |
+      .claude/rules/story-lifecycle.md contains "### Post-Gate Status Update (MANDATORY)"
+      (line 124) with the 3-step atomic checklist (1) header Status sync, (2) Change Log
+      gate-verdict row, (3) redundant/duplicate Status-line dedup — performed in the same
+      step as the verdict. Boundary respected: `git diff HEAD~5 HEAD -- .aiox-core/development/tasks/qa-gate.md`
+      => 0 lines (the L2 framework-protected file was NOT modified across the entire
+      remediation range). AC5 was also applied to the 5.3.5 story itself at verdict time
+      (header InReview->Done + Change Log v1.1.0 gate row + footer sync — verified in 5.3.5.story.md).
+
+independent_verification:
+  method: 'No report trusted on its word. Re-ran every source of truth referenced by the ACs and by the architect closure, independently as @qa.'
+  checks:
+    - 'npm test (project source of truth) => exit 0 — sniper-api+hooks 80 pass / 0 cancelled / 0 fail; websocket 7 pass / 0 fail'
+    - 'npm run lint (eslint .claude/hooks .aiox/task-discovery.js tests/hooks --quiet) => exit 0'
+    - 'npm run typecheck (tsc --noEmit -p tsconfig.json) => exit 0'
+    - 'node --test tests/context-registry/registry.test.js => 13 pass / 0 fail / 0 cancelled / exit 0'
+    - 'node --test tests/auto-contextualization/phases/*.test.js tests/auto-contextualization/engine.test.js => 41 pass / 0 fail / 0 cancelled / exit 0'
+    - 'node --test tests/hooks/auto-contextualization-hook.test.js => 12 pass / 0 fail / 0 cancelled / exit 0'
+    - 'node --test tests/hooks/*.test.js (full hook glob) => 75 pass / 0 fail / 0 cancelled / exit 0'
+    - 'grep -rn run-context-engine bin/ .aiox-core/ => NOT FOUND (5.3.1 AC1 CLI correctly absent — class-only)'
+    - 'engine.js require graph (read) => requires fs, path, AND context-registry.js (line 13); no JSON.parse on any .yaml'
+    - 'engine.js loadRegistry->registry.read() (462); saveRegistry->registry.saveRaw() (467); saveRaw present in context-registry.js (92)'
+    - 'ls .synapse/context-registry.* => only .js + .json present; .yaml deleted (git log --diff-filter=D => commit 5fb0aca / Story 5.3.5)'
+    - 'agent-activation-tracker.cjs (read) => guard timer line 203 has NO .unref(); cleared in finally (228); separate run() safety timer setTimeout(3000) at 279 IS unref()d at 283'
+    - 'git diff HEAD~5 HEAD -- .aiox-core/development/tasks/qa-gate.md => 0 lines (L2 framework-protected file untouched across full remediation range)'
+    - '.claude/rules/story-lifecycle.md => "Post-Gate Status Update (MANDATORY)" section at line 124 (3-step atomic checklist)'
+    - 'docs/stories/5.3.5.story.md => Status: Done; Change Log records Draft->Ready->InProgress->InReview->Done with gate PASS row (v1.1.0)'
+    - 'git => story 5.3.5 + fix committed (b28c973 create, 5fb0aca fix); .synapse/context-registry.yaml deletion confirmed in 5fb0aca'
+
+claim_vs_reality:
+  - claim: 'Architect 5.3.5-remediation.yml: npm test exits 0, 0 cancelled (was exit 1 / 9 cancelled)'
+    reality: 'CONFIRMED independently — npm test exit 0; 80/80 + 7/7; hook glob 75/75; auto-contextualization-hook 12/12; 0 cancelled everywhere.'
+  - claim: 'Architect: AC2 option (b) — 5.3.1 AC1 reworded class-only, decision in 5.3.1 Change Log citing 5.3.5'
+    reality: 'CONFIRMED — AC1 (line 45) reworded, CLI grep NOT FOUND, Change Log v1.3.0 (line 190) cites 5.3.5. (Minor: 5.3.1 line-16 intro still says "via CLI" — OBS-001, non-blocking, not the audited AC.)'
+  - claim: 'Architect: AC3 engine wired to context-registry.js, single JSON store, .yaml removed; 13/13 + 41/41'
+    reality: 'CONFIRMED — require at line 13, read()/saveRaw() delegation, only .json/.js remain, suites green.'
+  - claim: 'Architect: AC4 5.3.1 Tasks 7-11 [x], Remaining Work cleared, File List .json'
+    reality: 'CONFIRMED — Phases 6-10 inline in engine.js (170-269), story doc coherent.'
+  - claim: 'Architect: AC5 story-lifecycle.md Post-Gate section added; qa-gate.md (L2) NOT modified'
+    reality: 'CONFIRMED — section at line 124; qa-gate.md 0 diff lines across HEAD~5..HEAD.'
+  - claim: 'Epic closure: 5.3-epic-discrepancy-audit.yml remediation_closure block reflects 5 RESOLVED with evidence'
+    reality: 'CONFIRMED — remediation_closure (lines 108-131) lists TEST-001/REQ-001/REL-001/MNT-001/PROC-001 all RESOLVED, each with verifiable evidence consistent with my own re-runs.'
+
+top_issues:
+  - id: 'OBS-001'
+    severity: low
+    finding: 'docs/stories/5.3.1.story.md Overview paragraph (line 16) still reads "All phases (INTAKE through HANDOFF) must be executable via CLI". This is descriptive intro prose, not an Acceptance Criterion. REQ-001 targeted the false claim in AC1 (line 45), which IS corrected to class-only delivery. The stray intro phrase is cosmetic documentation drift only — it does not re-open REQ-001 and does not affect any test, gate, or runtime behavior.'
+    suggested_action: 'Optional cosmetic cleanup: @po may align the 5.3.1 Overview sentence with the class-only AC1 wording on a future touch. NOT blocking; NOT required for PASS. Tracked here for awareness, not as a defect of the 5.3.5 remediation.'
+
+epic_gate_closure_verification:
+  parent_gate: 'docs/qa/gates/5.3-epic-discrepancy-audit.yml'
+  remediation_closure_block: 'present (lines 108-131), authored by @architect (Aria)'
+  verdict: CONFIRMED-ACCURATE
+  evidence: |
+    Read the remediation_closure block in the parent epic gate. It lists all 5 findings
+    (TEST-001, REQ-001, REL-001, MNT-001, PROC-001) as RESOLVED with per-finding evidence.
+    Each evidence string is independently consistent with my own empirical re-runs above
+    (npm test exit 0 / 0 cancelled, CLI absent / class-only, engine requires registry module,
+    .yaml deleted, Tasks 7-11 inline-confirmed, story-lifecycle.md section present, qa-gate.md
+    untouched). epic_gate_recommendation "CONCERNS -> PASS warranted" is empirically justified.
+    The original `gate: CONCERNS` field at line 3 is intentionally retained as the historical
+    record of the original audit; the closure block is the authoritative post-remediation state.
+
+authority_note: 'Per @qa story-file-permissions: I did NOT modify any story Status field, AC, scope, source code, or Change Log during this independent verification — Story 5.3.5 was already correctly Done. The only files I authored/edited are THIS gate file (docs/qa/gates/5.3.5-independent-verification.yml) and the STATE.md header/status section (project runtime, L4, permitted). No git push performed (@devops exclusive).'
+
+waiver: { active: false }
