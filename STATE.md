@@ -774,3 +774,28 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: Session 2026-06-10 (Cont 26) FINAL — EPIC-7 Ready for Implementation (14/14 stories, 22.5sp, @po validated)
 **Files changed:** .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/5.3.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/7.13.story.md
+
+## Checkpoint: ae8f0ad — 2026-06-10 21:15
+**Branch:** main
+**Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
+**Files changed:** none
+
+## Checkpoint: ae8f0ad — 2026-06-10 21:15
+**Branch:** main
+**Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
+**Files changed:** STATE.md
+
+## Checkpoint: ae8f0ad — 2026-06-10 21:16
+**Branch:** main
+**Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
+**Files changed:** .aiox/task-logs/7.13.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae8f0ad — 2026-06-10 21:18
+**Branch:** main
+**Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
+**Files changed:** .aiox/task-logs/7.13.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae8f0ad — 2026-06-10 21:21
+**Branch:** main
+**Commit:** feat: implement Story 7.7 — Restaurar permissions.allow em settings.local.json [Story 7.7]
+**Files changed:** .aiox/task-logs/7.13.json, .synapse/metrics/hook-metrics.json, STATE.md
