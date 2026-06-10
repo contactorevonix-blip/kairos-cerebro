@@ -1,0 +1,47 @@
+{
+  "storyId": "6.1",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-10T21:10:50.275Z",
+  "suggestions": [
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 59,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "test-as-user",
+      "name": "Task: Test As User (RLS Testing)",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-as-user.md",
+      "score": 51,
+      "autoActivate": false
+    }
+  ]
+}

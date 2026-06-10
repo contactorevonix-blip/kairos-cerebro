@@ -1,0 +1,47 @@
+{
+  "storyId": "6.8",
+  "storyType": "refactor",
+  "suggestedAt": "2026-06-10T17:11:12.686Z",
+  "suggestions": [
+    {
+      "id": "dev-improve-code-quality",
+      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "cleanup-utilities",
+      "name": "Cleanup Utilities Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "cleanup-worktrees",
+      "name": "cleanup-worktrees",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "dev-optimize-performance",
+      "name": "Optimize Performance - AIOX Developer Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "consolidate-patterns",
+      "name": "Consolidate Patterns Using Intelligent Clustering",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/consolidate-patterns.md",
+      "score": 65,
+      "autoActivate": false
+    }
+  ]
+}

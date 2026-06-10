@@ -1,0 +1,47 @@
+{
+  "storyId": "6.5",
+  "storyType": "feature",
+  "suggestedAt": "2026-06-10T17:19:47.152Z",
+  "suggestions": [
+    {
+      "id": "create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "create-task",
+      "name": "TODO: Create task-validation-checklist.md for validation (follow-up story needed)",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-task.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "dev-develop-story",
+      "name": "Develop Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "plan-create-context",
+      "name": "Plan Pipeline: Create Context",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/plan-create-context.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "sm-create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
+      "score": 81,
+      "autoActivate": true
+    }
+  ]
+}

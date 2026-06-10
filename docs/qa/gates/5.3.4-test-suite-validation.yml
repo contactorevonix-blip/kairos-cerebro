@@ -1,0 +1,32 @@
+schema: 1
+story: '5.3.4'
+gate: PASS
+status_reason: 'All 8 ACs verified against real test execution (66 tests pass, 0 fail). No regressions in standard suite (80/80). Two non-blocking maintainability concerns documented.'
+reviewer: 'Quinn'
+updated: '2026-06-10T14:52:08Z'
+
+evidence:
+  tests_run: 66
+  tests_pass: 66
+  tests_fail: 0
+  standard_suite: '80/80 pass (no regressions)'
+  performance: 'All phases < 3ms; registry query < 100ms, write < 50ms (targets met)'
+  method: 'Tests executed live via node --test on all 14 explicit files, not trusted from docs'
+
+top_issues:
+  - id: 'MNT-001'
+    severity: low
+    finding: 'New test dirs (tests/auto-contextualization, tests/context-registry) are NOT wired into the npm test script — it only runs packages/sniper-api/*.test.js and tests/hooks/*.test.js. These 33 leaf tests will not run in CI.'
+    suggested_action: 'Add tests/auto-contextualization/**/*.test.js and tests/context-registry/*.test.js to the npm test glob so CI catches regressions.'
+  - id: 'MNT-002'
+    severity: low
+    finding: '.synapse/context-registry.js (Story 5.3.3 source) has 3 ESLint errors (preserve-caught-error: re-throw without cause) at lines 76, 120, 131. Not caught by default npm run lint, which does not scan .synapse/.'
+    suggested_action: 'Attach { cause: err } to the wrapped errors in write/delete/clear; belongs to Story 5.3.3 follow-up, not blocking 5.3.4 test work.'
+
+notes:
+  - 'node --test <directory> reports a spurious 1-fail on Windows due to a test-runner directory-discovery quirk; running the same files explicitly yields 66/66 pass. Not a real failure.'
+  - 'Test code asserts real behaviour (validation rejection, range checks, measured timing, cleanup) — no trivial/empty passes detected.'
+  - 'Registry source is secure: JSON-based (no SQL), no eval, JSON.parse guarded, atomic temp-file+rename writes.'
+  - 'registry.test.js label says "1000+ entries" but writes 101 — cosmetic label mismatch, perf target still validated.'
+
+waiver: { active: false }

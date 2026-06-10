@@ -26,3 +26,5 @@
 {"timestamp":"2026-06-01T17:41:57.531Z","action":"change","path":".aiox-core/infrastructure/scripts/validate-claude-integration.js","trigger":"watcher"}
 {"timestamp":"2026-06-08T23:44:48.875Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
 {"timestamp":"2026-06-09T09:32:26.054Z","action":"add","path":".aiox-core/data/story-registry.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-10T17:11:45.243Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779648649683","trigger":"watcher"}
+{"timestamp":"2026-06-10T17:11:45.246Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779900651717","trigger":"watcher"}

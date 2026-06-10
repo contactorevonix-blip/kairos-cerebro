@@ -3,3 +3,4 @@
 - [SYNAPSE Engine Internals](project_synapse-engine-internals.md) — 8 layers L0-L7, brackets FRESH/MODERATE/DEPLETED/CRITICAL, token budget, degradação graciosa
 - [AIOX Governance Gates](project_aiox-governance-gates.md) — Bob mode, Tier System, Decision Heuristics, IDS Gates G1-G6
 - [Framework Evolution Experts](project_framework-evolution-experts.md) — experts reais (Anthropic eng, spec-kit, Eads/RBAC, LangGraph) para validar evolução AIOX; top partner = spec-kit team
+- [AIOX CLI Not Installed](project_aiox-cli-not-installed.md) — KAIROS_CEREBRO tem artefactos .aiox-core mas NÃO o executável aiox (bin/aiox*.js + packages/installer ausentes). aiox validate partido = installer em falta
