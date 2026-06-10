@@ -855,3 +855,13 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** feat: EPIC-7 Prio 2 Implementation (5 stories) [Stories 7.2, 7.5, 7.9, 7.11, 7.12]
 **Files changed:** none
+
+## Checkpoint: 3744d03 — 2026-06-10 21:55
+**Branch:** main
+**Commit:** docs: EPIC-7 Prio 2 QA gates PASS — 5 stories Done [Stories 7.2, 7.5, 7.9, 7.11, 7.12]
+**Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 3744d03 — 2026-06-10 21:56
+**Branch:** main
+**Commit:** docs: EPIC-7 Prio 2 QA gates PASS — 5 stories Done [Stories 7.2, 7.5, 7.9, 7.11, 7.12]
+**Files changed:** .aiox-core/core-config.yaml, .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/7.4.story.md
