@@ -1,0 +1,15 @@
+# Context Registry
+# Persistent session context state storage
+# Schema: https://github.com/... (refer to REGISTRY-SCHEMA.md)
+# Last updated: 2026-06-10
+
+# Example entry (for reference):
+# session-2026-06-09-abc123:
+#   timestamp: "2026-06-09T14:30:00.000Z"
+#   intent_type: "feature"
+#   completeness: 0.95
+#   phase_4_passed: true
+#   gaps_detected:
+#     - "schema-context"
+#   context_sources:
+#     registry: ["entity-123"]
