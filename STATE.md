@@ -1,9 +1,50 @@
-# ✅ Session 2026-06-10 (Cont 22) — EPIC-5-3 SHIPPED TO PRODUCTION ✅
+# Session 2026-06-10 (Cont 23) — EPIC-6 STORY CREATION + AIOX AUDIT REMEDIATION
 
-**Session 2026-06-10 (Cont 22):** EPIC-5-3 FINAL WAVE + PRODUCTION PUSH — **4/4 Stories COMPLETE, 23/23 story points (100%)**
-**Previous:** Session 2026-06-09/10 (Cont 21) — Wave 2 (5.3.3, 21/23sp)
-**Branch:** main (shipped to remote)
-**Status:** ✅ **EPIC-5-3 SHIPPED** — All stories delivered, QA PASS verified, pushed to origin/main (commit 49172d7).
+**Session 2026-06-10 (Cont 23):** EPIC-6 Story Creation from AIOX Sync Audit — **10/10 Stories CREATED, 28/28 story points (audit-driven, zero invenção)**
+**Previous:** Session 2026-06-10 (Cont 22) — EPIC-5-3 SHIPPED (23/23sp, 100% complete)
+**Branch:** main (working, not yet pushed)
+**Status:** ✅ **EPIC-6 STORY CREATION COMPLETE** — All 10 remediation stories created from AIOX-SYNC-AUDIT-2026-06-10.md, ready for @po validation.
+
+---
+
+## ✅ Session 2026-06-10 (Cont 23) — EPIC-6 STORY CREATION
+
+### What Was Completed This Session
+
+**EPIC-6: AIOX Synchronization & Integration Audit Remediation — 10/10 Stories Created (28sp)**
+
+All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.md` (audit by @architect):
+
+| Story | Gap ID | Title | Effort | ADE Owner | Status |
+|-------|--------|-------|--------|-----------|--------|
+| 6.1 | 1.1 | Settings.local.json Cleanup | 3sp | @hooks-architect | Draft ✅ |
+| 6.2 | 1.2 | Dead Hooks Removal | 2sp | @hooks-architect | Draft ✅ |
+| 6.3 | 1.3 | Config Consolidation | 5sp | @config-engineer | Draft ✅ |
+| 6.4 | 2.1 | Handoff Protocol Alignment | 8sp | @architect | Draft ✅ |
+| 6.5 | 2.2 | RUN-LOG Finalization | 3sp | @dev | Draft ✅ |
+| 6.6 | 2.3 | Version Docs Clarification | 2sp | @architect | Draft ✅ |
+| 6.7 | 2.4 | Rules Table Update | 1sp | @architect | Draft ✅ |
+| 6.8 | 3.1 | Python Hooks Cleanup | 2sp | @hooks-architect | Draft ✅ |
+| 6.9 | 3.2 | Shell Wrappers Cleanup | 1sp | @hooks-architect | Draft ✅ |
+| 6.10 | 3.3 | Backup File Removal | 1sp | @devops | Draft ✅ |
+
+**Total:** 28sp, 10 stories, zero invented features (pure remediation from audit)
+
+**Quality Metrics:**
+- 100% audit-driven (all ACs derived from AIOX-SYNC-AUDIT-2026-06-10.md)
+- Zero invenção (Constitution Art. IV compliant)
+- All stories follow standard template with full AC details
+- Dependencies documented (Story 6.4 blocks 6.5)
+
+**File Locations:**
+- Stories: `docs/stories/6.1.story.md` through `docs/stories/6.10.story.md`
+- Audit source: `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.md` (read-only reference)
+
+**Next Phase:**
+1. @po validation via `*validate-story-draft` (10 stories)
+2. @dev implementation per ADE owner assignments
+3. @qa verification per standard QA gates
+4. @devops push to remote
 
 ---
 
@@ -430,3 +471,22 @@
 **Branch:** main
 **Commit:** docs: Session 2026-06-10 (Cont 22) FINAL — EPIC-5-3 shipped to production (23/23sp, 100%)
 **Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-10.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-10.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-10.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-10.jsonl, .aiox/task-logs/5.2.json, .aiox/task-logs/5.3.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 91c02ea — 2026-06-10 16:53
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) — AIOX Audit + EPIC-6 Ready
+**Files changed:** none
+
+## Checkpoint: Current — 2026-06-10 (Cont 23)
+**Branch:** main (working, not yet pushed)
+**Status:** EPIC-6 story creation COMPLETE
+**Files created:** 
+- docs/stories/6.1.story.md through 6.10.story.md (10 remediation stories, 28sp)
+**Files modified:**
+- STATE.md (updated with Cont 23 session info)
+**Next Action:** Commit stories + push to main (via @devops)
+
+## Checkpoint: 91c02ea — 2026-06-10 16:59
+**Branch:** main
+**Commit:** docs: Session 2026-06-10 (Cont 23) — AIOX Audit + EPIC-6 Ready
+**Files changed:** .aiox/task-logs/5.3.json, .synapse/metrics/hook-metrics.json, STATE.md
