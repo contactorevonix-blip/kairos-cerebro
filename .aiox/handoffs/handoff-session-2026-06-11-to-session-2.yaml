@@ -1,0 +1,93 @@
+---
+handoff:
+  id: handoff-session-2026-06-11-to-cont-29
+  from_agent: "@architect (Aria) + @aiox-master (Orion)"
+  to_agent: "@pm (Morgan) — for applying fixes and starting Research Phase"
+  timestamp: "2026-06-11T10:00:00Z"
+  priority: HIGH
+
+context:
+  session_current: "Session 2026-06-11 (Cont 28) — EPIC-8 Planning & Architectural Validation"
+  session_next: "Session 2026-06-11 (Cont 29) or later — EPIC-8 Fixes & Research Phase Start"
+  branch: "main"
+  working_changes: "Plan files only (no code changes yet)"
+
+deliverables:
+  - file: "docs/plans/EPIC-8-framework-evolution-complete.md"
+    status: "DRAFT — Awaiting 5 fixes"
+    size: "~51 stories, 4 phases, 6 weeks"
+
+  - file: ".aiox/handoffs/epic8-architecture-review.yaml"
+    status: "COMPLETE — Veredito: GO WITH NOTES (8.5/10)"
+    author: "@architect (Aria)"
+
+  - file: "docs/plans/EPIC-8-framework-evolution-ARCHITECTURE-NOTES.md"
+    status: "COMPLETE — 5 fixes detailed (all minor)"
+    fixes_total: 5
+    fixes_blocked: 0
+    estimated_fix_time: "~2 hours"
+
+decisions:
+  epic_8_vision_approved: true
+  handoff_strategy_validated: true
+  constitutional_gates_validated: true
+  ids_compliance_validated: true
+  architectural_soundness: "8.5/10 — no blockers"
+
+pending_work:
+  - task: "Apply 5 fixes to plan"
+    owner: "@pm or @aiox-master"
+    fixes:
+      - "Fix 1: Handoff 1 — clarify primary agent (parallel/sequential)"
+      - "Fix 2: IDS Ratio — add per-phase breakdown"
+      - "Fix 3: Metrics Baseline — clarify collection timing"
+      - "Fix 4: Timeline — shift dates +1 day (Jun 11-15 instead of 10-14)"
+      - "Fix 5: RUN-LOG — fix date reversal (2026-06-22 → 2026-07-05)"
+    effort: "~2 hours total"
+    blockers: "NONE"
+
+  - task: "Revalidate plan after fixes"
+    owner: "@architect (Aria)"
+    effort: "~15 minutes"
+    expected_verdict: "✅ GO"
+
+  - task: "Create workflow: framework-evolution-cycle"
+    owner: "@aiox-master or @pm"
+    command: "*create workflow framework-evolution-cycle"
+    input_file: "docs/plans/EPIC-8-framework-evolution-complete.md (after fixes)"
+
+  - task: "Start EPIC-8 Research Phase"
+    owner: "@pm + @analyst + @architect"
+    timeline: "Week 1: Jun 11-15"
+    handoff_trigger: "Plan approved + workflow created"
+
+key_artifacts:
+  plan_complete: "docs/plans/EPIC-8-framework-evolution-complete.md"
+  architecture_review: ".aiox/handoffs/epic8-architecture-review.yaml"
+  fixes_guide: "docs/plans/EPIC-8-framework-evolution-ARCHITECTURE-NOTES.md"
+  validation_handoff: ".aiox/handoffs/handoff-epic8-plan-validation.yaml" (marked consumed: true)
+
+success_criteria:
+  - "All 5 fixes applied to plan"
+  - "@architect revalidates (verdict: GO)"
+  - "workflow framework-evolution-cycle created"
+  - "@pm begins Research Phase with @analyst + @architect"
+
+escalation:
+  if_issues_with_fixes: "Contact @architect (Aria) for clarification"
+  if_architectural_questions: "Contact @architect (Aria) with specific section reference"
+  if_timeline_blocked: "Escalate to Orion for executive decision"
+
+notes: |
+  Plan is **architecturally sound** (8.5/10). No constitutional violations.
+  5 issues are **clarifications only** — no blockers.
+  Total fix effort: ~2 hours.
+
+  Fixes are detailed in ARCHITECTURE-NOTES.md with concrete code examples.
+  Once fixes applied and revalidated, ready for immediate workflow creation.
+
+  Research Phase can start Jun 11 (today) if fixes are quick-turnaround.
+
+consumed: true
+status: PROCESSING_BY_PM
+---

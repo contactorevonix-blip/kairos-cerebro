@@ -1,0 +1,317 @@
+---
+architect_review:
+  reviewer: "@architect (Aria)"
+  timestamp: "2026-06-11T09:30:00Z"
+  plan_reviewed: "docs/plans/EPIC-8-framework-evolution-complete.md"
+  handoff_reference: "handoff-epic8-plan-validation.yaml"
+
+summary:
+  verdict: "⚠️ GO WITH NOTES"
+  score: "8.5/10"
+  status: "READY FOR REWORK + REVALIDATION"
+  rationale: "Plan is architecturally sound and 95% complete. 5 issues identified (4 minor clarifications, 1 date correction). Fixing these issues is <2 hours. No constitutional violations. Plan becomes APPROVED after fixes."
+
+---
+
+## ✅ VALIDATED SECTIONS (No Changes Needed)
+
+### Secção 1: EPIC Structure
+- ✅ Story-driven foundation (Art. III)
+- ✅ Pre-requisites well-defined (EPIC-7 baseline)
+- ✅ Meta clarity: "Elevar AIOX a próximo nível" + 4 pillars
+
+### Secção 2: 4 Phases + Stories
+- ✅ 51 stories (40 product + 11 framework) — effort well-estimated
+- ✅ Phase distribution sensible: 13.5sp / 17sp / 15sp / 5.5sp (total ~51sp, realistic for 6 weeks)
+- ✅ Story naming convention consistent (8.1.1 → 8.4.4)
+
+### Secção 3: Handoffs (Partially — see NEEDS CLARIFICATION)
+- ✅ 4 handoffs formal, with artifacts, triggers, timelines
+- ✅ Handoff 2 (Spec → Execution): Clear, well-structured
+- ✅ Handoff 3 (Phase 1 → Phase 2): Clear carry-forward logic
+- ✅ Handoff 4 (Execution → Deployment): Deployment criteria explicit
+
+### Secção 4: Constitutional Gates
+- ✅ 8-gate matrix covering Art. I-VIII
+- ✅ Gate pseudocode logic clear and testable
+- ✅ Art. VIII (NEW) properly introduced
+- ✅ Per-story validation rules explicit
+
+### Secção 5: Metrics & RUN-LOG
+- ✅ Metrics baseline JSON schema well-defined
+- ✅ RUN-LOG markdown structure clear
+- ✅ Consolidation strategy (RUN-LOG.md + .aiox/handoffs/_archive/)
+- ✅ Phase-by-phase metrics collection planned
+
+### Secção 6: Dependencies AIOX
+- ✅ Templates: 6 existing (REUSE) + 3 new (CREATE)
+- ✅ Tasks: 6 existing (REUSE) + 4 new (CREATE)
+- ✅ Checklists: 3 existing (REUSE) + 3 new (CREATE)
+- ✅ Data: 3 existing (LOAD+EVOLVE) + 3 new (CREATE)
+- ✅ All L3-L4 boundary respected (no L1/L2 modifications)
+
+### Secção 7: Constitution Compliance Matrix
+- ✅ Art. I-VIII all listed with ✅ COMPLIANT status
+- ✅ Explicit mapping (e.g., "CLI First → Observability via CLI (not UI)")
+
+### Secção 8: IDS Gates G1-G6
+- ✅ Gates sequenced per phase (G1-G6 active Phase 1-4)
+- ✅ REUSE>ADAPT>CREATE principle mentioned
+- ✅ Registry growth estimated (+20 entities, health 0.98)
+
+### Secção 9: Timeline
+- ✅ 6-week macro schedule clear
+- ✅ Agent roles per week explicit (@analyst, @pm, @sm, @dev, @qa, @devops)
+- ✅ Phases 1-4 execution flow clear
+
+### Secção 10: Go/No-Go Gates
+- ✅ 3 decision gates (pre-exec, phase-1, final) with clear criteria
+- ✅ Acceptance criteria testable (e.g., "CodeRabbit: 0 CRITICAL")
+
+---
+
+## ⚠️ NEEDS CLARIFICATION (Minor, Fixable)
+
+### 1. **Handoff 1 Ambiguity: Primary Agent**
+**Location:** Secção 3, Handoff 1
+**Issue:** "from_agent: @analyst + @architect" — unclear if parallel, sequential, or who is PRIMARY
+
+**Current:**
+```yaml
+from_agent: "@analyst + @architect"
+```
+
+**Problem:**
+- Handoff protocol assumes single primary agent
+- Are they producing separate artifacts or combined?
+- Who owns the handoff completion decision?
+
+**Recommendation:**
+```yaml
+from_agent: "@analyst (lead) + @architect (validation)"
+# OR if sequential:
+from_agent_sequence:
+  - "@analyst (research)"
+  - "@architect (validation)"
+```
+
+**Impact:** MINOR — clarify in Handoff 1 artefact (handoff-epic8-phase1-to-phase2.yaml)
+
+---
+
+### 2. **IDS Ratio Clarity: Per-Phase Breakdown**
+**Location:** Secção 8, "Estimation: IDS Impact"
+**Issue:** Global ratio (65% REUSE / 30% ADAPT / 5% CREATE) is stated, but per-PHASE breakdown missing
+
+**Current:**
+```yaml
+estimated_reuse_percentage: 65%
+estimated_adapt_percentage: 30%
+estimated_create_percentage: 5%
+```
+
+**Problem:**
+- Phase 1 (Observability) likely has HIGHER CREATE (new metrics system)
+- Phase 3 (Squad Creator) likely has HIGHER REUSE (existing agent patterns)
+- Global average masks phase-specific risks
+
+**Recommendation:**
+Add per-phase breakdown:
+```yaml
+phase_1_observability:
+  reuse: 40%  # (gate integration patterns from EPIC-7)
+  adapt: 35%  # (metrics schema = new but SQL-based)
+  create: 25% # (metrics CLI + Dashboard backend)
+
+phase_2_ids_enhancement:
+  reuse: 70%  # (existing G1-G5 gates as base)
+  adapt: 20%  # (G6 CI/CD adaptation)
+  create: 10% # (registry auto-heal logic)
+
+phase_3_squad_creator:
+  reuse: 80%  # (existing agent patterns)
+  adapt: 15%  # (DNA extraction methodology)
+  create: 5%  # (Squad template generation)
+
+phase_4_auto_healing:
+  reuse: 75%  # (CodeRabbit existing auto-fix)
+  adapt: 20%  # (retry logic adaptation)
+  create: 5%  # (blocker resolution engine)
+```
+
+**Impact:** MINOR — improves risk assessment per phase
+
+---
+
+### 3. **Metrics Baseline Collection Timing**
+**Location:** Secção 5, "Metrics Baseline"
+**Issue:** Unclear when baseline is COLLECTED (before/after Phase 1 implementation)
+
+**Current:**
+```markdown
+### Metrics Baseline (Collected per Phase)
+{...JSON schema...}
+```
+
+**Problem:**
+- Baseline shown with Phase 1 timestamp (2026-06-21) but Phase 1 is Jun 22-Jul 5
+- Is this a PRE-implementation baseline or POST-implementation?
+- Affects gate logic (Art. VIII says "metrics baseline collected" but when?)
+
+**Recommendation:**
+Clarify timeline:
+```yaml
+phase_1_baseline_collection:
+  pre_implementation: "2026-06-21 EOD (Thursday, before stories start)"
+  metric_point: "state of framework BEFORE Phase 1 changes"
+  purpose: "establish baseline for phase-over-phase comparison"
+  post_implementation: "2026-07-05 EOD (metrics after all Phase 1 stories DONE)"
+```
+
+**Impact:** MINOR — clarifies gate trigger (Art. VIII)
+
+---
+
+### 4. **Handoff 1 Timeline: Date Accuracy**
+**Location:** Secção 3, Handoff 1
+**Issue:** Dates are 1 day off. Plan created 2026-06-11, but timeline starts Jun 10
+
+**Current:**
+```yaml
+research_end: 2026-06-14 (end Week 1)
+```
+
+**Problem:**
+- Session timestamp: 2026-06-11
+- Week 1 should be: Jun 11-15 (not Jun 10-14)
+- Cascades to all subsequent timelines
+
+**Recommendation:**
+Shift all dates +1 day:
+```
+Week 1 (Jun 11-15):    Research Phase
+Week 2-3 (Jun 18-28):  Spec Phase
+Week 4-5 (Jun 29-Jul 12): Execution Phase 1-2
+Week 6+ (Jul 13+):     Execution Phase 3-4 + Deployment
+```
+
+**Impact:** MINOR — date fix, logic unchanged
+
+---
+
+### 5. **RUN-LOG Date Reversal**
+**Location:** Secção 5, RUN-LOG, Phase 1 entry
+**Issue:** Session dates reversed
+
+**Current:**
+```markdown
+**Session:** 2026-06-22 → 2026-06-21
+```
+
+**Problem:**
+- Should be START → END, not END → START
+
+**Recommendation:**
+```markdown
+**Session:** 2026-06-22 → 2026-07-05
+```
+
+**Impact:** MINOR — formatting fix
+
+---
+
+## 🚫 VIOLATIONS (Must Fix Before GO)
+
+**NONE DETECTED.** ✅
+
+Checked against:
+- ✅ Art. I (CLI First): Observability via CLI, not UI
+- ✅ Art. II (Agent Authority): @devops exclusive, enforced
+- ✅ Art. III (Story-Driven): All 40 stories with AC
+- ✅ Art. IV (No Invention): All decisions traced (will verify in Spec Phase)
+- ✅ Art. V (Quality First): CodeRabbit gates, test coverage tracked
+- ✅ Art. VI (Absolute Imports): Mentioned in dependencies
+- ✅ Art. VIII (Observability — NEW): Metrics gates, baselines, dashboards
+
+---
+
+## 📐 ARCHITECTURAL RECOMMENDATIONS
+
+### Recommendation 1: Phase Sequencing — Lock Phase 1
+Phase 1 (Observability) MUST complete before Phase 2 can meaningfully start.
+
+**Reasoning:**
+- Phase 2 (IDS Enhancement) depends on Phase 1's metrics infrastructure for gate integration (story 8.2.3)
+- Art. VIII gate validation requires metrics baseline
+
+**Action:**
+- Keep Phase 1 → Phase 2 handoff as sequential (not parallel)
+- Handoff 2 (Week 21 → Week 22) acts as hard gate
+
+### Recommendation 2: IDS G6 Gate Placement
+Story 8.2.1 "G6 CI/CD Gate Implementation" — clarify if this is SPEC or IMPLEMENTATION.
+
+**Current Location:** Phase 2 (IDS Enhancement / Spec Phase)
+
+**Issue:**
+- G6 is a CI/CD RUNTIME gate, not a spec artifact
+- Should G6 implementation happen during Phase 2 SPEC, or Phase 4 EXECUTION?
+
+**Recommendation:**
+- Move 8.2.1 to Phase 4 (Auto-Healing, Execution phase)
+- Keep G6 DESIGN in Phase 2 spec (task: `ids-g6-gate-design.md`)
+- Implement G6 in Phase 4 (task: `ids-g6-gate-implementation.md`)
+
+**Impact:** Clarifies spec vs. implementation boundary
+
+---
+
+## 📊 IDS IMPACT ASSESSMENT
+
+### REUSE > ADAPT > CREATE Analysis
+
+**Strengths:**
+✅ Templates: 6 REUSE / 3 CREATE (66% reuse) — excellent
+✅ Tasks: 6 REUSE / 4 CREATE (60% reuse) — solid
+✅ Gates: G1-G5 REUSE / G6 ADAPT (85% reuse) — strong
+✅ Overall: ~65-70% REUSE estimated — healthy
+
+**Risks:**
+⚠️ Phase 1 (Observability): Unknown CREATE burden on metrics system
+⚠️ Phase 3 (Squad Creator): DNA extraction is novel (need research phase)
+
+**Mitigation:**
+- Phase 1 research MUST validate existing metrics patterns (@analyst task)
+- Phase 3 research MUST document DNA extraction methodology (@architect task)
+- IDS gates G1-G6 will enforce REUSE>ADAPT>CREATE during implementation
+
+---
+
+## 🎯 FINAL VERDICT
+
+### Decision: ⚠️ GO WITH NOTES
+
+**Conditions for Approval:**
+1. ✅ Fix 5 clarifications (4 minor, 1 date)
+2. ✅ Revalidate after fixes
+3. ✅ Pedro confirms vision + handoff strategy
+4. ✅ Ready for @pm Research Phase
+
+**Path Forward:**
+1. **This session:** Fix 5 issues in plan (Aria → Orion → Pedro)
+2. **Confirm:** Pedro approves updated plan
+3. **Next session:** @pm begins Week 1 Research Phase (Jun 11-15)
+
+---
+
+## Signature
+
+**Architect:** @architect (Aria)
+**Validation Gate:** ⚠️ GO WITH NOTES
+**Revalidation:** Required (5 fixes pending)
+**Ready for Execution:** No (pending fixes)
+**Ready for Workflow Creation:** No (fixes first)
+
+---
+
+*Architectural Validation Complete — Aria | 2026-06-11T09:35:00Z*

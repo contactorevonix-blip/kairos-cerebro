@@ -1,0 +1,106 @@
+---
+handoff:
+  id: handoff-epic8-architect-revalidation-2026-06-11
+  from_agent: "Claude Code (operator)"
+  to_agent: "@architect (Aria)"
+  timestamp: "2026-06-11T12:00:00Z"
+  priority: HIGH
+
+context:
+  session: "Session 2026-06-11 (Cont 29) — EPIC-8 Plan Fixes Complete, Awaiting Architect Revalidation"
+  branch: "main"
+  task: "Revalidate EPIC-8 plan after 5 fixes applied"
+
+deliverables:
+  - file: "docs/plans/EPIC-8-framework-evolution-complete.md"
+    status: "UPDATED — 5 fixes applied"
+    fixes_applied:
+      - "Fix 1: Handoff 1 Primary Agent (Option A — Parallel with from_agent + from_agent_support)"
+      - "Fix 2: IDS Ratio by Phase (P1-P4 breakdown with REUSE/ADAPT/CREATE ratios)"
+      - "Fix 3: Metrics Baseline Timing (Baseline 0 Pre-Phase-1 + Baseline 1 Post-Phase-1)"
+      - "Fix 4: Timeline Dates (all dates shifted +1 day: Jun 10-14 → Jun 11-15, cascade complete)"
+      - "Fix 5: RUN-LOG Date Fix (Session corrected: 2026-06-29 → 2026-07-05)"
+
+revalidation_checklist:
+  technical_fixes:
+    - task: "Verify Fix 1: Handoff 1 clarity"
+      requirement: "Primary agent @analyst (lead), support @architect, completion_gate defined, execution_mode: parallel"
+      status: PENDING
+
+    - task: "Verify Fix 2: IDS per-phase ratio"
+      requirement: "P1-P4 breakdown complete with REUSE/ADAPT/CREATE percentages, risk levels, mitigations"
+      status: PENDING
+
+    - task: "Verify Fix 3: Metrics baseline timeline"
+      requirement: "Baseline 0 (Pre-Phase-1: 2026-06-21) and Baseline 1 (Post-Phase-1: 2026-07-05) explicit"
+      status: PENDING
+
+    - task: "Verify Fix 4: Timeline dates corrected"
+      requirement: "All dates shifted +1 day; Week 1: Jun 11-15; Week 2-3: Jun 18-28; Week 4-5: Jun 29-Jul 12; Week 5-6: Jul 13-19"
+      status: PENDING
+
+    - task: "Verify Fix 5: RUN-LOG dates"
+      requirement: "Phase 1 Session dates: 2026-06-29 → 2026-07-05 (13 days)"
+      status: PENDING
+
+  strategic_validation:
+    - question: "Does plan eliminate ambiguities?"
+      criteria: "Handoff roles clear, phase ownership explicit, completion gates defined, parallel vs sequential execution modes documented"
+      status: PENDING
+
+    - question: "Does plan eliminate gaps?"
+      criteria: "Phase 1 research scope covers observability, IDS patterns, squad DNA, auto-healing workflows; gaps identified → stories created"
+      status: PENDING
+
+    - question: "Does plan eliminate framework failures?"
+      criteria: "L1/L2 boundary respected, no framework core modifications, only L4 runtime changes"
+      status: PENDING
+
+    - question: "Does plan guarantee zero Constitution violations?"
+      criteria: "Art. I-VIII compliance validated; gates active; story-driven; no inventions traced; IDS ratios sound"
+      status: PENDING
+
+    - question: "Does plan eliminate loose files?"
+      criteria: "All artefacts are either executable (tasks, hooks, templates) or enforced (PRD, spec, stories)"
+      status: PENDING
+
+    - question: "Are all deliverables executable, not just readable?"
+      criteria: "Tasks are runnable, hooks are deployable, stories have AC, templates have parameters; no orphaned markdown"
+      status: PENDING
+
+    - question: "Are empty folders filled?"
+      criteria: "No empty .aiox-core/data/ folders, no empty docs/stories/epics/epic-008/ folders after Phase completion"
+      status: PENDING
+
+success_criteria:
+  - "All 5 technical fixes verified ✅"
+  - "All 7 strategic questions answered ✅"
+  - "No new issues introduced by fixes ✅"
+  - "Plan remains architecturally sound (8.5/10+) ✅"
+  - "Verdict: GO / REWORK / BLOCKED (expected: GO)"
+
+next_steps:
+  - "@architect revalidates plan (15 min) using checklist above"
+  - "@architect provides verdict: GO (allows workflow creation) or NEEDS WORK (returns to fixes)"
+  - "If GO: @pm creates workflow framework-evolution-cycle and begins Research Phase (Jun 11)"
+  - "If NEEDS WORK: Return to this session for additional fixes"
+
+escalation:
+  if_architectural_concerns: "Contact @architect for clarification on specific section"
+  if_timeline_issues: "Escalate to Pedro for timeline adjustment"
+  if_constitution_violations_found: "BLOCK plan, require fix before proceeding"
+
+notes: |
+  Plan is technically fixed (5/5 fixes applied).
+  Strategic validation is the critical next step.
+  The 7 strategic questions address Pedro's concerns about:
+    - Ambiguities (clarity in handoffs, roles, gates)
+    - Gaps (Phase 1 research completeness)
+    - Framework integrity (L1/L2 untouched, boundaries respected)
+    - Constitution compliance (Art. I-VIII enforced)
+    - Executable artefacts (tasks, hooks, not just docs)
+    - No empty folders or orphaned files
+
+consumed: true
+status: ARCHITECT_REVALIDATION_COMPLETE_VERDICT_GO
+---

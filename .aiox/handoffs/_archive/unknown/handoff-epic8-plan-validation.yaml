@@ -1,0 +1,97 @@
+---
+handoff:
+  id: handoff-epic8-plan-validation
+  from_agent: "@aiox-master (Orion)"
+  to_agent: "@architect (Aria)"
+  timestamp: "2026-06-11T09:00:00Z"
+  priority: CRITICAL
+
+task:
+  objective: "Validate, architect, and structure EPIC-8 plan for zero ambiguity, gaps, violations, and inventions"
+
+  inputs:
+    - file: "docs/plans/EPIC-8-framework-evolution-complete.md"
+      type: "comprehensive plan"
+      status: "DRAFT — awaiting architectural validation"
+    - context: "Session 2026-06-10 Cont 27 — EPIC-7 DONE (14 stories, all implemented)"
+    - constraint: "Plan must be 100% auditable, zero inventions, full AIOX compliance"
+
+  validation_scope:
+    - section_1_epic_structure: "Story-driven, pre-requisites, meta clarity"
+    - section_2_stories_phases: "4 phases, 51 stories, effort estimation, sequencing"
+    - section_3_handoffs: "4 AIOX handoffs, artefacts, decision capture, timeline"
+    - section_4_gates: "Constitutional gates (Art. I-VIII), enforcement logic, per-story rules"
+    - section_5_metrics: "Baseline collection, RUN-LOG structure, consolidation strategy"
+    - section_6_dependencies: "Templates (L3-L4), tasks (reuse + new), checklists, data files"
+    - section_7_constitution: "Art. I-VIII compliance matrix, zero violations"
+    - section_8_ids: "IDS gates G1-G6 per phase, REUSE>ADAPT>CREATE ratios (65%/30%/5%)"
+    - section_9_timeline: "6-week schedule, Week 1 research → Week 6 release"
+    - section_10_gates: "Pre-execution, Phase 1, Final release gates with acceptance criteria"
+
+  quality_criteria:
+    ambiguity:
+      check: "Every statement is unambiguous and testable"
+      rule: "No vague language like 'may', 'could', 'possibly' — use 'must', 'will', 'shall'"
+      action: "Flag any ambiguous statement with suggested clarification"
+
+    gaps:
+      check: "All dependencies, handoffs, and gates are complete"
+      rule: "Every story has AC, every phase has handoff, every gate has decision logic"
+      action: "Identify any missing linkage or incomplete specification"
+
+    violations:
+      check: "Zero Constitution violations (Art. I-VIII)"
+      rule: "Each section must cross-reference Constitution gate matrix"
+      action: "Reject any violation; suggest remediation"
+
+    inventions:
+      check: "All decisions traceable to prior art or research"
+      rule: "Every story, gate, metric, template must derive from existing AIOX or explicit research"
+      action: "Challenge any invented requirement; demand traceability source"
+
+    ids_compliance:
+      check: "IDS principles fully honored (REUSE>ADAPT>CREATE)"
+      rule: "New components must justify creation; existing must be reused or adapted"
+      action: "Verify REUSE(65%), ADAPT(30%), CREATE(5%) ratio; challenge high-CREATE phases"
+
+    architecture_coherence:
+      check: "All 4 phases align architecturally"
+      rule: "Phase 1 outputs feed Phase 2 inputs; no orphan dependencies"
+      action: "Map data/artifact flow; flag architectural misalignments"
+
+  output_format:
+    - type: "EPIC-8 Plan Architecture Review (YAML)"
+      file: ".aiox/handoffs/epic8-architecture-review.yaml"
+      sections:
+        - "✅ VALIDATED sections (no changes needed)"
+        - "⚠️ NEEDS CLARIFICATION (specific statements flagged)"
+        - "🚫 VIOLATIONS (must fix before GO)"
+        - "📐 ARCHITECTURAL RECOMMENDATIONS (e.g., phase sequencing, gate logic)"
+        - "📊 IDS IMPACT ASSESSMENT (REUSE/ADAPT/CREATE analysis per phase)"
+        - "🎯 FINAL VERDICT (GO / NEEDS REWORK / BLOCKED)"
+
+    - type: "Suggested Plan Revisions (Markdown)"
+      file: "docs/plans/EPIC-8-framework-evolution-ARCHITECTURE-NOTES.md"
+      content: "Detailed fixes for any flagged issues; ready for Pedro's review"
+
+  acceptance_criteria:
+    - "Plan is unambiguous: every statement is testable"
+    - "Plan is complete: no gaps in stories, handoffs, gates"
+    - "Plan is compliant: zero Art. I-VIII violations (verified via checklist)"
+    - "Plan is traceable: all decisions source to research or prior AIOX artifact"
+    - "Plan is architectural: all 4 phases cohere; data flows correctly"
+    - "Plan is IDS-native: REUSE>ADAPT>CREATE ratio justified per phase"
+    - "Plan is auditable: ready for `*create workflow framework-evolution-cycle`"
+
+  final_gate:
+    decision_point: "Before @pm begins EPIC-8 Research Phase (Week 1)"
+    required_signature: "@architect (Aria) — Architectural Validation Gate"
+    possible_verdicts:
+      - "✅ GO (plan approved, zero issues)"
+      - "⚠️ GO WITH NOTES (minor clarifications, not blockers)"
+      - "🔴 NEEDS REWORK (specific sections must be revised before proceeding)"
+
+    escalation: "If NEEDS REWORK, return to Orion with detailed revision list; iterate until APPROVED"
+
+consumed: false
+status: AWAITING_ARCHITECT_REVIEW
