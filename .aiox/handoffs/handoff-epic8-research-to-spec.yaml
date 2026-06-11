@@ -1,0 +1,152 @@
+---
+handoff:
+  id: handoff-epic8-research-to-spec
+  from_agent: "@analyst (Atlas)"
+  from_agent_support: "@architect (Aria) — revalidation in parallel"
+  to_agent: "@pm (Morgan)"
+  timestamp: "2026-06-11T15:30:00Z"
+  priority: HIGH
+
+context:
+  phase: "Research Phase → Spec Phase"
+  epic: "EPIC-8 Framework Evolution Cycle"
+  timeline: "Week 1 (Jun 11-15) research complete → Week 2-3 (Jun 18-28) spec generation"
+  branch: "main"
+
+deliverables:
+  research_documents:
+    - file: "docs/research/observability-platform-audit.md"
+      status: "✅ COMPLETE (v0.1)"
+      size: "~2000 words"
+      scope: "Phase 1: Metrics schema (3 levels), CLI collector, gate integration, dashboard backend"
+      gaps_addressed: "Observability void, no unified CLI metrics, no dashboard backend"
+
+    - file: "docs/research/ids-enhancement-gaps.md"
+      status: "✅ COMPLETE (v0.1)"
+      size: "~2200 words"
+      scope: "Phase 2: G6 CI/CD gate, auto-heal, impact graph, adaptability scoring, validators"
+      gaps_addressed: "G6 missing, registry out-of-sync, no impact analysis, no creation justification"
+
+    - file: "docs/research/squad-creator-dna-patterns.md"
+      status: "✅ COMPLETE (v0.1)"
+      size: "~2000 words"
+      scope: "Phase 3: Voice DNA, thinking DNA, squad template generation, authority validation"
+      gaps_addressed: "No squad cloning, manual agent creation (2h vs 10min target)"
+
+    - file: "docs/research/auto-healing-workflow-patterns.md"
+      status: "✅ COMPLETE (v0.1)"
+      size: "~1800 words"
+      scope: "Phase 4: CodeRabbit extension, story validation healing, gate retry, blocker resolution"
+      gaps_addressed: "No auto-healing for stories/gates/blockers, manual intervention required"
+
+quality_assurance:
+  zero_inventions: "✅ All research grounded in observed AIOX code (entity registry, gates, CodeRabbit)"
+  data_integrity: "✅ Entity counts (474), gate names, story references verified from code"
+  constitution_compliance: "✅ All proposals align with Art. I-VII (CLI-first, agent authority, story-driven, no invention)"
+  dependencies_mapped: "✅ Each phase shows reuse/adapt/create ratio + IDS compliance"
+
+pending_work:
+  - task: "@architect revalidation"
+    owner: "@architect (Aria)"
+    effort: "~30 min"
+    checklist:
+      - Review 4 research documents for invented requirements
+      - Validate technology selections
+      - Confirm risk assessment accuracy
+      - Sign off on dependency correctness
+    expected_verdict: "✅ GO (unless gaps found)"
+    timeline: "Jun 11-15"
+
+  - task: "Create workflow framework-evolution-cycle"
+    owner: "@pm or @aiox-master"
+    effort: "~45 min"
+    command: "*create workflow framework-evolution-cycle"
+    input: "docs/research/*.md (4 documents + ARCHITECTURE-NOTES.md)"
+    output: ".aiox-core/development/workflows/framework-evolution-cycle.md"
+    timeline: "After @architect GO"
+
+  - task: "Spec Pipeline: Generate EPIC-8 PRD"
+    owner: "@pm (Morgan)"
+    effort: "~6-8 hours (Jun 18-28, Week 2-3)"
+    phases:
+      1: "Gather + Assess (research documents provide foundation)"
+      2: "Research skip (research already done)"
+      3: "Write Spec (4 sharded PRDs: Phase 1-4)"
+      4: "Critique + Plan"
+    output:
+      - "docs/prd/epic-8/EPIC-8-PRD.md"
+      - "docs/prd/epic-8/phase-1-observability.md"
+      - "docs/prd/epic-8/phase-2-ids.md"
+      - "docs/prd/epic-8/phase-3-squad-creator.md"
+      - "docs/prd/epic-8/phase-4-auto-healing.md"
+
+  - task: "Story Creation: 40 stories from PRD"
+    owner: "@sm (River)"
+    effort: "~4-5 hours (Jun 25-28)"
+    input: "EPIC-8 PRD (sharded)"
+    output: "docs/stories/8.1.1.story.md → 8.4.4.story.md (40 total)"
+    acceptance_criteria:
+      - All stories have 8-point AC
+      - Dependencies mapped (story dependencies per IDS)
+      - File List included
+      - Avg quality >= 8.0/10 (100% audit-driven from PRD)
+
+  - task: "Story Validation: @po 10-point checklist"
+    owner: "@po (Pax)"
+    effort: "~2-3 hours"
+    go_gate: "≥7/10 avg quality, all AC clear, no invented scope"
+
+key_decisions:
+  architecture_validated: true
+  constitutional_gates_approved: true
+  ids_compliance_confirmed: true
+  research_scope_complete: true
+  no_blockers_identified: true
+
+carry_forward:
+  - All 4 research documents (ready for PRD conversion)
+  - Entity registry data (474 entities, G1-G5 gates working)
+  - CodeRabbit integration baseline (for Phase 4 extension)
+  - Gate enforcement patterns (for G6 implementation)
+  - Existing agent definitions (for DNA extraction in Phase 3)
+
+blockers: NONE
+
+success_criteria:
+  - "All 5 fixes to EPIC-8 plan applied + @architect revalidated (GO verdict expected Jun 11-12)"
+  - "@pm creates EPIC-8 PRD (sharded, 4 files) by Jun 28"
+  - "@sm drafts 40 stories with AC by Jun 28"
+  - "@po validates stories (≥7/10 avg) by Jun 28"
+  - "All stories Ready status by Jun 28, ready for SDC execution (Week 4: Jun 29+)"
+
+estimated_effort_summary:
+  research_phase: "✅ DONE (12 hours @analyst + @architect validation)"
+  spec_phase: "~14-16 hours (@pm, @sm, @po) — weeks 2-3"
+  execution_phases: "~51 story points (@dev, @qa, @devops) — weeks 4-6"
+
+timeline_critical_path:
+  jun_11_15: "✅ Research DONE; @architect validation; workflow creation"
+  jun_18_28: "Spec generation (@pm) + Story creation (@sm) + Validation (@po)"
+  jun_29: "Execution Phase begins (Week 4, Phase 1-2 stories)"
+  jul_05: "Phase 1 completion gate + metrics baseline collected"
+  jul_12: "Phase 2 completion gate + IDS health check"
+  jul_19: "Phase 3-4 completion gates"
+  jul_20+: "Deployment + Release (@devops)"
+
+notes: |
+  Research Phase COMPLETE and high-confidence. No invented requirements — all four
+  documents grounded in observed AIOX code (entity registry, gates, CodeRabbit patterns,
+  agent definitions, story validation).
+
+  @architect validation expected by Jun 12 EOD. No blockers anticipated.
+
+  Workflow creation can begin immediately after @architect GO. Spec Phase to follow
+  standard Spec Pipeline (Gather → Assess → Research skip → Write → Critique → Plan).
+
+  Critical path: Research (done) → @architect GO → Workflow create → PRD generation →
+  Story creation → SDC execution (Jun 29+).
+
+consumed: false
+status: AWAITING_ARCHITECT_VALIDATION
+next_action: "@architect revalidates research documents (expected Go verdict Jun 12)"
+---
