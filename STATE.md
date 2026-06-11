@@ -1,38 +1,45 @@
-# ✅ Session 2026-06-11 (Cont 29) — EPIC-8 SPEC PHASE + VALIDATION COMPLETE
+# ✅ Session 2026-06-11 (Cont 30) — EPIC-8 STORY CREATION PHASE 1-2 COMPLETE
 
-**Session 2026-06-11 (Cont 29):** EPIC-8 Framework Evolution — **Spec Phase COMPLETE + @po Validation COMPLETE + Handoff Ready (5 PRDs, 40 stories ready for creation)**
+**Session 2026-06-11 (Cont 30):** EPIC-8 Framework Evolution — **Story Creation Phase 1+2 COMPLETE (17/40 stories Ready, 30.5sp)**
 
 **What Was Done:**
-1. ✅ @pm generated 4 sharded PRDs (Phase 1-4) from research + master PRD
-2. ✅ @po validated Master PRD (9/10 score, GO verdict)
-3. ✅ Handoff artifact created: `.aiox/handoffs/handoff-epic8-spec-to-stories.yaml`
+1. ✅ @sm created 8 Phase 1 stories (Observability, 13.5sp) — Draft → Ready
+2. ✅ @po validated Phase 1 — 8/8 GO verdict (8.75/10 avg)
+3. ✅ @sm created 9 Phase 2 stories (IDS, 17sp) — Draft → Ready
+4. ✅ @po validated Phase 2 — 9/9 GO verdict (8.3/10 avg) + Q1-Q6 architecture decisions resolved
 
 **Deliverables:**
-- ✅ `docs/prd/epic-8/EPIC-8-PRD.md` — Master PRD (4-phase overview, vision, success criteria)
-- ✅ `docs/prd/epic-8/phase-1-observability.md` — Phase 1 detailed PRD (8.1.1-8.1.8, 13.5sp)
-- ✅ `docs/prd/epic-8/phase-2-ids.md` — Phase 2 detailed PRD (8.2.1-8.2.9, 17sp)
-- ✅ `docs/prd/epic-8/phase-3-squad-creator.md` — Phase 3 detailed PRD (8.3.1-8.3.8, 15sp)
-- ✅ `docs/prd/epic-8/phase-4-auto-healing.md` — Phase 4 detailed PRD (8.4.1-8.4.4, 5.5sp)
-- ✅ `.aiox/handoffs/handoff-epic8-spec-to-stories.yaml` — Formal handoff (@po → @sm)
+- ✅ `docs/stories/8.1.1.story.md` – `8.1.8.story.md` (8 Phase 1 stories, Ready, 13.5sp)
+- ✅ `docs/stories/8.2.1.story.md` – `8.2.9.story.md` (9 Phase 2 stories, Ready, 17sp)
+- ✅ `.aiox/handoffs/handoff-epic8-spec-to-stories.yaml` — Updated with Phase 1-2 progress + advisory notes
 
-**Git Commits:**
-- `6a751bf` — EPIC-8 Spec Phase (5 PRDs created)
-- `4c07143` — STATE.md update (Spec Phase complete)
-- `f82db11` — EPIC-8 Handoff (@po → @sm)
+**Story Summary:**
+| Phase | Count | Points | Status | Quality | Notes |
+|-------|-------|--------|--------|---------|-------|
+| Phase 1 (Observability) | 8 | 13.5sp | Ready | 8.75/10 avg | Dependency inversion: 8.1.7 before 8.1.4 |
+| Phase 2 (IDS) | 9 | 17sp | Ready | 8.3/10 avg | Q1-Q6 architecture decisions embedded |
+| **Total Phase 1-2** | **17** | **30.5sp** | **Ready** | **8.5/10 avg** | Zero NO-GO verdicts |
+| Phase 3 (Squad Creator) | - | 15sp | Pending | - | 8.3.1–8.3.8, Pending @sm *draft |
+| Phase 4 (Auto-Healing) | - | 5.5sp | Pending | - | 8.4.1–8.4.4, Pending @sm *draft |
 
-**Quality Metrics:**
-- Story Count ✅ (40 stories, all with detailed AC, dependencies, effort estimates)
-- Constitution Alignment ✅ (Art. I-VIII verified in each phase PRD)
-- Research Traceability ✅ (all PRDs reference Phase 1 research docs)
-- Total Effort ✅ (~51sp across 4 phases, timeline 4-6 weeks)
-- @po Validation ✅ (9/10 score, only missing optional explicit Risks section)
+**Architecture Decisions (Q1-Q6, all resolved & documented):**
+- Q1: 8.2.1 depends on 8.2.2 (dependency direction confirmed from PRD)
+- Q2: REST API optional (CLI-first per Art. I, REST wrapper allowed)
+- Q3: `created_justification` field added to metadata (no schema conflict, 823 entities live)
+- Q4: Dashboard observability-only, webhooks via file-watch (REUSE aiox graph)
+- Q5: No duplication (8.2.1=gate logic, 8.2.9=CI orchestration)
+- Q6: CI logging via artifact+PR comment (local logs → GitHub Actions)
 
-**Next Steps (for Cont 30+):** 
-1. ⏳ @sm creates 40 stories from sharded PRDs (Draft status) — Jun 18-28
-2. ⏳ All 40 stories → Ready (after @po validation per story)
+**Sequence Notes for @dev:**
+- Phase 1 implementation: 8.1.1 → 8.1.2 → 8.1.3 → **8.1.7** → **8.1.4** → 8.1.5 → 8.1.6 → 8.1.8 (note: 8.1.7 before 8.1.4)
+- Phase 2 implementation: 8.2.2 → 8.2.1 → 8.2.3 → 8.2.4 → 8.2.5 → 8.2.6 → 8.2.7 → 8.2.8 → 8.2.9
+
+**Next Steps (for Cont 31+):** 
+1. ⏳ @sm creates Phase 3-4 stories (8.3.1–8.3.8 + 8.4.1–8.4.4) — 23 stories, 20.5sp
+2. ⏳ @po validates Phase 3-4 — all → Ready
 3. ⏳ SDC execution Phase 1-4 (Jun 29 → Aug 9)
 
-**Ready for Continuation:** New session can start with `@sm *draft epic-8 phase 1` or `@sm *draft-stories` (batch mode for all 40)
+**Ready for Continuation:** Next session can start with `@sm *draft epic-8 phase 3` then Phase 4
 
 ---
 
@@ -1117,3 +1124,28 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: EPIC-8 Handoff (@po → @sm) — 40 stories ready for creation (Jun 18-28)
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 10ca5c6 — 2026-06-11 09:18
+**Branch:** main
+**Commit:** docs: Session 2026-06-11 (Cont 29) FINAL — EPIC-8 Spec Phase + @po validation COMPLETE
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 10ca5c6 — 2026-06-11 09:20
+**Branch:** main
+**Commit:** docs: Session 2026-06-11 (Cont 29) FINAL — EPIC-8 Spec Phase + @po validation COMPLETE
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 10ca5c6 — 2026-06-11 09:21
+**Branch:** main
+**Commit:** docs: Session 2026-06-11 (Cont 29) FINAL — EPIC-8 Spec Phase + @po validation COMPLETE
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 10ca5c6 — 2026-06-11 09:32
+**Branch:** main
+**Commit:** docs: Session 2026-06-11 (Cont 29) FINAL — EPIC-8 Spec Phase + @po validation COMPLETE
+**Files changed:** .aiox/handoffs/handoff-epic8-spec-to-stories.yaml, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 10ca5c6 — 2026-06-11 10:07
+**Branch:** main
+**Commit:** docs: Session 2026-06-11 (Cont 29) FINAL — EPIC-8 Spec Phase + @po validation COMPLETE
+**Files changed:** .aiox/handoffs/handoff-epic8-spec-to-stories.yaml, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md

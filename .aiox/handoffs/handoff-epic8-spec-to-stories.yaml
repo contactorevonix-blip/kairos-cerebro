@@ -80,4 +80,55 @@ validation_gate:
   notes: "Optional: Consider adding explicit Risks section to Master PRD (currently deferred to phases)"
 
 consumed: false
+
+phase_1_progress:
+  status: "✅ READY — Stories 8.1.1-8.1.8 validated GO by @po 2026-06-11"
+  stories_created: 8
+  stories_ready: 8
+  stories_remaining_phases_2_4: 32
+
+phase_2_progress:
+  status: "✅ READY — Stories 8.2.1-8.2.9 validated GO by @po 2026-06-11 (avg 8.3/10)"
+  stories_created: 9
+  stories_ready: 9
+  story_points: 17
+  validation_scores:
+    "8.2.1": 9
+    "8.2.2": 9
+    "8.2.3": 8
+    "8.2.4": 8
+    "8.2.5": 8
+    "8.2.6": 9
+    "8.2.7": 7
+    "8.2.8": 9
+    "8.2.9": 8
+  architecture_resolutions:
+    Q1:
+      story: "8.2.1 / 8.2.2"
+      resolution: "PRD body authoritative: 8.2.1 depends on 8.2.2 (auto-heal first). Impl order: 8.2.2 FIRST. Research table (reversed) overruled."
+    Q2:
+      story: "8.2.4"
+      resolution: "AC2 score endpoint IS PRD-required (line 120) — kept, but Art. I CLI-First (NON-NEGOTIABLE): `aiox ids score {id}` primary, REST optional wrapper."
+    Q3:
+      story: "8.2.5"
+      resolution: "AC4 `metadata.created_justification` = NEW additive per-entity schema field (PRD line 142). Live registry has NO per-entity metadata. No migration of 823 entities. No 8.1.1 conflict."
+    Q4:
+      story: "8.2.7"
+      resolution: "Dashboard `localhost:3000/ids` + webhook ARE PRD-required (lines 181/191) — kept, Art. I observability-only. REUSE `aiox graph --format=html`; webhook→file-watch over `.aiox/gate-logs/*.jsonl`."
+    Q5:
+      story: "8.2.1 / 8.2.9"
+      resolution: "8.2.1 = G6 gate logic + local `.husky/pre-push`; 8.2.9 = CI orchestration (`.github/workflows/ids-g6-gate.yml`) + PR comments + verify pre-push. NOT a duplicate."
+    Q6:
+      story: "8.2.9"
+      resolution: "CI gate logs via GitHub Actions artifact upload + PR comment (`.aiox/gate-logs/` ephemeral in CI runner). Local pre-push JSONL unchanged."
+  escalations: "NONE — Art. IV clean across all 9. Only tension = Art. I on Q2/Q4, handled as per-story design constraint."
+  recommended_dev_waves: "W1: 8.2.2 | W2: 8.2.1, 8.2.3, 8.2.6 | W3: 8.2.4 | W4: 8.2.5 | W5: 8.2.7 | W6: 8.2.9 | W7 (capstone): 8.2.8"
+
+epic8_status:
+  phase_1: "✅ 8 stories Ready (8.1.1-8.1.8)"
+  phase_2: "✅ 9 stories Ready (8.2.1-8.2.9)"
+  phase_3: "⏳ Pending @sm *draft (8.3.1-8.3.8) — future session"
+  phase_4: "⏳ Pending @sm *draft (8.4.1-8.4.4) — future session"
+  po_task_status: "DONE — Phase 1 + Phase 2 validation complete"
+  next_step: "@sm *draft for Phase 3 (8.3.1-8.3.8) and Phase 4 (8.4.1-8.4.4) — future session"
 ---

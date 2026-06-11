@@ -5,6 +5,7 @@
 - [EPIC AIOX-OPS](project_epic-aiox-ops.md) — Stories 5.1-5.8 validated 2026-06-08: 7 GO, 1 NO-GO (5.4 invalid premise — hook already exists). 5.4 anti-pattern + path facts inside.
 - [Epic-5-3 Auto-Contextualization](project_epic5-3-auto-contextualization.md) — Engine at .synapse/context-engine (L4, class ContextEngine). Story 5.3.2 NO-GO 2026-06-10: stale L1 path + invalid API + wrong hook event + premise overstated.
 - [Story 5.4 Activation Enforce](project_story5-4-activation-enforce.md) — NO-GO 2026-06-10 (6/10). Reverted to Draft. Hook=UserPromptSubmit/Stop (not Pre/PostToolUse), .claude/utils empty, handoffs=JSON by story.
+- [EPIC-8 Phase 2 IDS](project_epic8-phase2-ids.md) — 9 stories 8.2.1-8.2.9 GO 2026-06-11 (avg 8.3). Q1-Q6 arch resolutions + dev waves. Live registry=823 entities, no per-entity metadata.
 
 ## IDS Epic Backlog Analysis (2026-02-09)
 - IDS-1/2/3: Done. Foundation solid (474 entities, RegistryLoader, DecisionEngine, RegistryUpdater all implemented).

@@ -1,0 +1,47 @@
+{
+  "storyId": "8.2",
+  "storyType": "config",
+  "suggestedAt": "2026-06-11T10:09:03.913Z",
+  "suggestions": [
+    {
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "audit-tailwind-config",
+      "name": "Audit Tailwind v4 Configuration & Utility Health",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 67,
+      "autoActivate": false
+    },
+    {
+      "id": "bootstrap-shadcn-library",
+      "name": "Bootstrap Shadcn/Radix Component Library",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
+      "score": 65,
+      "autoActivate": false
+    }
+  ]
+}
