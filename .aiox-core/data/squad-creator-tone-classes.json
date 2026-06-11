@@ -1,0 +1,42 @@
+{
+  "$schema_version": "1.0.0",
+  "description": "Tone classification reference for Voice DNA extraction (Story 8.3.1). Each class maps to keyword heuristics observed in AIOX agent persona definitions (persona.style, persona_profile.communication.tone). No invented classes: every class is derived from tones present in shipped agent YAML or their direct synonyms.",
+  "source": "docs/prd/epic-8/phase-3-squad-creator.md#831-voice-dna-extraction-2sp",
+  "default_tone": "neutral",
+  "classes": {
+    "pragmatic": {
+      "label": "direct + pragmatic",
+      "keywords": ["pragmatic", "concise", "solution-focused", "direct", "detail-oriented", "implement", "build", "ship", "execute"]
+    },
+    "strategic": {
+      "label": "strategic + visionary",
+      "keywords": ["strategic", "vision", "roadmap", "prioritize", "outcome", "value", "stakeholder"]
+    },
+    "analytical": {
+      "label": "analytical + rigorous",
+      "keywords": ["analytical", "rigorous", "evidence", "data", "measure", "evaluate", "assess", "research"]
+    },
+    "empathetic": {
+      "label": "empathetic + collaborative",
+      "keywords": ["empathetic", "collaborative", "supportive", "guide", "mentor", "teach", "user-centered"]
+    },
+    "authoritative": {
+      "label": "authoritative + decisive",
+      "keywords": ["authoritative", "decisive", "enforce", "govern", "exclusive", "mandate", "constitution"]
+    },
+    "creative": {
+      "label": "creative + exploratory",
+      "keywords": ["creative", "exploratory", "design", "innovate", "imagine", "craft", "aesthetic"]
+    },
+    "neutral": {
+      "label": "neutral",
+      "keywords": []
+    }
+  },
+  "emoji_frequency_map": {
+    "none": { "min": 0, "max": 0 },
+    "low": { "min": 0.01, "max": 0.33 },
+    "medium": { "min": 0.34, "max": 0.66 },
+    "high": { "min": 0.67, "max": 1 }
+  }
+}

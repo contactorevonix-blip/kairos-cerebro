@@ -1,0 +1,27 @@
+{
+  "$schema_version": "1.0.0",
+  "description": "State-machine reference schema for Thinking DNA extraction (Story 8.3.2). Defines the canonical shape of decision_framework, workflow_chains, and error_recovery extracted from AIOX agent YAML. No invented states: every workflow chain must resolve to a real task file under .aiox-core/development/tasks/.",
+  "source": "docs/prd/epic-8/phase-3-squad-creator.md#832-thinking-dna-cloning-2sp",
+  "definitions": {
+    "decision_framework_entry": {
+      "type": "object",
+      "required": ["trigger", "options", "default"],
+      "properties": {
+        "trigger": { "type": "string", "description": "Command or condition that initiates the decision" },
+        "options": { "type": "array", "items": { "type": "string" } },
+        "default": { "type": "string", "description": "Default option when none specified" }
+      }
+    },
+    "workflow_chain": {
+      "type": "object",
+      "description": "Map of command name -> ordered task sequence",
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    },
+    "error_recovery_entry": {
+      "type": "object",
+      "description": "Map of error_type -> recovery action",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "known_error_types": ["unapproved_deps", "ambiguous", "repeated_failure", "missing_config", "failing_regression"]
+}
