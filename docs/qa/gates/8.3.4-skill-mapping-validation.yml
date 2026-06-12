@@ -1,0 +1,8 @@
+schema: 1
+story: '8.3.4'
+gate: PASS
+status_reason: 'All 5 ACs met; skill matrix + report + CLI implemented with path-traversal hardening; 17 tests pass, lint clean. Command set correctly derived from authoritative dependencies.tasks.'
+reviewer: 'Quinn'
+updated: '2026-06-12T20:00:00Z'
+top_issues: []
+waiver: { active: false }

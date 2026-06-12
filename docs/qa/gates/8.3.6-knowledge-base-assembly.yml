@@ -1,0 +1,12 @@
+schema: 1
+story: '8.3.6'
+gate: CONCERNS
+status_reason: 'All 5 ACs met; KB merges 3 real sources with fixed sections + staleness fingerprints; 13 tests pass, lint clean. Non-blocking: KB template AC path relocated L2 to L4 by AUTO-DECISION, pending @po ratification.'
+reviewer: 'Quinn'
+updated: '2026-06-12T20:00:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'AC3 specced template at .aiox-core/development/templates/squad-kb-tmpl.md (L2, deny-listed). @dev relocated to squads/squad-creator/templates/squad-kb-tmpl.md (L4) — correct boundary behavior, but AC path not yet ratified by @po.'
+    suggested_action: '@po ratify the L4 template path in the AC (same precedent as the core-module re-target).'
+waiver: { active: false }

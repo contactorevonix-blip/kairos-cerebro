@@ -1,0 +1,12 @@
+schema: 1
+story: '8.3.5'
+gate: PASS
+status_reason: 'All 5 ACs met; no-escalation validation sound; @devops extraction verified live (5 exclusive ops, real not fabricated); @dev/@devops token-collision and two-column table bugs fixed; 14 tests pass.'
+reviewer: 'Quinn'
+updated: '2026-06-12T20:00:00Z'
+top_issues:
+  - id: 'SEC-001'
+    severity: low
+    finding: 'persona.exclusive_authority captured as free-text note only (dependency-free parser collapses list-of-maps). Authority ops correctly sourced from the rule file, not YAML.'
+    suggested_action: 'Documented limitation; acceptable since rule file is authoritative. No action required.'
+waiver: { active: false }

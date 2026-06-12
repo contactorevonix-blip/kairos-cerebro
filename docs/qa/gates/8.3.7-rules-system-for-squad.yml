@@ -1,0 +1,16 @@
+schema: 1
+story: '8.3.7'
+gate: CONCERNS
+status_reason: 'All 5 ACs met; constitution-keyed override validation rejects NON-NEGOTIABLE/MUST overrides and permits SHOULD (AC5 tested); 16 tests pass, lint clean. Non-blocking: override template AC path relocated L2 to L4, pending @po ratification.'
+reviewer: 'Quinn'
+updated: '2026-06-12T20:00:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'AC4 specced template at .aiox-core/development/templates/squad-rules-overrides-tmpl.md (L2, deny-listed). @dev relocated to squads/squad-creator/templates/ (L4) — correct boundary behavior, AC path not yet ratified by @po.'
+    suggested_action: '@po ratify the L4 template path in the AC.'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'CONSTITUTION article->rule_files map is hardcoded; if new constitution-bound rules are added they must be registered here to be conflict-checked.'
+    suggested_action: 'Note in module; revisit if constitution articles change.'
+waiver: { active: false }

@@ -1,0 +1,12 @@
+schema: 1
+story: '8.3.8'
+gate: PASS
+status_reason: 'All 5 ACs met; capstone parity suite exercises all 7 Phase 3 modules with paired positive/negative assertions proving 0 false positives AND 0 false negatives. 9 parity tests + full suite 105/105 pass, lint clean.'
+reviewer: 'Quinn'
+updated: '2026-06-12T20:00:00Z'
+top_issues:
+  - id: 'TEST-001'
+    severity: low
+    finding: 'Command/workflow parity measured via task-derived command set (dependency-free parser does not parse commands: list-of-maps). Both mentor and clone resolve through the identical path, so parity is valid; full command-list parity awaits an upstream richer parser.'
+    suggested_action: 'Re-validate command parity if/when a full YAML parser is wired into parseAgentBlock.'
+waiver: { active: false }

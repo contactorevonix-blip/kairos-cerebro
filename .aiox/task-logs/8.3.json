@@ -1,0 +1,47 @@
+{
+  "storyId": "8.3",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-12T19:46:52.183Z",
+  "suggestions": [
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "qa-create-fix-request",
+      "name": "Create Fix Request Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-false-positive-detection",
+      "name": "False Positive Detection Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-false-positive-detection.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-review-story",
+      "name": "review-story",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-review-story.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-run-tests",
+      "name": "Run Tests (with Code Quality Gate)",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-run-tests.md",
+      "score": 51,
+      "autoActivate": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "_comment": "Expected parity benchmarks for Story 8.3.8. The clone must reproduce the mentor across four dimensions. Per the story's risk mitigation, the parity threshold starts at 0.90 and may be raised to 0.95 after 3+ real squads are tested.",
+  "parityThreshold": 0.9,
+  "targetThreshold": 0.95,
+  "mentor": {
+    "id": "dev",
+    "voice": {
+      "tone": "direct + pragmatic",
+      "emojiFrequency": "low",
+      "signatureVocab": ["build", "implement", "test"],
+      "greetingTemplateContains": "{name}"
+    },
+    "commands": ["develop", "gotcha"],
+    "workflowChains": {
+      "develop": ["dev-develop-story.md"],
+      "gotcha": ["gotcha.md"]
+    },
+    "authority": {
+      "expectNoEscalation": true
+    }
+  },
+  "expectedParity": {
+    "voice": 1.0,
+    "command": 1.0,
+    "workflow": 1.0,
+    "authority": 1.0,
+    "overall": 1.0
+  },
+  "documentedDifferences": [
+    {
+      "dimension": "identity",
+      "difference": "Clone agent id is '{squad-id}-lead' and name carries a '(cloned)' suffix.",
+      "expected": true,
+      "reason": "A clone is explicitly marked as derived from the mentor — not a parity defect."
+    },
+    {
+      "dimension": "role",
+      "difference": "Clone role is '{focus} specialist (cloned from @{mentor})' instead of the mentor's role.",
+      "expected": true,
+      "reason": "The focus area is a deliberate customization input."
+    },
+    {
+      "dimension": "templates",
+      "difference": "KB and rules-override templates live under squads/squad-creator/templates/ (L4), not .aiox-core/development/templates/ (L2).",
+      "expected": true,
+      "reason": "L2 templates dir is blocked by the framework-boundary deny rule; relocated to L4 per @po precedent."
+    }
+  ]
+}
