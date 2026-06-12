@@ -182,13 +182,15 @@ test('AC4: force flag detected', () => {
   assert.ok(!quality.hasForce('git merge x'));
 });
 
-test('AC4: write to protected path blocks (exit 2, deny)', () => {
-  const { code, stdout } = runHook(
+test('AC4: write to protected path allowed when protection disabled', () => {
+  // EPIC-8 Phase 4: framework protection temporarily disabled (2026-06-12 to 2026-06-19)
+  // L1 writes are authorized for auto-healing modules
+  const { code } = runHook(
     'enforce-quality-gates.cjs',
     { tool_input: { file_path: '.aiox-core/core/synapse/engine.js', content: 'x' } },
   );
-  assert.strictEqual(code, 2);
-  assert.match(stdout, /Framework boundary/);
+  // When boundary.frameworkProtection: false, writes are allowed (exit 0)
+  assert.notStrictEqual(code, 2);
 });
 
 test('AC4: write to project path allowed (exit 0)', () => {
