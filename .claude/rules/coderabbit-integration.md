@@ -14,14 +14,18 @@ paths:
 
 ```yaml
 mode: light
-max_iterations: 2
+max_iterations: 3
 timeout_minutes: 30
-severity_filter: [CRITICAL, HIGH]
+severity_filter: [CRITICAL, HIGH, MEDIUM]
 behavior:
   CRITICAL: auto_fix
-  HIGH: auto_fix (iteration < 2) else document_as_debt
-  MEDIUM: document_as_debt
+  HIGH: auto_fix
+  MEDIUM: auto_fix (iteration < 3) else document_as_debt
   LOW: ignore
+circuit_breaker:
+  enabled: true
+  failure_threshold: 3
+  halt_on_threshold: true
 ```
 
 **Flow:**
@@ -36,14 +40,18 @@ After 2 iterations with CRITICAL → HALT, manual intervention
 
 ```yaml
 mode: full
-max_iterations: 3
+max_iterations: 5
 timeout_minutes: 30
-severity_filter: [CRITICAL, HIGH]
+severity_filter: [CRITICAL, HIGH, MEDIUM]
 behavior:
   CRITICAL: auto_fix
   HIGH: auto_fix
-  MEDIUM: document_as_debt
+  MEDIUM: auto_fix (iteration < 5) else document_as_debt
   LOW: ignore
+circuit_breaker:
+  enabled: true
+  failure_threshold: 3
+  halt_on_threshold: true
 ```
 
 **Flow:**

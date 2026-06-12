@@ -1,0 +1,20 @@
+{"timestamp":"2026-06-12T20:15:16.060Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:15:17.062Z","gateName":"test-gate","attemptNumber":2,"reason":"Retry succeeded","outcome":"success","waitMs":0}
+{"timestamp":"2026-06-12T20:15:17.063Z","gateName":"test-gate","attemptNumber":1,"reason":"Persistent error: Validation failed","outcome":"failed_persistent","waitMs":0}
+{"timestamp":"2026-06-12T20:15:17.064Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:15:18.079Z","gateName":"test-gate","attemptNumber":2,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":2000}
+{"timestamp":"2026-06-12T20:15:20.084Z","gateName":"test-gate","attemptNumber":3,"reason":"Final attempt failed: timeout","outcome":"failed_transient","waitMs":0}
+{"timestamp":"2026-06-12T20:15:20.085Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:15:21.101Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:15:22.105Z","gateName":"test-gate","attemptNumber":2,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":2000}
+{"timestamp":"2026-06-12T20:15:24.108Z","gateName":"test-gate","attemptNumber":3,"reason":"Retry succeeded","outcome":"success","waitMs":0}
+{"timestamp":"2026-06-12T20:16:03.190Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:16:04.199Z","gateName":"test-gate","attemptNumber":2,"reason":"Retry succeeded","outcome":"success","waitMs":0}
+{"timestamp":"2026-06-12T20:16:04.200Z","gateName":"test-gate","attemptNumber":1,"reason":"Persistent error: Validation failed","outcome":"failed_persistent","waitMs":0}
+{"timestamp":"2026-06-12T20:16:04.201Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:16:05.207Z","gateName":"test-gate","attemptNumber":2,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":2000}
+{"timestamp":"2026-06-12T20:16:07.215Z","gateName":"test-gate","attemptNumber":3,"reason":"Final attempt failed: timeout","outcome":"failed_transient","waitMs":0}
+{"timestamp":"2026-06-12T20:16:07.216Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:16:08.232Z","gateName":"test-gate","attemptNumber":1,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":1000}
+{"timestamp":"2026-06-12T20:16:09.233Z","gateName":"test-gate","attemptNumber":2,"reason":"Transient error: timeout","outcome":"failed_transient","waitMs":2000}
+{"timestamp":"2026-06-12T20:16:11.247Z","gateName":"test-gate","attemptNumber":3,"reason":"Retry succeeded","outcome":"success","waitMs":0}

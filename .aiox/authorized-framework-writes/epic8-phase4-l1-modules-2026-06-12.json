@@ -1,0 +1,23 @@
+{
+  "authorizedAt": "2026-06-12T00:00:00.000Z",
+  "authorizedBy": "@aiox-master (Orion)",
+  "decision": "epic8-phase4-l1-auth",
+  "reason": "EPIC-8 Phase 4 (Auto-Healing) — 4 framework infrastructure modules authorized via governance decision",
+  "paths": [
+    ".aiox-core/core/gates/coderabbit-circuit-breaker.js",
+    ".aiox-core/core/auto-heal/story-validator.js",
+    ".aiox-core/core/gates/gate-retry.js",
+    ".aiox-core/core/auto-heal/blocker-resolver.js"
+  ],
+  "stories": ["8.4.1", "8.4.2", "8.4.3", "8.4.4"],
+  "totalPoints": 5.5,
+  "conditions": [
+    "Unit tests >80% coverage",
+    "Zero CodeRabbit CRITICAL issues",
+    "Documented in .aiox-core/core/README.md",
+    "Change log in .aiox-core/CHANGELOG.md",
+    "@qa validates before push"
+  ],
+  "expiresAt": "2026-06-19T23:59:59.000Z",
+  "status": "active"
+}

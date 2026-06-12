@@ -1,0 +1,4 @@
+{"timestamp":"2026-06-12T20:16:03.199Z","iteration":1,"storyId":"story-1","phase":"dev","severity":"HIGH","result":"failed","reason":"Test"}
+{"timestamp":"2026-06-12T20:16:03.200Z","iteration":2,"storyId":"story-1","phase":"dev","severity":"HIGH","result":"failed","reason":"Test"}
+{"timestamp":"2026-06-12T20:16:03.201Z","iteration":3,"storyId":"story-1","phase":"dev","severity":"HIGH","result":"failed","reason":"Test"}
+{"timestamp":"2026-06-12T20:16:03.202Z","iteration":1,"storyId":"story-1","phase":"dev","severity":"CRITICAL","result":"fixed","reason":"Test"}

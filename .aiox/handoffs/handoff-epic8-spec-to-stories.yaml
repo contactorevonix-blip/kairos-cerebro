@@ -127,8 +127,8 @@ phase_2_progress:
 epic8_status:
   phase_1: "✅ 8 stories Ready (8.1.1-8.1.8)"
   phase_2: "✅ 9 stories Ready (8.2.1-8.2.9)"
-  phase_3: "⏳ Pending @sm *draft (8.3.1-8.3.8) — future session"
-  phase_4: "⏳ Pending @sm *draft (8.4.1-8.4.4) — future session"
-  po_task_status: "DONE — Phase 1 + Phase 2 validation complete"
-  next_step: "@sm *draft for Phase 3 (8.3.1-8.3.8) and Phase 4 (8.4.1-8.4.4) — future session"
+  phase_3: "✅ 8 stories Ready (8.3.1-8.3.8, 15sp) — @po validation PASS (8.4/10 avg)"
+  phase_4: "✅ 4 stories Ready (8.4.1-8.4.4, 5.5sp) — @po validation PASS (8.4/10 avg)"
+  po_task_status: "DONE — Phase 3-4 validation complete (12/12 GO verdicts, 8.39/10 avg quality)"
+  next_step: "@dev *develop-story for Phase 3-4 implementation (SDC execution)"
 ---

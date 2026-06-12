@@ -1,7 +1,7 @@
 {
-  "storyId": "8.1",
+  "storyId": "8.4",
   "storyType": "arch",
-  "suggestedAt": "2026-06-11T10:15:44.262Z",
+  "suggestedAt": "2026-06-12T20:13:09.056Z",
   "suggestions": [
     {
       "id": "brownfield-create-epic",
@@ -36,10 +36,10 @@
       "autoActivate": true
     },
     {
-      "id": "export-design-tokens-dtcg",
-      "name": "Export Design Tokens to W3C DTCG",
+      "id": "extend-pattern",
+      "name": "Extend Existing Pattern",
       "category": "arch",
-      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
+      "file": ".aiox-core/development/tasks/extend-pattern.md",
       "score": 73,
       "autoActivate": true
     }

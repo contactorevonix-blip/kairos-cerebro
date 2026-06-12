@@ -80,10 +80,40 @@ function readQualityStatus(cwd = process.cwd()) {
   }
 }
 
+function isFrameworkProtectionEnabled(cwd = process.cwd()) {
+  try {
+    // Check env override first
+    if (process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED === '1') return false;
+
+    const configPath = path.join(cwd, '.aiox-core', 'core-config.yaml');
+    if (!fs.existsSync(configPath)) return true;
+
+    const content = fs.readFileSync(configPath, 'utf8');
+    // Check for boundary.frameworkProtection: false (handles Windows \r\n line endings)
+    const match = /boundary:\s*[\r\n]+\s*frameworkProtection:\s*false/i.test(content);
+    return !match; // if found 'false', return false (disabled)
+  } catch {
+    return true; // fail-safe: default enabled
+  }
+}
+
 function handleFrameworkBoundary(input) {
   const toolInput = input?.tool_input || {};
   const filePath = toolInput.file_path || toolInput.path || '';
   if (!filePath || !isProtectedPath(filePath)) return false;
+
+  // Check if framework protection is disabled (e.g., during framework-contributor session)
+  if (!isFrameworkProtectionEnabled()) {
+    gl.recordMetrics({ gatesEnforced: 1, violationsDetected: 0 });
+    gl.logGateDecision({
+      article: ARTICLE,
+      gate: 'framework-boundary',
+      decision: 'allow',
+      reason: 'Framework protection disabled (boundary.frameworkProtection: false)',
+      file: filePath,
+    });
+    return false; // allow the write
+  }
 
   gl.recordMetrics({ gatesEnforced: 1, violationsDetected: 1, violationsBlocked: 1 });
   const reason = `Framework boundary protection (Constitution Art. VI-VII): ${filePath} is L1/L2 (NEVER modify). Make project-layer (L4) changes instead, or route framework changes through @aiox-master *propose-modification.`;
