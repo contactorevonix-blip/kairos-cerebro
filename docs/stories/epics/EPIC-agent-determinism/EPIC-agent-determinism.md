@@ -5,15 +5,15 @@
 **Track (planning-tracks.md):** **Enterprise** (>= 8 agentes afectados → Spec Pipeline + PRD obrigatório)
 **Constitution:** Art. III (Story-Driven), Art. IV (No Invention), Art. V (Quality First), Art. VI-VII (Framework Boundary)
 **IDS Gate G1:** REUSE — popula diretório pré-existente `EPIC-agent-determinism/` (não cria duplicado)
-**Contexto-fonte:** Auditoria de conectividade dos 11 agentes core + aiox-master (`.claude/skills/AIOX/agents/*/SKILL.md`)
+**Contexto-fonte:** Auditoria de conectividade de 10 agentes core + aiox-master (11 SKILL.md em `.claude/skills/AIOX/agents/*/SKILL.md`)
 
 ---
 
 ## 1. Goal do Epic
 
-Eliminar TODA ambiguidade entre "o que o agente declara que lê" (IDE-FILE-RESOLUTION, `devLoadAlwaysFiles`) e "o que existe de facto no filesystem", garantindo que cada um dos 11 agentes core (+ aiox-master) tem um caminho **determinístico e incremental** desde a ACTIVAÇÃO até à EXECUÇÃO de qualquer comando `*task`/`*workflow`, sem ficheiros fantasma, pastas órfãs ou fórmulas de path erradas.
+Eliminar TODA ambiguidade entre "o que o agente declara que lê" (IDE-FILE-RESOLUTION, `devLoadAlwaysFiles`) e "o que existe de facto no filesystem", garantindo que cada um dos 10 agentes core (+ aiox-master, totalizando 11 SKILL.md) tem um caminho **determinístico e incremental** desde a ACTIVAÇÃO até à EXECUÇÃO de qualquer comando `*task`/`*workflow`, sem ficheiros fantasma, pastas órfãs ou fórmulas de path erradas.
 
-**Outcome mensurável:** `aiox doctor` (ou suite equivalente) valida, para os 11 agentes, activação + resolução de 100% das dependencies declaradas + 1 `*task` executável por agente, sem GAPs de path.
+**Outcome mensurável:** `aiox doctor` (ou suite equivalente) valida, para os 11 SKILL.md (10 agentes core + aiox-master), activação + resolução de 100% das dependencies declaradas + 1 `*task` executável por agente, sem GAPs de path.
 
 ---
 
@@ -171,11 +171,11 @@ e) **GAPs:** registar ficheiros declarados-mas-inexistentes, pastas soltas, coma
 ## 9. Definition of Done (Epic)
 
 - [ ] As 5 stories concluídas com ACs cumpridos e rastreáveis a F1-F6 ou GAP documentado.
-- [ ] 11 agentes core + aiox-master resolvem 100% das dependencies declaradas para o path REAL.
+- [ ] Os 11 SKILL.md (10 agentes core + aiox-master) resolvem 100% das dependencies declaradas para o path REAL.
 - [ ] `core-config.yaml` sem paths inválidos (`devLoadAlwaysFiles`, `devDebugLog`, `toolsLocation`).
 - [ ] Templates órfãos deprecados/removidos via caminho de governança correcto.
 - [ ] Relação development/ vs product/ documentada (fonte de verdade por tipo); `agent-teams/` resolvido.
-- [ ] Suite E2E a correr em CI/`aiox doctor`, verde para os 11 agentes.
+- [ ] Suite E2E a correr em CI/`aiox doctor`, verde para os 11 SKILL.md (10 agentes core + aiox-master).
 - [ ] Sem regressão no mecanismo de activação.
 
 ---
@@ -186,7 +186,7 @@ e) **GAPs:** registar ficheiros declarados-mas-inexistentes, pastas soltas, coma
 > - Enhancement a um framework AIOX existente (core 5.2.9 / projeto 2.1.0), modelo L1-L4.
 > - Integration points: `core-config.yaml` (L3), `.claude/skills/AIOX/agents/*/SKILL.md` (L4), `workflow-chains.yaml`, `.aiox/handoffs/`.
 > - Padrões a seguir: mapeamento de dependency por tipo (Story D decide fonte de verdade); padrão de activação 'native context, zero JS execution' (NÃO alterar).
-> - Compat crítica: 11 agentes core + aiox-master devem resolver dependencies sem GAP; `ideSync` sem drift.
+> - Compat crítica: os 11 SKILL.md (10 agentes core + aiox-master) devem resolver dependencies sem GAP; `ideSync` sem drift.
 > - Cada story DEVE verificar que a activação dos agentes permanece intacta.
 > Story A depende da decisão da Story D. Sequenciar D→A ou D+A na mesma wave."
 
