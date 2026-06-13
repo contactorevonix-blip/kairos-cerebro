@@ -1440,3 +1440,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** chore: mark EPIC-8 Phase 4 stories as Done
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-13 08:53
+**Branch:** claude/linkedin-sales-partners-k6j5qr
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .synapse/metrics/hook-metrics.json
