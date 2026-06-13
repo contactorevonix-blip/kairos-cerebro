@@ -1,46 +1,46 @@
 {
   "storyId": "unknown",
-  "storyType": "bug",
-  "suggestedAt": "2026-06-10T15:03:13.798Z",
+  "storyType": "refactor",
+  "suggestedAt": "2026-06-13T22:06:06.982Z",
   "suggestions": [
     {
-      "id": "correct-course",
-      "name": "Correct Course Task",
-      "category": "bug",
-      "file": ".aiox-core/development/tasks/correct-course.md",
+      "id": "deprecate-component",
+      "name": "TODO: Create deprecation-checklist.md for validation (follow-up story needed)",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/deprecate-component.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "test-validation-task",
-      "name": "Test Validation Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/test-validation-task.md",
-      "score": 59,
+      "id": "dev-improve-code-quality",
+      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "dev-optimize-performance",
+      "name": "Optimize Performance - AIOX Developer Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "cleanup-utilities",
+      "name": "Cleanup Utilities Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
+      "score": 65,
       "autoActivate": false
     },
     {
-      "id": "github-devops-pre-push-quality-gate",
-      "name": "pre-push-quality-gate.md",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
-      "score": 54,
-      "autoActivate": false
-    },
-    {
-      "id": "fast-path-gate",
-      "name": "Fast Path Gate",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/fast-path-gate.md",
-      "score": 51,
-      "autoActivate": false
-    },
-    {
-      "id": "qa-fix-issues",
-      "name": "QA Issue Fixer Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-fix-issues.md",
-      "score": 51,
+      "id": "cleanup-worktrees",
+      "name": "cleanup-worktrees",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "score": 65,
       "autoActivate": false
     }
   ]
