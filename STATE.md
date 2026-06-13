@@ -1440,3 +1440,168 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** chore: mark EPIC-8 Phase 4 stories as Done
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:21
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:23
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:25
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:28
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:31
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:34
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:35
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:39
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:40
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:45
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:49
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:50
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:51
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:52
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:53
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:55
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:57
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 20:59
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:01
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:02
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:03
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:04
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:05
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:06
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:07
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:08
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:11
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:12
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:18
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:23
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:25
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:25
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-12 21:27
+**Branch:** main
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md

@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-10T21:56:53.013Z'
-  entityCount: 823
+  lastUpdated: '2026-06-12T20:17:50.865Z'
+  entityCount: 828
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -14165,15 +14165,15 @@ entities:
       path: .aiox-core/core-config.yaml
       layer: L4
       type: module
-      purpose: Agent configuration locations — consumed by config-loader and audit-agent-config
+      purpose: boundary configuration — see line 168 above for active setting
       keywords:
         - core
         - config
-        - agent
+        - boundary
         - configuration
-        - locations
-        - consumed
-        - config-loader
+        - see
+        - line
+        - '168'
       usedBy: []
       dependencies: []
       externalDeps: []
@@ -14183,8 +14183,85 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:71113b657d68b46e9c56fe0bfd447323d319dbcffe57b308d296948ec1a83e61
-      lastVerified: '2026-06-10T21:56:53.003Z'
+      checksum: sha256:dc27f04e9c29c78dc8ad73c727254e228ea9bc16da7cfa52a0a74131dfa9304f
+      lastVerified: '2026-06-12T20:17:50.847Z'
+    blocker-resolver:
+      path: .aiox-core/core/auto-heal/blocker-resolver.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\auto-heal\blocker-resolver.js
+      keywords:
+        - blocker
+        - resolver
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4946026033f46070aaf7f08b85fc174236dfd89da3d396bdefb665b5d338691c
+      lastVerified: '2026-06-12T20:17:50.851Z'
+    story-validator:
+      path: .aiox-core/core/auto-heal/story-validator.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\auto-heal\story-validator.js
+      keywords:
+        - story
+        - validator
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:7112cd3854127177b90fa43ad323c696d715038958bfe3963809c94bbb840418
+      lastVerified: '2026-06-12T20:17:50.853Z'
+    coderabbit-circuit-breaker:
+      path: .aiox-core/core/gates/coderabbit-circuit-breaker.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\gates\coderabbit-circuit-breaker.js
+      keywords:
+        - coderabbit
+        - circuit
+        - breaker
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:79fd17dbfa33910cb66c4cd071a6b3434656e158b9970b56f8c4fc8a4f047685
+      lastVerified: '2026-06-12T20:17:50.854Z'
+    gate-retry:
+      path: .aiox-core/core/gates/gate-retry.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\gates\gate-retry.js
+      keywords:
+        - gate
+        - retry
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:846e345ec883be46c2cff9dce942c05b038571d512fce9e9a2e19128f77a2357
+      lastVerified: '2026-06-12T20:17:50.855Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
@@ -15731,6 +15808,28 @@ entities:
         extensionPoints: []
       checksum: sha256:958323103268ab2f5f7aa6ba1537e2c44a23540aa341d41f8699e8d07e70b215
       lastVerified: '2026-06-09T09:32:26.053Z'
+    authority-rules-reference:
+      path: .aiox-core/data/authority-rules-reference.md
+      layer: L3
+      type: data
+      purpose: Authority Rules Reference — Squad Creator (Story 8.3.5)
+      keywords:
+        - authority
+        - rules
+        - reference
+        - squad
+        - creator
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:cda0b8ee6c28fc1ca89631971c0e6b3182ad61807fd573203e6a13b87cb46960
+      lastVerified: '2026-06-12T20:17:50.856Z'
   workflows:
     auto-worktree:
       path: .aiox-core/development/workflows/auto-worktree.yaml

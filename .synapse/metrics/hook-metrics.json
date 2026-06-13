@@ -1,5 +1,5 @@
 {
-  "totalDuration": 30.5397,
+  "totalDuration": 31.4788,
   "hookBootMs": 0,
   "bracket": "FRESH",
   "layersLoaded": 2,
@@ -8,12 +8,12 @@
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.6676,
+      "duration": 0.5555,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.474,
+      "duration": 0.5159,
       "status": "ok",
       "rules": 39
     },
@@ -48,19 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-06-12T20:13:02.363Z",
-  "taskFirst": {
-    "tasksIndexed": 213,
-    "tasksActivated": 20,
-    "taskExecutionTime": 0,
-    "taskAutoActivationRate": 0,
-    "lastIndexedAt": "2026-06-08T22:27:07.273Z"
-  },
-  "enforcement": {
-    "gatesEnforced": 11,
-    "violationsDetected": 4,
-    "violationsBlocked": 2,
-    "overridesUsed": 2
-  },
-  "enforcementUpdatedAt": "2026-06-12T20:15:10.216Z"
+  "timestamp": "2026-06-13T09:11:47.822Z"
 }

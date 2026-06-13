@@ -29,3 +29,9 @@
 {"timestamp":"2026-06-10T17:11:45.243Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779648649683","trigger":"watcher"}
 {"timestamp":"2026-06-10T17:11:45.246Z","action":"unlink","path":".aiox-core/core-config.yaml.backup.1779900651717","trigger":"watcher"}
 {"timestamp":"2026-06-10T21:56:53.005Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.849Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.851Z","action":"add","path":".aiox-core/core/auto-heal/blocker-resolver.js","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.853Z","action":"add","path":".aiox-core/core/auto-heal/story-validator.js","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.854Z","action":"add","path":".aiox-core/core/gates/coderabbit-circuit-breaker.js","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.855Z","action":"add","path":".aiox-core/core/gates/gate-retry.js","trigger":"watcher"}
+{"timestamp":"2026-06-12T20:17:50.856Z","action":"add","path":".aiox-core/data/authority-rules-reference.md","trigger":"watcher"}
