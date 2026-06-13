@@ -1,45 +1,45 @@
 {
   "storyId": "unknown",
-  "storyType": "refactor",
-  "suggestedAt": "2026-06-13T22:06:06.982Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-13T22:17:07.533Z",
   "suggestions": [
     {
-      "id": "deprecate-component",
-      "name": "TODO: Create deprecation-checklist.md for validation (follow-up story needed)",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/deprecate-component.md",
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "dev-improve-code-quality",
-      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "dev-optimize-performance",
-      "name": "Optimize Performance - AIOX Developer Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "cleanup-utilities",
-      "name": "Cleanup Utilities Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
-      "score": 65,
-      "autoActivate": false
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "cleanup-worktrees",
-      "name": "cleanup-worktrees",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "id": "analyze-brownfield",
+      "name": "Analyze Brownfield Project",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
       "score": 65,
       "autoActivate": false
     }

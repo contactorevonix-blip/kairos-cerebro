@@ -1660,3 +1660,18 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** chore: update session metrics and state checkpoint [no-story-req]
 **Files changed:** none
+
+## Checkpoint: ec50853 — 2026-06-13 22:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** none
+
+## Checkpoint: ec50853 — 2026-06-13 22:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: ec50853 — 2026-06-13 22:16
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-A-ide-file-resolution.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md, docs/stories/epics/EPIC-agent-determinism/story-C-deprecate-orphan-templates.md, docs/stories/epics/EPIC-agent-determinism/story-D-development-vs-product-source-of-truth.md, docs/stories/epics/EPIC-agent-determinism/story-E-e2e-agent-validation-suite.md
