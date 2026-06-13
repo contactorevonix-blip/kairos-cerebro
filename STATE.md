@@ -1,3 +1,29 @@
+# 🔄 SYNAPSE Enforcement Phase 1 — Session 2026-06-13 (Cont 36)
+
+**Session 2026-06-13 (Cont 36):** SYNAPSE Enforcement Coherence Audit + Decision — **Status: DECISION MADE (EPIC-9 approved, 3 critical findings)**
+
+**What Was Done (this session - Cont 36):**
+1. ✅ Complete auditoria Option C: HANDOFF-CONT35-TO-CONT36.md + audit docs + 16 rules + 22 hooks analyzed
+2. ✅ @aiox-architect analysis: Rules → Commands → Tasks → Hooks → Enforcement coherence check
+3. ✅ **3 Critical Findings Found:**
+   - 🔴 Dead code: `pre-tool-use-validator.cjs` silent no-op (wrong signature) → real coverage ~22%, not 60%
+   - 🔴 Story-ID collision: 1.17/1.18/1.19 already exist in EPIC-1 (duplicate 1.14/1.15)
+   - 🔴 Doc contradiction: Cont 35 audit docs disagree on 1.17/1.18 specs
+4. ✅ Decision: **Option A (Quick Win)** → Corrected to **EPIC-9** (not 1.17/1.18)
+5. ✅ Execution Plan:
+   - Story 9.0: Retire dead validator (0.5sp)
+   - Story 9.1: enforce-story-lifecycle.cjs (2sp) ║ PARALLEL
+   - Story 9.2: enforce-agent-commands.cjs (2sp)  ║
+   - Total: 4.5sp, 1-2 days, Standard SDC (no Spec Pipeline needed)
+
+**Next Session (Cont 37):**
+- [ ] Step 1: Reconciliar doc contradiction (5 min)
+- [ ] Step 2: @pm *create-epic EPIC-9
+- [ ] Step 3: @sm *draft 9.0/9.1/9.2
+- [ ] Step 4+: Add full audit of `.claude/commands/` + `synapse/` + `AIOX/` folders (deferred, fresh context needed)
+
+---
+
 # ✅ EPIC-8 COMPLETE — Session 2026-06-12 (Cont 34) 
 
 **Session 2026-06-12 (Cont 34):** EPIC-8 Phase 4 (Auto-Healing) Implementation — **Status: 100% COMPLETE (40/40 stories, 51sp)**
@@ -1605,3 +1631,48 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:13
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** none
+
+## Checkpoint: c4e5603 — 2026-06-13 09:13
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:14
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:15
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:16
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:17
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:19
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:20
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c4e5603 — 2026-06-13 09:24
+**Branch:** main
+**Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
