@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: B
 title: "Resolver devLoadAlwaysFiles + devDebugLog + toolsLocation"
-status: Draft
+status: Ready
 priority: P0
 executor: "@config-engineer"
 quality_gate: "@architect"
@@ -16,7 +16,7 @@ layer: L3
 # Story B — Resolver devLoadAlwaysFiles + devDebugLog + toolsLocation
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** agente @dev que carrega contexto sempre-presente na activação,
@@ -77,6 +77,8 @@ A Story D pode influenciar se os ficheiros de framework devem viver em `docs/fra
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F2/F3 |
+| 2026-06-13 | @po (Pax) | Validated GO (9/10) — Status: Draft → Ready. F2/F3 reconfirmadas (docs/framework/*.md 3x MISSING, .ai/ MISSING, .aiox-core/tools MISSING, templates project-docs presentes). Dependência D→B confirmada (depends_on: [D]) |
+| 2026-06-13 | @po (Pax) | Re-validation GO (9/10) confirmada. Filesystem re-verificado: docs/framework/ dir MISSING (3 ficheiros), .ai/ MISSING, .aiox-core/tools MISSING; project-docs/*-tmpl.md presentes (3). core-config.yaml: devLoadAlwaysFiles (linhas 21-24), fallback pt/es (25-31), devDebugLog (32), toolsLocation (35) confirmados. Executor @config-engineer existe. Art. IV mitigado por AC + Risk (não inventar conteúdo em docs framework) |
 
 ## File List
 _(a preencher pelo executor)_

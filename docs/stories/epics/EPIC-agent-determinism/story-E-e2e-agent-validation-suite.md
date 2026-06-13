@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: E
 title: "Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor)"
-status: Draft
+status: Ready
 priority: P1
 executor: "@qa"
 quality_gate: "@dev"
@@ -16,7 +16,7 @@ layer: L4
 # Story E — Suite E2E: activação + dependencies + 1 *task por agente
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** responsável pela qualidade do sistema de agentes,
@@ -70,6 +70,8 @@ Correr APÓS A e B (a suite deve passar contra o estado já corrigido; também s
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir do Escopo Expandido + F1/F2/F3 |
+| 2026-06-13 | @po (Pax) | Validated GO (9/10) — Status: Draft → Ready. 11 agentes core + aiox-master confirmados presentes em .claude/skills/AIOX/agents/. depends_on: [A, B] coerente (corre por último, gate de aceitação de A/B) |
+| 2026-06-13 | @po (Pax) | Re-validation GO (9/10) confirmada. 11 SKILL.md re-verificados presentes (10 core: dev/qa/architect/pm/po/sm/analyst/data-engineer/ux-design-expert/devops + aiox-master). depends_on: [A,B] e ordem "por último" coerentes. node:test disponível (tests/hooks/). Nota Should-Fix herdada do epic: usar contagem canónica "11 SKILL.md (10 core + aiox-master)" em AC-E1/E2/E7 para evitar ambiguidade com o phrasing do PRD |
 
 ## File List
 _(a preencher pelo executor)_

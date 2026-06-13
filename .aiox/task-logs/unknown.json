@@ -1,46 +1,46 @@
 {
   "storyId": "unknown",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-13T22:17:07.533Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-13T22:17:15.669Z",
   "suggestions": [
     {
-      "id": "architect-analyze-impact",
-      "name": "Architect Analyze Impact",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "analyze-brownfield",
-      "name": "Analyze Brownfield Project",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
       "score": 65,
+      "autoActivate": false
+    },
+    {
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 59,
+      "autoActivate": false
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "fast-path-gate",
+      "name": "Fast Path Gate",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/fast-path-gate.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-run-tests",
+      "name": "Run Tests (with Code Quality Gate)",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-run-tests.md",
+      "score": 51,
       "autoActivate": false
     }
   ]

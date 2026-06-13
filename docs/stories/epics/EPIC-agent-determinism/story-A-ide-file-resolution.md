@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: A
 title: "Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md"
-status: Draft
+status: Ready
 priority: P0
 executor: "@skill-craftsman"
 quality_gate: "@qa"
@@ -16,7 +16,7 @@ layer: L4
 # Story A — Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** agente AIOX que executa `*task`/`*workflow`,
@@ -82,6 +82,8 @@ Bug é UPSTREAM (existe em github.com/SynkraAI/aiox-core), mas os SKILL.md em `.
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F1 |
+| 2026-06-13 | @po (Pax) | Validated GO (9/10) — Status: Draft → Ready. Ground-truth F1 reconfirmada vs filesystem. Dependência D→A confirmada em frontmatter (depends_on: [D]) |
+| 2026-06-13 | @po (Pax) | Re-validation GO (9/10) confirmada. F1 re-verificada: fórmula errada presente no SKILL.md (linha 22 do pm); dependencies block real (pm-checklist.md, prd-tmpl.yaml, technical-preferences.md) resolve para product/ e data/ top-level, NÃO development/ → bug confirmado. Executor @skill-craftsman existe. AC-A1 cobre os 11 SKILL.md (10 core + aiox-master). Nota: AC-A1 `scripts/utils` OR resolvido por Story D (depends_on coerente) |
 
 ## File List
 _(a preencher pelo executor)_

@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: D
 title: "Documentar development/ vs product/ (fonte de verdade) + resolver agent-teams órfão"
-status: Draft
+status: Ready
 priority: P1
 executor: "@architect + @skill-craftsman"
 quality_gate: "@pm"
@@ -17,7 +17,7 @@ layer: L3/L4
 # Story D — development/ vs product/ (fonte de verdade) + agent-teams órfão
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** arquitecto do framework AIOX no kairos-cerebro,
@@ -80,6 +80,8 @@ A decisão de fonte de verdade aqui é o input que as Stories A (mapeamento IDE-
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F5/F6 |
+| 2026-06-13 | @po (Pax) | Validated GO (8/10) — Status: Draft → Ready. F5/F6 reconfirmadas (agent-teams 5 ficheiros presentes; counts dev vs product). blocks: [A, B] confirmado coerente com depends_on das stories A/B. PRIMEIRA da sequência a executar |
+| 2026-06-13 | @po (Pax) | Re-validation GO (8/10) confirmada. F6 counts re-verificados EXACTOS: dev/checklists=5, product=16; dev/templates=11, product=78; dev/data=3, data top-level=22 (≈"20+"). F5: agent-teams 5 ficheiros presentes e grep `agent-teams` = ZERO refs em skills/agents/config (órfão confirmado → AC-D3 pré-validada). Sequenciamento D→A/B coerente (blocks vs depends_on). Quality gate @pm ≠ executor (@architect+@skill-craftsman) OK |
 
 ## File List
 _(a preencher pelos executores)_

@@ -25,6 +25,20 @@ C (paralelo)                      │
                           E (gate E2E, por último)
 ```
 
+## Estado de Validação (@po *validate-story-draft — 2026-06-13)
+
+| Story | Score | Decisão | Status final |
+|---|---|---|---|
+| A — IDE-FILE-RESOLUTION (F1) | 9/10 | **GO** | Ready |
+| B — devLoadAlwaysFiles/devDebugLog/toolsLocation (F2,F3) | 9/10 | **GO** | Ready |
+| C — deprecar templates órfãos (F4) | 8/10 | **GO** | Ready |
+| D — fonte de verdade + agent-teams (F5,F6) | 8/10 | **GO** | Ready |
+| E — suite E2E (Escopo Expandido) | 9/10 | **GO** | Ready |
+
+**Resultado:** 5/5 GO. Todos os achados F1-F6 reconfirmados contra o filesystem real (Art. IV — No Invention satisfeito). Executores `@skill-craftsman` e `@config-engineer` confirmados existentes. Sequência D → A/B → E (C paralelo) coerente entre `blocks`/`depends_on` e o diagrama do PRD. Boundary L1/L2 respeitado: Stories C e D encaminham alterações L2 via `@aiox-master *propose-modification`, não edição directa.
+
+**Should-Fix (não-bloqueante):** O PRD (`EPIC-agent-determinism.md`) usa repetidamente "11 agentes core + aiox-master" (implica 12 SKILL.md). A contagem real é **10 agentes core + aiox-master = 11 SKILL.md** — que é exactamente o conjunto que as stories A e E operam (lista de 11 agentes). As stories estão correctas; recomenda-se ao @pm normalizar o phrasing do PRD para "10 core + aiox-master (11 SKILL.md)".
+
 ## Próximo passo
 
-Validação dos drafts → `@po *validate-story-draft` (Gate 1). Push → `@devops` (exclusivo).
+Stories Ready → `@dev`/executores designados. Ordem: **D primeiro** (desbloqueia A e B), depois A+B, C em paralelo, **E por último** (gate de aceitação de A/B). Push de cada story aprovada → `@devops` (exclusivo).

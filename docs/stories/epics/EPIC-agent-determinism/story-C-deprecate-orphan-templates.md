@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: C
 title: "Deprecar/remover templates órfãos activation-instructions-*"
-status: Draft
+status: Ready
 priority: P2
 executor: "@skill-craftsman"
 quality_gate: "@qa"
@@ -16,7 +16,7 @@ layer: L2
 # Story C — Deprecar/remover templates órfãos activation-instructions-*
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** mantenedor do framework AIOX no kairos-cerebro,
@@ -66,6 +66,8 @@ Ambos os ficheiros estão em **L2** (`.aiox-core/product/templates/`). **NÃO po
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F4 |
+| 2026-06-13 | @po (Pax) | Validated GO (8/10) — Status: Draft → Ready. F4 reconfirmada (ambos os templates presentes em L2). Caminho de governança (propose-modification, NÃO edição directa L2) verificado correcto contra enforcement-gates.md |
+| 2026-06-13 | @po (Pax) | Re-validation GO (8/10) confirmada. F4 re-verificada: 2 templates órfãos presentes em product/templates/ (L2). AC-C1 (órfandade) PRÉ-VALIDADA pelo @po: grep dos nomes exactos `activation-instructions-template`/`activation-instructions-inline-greeting` = ZERO refs em .claude/skills/ e .aiox-core/development/agents/ (os hits de `activation-instructions` são a chave YAML genérica, não refs ao template). Boundary L2→propose-modification correcto. Executor @skill-craftsman existe |
 
 ## File List
 _(a preencher pelo executor)_
