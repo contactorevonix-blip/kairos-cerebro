@@ -4,6 +4,7 @@
 - [Control Plane Design](project-control-plane-design.md) — Monitor+Control Plane arch for 150+ Claude Code windows (Node/Fastify/SQLite-WAL/WS/React), ADRs + existing-artifact anchors
 - [EPIC-2 Expert Cloning Review](project-expert-cloning-epic2.md) — CONCERNS verdict: Art. II authority conflict (FAIL) + 5 scope fixes (CLI-first, pgvector cut, cost model, RLS, LangGraph) before infra build
 - [Story 5.2 Governance Prevention](project-story52-governance-prevention.md) — Phase 2 complete: SYNC-FINDINGS + AMBIGUITIES + 9 preventive controls (PROCESS-IMPROVEMENTS.md, 6.25h, propose-only) tracing to V-DRIFT-004/FP-01..05/DATA-REF
+- [SYNAPSE Enforcement EPIC-9](project-synapse-enforcement-epic9.md) — Cont 36: Option A under new EPIC-9 (9.0 retire dead validator → 9.1∥9.2). Real coverage ~22%; pre-tool-use-validator.cjs is dead code; Cont 35 docs contradict on scope
 
 ## EPIC-ACT Wave 2 Quality Gate Review (2026-02-06)
 - Reviewed: ACT-6 (Unified Activation Pipeline, 67 tests, APPROVED)

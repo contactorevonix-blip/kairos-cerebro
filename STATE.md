@@ -1676,3 +1676,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: Handoff Cont 35 → Cont 36 (SYNAPSE Audit Complete)
 **Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 964591e — 2026-06-13 09:28
+**Branch:** main
+**Commit:** docs: Session 2026-06-13 Cont 36 — SYNAPSE Enforcement Audit Complete (EPIC-9 Decision)
+**Files changed:** .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json
