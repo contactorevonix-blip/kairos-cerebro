@@ -1,19 +1,19 @@
 {
-  "totalDuration": 1.941488,
+  "totalDuration": 1.91727,
   "hookBootMs": 0,
-  "bracket": "DEPLETED",
+  "bracket": "CRITICAL",
   "layersLoaded": 2,
   "layersSkipped": 6,
   "layersErrored": 0,
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.464951,
+      "duration": 0.466318,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.25746,
+      "duration": 0.204172,
       "status": "ok",
       "rules": 39
     },
@@ -48,5 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-06-14T09:24:20.821Z"
+  "timestamp": "2026-06-14T09:25:45.132Z"
 }
