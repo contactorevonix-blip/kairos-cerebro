@@ -1,0 +1,23 @@
+schema: 1
+story: '10.1'
+gate: PASS
+status_reason: 'Documentation-only story fully delivers all 7 AC — docs/ARCHITECTURE.md classifies 100% of top-level folders with valid cross-links, no regressions, and no credential exposure.'
+reviewer: 'Quinn'
+updated: '2026-06-13T00:00:00Z'
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'Orphan folder `C:Userslealp...husky` (path-bug artifact) is documented but remains in the tree.'
+    suggested_action: 'Flagged for @devops removal — correctly out of scope for this story, no action required for gate.'
+  - id: 'SEC-001'
+    severity: low
+    finding: '.kairos-data/ contains credential files (api_keys.json, tenants.json) — documented as a security flag.'
+    suggested_action: '@devops to review storage/permissions/key-rotation. Out of scope for this story (correctly flagged, not exposed).'
+waiver: { active: false }
+
+verification:
+  ac_met: '7/7'
+  regressions: 'none — .kairos-data/ gitignored (0 tracked), ideSync config intact, doc changes additive only'
+  security: 'PASS — only file names mentioned, no credential values exposed'
+  documentation: 'PASS — markdown well-formed, cross-links in CLAUDE.md + PROJECT.md verified, target files exist'
+  coverage: '22/22 top-level folders classified (100%)'
