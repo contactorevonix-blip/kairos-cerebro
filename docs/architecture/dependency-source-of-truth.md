@@ -75,27 +75,31 @@ are loaded as static files by agents") and `core-config.yaml`
 | **checklists** | `.aiox-core/product/checklists/` | 16 of the agent-referenced checklists live here (`architect-checklist.md`, `pm-checklist.md`, `po-master-checklist.md`, `story-dod-checklist.md`, …). `product/README.md` declares this the checklist home. `development/checklists/` holds only 5 framework-internal files (see §3). |
 | **templates** | `.aiox-core/product/templates/` | 96 agent-facing document templates (`prd-tmpl.yaml`, `architecture-tmpl.yaml`, `story-tmpl.yaml`, `qa-gate-tmpl.yaml`, …). `development/templates/` holds framework **scaffolding** bundles, not document templates (see §3). |
 | **data** | `.aiox-core/data/` (top-level) | `core-config.yaml` sets `dataLocation: .aiox-core/data`. The agent-referenced `technical-preferences.md`, `workflow-chains.yaml`, `entity-registry.yaml`, `tool-registry.yaml` all live here. `product/data/` and `development/data/` are secondary, type-specific stores (see §3). |
-| **scripts / utils** | `.aiox-core/infrastructure/scripts/` (default) **and** `.aiox-core/development/scripts/` (agent-runtime subset) **and** `.aiox-core/scripts/` (legacy fallback) | Three stores with a clear boundary — see §2.1. The agent-referenced `codebase-mapper.js` resolves to `infrastructure/scripts/`; `workflow-management.md` resolves to the legacy `.aiox-core/scripts/`. |
+| **scripts / utils** | `.aiox-core/infrastructure/scripts/` (default) **and** `.aiox-core/development/scripts/` (agent-runtime subset) **and** `.aiox-core/scripts/` (legacy fallback) **and** `.aiox-core/core/` (core runtime modules, recursive) | Four stores with a clear boundary — see §2.1. The agent-referenced `codebase-mapper.js` resolves to `infrastructure/scripts/`; `workflow-management.md` resolves to the legacy `.aiox-core/scripts/`; `build-state-manager.js`/`gotchas-memory.js` resolve under `.aiox-core/core/`. |
 
-### 2.1 scripts/utils — the two-store distinction
+### 2.1 scripts/utils — the multi-store distinction
 
-There are two script directories, and the distinction is **functional, not
-accidental**. Both are kept; neither is canonical-for-everything.
+There are four script-bearing locations, and the distinction is **functional,
+not accidental**. All are kept; none is canonical-for-everything.
 
 | Store | Path | Contains | Configured as |
 |---|---|---|---|
 | **Infrastructure scripts** | `.aiox-core/infrastructure/scripts/` | Framework tooling: validators (`validate-*.js`), generators (`*-generator.js`), analyzers, `codebase-mapper.js`, `config-loader.js`, sync tooling, QA orchestration. ~90 files. | `core-config.yaml` → `scriptsLocation.infrastructure` |
 | **Development scripts** | `.aiox-core/development/scripts/` | Agent-runtime helpers: `agent-config-loader.js`, `activation-runtime.js`, greeting builders, `decision-log-*.js`, exit hooks. ~40 files. | `core-config.yaml` → `scriptsLocation.development` |
 | **Legacy scripts** | `.aiox-core/scripts/` | Pre-reorg framework scripts not yet migrated: `workflow-management.md`, `session-context-loader.js`, `command-execution-hook.js`, `pm.sh`, `diagnostics/`, batch-migration `.ps1`/`.sh` scripts. ~15 files. | `core-config.yaml` → `scriptsLocation.legacy` (NEW — AC-E7.5) |
+| **Core runtime modules** | `.aiox-core/core/` (recursive — e.g. `core/execution/`, `core/memory/`) | Framework runtime modules consumed directly as `scripts:` dependencies by `@dev`'s Autonomous Build (Epic 8) and Gotchas Memory (Epic 9) features: `build-state-manager.js`, `autonomous-build-loop.js`, `build-orchestrator.js` (`core/execution/`), `gotchas-memory.js` (`core/memory/`). | `core-config.yaml` → `scriptsLocation.core` |
 
 **Rule:** A script dependency resolves to `infrastructure/scripts/` by default
 (framework utilities). Only the agent-lifecycle helpers (activation, greeting,
 decision-log, exit-hooks) live in `development/scripts/`. A small set of
 pre-reorg files (e.g. `workflow-management.md`, referenced by `aiox-master`)
 remain in the legacy `.aiox-core/scripts/` directory and have NOT been moved.
+A small set of `@dev` build/memory runtime modules live under `.aiox-core/core/`
+(L1, read-only) and are resolved there as a last resort.
 When a SKILL declares a `scripts:` (or `utils:`) dependency, the resolver must
 check `infrastructure/scripts/` first, then `development/scripts/`, then
-`.aiox-core/scripts/` (legacy) — see the per-type mapping in §5.
+`.aiox-core/scripts/` (legacy), then `.aiox-core/core/` (recursive) —
+see the per-type mapping in §5.
 
 ---
 
@@ -276,7 +280,7 @@ IDE-FILE-RESOLUTION:
   - "  checklists -> .aiox-core/product/checklists/{name}"
   - "  templates  -> .aiox-core/product/templates/{name}   (fallback for named framework prompt/process templates - subagent-step-prompt.md, ptc-*.md, agent-handoff-tmpl.yaml: .aiox-core/development/templates/{name})"
   - "  data       -> .aiox-core/data/{name}   (fallback: .aiox-core/product/data/{name})"
-  - "  scripts    -> .aiox-core/infrastructure/scripts/{name}   (fallback 1: .aiox-core/development/scripts/{name}, fallback 2 legacy: .aiox-core/scripts/{name})"
+  - "  scripts    -> .aiox-core/infrastructure/scripts/{name}   (fallback 1: .aiox-core/development/scripts/{name}, fallback 2 legacy: .aiox-core/scripts/{name}, fallback 3 core: .aiox-core/core/**/{name})"
   - "  utils      -> alias of scripts (same resolution order)"
   - Example: create-doc.md (task)            -> .aiox-core/development/tasks/create-doc.md
   - Example: architect-checklist.md (chklst) -> .aiox-core/product/checklists/architect-checklist.md
@@ -285,6 +289,7 @@ IDE-FILE-RESOLUTION:
   - Example: technical-preferences.md (data) -> .aiox-core/data/technical-preferences.md
   - Example: codebase-mapper.js (script)     -> .aiox-core/infrastructure/scripts/codebase-mapper.js
   - Example: workflow-management.md (script) -> .aiox-core/scripts/workflow-management.md (legacy fallback case)
+  - Example: build-state-manager.js (script) -> .aiox-core/core/execution/build-state-manager.js (core fallback case)
   - IMPORTANT: Only load these files when user requests specific command execution
   - NOTE: agent-teams/ is DEPRECATED and is NOT a dependency type — never resolve it.
 ```
@@ -316,6 +321,7 @@ dependency_source_of_truth:
     fallback:   # AC-E7.5 — ordered fallback tiers
       - .aiox-core/development/scripts/   # agent-runtime helpers
       - .aiox-core/scripts/                # legacy, pre-reorg (e.g. workflow-management.md)
+      - .aiox-core/core/                   # recursive — core runtime modules (e.g. core/execution/, core/memory/)
   utils:
     alias_of: scripts
   agent-teams:
@@ -331,7 +337,8 @@ dependency_source_of_truth:
 - **data** → top-level `.aiox-core/data/` (matches `dataLocation` in
   `core-config.yaml`); `product/data/` is a documented fallback for domain refs.
 - **scripts/utils** → `infrastructure/scripts/` default, `development/scripts/`
-  fallback for agent-lifecycle helpers.
+  fallback for agent-lifecycle helpers, `.aiox-core/scripts/` legacy fallback,
+  `.aiox-core/core/` (recursive) fallback for `@dev` build/memory runtime modules.
 - **agent-teams** → excluded (deprecated orphan).
 
 ---

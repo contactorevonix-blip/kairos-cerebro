@@ -350,11 +350,11 @@ dependencies:
     - pre-push-checklist.md
     - release-checklist.md
   utils:
-    - branch-manager # Manages git branch operations and workflows
-    - repository-detector # Detect repository context dynamically
+    - branch-manager.js # Manages git branch operations and workflows
+    - repository-detector.js # Detect repository context dynamically
     - documentation-integrity/gitignore-generator.js # Manage gitignore rules per mode
-    - version-tracker # Track version history and semantic versioning
-    - git-wrapper # Abstracts git command execution for consistency
+    - version-tracker.js # Track version history and semantic versioning
+    - git-wrapper.js # Abstracts git command execution for consistency
   scripts:
     # Migration Management (Epic 2)
     - asset-inventory.js # Generate migration inventory

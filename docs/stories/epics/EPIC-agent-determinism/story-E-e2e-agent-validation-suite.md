@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: E
 title: "Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor)"
-status: InProgress
+status: InReview
 priority: P1
 executor: "@qa"
 quality_gate: "@dev"
@@ -16,7 +16,7 @@ layer: L4
 # Story E — Suite E2E: activação + dependencies + 1 *task por agente
 
 ## Status
-InProgress
+InReview
 
 ## Story
 **Como** responsável pela qualidade do sistema de agentes,
@@ -60,11 +60,11 @@ A gate da Story A (CONCERNS → Done) diferiu 5 itens (re-investigação nesta s
 - Testar agentes não-core (squads/experts) — fora do conjunto dos 11+master (pode ser extensão futura).
 
 ## Tasks / Subtasks
-- [ ] Definir lista canónica dos 11 agentes + aiox-master e os seus SKILL.md
-- [ ] Implementar parser do bloco dependencies + resolução por mapeamento (Story D), incluindo tier `legacy` (AC-E7.5)
-- [ ] Implementar checks AC-E1..E5 (extracção line-based de devLoadAlwaysFiles/devDebugLog/toolsLocation — ver Dev Notes)
-- [ ] Selecionar 1 *task por agente e implementar dry-run/existência (AC-E3)
-- [ ] Implementar relatório + exit codes (AC-E6)
+- [x] Definir lista canónica dos 11 agentes + aiox-master e os seus SKILL.md
+- [x] Implementar parser do bloco dependencies + resolução por mapeamento (Story D), incluindo tier `legacy` (AC-E7.5)
+- [x] Implementar checks AC-E1..E5 (extracção line-based de devLoadAlwaysFiles/devDebugLog/toolsLocation — ver Dev Notes)
+- [x] Selecionar 1 *task por agente e implementar dry-run/existência (AC-E3)
+- [x] Implementar relatório + exit codes (AC-E6)
 - [x] **Correcção dos 6 GAPs residuais (AC-E7.1..E7.6) — antes de correr a suite final:**
   - [x] AC-E7.1: editar `.claude/skills/AIOX/agents/qa/SKILL.md` linha ~230 — `manage-story-backlog.md` → `po-manage-story-backlog.md`
   - [x] AC-E7.2: editar `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` linhas ~152 e ~268 — `integrate-Squad.md` → `integrate-squad.md`
@@ -72,7 +72,7 @@ A gate da Story A (CONCERNS → Done) diferiu 5 itens (re-investigação nesta s
   - [x] AC-E7.4: estender `docs/architecture/dependency-source-of-truth.md` §5.2 (e §3.2) — adicionar excepção `templates` fallback `development/templates/` para framework prompt/process templates (`subagent-step-prompt.md`, `ptc-*.md`, `agent-handoff-tmpl.yaml`); não tocar em `aiox-master/SKILL.md` linha ~381 (entrada mantém-se, passa a resolver via excepção documentada)
   - [x] AC-E7.5: estender `docs/architecture/dependency-source-of-truth.md` §2.1 (e §5.2) — adicionar `scriptsLocation.legacy` (`.aiox-core/scripts/`) como 3.º tier de fallback para `scripts`/`utils`; não tocar em `aiox-master/SKILL.md` linha ~389 (entrada `workflow-management.md` passa a resolver via tier legacy documentado)
   - [x] AC-E7.6: editar `.claude/skills/AIOX/agents/devops/SKILL.md` linha ~355 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`
-- [ ] Ligar a CI/aiox doctor; correr contra estado pós-A/B + pós-AC-E7.1..E7.6 (AC-E7)
+- [x] Ligar a CI/aiox doctor; correr contra estado pós-A/B + pós-AC-E7.1..E7.6 (AC-E7)
 
 ## Dev Notes
 - SKILL.md: `.claude/skills/AIOX/agents/{agent}/SKILL.md`.
@@ -110,6 +110,17 @@ toolsLocation: .aiox-core/infrastructure/scripts  # linha 28
 
 A suite (AC-E5) DEVE extrair estas 3 chaves via leitura **line-based/regex** (ex. ler as primeiras ~40 linhas do ficheiro e aplicar regex por chave), NÃO via `yaml.safeLoad`/`js-yaml` do ficheiro completo — um parse completo falha com o erro estrutural em ~363-377 antes de chegar ao código de verificação. Esta abordagem evita acoplar AC-E5 (Story E) à correcção do bloco malformado (Story F); as duas stories são independentes (E não depende de F).
 
+### 2 GAPs adicionais descobertos ao correr a suite (AC-E2, além de AC-E7.1..E7.6)
+
+A primeira execução da suite (`tests/agents/agent-determinism.test.js`) contra o estado pós-AC-E7.1..E7.6 revelou **2 GAPs adicionais** não cobertos pela recontagem da gate da Story A (que se focou em `tasks`/`templates`). Resolvidos com o mesmo padrão de disposição (correcção L4 trivial / documentação de excepção em `dependency-source-of-truth.md`), sem inventar ficheiros (Art. IV):
+
+| # | Agente | Entradas problemáticas | Tipo de problema | Disposição |
+|---|---|---|---|---|
+| 7 | dev | `build-state-manager.js`, `autonomous-build-loop.js`, `build-orchestrator.js` (`scripts:`), `gotchas-memory.js` (`scripts:`) | tier não documentado — ficheiros existem em `.aiox-core/core/execution/` e `.aiox-core/core/memory/`, que `core-config.yaml` já regista como `scriptsLocation.core: .aiox-core/core` (linha 30) mas que não constava do mapeamento de 3 tiers de `dependency-source-of-truth.md` §2.1/§5.2 | documentar `.aiox-core/core/` (recursivo) como 4.º tier de fallback para `scripts`/`utils` em §2/§2.1/§5.1/§5.2/§5.3; não mover ficheiros (L1, read-only) |
+| 8 | devops | `branch-manager`, `repository-detector`, `version-tracker`, `git-wrapper` (`utils:`) | ficheiros existem apenas com extensão `.js` (`infrastructure/scripts/` e/ou `development/scripts/`); a entrada em `devops/SKILL.md` omitia `.js` (inconsistente com a entrada vizinha `documentation-integrity/gitignore-generator.js`, já corrigida em AC-E7.6) | corrigir `devops/SKILL.md` linhas ~353-357 — acrescentar `.js` às 4 entradas |
+
+Após estas 2 correcções, a suite corre com **0 falhas / 38 testes / zero GAPs** para os 11 agentes + aiox-master (AC-E7 cumprido).
+
 ## Risk
 - **Risco:** suite frágil que falha por mudanças legítimas. **Mitigação:** asserts focados em existência/legibilidade de paths e estrutura de bloco, não em conteúdo textual volátil.
 
@@ -122,13 +133,16 @@ A suite (AC-E5) DEVE extrair estas 3 chaves via leitura **line-based/regex** (ex
 | 2026-06-14 | @sm (River) | **Refinamento pós-gates A/B** (status mantido em Ready — alterações são AC/Tasks/Dev Notes adicionais que detalham trabalho já coberto pelo escopo validado, não mudam o tamanho/risco fundamental da story; @po pode reconfirmar se entender necessário). Resultado da re-investigação do Achado 1 (5→6 GAPs residuais, gate Story A): recontagem confirma **6 itens** (ver Dev Notes "Recontagem"), formalizados em AC-E7.1..E7.6 com disposição decidida para cada um — (1) `manage-story-backlog.md`→`po-manage-story-backlog.md` e (2) `integrate-Squad.md`→`integrate-squad.md` são correcções triviais de naming/case em SKILL.md (L4); (3) `add-tech-doc.md` e (6) `gitignore-manager` são ficheiros fantasma — (3) remove-se o comando/entrada (Art. IV, sem stub inventado; futuro via `*propose-modification`), (6) renomeia-se a entrada para o candidato funcional real `documentation-integrity/gitignore-generator.js`; (4) `subagent-step-prompt.md` e (5) `workflow-management.md` resolvem-se por **excepções documentadas** em `dependency-source-of-truth.md` (§5.2 fallback `development/templates/` para framework prompt/process templates; §2.1/§5.2 terceiro tier `scriptsLocation.legacy`), sem mover ficheiros. AC-E7 actualizado para definir "zero GAPs" incluindo estas excepções/tiers. AC-E2 e AC-E5 actualizados para referenciar o tier `legacy` e a extracção line-based, respectivamente. Tasks/Subtasks expandidas com os 6 passos concretos de AC-E7.1..E7.6, a executar ANTES de correr a suite final (AC-E7). Acrescentada nota de Dev Notes sobre extracção line-based de `devLoadAlwaysFiles`/`devDebugLog`/`toolsLocation` (linhas 21-28, ANTES do bloco malformado ~363-377) para o Achado 2 (Story B gate) — este achado é tratado pela nova **Story F** (Draft), independente de E. |
 | 2026-06-14 | @po (Pax) | **Re-validação pós-refinamento @sm — Status mantido `Ready`.** Os acrescentos (AC-E7.1..E7.6, Dev Notes "Recontagem" + "Extracção line-based", Tasks/Subtasks expandidas) são aditivos dentro do escopo já validado (GO 9/10, 2026-06-13) — não alteram risco/tamanho fundamental. Sanity-checks concretizados: (1) **AC-E7.6** — confirmado via Glob que `.aiox-core/infrastructure/scripts/documentation-integrity/gitignore-generator.js` existe; path relativo proposto (1.º tier de `scripts`/`utils` em `dependency-source-of-truth.md`) está correcto. (2) **AC-E7.3** — confirmado via Grep que `add-tech-doc.md`/`*add-tech-doc` NÃO existe como ficheiro em `.aiox-core/`, mas a referência ao comando/dependência aparece também em `.codex/agents/aiox-master.md`, `.antigravity/rules/agents/aiox-master.md` e `.aiox-core/development/agents/aiox-master.md` (L2) — todos FORA do escopo de Story E (que cobre apenas os 11 SKILL.md em `.claude/skills/AIOX/agents/`), pelo que a remoção em `aiox-master/SKILL.md` (L4) é segura e não quebra nenhum workflow/handoff dentro do escopo A/E; divergência com L2/mirrors é pré-existente e segue o precedente da Story C/D (`@aiox-master *propose-modification` para alterações L2). Adicionalmente, `.aiox-core/data/entity-registry.yaml` (linha ~14258) já regista `add-tech-doc` em `plannedDeps` da entidade aiox-master — confirma que o item é um **placeholder planeado e já registado** (Art. IV-A satisfeito), consistente com a disposição AC-E7.3 (remover comando morto agora; criação futura via `*propose-modification`, sem stub inventado). Nenhum ajuste necessário aos AC-E7.1..E7.6. |
 | 2026-06-14 | @dev (Dex) | Development started (YOLO mode) — Status: Ready → InProgress |
+| 2026-06-14 | @dev (Dex) | Implementada a suite `tests/agents/agent-determinism.test.js` (`node:test`) cobrindo AC-E1 (bloco de activação STEP1-6 + GREENFIELD GUARD + 5.5 + signature_closing), AC-E2 (parser de `dependencies:` + resolução por mapeamento canónico, incl. tiers `legacy` e `core` recursivo), AC-E3 (1.ª `*task` de cada agente validada como Task-First com inputs/outputs declarados), AC-E4 (cadeia `sdc` de `workflow-chains.yaml` @sm→@po→@dev→@qa + `.aiox/handoffs/`), AC-E5 (extracção line-based de `devLoadAlwaysFiles`/`devDebugLog`/`toolsLocation`), AC-E6 (relatório agente→dependency→estado via `after()`, exit code nativo de `node --test`). Ao correr a suite, descobertos e corrigidos 2 GAPs adicionais (ver Dev Notes "2 GAPs adicionais descobertos ao correr a suite"): `.aiox-core/core/` (recursivo) documentado como 4.º tier de fallback `scripts`/`utils` em `dependency-source-of-truth.md`, e `devops/SKILL.md` `utils:` (`branch-manager`/`repository-detector`/`version-tracker`/`git-wrapper`) corrigido para incluir `.js`. Resultado: 38/38 testes passam, zero GAPs (AC-E7 cumprido). Adicionado `tests/agents/*.test.js` ao script `test` de `package.json` (AC-E6 — integração CI). Status: InProgress → InReview. |
 
 ## File List
 - `.claude/skills/AIOX/agents/qa/SKILL.md` (AC-E7.1 — `manage-story-backlog.md` → `po-manage-story-backlog.md`)
 - `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` (AC-E7.2 — `integrate-Squad.md` → `integrate-squad.md`, 2 ocorrências)
 - `.claude/skills/AIOX/agents/aiox-master/SKILL.md` (AC-E7.3 — remoção do comando `*add-tech-doc` e da entrada `add-tech-doc.md` em `dependencies.tasks`)
-- `.claude/skills/AIOX/agents/devops/SKILL.md` (AC-E7.6 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`)
-- `docs/architecture/dependency-source-of-truth.md` (AC-E7.4 — excepção `templates` fallback `development/templates/` em §2/§3.2/§5.1/§5.2; AC-E7.5 — `scriptsLocation.legacy` como 3.º tier em §2/§2.1/§5.1/§5.2)
+- `.claude/skills/AIOX/agents/devops/SKILL.md` (AC-E7.6 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`; + GAP #8 — `utils:` `branch-manager`/`repository-detector`/`version-tracker`/`git-wrapper` → acrescentado `.js`)
+- `docs/architecture/dependency-source-of-truth.md` (AC-E7.4 — excepção `templates` fallback `development/templates/` em §2/§3.2/§5.1/§5.2; AC-E7.5 — `scriptsLocation.legacy` como 3.º tier em §2/§2.1/§5.1/§5.2; GAP #7 — `.aiox-core/core/` recursivo como 4.º tier `scripts`/`utils` em §2/§2.1/§5.1/§5.2/§5.3)
+- `tests/agents/agent-determinism.test.js` (NOVO — suite E2E AC-E1..E6, 38 testes)
+- `package.json` (adicionado `tests/agents/*.test.js` ao script `test` — AC-E6)
 
 ## QA Results
 _(a preencher por @dev — quality gate)_
