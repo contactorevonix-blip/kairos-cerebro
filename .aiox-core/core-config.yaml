@@ -169,7 +169,7 @@ boundary:
   frameworkProtection: false
   frameworkProtectionReason: 'EPIC-8 Phase 4 (Auto-Healing) — L1 modules authorized via governance decision 2026-06-12'
   frameworkProtectionExpires: '2026-06-19T23:59:59.000Z'
-  deny:
+  protected:
     - .aiox-core/infrastructure/**
     - .aiox-core/constitution.md
     # Note: bin/aiox.js and bin/aiox-init.js are inherited from the upstream template
