@@ -1,45 +1,45 @@
 {
   "storyId": "unknown",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-14T09:05:14.946Z",
+  "storyType": "config",
+  "suggestedAt": "2026-06-14T09:08:01.617Z",
   "suggestions": [
     {
-      "id": "architect-analyze-impact",
-      "name": "Architect Analyze Impact",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "id": "remove-mcp",
+      "name": "remove-mcp",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/remove-mcp.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "audit-tailwind-config",
+      "name": "Audit Tailwind v4 Configuration & Utility Health",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "bootstrap-shadcn-library",
+      "name": "Bootstrap Shadcn/Radix Component Library",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "analyze-brownfield",
-      "name": "Analyze Brownfield Project",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
+      "id": "environment-bootstrap",
+      "name": "environment-bootstrap",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
       "score": 65,
       "autoActivate": false
     }

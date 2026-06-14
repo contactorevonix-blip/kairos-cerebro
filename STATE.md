@@ -1700,3 +1700,18 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** chore: update session metrics and state checkpoint [no-story-req]
 **Files changed:** none
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:05
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** none
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:05
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** STATE.md
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:08
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
