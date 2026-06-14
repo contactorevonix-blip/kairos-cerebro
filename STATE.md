@@ -1509,3 +1509,13 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/epic-agent-determinism-f-g-p45ywq
 **Commit:** chore: hook metrics update
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a408a25 — 2026-06-14 16:06
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** chore: final session metrics
+**Files changed:** none
+
+## Checkpoint: a408a25 — 2026-06-14 16:07
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** chore: final session metrics
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
