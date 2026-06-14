@@ -169,6 +169,19 @@ boundary:
   frameworkProtection: false
   frameworkProtectionReason: 'EPIC-8 Phase 4 (Auto-Healing) — L1 modules authorized via governance decision 2026-06-12'
   frameworkProtectionExpires: '2026-06-19T23:59:59.000Z'
+  deny:
+    - .aiox-core/infrastructure/**
+    - .aiox-core/constitution.md
+    # Note: bin/aiox.js and bin/aiox-init.js are inherited from the upstream template
+    # and refer to NPM package structure. For local development, the actual CLI is
+    # .aiox-core/cli/index.js (already protected above). These paths are harmless.
+    - bin/aiox.js
+    - bin/aiox-init.js
+  exceptions:
+    - .aiox-core/data/**
+    - .aiox-core/development/agents/*/MEMORY.md
+    - .aiox-core/core/config/schemas/**
+    - .aiox-core/core/config/template-overrides.js
 synapse:
   session:
     staleTTLHours: 168
@@ -369,19 +382,6 @@ autoClaude:
     enabled: false
   qa:
     enabled: false
-# boundary configuration — see line 168 above for active setting
-    - .aiox-core/infrastructure/**
-    - .aiox-core/constitution.md
-    # Note: bin/aiox.js and bin/aiox-init.js are inherited from the upstream template
-    # and refer to NPM package structure. For local development, the actual CLI is
-    # .aiox-core/cli/index.js (already protected above). These paths are harmless.
-    - bin/aiox.js
-    - bin/aiox-init.js
-  exceptions:
-    - .aiox-core/data/**
-    - .aiox-core/development/agents/*/MEMORY.md
-    - .aiox-core/core/config/schemas/**
-    - .aiox-core/core/config/template-overrides.js
 models:
   active: claude-sonnet-4-6
   registry:
