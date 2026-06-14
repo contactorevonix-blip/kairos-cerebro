@@ -1549,3 +1549,13 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/epic-agent-determinism-f-g-p45ywq
 **Commit:** docs: planning summary for Cont 37 - awaiting EPIC number + Story H scope
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5740e87 — 2026-06-14 16:09
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** chore: Cont 36 final - awaiting EPIC-Agent-Determinism definition
+**Files changed:** none
+
+## Checkpoint: 5740e87 — 2026-06-14 16:17
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** chore: Cont 36 final - awaiting EPIC-Agent-Determinism definition
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
