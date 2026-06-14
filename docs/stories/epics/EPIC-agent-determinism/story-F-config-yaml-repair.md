@@ -64,5 +64,15 @@ The `.aiox-core/core-config.yaml` file had a malformed YAML structure with orpha
 
 ---
 
+## Traceability
+
+- **Story G** (`story-G-activation-instructions-audit.md`) audited the status
+  of `activation-instructions-*` templates and, while investigating epic
+  history, confirmed this Story F is the only other story file present in
+  `docs/stories/epics/EPIC-agent-determinism/` (no "Story C" exists in this
+  repository). Cross-referenced here for traceability per Story G AC-G6.
+
+---
+
 **Owner:** @config-engineer (implementation) + @architect (gate)  
 **Delivered:** 2026-06-14 15:45 UTC
