@@ -22,17 +22,10 @@ devLoadAlwaysFiles:
   - docs/framework/coding-standards.md
   - docs/framework/tech-stack.md
   - docs/framework/source-tree.md
-devLoadAlwaysFilesFallback:
-  - docs/pt/framework/coding-standards.md
-  - docs/pt/framework/tech-stack.md
-  - docs/pt/framework/source-tree.md
-  - docs/es/framework/coding-standards.md
-  - docs/es/framework/tech-stack.md
-  - docs/es/framework/source-tree.md
 devDebugLog: .ai/debug-log.md
 devStoryLocation: docs/stories
 slashPrefix: AIOX
-toolsLocation: .aiox-core/tools
+toolsLocation: .aiox-core/infrastructure/scripts
 scriptsLocation:
   core: .aiox-core/core
   development: .aiox-core/development/scripts

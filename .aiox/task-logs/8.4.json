@@ -1,47 +1,47 @@
 {
   "storyId": "8.4",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-12T20:13:09.056Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-13T22:06:07.275Z",
   "suggestions": [
     {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "dev-apply-qa-fixes",
+      "name": "Dev Apply Qa Fixes",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
+      "score": 51,
+      "autoActivate": false
     },
     {
-      "id": "architect-analyze-impact",
-      "name": "Architect Analyze Impact",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "qa-create-fix-request",
+      "name": "Create Fix Request Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
+      "score": 51,
+      "autoActivate": false
     },
     {
-      "id": "extend-pattern",
-      "name": "Extend Existing Pattern",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "qa-fix-issues",
+      "name": "QA Issue Fixer Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-fix-issues.md",
+      "score": 51,
+      "autoActivate": false
     }
   ]
 }

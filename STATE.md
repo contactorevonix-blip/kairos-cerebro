@@ -1,3 +1,24 @@
+# ✅ EPIC-agent-determinism — Stories D, A, B, C DONE — Session 2026-06-14
+
+**Branch:** `claude/agent-persona-skills-activation-qav8jh`
+
+**O que foi feito nesta sessão:**
+1. ✅ Story D (fonte de verdade development/ vs product/, agent-teams órfão) — gate @pm PASS → Done (commit `54df751`; fix frontmatter `b72a4b0`). Produziu `docs/architecture/dependency-source-of-truth.md` (mapeamento canónico §5.1/§5.2).
+2. ✅ Story A (IDE-FILE-RESOLUTION nos 11 SKILL.md, mapeamento por tipo) — implementação `721d219`; gate @qa **CONCERNS → Done** (`f094baf`). cross_agent_consistency_check PASS (md5 idêntico nos 11 SKILL.md); 5 GAPs residuais (naming/case mismatches em `dependencies:`) diferidos para Story E.
+3. ✅ Story B (devLoadAlwaysFiles + devDebugLog + toolsLocation em `core-config.yaml`) — implementação `cf61050`; gate @architect **CONCERNS → Done** (`afa82a2`). Instanciados `docs/framework/{coding-standards,tech-stack,source-tree}.md`, criado `.ai/debug-log.md`, `toolsLocation` repontado para `.aiox-core/infrastructure/scripts`.
+4. ✅ Story C (deprecar templates órfãos activation-instructions-*) — implementação `a777208`; gate @qa **PASS → Done** (`e5f6df8`). Proposta de deprecação em `docs/architecture/proposals/propose-deprecate-activation-instructions-templates.md` (execução via `@aiox-master *propose-modification`, fora desta sessão).
+
+**Findings out-of-scope documentados (não corrigidos nesta sessão):**
+- Erro de parse YAML pré-existente em `.aiox-core/core-config.yaml` (~linhas 363-377, bloco `autoClaude.qa` malformado, parece conteúdo deslocado de `boundary.deny`/`boundary.exceptions`). Confirmado pré-existente a `cf61050~1`. @architect recomenda story de follow-up dedicada (potencial P0 se `config-loader` não usa parse tolerante).
+- 5 GAPs residuais de dependency-resolution (naming/case mismatches: `manage-story-backlog.md`, `integrate-Squad.md`, `add-tech-doc.md`, `subagent-step-prompt.md`, `gitignore-manager`/`workflow-management.md`) — para Story E.
+
+**Próximos passos:**
+- Story E (suite E2E activação+dependencies+*task por agente) — depende de A+B Done (cumprido).
+- Nova story de follow-up para o erro YAML em `core-config.yaml` (achado da gate B).
+- Push da branch via @devops — ver estado abaixo.
+
+---
+
 # ✅ EPIC-8 COMPLETE — Session 2026-06-12 (Cont 34) 
 
 **Session 2026-06-12 (Cont 34):** EPIC-8 Phase 4 (Auto-Healing) Implementation — **Status: 100% COMPLETE (40/40 stories, 51sp)**
@@ -1440,3 +1461,453 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** chore: mark EPIC-8 Phase 4 stories as Done
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-13 10:42
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 643d40f — 2026-06-13 10:42
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 643d40f — 2026-06-13 10:44
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: b3ab66d — 2026-06-13 10:44
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: b3ab66d — 2026-06-13 10:51
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 3c8b0e4 — 2026-06-13 10:51
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 3c8b0e4 — 2026-06-13 10:55
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9322731 — 2026-06-13 10:56
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 9322731 — 2026-06-13 20:34
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8c5c677 — 2026-06-13 20:35
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 8c5c677 — 2026-06-13 20:40
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 09b4708 — 2026-06-13 20:40
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 09b4708 — 2026-06-13 21:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 0e7b585 — 2026-06-13 21:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 0e7b585 — 2026-06-13 21:21
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f324d23 — 2026-06-13 21:21
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: f324d23 — 2026-06-13 21:22
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8df0cd4 — 2026-06-13 21:22
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 8df0cd4 — 2026-06-13 21:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c443155 — 2026-06-13 21:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c443155 — 2026-06-13 21:32
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 616bc84 — 2026-06-13 21:33
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 616bc84 — 2026-06-13 21:34
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: e93421b — 2026-06-13 21:34
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: e93421b — 2026-06-13 21:35
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: e81190e — 2026-06-13 21:36
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 12fb423 — 2026-06-13 21:39
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 12fb423 — 2026-06-13 21:40
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: 12fb423 — 2026-06-13 21:42
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 2b8a250 — 2026-06-13 21:42
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 2b8a250 — 2026-06-13 21:44
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: deefa6d — 2026-06-13 21:44
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: deefa6d — 2026-06-13 21:48
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 0e0495a — 2026-06-13 21:49
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 0e0495a — 2026-06-13 21:52
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 5d67fc3 — 2026-06-13 21:52
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 5d67fc3 — 2026-06-13 21:55
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: be1d4b2 — 2026-06-13 21:56
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: be1d4b2 — 2026-06-13 21:57
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c981964 — 2026-06-13 22:00
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c981964 — 2026-06-13 22:03
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 1e658e6 — 2026-06-13 22:03
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 1e658e6 — 2026-06-13 22:07
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a04e228 — 2026-06-13 22:07
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: ec50853 — 2026-06-13 22:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** none
+
+## Checkpoint: ec50853 — 2026-06-13 22:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: ec50853 — 2026-06-13 22:16
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: create EPIC-agent-determinism with 5 draft stories (F1-F6) [no-story-req]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-A-ide-file-resolution.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md, docs/stories/epics/EPIC-agent-determinism/story-C-deprecate-orphan-templates.md, docs/stories/epics/EPIC-agent-determinism/story-D-development-vs-product-source-of-truth.md, docs/stories/epics/EPIC-agent-determinism/story-E-e2e-agent-validation-suite.md
+
+## Checkpoint: c579406 — 2026-06-13 22:17
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** docs/stories/epics/EPIC-agent-determinism/story-A-ide-file-resolution.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md, docs/stories/epics/EPIC-agent-determinism/story-C-deprecate-orphan-templates.md, docs/stories/epics/EPIC-agent-determinism/story-D-development-vs-product-source-of-truth.md, docs/stories/epics/EPIC-agent-determinism/story-E-e2e-agent-validation-suite.md
+
+## Checkpoint: ca2a1db — 2026-06-13 22:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: validate EPIC-agent-determinism stories (5/5 GO, status Ready) [no-story-req]
+**Files changed:** none
+
+## Checkpoint: ca2a1db — 2026-06-13 22:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: validate EPIC-agent-determinism stories (5/5 GO, status Ready) [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: 88ecfb2 — 2026-06-13 22:28
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: fix agent-count wording in EPIC-agent-determinism PRD (10 core + aiox-master = 11 SKILL.md) [no-story-req]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 712430e — 2026-06-13 22:28
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:05
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** none
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:05
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** STATE.md
+
+## Checkpoint: b72a4b0 — 2026-06-14 09:08
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 3555784 — 2026-06-14 09:08
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md, .claude/skills/AIOX/agents/sm/SKILL.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: a777208 — 2026-06-14 09:10
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: propose deprecation of orphaned activation-instructions templates [Story C]
+**Files changed:** .aiox/task-logs/unknown.json, .claude/skills/AIOX/agents/aiox-master/SKILL.md, .claude/skills/AIOX/agents/analyst/SKILL.md, .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/data-engineer/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/devops/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md
+
+## Checkpoint: a777208 — 2026-06-14 09:10
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: propose deprecation of orphaned activation-instructions templates [Story C]
+**Files changed:** .aiox/task-logs/unknown.json, .claude/skills/AIOX/agents/aiox-master/SKILL.md, .claude/skills/AIOX/agents/analyst/SKILL.md, .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/data-engineer/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/devops/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md
+
+## Checkpoint: 721d219 — 2026-06-14 09:12
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: rewrite IDE-FILE-RESOLUTION with per-type canonical mapping [Story A]
+**Files changed:** .aiox-core/core-config.yaml, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: 721d219 — 2026-06-14 09:12
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: rewrite IDE-FILE-RESOLUTION with per-type canonical mapping [Story A]
+**Files changed:** .aiox-core/core-config.yaml, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: c3825ef — 2026-06-14 09:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c3825ef — 2026-06-14 09:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: c3825ef — 2026-06-14 09:15
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: afe9106 — 2026-06-14 09:15
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: f094baf — 2026-06-14 09:19
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate CONCERNS->Done for IDE-FILE-RESOLUTION [Story A]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: f094baf — 2026-06-14 09:19
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate CONCERNS->Done for IDE-FILE-RESOLUTION [Story A]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: 768f3bd — 2026-06-14 09:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 768f3bd — 2026-06-14 09:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: e5f6df8 — 2026-06-14 09:22
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate PASS for Story C [Story C]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 4c9425e — 2026-06-14 09:23
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: update STATE.md with EPIC-agent-determinism session summary [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 9d43383 — 2026-06-14 09:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 9d43383 — 2026-06-14 09:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: 9d43383 — 2026-06-14 09:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 38f038e — 2026-06-14 09:24
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 38f038e — 2026-06-14 09:25
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 38f038e — 2026-06-14 09:25
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 38f038e — 2026-06-14 09:25
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 052f3f5 — 2026-06-14 09:35
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session metrics checkpoint [no-story-req]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, docs/stories/epics/EPIC-agent-determinism/story-E-e2e-agent-validation-suite.md
+
+## Checkpoint: c8959cb — 2026-06-14 10:18
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** docs(qa): QA gate PASS for Story E — E2E agent determinism suite [Story E]
+**Files changed:** none
+
+## Checkpoint: c8959cb — 2026-06-14 10:19
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** docs(qa): QA gate PASS for Story E — E2E agent determinism suite [Story E]
+**Files changed:** STATE.md
+
+## Checkpoint: c8959cb — 2026-06-14 10:19
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** docs(qa): QA gate PASS for Story E — E2E agent determinism suite [Story E]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9bf8474 — 2026-06-14 10:19
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c2e242c — 2026-06-14 15:23
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c2e242c — 2026-06-14 15:24
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: e9f9609 — 2026-06-14 15:24
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** none
+
+## Checkpoint: e9f9609 — 2026-06-14 15:28
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: fdb934f — 2026-06-14 15:28
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** none
+
+## Checkpoint: fdb934f — 2026-06-14 15:29
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 4ddf6b1 — 2026-06-14 15:29
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 4ddf6b1 — 2026-06-14 15:30
+**Branch:** claude/epic-agent-determinism-story-e-hdunzo
+**Commit:** chore: session checkpoint metrics update [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
