@@ -347,6 +347,16 @@ ideSync:
       format: kimi-skill
       fallbackSources:
         - .codex/agents
+  # redirects: intentionally empty (Story 10.2, EPIC-10). Rationale: redirect
+  # stubs for deprecated agents (aiox-developer/aiox-orchestrator → aiox-master,
+  # db-sage → data-engineer, github-devops → devops) currently exist ONLY in
+  # .codex/agents and .antigravity/rules/agents. Enabling a GLOBAL redirect map
+  # here would create false drift in .claude/commands (where `db-sage.md` is a
+  # real squad-creator agent, not a redirect) and false "missing" in github/
+  # gemini/cursor/kimi (which never received stubs). With an empty map the drift
+  # validator reports 0 drift across every target; the 4 codex/antigravity stubs
+  # are benign orphans, tolerated by `failOnOrphaned: false`. See
+  # docs/architecture/AGENT-SOURCE-OF-TRUTH.md for the full drift classification.
   redirects: {}
   validation:
     strictMode: true
@@ -369,19 +379,11 @@ autoClaude:
     enabled: false
   qa:
     enabled: false
-# boundary configuration — see line 168 above for active setting
-    - .aiox-core/infrastructure/**
-    - .aiox-core/constitution.md
-    # Note: bin/aiox.js and bin/aiox-init.js are inherited from the upstream template
-    # and refer to NPM package structure. For local development, the actual CLI is
-    # .aiox-core/cli/index.js (already protected above). These paths are harmless.
-    - bin/aiox.js
-    - bin/aiox-init.js
-  exceptions:
-    - .aiox-core/data/**
-    - .aiox-core/development/agents/*/MEMORY.md
-    - .aiox-core/core/config/schemas/**
-    - .aiox-core/core/config/template-overrides.js
+# NOTE: The active framework-boundary configuration lives under the top-level
+# `boundary:` key (see line ~168). A stale, parent-less list of protected paths
+# previously sat here under `autoClaude.qa` and broke YAML parsing of the whole
+# file (js-yaml: "bad indentation of a mapping entry"). Removed in Story 10.2
+# (EPIC-10) so that ideSync / doctor / any js-yaml consumer can read the config.
 models:
   active: claude-sonnet-4-6
   registry:
