@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: D
 title: "Documentar development/ vs product/ (fonte de verdade) + resolver agent-teams órfão"
-status: InReview
+status: Done
 priority: P1
 executor: "@architect + @skill-craftsman"
 quality_gate: "@pm"
@@ -12,7 +12,6 @@ traces_to: [F5, F6]
 depends_on: []
 blocks: [A, B]
 layer: L3/L4
-status: Done
 ---
 
 # Story D — development/ vs product/ (fonte de verdade) + agent-teams órfão
