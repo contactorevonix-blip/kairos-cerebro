@@ -97,13 +97,16 @@ Fonte de verdade por tipo de dependency **não documentada** → ambiguidade que
 
 | Story | Título | Prioridade | Executor | Quality Gate | Esforço | Status |
 |---|---|---|---|---|---|---|
-| A | Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md | P0 | @skill-craftsman | @qa | 4h | Draft |
-| B | Resolver devLoadAlwaysFiles + devDebugLog + toolsLocation | P0 | @config-engineer | @architect | 3h | Draft |
-| C | Deprecar/remover templates órfãos activation-instructions-* | P2 | @skill-craftsman | @qa | 1h | Draft |
-| D | Documentar development/ vs product/ + resolver agent-teams órfão | P1 | @architect + @skill-craftsman | @pm | 4h | Draft |
-| E | Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor) | P1 | @qa | @dev | 5h | Draft |
+| A | Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md | P0 | @skill-craftsman | @qa | 4h | Done |
+| B | Resolver devLoadAlwaysFiles + devDebugLog + toolsLocation | P0 | @config-engineer | @architect | 3h | Done |
+| C | Deprecar/remover templates órfãos activation-instructions-* | P2 | @skill-craftsman | @qa | 1h | Done |
+| D | Documentar development/ vs product/ + resolver agent-teams órfão | P1 | @architect + @skill-craftsman | @pm | 4h | Done |
+| E | Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor) | P1 | @qa | @dev | 5h | Ready |
+| F | Corrigir bloco YAML órfão em core-config.yaml (autoClaude.qa/boundary.exceptions, ~363-377) | P0 | @config-engineer | @architect | 1h | Draft |
 
-**Total:** 5 stories → confirma track **Enterprise/Standard fronteira**. Squad recomendado: **claude-code-mastery** (@skill-craftsman, @config-engineer) + @architect (Story D) + @qa (Story E).
+**Total:** 6 stories → confirma track **Enterprise/Standard fronteira**. Squad recomendado: **claude-code-mastery** (@skill-craftsman, @config-engineer) + @architect (Stories D, F) + @qa (Story E).
+
+> **Story F** (criada 2026-06-14, @sm) traça-se ao Achado 2 da gate da Story B (erro de parse YAML estrutural pré-existente em `core-config.yaml` ~linhas 363-377, bloco `autoClaude.qa` com itens órfãos de `boundary.deny`/`boundary.exceptions`). Independente de E (`depends_on: []` em ambas) — não bloqueia o gate de aceitação de A/B.
 
 ### Sequenciamento sugerido (dependências)
 

@@ -14,6 +14,7 @@
 | [story-C-deprecate-orphan-templates.md](./story-C-deprecate-orphan-templates.md) | P2 · @skill-craftsman → @qa · deprecar templates activation-instructions-* (F4) |
 | [story-D-development-vs-product-source-of-truth.md](./story-D-development-vs-product-source-of-truth.md) | P1 · @architect+@skill-craftsman → @pm · fonte de verdade + agent-teams (F5,F6) |
 | [story-E-e2e-agent-validation-suite.md](./story-E-e2e-agent-validation-suite.md) | P1 · @qa → @dev · suite E2E em CI/aiox doctor (Escopo Expandido) |
+| [story-F-core-config-yaml-fix.md](./story-F-core-config-yaml-fix.md) | P0 · @config-engineer → @architect · corrigir bloco YAML órfão em core-config.yaml (Achado gate Story B) |
 
 ## Sequência
 
@@ -23,22 +24,27 @@ D (fonte de verdade) ──► A (mapeamento SKILL.md)
 C (paralelo)                      │
                                   ▼
                           E (gate E2E, por último)
+
+F (independente — não bloqueia E nem é bloqueada por nenhuma story)
 ```
 
 ## Estado de Validação (@po *validate-story-draft — 2026-06-13)
 
 | Story | Score | Decisão | Status final |
 |---|---|---|---|
-| A — IDE-FILE-RESOLUTION (F1) | 9/10 | **GO** | Ready |
-| B — devLoadAlwaysFiles/devDebugLog/toolsLocation (F2,F3) | 9/10 | **GO** | Ready |
-| C — deprecar templates órfãos (F4) | 8/10 | **GO** | Ready |
-| D — fonte de verdade + agent-teams (F5,F6) | 8/10 | **GO** | Ready |
-| E — suite E2E (Escopo Expandido) | 9/10 | **GO** | Ready |
+| A — IDE-FILE-RESOLUTION (F1) | 9/10 | **GO** | Done |
+| B — devLoadAlwaysFiles/devDebugLog/toolsLocation (F2,F3) | 9/10 | **GO** | Done |
+| C — deprecar templates órfãos (F4) | 8/10 | **GO** | Done |
+| D — fonte de verdade + agent-teams (F5,F6) | 8/10 | **GO** | Done |
+| E — suite E2E (Escopo Expandido) | 9/10 | **GO** | Ready (refinada 2026-06-14 — AC-E7.1..E7.6) |
+| F — corrigir bloco YAML órfão em core-config.yaml | — | _(não validada ainda)_ | Draft |
 
-**Resultado:** 5/5 GO. Todos os achados F1-F6 reconfirmados contra o filesystem real (Art. IV — No Invention satisfeito). Executores `@skill-craftsman` e `@config-engineer` confirmados existentes. Sequência D → A/B → E (C paralelo) coerente entre `blocks`/`depends_on` e o diagrama do PRD. Boundary L1/L2 respeitado: Stories C e D encaminham alterações L2 via `@aiox-master *propose-modification`, não edição directa.
+**Resultado:** 5/5 GO (Stories A-E). Todos os achados F1-F6 reconfirmados contra o filesystem real (Art. IV — No Invention satisfeito). Executores `@skill-craftsman` e `@config-engineer` confirmados existentes. Sequência D → A/B → E (C paralelo) coerente entre `blocks`/`depends_on` e o diagrama do PRD. Boundary L1/L2 respeitado: Stories C e D encaminham alterações L2 via `@aiox-master *propose-modification`, não edição directa.
+
+**Story F (2026-06-14):** criada a partir do Achado 2 da gate da Story B (erro YAML estrutural pré-existente em `core-config.yaml` ~linhas 363-377). Status `Draft`, `depends_on: []` — independente de E, não bloqueia o gate de aceitação de A/B. Pendente `@po *validate-story-draft`.
 
 **Should-Fix (não-bloqueante):** O PRD (`EPIC-agent-determinism.md`) usa repetidamente "11 agentes core + aiox-master" (implica 12 SKILL.md). A contagem real é **10 agentes core + aiox-master = 11 SKILL.md** — que é exactamente o conjunto que as stories A e E operam (lista de 11 agentes). As stories estão correctas; recomenda-se ao @pm normalizar o phrasing do PRD para "10 core + aiox-master (11 SKILL.md)".
 
 ## Próximo passo
 
-Stories Ready → `@dev`/executores designados. Ordem: **D primeiro** (desbloqueia A e B), depois A+B, C em paralelo, **E por último** (gate de aceitação de A/B). Push de cada story aprovada → `@devops` (exclusivo).
+Stories D, A, B, C já **Done**. Story E (`Ready`, refinada) é o gate de aceitação de A/B — próxima a implementar (`@qa` → `@dev`). Story F (`Draft`) é independente, não bloqueia E; aguarda `@po *validate-story-draft` antes de avançar para `@config-engineer`. Push de cada story aprovada → `@devops` (exclusivo).

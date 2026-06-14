@@ -1,46 +1,46 @@
 {
   "storyId": "unknown",
-  "storyType": "config",
-  "suggestedAt": "2026-06-14T09:20:40.733Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-14T09:38:47.767Z",
   "suggestions": [
     {
-      "id": "remove-mcp",
-      "name": "remove-mcp",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/remove-mcp.md",
-      "score": 73,
-      "autoActivate": true
-    },
-    {
-      "id": "add-mcp",
-      "name": "Add MCP Server Task",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
       "score": 65,
       "autoActivate": false
     },
     {
-      "id": "audit-tailwind-config",
-      "name": "Audit Tailwind v4 Configuration & Utility Health",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
-      "score": 65,
+      "id": "fast-path-gate",
+      "name": "Fast Path Gate",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/fast-path-gate.md",
+      "score": 51,
       "autoActivate": false
     },
     {
-      "id": "bootstrap-shadcn-library",
-      "name": "Bootstrap Shadcn/Radix Component Library",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
-      "score": 65,
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 51,
       "autoActivate": false
     },
     {
-      "id": "environment-bootstrap",
-      "name": "environment-bootstrap",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
-      "score": 65,
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "score": 46,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 46,
       "autoActivate": false
     }
   ]
