@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: A
 title: "Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md"
-status: InReview
+status: Done
 priority: P0
 executor: "@skill-craftsman"
 quality_gate: "@qa"
@@ -16,7 +16,7 @@ layer: L4
 # Story A — Corrigir IDE-FILE-RESOLUTION nos 11 SKILL.md
 
 ## Status
-InReview
+Done
 
 ## Story
 **Como** agente AIOX que executa `*task`/`*workflow`,
@@ -125,6 +125,7 @@ stores mapeados) — GAP adicional na mesma família, registado para Story E.
 | 2026-06-13 | @po (Pax) | Re-validation GO (9/10) confirmada. F1 re-verificada: fórmula errada presente no SKILL.md (linha 22 do pm); dependencies block real (pm-checklist.md, prd-tmpl.yaml, technical-preferences.md) resolve para product/ e data/ top-level, NÃO development/ → bug confirmado. Executor @skill-craftsman existe. AC-A1 cobre os 11 SKILL.md (10 core + aiox-master). Nota: AC-A1 `scripts/utils` OR resolvido por Story D (depends_on coerente) |
 | 2026-06-14 | @skill-craftsman (Anvil) | Status: Ready → InProgress. Início da implementação consumindo §5 de `docs/architecture/dependency-source-of-truth.md` (AC-D4 handoff). |
 | 2026-06-14 | @skill-craftsman (Anvil) | Bloco IDE-FILE-RESOLUTION substituído pelo texto canónico §5.1 nos 11 SKILL.md (AC-A1, AC-A2, AC-A3 — confirmados idênticos via md5sum). AC-A4: validada resolução de todas as dependencies declaradas; 5 GAPs residuais pré-existentes documentados para a Story E (zero GAPs novos). AC-A5: activation/persona/comandos inalterados. Status: InProgress → InReview. |
+| 2026-06-14 | @qa (Quinn) | Quality gate: **CONCERNS** (aprovado). 3 quality_gate_tools executados e passados: path_resolution_validation (bloco §5.1 conforme, 5 exemplos inline existem), cross_agent_consistency_check (11 SKILL.md com md5 idêntico `271ed7a5…`), dependency_existence_test (amostras dev/data-engineer/qa resolvem; fallback `product/data/` confirmado). AC-A1/A2/A3/A5 = PASS. AC-A4 CONCERNS: 5 GAPs residuais verificados como pré-existentes (declared-dependency naming/orphans), fora de scope, correctamente diferidos para Story E. Diff de 721d219 confina-se a IDE-FILE-RESOLUTION (sem toque em STEP 1-6/persona/comandos). Status: InReview → Done. |
 
 ## File List
 - /home/user/kairos-cerebro/.claude/skills/AIOX/agents/dev/SKILL.md
@@ -140,4 +141,61 @@ stores mapeados) — GAP adicional na mesma família, registado para Story E.
 - /home/user/kairos-cerebro/.claude/skills/AIOX/agents/aiox-master/SKILL.md
 
 ## QA Results
-_(a preencher por @qa)_
+
+**Reviewer:** @qa (Quinn) — Test Architect & Quality Advisor
+**Date:** 2026-06-14
+**Commit reviewed:** 721d219
+**Gate verdict:** **CONCERNS** (aprovado — Done com observações documentadas)
+
+### quality_gate_tools (3/3 executados)
+
+#### 1. path_resolution_validation (AC-A1, AC-A2) — PASS
+- Bloco `IDE-FILE-RESOLUTION` (amostra pm, dev, aiox-master + confirmado nos 11) corresponde
+  exactamente ao texto canónico §5.1 de `dependency-source-of-truth.md`:
+  - `tasks`/`workflows` → `.aiox-core/development/`
+  - `checklists`/`templates` → `.aiox-core/product/`
+  - `data` → `.aiox-core/data/` (fallback `.aiox-core/product/data/`)
+  - `scripts`/`utils` → `.aiox-core/infrastructure/scripts/` (fallback `.aiox-core/development/scripts/`)
+  - `agent-teams/` marcado DEPRECATED (não resolúvel)
+- Os 5 exemplos inline existem todos no filesystem: `create-doc.md`, `architect-checklist.md`,
+  `architecture-tmpl.yaml`, `technical-preferences.md`, `codebase-mapper.js`.
+
+#### 2. cross_agent_consistency_check (AC-A3) — PASS
+- md5 do bloco IDE-FILE-RESOLUTION idêntico nos 11 SKILL.md: `271ed7a55b2fdadb630897b3629b86bb`.
+- `squad-creator/SKILL.md` (12.º ficheiro com o bloco) está correctamente fora do conjunto dos 11 core (fora de scope).
+- `ux-design-expert` foi normalizado (Dev Notes) e converge para o mesmo hash.
+
+#### 3. dependency_existence_test (AC-A4) — CONCERNS
+- Amostras resolvidas com sucesso em 3 agentes / todos os tipos presentes:
+  - **dev:** `story-dod-checklist.md` (product/checklists), `dev-develop-story.md` (development/tasks), `recovery-tracker.js` (infrastructure/scripts) — OK.
+  - **data-engineer:** `create-doc.md` (task), `schema-design-tmpl.yaml` (product/templates), `dba-predeploy-checklist.md` (product/checklists), `rls-security-patterns.md` — resolve via **fallback `product/data/`** (confirma o mecanismo de fallback §3.4/§5.2) — OK.
+  - **qa:** `technical-preferences.md` (data), `qa-gate.md` (task), `qa-gate-tmpl.yaml` + `story-tmpl.yaml` (product/templates) — OK.
+- **5 GAPs residuais re-verificados como genuinamente pré-existentes** (problema na entrada declarada em `dependencies:`, não na fórmula de resolução):
+  1. @qa `manage-story-backlog.md` (existe `po-manage-story-backlog.md`) — naming.
+  2. @ux-design-expert `integrate-Squad.md` (existe `integrate-squad.md`) — capitalização.
+  3. @aiox-master `add-tech-doc.md` — ausente em todo o `.aiox-core/`.
+  4. @aiox-master `subagent-step-prompt.md` — vive em `development/templates/` (scaffolding §3.2), não em `product/templates/`; candidato a fallback no resolver da Story B.
+  5. @devops/@aiox-master `gitignore-manager` — ausente em ambos os stores de scripts.
+- Todos fora de scope (Scope/OUT) e correctamente diferidos para a Story E. Zero GAPs novos introduzidos por esta story (Art. IV respeitado).
+
+### 7 Quality Checks (resumo)
+| # | Check | Resultado |
+|---|---|---|
+| 1 | Code review (qualidade da edição) | PASS — edição cirúrgica, +17/-41 por ficheiro, só no bloco alvo |
+| 2 | Testes | N/A — story de configuração/documentação (SKILL.md L4) |
+| 3 | Acceptance criteria | AC-A1/A2/A3/A5 PASS; AC-A4 CONCERNS (GAPs pré-existentes → Story E) |
+| 4 | Não-regressão (AC-A5) | PASS — diff 721d219 não toca STEP 1-6 / persona / comandos / greeting |
+| 5 | Performance | N/A |
+| 6 | Segurança | N/A |
+| 7 | Documentação | PASS — Dev Notes + tabela de GAPs completos e rastreáveis |
+
+### Decisão
+**CONCERNS → Done.** A reescrita do IDE-FILE-RESOLUTION está correcta, idêntica nos 11 agentes
+e determinística para todas as dependencies cujo ficheiro existe. A única ressalva é a meta literal
+"zero GAPs" do AC-A4: subsistem 5 GAPs, mas são pré-existentes, fora de scope e já encaminhados
+para a Story E — não bloqueiam esta entrega. Sem issues de severidade HIGH/CRITICAL.
+
+### Observação para Story E (não-bloqueante)
+Recomenda-se que a Story E trate os 5 GAPs como correcções de **entradas declaradas** (renomear/alinhar
+capitalização ou criar/relocalizar ficheiros), e avalie um fallback adicional `templates → development/templates/`
+no resolver da Story B para o caso `subagent-step-prompt.md`.
