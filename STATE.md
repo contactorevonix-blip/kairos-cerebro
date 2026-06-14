@@ -1740,3 +1740,18 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** fix: rewrite IDE-FILE-RESOLUTION with per-type canonical mapping [Story A]
 **Files changed:** .aiox-core/core-config.yaml, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: c3825ef — 2026-06-14 09:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: c3825ef — 2026-06-14 09:13
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: c3825ef — 2026-06-14 09:15
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
