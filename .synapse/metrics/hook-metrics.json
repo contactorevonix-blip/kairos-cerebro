@@ -1,5 +1,5 @@
 {
-  "totalDuration": 1.939534,
+  "totalDuration": 2.030273,
   "hookBootMs": 0,
   "bracket": "DEPLETED",
   "layersLoaded": 2,
@@ -8,12 +8,12 @@
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.506142,
+      "duration": 0.468154,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.206516,
+      "duration": 0.212453,
       "status": "ok",
       "rules": 39
     },
@@ -48,12 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-06-14T09:20:04.207Z",
-  "taskFirst": {
-    "tasksIndexed": 213,
-    "tasksActivated": 5,
-    "taskExecutionTime": 0,
-    "taskAutoActivationRate": 0,
-    "lastIndexedAt": "2026-06-08T22:27:07.273Z"
-  }
+  "timestamp": "2026-06-14T09:22:01.974Z"
 }

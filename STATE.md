@@ -1,3 +1,24 @@
+# ✅ EPIC-agent-determinism — Stories D, A, B, C DONE — Session 2026-06-14
+
+**Branch:** `claude/agent-persona-skills-activation-qav8jh`
+
+**O que foi feito nesta sessão:**
+1. ✅ Story D (fonte de verdade development/ vs product/, agent-teams órfão) — gate @pm PASS → Done (commit `54df751`; fix frontmatter `b72a4b0`). Produziu `docs/architecture/dependency-source-of-truth.md` (mapeamento canónico §5.1/§5.2).
+2. ✅ Story A (IDE-FILE-RESOLUTION nos 11 SKILL.md, mapeamento por tipo) — implementação `721d219`; gate @qa **CONCERNS → Done** (`f094baf`). cross_agent_consistency_check PASS (md5 idêntico nos 11 SKILL.md); 5 GAPs residuais (naming/case mismatches em `dependencies:`) diferidos para Story E.
+3. ✅ Story B (devLoadAlwaysFiles + devDebugLog + toolsLocation em `core-config.yaml`) — implementação `cf61050`; gate @architect **CONCERNS → Done** (`afa82a2`). Instanciados `docs/framework/{coding-standards,tech-stack,source-tree}.md`, criado `.ai/debug-log.md`, `toolsLocation` repontado para `.aiox-core/infrastructure/scripts`.
+4. ✅ Story C (deprecar templates órfãos activation-instructions-*) — implementação `a777208`; gate @qa **PASS → Done** (`e5f6df8`). Proposta de deprecação em `docs/architecture/proposals/propose-deprecate-activation-instructions-templates.md` (execução via `@aiox-master *propose-modification`, fora desta sessão).
+
+**Findings out-of-scope documentados (não corrigidos nesta sessão):**
+- Erro de parse YAML pré-existente em `.aiox-core/core-config.yaml` (~linhas 363-377, bloco `autoClaude.qa` malformado, parece conteúdo deslocado de `boundary.deny`/`boundary.exceptions`). Confirmado pré-existente a `cf61050~1`. @architect recomenda story de follow-up dedicada (potencial P0 se `config-loader` não usa parse tolerante).
+- 5 GAPs residuais de dependency-resolution (naming/case mismatches: `manage-story-backlog.md`, `integrate-Squad.md`, `add-tech-doc.md`, `subagent-step-prompt.md`, `gitignore-manager`/`workflow-management.md`) — para Story E.
+
+**Próximos passos:**
+- Story E (suite E2E activação+dependencies+*task por agente) — depende de A+B Done (cumprido).
+- Nova story de follow-up para o erro YAML em `core-config.yaml` (achado da gate B).
+- Push da branch via @devops — ver estado abaixo.
+
+---
+
 # ✅ EPIC-8 COMPLETE — Session 2026-06-12 (Cont 34) 
 
 **Session 2026-06-12 (Cont 34):** EPIC-8 Phase 4 (Auto-Healing) Implementation — **Status: 100% COMPLETE (40/40 stories, 51sp)**
@@ -1770,3 +1791,18 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** docs(qa): quality gate CONCERNS->Done for IDE-FILE-RESOLUTION [Story A]
 **Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: 768f3bd — 2026-06-14 09:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: 768f3bd — 2026-06-14 09:20
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** STATE.md
+
+## Checkpoint: e5f6df8 — 2026-06-14 09:22
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate PASS for Story C [Story C]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
