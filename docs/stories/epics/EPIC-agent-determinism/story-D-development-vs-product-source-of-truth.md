@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: D
 title: "Documentar development/ vs product/ (fonte de verdade) + resolver agent-teams órfão"
-status: Ready
+status: InReview
 priority: P1
 executor: "@architect + @skill-craftsman"
 quality_gate: "@pm"
@@ -17,7 +17,7 @@ layer: L3/L4
 # Story D — development/ vs product/ (fonte de verdade) + agent-teams órfão
 
 ## Status
-Ready
+InReview
 
 ## Story
 **Como** arquitecto do framework AIOX no kairos-cerebro,
@@ -62,11 +62,11 @@ A decisão de fonte de verdade aqui é o input que as Stories A (mapeamento IDE-
 - Alterar SKILL.md (isso é a Story A, que consome esta decisão).
 
 ## Tasks / Subtasks
-- [ ] Inventariar o que está em development/{checklists,templates,data} vs product/{checklists,templates} (distintos vs duplicados)
-- [ ] Determinar fonte de verdade por tipo com base em onde os agentes realmente resolvem dependencies
-- [ ] Grep `agent-teams` em .claude/skills/, .aiox-core/development/agents/, core-config.yaml
-- [ ] Escrever docs/architecture/dependency-source-of-truth.md
-- [ ] Entregar mapeamento canónico à Story A; registar decisão agent-teams
+- [x] Inventariar o que está em development/{checklists,templates,data} vs product/{checklists,templates} (distintos vs duplicados)
+- [x] Determinar fonte de verdade por tipo com base em onde os agentes realmente resolvem dependencies
+- [x] Grep `agent-teams` em .claude/skills/, .aiox-core/development/agents/, core-config.yaml
+- [x] Escrever docs/architecture/dependency-source-of-truth.md
+- [x] Entregar mapeamento canónico à Story A; registar decisão agent-teams
 
 ## Dev Notes
 - Diretórios: `.aiox-core/development/{tasks,workflows,checklists,templates,data,agent-teams,scripts}`, `.aiox-core/product/{checklists,templates,data}`, `.aiox-core/data/` (top-level), `.aiox-core/infrastructure/scripts/`.
@@ -82,9 +82,11 @@ A decisão de fonte de verdade aqui é o input que as Stories A (mapeamento IDE-
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F5/F6 |
 | 2026-06-13 | @po (Pax) | Validated GO (8/10) — Status: Draft → Ready. F5/F6 reconfirmadas (agent-teams 5 ficheiros presentes; counts dev vs product). blocks: [A, B] confirmado coerente com depends_on das stories A/B. PRIMEIRA da sequência a executar |
 | 2026-06-13 | @po (Pax) | Re-validation GO (8/10) confirmada. F6 counts re-verificados EXACTOS: dev/checklists=5, product=16; dev/templates=11, product=78; dev/data=3, data top-level=22 (≈"20+"). F5: agent-teams 5 ficheiros presentes e grep `agent-teams` = ZERO refs em skills/agents/config (órfão confirmado → AC-D3 pré-validada). Sequenciamento D→A/B coerente (blocks vs depends_on). Quality gate @pm ≠ executor (@architect+@skill-craftsman) OK |
+| 2026-06-13 | @architect (Aria) | Status: Ready → InProgress. Executada análise comparativa development/ vs product/ vs data/ top-level por tipo de dependency (tasks, workflows, checklists, templates, data, scripts/utils), com grep de `agent-teams` em `.claude/skills/`, `.aiox-core/development/agents/` e `core-config.yaml` (ZERO referências confirmadas) |
+| 2026-06-13 | @architect (Aria) | Status: InProgress → InReview. Criado `docs/architecture/dependency-source-of-truth.md` (350 linhas) cobrindo AC-D1 (tabela de fonte de verdade por tipo, incl. distinção scripts/utils infrastructure/ vs development/), AC-D2 (disposição dos directórios NÃO-canónicos: development/checklists, development/templates, development/data, product/data, infrastructure/templates — todos KEEP com propósito documentado, mudanças L2 formuladas como propostas `@aiox-master *propose-modification`), AC-D3 (development/agent-teams/ confirmado órfão → decisão (b) marcar como legacy documentado, com proposta de deprecação/remoção via @aiox-master), AC-D4 (handoff explícito à Story A: bloco YAML de substituição para IDE-FILE-RESOLUTION + tabela canónica machine-readable), AC-D5 (todas as alterações L2 recomendadas formuladas como propostas, nenhuma edição directa). Pronto para quality gate @pm |
 
 ## File List
-_(a preencher pelos executores)_
+- `docs/architecture/dependency-source-of-truth.md` (novo — AC-D1 a AC-D5)
 
 ## QA Results
 _(a preencher por @pm — quality gate)_
