@@ -1715,3 +1715,28 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** fix: remove duplicate status key in Story D frontmatter [Story D]
 **Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 3555784 — 2026-06-14 09:08
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md, .claude/skills/AIOX/agents/sm/SKILL.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: a777208 — 2026-06-14 09:10
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: propose deprecation of orphaned activation-instructions templates [Story C]
+**Files changed:** .aiox/task-logs/unknown.json, .claude/skills/AIOX/agents/aiox-master/SKILL.md, .claude/skills/AIOX/agents/analyst/SKILL.md, .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/data-engineer/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/devops/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md
+
+## Checkpoint: a777208 — 2026-06-14 09:10
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: propose deprecation of orphaned activation-instructions templates [Story C]
+**Files changed:** .aiox/task-logs/unknown.json, .claude/skills/AIOX/agents/aiox-master/SKILL.md, .claude/skills/AIOX/agents/analyst/SKILL.md, .claude/skills/AIOX/agents/architect/SKILL.md, .claude/skills/AIOX/agents/data-engineer/SKILL.md, .claude/skills/AIOX/agents/dev/SKILL.md, .claude/skills/AIOX/agents/devops/SKILL.md, .claude/skills/AIOX/agents/pm/SKILL.md, .claude/skills/AIOX/agents/po/SKILL.md, .claude/skills/AIOX/agents/qa/SKILL.md
+
+## Checkpoint: 721d219 — 2026-06-14 09:12
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: rewrite IDE-FILE-RESOLUTION with per-type canonical mapping [Story A]
+**Files changed:** .aiox-core/core-config.yaml, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: 721d219 — 2026-06-14 09:12
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** fix: rewrite IDE-FILE-RESOLUTION with per-type canonical mapping [Story A]
+**Files changed:** .aiox-core/core-config.yaml, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
