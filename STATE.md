@@ -1755,3 +1755,18 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** chore: update session metrics and state checkpoint [no-story-req]
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: afe9106 — 2026-06-14 09:15
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** chore: update session metrics and state checkpoint [no-story-req]
+**Files changed:** none
+
+## Checkpoint: f094baf — 2026-06-14 09:19
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate CONCERNS->Done for IDE-FILE-RESOLUTION [Story A]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
+
+## Checkpoint: f094baf — 2026-06-14 09:19
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs(qa): quality gate CONCERNS->Done for IDE-FILE-RESOLUTION [Story A]
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/EPIC-agent-determinism/story-B-devloadalwaysfiles-config.md
