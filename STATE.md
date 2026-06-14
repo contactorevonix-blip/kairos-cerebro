@@ -1476,3 +1476,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/epic-agent-determinism-story-f-ghuhmv
 **Commit:** docs: add Story F completion record (EPIC-agent-determinism)
 **Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: a1c3607 — 2026-06-14 15:51
+**Branch:** claude/epic-agent-determinism-story-f-ghuhmv
+**Commit:** feat: add Story G audit of activation-instructions templates
+**Files changed:** none
