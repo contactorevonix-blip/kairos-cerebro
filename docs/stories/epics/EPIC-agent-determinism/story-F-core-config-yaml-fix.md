@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: F
 title: "Corrigir bloco YAML órfão em core-config.yaml (autoClaude.qa / boundary.exceptions, ~linhas 363-377)"
-status: Draft
+status: Ready
 priority: P0
 executor: "@config-engineer"
 quality_gate: "@architect"
@@ -16,7 +16,7 @@ layer: L3
 # Story F — Corrigir bloco YAML órfão em `core-config.yaml`
 
 ## Status
-Draft
+Ready
 
 ## Story
 **Como** qualquer agente/ferramenta que faz `safe_load`/`js-yaml` parse completo de `core-config.yaml`,
@@ -104,6 +104,7 @@ Os itens de sequência (366-372) e a chave `exceptions:` (373-377) são, pelo se
 | Data | Autor | Alteração |
 |---|---|---|
 | 2026-06-14 | @sm (River) | Story criada (Draft) a partir do Achado 2 da gate da Story B (erro de parse YAML estrutural pré-existente em `core-config.yaml` ~linhas 363-377, bloco `autoClaude.qa` com itens órfãos de `boundary.deny`/`boundary.exceptions`). P0 sugerido por ser um erro estrutural de config (mesmo que pré-existente e não-bloqueante para as Stories A-E). `depends_on: []` — independente de Story E (ambas tratam achados distintos das gates A/B). Não implementado nesta sessão — apenas Draft, pronta para `@po *validate-story-draft`. |
+| 2026-06-14 | @po (Pax) | **Validated GO (9/10) — Status: Draft → Ready.** Checklist 10 pontos: (1) título claro ✓; (2) descrição completa, com localização exacta do bloco e citação literal ✓; (3) AC-F1..F5 testáveis (reposição estrutural, parse completo, sem perda de chaves, comentários preservados, não-regressão B) ✓; (4) Scope IN/OUT bem definido, incl. exclusão explícita de `js-yaml`/`config-loader.js` ✓; (5) `depends_on: []` justificado e coerente com Story E (independentes) ✓; (6) effort 1h razoável para reposicionamento puro ✓; (7) valor de negócio (Art. V Quality First — integridade de config para qualquer consumidor de parse completo) ✓; (8) Risk section com 2 riscos + mitigações ✓; (9) DoD = AC-F1..F5 + Tasks/Subtasks checklist ✓; (10) alinhado com achado da gate da Story B, `traces_to` correcto, README/EPIC já reflectem a story ✓. Único Should-Fix: ACs não usam formato Given/When/Then explícito (consistente com restantes stories do epic, não-bloqueante). Pré-existência confirmada (`git show cf61050~1` falha no mesmo ponto) — Art. IV satisfeito (achado real, não inventado). Pronta para `@config-engineer`. |
 
 ## File List
 _(a preencher pelo executor)_

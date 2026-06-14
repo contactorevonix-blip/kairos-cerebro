@@ -37,14 +37,14 @@ F (independente — não bloqueia E nem é bloqueada por nenhuma story)
 | C — deprecar templates órfãos (F4) | 8/10 | **GO** | Done |
 | D — fonte de verdade + agent-teams (F5,F6) | 8/10 | **GO** | Done |
 | E — suite E2E (Escopo Expandido) | 9/10 | **GO** | Ready (refinada 2026-06-14 — AC-E7.1..E7.6) |
-| F — corrigir bloco YAML órfão em core-config.yaml | — | _(não validada ainda)_ | Draft |
+| F — corrigir bloco YAML órfão em core-config.yaml | 9/10 | **GO** | Ready |
 
-**Resultado:** 5/5 GO (Stories A-E). Todos os achados F1-F6 reconfirmados contra o filesystem real (Art. IV — No Invention satisfeito). Executores `@skill-craftsman` e `@config-engineer` confirmados existentes. Sequência D → A/B → E (C paralelo) coerente entre `blocks`/`depends_on` e o diagrama do PRD. Boundary L1/L2 respeitado: Stories C e D encaminham alterações L2 via `@aiox-master *propose-modification`, não edição directa.
+**Resultado:** 6/6 GO (Stories A-F). Todos os achados F1-F6 reconfirmados contra o filesystem real (Art. IV — No Invention satisfeito). Executores `@skill-craftsman` e `@config-engineer` confirmados existentes. Sequência D → A/B → E (C paralelo) coerente entre `blocks`/`depends_on` e o diagrama do PRD. Boundary L1/L2 respeitado: Stories C e D encaminham alterações L2 via `@aiox-master *propose-modification`, não edição directa.
 
-**Story F (2026-06-14):** criada a partir do Achado 2 da gate da Story B (erro YAML estrutural pré-existente em `core-config.yaml` ~linhas 363-377). Status `Draft`, `depends_on: []` — independente de E, não bloqueia o gate de aceitação de A/B. Pendente `@po *validate-story-draft`.
+**Story F (2026-06-14):** criada a partir do Achado 2 da gate da Story B (erro YAML estrutural pré-existente em `core-config.yaml` ~linhas 363-377). Validated GO (9/10) → `Ready`, `depends_on: []` — independente de E, não bloqueia o gate de aceitação de A/B. Pronta para `@config-engineer`.
 
 **Should-Fix (não-bloqueante):** O PRD (`EPIC-agent-determinism.md`) usa repetidamente "11 agentes core + aiox-master" (implica 12 SKILL.md). A contagem real é **10 agentes core + aiox-master = 11 SKILL.md** — que é exactamente o conjunto que as stories A e E operam (lista de 11 agentes). As stories estão correctas; recomenda-se ao @pm normalizar o phrasing do PRD para "10 core + aiox-master (11 SKILL.md)".
 
 ## Próximo passo
 
-Stories D, A, B, C já **Done**. Story E (`Ready`, refinada) é o gate de aceitação de A/B — próxima a implementar (`@qa` → `@dev`). Story F (`Draft`) é independente, não bloqueia E; aguarda `@po *validate-story-draft` antes de avançar para `@config-engineer`. Push de cada story aprovada → `@devops` (exclusivo).
+Stories D, A, B, C já **Done**. Story E (`Ready`, refinada e re-validada) é o gate de aceitação de A/B — próxima a implementar (`@qa` → `@dev`). Story F (`Ready`) é independente, não bloqueia E; pode avançar em paralelo para `@config-engineer` → `@architect`. Push de cada story aprovada → `@devops` (exclusivo).

@@ -1,14 +1,30 @@
 {
   "storyId": "unknown",
   "storyType": "bug",
-  "suggestedAt": "2026-06-14T09:38:47.767Z",
+  "suggestedAt": "2026-06-14T09:45:35.236Z",
   "suggestions": [
     {
       "id": "correct-course",
       "name": "Correct Course Task",
       "category": "bug",
       "file": ".aiox-core/development/tasks/correct-course.md",
-      "score": 65,
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "run-design-system-pipeline",
+      "name": "Run Design System Pipeline",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
+      "score": 54,
       "autoActivate": false
     },
     {
@@ -25,22 +41,6 @@
       "category": "qa",
       "file": ".aiox-core/development/tasks/test-validation-task.md",
       "score": 51,
-      "autoActivate": false
-    },
-    {
-      "id": "devops-pro-check-access",
-      "name": "Task: DevOps Pro Check Access",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
-      "score": 46,
-      "autoActivate": false
-    },
-    {
-      "id": "devops-pro-verify-status",
-      "name": "Task: DevOps Pro Verify Status",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
-      "score": 46,
       "autoActivate": false
     }
   ]
