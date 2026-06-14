@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: E
 title: "Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor)"
-status: InReview
+status: Done
 priority: P1
 executor: "@qa"
 quality_gate: "@dev"
@@ -16,7 +16,7 @@ layer: L4
 # Story E — Suite E2E: activação + dependencies + 1 *task por agente
 
 ## Status
-InReview
+Done
 
 ## Story
 **Como** responsável pela qualidade do sistema de agentes,
@@ -134,6 +134,7 @@ Após estas 2 correcções, a suite corre com **0 falhas / 38 testes / zero GAPs
 | 2026-06-14 | @po (Pax) | **Re-validação pós-refinamento @sm — Status mantido `Ready`.** Os acrescentos (AC-E7.1..E7.6, Dev Notes "Recontagem" + "Extracção line-based", Tasks/Subtasks expandidas) são aditivos dentro do escopo já validado (GO 9/10, 2026-06-13) — não alteram risco/tamanho fundamental. Sanity-checks concretizados: (1) **AC-E7.6** — confirmado via Glob que `.aiox-core/infrastructure/scripts/documentation-integrity/gitignore-generator.js` existe; path relativo proposto (1.º tier de `scripts`/`utils` em `dependency-source-of-truth.md`) está correcto. (2) **AC-E7.3** — confirmado via Grep que `add-tech-doc.md`/`*add-tech-doc` NÃO existe como ficheiro em `.aiox-core/`, mas a referência ao comando/dependência aparece também em `.codex/agents/aiox-master.md`, `.antigravity/rules/agents/aiox-master.md` e `.aiox-core/development/agents/aiox-master.md` (L2) — todos FORA do escopo de Story E (que cobre apenas os 11 SKILL.md em `.claude/skills/AIOX/agents/`), pelo que a remoção em `aiox-master/SKILL.md` (L4) é segura e não quebra nenhum workflow/handoff dentro do escopo A/E; divergência com L2/mirrors é pré-existente e segue o precedente da Story C/D (`@aiox-master *propose-modification` para alterações L2). Adicionalmente, `.aiox-core/data/entity-registry.yaml` (linha ~14258) já regista `add-tech-doc` em `plannedDeps` da entidade aiox-master — confirma que o item é um **placeholder planeado e já registado** (Art. IV-A satisfeito), consistente com a disposição AC-E7.3 (remover comando morto agora; criação futura via `*propose-modification`, sem stub inventado). Nenhum ajuste necessário aos AC-E7.1..E7.6. |
 | 2026-06-14 | @dev (Dex) | Development started (YOLO mode) — Status: Ready → InProgress |
 | 2026-06-14 | @dev (Dex) | Implementada a suite `tests/agents/agent-determinism.test.js` (`node:test`) cobrindo AC-E1 (bloco de activação STEP1-6 + GREENFIELD GUARD + 5.5 + signature_closing), AC-E2 (parser de `dependencies:` + resolução por mapeamento canónico, incl. tiers `legacy` e `core` recursivo), AC-E3 (1.ª `*task` de cada agente validada como Task-First com inputs/outputs declarados), AC-E4 (cadeia `sdc` de `workflow-chains.yaml` @sm→@po→@dev→@qa + `.aiox/handoffs/`), AC-E5 (extracção line-based de `devLoadAlwaysFiles`/`devDebugLog`/`toolsLocation`), AC-E6 (relatório agente→dependency→estado via `after()`, exit code nativo de `node --test`). Ao correr a suite, descobertos e corrigidos 2 GAPs adicionais (ver Dev Notes "2 GAPs adicionais descobertos ao correr a suite"): `.aiox-core/core/` (recursivo) documentado como 4.º tier de fallback `scripts`/`utils` em `dependency-source-of-truth.md`, e `devops/SKILL.md` `utils:` (`branch-manager`/`repository-detector`/`version-tracker`/`git-wrapper`) corrigido para incluir `.js`. Resultado: 38/38 testes passam, zero GAPs (AC-E7 cumprido). Adicionado `tests/agents/*.test.js` ao script `test` de `package.json` (AC-E6 — integração CI). Status: InProgress → InReview. |
+| 2026-06-14 | @qa (Quinn) | Quality gate: **PASS**. 3/3 quality_gate_tools PASS: test_coverage_check (38/38 testes, AC-E1..E7 cobertos, relatório AC-E6 confirma 315 dependências / 0 GAPs), ci_integration_validation (`package.json` `test` inclui `tests/agents/*.test.js`, exit code nativo de `node --test`), regression_gate_test (`npm test` = 147/157 pass, 1 fail + 9 cancelled idênticos ao baseline pré-story, confirmados pré-existentes em `635c0c8`, sem regressões novas). Os 2 GAPs adicionais (#7, #8) descobertos e corrigidos pelo @dev seguem o padrão de disposição já validado (Art. IV — sem invenção). Apenas L4 editado (Art. V/VI OK). Status: InReview → Done. |
 
 ## File List
 - `.claude/skills/AIOX/agents/qa/SKILL.md` (AC-E7.1 — `manage-story-backlog.md` → `po-manage-story-backlog.md`)
@@ -145,4 +146,36 @@ Após estas 2 correcções, a suite corre com **0 falhas / 38 testes / zero GAPs
 - `package.json` (adicionado `tests/agents/*.test.js` ao script `test` — AC-E6)
 
 ## QA Results
-_(a preencher por @dev — quality gate)_
+
+**Reviewer:** @qa (Quinn) — Test Architect & Quality Advisor
+**Date:** 2026-06-14
+**Commit reviewed:** `8cb3e43`
+**Gate verdict:** **PASS** (Status: InReview → Done)
+
+### quality_gate_tools (3/3 executados)
+
+#### 1. test_coverage_check (AC-E1..E7) — PASS
+- Re-executado `node --test tests/agents/agent-determinism.test.js`: **38/38 testes passam**, 5 suites (`AC-E1`..`AC-E6`).
+- AC-E1: bloco de activação STEP 1-6 + GREENFIELD GUARD + 5.5 + `signature_closing` verificado para os 11 SKILL.md.
+- AC-E2: relatório AC-E6 confirma **315 dependências verificadas, 0 GAPs** (`# Total dependencies checked: 315, GAPs: 0`), incluindo os tiers `legacy` (AC-E7.5), `development/templates/` (AC-E7.4) e o novo 4.º tier `core` recursivo (GAP #7).
+- AC-E3: 1.ª `*task` de cada agente validada como Task-First (`task:`, `Entrada:`/`inputs:`, `Saída:`/`outputs:`, `campo:`/`field:`).
+- AC-E4: cadeia `sdc` (@sm→@po→@dev→@qa) em `workflow-chains.yaml` íntegra, comandos `*`-prefixados, tasks existentes; `.aiox/handoffs/` existe e é legível.
+- AC-E5: `devLoadAlwaysFiles` (3/3), `devDebugLog`, `toolsLocation` resolvem via extracção line-based das linhas ~21-28, sem tocar no bloco malformado ~363-377 (Story F, fora de scope).
+- AC-E7: confirmado "zero GAPs" para os 11 agentes + aiox-master, incluindo as 6 excepções/correcções AC-E7.1..E7.6 **e** os 2 GAPs adicionais (#7 `core` recursivo, #8 `devops/SKILL.md` `.js`) descobertos e corrigidos durante a implementação.
+
+#### 2. ci_integration_validation (AC-E6) — PASS
+- `package.json` → script `test` inclui `tests/agents/*.test.js`; `node --test` produz exit code != 0 nativamente em qualquer falha de assertion (AC-E6 cumprido sem lógica de exit code adicional).
+- Relatório legível agente → tipo/entry → estado confirmado via `after()` hook (`=== AC-E6 — Dependency Resolution Report ===`).
+
+#### 3. regression_gate_test — PASS
+- `npm test` (suite completa): **147/157 pass, 1 fail, 9 cancelled** — idêntico ao baseline pré-story confirmado por re-execução isolada no estado *stashed* (pré-sessão): `packages/sniper-api/api-check.test.js` (1 fail, requer API a correr) e `tests/hooks/auto-contextualization-hook.test.js` (9 cancelled, "Promise resolution is still pending"). Ambos confirmados **pré-existentes** (último tocados em `635c0c8`, anterior a esta story) — **nenhuma regressão introduzida** por Story E.
+
+### Observações
+- **2 GAPs adicionais (#7, #8)** foram descobertos *durante* a implementação ao correr a suite contra o estado real (não previstos em AC-E7.1..E7.6) e resolvidos com o mesmo padrão de disposição já estabelecido (correcção L4 trivial / documentação de excepção, sem invenção — Art. IV). Documentados de forma transparente em Dev Notes, Change Log e File List. Isto demonstra a suite a cumprir o seu propósito (AC-E6/E7): detectar GAPs reais de determinismo antes de chegarem a runtime.
+- Art. V/VI (Boundary): apenas L4 editado (`tests/agents/agent-determinism.test.js` novo, `package.json`, `docs/architecture/dependency-source-of-truth.md`, 1 SKILL.md `.claude/skills/`, story file). Nenhuma edição L1/L2.
+- Art. IV (No Invention): ambos os GAPs adicionais resolvidos apontando para ficheiros/configuração já existentes (`scriptsLocation.core` em `core-config.yaml`, `.js` real dos 4 utils `devops`) — nenhum ficheiro novo inventado.
+
+### Desbloqueio
+Story E `depends_on: [A, B]` cumprido (suite corre contra o estado pós-A/B). Epic EPIC-agent-determinism: Stories A, B, C, D, E → **Done**. Story F permanece independente (Draft, `depends_on: []`).
+
+**Handoff:** `next_agent: @devops`, `next_command: *push` (branch `claude/epic-agent-determinism-story-e-hdunzo`).

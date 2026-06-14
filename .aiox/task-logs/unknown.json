@@ -1,7 +1,7 @@
 {
   "storyId": "unknown",
   "storyType": "bug",
-  "suggestedAt": "2026-06-14T10:10:15.309Z",
+  "suggestedAt": "2026-06-14T10:17:25.307Z",
   "suggestions": [
     {
       "id": "correct-course",
@@ -12,18 +12,18 @@
       "autoActivate": true
     },
     {
-      "id": "test-validation-task",
-      "name": "Test Validation Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/test-validation-task.md",
-      "score": 59,
-      "autoActivate": false
-    },
-    {
       "id": "github-devops-pre-push-quality-gate",
       "name": "pre-push-quality-gate.md",
       "category": "devops",
       "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "run-design-system-pipeline",
+      "name": "Run Design System Pipeline",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
       "score": 54,
       "autoActivate": false
     },
@@ -36,10 +36,10 @@
       "autoActivate": false
     },
     {
-      "id": "qa-run-tests",
-      "name": "Run Tests (with Code Quality Gate)",
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
       "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-run-tests.md",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
       "score": 51,
       "autoActivate": false
     }

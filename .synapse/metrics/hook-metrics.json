@@ -50,15 +50,15 @@
   },
   "timestamp": "2026-06-14T10:06:26.743Z",
   "enforcement": {
-    "gatesEnforced": 14,
-    "violationsDetected": 8,
-    "violationsBlocked": 4,
-    "overridesUsed": 4
+    "gatesEnforced": 21,
+    "violationsDetected": 12,
+    "violationsBlocked": 6,
+    "overridesUsed": 6
   },
-  "enforcementUpdatedAt": "2026-06-14T10:09:36.650Z",
+  "enforcementUpdatedAt": "2026-06-14T10:15:48.501Z",
   "taskFirst": {
     "tasksIndexed": 213,
-    "tasksActivated": 10,
+    "tasksActivated": 20,
     "taskExecutionTime": 0,
     "taskAutoActivationRate": 0,
     "lastIndexedAt": "2026-06-08T22:27:07.273Z"

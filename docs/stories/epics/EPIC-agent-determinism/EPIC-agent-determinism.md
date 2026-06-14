@@ -101,7 +101,7 @@ Fonte de verdade por tipo de dependency **não documentada** → ambiguidade que
 | B | Resolver devLoadAlwaysFiles + devDebugLog + toolsLocation | P0 | @config-engineer | @architect | 3h | Done |
 | C | Deprecar/remover templates órfãos activation-instructions-* | P2 | @skill-craftsman | @qa | 1h | Done |
 | D | Documentar development/ vs product/ + resolver agent-teams órfão | P1 | @architect + @skill-craftsman | @pm | 4h | Done |
-| E | Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor) | P1 | @qa | @dev | 5h | Ready |
+| E | Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor) | P1 | @qa | @dev | 5h | Done |
 | F | Corrigir bloco YAML órfão em core-config.yaml (autoClaude.qa/boundary.exceptions, ~363-377) | P0 | @config-engineer | @architect | 1h | Ready |
 
 **Total:** 6 stories → confirma track **Enterprise/Standard fronteira**. Squad recomendado: **claude-code-mastery** (@skill-craftsman, @config-engineer) + @architect (Stories D, F) + @qa (Story E).
@@ -173,13 +173,13 @@ e) **GAPs:** registar ficheiros declarados-mas-inexistentes, pastas soltas, coma
 
 ## 9. Definition of Done (Epic)
 
-- [ ] As 5 stories concluídas com ACs cumpridos e rastreáveis a F1-F6 ou GAP documentado.
-- [ ] Os 11 SKILL.md (10 agentes core + aiox-master) resolvem 100% das dependencies declaradas para o path REAL.
-- [ ] `core-config.yaml` sem paths inválidos (`devLoadAlwaysFiles`, `devDebugLog`, `toolsLocation`).
-- [ ] Templates órfãos deprecados/removidos via caminho de governança correcto.
-- [ ] Relação development/ vs product/ documentada (fonte de verdade por tipo); `agent-teams/` resolvido.
-- [ ] Suite E2E a correr em CI/`aiox doctor`, verde para os 11 SKILL.md (10 agentes core + aiox-master).
-- [ ] Sem regressão no mecanismo de activação.
+- [x] As 5 stories (A-E) concluídas com ACs cumpridos e rastreáveis a F1-F6 ou GAP documentado. Story F (follow-up independente, `depends_on: []`) permanece Ready/Draft.
+- [x] Os 11 SKILL.md (10 agentes core + aiox-master) resolvem 100% das dependencies declaradas para o path REAL (Story E: 315/315, 0 GAPs).
+- [x] `core-config.yaml` sem paths inválidos (`devLoadAlwaysFiles`, `devDebugLog`, `toolsLocation`) — Story B + confirmado por AC-E5.
+- [x] Templates órfãos deprecados/removidos via caminho de governança correcto (Story C).
+- [x] Relação development/ vs product/ documentada (fonte de verdade por tipo); `agent-teams/` resolvido (Story D).
+- [x] Suite E2E a correr em CI/`aiox doctor`, verde para os 11 SKILL.md (10 agentes core + aiox-master) — `tests/agents/agent-determinism.test.js`, 38/38, integrado no script `test` de `package.json` (Story E).
+- [x] Sem regressão no mecanismo de activação (AC-E1, 11/11 SKILL.md PASS).
 
 ---
 
