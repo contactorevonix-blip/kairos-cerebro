@@ -1,3 +1,34 @@
+# 🔧 Story F (EPIC-agent-determinism) — Session 2026-06-14 (Cont 35)
+
+**Session 2026-06-14 (Cont 35):** EPIC-agent-determinism Story F — **Status: COMPLETE ✅**
+
+**What Was Done (this session):**
+1. ✅ Story F: Repair malformed YAML in `.aiox-core/core-config.yaml`
+   - Problem: Orphaned list items (lines 373-379) displaced after `autoClaude.qa:`
+   - Solution: Moved items to correct `boundary.protected:` and `boundary.exceptions:` locations
+2. ✅ @config-engineer implemented: YAML structure repair
+3. ✅ Key name correction: `deny:` → `protected:` (schema alignment)
+4. ✅ @architect gate: **APPROVE** verdict (schema wiring validated, latent security gap closed)
+5. ✅ Story F marked "Done" with all 7 ACs met
+
+**Commits:**
+- `f7ca2a2` — Fix: repair malformed YAML structure in core-config.yaml
+- `bd98a19` — Fix: correct boundary.protected key name in core-config.yaml
+- `c264578` — Docs: add Story F completion record
+
+**Branch:** `claude/epic-agent-determinism-story-f-ghuhmv` (3 commits, ready for @devops *push)
+
+**Deliverables:**
+- ✅ Fixed YAML structure: `boundary:` now includes `protected:` and `exceptions:` properly nested
+- ✅ Schema alignment: matches `generate-settings-json.js:48` consumer
+- ✅ Latent security gap closed: when `frameworkProtection` re-enables on 2026-06-19, deny rules will be correctly generated
+- ✅ Story file: `docs/stories/epics/EPIC-agent-determinism/story-F-config-yaml-repair.md`
+
+**Next Steps:**
+- @devops *push to send to remote
+
+---
+
 # ✅ EPIC-8 COMPLETE — Session 2026-06-12 (Cont 34) 
 
 **Session 2026-06-12 (Cont 34):** EPIC-8 Phase 4 (Auto-Healing) Implementation — **Status: 100% COMPLETE (40/40 stories, 51sp)**
@@ -1440,3 +1471,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** chore: mark EPIC-8 Phase 4 stories as Done
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: c264578 — 2026-06-14 15:37
+**Branch:** claude/epic-agent-determinism-story-f-ghuhmv
+**Commit:** docs: add Story F completion record (EPIC-agent-determinism)
+**Files changed:** .synapse/metrics/hook-metrics.json
