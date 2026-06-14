@@ -1806,3 +1806,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/agent-persona-skills-activation-qav8jh
 **Commit:** docs(qa): quality gate PASS for Story C [Story C]
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 4c9425e — 2026-06-14 09:23
+**Branch:** claude/agent-persona-skills-activation-qav8jh
+**Commit:** docs: update STATE.md with EPIC-agent-determinism session summary [no-story-req]
+**Files changed:** none
