@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: C
 title: "Deprecar/remover templates órfãos activation-instructions-*"
-status: Ready
+status: InReview
 priority: P2
 executor: "@skill-craftsman"
 quality_gate: "@qa"
@@ -16,7 +16,7 @@ layer: L2
 # Story C — Deprecar/remover templates órfãos activation-instructions-*
 
 ## Status
-Ready
+InReview
 
 ## Story
 **Como** mantenedor do framework AIOX no kairos-cerebro,
@@ -50,10 +50,10 @@ Ambos os ficheiros estão em **L2** (`.aiox-core/product/templates/`). **NÃO po
 - Outros templates de `product/templates/` (78 ficheiros) — fora de scope.
 
 ## Tasks / Subtasks
-- [ ] Grep por `activation-instructions-template` e `activation-instructions-inline-greeting` em `.claude/skills/` e `.aiox-core/development/agents/`
-- [ ] Confirmar zero referências (órfãos) ou documentar referências encontradas
-- [ ] Redigir proposta de deprecação (formato propose-modification)
-- [ ] Encaminhar proposta para @aiox-master
+- [x] Grep por `activation-instructions-template` e `activation-instructions-inline-greeting` em `.claude/skills/` e `.aiox-core/development/agents/`
+- [x] Confirmar zero referências (órfãos) ou documentar referências encontradas
+- [x] Redigir proposta de deprecação (formato propose-modification)
+- [x] Encaminhar proposta para @aiox-master
 
 ## Dev Notes
 - Ficheiros alvo (L2, read-only para esta story): `.aiox-core/product/templates/activation-instructions-template.md`, `.aiox-core/product/templates/activation-instructions-inline-greeting.yaml`.
@@ -68,9 +68,11 @@ Ambos os ficheiros estão em **L2** (`.aiox-core/product/templates/`). **NÃO po
 | 2026-06-13 | @pm (Morgan) | Story criada (Draft) a partir de F4 |
 | 2026-06-13 | @po (Pax) | Validated GO (8/10) — Status: Draft → Ready. F4 reconfirmada (ambos os templates presentes em L2). Caminho de governança (propose-modification, NÃO edição directa L2) verificado correcto contra enforcement-gates.md |
 | 2026-06-13 | @po (Pax) | Re-validation GO (8/10) confirmada. F4 re-verificada: 2 templates órfãos presentes em product/templates/ (L2). AC-C1 (órfandade) PRÉ-VALIDADA pelo @po: grep dos nomes exactos `activation-instructions-template`/`activation-instructions-inline-greeting` = ZERO refs em .claude/skills/ e .aiox-core/development/agents/ (os hits de `activation-instructions` são a chave YAML genérica, não refs ao template). Boundary L2→propose-modification correcto. Executor @skill-craftsman existe |
+| 2026-06-14 | @skill-craftsman (Anvil) | Status: Ready → InProgress. Re-confirmado AC-C1 via Grep tool independente: `activation-instructions-template` e `activation-instructions-inline-greeting` = ZERO matches em `.claude/skills/` e `.aiox-core/development/agents/` (4 greps, todos 0 resultados). Confirma pré-validação do @po |
+| 2026-06-14 | @skill-craftsman (Anvil) | Status: InProgress → InReview. Criada proposta de deprecação em `docs/architecture/proposals/propose-deprecate-activation-instructions-templates.md` (AC-C2/AC-C3): justificação padrão abandonado (GreetingBuilder/greeting-builder.js, "Option A" v2.0, Story 6.1.2.5) vs padrão real (native context, zero JS execution, STEP 1-6 inline com STEP 5.5 handoff check), evidência do grep AC-C1, acção recomendada = marcar DEPRECATED (não remover, conforme Risk), caminho de execução `@aiox-master *propose-modification`. AC-C4: nenhum SKILL.md ou processo de activação alterado por esta story |
 
 ## File List
-_(a preencher pelo executor)_
+- `docs/architecture/proposals/propose-deprecate-activation-instructions-templates.md` (criado — proposta de deprecação para @aiox-master *propose-modification)
 
 ## QA Results
 _(a preencher por @qa)_
