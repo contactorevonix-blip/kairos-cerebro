@@ -1,3 +1,27 @@
+# 🔄 EPIC-Agent-Determinism — Session 2026-06-14 (Cont 36) 
+
+**Session 2026-06-14 (Cont 36):** EPIC-Agent-Determinism Stories F-G Implementation — **Status: 2/2 Stories DONE (6 commits)**
+
+**What Was Done (this session - Cont 36):**
+1. ✅ Story F — YAML Config Repair (DONE)
+   - Fixed malformed YAML in `.aiox-core/core-config.yaml` (lines 363-377)
+   - Moved orphaned blocks to correct `boundary:` section
+   - Renamed `deny:` → `protected:` (schema mismatch fix)
+   - Commits: f7ca2a2, bd98a19, c264578, 2b172e3 (4 commits)
+   - Gate: @architect APPROVE ✅
+2. ✅ Story G — Activation-Instructions Audit (DONE)
+   - Audited premise: Story C templates NOT removed (false premise corrected)
+   - Discovery: Templates remain as L2 AIOX-core 5.2.9 reference (usedBy: [])
+   - All ACs met (6 resolved + 1 N/A with reasoning)
+   - Commits: a1c3607, 560d315 (2 commits)
+   - Files: story-G completed + audit documentation created
+
+**Branch:** claude/epic-agent-determinism-story-f-ghuhmv (6 commits, all pushed to remote)
+**Working tree:** clean, ready for PR or next iteration
+**Next:** Option 1 (PR recommended) or Option 2 (continue development)
+
+---
+
 # ✅ EPIC-8 COMPLETE — Session 2026-06-12 (Cont 34) 
 
 **Session 2026-06-12 (Cont 34):** EPIC-8 Phase 4 (Auto-Healing) Implementation — **Status: 100% COMPLETE (40/40 stories, 51sp)**
@@ -1440,3 +1464,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** chore: mark EPIC-8 Phase 4 stories as Done
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-12.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-12.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-12.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-12.jsonl, .aiox/task-logs/8.4.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7617bb1 — 2026-06-14 15:59
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
+**Files changed:** .synapse/metrics/hook-metrics.json
