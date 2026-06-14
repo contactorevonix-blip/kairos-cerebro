@@ -2,7 +2,7 @@
 epic: EPIC-agent-determinism
 story: E
 title: "Suite E2E: activação + dependencies + 1 *task por agente (CI/doctor)"
-status: Ready
+status: InProgress
 priority: P1
 executor: "@qa"
 quality_gate: "@dev"
@@ -16,7 +16,7 @@ layer: L4
 # Story E — Suite E2E: activação + dependencies + 1 *task por agente
 
 ## Status
-Ready
+InProgress
 
 ## Story
 **Como** responsável pela qualidade do sistema de agentes,
@@ -65,13 +65,13 @@ A gate da Story A (CONCERNS → Done) diferiu 5 itens (re-investigação nesta s
 - [ ] Implementar checks AC-E1..E5 (extracção line-based de devLoadAlwaysFiles/devDebugLog/toolsLocation — ver Dev Notes)
 - [ ] Selecionar 1 *task por agente e implementar dry-run/existência (AC-E3)
 - [ ] Implementar relatório + exit codes (AC-E6)
-- [ ] **Correcção dos 6 GAPs residuais (AC-E7.1..E7.6) — antes de correr a suite final:**
-  - [ ] AC-E7.1: editar `.claude/skills/AIOX/agents/qa/SKILL.md` linha ~230 — `manage-story-backlog.md` → `po-manage-story-backlog.md`
-  - [ ] AC-E7.2: editar `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` linhas ~152 e ~268 — `integrate-Squad.md` → `integrate-squad.md`
-  - [ ] AC-E7.3: editar `.claude/skills/AIOX/agents/aiox-master/SKILL.md` — remover comando `*add-tech-doc` (linha ~228) e a entrada `add-tech-doc.md` em `dependencies.tasks` (linha ~330)
-  - [ ] AC-E7.4: estender `docs/architecture/dependency-source-of-truth.md` §5.2 (e §3.2) — adicionar excepção `templates` fallback `development/templates/` para framework prompt/process templates (`subagent-step-prompt.md`, `ptc-*.md`, `agent-handoff-tmpl.yaml`); não tocar em `aiox-master/SKILL.md` linha ~381 (entrada mantém-se, passa a resolver via excepção documentada)
-  - [ ] AC-E7.5: estender `docs/architecture/dependency-source-of-truth.md` §2.1 (e §5.2) — adicionar `scriptsLocation.legacy` (`.aiox-core/scripts/`) como 3.º tier de fallback para `scripts`/`utils`; não tocar em `aiox-master/SKILL.md` linha ~389 (entrada `workflow-management.md` passa a resolver via tier legacy documentado)
-  - [ ] AC-E7.6: editar `.claude/skills/AIOX/agents/devops/SKILL.md` linha ~355 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`
+- [x] **Correcção dos 6 GAPs residuais (AC-E7.1..E7.6) — antes de correr a suite final:**
+  - [x] AC-E7.1: editar `.claude/skills/AIOX/agents/qa/SKILL.md` linha ~230 — `manage-story-backlog.md` → `po-manage-story-backlog.md`
+  - [x] AC-E7.2: editar `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` linhas ~152 e ~268 — `integrate-Squad.md` → `integrate-squad.md`
+  - [x] AC-E7.3: editar `.claude/skills/AIOX/agents/aiox-master/SKILL.md` — remover comando `*add-tech-doc` (linha ~228) e a entrada `add-tech-doc.md` em `dependencies.tasks` (linha ~330)
+  - [x] AC-E7.4: estender `docs/architecture/dependency-source-of-truth.md` §5.2 (e §3.2) — adicionar excepção `templates` fallback `development/templates/` para framework prompt/process templates (`subagent-step-prompt.md`, `ptc-*.md`, `agent-handoff-tmpl.yaml`); não tocar em `aiox-master/SKILL.md` linha ~381 (entrada mantém-se, passa a resolver via excepção documentada)
+  - [x] AC-E7.5: estender `docs/architecture/dependency-source-of-truth.md` §2.1 (e §5.2) — adicionar `scriptsLocation.legacy` (`.aiox-core/scripts/`) como 3.º tier de fallback para `scripts`/`utils`; não tocar em `aiox-master/SKILL.md` linha ~389 (entrada `workflow-management.md` passa a resolver via tier legacy documentado)
+  - [x] AC-E7.6: editar `.claude/skills/AIOX/agents/devops/SKILL.md` linha ~355 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`
 - [ ] Ligar a CI/aiox doctor; correr contra estado pós-A/B + pós-AC-E7.1..E7.6 (AC-E7)
 
 ## Dev Notes
@@ -121,9 +121,14 @@ A suite (AC-E5) DEVE extrair estas 3 chaves via leitura **line-based/regex** (ex
 | 2026-06-13 | @po (Pax) | Re-validation GO (9/10) confirmada. 11 SKILL.md re-verificados presentes (10 core: dev/qa/architect/pm/po/sm/analyst/data-engineer/ux-design-expert/devops + aiox-master). depends_on: [A,B] e ordem "por último" coerentes. node:test disponível (tests/hooks/). Nota Should-Fix herdada do epic: usar contagem canónica "11 SKILL.md (10 core + aiox-master)" em AC-E1/E2/E7 para evitar ambiguidade com o phrasing do PRD |
 | 2026-06-14 | @sm (River) | **Refinamento pós-gates A/B** (status mantido em Ready — alterações são AC/Tasks/Dev Notes adicionais que detalham trabalho já coberto pelo escopo validado, não mudam o tamanho/risco fundamental da story; @po pode reconfirmar se entender necessário). Resultado da re-investigação do Achado 1 (5→6 GAPs residuais, gate Story A): recontagem confirma **6 itens** (ver Dev Notes "Recontagem"), formalizados em AC-E7.1..E7.6 com disposição decidida para cada um — (1) `manage-story-backlog.md`→`po-manage-story-backlog.md` e (2) `integrate-Squad.md`→`integrate-squad.md` são correcções triviais de naming/case em SKILL.md (L4); (3) `add-tech-doc.md` e (6) `gitignore-manager` são ficheiros fantasma — (3) remove-se o comando/entrada (Art. IV, sem stub inventado; futuro via `*propose-modification`), (6) renomeia-se a entrada para o candidato funcional real `documentation-integrity/gitignore-generator.js`; (4) `subagent-step-prompt.md` e (5) `workflow-management.md` resolvem-se por **excepções documentadas** em `dependency-source-of-truth.md` (§5.2 fallback `development/templates/` para framework prompt/process templates; §2.1/§5.2 terceiro tier `scriptsLocation.legacy`), sem mover ficheiros. AC-E7 actualizado para definir "zero GAPs" incluindo estas excepções/tiers. AC-E2 e AC-E5 actualizados para referenciar o tier `legacy` e a extracção line-based, respectivamente. Tasks/Subtasks expandidas com os 6 passos concretos de AC-E7.1..E7.6, a executar ANTES de correr a suite final (AC-E7). Acrescentada nota de Dev Notes sobre extracção line-based de `devLoadAlwaysFiles`/`devDebugLog`/`toolsLocation` (linhas 21-28, ANTES do bloco malformado ~363-377) para o Achado 2 (Story B gate) — este achado é tratado pela nova **Story F** (Draft), independente de E. |
 | 2026-06-14 | @po (Pax) | **Re-validação pós-refinamento @sm — Status mantido `Ready`.** Os acrescentos (AC-E7.1..E7.6, Dev Notes "Recontagem" + "Extracção line-based", Tasks/Subtasks expandidas) são aditivos dentro do escopo já validado (GO 9/10, 2026-06-13) — não alteram risco/tamanho fundamental. Sanity-checks concretizados: (1) **AC-E7.6** — confirmado via Glob que `.aiox-core/infrastructure/scripts/documentation-integrity/gitignore-generator.js` existe; path relativo proposto (1.º tier de `scripts`/`utils` em `dependency-source-of-truth.md`) está correcto. (2) **AC-E7.3** — confirmado via Grep que `add-tech-doc.md`/`*add-tech-doc` NÃO existe como ficheiro em `.aiox-core/`, mas a referência ao comando/dependência aparece também em `.codex/agents/aiox-master.md`, `.antigravity/rules/agents/aiox-master.md` e `.aiox-core/development/agents/aiox-master.md` (L2) — todos FORA do escopo de Story E (que cobre apenas os 11 SKILL.md em `.claude/skills/AIOX/agents/`), pelo que a remoção em `aiox-master/SKILL.md` (L4) é segura e não quebra nenhum workflow/handoff dentro do escopo A/E; divergência com L2/mirrors é pré-existente e segue o precedente da Story C/D (`@aiox-master *propose-modification` para alterações L2). Adicionalmente, `.aiox-core/data/entity-registry.yaml` (linha ~14258) já regista `add-tech-doc` em `plannedDeps` da entidade aiox-master — confirma que o item é um **placeholder planeado e já registado** (Art. IV-A satisfeito), consistente com a disposição AC-E7.3 (remover comando morto agora; criação futura via `*propose-modification`, sem stub inventado). Nenhum ajuste necessário aos AC-E7.1..E7.6. |
+| 2026-06-14 | @dev (Dex) | Development started (YOLO mode) — Status: Ready → InProgress |
 
 ## File List
-_(a preencher pelo executor)_
+- `.claude/skills/AIOX/agents/qa/SKILL.md` (AC-E7.1 — `manage-story-backlog.md` → `po-manage-story-backlog.md`)
+- `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` (AC-E7.2 — `integrate-Squad.md` → `integrate-squad.md`, 2 ocorrências)
+- `.claude/skills/AIOX/agents/aiox-master/SKILL.md` (AC-E7.3 — remoção do comando `*add-tech-doc` e da entrada `add-tech-doc.md` em `dependencies.tasks`)
+- `.claude/skills/AIOX/agents/devops/SKILL.md` (AC-E7.6 — `gitignore-manager` → `documentation-integrity/gitignore-generator.js`)
+- `docs/architecture/dependency-source-of-truth.md` (AC-E7.4 — excepção `templates` fallback `development/templates/` em §2/§3.2/§5.1/§5.2; AC-E7.5 — `scriptsLocation.legacy` como 3.º tier em §2/§2.1/§5.1/§5.2)
 
 ## QA Results
 _(a preencher por @dev — quality gate)_

@@ -149,7 +149,7 @@ agent:
 
     Universal Commands:
     *scan            → Read(".aiox-core/development/tasks/ux-ds-scan-artifact.md")
-    *integrate       → Read(".aiox-core/development/tasks/integrate-Squad.md")
+    *integrate       → Read(".aiox-core/development/tasks/integrate-squad.md")
 
 persona_profile:
   archetype: Empathizer
@@ -265,7 +265,7 @@ dependencies:
     - ux-ds-scan-artifact.md
     - run-design-system-pipeline.md
     # Shared utilities (2 tasks)
-    - integrate-Squad.md
+    - integrate-squad.md
     - execute-checklist.md
 
   templates:
