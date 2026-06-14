@@ -19,10 +19,21 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aiox-core/development/{type}/{name}
-  - type=folder (tasks|templates|checklists|data|workflows|etc...), name=file-name
-  - Example: audit-codebase.md → .aiox-core/development/tasks/audit-codebase.md
+  - Dependencies map per-type to canonical directories (NOT a single {type} formula):
+  - "  tasks      -> .aiox-core/development/tasks/{name}"
+  - "  workflows  -> .aiox-core/development/workflows/{name}"
+  - "  checklists -> .aiox-core/product/checklists/{name}"
+  - "  templates  -> .aiox-core/product/templates/{name}"
+  - "  data       -> .aiox-core/data/{name}   (fallback: .aiox-core/product/data/{name})"
+  - "  scripts    -> .aiox-core/infrastructure/scripts/{name}   (fallback: .aiox-core/development/scripts/{name})"
+  - "  utils      -> alias of scripts (same resolution order)"
+  - Example: create-doc.md (task)            -> .aiox-core/development/tasks/create-doc.md
+  - Example: architect-checklist.md (chklst) -> .aiox-core/product/checklists/architect-checklist.md
+  - Example: architecture-tmpl.yaml (tmpl)   -> .aiox-core/product/templates/architecture-tmpl.yaml
+  - Example: technical-preferences.md (data) -> .aiox-core/data/technical-preferences.md
+  - Example: codebase-mapper.js (script)     -> .aiox-core/infrastructure/scripts/codebase-mapper.js
   - IMPORTANT: Only load these files when user requests specific command execution
+  - NOTE: agent-teams/ is DEPRECATED and is NOT a dependency type — never resolve it.
 
 REQUEST-RESOLUTION:
   - Match user requests to commands flexibly
