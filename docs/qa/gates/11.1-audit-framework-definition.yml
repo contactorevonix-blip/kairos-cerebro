@@ -1,0 +1,25 @@
+schema: 1
+story: '11.1'
+gate: PASS
+status_reason: 'All 4 AC and 6 DoD items met; framework doc is 2302 words (>=500 required) with valid markdown, all 8 sections, reusable template, worked example, and 0-10 scoring guidelines; all 7 downstream stories (11.2-11.8) reference the framework — unblocked.'
+reviewer: 'Quinn'
+updated: '2026-06-14T21:45:00Z'
+
+quality_checks:
+  code_review: PASS  # documentation-only, no code surface touched
+  unit_tests: N/A    # doc-only story; markdown structure validated manually
+  acceptance_criteria: PASS  # AC1 (8-section checklist) AC2 (template) AC3 (example) AC4 (scoring guidelines) all met
+  no_regressions: PASS  # documentation-only change
+  performance: N/A
+  security: PASS  # no secrets, no executable surface
+  documentation: PASS  # the deliverable IS the documentation
+
+evidence:
+  - 'docs/AGENT-AUDIT-FRAMEWORK.md exists, 2302 words (>=500 DoD requirement).'
+  - '8-section checklist present (connectivity, trace, gaps, invention, coherence, determinism, fixes, readiness).'
+  - 'Report template (§3) copy-paste-ready; scoring formula (§4) + 0-10 tier guidelines with concrete examples (§5).'
+  - 'Worked @sm (River) example report (§6) shows what Done looks like.'
+  - 'Downstream unblocked: all 7 stories 11.2-11.8 reference AGENT-AUDIT-FRAMEWORK / 11.1.'
+
+top_issues: []
+waiver: { active: false }

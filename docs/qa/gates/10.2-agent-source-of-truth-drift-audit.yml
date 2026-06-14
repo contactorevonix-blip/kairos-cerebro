@@ -1,0 +1,24 @@
+schema: 1
+story: '10.2'
+gate: PASS
+status_reason: 'All 6 AC met with verifiable evidence; ideSync validator independently confirms 0 accidental content drift across all generated targets; 5/5 backstop tests pass; config parse root-cause fixed.'
+reviewer: 'Quinn'
+updated: '2026-06-14T21:45:00Z'
+
+quality_checks:
+  code_review: PASS  # config dead-YAML removal is minimal, targeted, L3-legal
+  unit_tests: PASS   # tests/agents/agent-drift-audit.test.js — 5/5 pass
+  acceptance_criteria: PASS  # AC1-AC6 all met (AC5/AC6 verify-only, evidenced)
+  no_regressions: PASS  # 10 activable agents intact, 0 drift; only dead YAML + comment touched
+  performance: PASS  # validator runs <300ms
+  security: PASS  # no secrets, no injection surface; config parse hardened
+  documentation: PASS  # AGENT-SOURCE-OF-TRUTH.md dedicated + ARCHITECTURE.md cross-link
+
+evidence:
+  - 'ideSync validate (real run): Drift = 0 across all targets — independently reproduced by @qa.'
+  - 'core-config.yaml parses cleanly (qaLocation resolves) — regression guard test passes.'
+  - 'failOnDrift smoke test: drift injected → exit 1; restored → exit 0 (AGENT-SOURCE-OF-TRUTH.md §5).'
+  - '10 activable agents present in source + both claude-code targets, 0 drift (AC6).'
+
+top_issues: []
+waiver: { active: false }
