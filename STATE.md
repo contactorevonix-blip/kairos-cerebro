@@ -1469,3 +1469,13 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/epic-agent-determinism-f-g-p45ywq
 **Commit:** docs: mark EPIC-8 complete (Session 2026-06-12 Cont 34)
 **Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: ae3c6a3 — 2026-06-14 16:00
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** docs: Session 2026-06-14 (Cont 36) — EPIC-Agent-Determinism Stories F-G DONE (6 commits, branch ready for PR)
+**Files changed:** none
+
+## Checkpoint: ae3c6a3 — 2026-06-14 16:04
+**Branch:** claude/epic-agent-determinism-f-g-p45ywq
+**Commit:** docs: Session 2026-06-14 (Cont 36) — EPIC-Agent-Determinism Stories F-G DONE (6 commits, branch ready for PR)
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
