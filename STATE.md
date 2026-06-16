@@ -1,3 +1,46 @@
+# 🔄 Session 2026-06-17 (Cont 43) — PLAN MODE: ARQUITECTURA → PRD → TECH SEARCH (PHASE 0 READY)
+
+**Status: PLAN APPROVED + PHASE 0 (INPUT CURATION) READY TO START | Handoff to Cont 44**
+
+## CONT 43 SUMMARY
+
+**Orion — Plan Mode: 4-Phase Execution Design**
+
+### O que foi feito
+
+**Discovery Phase — Exploração de Artefatos Existentes:**
+- ✅ Audit de EPIC-12 existente: PRD canónico + 12 stories (Ready) — não duplicar, ESTENDER
+- ✅ Identificação de research externa já validada (21 fontes, 82/100 coverage): Design Patterns (Router/Orchestrator-Workers/Evaluator-Optimizer/RAG/Guardrails)
+- ✅ Descoberta de contradição crítica: audits Kronos (92-100/100 "perfeito") vs diagnostic (Cont 42) (~85% sincronizado com 9 gaps) — qual é a fonte de verdade?
+- ✅ Levantamento de spec pronta mas não implementada: `.aiox/TASK-AUDIT-FULL-SPECIFICATION.md` (8 checks determinísticos, Priority 1)
+
+**Plan Mode Design — 4-Phase Execution Plan:**
+- ✅ Fase 0: Curadoria de Inputs (6 itens verificados, zero contradições)
+- ✅ Fase 1: @architect monta arquitectura com Design Patterns mapping (RAG determinístico + Guardrail de activação = a lacuna a resolver)
+- ✅ Fase 2: @pm estende EPIC-12-PRD.md (não cria novo) com FRs/NFRs derivados da arquitectura
+- ✅ Fase 3: @analyst reconcilia audits + @aiox-master implementa `*audit-full` spec
+- ✅ Plano gravado: `.claude/plans/agile-sparking-hoare.md` (aprovado pelo Pedro)
+
+### Princípios Aplicados
+
+- **Qualidade de inputs = qualidade de output:** Fase 0 é gate crítica (zero contradições antes de avançar)
+- **REUSE > ADAPT > CREATE:** Estender artefatos existentes, não reinventar
+- **Story-Driven (Art. III):** Tudo rastreável a stories/epics existentes
+- **No Invention (Art. IV):** FRs/NFRs derivados da arquitectura, não do ar
+- **Design Patterns explícitos:** RAG determinístico (o problema central) + Guardrail de activação (a solução)
+
+### Próximos Passos (CONT 44)
+
+**Imediato — Fase 0 (Curadoria de Inputs):**
+1. Ler/verificar 6 itens do briefing package (não assumir)
+2. Reconciliar contradição Kronos vs diagnostic
+3. Gerar documento único `.aiox/handoffs/PHASE0-INPUT-PACKAGE-VERIFIED.md`
+4. Avançar para Fase 1 (@architect) quando zero contradições
+
+**Timeline:** 2-3 semanas (40-50sp) para Fases 1-3, depois @dev implementa as 12 stories (12.1–12.12) com AC atualizados
+
+---
+
 # 🔄 Session 2026-06-16 (Cont 42) — EPIC-12 GAP ANALYSIS + 38 FILES AUDIT COMPLETE
 
 **Status: CRITICAL GAPS VERIFIED + EPIC-12 SCOPE LOCKED | Ready for Cont 43 Implementation**
@@ -2521,4 +2564,19 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: 35b51ae — 2026-06-16 22:36
 **Branch:** main
 **Commit:** feat: EPIC-12 PRD + Framework Audit Research + Handoff for Cont 43
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: a9ba6d8 — 2026-06-16 22:42
+**Branch:** main
+**Commit:** docs: CONT 42 — EPIC-12 Gap Analysis Complete
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: a9ba6d8 — 2026-06-16 22:44
+**Branch:** main
+**Commit:** docs: CONT 42 — EPIC-12 Gap Analysis Complete
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: a9ba6d8 — 2026-06-16 22:59
+**Branch:** main
+**Commit:** docs: CONT 42 — EPIC-12 Gap Analysis Complete
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
