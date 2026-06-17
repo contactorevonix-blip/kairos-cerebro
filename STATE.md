@@ -1,27 +1,31 @@
-# 🔄 Session 2026-06-17 (Cont 49) — PHASE 4B: DEPLOYMENT VALIDATION IN PROGRESS
+# ✅ Session 2026-06-17 (Cont 49) — PHASE 4B CHECKPOINT: CI/CD VALIDATION COMPLETE
 
-**Status: PHASE 4B 🔄 IN PROGRESS | CI/CD validation PASS | Production deployment pending**
+**Status: PHASE 4B ✅ CHECKPOINT COMPLETE | Handoff to Cont 50 ready | EPIC-13 proposal prepared**
 
-## CONT 49 SUMMARY — PHASE 4B EXECUTION (Deployment Validation)
+## CONT 49 SUMMARY — PHASE 4B CHECKPOINT (Deployment Validation + EPIC-13 Discovery)
 
-**Scope:** EPIC-12 Phase 4B — Production Deployment & Agent Framework Validation
-
-**Progress:**
-1. ✅ **Local CI/CD Validation Complete**
+**Completed:**
+1. ✅ **Local CI/CD Validation 100% PASS**
    - npm test: 141/141 PASS (hooks + context-registry + WebSocket)
-   - npm run lint: PASS (no linting errors)
+   - npm run lint: PASS (no errors)
    - npm run typecheck: PASS
-   - git commit: All EPIC-12 changes in main branch
+   - Pre-commit gates: 4/4 PASS
+   - All EPIC-12 commits in main branch
 
 2. ✅ **Story Status Verification**
    - All 12 stories (12.1-12.12) status: Done
-   - 341 total acceptance criteria implemented
+   - 341 total ACs implemented
    - No regressions detected
 
-3. 🔄 **Next: Production Deployment & Smoke Tests**
-   - Railway auto-deploy on git push (90s build + boot)
-   - Smoke tests: health, landing, pricing, billing API
-   - Agent framework validation in production
+3. ✅ **EPIC-13 Discovery: Full Context Determinism**
+   - Gap identified: .synapse only 2/8 layers loaded (25% actual context)
+   - Root cause: Agent context loading 16% (should be 95% per Cont 42 Gap #1)
+   - Solution: Load all 8 layers deterministically + memory persistence
+   - EPIC-13 scope: 40-50sp, 8-10 stories, ~2-3 weeks
+
+4. ✅ **Handoff Documents Created**
+   - HANDOFF-CONT49-TO-CONT50-PHASE4B-VALIDATION.md (production validation roadmap)
+   - EPIC-13 proposal embedded (Full Context Determinism blueprint)
 
 ---
 
@@ -3016,4 +3020,44 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: 5fe3539 — 2026-06-17 17:06
 **Branch:** main
 **Commit:** docs: create comprehensive handoff for Cont 49 (PHASE 4B deployment validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:11
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:11
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:12
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:13
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:13
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:14
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:15
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 08c3656 — 2026-06-17 17:17
+**Branch:** main
+**Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
