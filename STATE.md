@@ -1,3 +1,62 @@
+# ✅ Session 2026-06-17 (Cont 47) — PHASE 3: TECH SEARCH & SPECS COMPLETE | HANDOFF FOR CONT 48 READY
+
+**Status: PHASE 3 ✅ 100% COMPLETE | Fase 4 (Implementation: Stories 12.1-12.12) PRONTO PARA INICIAR**
+
+## CONT 47 SUMMARY — @ANALYST + @AIOX-QA (Phase 3 Execution Complete)
+
+**Objectivo:** Reconcile audits + Verify 8 deterministic specification checks
+
+### ✅ Deliverables Completados
+
+**1. Gap Reconciliation Report (PHASE3-GAP-RECONCILIATION.md)**
+- [x] **9 gaps reconciliados** — 3 CRITICAL + 3 HIGH + 3 MEDIUM (não contraditórios)
+- [x] **Diagnostic confirmado como autoritativo** — two-layer audit coverage
+- [x] **Gap → Story mapping 100%** — cada gap mapeado a ≥1 story (9/9 gaps, 12/12 stories tocadas)
+- [x] **L1/L2 escalações identificadas** — apenas 1 candidata: Constitution (condicional ~75% L4-fixable)
+- [x] **Achado material novo: 3-layer activation chain** — `.claude/agents/` → legacy shim → `.claude/skills/*/SKILL.md`
+
+**2. Spec Verification Report (PHASE3-SPEC-VERIFICATION.md)**
+- [x] **8 checks verificados** — 1 PASS (Art. II), 3 PARTIAL (shim, gates, handoff), 3 FAIL (Constitution, rules, coverage), 1 PENDING (token overhead)
+- [x] **Root causes identificadas** — sem "deterministic activation loader", sem medição de cobertura, 5/7 gates wired
+- [x] **Check → Story mapping 100%** — todas stories 12.1-12.12 têm checks mapeados
+- [x] **Implementation roadmap** — sequência de dependências, stories de desbloqueio (12.1 + 12.11 são fundação)
+
+**3. Two-Shim System Discovery (project memory saved)**
+- [x] Layer 1: `.claude/agents/` (thin shim, 102 ln)
+- [x] Layer 2: `.claude/skills/AIOX/agents/*/SKILL.md` (full persona inline, 400-600 ln)
+- [x] **Problem:** Os dois layers podem divergir (skills → `@github-devops`, CLAUDE.md → `@devops`)
+- [x] **Impact:** G9 é agora 3-layer problem, não 2-layer; FR-4.2 no PRD actualizado
+
+**4. QA Addendum (Quinn/Guardian)**
+- [x] Check 1 verdict corrigido: CONCERNS (não FAIL) — Constitution loads via SYNAPSE digest, mas lossy (~36%) e stale-prone
+- [x] Check 6 gap detail: Art. VI (Absolute Imports) também sem hook (além de Art. I)
+- [x] Ownership gap: double-shim collapse + Art. VI gate não têm AC em nenhuma story 12.x — devem ser added antes @sm draft
+
+### 📊 Métricas de Qualidade
+- **Gap Reconciliation:** 100% reconcilied (9/9)
+- **Spec Verification:** 8/8 checked (1 PASS, 3 PARTIAL, 3 FAIL, 1 PENDING)
+- **QA Coverage:** Independent verification + addendum captured
+- **Two-Shim Discovery:** Documented + saved to memory
+- **Traceability:** Check→Story 100%, Gap→Story 100%
+
+### 🤝 Handoff Prepared for Cont 48
+
+**Ficheiros de Handoff:**
+- `HANDOFF-CONT47-TO-CONT48-PHASE4-READY.md` (será gerado a seguir)
+
+**Stories para Implementar (Cont 48 — @dev):**
+- Stories 12.1-12.12 (40-50sp, ~2-3 semanas)
+- PR: Double-shim collapse fix + Art. VI gate (discovered by Quinn)
+- Actualizar AC de stories 12.1/12.2/12.11 com novos ownership gaps
+
+**Timeline de Continuidade:**
+- Cont 46 (Phase 2): ✅ PRD extended with FRs/NFRs
+- Cont 47 (Phase 3): ✅ Gap reconciliation + spec verification
+- **Cont 48 (Phase 4): @dev implements stories 12.1-12.12 (40-50sp)**
+- **Cont 49+ (Phase 5): @qa + @devops QA gate + production push**
+
+---
+
 # ✅ Session 2026-06-17 (Cont 46) — PHASE 2: PRD EXTENSION COMPLETE | HANDOFF FOR CONT 47 READY
 
 **Status: PHASE 2 ✅ 100% COMPLETE | Fase 3 (Tech Search & Specs) PRONTO PARA INICIAR**
@@ -2763,4 +2822,44 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: f36f612 — 2026-06-17 16:13
 **Branch:** main
 **Commit:** docs: CONT 44-46 EPIC-12 Phase 0-2 Complete (Architecture + PRD + Handoffs)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:16
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:16
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:17
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:18
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:19
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:20
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:20
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 12ae14e — 2026-06-17 16:22
+**Branch:** main
+**Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
