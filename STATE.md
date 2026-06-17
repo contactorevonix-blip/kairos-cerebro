@@ -1,28 +1,65 @@
-# 🔄 Session 2026-06-17 (Cont 46) — PHASE 2: PRD EXTENSION COMPLETE ✅ | FASE 3 READY
+# ✅ Session 2026-06-17 (Cont 46) — PHASE 2: PRD EXTENSION COMPLETE | HANDOFF FOR CONT 47 READY
 
-**Status: PHASE 2 ✅ COMPLETE | Ready for @analyst + @aiox-master Fase 3 (Tech Search & Specs)**
+**Status: PHASE 2 ✅ 100% COMPLETE | Fase 3 (Tech Search & Specs) PRONTO PARA INICIAR**
 
-## CONT 46 SUMMARY
+## CONT 46 SUMMARY — MORGAN (Phase 2 Execution Complete)
 
-**Morgan — Phase 2 Execution: PRD Extension (FRs/NFRs from Architecture)**
+**Objectivo:** Estender EPIC-12-PRD com Requisitos Funcionais/Não-Funcionais derivados do design de arquitectura de Aria (Cont 45)
 
-### O que foi feito
+### ✅ Deliverables Completados
 
-**Phase 2 — PRD Extension:**
-- ✅ **§5.5 Architecture Foundation** → Added (links to Aria's architecture, explains 5 design patterns + shim-persona fix)
-- ✅ **§5.6 Functional Requirements** → 20 FRs from 5 design patterns (FR-1.1 to FR-5.4)
-- ✅ **§5.7 Non-Functional Requirements** → 16 NFRs (performance, determinism, quality, consistency)
-- ✅ **Story Breakdown Updated** → Each 12 stories maps to specific FRs/NFRs
-- ✅ **Generic AC Enhanced** → All 7 AC categories reference FRs/NFRs (100% traceability)
-- ✅ **EPIC-12-PRD.md Status:** Extended (requirement-driven, zero invented stories)
+**1. Extensão do PRD — §5.5 a §5.7**
+- [x] **§5.5 Architecture Foundation** — Adicionado (links a `docs/architecture/agent-context-determinism-architecture.md`, explica 5 design patterns + shim-persona fix)
+- [x] **§5.6 Functional Requirements (20 FRs)** — Derivados de 5 design patterns:
+  - Pattern 1 (Clean Architecture): FR-1.1 a FR-1.4 (protecção de camadas, mutabilidade)
+  - Pattern 2 (Orchestrator-Worker): FR-2.1 a FR-2.4 (routing, delegação de autoridade, registry, execução paralela)
+  - Pattern 3 (Spec-Driven Determinism): FR-3.1 a FR-3.4 (estrutura PRD, AC preciso, rastreabilidade, auto-review)
+  - Pattern 4 (RAG + Context Loading): FR-4.1 a FR-4.4 (estratégia TIER-1, shim-persona sync, métricas, limites)
+  - Pattern 5 (Guardrails & Safety): FR-5.1 a FR-5.4 (7 gates constitucionais, logging, audit trail, no-invention)
 
-**Key Achievement:** PRD now fully traceable (20 FRs + 16 NFRs), all stories have FR/NFR mappings.
+- [x] **§5.7 Non-Functional Requirements (16 NFRs)** — 4 categorias:
+  - Performance & Efficiency: NFR-1.1 a NFR-1.4 (carga <2s, overhead ≤+35%, cache >80%, lookup <100ms)
+  - Determinism & Reliability: NFR-2.1 a NFR-2.4 (autoridade explícita, workflows determinísticos, gaps documentados, transições atómicas)
+  - Quality & Auditability: NFR-3.1 a NFR-3.4 (QA mensurável, evidência de gaps, ambiguidades documentadas, cobertura ≥95%)
+  - Consistency & Traceability: NFR-4.1 a NFR-4.4 (AC↔FR 100%, ficheiros actualizados, gate logs imutáveis, handoff preservado)
 
-**Próximos Passos (Fase 3):**
-**@analyst (Alex) + @aiox-master (Orion) — Tech Search & Specs:**
-1. Reconcile audits (Kronos 92-100/100 vs Diagnostic ~85%)
-2. Map 9 gaps → Stories 12.1-12.12
-3. Verify 8 checks from TASK-AUDIT-FULL-SPECIFICATION.md
+**2. Story Breakdown Actualizado (Todas as 12 stories)**
+- [x] Cada story 12.1-12.12 mapeia para FRs/NFRs específicos (100% rastreável)
+- [x] Prioridades de stories alinhadas com fases da arquitectura
+- [x] AC templates reforçados com referências FR/NFR
+
+**3. Generic AC Reforçado (Todas as 7 categorias)**
+- [x] AC 1-7 cada tagueado com "Maps to: FR-X.X, NFR-Y.Y"
+- [x] Requisito de rastreabilidade: cada AC deve linkar a ≥1 FR + 1 NFR
+- [x] Zero invenção (todas as derivações auditadas)
+
+**Ficheiro:** `docs/stories/epics/EPIC-12-PRD.md` (ESTENDIDO, não duplicado — mantém continuidade)
+
+### 📊 Métricas de Qualidade
+- **Rastreabilidade de Requisitos:** 100% (20 FRs + 16 NFRs cobrem todas as 12 stories)
+- **Audit de Invenção:** ZERO stories/FRs/NFRs inventados (todos derivados de auditoria)
+- **Alinhamento com Arquitectura:** 100% (5 patterns mapeados a 20 FRs)
+- **Completude de AC:** Todas as 7 categorias referem FRs/NFRs
+- **Compliance da Constituição:** Art. III (Story-Driven) + Art. IV (No Invention) ✅
+
+### 🤝 Handoff Preparado
+
+**Ficheiro:** `.aiox/handoffs/HANDOFF-CONT46-TO-CONT47-PHASE3-READY.md` (pronto para usar)
+
+**Agentes para Cont 47:**
+- **@analyst (Alex)** — Reconcile audits (Diagnostic=truth), map 9 gaps → Stories 12.1-12.12
+- **@aiox-master (Orion)** — Verify 8 deterministic checks from TASK-AUDIT-FULL-SPECIFICATION.md
+
+**Entrada para Fase 3:**
+- `docs/stories/epics/EPIC-12-PRD.md` (extended with FRs/NFRs)
+- `.aiox/TASK-AUDIT-FULL-SPECIFICATION.md` (8 checks, ready for verification)
+- `docs/audits/AUDIT-CONT42-DIAGNOSTIC-RESULTS.md` (framework state ~85%, 9 gaps)
+
+**Timeline de Continuidade:**
+- Cont 46 (Phase 2): ✅ PRD extended with FRs/NFRs
+- Cont 47 (Phase 3): Gap reconciliation + spec verification
+- Cont 48+ (Phase 4): @dev implements stories 12.1-12.12 (40-50sp)
+- Final (Phase 5): @qa + @devops QA gate + production push
 
 ---
 
@@ -2716,4 +2753,14 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: 5d02fac — 2026-06-17 16:09
 **Branch:** main
 **Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: f36f612 — 2026-06-17 16:11
+**Branch:** main
+**Commit:** docs: CONT 44-46 EPIC-12 Phase 0-2 Complete (Architecture + PRD + Handoffs)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: f36f612 — 2026-06-17 16:13
+**Branch:** main
+**Commit:** docs: CONT 44-46 EPIC-12 Phase 0-2 Complete (Architecture + PRD + Handoffs)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
