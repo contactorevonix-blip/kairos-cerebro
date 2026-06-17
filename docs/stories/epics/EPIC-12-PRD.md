@@ -2,7 +2,9 @@
 
 **Status:** Ready for Story Creation  
 **Created:** 2026-06-15 (Cont 42)  
-**Owner:** @pm (Morgan) / @po (Pax)
+**Updated:** 2026-06-15 (Cont 43) — enriched with research insights: §5.5 research-derived testing principles (spec-driven determinism, ensemble validation, barrier sync), §8.5 anti-patterns, §9.5 Production Readiness 7-domain checklist, §9.7 phase barriers  
+**Owner:** @pm (Morgan) / @po (Pax)  
+**Canonical file:** `docs/stories/epics/EPIC-12-PRD.md` (alias: `EPIC-12-AGENT-TESTING-PRD.md`)
 
 ---
 
@@ -122,33 +124,177 @@ Each story validates agent against documented spec:
 3. **Workflow integration** — Agent role in SDC/QA Loop/Spec Pipeline/Brownfield
 4. **Gap comparison** — Actual vs Morgan's audit findings
 
+### Research-Derived Testing Principles (Cont 43 research, 82/100)
+
+Three patterns from `docs/research/2026-06-15-framework-architecture/` are MANDATORY in how each story is written and executed:
+
+| Principle | What it means for EPIC-12 | Where applied |
+|-----------|---------------------------|---------------|
+| **Specification-Driven Determinism** | ACs are precise and reproducible, never vague natural language. Same spec → same verdict, regardless of which agent executes the test. No "should work well" — only measurable, binary criteria. | Every AC in 12.1-12.12 (source: research §3 / recommendations #3) |
+| **Ensemble Validation** | No single agent self-certifies. Each tested agent is validated by ≥2 independent roles (the agent under test + @qa gate + cross-story integration). Multi-role agreement is required for PASS. | Per-story gate (§9) + Epic gate (source: research recommendations, EPIC-8 multi-model precedent) |
+| **Barrier Synchronization** | Explicit phase gates. No story in Week N+1 starts until the Week N barrier (entry/exit criteria, §9.7) is cleared. Prevents partial-completion drift. | Phase gates (§9.7) + Timeline (§13) (source: research §4 synchronization) |
+
+**Task-First contract model** (research recommendation #6): each story is written as a *task contract* (inputs / outputs / acceptance_criteria), with the agent as interchangeable executor. The contract is law; the executor is replaceable. This directly satisfies the audit insight that tasks — not agents — are the unit of guarantee.
+
+---
+
+## 5.5 ARCHITECTURE FOUNDATION (Phase 1 Architecture Design)
+
+**Reference:** `docs/architecture/agent-context-determinism-architecture.md` (Aria, Cont 45)
+
+### Problem Solved by This Architecture
+
+**Current state:** Agents load ~16% context (ambiguous, gaps, invention risk)  
+**Target state:** Agents load 95%+ context (deterministic, zero gaps, no invention)  
+
+**Key gap identified:** Shim-persona integration (shim 102 ln can't auto-load persona 887 ln)  
+**Solution:** Enhanced shim activation auto-loads persona + tasks + workflows + memory = 937+ lines context
+
+### 5 Design Patterns (Research-Backed, 82/100 Coverage)
+
+1. **Clean Architecture → L1/L2/L3/L4 Layering**
+   - L1 (Framework core): immutable, deny-rule protected
+   - L2 (Framework templates): extend-only
+   - L3 (Project config): mutable with governance
+   - L4 (Project runtime): always mutable
+
+2. **Orchestrator-Worker → Central Agent Routing**
+   - @aiox-master (Orion) orchestrates workflow, agent sequencing
+   - Registry maps task types → agent responsibilities
+   - Authority explicit (Art. II: devops exclusive)
+
+3. **Spec-Driven Determinism → 150-Feature Specs**
+   - PRDs: 30-50 lines structured (FRs/NFRs/edge cases/gates)
+   - Stories: 10-15 lines + 5-10 AC (Given/When/Then)
+   - Quality gates: 7 checks (code, tests, AC, regression, perf, security, docs)
+
+4. **RAG + Knowledge Management → Multi-Tier Context Loading**
+   - Tier A (Always): Constitution + rules + workflows
+   - Tier B (On role): Agent-specific tasks/templates/memory
+   - Tier C (On demand): Registry, configs (cached)
+   - Result: 2500-4000 tokens (95%+ coverage, +35% overhead)
+
+5. **Guardrails & Safety → 7 Constitutional Gates**
+   - Art. I (CLI First), Art. II (Agent Authority), Art. III (Story-Driven), Art. IV (No Invention), Art. V (Quality First), Art. VI-VII (Boundary)
+   - Gates enforced at hook layer (PreToolUse, etc.)
+   - Decision logs + metrics for audit trail
+
+---
+
+## 5.6 FUNCTIONAL REQUIREMENTS (Derived from 5 Design Patterns)
+
+### From Pattern 1: Clean Architecture (L1/L2/L3/L4)
+
+| ID | Requirement | Acceptance | Maps to Stories |
+|----|-------------|-----------|----------------|
+| **FR-1.1** | L1 framework core (.aiox-core/core/) must be protected from writes | Deny rules in .claude/settings.json block all Write/Edit to L1 | 12.11 (@aiox-master) |
+| **FR-1.2** | L2 framework templates must be extend-only (no overwrites) | Deny rules prevent Write/Edit to .aiox-core/development/ | 12.11 (@aiox-master) |
+| **FR-1.3** | L4 project runtime (docs/stories/, squads/, tests/) must be always mutable | Write/Edit to L4 never blocked, full developer control | 12.1-12.6 all stories test L4 mutability |
+| **FR-1.4** | Layer boundaries must be enforced at hook layer (PreToolUse) | enforce-quality-gates.cjs detects and blocks cross-layer violations | 12.11 + gate testing in all stories |
+
+### From Pattern 2: Orchestrator-Worker
+
+| ID | Requirement | Acceptance | Maps to Stories |
+|----|-------------|-----------|----------------|
+| **FR-2.1** | @aiox-master must route all tasks to appropriate specialized agents | Smart routing via .claude/rules/smart-routing.md decision tree works | 12.11 (@aiox-master) |
+| **FR-2.2** | @devops authority (Art. II) must be enforced exclusively for git push/PR | enforce-agent-authority.cjs blocks non-@devops push/PR attempts | 12.9 (@devops testing) |
+| **FR-2.3** | Agent authority must be explicit in .claude/rules/agent-authority.md | Agent matrix (who can do what) is canonical, no ambiguity | 12.11 (@aiox-master) + all agent stories |
+| **FR-2.4** | Agent registry (entity-registry.yaml) must map task types → responsible agents | Registry lookups work, task routing is deterministic | 12.11 + 12.12 (@squad-creator) |
+
+### From Pattern 3: Spec-Driven Determinism
+
+| ID | Requirement | Acceptance | Maps to Stories |
+|----|-------------|-----------|----------------|
+| **FR-3.1** | PRDs must be structured (FRs/NFRs/edge cases/gates, 30-50 lines) | EPIC-12-PRD.md + story PRDs follow template, no vague language | 12.4 (@pm) |
+| **FR-3.2** | Stories must have precise AC (Given/When/Then format, 5-10 ACs) | All story AC are measurable and reproducible (not "should work well") | 12.1-12.12 all stories have precise AC |
+| **FR-3.3** | Acceptance criteria must be 100% traceable to requirements | Every AC traces to FR/NFR in this PRD, no invented criteria | 12.6 (@sm) gap traceability matrix |
+| **FR-3.4** | CodeRabbit auto-review must detect pattern violations | Auto-review catches code outside spec scope | 12.1 (@dev) testing |
+
+### From Pattern 4: RAG + Context Loading
+
+| ID | Requirement | Acceptance | Maps to Stories |
+|----|-------------|-----------|----------------|
+| **FR-4.1** | Agent activation must load Tier A (Constitution + rules) deterministically | Agent loads .aiox-core/constitution.md + .claude/rules/* on activation | 12.1-12.12 all stories verify this |
+| **FR-4.2** | Shim must auto-load persona (102 ln shim → 937+ ln context) | Shim activation reads persona + tasks + workflows + memory | 12.1-12.2 (shim enhancement story) |
+| **FR-4.3** | Context loading must complete in <500ms on agent activation | Measured load time < 500ms, no timeout failures | 12.9-12.10 performance testing |
+| **FR-4.4** | Agent memory must persist between sessions (handoff protocol) | Memory files in .claude/agent-memory/ auto-loaded, context carries forward | 12.1-12.12 all stories test session continuity |
+
+### From Pattern 5: Guardrails & Safety
+
+| ID | Requirement | Acceptance | Maps to Stories |
+|----|-------------|-----------|----------------|
+| **FR-5.1** | 7 Constitutional gates must be active and enforced | All 7 gates (Art. I-VII) function, violations are blocked/logged | 12.1-12.12 all stories + gate validation |
+| **FR-5.2** | Gate decisions must be audit-logged (JSONL format) | .aiox/gate-logs/ contains timestamped decision logs, searchable | 12.11 (@aiox-master) |
+| **FR-5.3** | No gate can fail silently | All gate verdicts recorded, metrics tracked in .synapse/metrics/ | 12.11 (@aiox-master) |
+| **FR-5.4** | Art. IV (No Invention) must prevent spec statements without traceability | enforce-no-invention.cjs warns/blocks statements not traced to requirements | 12.1-12.6 all stories validate |
+
+---
+
+## 5.7 NON-FUNCTIONAL REQUIREMENTS (Derived from Guarantees)
+
+### Performance & Efficiency
+
+| ID | Requirement | Target | Maps to Stories |
+|----|-------------|--------|----------------|
+| **NFR-1.1** | Agent context load time | <500ms on activation | 12.9-12.10 |
+| **NFR-1.2** | Token overhead for +95% context | ≤+35% (1500 → 2000 tokens) | 12.9-12.10 |
+| **NFR-1.3** | Cache hit rate (session + agent levels) | >80% | 12.9-12.10 |
+| **NFR-1.4** | Framework registry resolution | <100ms per entity lookup | 12.11-12.12 |
+
+### Determinism & Reliability
+
+| ID | Requirement | Target | Maps to Stories |
+|----|-------------|--------|----------------|
+| **NFR-2.1** | Zero ambiguities in agent authority | 100% authority explicit in agent-authority.md | 12.1-12.12 |
+| **NFR-2.2** | Workflow state transition determinism | 100% (state transitions locked, no loops/skips) | 12.1-12.6 workflow testing |
+| **NFR-2.3** | Context gap coverage on activation | 95%+ (38 TIER 1/2/3 files loaded) | 12.1-12.12 |
+| **NFR-2.4** | Story status edge case coverage | 100% (Draft→Ready→InProgress→InReview→Done transitions all tested) | 12.1-12.5 |
+
+### Quality & Auditability
+
+| ID | Requirement | Target | Maps to Stories |
+|----|-------------|--------|----------------|
+| **NFR-3.1** | QA gate check coverage | 7/7 checks on every story | 12.2 (@qa) |
+| **NFR-3.2** | Gap remediation evidence trail | 31/31 gaps traced to story or escalation | 12.6 gap matrix |
+| **NFR-3.3** | Ambiguity clarification documentation | 21/21 ambiguities documented in .claude/rules/ | 12.1-12.12 |
+| **NFR-3.4** | Agent file coverage | 100% (12/12 agents tested, 0 skipped) | 12.1-12.12 |
+
+### Consistency & Traceability
+
+| ID | Requirement | Target | Maps to Stories |
+|----|-------------|--------|----------------|
+| **NFR-4.1** | AC to FR/NFR traceability | 100% (every AC links to FR/NFR) | 12.1-12.12 story AC |
+| **NFR-4.2** | No dangling file references | 0 (all agent files, templates, tasks exist) | 12.1-12.12 |
+| **NFR-4.3** | Constitutional gate decision logs | 100% audit trail (JSONL, timestamped) | 12.11 gate logging |
+| **NFR-4.4** | Hand-off context preservation | 100% (memory carries forward, zero loss between sessions) | 12.1-12.12 continuity testing |
+
 ---
 
 ## 6. STORY BREAKDOWN (12 Stories, ~4-5sp each)
 
 ### Core Agents (Stories 12.1-12.6) — Week 1
 
-| Story | Agent | Focus | Effort |
-|-------|-------|-------|--------|
-| **12.1** | @dev | Developer implementation, YOLO/Interactive modes, CodeRabbit integration | 5sp |
-| **12.2** | @qa | QA gates (PASS/CONCERNS/FAIL verdicts), evidence validation | 4sp |
-| **12.3** | @architect | Architecture decisions, tech stack validation, design authority | 4sp |
-| **12.4** | @pm | PRD creation, epic orchestration, requirements tracing | 4sp |
-| **12.5** | @po | Story validation (10-point checklist), backlog management | 4sp |
-| **12.6** | @sm | Story creation from templates, epic context tracking | 4sp |
+| Story | Agent | Focus | FRs | NFRs | Effort |
+|-------|-------|-------|-----|------|--------|
+| **12.1** | @dev | Developer implementation, YOLO/Interactive modes, CodeRabbit integration | FR-3.4, FR-4.1/4.4 | NFR-2.3, NFR-3.1 | 5sp |
+| **12.2** | @qa | QA gates (PASS/CONCERNS/FAIL verdicts), evidence validation | FR-5.1/5.2/5.3, FR-3.3 | NFR-3.1, NFR-4.3 | 4sp |
+| **12.3** | @architect | Architecture decisions, tech stack validation, design authority | FR-1.4, FR-2.3 | NFR-2.1, NFR-2.2 | 4sp |
+| **12.4** | @pm | PRD creation, epic orchestration, requirements tracing | FR-3.1/3.2, FR-2.1 | NFR-4.1 (traceability) | 4sp |
+| **12.5** | @po | Story validation (10-point checklist), backlog management | FR-3.3, FR-2.3 | NFR-2.4, NFR-3.2 | 4sp |
+| **12.6** | @sm | Story creation from templates, epic context tracking | FR-3.2, FR-3.3 | NFR-3.3, NFR-4.2 | 4sp |
 
 **Week 1 Subtotal:** 25sp
 
 ### Specialist Agents (Stories 12.7-12.12) — Week 2
 
-| Story | Agent | Focus | Effort |
-|-------|-------|-------|--------|
-| **12.7** | @analyst | Research tasks, evidence gathering, gap analysis | 4sp |
-| **12.8** | @data-engineer | Schema design, migrations, RLS policies | 4sp |
-| **12.9** | @devops | git operations (exclusive), CI/CD, MCP management | 5sp |
-| **12.10** | @ux-design-expert | UX/UI design, accessibility, component design | 4sp |
-| **12.11** | @aiox-master | Framework governance, agent orchestration, constitutional enforcement | 5sp |
-| **12.12** | @squad-creator | Squad creation, agent cloning, team orchestration | 4sp |
+| Story | Agent | Focus | FRs | NFRs | Effort |
+|-------|-------|-------|-----|------|--------|
+| **12.7** | @analyst | Research tasks, evidence gathering, gap analysis | FR-3.1, FR-5.4 | NFR-3.2, NFR-4.1 | 4sp |
+| **12.8** | @data-engineer | Schema design, migrations, RLS policies | FR-1.3, FR-2.4 | NFR-2.3, NFR-4.2 | 4sp |
+| **12.9** | @devops | git operations (exclusive), CI/CD, MCP management | FR-2.2 (Art. II exclusive), FR-5.1/5.2 | NFR-1.1/1.2/1.3, NFR-4.3 | 5sp |
+| **12.10** | @ux-design-expert | UX/UI design, accessibility, component design | FR-1.3, FR-3.2 | NFR-2.3, NFR-4.2 | 4sp |
+| **12.11** | @aiox-master | Framework governance, agent orchestration, constitutional enforcement | FR-1.1/1.2/1.4, FR-2.1/2.3, FR-5.1/5.2/5.3 | NFR-2.1, NFR-4.3, NFR-4.4 | 5sp |
+| **12.12** | @squad-creator | Squad creation, agent cloning, team orchestration | FR-2.4, FR-4.2, FR-4.4 | NFR-2.3, NFR-4.4 | 4sp |
 
 **Week 2 Subtotal:** 30sp
 
@@ -205,35 +351,50 @@ Each agent testing story MUST have:
 - [ ] Agent file (.claude/agents/{agent-name}.md) exists and is readable
 - [ ] Agent persona, commands, dependencies clearly documented
 - [ ] Agent authority scope matches Constitution (Art. II) and agent-authority.md
+- **Maps to:** FR-2.3, NFR-2.1, NFR-4.4
 
 ### 2. Dependencies & Commands Validated
 - [ ] All agent commands (*command) are defined and documented
 - [ ] All referenced tools (Bash, Edit, Read, etc.) available
 - [ ] All agent-specific rules loaded (from .claude/rules/)
+- [ ] Context load time measured <500ms (if applicable)
+- **Maps to:** FR-4.1, NFR-1.1, NFR-2.3
 
 ### 3. Memory Files Loaded
 - [ ] Agent memory exists: .claude/agent-memory/{agent-name}/MEMORY.md
 - [ ] Auto-memory imports working (if applicable)
-- [ ] Previous session context accessible
+- [ ] Previous session context accessible (handoff protocol)
+- [ ] Session continuity verified (memory carries forward)
+- **Maps to:** FR-4.4, NFR-4.4
 
 ### 4. Workflow Integration Tested
 - [ ] Agent tested in Story Development Cycle (create → validate → implement → review → push)
 - [ ] Agent tested in [1 other workflow: QA Loop OR Spec Pipeline OR Brownfield]
 - [ ] No workflow blockers identified
+- [ ] State transitions are deterministic (no loops, edge cases handled)
+- **Maps to:** FR-2.1, NFR-2.2, NFR-2.4
 
 ### 5. Morgan's Gaps Addressed
 - [ ] [Gap #X] verified as working OR escalated with reason
 - [ ] [Gap #Y] verified as working OR escalated with reason
 - [ ] (n=2-3 gaps per agent)
+- [ ] Gaps traced to gap traceability matrix (Story 12.6)
+- **Maps to:** NFR-3.2 (gap remediation evidence)
 
 ### 6. Constitutional Gates Tested
-- [ ] Agent actions enforced against Art. II (agent authority) gate
-- [ ] Agent actions enforced against Art. III (story-driven) gate
-- [ ] Agent actions enforced against Art. VII (framework boundary) gate
+- [ ] Agent actions enforced against Art. II (agent authority) gate — FR-2.2
+- [ ] Agent actions enforced against Art. III (story-driven) gate — FR-5.1
+- [ ] Agent actions enforced against Art. IV (no invention) gate — FR-5.4
+- [ ] Agent actions enforced against Art. VII (framework boundary) gate — FR-1.4
+- **Maps to:** FR-5.1/5.2/5.3/5.4, NFR-3.1, NFR-4.3
 
-### 7. No Dangling References
+### 7. No Dangling References (FR/NFR Traceability)
 - [ ] All agent file references are valid (no 404s)
 - [ ] All dependent files exist
+- [ ] Every AC references at least 1 FR and 1 NFR (100% traceability)
+- [ ] AC are precise, measurable, reproducible (not vague language)
+- **Maps to:** FR-3.2/3.3, NFR-4.1, NFR-4.2
+```
 - [ ] Cross-references verified (agent → rules, agent → workflows)
 
 ### 8. Documentation Complete
@@ -251,6 +412,20 @@ Each agent testing story MUST have:
 - [ ] All test prerequisites met
 - [ ] Clear next steps documented
 ```
+
+---
+
+## 8.5. ANTI-PATTERNS TO AVOID (Research §5)
+
+The research flags three architectural anti-patterns that EPIC-12 stories MUST NOT introduce or perpetuate. Each story author/implementer checks against these:
+
+| Anti-Pattern | Symptom in agent testing | Guard rail |
+|--------------|--------------------------|------------|
+| **Big Ball of Mud** | A story can't test @dev without entangling @qa logic; no perceivable boundary. | Each story tests ONE agent in isolation; cross-agent behavior tested only in the dedicated integration story (Week 3). |
+| **Distributed Monolith** | Story 12.1 (@dev) cannot pass unless 12.2 (@qa) runs first — false modularity. | Stories are independent (research "avoid #2"). The test suite orchestrates dependencies; stories declare them but do not hard-couple. |
+| **Security Architecture Debt** | Hardcoded credentials surface in `.claude/`, `.aiox-core/data/`, or agent memory during testing. | Security AC (see §9.5 Production Readiness) runs on every agent: zero secrets in agent files, git history, or memory. |
+
+Plus three execution traps (research "Top 3 to avoid"): **Framework Reinvention** (REUSE > ADAPT > CREATE — reuse EPIC-8 auto-heal, don't build a new test harness), **Modularity Violations** (no inter-story hard dependencies), and **Golden Hammer** (do not reuse the @dev test template verbatim for @architect — customize ACs per agent domain).
 
 ---
 
@@ -272,6 +447,33 @@ Each agent testing story MUST have:
 
 **Verdict:** ALL stories PASS or (CONCERNS with complete notes) → EPIC-12 PASS
 
+### 9.5. Production Readiness Checklist (7 Domains)
+
+Per research recommendation #5, the testing framework itself must be production-ready BEFORE EPIC-12 ships. Target: **≥70% complete** at Epic gate (research §"Success Criteria" #7). Distributed as ~3-5sp across the 12 stories.
+
+| # | Domain | Checklist items | Owner | Evidence |
+|---|--------|-----------------|-------|----------|
+| 1 | **Security** | No secrets in `.claude/`, `.aiox-core/data/`, or agent memory; git history clean; Art. II push-authority enforced; audit log of agent actions exists | @qa + @devops | `git log` scan + gate-logs |
+| 2 | **Monitoring** | Agent execution metrics captured in `.synapse/metrics/hook-metrics.json`; error-rate tracking per agent; activation-tracker functional | @dev | hook-metrics.json deltas |
+| 3 | **Performance** | SLO defined per agent task (p95 < 2s median response); no test exceeds 3x token budget | @qa | timing-logger data |
+| 4 | **Error Handling** | Each agent degrades gracefully on bad input (invalid story ID → informative error, not crash); gates fail-safe not fail-open | @dev | error-path test in each story AC |
+| 5 | **Backup / Persistence** | Test-suite results persisted (`.aiox/task-logs/12.*.json`); gate verdicts logged; gap-traceability matrix saved | @dev + @qa | task-logs present |
+| 6 | **Configuration** | Test configs externalized (no hardcoded paths in stories); `core-config.yaml` drives behavior; boundary toggle respected | @po | config refs in stories |
+| 7 | **Documentation** | Runbook for test failures; 21 ambiguities clarified in `.claude/rules/`; each agent's tested scenarios in File List | @sm + @analyst | rules/ + story File Lists |
+
+**Gate rule:** Production Readiness is scored at the Epic gate as `(items passed) / (total applicable)`. < 70% → Epic gate is CONCERNS (not FAIL) with a remediation backlog; the 7-domain coverage carries into the V4 roadmap.
+
+### 9.7. Phase Gates — Barrier Synchronization (Research §4)
+
+Explicit barriers between phases. A barrier MUST clear before the next phase begins — no overlapping partial completion.
+
+| Barrier | Entry criteria | Exit criteria (must ALL hold) |
+|---------|----------------|-------------------------------|
+| **B0 → Week 1** | PRD approved (this doc); Morgan's 31 gaps + 21 ambiguities extracted; 12 stories created + @po-validated (≥7/10) | All 12 stories status = Ready |
+| **Week 1 → Week 2** | Core-agent stories (12.1-12.6) implemented | 12.1-12.6 all QA PASS/CONCERNS; zero FAIL outstanding |
+| **Week 2 → Week 3** | Specialist-agent stories (12.7-12.12) implemented | 12.7-12.12 all QA PASS/CONCERNS; all 12 agents covered |
+| **Week 3 → Done** | Integration + gap remediation executed | 31/31 gaps explained-or-escalated; 21/21 ambiguities documented; 4/4 workflows E2E; Production Readiness ≥70%; Epic gate PASS |
+
 ---
 
 ## 10. SUCCESS METRICS
@@ -287,6 +489,9 @@ Each agent testing story MUST have:
 | Gate Enforcement | 7/7 | gates verified |
 | QA Verdicts | 12x PASS or CONCERNS | stories |
 | File Coverage | 100% | of agent files |
+| Production Readiness | ≥ 70% | of 7-domain checklist (§9.5) |
+| Ensemble Validation | ≥ 2 roles per agent | independent validators (no self-cert) |
+| Phase Barriers Cleared | 4/4 | B0→W1, W1→W2, W2→W3, W3→Done (§9.7) |
 
 ### Qualitative
 

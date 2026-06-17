@@ -1,3 +1,80 @@
+# 🔄 Session 2026-06-17 (Cont 46) — PHASE 2: PRD EXTENSION COMPLETE ✅ | FASE 3 READY
+
+**Status: PHASE 2 ✅ COMPLETE | Ready for @analyst + @aiox-master Fase 3 (Tech Search & Specs)**
+
+## CONT 46 SUMMARY
+
+**Morgan — Phase 2 Execution: PRD Extension (FRs/NFRs from Architecture)**
+
+### O que foi feito
+
+**Phase 2 — PRD Extension:**
+- ✅ **§5.5 Architecture Foundation** → Added (links to Aria's architecture, explains 5 design patterns + shim-persona fix)
+- ✅ **§5.6 Functional Requirements** → 20 FRs from 5 design patterns (FR-1.1 to FR-5.4)
+- ✅ **§5.7 Non-Functional Requirements** → 16 NFRs (performance, determinism, quality, consistency)
+- ✅ **Story Breakdown Updated** → Each 12 stories maps to specific FRs/NFRs
+- ✅ **Generic AC Enhanced** → All 7 AC categories reference FRs/NFRs (100% traceability)
+- ✅ **EPIC-12-PRD.md Status:** Extended (requirement-driven, zero invented stories)
+
+**Key Achievement:** PRD now fully traceable (20 FRs + 16 NFRs), all stories have FR/NFR mappings.
+
+**Próximos Passos (Fase 3):**
+**@analyst (Alex) + @aiox-master (Orion) — Tech Search & Specs:**
+1. Reconcile audits (Kronos 92-100/100 vs Diagnostic ~85%)
+2. Map 9 gaps → Stories 12.1-12.12
+3. Verify 8 checks from TASK-AUDIT-FULL-SPECIFICATION.md
+
+---
+
+# 🔄 Session 2026-06-17 (Cont 45) — PHASE 1: ARCHITECTURE DESIGN COMPLETE ✅ | FASE 2 READY
+
+**Status: PHASE 1 ✅ COMPLETE | Ready for @pm Fase 2 (PRD Extension)**
+
+## CONT 45 SUMMARY
+
+**Aria — Phase 1 Execution: Architecture Design (Agent Context Determinism)**
+
+---
+
+# 🔄 Session 2026-06-17 (Cont 44) — PHASE 0: INPUT CURATION COMPLETE ✅ | FASE 1 READY
+
+**Status: PHASE 0 ✅ COMPLETE + ZERO CONTRADICTIONS | Ready for @architect Fase 1**
+
+## CONT 44 SUMMARY
+
+**Orion — Phase 0 Execution: Input Audit & Reconciliation**
+
+### O que foi feito
+
+**Phase 0 — Input Curation (6 items verified):**
+- ✅ **Item 1:** 38 ficheiros TIER 1/2/3 — todos existem, inventariados em `HANDOFF-CONT42-TO-CONT43-EPIC12-GAPS-ANALYSIS.md`
+- ✅ **Item 2:** 8 gaps críticos — cross-verificados entre `Gap Analysis (Cont 42)` + `Sync Audit (Cont 42)`, zero contradições
+- ✅ **Item 3:** Research externa — 21 fontes (82/100 coverage), Design Patterns: Clean Architecture, Orchestrator-Worker, Spec-Driven Determinism, RAG, Guardrails
+- ✅ **Item 4:** Estado real de activação — ~85% sincronizado (13 hooks active, agents 12/12 exist, Constitution not auto-loaded)
+- ✅ **Item 5:** PRD + 12 stories — `EPIC-12-PRD.md` Ready, all 12.{1-12}.story.md present, AC ready for iteration
+- ✅ **Item 6:** Audits contraditórios — **RECONCILED**: Kronos (92-100/100 personas) + Diagnostic (~85% two-layer) = Diagnostic authoritative (shim + persona audit completed)
+
+**Critical Finding — Audit Reconciliation:**
+- Kronos auditou só a camada persona (`.claude/commands/AIOX/agents/*.md`, 887 linhas) → score 92-100/100 correcto
+- Diagnostic descobriu a arquitectura two-layer: shim (`.claude/agents/aiox-dev.md`, 102 linhas) NÃO tem command_loader/veto
+- **Implicação:** EPIC-12 audit deve testar AMBAS as camadas, não só a persona completa
+- **Source of truth:** Diagnostic (porque cobriu camada adicional que Kronos perdeu)
+
+**Phase 0 Gate Output:**
+- Documento consolidado: `.aiox/handoffs/PHASE0-INPUT-PACKAGE-VERIFIED.md`
+- Status: ALL 6 ITEMS VERIFIED, ZERO CONTRADICTIONS UNRESOLVED
+- Ready for Fase 1 input
+
+### Próximos Passos (Fase 1)
+
+**@architect (Aria) — Architecture Design:**
+1. Input: `PHASE0-INPUT-PACKAGE-VERIFIED.md`
+2. Task: Create `docs/architecture/agent-context-determinism-architecture.md`
+3. **Key requirement:** Design Patterns mapping (5 patterns from research → AIOX Implementation)
+4. Deadline: End of next session (Cont 45)
+
+---
+
 # 🔄 Session 2026-06-17 (Cont 43) — PLAN MODE: ARQUITECTURA → PRD → TECH SEARCH (PHASE 0 READY)
 
 **Status: PLAN APPROVED + PHASE 0 (INPUT CURATION) READY TO START | Handoff to Cont 44**
@@ -2579,4 +2656,64 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: a9ba6d8 — 2026-06-16 22:59
 **Branch:** main
 **Commit:** docs: CONT 42 — EPIC-12 Gap Analysis Complete
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-16 23:02
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:42
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:44
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:49
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:51
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:54
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 15:59
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 16:04
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 16:06
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 16:06
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 16:07
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 5d02fac — 2026-06-17 16:09
+**Branch:** main
+**Commit:** docs: CONT 43 — Plan Mode Complete: 4-Phase Execution Design for Agent Context Determinism
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
