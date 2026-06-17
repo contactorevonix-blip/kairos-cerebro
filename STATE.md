@@ -1,6 +1,26 @@
-# ✅ Session 2026-06-17 (Cont 47) — PHASE 3: TECH SEARCH & SPECS COMPLETE | HANDOFF FOR CONT 48 READY
+# ⚠️ Session 2026-06-17 (Cont 48) — PHASE 4A: STORY FINALIZATION (Handoff Drift Discovered)
 
-**Status: PHASE 3 ✅ 100% COMPLETE | Fase 4 (Implementation: Stories 12.1-12.12) PRONTO PARA INICIAR**
+**Status: PHASE 4A ⚠️ STORY AC UPDATES APPLIED | Git commit blocked by gate | Alignment needed before @po validation**
+
+## CONT 48 SUMMARY (Partial)
+
+**Critical Discovery:** Handoff CONT47→48 described EPIC-12 scope that doesn't match real PRD. Real EPIC-12 = "Agent Framework Testing Phase 1" (1 story per persona, all Ready). Handoff's FRs are real but mapped wrong.
+
+**@sm Actions:**
+- ✅ Read PHASE3 reports + mapped 4 QA addendum ACs to stories (correct per Art. IV)
+- ✅ Added AC #11 "QA Addendum" + AC #10 "Constitution Digest Validation" to all relevant stories
+- ✅ Saved project memory: `project_epic12-handoff-drift-cont48.md`
+- ⏳ Git commit BLOCKED — AC validation gate failing on story files (34 checkboxes present, format issue TBD)
+
+**Blocked Files:** `docs/stories/12.*.story.md` (changes applied, await gate resolution)
+
+**Recommendation for Cont 49:** Resolve git gate issue, then @po validates all 12 stories before @dev starts implementation.
+
+---
+
+# ✅ Session 2026-06-17 (Cont 47) — PHASE 3: TECH SEARCH & SPECS COMPLETE
+
+**Status: PHASE 3 ✅ 100% COMPLETE**
 
 ## CONT 47 SUMMARY — @ANALYST + @AIOX-QA (Phase 3 Execution Complete)
 
@@ -2862,4 +2882,14 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 ## Checkpoint: 12ae14e — 2026-06-17 16:22
 **Branch:** main
 **Commit:** docs: CONT 46 — Phase 2 Complete (PRD Extended with FRs/NFRs, Handoff Ready for Cont 47)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 0d6aeb2 — 2026-06-17 16:25
+**Branch:** main
+**Commit:** docs: CONT 47 — Phase 3 COMPLETE (Gap Reconciliation + Spec Verification + Two-Shim Discovery, QA Addendum)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 223bea0 — 2026-06-17 16:28
+**Branch:** main
+**Commit:** docs: HANDOFF CONT 47 → CONT 48 — Phase 4 Ready (Stories 12.1-12.12, 40-50sp, 2-3 weeks)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
