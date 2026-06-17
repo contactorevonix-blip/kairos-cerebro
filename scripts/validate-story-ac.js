@@ -37,7 +37,7 @@ function validateStoryAC() {
         process.exit(1);
       }
 
-      const acMatch = content.match(/## Acceptance Criteria\n([\s\S]*?)(?=\n##|$)/);
+      const acMatch = content.match(/## Acceptance Criteria\n+([\s\S]*?)(?=\n##(?!#)|$)/);
       if (acMatch) {
         const acSection = acMatch[1];
         const uncheckedCount = (acSection.match(/- \[ \]/g) || []).length;
