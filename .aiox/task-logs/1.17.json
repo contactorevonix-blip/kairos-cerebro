@@ -1,42 +1,47 @@
 {
   "storyId": "1.17",
   "storyType": "bug",
-  "suggestedAt": "2026-06-08T19:31:04.906Z",
+  "suggestedAt": "2026-06-13T09:54:05.069Z",
   "suggestions": [
     {
-      "id": "run-design-system-pipeline",
-      "name": "Run Design System Pipeline",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/run-design-system-pipeline.md",
-      "score": 49
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "run-workflow-engine",
-      "name": "Workflow Runtime Engine Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/run-workflow-engine.md",
-      "score": 49
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 62,
+      "autoActivate": false
     },
     {
       "id": "devops-pro-activate",
       "name": "Task: DevOps Pro Activate",
       "category": "devops",
       "file": ".aiox-core/development/tasks/devops-pro-activate.md",
-      "score": 44
+      "score": 54,
+      "autoActivate": false
     },
     {
       "id": "devops-pro-validate-login",
       "name": "Task: DevOps Pro Validate Login",
       "category": "devops",
       "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
-      "score": 44
+      "score": 54,
+      "autoActivate": false
     },
     {
       "id": "devops-pro-verify-status",
       "name": "Task: DevOps Pro Verify Status",
       "category": "devops",
       "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
-      "score": 44
+      "score": 54,
+      "autoActivate": false
     }
   ]
 }

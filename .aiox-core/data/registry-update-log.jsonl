@@ -35,3 +35,4 @@
 {"timestamp":"2026-06-12T20:17:50.854Z","action":"add","path":".aiox-core/core/gates/coderabbit-circuit-breaker.js","trigger":"watcher"}
 {"timestamp":"2026-06-12T20:17:50.855Z","action":"add","path":".aiox-core/core/gates/gate-retry.js","trigger":"watcher"}
 {"timestamp":"2026-06-12T20:17:50.856Z","action":"add","path":".aiox-core/data/authority-rules-reference.md","trigger":"watcher"}
+{"timestamp":"2026-06-14T20:56:55.625Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}

@@ -64,6 +64,8 @@ Comandos com prefixo `*`: `*help`, `*create-story`, `*task {name}`, `*exit`
 
 Referência: `.claude/settings.json` (deny/allow rules), `.claude/rules/agent-authority.md`
 
+> **Mapa completo de pastas:** [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) — fonte única do layout de pastas de topo, com layer (L1–L4 / product-data / orphan), estado de tracking e targets ideSync de cada pasta.
+
 ## Framework vs Project Boundary
 
 O AIOX usa um modelo de 4 camadas (L1-L4) para separar artefactos do framework e do projecto. Deny rules em `.claude/settings.json` reforçam isso deterministicamente.

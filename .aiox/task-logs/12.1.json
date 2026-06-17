@@ -1,0 +1,47 @@
+{
+  "storyId": "12.1",
+  "storyType": "config",
+  "suggestedAt": "2026-06-17T17:09:07.861Z",
+  "suggestions": [
+    {
+      "id": "audit-tailwind-config",
+      "name": "Audit Tailwind v4 Configuration & Utility Health",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "environment-bootstrap",
+      "name": "environment-bootstrap",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 67,
+      "autoActivate": false
+    }
+  ]
+}

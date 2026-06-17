@@ -1,42 +1,47 @@
 {
   "storyId": "1.18",
-  "storyType": "bug",
-  "suggestedAt": "2026-06-08T19:54:15.774Z",
+  "storyType": "refactor",
+  "suggestedAt": "2026-06-13T09:54:05.063Z",
   "suggestions": [
     {
-      "id": "create-agent",
-      "name": "Task: Create Squad Agent",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/create-agent.md",
-      "score": 41
+      "id": "dev-improve-code-quality",
+      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "create-doc",
-      "name": "Template selection determined dynamically during task execution",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/create-doc.md",
-      "score": 41
+      "id": "dev-optimize-performance",
+      "name": "Optimize Performance - AIOX Developer Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "execute-epic-plan",
-      "name": "Execute Epic Plan Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/execute-epic-plan.md",
-      "score": 41
+      "id": "cleanup-utilities",
+      "name": "Cleanup Utilities Task",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "qa-create-fix-request",
-      "name": "Create Fix Request Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
-      "score": 41
+      "id": "cleanup-worktrees",
+      "name": "cleanup-worktrees",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "qa-false-positive-detection",
-      "name": "False Positive Detection Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-false-positive-detection.md",
-      "score": 41
+      "id": "consolidate-patterns",
+      "name": "Consolidate Patterns Using Intelligent Clustering",
+      "category": "refactor",
+      "file": ".aiox-core/development/tasks/consolidate-patterns.md",
+      "score": 65,
+      "autoActivate": false
     }
   ]
 }

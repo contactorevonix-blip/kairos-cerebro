@@ -17,6 +17,8 @@
 - `KAIROS_CEREBRO` (este repo) — framework de desenvolvimento, squads, agentes, workflows
 - `kairoscheck.net` — código do produto (backend API + frontend)
 
+> **Mapa de pastas:** ver [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — fonte única do layout de pastas de topo deste repo (layer L1–L4 / product-data / orphan, tracking, ideSync targets).
+
 ## Quem sou
 Pedro Leal — solo founder. Construindo o Kairos Check sozinho.
 Iniciante em Claude Code e AIOX. Prefiro explicações simples e acção directa.

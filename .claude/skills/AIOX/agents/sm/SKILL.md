@@ -177,14 +177,17 @@ commands:
     visibility: [full]
     description: 'Exit Scrum Master mode'
 dependencies:
+  # NOTE: default IDE-FILE-RESOLUTION maps {type}/{name} to
+  # .aiox-core/development/{type}/{name}. Templates and checklists below live
+  # under .aiox-core/product/, so explicit paths are given to avoid broken refs.
   tasks:
-    - create-next-story.md
-    - execute-checklist.md
-    - correct-course.md
+    - create-next-story.md          # .aiox-core/development/tasks/create-next-story.md
+    - execute-checklist.md          # .aiox-core/development/tasks/execute-checklist.md
+    - correct-course.md             # .aiox-core/development/tasks/correct-course.md (escalated to @aiox-master)
   templates:
-    - story-tmpl.yaml
+    - .aiox-core/product/templates/story-tmpl.yaml
   checklists:
-    - story-draft-checklist.md
+    - .aiox-core/product/checklists/story-draft-checklist.md
   tools:
     - git # Local branch operations only (NO PUSH - use @github-devops)
     - clickup # Track sprint progress and story status

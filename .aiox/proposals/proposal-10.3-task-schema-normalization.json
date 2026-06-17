@@ -1,0 +1,133 @@
+{
+  "proposalId": "proposal-10.3-task-schema-normalization",
+  "componentPath": ".aiox-core/development/tasks/",
+  "componentType": "task",
+  "modificationType": "modify",
+  "title": "EPIC-10 Story 10.3 — Task metadata normalization (version + lifecycle status)",
+  "description": "Story 10.3 verify-only portion is complete and passed QA (verdict CONCERNS, ready to escalate). This proposal carries the 8 metadata-only edits that are blocked by the L2 deny rule in .claude/settings.json (lines 465-466: Edit/Write on .aiox-core/development/tasks/**), independent of boundary.frameworkProtection. All edits are additive, backward-compatible, parser-safe, and verified verbatim against the current file state. No executable task logic changes (AC7 preserved). Source of truth: docs/architecture/TASK-SCHEMA-NORMALIZATION.md section 6.",
+  "priority": "medium",
+  "status": "pending_review",
+  "tags": ["epic-10", "story-10.3", "task-schema", "metadata-only", "l2-deny-escalation"],
+  "assignees": ["@aiox-master"],
+  "linkedIssues": ["10.3", "EPIC-10", "F5", "F6"],
+  "rationale": "Schema normalization: enforce canonical version format (version: X.Y.Z unquoted) and declare lifecycle status (status: active) on the SDC-critical + rules-referenced task subset. Disproven audit findings (F7 circular-ref, F8 task_id) are documented as verify-only/tech-debt and are NOT part of this proposal.",
+  "blockedBy": {
+    "rule": ".claude/settings.json lines 465-466",
+    "denied": ["Edit(.aiox-core/development/tasks/**)", "Write(.aiox-core/development/tasks/**)"],
+    "note": "Hard-denied regardless of boundary.frameworkProtection toggle; resolution path is @aiox-master *propose-modification."
+  },
+  "preconditions": [
+    "Story 10.3 verify-only complete (AC2/AC5/AC6/AC7 closed in docs)",
+    "All 8 target task files exist (verified via Glob)",
+    "Each diff verified verbatim against current file content (Art. IV no-invention)"
+  ],
+  "edits": [
+    {
+      "id": 1,
+      "category": "version-normalization",
+      "file": ".aiox-core/development/tasks/story-checkpoint.md",
+      "line": 14,
+      "anchor": "task_id: story-checkpoint",
+      "before": "version: \"1.0.0\"",
+      "after": "version: 1.0.0",
+      "reason": "Remove non-canonical quotes; canonical format is unquoted semver (AC1)."
+    },
+    {
+      "id": 2,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
+      "line": 29,
+      "anchor": "task: createNextStory()",
+      "insertAfter": "task: createNextStory()",
+      "insertLine": "status: active",
+      "reason": "SDC Phase 1 (story-cycle critical) — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 3,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/validate-next-story.md",
+      "line": 29,
+      "anchor": "task: validateNextStory()",
+      "insertAfter": "task: validateNextStory()",
+      "insertLine": "status: active",
+      "reason": "SDC Phase 2 (story-cycle critical) — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 4,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "line": 48,
+      "anchor": "task: devDevelopStory()",
+      "insertAfter": "task: devDevelopStory()",
+      "insertLine": "status: active",
+      "reason": "SDC Phase 3 (story-cycle critical) — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 5,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/qa-gate.md",
+      "line": 28,
+      "anchor": "task: qaGate()",
+      "insertAfter": "task: qaGate()",
+      "insertLine": "status: active",
+      "reason": "SDC Phase 4 (story-cycle critical) — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 6,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/apply-qa-fixes.md",
+      "line": 28,
+      "anchor": "task: applyQaFixes()",
+      "insertAfter": "task: applyQaFixes()",
+      "insertLine": "status: active",
+      "reason": "Referenced in workflow-execution.md / smart-routing.md — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 7,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "line": 29,
+      "anchor": "task: correctCourse()",
+      "insertAfter": "task: correctCourse()",
+      "insertLine": "status: active",
+      "reason": "Referenced in rules router — declare active lifecycle (AC4)."
+    },
+    {
+      "id": 8,
+      "category": "lifecycle-status",
+      "file": ".aiox-core/development/tasks/execute-checklist.md",
+      "line": 37,
+      "anchor": "task: executeChecklist()",
+      "insertAfter": "task: executeChecklist()",
+      "insertLine": "status: active",
+      "reason": "Referenced in rules router — declare active lifecycle (AC4)."
+    }
+  ],
+  "notToChange": [
+    "squad-creator-publish.md:63 and :204 — example code-block content, leave as-is (AC7)",
+    "The 5 already-canonical multi-major semver versions — leave as-is",
+    "The 163 V1 task: headers — recorded as tech-debt (TASK-SCHEMA-NORMALIZATION.md section 5), not migrated now"
+  ],
+  "acceptanceConditions": [
+    "All 8 edits applied verbatim (no logic changes)",
+    "All 213 task files remain invocable after apply",
+    "AC7 (no-regression) preserved by construction",
+    "Update docs/stories/10.3.story.md File List + Change Log on apply"
+  ],
+  "impactAnalysis": {
+    "riskLevel": "low",
+    "filesAffected": 8,
+    "natureOfChange": "metadata-only, additive, backward-compatible",
+    "breakingChanges": false,
+    "parserCompatible": true
+  },
+  "reviewTimeline": "normal",
+  "metadata": {
+    "createdBy": "@dev (Dex)",
+    "createdAt": "2026-06-14T00:00:00.000Z",
+    "story": "10.3",
+    "epic": "EPIC-10",
+    "sourceOfTruth": "docs/architecture/TASK-SCHEMA-NORMALIZATION.md section 6",
+    "version": 1
+  }
+}

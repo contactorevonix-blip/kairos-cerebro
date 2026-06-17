@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-12T20:17:50.865Z'
+  lastUpdated: '2026-06-14T20:56:55.634Z'
   entityCount: 828
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -14165,15 +14165,15 @@ entities:
       path: .aiox-core/core-config.yaml
       layer: L4
       type: module
-      purpose: boundary configuration — see line 168 above for active setting
+      purpose: 'NOTE: The active framework-boundary configuration lives under the top-level'
       keywords:
         - core
         - config
-        - boundary
+        - 'note:'
+        - active
+        - framework-boundary
         - configuration
-        - see
-        - line
-        - '168'
+        - lives
       usedBy: []
       dependencies: []
       externalDeps: []
@@ -14183,8 +14183,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:dc27f04e9c29c78dc8ad73c727254e228ea9bc16da7cfa52a0a74131dfa9304f
-      lastVerified: '2026-06-12T20:17:50.847Z'
+      checksum: sha256:d487000ccb9965c3156012b6da81f70ce4c7f9014f5aa63678c2db966edbeaa1
+      lastVerified: '2026-06-14T20:56:55.624Z'
     blocker-resolver:
       path: .aiox-core/core/auto-heal/blocker-resolver.js
       layer: L1

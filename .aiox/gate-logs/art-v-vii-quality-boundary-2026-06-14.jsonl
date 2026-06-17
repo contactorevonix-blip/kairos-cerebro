@@ -1,0 +1,3 @@
+{"timestamp":"2026-06-14T20:22:57.853Z","article":"art-v-vii-quality-boundary","gate":"framework-boundary","decision":"allow","reason":"Framework protection disabled (boundary.frameworkProtection: false)","file":".aiox-core/core/synapse/engine.js"}
+{"timestamp":"2026-06-14T20:37:46.828Z","article":"art-v-vii-quality-boundary","gate":"framework-boundary","decision":"allow","reason":"Framework protection disabled (boundary.frameworkProtection: false)","file":".aiox-core/core/synapse/engine.js"}
+{"timestamp":"2026-06-14T20:57:37.190Z","article":"art-v-vii-quality-boundary","gate":"framework-boundary","decision":"allow","reason":"Framework protection disabled (boundary.frameworkProtection: false)","file":".aiox-core/core/synapse/engine.js"}

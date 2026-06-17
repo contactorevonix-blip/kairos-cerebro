@@ -1,0 +1,47 @@
+{
+  "storyId": "12.6",
+  "storyType": "docs",
+  "suggestedAt": "2026-06-17T16:31:49.757Z",
+  "suggestions": [
+    {
+      "id": "check-docs-links",
+      "name": "check-docs-links",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/check-docs-links.md",
+      "score": 76,
+      "autoActivate": true
+    },
+    {
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "score": 76,
+      "autoActivate": true
+    },
+    {
+      "id": "document-gotchas",
+      "name": "Document Gotchas Task",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/document-gotchas.md",
+      "score": 68,
+      "autoActivate": false
+    },
+    {
+      "id": "document-project",
+      "name": "TODO: Create project-documentation-checklist.md for validation (follow-up story needed)",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/document-project.md",
+      "score": 68,
+      "autoActivate": false
+    },
+    {
+      "id": "index-docs",
+      "name": "No checklists needed - this task maintains documentation index, validation is through file system checks",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/index-docs.md",
+      "score": 68,
+      "autoActivate": false
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "proposals": [
+    {
+      "proposalId": "proposal-10.3-task-schema-normalization",
+      "title": "EPIC-10 Story 10.3 — Task metadata normalization (version + lifecycle status)",
+      "componentPath": ".aiox-core/development/tasks/",
+      "modificationType": "modify",
+      "status": "pending_review",
+      "priority": "medium",
+      "editCount": 8,
+      "createdAt": "2026-06-14T00:00:00.000Z",
+      "createdBy": "@dev (Dex)",
+      "assignees": ["@aiox-master"],
+      "blockedBy": ".claude/settings.json lines 465-466 (L2 deny)"
+    }
+  ]
+}

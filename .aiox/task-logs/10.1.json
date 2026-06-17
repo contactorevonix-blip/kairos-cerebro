@@ -1,0 +1,47 @@
+{
+  "storyId": "10.1",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-14T21:29:05.178Z",
+  "suggestions": [
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-resend-verification",
+      "name": "Task: DevOps Pro Resend Verification",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-resend-verification.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
+      "autoActivate": false
+    }
+  ]
+}

@@ -93,6 +93,8 @@ As pastas de agentes específicas de IDE são **geradas automaticamente** pelo `
 
 > **`.codex/` e `.antigravity/` não são pastas misteriosas** — são targets declarados de ideSync, regeneráveis a partir de `.aiox-core/development/agents`. Editá-las directamente é anti-padrão; alterações fazem-se na source e propagam-se via ideSync (`validation.strictMode: true`, `failOnDrift: true`).
 
+> **Prova de coerência source→targets + drift report:** ver [`docs/architecture/AGENT-SOURCE-OF-TRUTH.md`](architecture/AGENT-SOURCE-OF-TRUTH.md) (Story 10.2) — documenta a fonte única, a lista completa de targets com formato, a classificação intencional vs acidental de cada divergência, o drift report (0 drift acidental) e o procedimento de verificação (`node --test tests/agents/agent-drift-audit.test.js`).
+
 ---
 
 ## 5. `governance/` e `.synapse/` (AC4)
