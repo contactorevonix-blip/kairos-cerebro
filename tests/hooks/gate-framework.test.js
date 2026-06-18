@@ -109,6 +109,16 @@ test('Gate Utilities', async (t) => {
       'executeGate must spawn child processes',
     );
   });
+
+  await t.test('Input Validation: filetype check (.cjs)', () => {
+    const frameworkPath = path.join(process.cwd(), '.claude', 'hooks', 'gate-framework.cjs');
+    const content = fs.readFileSync(frameworkPath, 'utf8');
+
+    assert.ok(
+      content.includes('endsWith(\'.cjs\')'),
+      'executeGate must validate .cjs filetype',
+    );
+  });
 });
 
 test('Configuration & Constants', async (t) => {

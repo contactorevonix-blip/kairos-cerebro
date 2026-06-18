@@ -52,7 +52,14 @@ function executeGate(gateFile, stdinData, timeoutMs = 5000) {
     }, timeoutMs);
 
     try {
-      const gateAbsPath = path.join(__dirname, `${gateFile}.cjs`);
+      // Validate gate filename is .cjs (input validation)
+      if (!String(gateFile).endsWith('.cjs')) {
+        resolve(null);
+        clearTimeout(timeout);
+        return;
+      }
+
+      const gateAbsPath = path.join(__dirname, `${gateFile}`);
       if (!fs.existsSync(gateAbsPath)) {
         resolve(null);
         clearTimeout(timeout);
