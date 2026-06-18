@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "timestamp": 1781718077342,
+    "agentId": "sop-extractor"
+  },
+  "data": {
+    "id": "sop-extractor",
+    "skillPath": "C:\\Users\\lealp\\KAIROS_CEREBRO\\.claude\\skills\\AIOX\\agents\\sop-extractor\\SKILL.md",
+    "contentLength": 770,
+    "timestamp": "2026-06-17T17:41:17.342Z",
+    "validated": false
+  }
+}

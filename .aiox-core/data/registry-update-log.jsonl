@@ -36,3 +36,7 @@
 {"timestamp":"2026-06-12T20:17:50.855Z","action":"add","path":".aiox-core/core/gates/gate-retry.js","trigger":"watcher"}
 {"timestamp":"2026-06-12T20:17:50.856Z","action":"add","path":".aiox-core/data/authority-rules-reference.md","trigger":"watcher"}
 {"timestamp":"2026-06-14T20:56:55.625Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-17T17:37:58.834Z","action":"add","path":".aiox-core/core/context-loading/layer-loader.js","trigger":"watcher"}
+{"timestamp":"2026-06-17T17:37:58.835Z","action":"add","path":".aiox-core/core/context-loading/layer-validator.js","trigger":"watcher"}
+{"timestamp":"2026-06-17T17:41:27.920Z","action":"add","path":".aiox-core/core/context-loading/agent-cache.js","trigger":"watcher"}
+{"timestamp":"2026-06-17T17:41:27.922Z","action":"add","path":".aiox-core/core/context-loading/agent-loader.js","trigger":"watcher"}

@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-14T20:56:55.634Z'
-  entityCount: 828
+  lastUpdated: '2026-06-17T17:41:27.931Z'
+  entityCount: 832
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -14262,6 +14262,84 @@ entities:
         extensionPoints: []
       checksum: sha256:846e345ec883be46c2cff9dce942c05b038571d512fce9e9a2e19128f77a2357
       lastVerified: '2026-06-12T20:17:50.855Z'
+    layer-loader:
+      path: .aiox-core/core/context-loading/layer-loader.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\context-loading\layer-loader.js
+      keywords:
+        - layer
+        - loader
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a34bb69f394b414e7a50abfaf75ed455aab335fa017cd33d69d4aed5fb8b0f94
+      lastVerified: '2026-06-17T17:37:58.832Z'
+    layer-validator:
+      path: .aiox-core/core/context-loading/layer-validator.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\context-loading\layer-validator.js
+      keywords:
+        - layer
+        - validator
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:66eeef8c542417f362d3608b158fc39f4edf7c81b968476af5f3cd099af62681
+      lastVerified: '2026-06-17T17:37:58.835Z'
+    agent-cache:
+      path: .aiox-core/core/context-loading/agent-cache.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\context-loading\agent-cache.js
+      keywords:
+        - agent
+        - cache
+      usedBy:
+        - agent-loader
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: production
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:52b8b864b5eacc1956a01f5c842ba611b88480b255e6883ec949f9463e0a8801
+      lastVerified: '2026-06-17T17:41:27.918Z'
+    agent-loader:
+      path: .aiox-core/core/context-loading/agent-loader.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core\core\context-loading\agent-loader.js
+      keywords:
+        - agent
+        - loader
+      usedBy: []
+      dependencies:
+        - agent-cache
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: experimental
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:9eb2e62a58924c0f2d79fe5f4f06b4870d61f83dd8d3c06f5b1a9235b5044e65
+      lastVerified: '2026-06-17T17:41:27.922Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md

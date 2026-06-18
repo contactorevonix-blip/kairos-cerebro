@@ -1,0 +1,47 @@
+{
+  "storyId": "1.1",
+  "storyType": "config",
+  "suggestedAt": "2026-06-18T19:01:33.954Z",
+  "suggestions": [
+    {
+      "id": "setup-design-system",
+      "name": "Setup Design System Structure",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-design-system.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "setup-llm-routing",
+      "name": "setup-llm-routing",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "setup-mcp-docker",
+      "name": "Setup Docker MCP Toolkit",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "add-mcp",
+      "name": "Add MCP Server Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/add-mcp.md",
+      "score": 65,
+      "autoActivate": false
+    }
+  ]
+}

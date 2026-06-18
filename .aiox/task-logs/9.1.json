@@ -1,0 +1,47 @@
+{
+  "storyId": "9.1",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-18T21:57:02.118Z",
+  "suggestions": [
+    {
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "extend-pattern",
+      "name": "Extend Existing Pattern",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/extend-pattern.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 73,
+      "autoActivate": true
+    }
+  ]
+}

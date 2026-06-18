@@ -1,5 +1,5 @@
 {
-  "totalDuration": 29.8011,
+  "totalDuration": 30.6803,
   "hookBootMs": 0,
   "bracket": "FRESH",
   "layersLoaded": 2,
@@ -8,12 +8,12 @@
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.7985,
+      "duration": 0.6723,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.5324,
+      "duration": 0.5834,
       "status": "ok",
       "rules": 39
     },
@@ -48,23 +48,5 @@
       "rules": 0
     }
   },
-  "timestamp": "2026-06-17T17:35:46.543Z",
-  "enforcement": {
-    "gatesEnforced": 2,
-    "violationsDetected": 0,
-    "violationsBlocked": 0,
-    "overridesUsed": 0
-  },
-  "enforcementUpdatedAt": "2026-06-17T17:36:21.389Z",
-  "contextLoading": {
-    "status": "in_progress",
-    "story": "13.1",
-    "initiatedAt": "2026-06-17T18:00:00.000Z",
-    "targetCoverage": "8/8 layers (100%)",
-    "foundation": {
-      "status": "implementing",
-      "modules": ["layer-loader.js", "layer-validator.js"],
-      "tests": "layer-loader.test.js"
-    }
-  }
+  "timestamp": "2026-06-18T22:07:50.139Z"
 }

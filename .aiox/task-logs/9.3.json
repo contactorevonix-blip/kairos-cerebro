@@ -1,0 +1,47 @@
+{
+  "storyId": "9.3",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-18T21:57:06.877Z",
+  "suggestions": [
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-create-fix-request",
+      "name": "Create Fix Request Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "qa-review-story",
+      "name": "review-story",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-review-story.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-validate-login",
+      "name": "Task: DevOps Pro Validate Login",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
+      "score": 46,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 46,
+      "autoActivate": false
+    }
+  ]
+}

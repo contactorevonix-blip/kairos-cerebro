@@ -1,0 +1,47 @@
+{
+  "storyId": "9.4",
+  "storyType": "feature",
+  "suggestedAt": "2026-06-18T21:57:07.446Z",
+  "suggestions": [
+    {
+      "id": "create-deep-research-prompt",
+      "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "dev-develop-story",
+      "name": "Develop Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "sm-create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "build-status",
+      "name": "Task: Build Status",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/build-status.md",
+      "score": 73,
+      "autoActivate": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "timestamp": 1781718077293,
+    "agentId": "config-engineer"
+  },
+  "data": {
+    "id": "config-engineer",
+    "skillPath": "C:\\Users\\lealp\\KAIROS_CEREBRO\\.claude\\skills\\AIOX\\agents\\config-engineer\\SKILL.md",
+    "contentLength": 784,
+    "timestamp": "2026-06-17T17:41:17.293Z",
+    "validated": false
+  }
+}
