@@ -3061,3 +3061,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** docs: prepare handoff for Cont 50 (Phase 4B production validation)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/1.17.json, .aiox/task-logs/1.18.json, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/5.3.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/CLAUDE.md
+
+## Checkpoint: 72b1899 — 2026-06-18 21:18
+**Branch:** claude/computer-access-question-j9te8x
+**Commit:** docs: CONT 49 FINAL — Phase 4B checkpoint complete, EPIC-13 ready for Cont 50+
+**Files changed:** .synapse/metrics/hook-metrics.json
