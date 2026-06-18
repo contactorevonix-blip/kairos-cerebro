@@ -3106,3 +3106,13 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** claude/computer-access-question-j9te8x
 **Commit:** chore: update metrics and state [CLAUDE.md explanation session]
 **Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 17c7b33 — 2026-06-18 21:24
+**Branch:** claude/computer-access-question-j9te8x
+**Commit:** chore: update metrics and state [Invenção vs Spec discussion]
+**Files changed:** none
+
+## Checkpoint: 17c7b33 — 2026-06-18 21:26
+**Branch:** claude/computer-access-question-j9te8x
+**Commit:** chore: update metrics and state [Invenção vs Spec discussion]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
