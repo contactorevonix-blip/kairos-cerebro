@@ -1,0 +1,175 @@
+{
+  "epic_id": "12",
+  "epic_title": "Spec Pipeline Design",
+  "phase": "1-gather",
+  "date": "2026-06-19",
+  "gathered_by": "@pm (Bob/Morgan)",
+  "verification_note": "All gaps and the schema contradiction below were verified by direct inspection of source files (Constitution Art. IV — No Invention). No requirement, gap severity, or resolution was assumed from STATE.md or the spawn prompt; each carries an evidence reference to the inspected file and, where applicable, line numbers.",
+
+  "functional_requirements": [
+    {
+      "id": "FR-12.1",
+      "title": "6-Phase Workflow Definition",
+      "description": "Spec Pipeline must define 6 sequential phases: Gather (PM) -> Assess (Architect) -> Research (Analyst) -> Spec (PM) -> Critique (QA) -> Plan (Architect). Each phase has explicit inputs/outputs/owner-agent and a decision point.",
+      "priority": "HIGH",
+      "source": ".claude/rules/workflow-execution.md (section 'Spec Pipeline — PRE-IMPLEMENTATION', 6-row phase table) + existing spec-*.md task files",
+      "evidence": "5 task files confirmed present: spec-gather-requirements.md, spec-assess-complexity.md, spec-research-dependencies.md, spec-write-spec.md, spec-critique.md. Note: no dedicated spec-plan task file was found under .aiox-core/development/tasks/spec-*.md — Phase 6 (Plan) is referenced in handoffs but its task doc was NOT located by glob 'spec-*.md'. Flag for Phase 2 (Assess) verification.",
+      "acceptance_notes": "Each phase must have clear inputs/outputs/agent + decision point. Phase 6 (Plan) task-file location must be confirmed (may live under a non-spec-prefixed name e.g. plan-create-implementation.md, referenced by Story 12.G2 AC2)."
+    },
+    {
+      "id": "FR-12.2",
+      "title": "Complexity Classification",
+      "description": "Spec Pipeline must auto-classify complexity into SIMPLE (score <= 8), STANDARD (9-15), COMPLEX (>= 16) based on 5 dimensions scored 1-5 each: Scope, Integration, Infrastructure, Knowledge, Risk. Classification determines which phases run (SIMPLE skips Assess+Research, running gather -> spec -> critique only).",
+      "priority": "HIGH",
+      "source": ".claude/rules/workflow-execution.md ('Complexity Classes' + '5 Complexity Dimensions' tables) + spec-assess-complexity.md",
+      "evidence": "workflow-execution.md documents the three classes and the 5 dimensions explicitly. Skip-logic ('Skip If' column: source=simple skips Assess; SIMPLE class skips Research) confirmed in the phase table.",
+      "acceptance_notes": "Classification must be deterministic and drive phase selection. SIMPLE -> 3 phases; STANDARD -> 6 phases; COMPLEX -> 6 phases + revision cycle."
+    },
+    {
+      "id": "FR-12.3",
+      "title": "Critique Verdict Logic (5D Weighted Scoring)",
+      "description": "Phase 5 Critique must score the spec across 5 weighted dimensions — Accuracy 25%, Completeness 25%, Consistency 20%, Feasibility 15%, Alignment 15% — each on a 1-5 scale, and produce a verdict: APPROVED (no HIGH issues AND avg >= 4.0 AND all dims >= 3), NEEDS_REVISION (MEDIUM issues OR avg 3.0-3.9 OR any dim < 3, no HIGH issues), BLOCKED (any HIGH issue OR avg < 3.0 OR any dim <= 1).",
+      "priority": "HIGH",
+      "source": ".aiox-core/development/tasks/spec-critique.md (604 lines, canonical) — dimensions L77-260, verdict_rules L266-291, output schema L414-468",
+      "evidence": "Verified canonical. Weights and verdict rules read directly from the file. This is the single source of truth for critique scoring; the legacy process-mapper schema (see C4.4) diverges and must NOT be used.",
+      "acceptance_notes": "Gap G1.2 = no automated test suite exists for this verdict logic (resolved by Story 12.G3). Gap G1.1 = the verdict rule and the worked example inside the same file contradict at the avg=4.0 boundary (see gaps_to_address)."
+    },
+    {
+      "id": "FR-12.4",
+      "title": "Constitutional Art. IV Enforcement (No Invention) with Reference-Existence Validation",
+      "description": "Every normative statement (MUST / MUST NOT / SHALL / SHALL NOT / REQUIRED) in spec.md must trace to a requirement reference (FR-*, NFR-*, CON-*) or a [research:]/[finding:] citation. Furthermore, every cited FR-*/NFR-*/CON-* must actually EXIST in the sibling requirements.json — citing a non-existent ID (e.g. FR-99) must be blocked.",
+      "priority": "CRITICAL",
+      "constitution_article": "IV",
+      "source": ".aiox-core/constitution.md Art. IV + .claude/hooks/enforce-no-invention.cjs (existing keyword/pattern gate) + Story 12.G1 (new existence-validation gate)",
+      "evidence": "enforce-no-invention.cjs L29 REFERENCE_RE only pattern-matches the token shape; it never reads requirements.json. Confirmed by reading the hook — there is no requirements.json load anywhere in the file. Therefore 'MUST log all FR-99 events' currently passes. This is gap C4.3.",
+      "acceptance_notes": "Gap C4.3 resolution = Story 12.G1 adds .claude/hooks/enforce-spec-reference-validation.cjs as a complementary gate (runs after the existing keyword gate, does not replace it)."
+    },
+    {
+      "id": "FR-12.5",
+      "title": "Phase Ordering & Critique-Verdict Gate Automation",
+      "description": "Spec Pipeline must enforce phase ordering with an automated, blocking gate: Phase 6 (Plan) must not start unless critique.json exists AND its verdict field equals APPROVED. Missing critique.json or a NEEDS_REVISION/BLOCKED verdict must block the Plan command.",
+      "priority": "HIGH",
+      "source": ".claude/rules/workflow-execution.md (phase ordering) + spec-critique.md L61-65 (verification: {type: gate, blocking: true, verdict_field: verdict}) + L490-517 (pipeline on_verdict) + Story 12.G2",
+      "evidence": "spec-critique.md DECLARES the gate as blocking, but it is descriptive only. Grep for 'critique|verdict' across .claude/hooks/ returned only gate-framework.cjs (the generic Art. I-VII meta-runner, whose 'verdict' refs are its own allow/block decisions) and process-map-gate.cjs (EPIC-13 process-mapper, unrelated). No hook enforces the Phase 5->6 critique verdict. This is gap G2.1.",
+      "acceptance_notes": "Gap G2.1 resolution = Story 12.G2 adds .claude/hooks/enforce-spec-critique-gate.cjs (PreToolUse on the Plan command). The exact Plan-command matcher string must be verified against the actual Phase 6 task file before finalizing (per 12.G2 AC2)."
+    },
+    {
+      "id": "FR-12.6",
+      "title": "Schema Canonicality (Single Source of Truth)",
+      "description": "Spec Pipeline must have ONE canonical schema for critique.json (and, by extension, the dimension set and verdict enum). The canonical schema is the one defined in spec-critique.md. The legacy process-mapper critique.json — which uses different dimensions and a different verdict enum — must be explicitly marked as deprecated/project-specific and not treated as the pipeline contract.",
+      "priority": "HIGH",
+      "source": "Schema contradiction discovered: .aiox-core/development/tasks/spec-critique.md (canonical) vs docs/prd/process-mapper/critique.json (legacy)",
+      "evidence": "Both files read directly. Canonical dimensions = {accuracy, completeness, consistency, feasibility, alignment}; canonical verdicts = {APPROVED, NEEDS_REVISION, BLOCKED}. Legacy process-mapper/critique.json dimensions = {completude, testabilidade, rastreabilidade, realismo, coerencia}; legacy verdicts = {PASS, ISSUE, CONCERN} per-feature plus a global 'APPROVED_WITH_CONDITIONS' (L153) that does NOT exist in the canonical enum. The divergence is structural (dimensions + enums), not cosmetic.",
+      "acceptance_notes": "Critical for 12.G2 (gate reads verdict_field) and 12.G3 (tests assert canonical dimensions). If 12.G2's hook is written to expect canonical verdicts but encounters a legacy 'APPROVED_WITH_CONDITIONS' value, it would BLOCK — so the legacy file must be quarantined/relabelled as a process-mapper-specific artifact, not the pipeline schema."
+    }
+  ],
+
+  "non_functional_requirements": [
+    {
+      "id": "NFR-12.1",
+      "title": "Test Coverage Parity with EPIC-9",
+      "description": "Spec Pipeline gates and verdict logic must have automated test suites following the EPIC-9 pattern (node:test, fixtures + assertions in tests/hooks/enforcement.test.js), covering block/allow/edge boundaries.",
+      "priority": "HIGH",
+      "source": "EPIC-9 reference (commits ea01d57 + 374a865: 'Stories 9.1-9.5, 84 tests PASS, Constitutional Enforcement'). Story 12.G2 AC8 and Story 12.G3 require matching coverage.",
+      "evidence": "EPIC-9 delivery confirmed in git log. spec-critique.md verdict logic currently has zero automated coverage (gap G1.2). 12.G2 AC8 specifies 3 test cases; 12.G3 specifies a standalone verdict-logic suite.",
+      "acceptance_notes": "Gap G1.2 = spec-critique.md verdict logic untested. Parity target is qualitative (cover all gate decision branches), not a literal 84-test count for this smaller scope."
+    },
+    {
+      "id": "NFR-12.2",
+      "title": "Deterministic Agent Routing & Bounded Critique Iterations",
+      "description": "Agent transitions between phases must be deterministic given the complexity class. The Critique -> revise -> Critique loop must have a bounded maximum-iteration cap to guarantee termination.",
+      "priority": "MEDIUM",
+      "source": ".claude/rules/agent-authority.md + .claude/rules/smart-routing.md + spec-critique.md (NEEDS_REVISION -> return_to_spec_write)",
+      "evidence": "spec-critique.md defines the NEEDS_REVISION -> spec-write return path (L511-513) but specifies NO maxIterations cap for the revision loop (unlike the QA Loop which caps at 5 in workflow-execution.md). Confirmed by reading spec-critique.md end-to-end. Revision cycle is therefore unbounded as currently specified.",
+      "acceptance_notes": "Recommend adopting a maxIterations cap consistent with the QA Loop (5). This is a design recommendation surfaced in Gather, to be confirmed in Phase 2 (Assess)."
+    },
+    {
+      "id": "NFR-12.3",
+      "title": "CLI First Principle",
+      "description": "Spec Pipeline must be fully operable via CLI/agent-command invocations (no UI required). All phases runnable via agent star-commands (e.g. *critique-spec, *plan) and/or aiox CLI.",
+      "priority": "CRITICAL",
+      "constitution_article": "I",
+      "source": ".aiox-core/constitution.md Art. I (CLI First, NON-NEGOTIABLE)",
+      "evidence": "spec-critique.md 'Command Integration' (L476-488) confirms *critique-spec {story-id} [--auto-fix] as the CLI entry point. EPIC-9 gates are all CLI/hook-driven.",
+      "acceptance_notes": "All gates run at the PreToolUse hook layer (no UI), satisfying Art. I by construction."
+    }
+  ],
+
+  "constraints": [
+    {
+      "id": "CON-12.1",
+      "description": "Cannot modify L1 framework core (.aiox-core/core/) or L2 templates (.aiox-core/development/tasks|templates|checklists|workflows). New gate hooks live in .claude/hooks/ (L4-adjacent runtime); story/spec artifacts live in docs/. spec-critique.md itself is L2 — fixing G1.1's wording requires routing through @aiox-master *propose-modification, NOT a direct edit.",
+      "source": ".claude/CLAUDE.md Framework Boundary L1-L4 + .claude/rules/enforcement-gates.md (boundary gate Art. VI-VII)",
+      "evidence": "spec-critique.md path = .aiox-core/development/tasks/ = L2 (Framework Templates, NEVER modify directly). The settings.json deny rules are the hard backstop."
+    },
+    {
+      "id": "CON-12.2",
+      "description": "All new gates must follow the EPIC-9 / Story 1.16 hook pattern: dependency-free .cjs hook in .claude/hooks/, using .claude/hooks/lib/gate-logger.cjs for metrics + JSONL decision logs, registered in .claude/settings.json under the appropriate PreToolUse matcher, and must degrade gracefully (never crash the hook layer).",
+      "source": ".claude/rules/enforcement-gates.md (Gate Inventory, Graceful Degradation) + existing .claude/hooks/enforce-*.cjs files",
+      "evidence": "Pattern confirmed by reading enforce-no-invention.cjs (uses gate-logger.cjs, records metrics, emits decision, never throws). 12.G1/12.G2 ACs explicitly mandate this pattern."
+    },
+    {
+      "id": "CON-12.3",
+      "description": "Spec Pipeline phases must NOT invent features. Phase 1 (this artifact) and all downstream phases formalize only what is documented in existing spec-*.md tasks, workflow-execution.md, the Constitution, and the verified hooks. Any statement without a traceable source is a violation of Art. IV.",
+      "source": ".aiox-core/constitution.md Art. IV (No Invention, MUST)",
+      "evidence": "Self-applied to this requirements.json: every FR/NFR/CON above carries a source + evidence field traceable to an inspected file."
+    }
+  ],
+
+  "gaps_to_address": [
+    {
+      "id": "G1.1",
+      "severity": "MEDIUM",
+      "title": "Critique verdict boundary ambiguity (rule vs example contradiction)",
+      "description": "In spec-critique.md, the APPROVED rule (L268-273) requires avg >= 4.0 AND all dims >= 3 AND no HIGH issues. The NEEDS_REVISION rule (L276-282) triggers on avg 3.0-3.9 OR any dim < 3. A spec scoring exactly avg=4.0 with all dims >= 3 and no HIGH issues satisfies APPROVED unambiguously by the rules — BUT the worked Example (L552-575) shows scores {acc 5, comp 3, cons 4, feas 4, align 4, average 4.0} yielding verdict NEEDS_REVISION. The example contradicts the rule at the avg=4.0 boundary.",
+      "evidence_lines": "spec-critique.md verdict_rules L266-291 vs Example L552-575",
+      "resolution": "Clarify the threshold logic in spec-critique.md (via @aiox-master *propose-modification, since the file is L2) and add boundary/edge-case tests. Tests are delivered by Story 12.G3.",
+      "related_story": "12.G3"
+    },
+    {
+      "id": "G1.2",
+      "severity": "HIGH",
+      "title": "No automated test suite for critique verdict logic",
+      "description": "spec-critique.md defines a deterministic verdict contract but it is exercised only by an LLM (@qa) manually. There is no test harness asserting the verdict rules at their boundaries — unlike EPIC-9 which shipped 84 automated tests.",
+      "evidence_lines": "spec-critique.md L266-291 (rules with no corresponding test file); confirmed no spec-critique test exists in tests/hooks/",
+      "resolution": "Story 12.G3 creates a standalone executable-specification test suite (fixtures + assertions) for the 5D weighted scoring and verdict thresholds.",
+      "related_story": "12.G3"
+    },
+    {
+      "id": "G2.1",
+      "severity": "HIGH",
+      "title": "Missing automated gate for the Phase 5 -> Phase 6 critique verdict",
+      "description": "spec-critique.md declares the critique as a blocking gate (verification: {type: gate, blocking: true, verdict_field: verdict}) and the handoff states Phase 6 (Plan) proceeds only if verdict == APPROVED. But this is descriptive only — no PreToolUse hook prevents invoking the Plan command before critique.json exists or while its verdict is NEEDS_REVISION/BLOCKED.",
+      "evidence_lines": "spec-critique.md L61-65, L490-517; Grep 'critique|verdict' in .claude/hooks/ -> only gate-framework.cjs (generic meta-runner) + process-map-gate.cjs (EPIC-13, unrelated). No critique-verdict gate exists.",
+      "resolution": "Story 12.G2 adds .claude/hooks/enforce-spec-critique-gate.cjs (PreToolUse on the Plan command), blocking unless critique.json.verdict === APPROVED.",
+      "related_story": "12.G2"
+    },
+    {
+      "id": "C4.3",
+      "severity": "HIGH",
+      "title": "No-invention hook validates reference SYNTAX but not reference EXISTENCE",
+      "description": "enforce-no-invention.cjs detects RFC-2119 keywords and requires a token matching FR-/NFR-/CON-/[research:]. But REFERENCE_RE (L29) only matches the token shape; the hook never opens requirements.json to confirm the cited ID exists. Therefore 'The system MUST log all FR-99 events' passes even when FR-99 is undefined — a hole in Art. IV enforcement.",
+      "evidence_lines": "enforce-no-invention.cjs L28-29 (NORMATIVE_RE / REFERENCE_RE), L47-58 (findInventions — operates purely on regex, no file read of requirements.json)",
+      "resolution": "Story 12.G1 adds .claude/hooks/enforce-spec-reference-validation.cjs as a complementary existence-validation gate (reads sibling requirements.json, blocks any cited ID not present). Does not replace the existing keyword gate.",
+      "related_story": "12.G1"
+    },
+    {
+      "id": "C4.4",
+      "severity": "MEDIUM",
+      "title": "Two divergent critique schemas (canonical vs legacy) — structural, not cosmetic",
+      "description": "Two critique.json schemas coexist with DIFFERENT dimensions and DIFFERENT verdict enums. Canonical (spec-critique.md): dimensions {accuracy, completeness, consistency, feasibility, alignment}, verdicts {APPROVED, NEEDS_REVISION, BLOCKED}. Legacy (docs/prd/process-mapper/critique.json): dimensions {completude, testabilidade, rastreabilidade, realismo, coerencia}, per-feature verdicts {PASS, ISSUE, CONCERN}, plus a global verdict 'APPROVED_WITH_CONDITIONS' that is absent from the canonical enum. An automated gate (12.G2) expecting canonical verdicts would misbehave on a legacy file. NOTE: the spawn prompt framed this as file-format divergence; direct inspection shows it is a deeper dimension+enum divergence.",
+      "evidence_lines": "spec-critique.md L77-260 (dims) + L266-291/L424 (verdict enum) vs docs/prd/process-mapper/critique.json L8-12 (legacy dims), L34/L63/L153 (legacy verdicts incl. APPROVED_WITH_CONDITIONS)",
+      "resolution": "Audit & consolidate. Designate spec-critique.md as the single canonical schema (FR-12.6). Mark process-mapper/critique.json as a deprecated/project-specific artifact (it belongs to EPIC-13 process-mapper, not the generic pipeline) so it is not mistaken for the pipeline contract. No automated story assigned yet — recommend creating 12.G4 if consolidation requires code/doc changes.",
+      "related_story": null
+    }
+  ],
+
+  "epic_context": "EPIC-12 formalizes the AIOX Spec Pipeline (the PRE-IMPLEMENTATION workflow that turns informal requirements into an executable spec across 6 phases). EPIC-9 (just deployed: commits ea01d57 + 374a865, Stories 9.1-9.5, 84 tests, Constitutional Enforcement gates) established the canonical gate pattern (dependency-free .cjs PreToolUse hooks + gate-logger + settings.json registration + node:test coverage + graceful degradation). EPIC-12 reuses that exact pattern to: (1) close operational gaps in the Spec Pipeline (G1.1, G1.2, G2.1, C4.3, C4.4), (2) complete the formal definition of all 6 phases, and (3) reach test-coverage parity with EPIC-9 for its verdict logic and gates. Three gap-fix stories already exist and are aligned to the verified gaps: 12.G1 (Ready) -> C4.3, 12.G2 (Ready) -> G2.1, 12.G3 (Draft) -> G1.2. G1.1 (doc clarification, needs *propose-modification on L2 file) and C4.4 (schema consolidation) are not yet assigned to a story.",
+
+  "open_items_for_phase_2_assess": [
+    "Confirm the Phase 6 (Plan) task-file location and exact CLI/command invocation — glob 'spec-*.md' did NOT find a spec-plan task; it likely lives as plan-create-implementation.md (referenced by 12.G2 AC2). Needed to finalize the 12.G2 gate matcher.",
+    "Decide and document a maxIterations cap for the Critique -> revise loop (NFR-12.2) — currently unbounded in spec-critique.md.",
+    "Resolve G1.1 wording contradiction before any code encodes the verdict thresholds (it would propagate the bug into 12.G2's gate).",
+    "Decide ownership/story for C4.4 schema consolidation (candidate: new Story 12.G4)."
+  ]
+}
