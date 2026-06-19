@@ -102,14 +102,44 @@
 - New critique checklist for agent framework specs (Phase 4 responsibility)
 - Multi-agent validation integration plan (Phase 4 responsibility)
 
-**Phase 3 → Phase 4 Gate:** ✅ PASS (confidence 85% — research complete, no blockers)
+**Commits & Enhancements:**
+- **d579207:** Initial research.json (5 topics + synthesis + phase4 gate)
+- **e03fab0:** Enhanced research.json (reconciliation_strategy + gate_pseudocode + phase4ActionItems)
 
-**Next for Cont 62:**
-- Start Phase 4: `@pm *write-spec (EPIC-12)`
-- Input: `requirements.json` + `complexity.json` + `research.json`
-- Output: `spec.md` (detailed implementation strategy addressing all research topics)
-- Effort: 3-4 hours (@pm)
-- Deliverable: Implementation roadmap for stories 12.1-12.8
+**Final Enhancements Applied:**
+- RT-3: Added reconciliation_strategy (priority order, 4 conflict scenarios, 4 degradation levels, cache strategy + TTL)
+- RT-4: Added gate_evaluation_pseudocode (early-return evaluation order, story 12.8 testing strategy)
+- Synthesis: Added phase4ActionItems (6 specific ACs for @pm Morgan + timeline + blockers)
+
+**Phase 3 → Phase 4 Gate:** ✅ PASS (confidence 85% — research complete, no blockers, ready for write)
+
+---
+
+## HANDOFF FOR CONT 62 — @pm Write-Spec Phase 4
+
+**What to say at start of Cont 62:**
+```
+Cont 61 COMPLETE ✅ — EPIC-12 Phase 3 Research done.
+Research findings: 5 topics analyzed, reconciliation strategy detailed, gate pseudocode provided, phase4 action items ready.
+Confidence: 85% (all blockers resolved).
+
+Commits: d579207 (initial) + e03fab0 (enhancements).
+Files: requirements.json + complexity.json + research.json (all in EPIC-12/spec/).
+
+Next: Phase 4 Write-Spec with @pm (Morgan).
+Activation: *write-spec or manual spec.md writing.
+Guidance: Follow phase4ActionItems in research.json (6 ACs, timeline, blockers).
+Effort: 3-4 hours.
+Output: spec.md + EXECUTION-PLAN.yaml.
+Gate: Research findings validated ✅, ready to write.
+```
+
+**Immediate Next Action (Cont 62):**
+- Activate @pm (Morgan): `@pm` or `/AIOX:agents:pm`
+- Command: `*write-spec (EPIC-12)` or manual spec.md writing
+- Input files: requirements.json + complexity.json + research.json
+- Guidance document: phase4ActionItems in research.json
+- Deliverables: spec.md (sections 1-5) + EXECUTION-PLAN.yaml
 
 ---
 
@@ -4213,3 +4243,23 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: Cont 60 COMPLETE — EPIC-12 Phase 2 Assess + Framework Modifications Approved
 **Files changed:** none
+
+## Checkpoint: d579207 — 2026-06-19 18:49
+**Branch:** main
+**Commit:** docs: Cont 61 COMPLETE — EPIC-12 Phase 3 Research (5 topics, 85% confidence) ✅
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: d579207 — 2026-06-19 18:50
+**Branch:** main
+**Commit:** docs: Cont 61 COMPLETE — EPIC-12 Phase 3 Research (5 topics, 85% confidence) ✅
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: d579207 — 2026-06-19 18:52
+**Branch:** main
+**Commit:** docs: Cont 61 COMPLETE — EPIC-12 Phase 3 Research (5 topics, 85% confidence) ✅
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: e03fab0 — 2026-06-19 18:53
+**Branch:** main
+**Commit:** docs: EPIC-12 research.json — enhanced with reconciliation strategy + gate pseudocode + phase4 action items
+**Files changed:** .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
