@@ -1,0 +1,572 @@
+{
+  "storyId": "EPIC-12",
+  "gatheredAt": "2026-06-19T10:00:00Z",
+  "source": "prd",
+  "gatheredBy": "@pm",
+  "elicitationVersion": "2.0",
+  "prdPath": "docs/stories/epics/EPIC-12-PRD.md",
+
+  "functional": [
+    {
+      "id": "FR-1.1",
+      "description": "L1 framework core (.aiox-core/core/) must be protected from writes",
+      "priority": "P0",
+      "rationale": "Framework core is immutable, deny rules in .claude/settings.json enforce this",
+      "acceptance": ["Deny rules block all Write/Edit to L1", "Tests verify protection in story 12.11"],
+      "category": "framework-boundary"
+    },
+    {
+      "id": "FR-1.2",
+      "description": "L2 framework templates must be extend-only (no overwrites)",
+      "priority": "P0",
+      "rationale": "Templates are read-only to prevent accidental framework corruption",
+      "acceptance": ["Deny rules prevent Write/Edit to .aiox-core/development/", "Extend-only pattern enforced"],
+      "category": "framework-boundary"
+    },
+    {
+      "id": "FR-1.3",
+      "description": "L4 project runtime (docs/stories/, squads/, tests/) must be always mutable",
+      "priority": "P1",
+      "rationale": "Project code must be writable for development velocity",
+      "acceptance": ["Write/Edit to L4 never blocked", "Full developer control verified"],
+      "category": "framework-boundary"
+    },
+    {
+      "id": "FR-1.4",
+      "description": "Layer boundaries must be enforced at hook layer (PreToolUse)",
+      "priority": "P0",
+      "rationale": "Deterministic enforcement of framework boundaries",
+      "acceptance": ["enforce-quality-gates.cjs detects and blocks cross-layer violations", "Gate decisions logged"],
+      "category": "framework-boundary"
+    },
+    {
+      "id": "FR-2.1",
+      "description": "@aiox-master must route all tasks to appropriate specialized agents",
+      "priority": "P1",
+      "rationale": "Orchestrator pattern ensures single point of task routing",
+      "acceptance": ["Smart routing via .claude/rules/smart-routing.md works", "All task types route correctly"],
+      "category": "orchestration"
+    },
+    {
+      "id": "FR-2.2",
+      "description": "@devops authority (Art. II) must be enforced exclusively for git push/PR",
+      "priority": "P0",
+      "rationale": "Non-negotiable constitutional enforcement: only @devops can push to remote",
+      "acceptance": ["enforce-agent-authority.cjs blocks non-@devops push/PR attempts", "Metrics logged in gate-logs"],
+      "category": "agent-authority"
+    },
+    {
+      "id": "FR-2.3",
+      "description": "Agent authority must be explicit in .claude/rules/agent-authority.md",
+      "priority": "P1",
+      "rationale": "Canonical source of truth for who can do what",
+      "acceptance": ["Agent matrix exists and is up-to-date", "No ambiguities in delegation"],
+      "category": "agent-authority"
+    },
+    {
+      "id": "FR-2.4",
+      "description": "Agent registry (entity-registry.yaml) must map task types → responsible agents",
+      "priority": "P2",
+      "rationale": "Registry lookups enable deterministic task routing",
+      "acceptance": ["Registry exists and is valid", "Task routing is deterministic"],
+      "category": "orchestration"
+    },
+    {
+      "id": "FR-3.1",
+      "description": "PRDs must be structured (FRs/NFRs/edge cases/gates, 30-50 lines)",
+      "priority": "P1",
+      "rationale": "Spec-driven determinism: precise requirements enable reproducible testing",
+      "acceptance": ["EPIC-12-PRD follows structure", "All sections documented"],
+      "category": "spec-driven"
+    },
+    {
+      "id": "FR-3.2",
+      "description": "Stories must have precise AC (Given/When/Then format, 5-10 ACs)",
+      "priority": "P1",
+      "rationale": "Measurable acceptance criteria enable deterministic testing",
+      "acceptance": ["All story AC are in Given/When/Then format", "AC are not vague language"],
+      "category": "spec-driven"
+    },
+    {
+      "id": "FR-3.3",
+      "description": "Acceptance criteria must be 100% traceable to requirements",
+      "priority": "P1",
+      "rationale": "No invented criteria: everything traces back to FR/NFR",
+      "acceptance": ["Every AC traces to FR/NFR", "Gap traceability matrix created in story 12.6"],
+      "category": "spec-driven"
+    },
+    {
+      "id": "FR-3.4",
+      "description": "CodeRabbit auto-review must detect pattern violations",
+      "priority": "P2",
+      "rationale": "Automated quality validation catches out-of-spec code",
+      "acceptance": ["Auto-review detects pattern violations", "Violations are documented"],
+      "category": "spec-driven"
+    },
+    {
+      "id": "FR-4.1",
+      "description": "Agent activation must load Tier A (Constitution + rules) deterministically",
+      "priority": "P0",
+      "rationale": "95%+ context coverage requires deterministic loading of core context",
+      "acceptance": ["Agent loads .aiox-core/constitution.md on activation", "All .claude/rules/* loaded"],
+      "category": "context-loading"
+    },
+    {
+      "id": "FR-4.2",
+      "description": "Shim must auto-load persona (102 ln shim → 937+ ln context)",
+      "priority": "P1",
+      "rationale": "Context expansion: shim activation reads persona + tasks + workflows + memory",
+      "acceptance": ["Shim auto-loads persona", "Context size > 937 lines"],
+      "category": "context-loading"
+    },
+    {
+      "id": "FR-4.3",
+      "description": "Context loading must complete in <500ms on agent activation",
+      "priority": "P2",
+      "rationale": "Performance SLO: agent responsiveness critical for UX",
+      "acceptance": ["Load time measured < 500ms", "No timeout failures"],
+      "category": "context-loading"
+    },
+    {
+      "id": "FR-4.4",
+      "description": "Agent memory must persist between sessions (handoff protocol)",
+      "priority": "P1",
+      "rationale": "Session continuity: memory carries forward across contexts",
+      "acceptance": ["Memory files in .claude/agent-memory/ auto-loaded", "Context persists between sessions"],
+      "category": "context-loading"
+    },
+    {
+      "id": "FR-5.1",
+      "description": "7 Constitutional gates must be active and enforced",
+      "priority": "P0",
+      "rationale": "Non-negotiable: all 7 articles (I-VII) must be enforced",
+      "acceptance": ["All 7 gates functional", "Violations blocked/logged"],
+      "category": "gates"
+    },
+    {
+      "id": "FR-5.2",
+      "description": "Gate decisions must be audit-logged (JSONL format)",
+      "priority": "P1",
+      "rationale": "Auditability: every gate decision recorded for compliance",
+      "acceptance": [".aiox/gate-logs/ contains timestamped decision logs", "Logs are searchable"],
+      "category": "gates"
+    },
+    {
+      "id": "FR-5.3",
+      "description": "No gate can fail silently",
+      "priority": "P1",
+      "rationale": "Transparency: all gate verdicts recorded and metricated",
+      "acceptance": ["All verdicts recorded", "Metrics tracked in .synapse/metrics/"],
+      "category": "gates"
+    },
+    {
+      "id": "FR-5.4",
+      "description": "Art. IV (No Invention) must prevent spec statements without traceability",
+      "priority": "P0",
+      "rationale": "Constitutional enforcement: no invented features",
+      "acceptance": ["enforce-no-invention.cjs warns/blocks untraced statements", "Spec statements traced to requirements"],
+      "category": "gates"
+    }
+  ],
+
+  "nonFunctional": [
+    {
+      "id": "NFR-1.1",
+      "category": "performance",
+      "description": "Agent context load time",
+      "metric": "< 500ms on activation"
+    },
+    {
+      "id": "NFR-1.2",
+      "category": "performance",
+      "description": "Token overhead for +95% context",
+      "metric": "≤ +35% (1500 → 2000 tokens)"
+    },
+    {
+      "id": "NFR-1.3",
+      "category": "performance",
+      "description": "Cache hit rate (session + agent levels)",
+      "metric": "> 80%"
+    },
+    {
+      "id": "NFR-1.4",
+      "category": "performance",
+      "description": "Framework registry resolution",
+      "metric": "< 100ms per entity lookup"
+    },
+    {
+      "id": "NFR-2.1",
+      "category": "reliability",
+      "description": "Zero ambiguities in agent authority",
+      "metric": "100% authority explicit in agent-authority.md"
+    },
+    {
+      "id": "NFR-2.2",
+      "category": "reliability",
+      "description": "Workflow state transition determinism",
+      "metric": "100% (state transitions locked, no loops/skips)"
+    },
+    {
+      "id": "NFR-2.3",
+      "category": "reliability",
+      "description": "Context gap coverage on activation",
+      "metric": "95%+ (38 TIER 1/2/3 files loaded)"
+    },
+    {
+      "id": "NFR-2.4",
+      "category": "reliability",
+      "description": "Story status edge case coverage",
+      "metric": "100% (Draft→Ready→InProgress→InReview→Done)"
+    },
+    {
+      "id": "NFR-3.1",
+      "category": "quality",
+      "description": "QA gate check coverage",
+      "metric": "7/7 checks on every story"
+    },
+    {
+      "id": "NFR-3.2",
+      "category": "quality",
+      "description": "Gap remediation evidence trail",
+      "metric": "31/31 gaps traced to story or escalation"
+    },
+    {
+      "id": "NFR-3.3",
+      "category": "quality",
+      "description": "Ambiguity clarification documentation",
+      "metric": "21/21 ambiguities documented in .claude/rules/"
+    },
+    {
+      "id": "NFR-3.4",
+      "category": "quality",
+      "description": "Agent file coverage",
+      "metric": "100% (12/12 agents tested, 0 skipped)"
+    },
+    {
+      "id": "NFR-4.1",
+      "category": "traceability",
+      "description": "AC to FR/NFR traceability",
+      "metric": "100% (every AC links to FR/NFR)"
+    },
+    {
+      "id": "NFR-4.2",
+      "category": "traceability",
+      "description": "No dangling file references",
+      "metric": "0 (all agent files, templates, tasks exist)"
+    },
+    {
+      "id": "NFR-4.3",
+      "category": "traceability",
+      "description": "Constitutional gate decision logs",
+      "metric": "100% audit trail (JSONL, timestamped)"
+    },
+    {
+      "id": "NFR-4.4",
+      "category": "traceability",
+      "description": "Hand-off context preservation",
+      "metric": "100% (memory carries forward, zero loss between sessions)"
+    }
+  ],
+
+  "constraints": [
+    {
+      "id": "CON-1",
+      "type": "technical",
+      "description": "Cannot modify L1/L2 framework core",
+      "impact": "Unfixable L1/L2 gaps must be escalated via *propose-modification, not fixed in stories"
+    },
+    {
+      "id": "CON-2",
+      "type": "technical",
+      "description": "Agent activation must complete in <500ms",
+      "impact": "Large context files must be cached or lazy-loaded"
+    },
+    {
+      "id": "CON-3",
+      "type": "technical",
+      "description": "Gate logging must not block agent execution",
+      "impact": "Gate-logger must be async or circuit-breaker protected"
+    },
+    {
+      "id": "CON-4",
+      "type": "business",
+      "description": "100% agent coverage required for Phase 1 completion",
+      "impact": "All 12 agents (12.1-12.12) must pass QA gate"
+    },
+    {
+      "id": "CON-5",
+      "type": "business",
+      "description": "31 operational gaps must be explained or escalated",
+      "impact": "Story 12.6 must create traceability matrix with decision per gap"
+    },
+    {
+      "id": "CON-6",
+      "type": "regulatory",
+      "description": "No secrets or credentials in framework code",
+      "impact": "All API keys, tokens must be externalized to environment/vault"
+    },
+    {
+      "id": "CON-7",
+      "type": "regulatory",
+      "description": "Audit trail required for all gate decisions",
+      "impact": "Every gate verdict must be logged to .aiox/gate-logs/"
+    }
+  ],
+
+  "assumptions": [
+    {
+      "id": "ASM-1",
+      "description": "Agent files (.claude/agents/*, .claude/skills/*/SKILL.md) exist and are valid",
+      "risk_if_wrong": "Agent activation fails, framework unusable",
+      "validation_needed": true
+    },
+    {
+      "id": "ASM-2",
+      "description": "Morgan's audit (31 gaps + 21 ambiguities) is complete and accurate",
+      "risk_if_wrong": "Testing may miss critical gaps, false sense of completion",
+      "validation_needed": true
+    },
+    {
+      "id": "ASM-3",
+      "description": "Constitution (.aiox-core/constitution.md) is the source of truth for Art. I-VII",
+      "risk_if_wrong": "Gate implementations may diverge from canonical constitution",
+      "validation_needed": true
+    },
+    {
+      "id": "ASM-4",
+      "description": "Agent memory files persist and are accessible between sessions",
+      "risk_if_wrong": "Handoff protocol fails, context lost",
+      "validation_needed": true
+    },
+    {
+      "id": "ASM-5",
+      "description": "CodeRabbit integration is working and auto-healing loops function",
+      "risk_if_wrong": "Self-healing fails, manual QA intervention required",
+      "validation_needed": true
+    }
+  ],
+
+  "domainModel": [
+    {
+      "id": "DM-1",
+      "entity": "Agent",
+      "description": "AI persona with specific authority and responsibilities",
+      "attributes": ["id", "name", "persona", "commands", "memory", "authority_scope"],
+      "relationships": [
+        {"type": "has_many", "target": "Task"},
+        {"type": "has_one", "target": "Memory"},
+        {"type": "has_many", "target": "Command"}
+      ]
+    },
+    {
+      "id": "DM-2",
+      "entity": "Story",
+      "description": "Development unit with acceptance criteria and testing tasks",
+      "attributes": ["id", "epic", "title", "status", "ac_list", "file_list"],
+      "relationships": [
+        {"type": "belongs_to", "target": "Epic"},
+        {"type": "has_many", "target": "AcceptanceCriteria"},
+        {"type": "has_one", "target": "QAGateResult"}
+      ]
+    },
+    {
+      "id": "DM-3",
+      "entity": "Framework Layer",
+      "description": "Hierarchical boundary: L1 (core), L2 (templates), L3 (config), L4 (runtime)",
+      "attributes": ["layer", "path", "mutability", "protection_level"],
+      "relationships": [
+        {"type": "has_many", "target": "DenyRule"}
+      ]
+    },
+    {
+      "id": "DM-4",
+      "entity": "Constitutional Gate",
+      "description": "Enforcement mechanism for Art. I-VII",
+      "attributes": ["article_id", "gate_name", "trigger", "decision", "logged"],
+      "relationships": [
+        {"type": "has_many", "target": "GateDecisionLog"}
+      ]
+    },
+    {
+      "id": "DM-5",
+      "entity": "Gap",
+      "description": "Identified operational or infrastructure gap from Morgan's audit",
+      "attributes": ["gap_id", "description", "severity", "remediation_type"],
+      "relationships": [
+        {"type": "has_one", "target": "Story"},
+        {"type": "has_one", "target": "Escalation"}
+      ]
+    }
+  ],
+
+  "interactions": [
+    {
+      "id": "INT-1",
+      "trigger": "Agent activation via @agent-name",
+      "flow": ["Shim loads (~102 lines)", "Persona auto-loads", "Tasks/templates/memory load", "Context reaches 937+ lines", "Agent ready for commands"],
+      "states": {
+        "loading": "Spinner visible, context loading",
+        "error": "Agent activation failed → show error reason + remediation",
+        "empty": "No context loaded → fallback to minimal agent definition"
+      }
+    },
+    {
+      "id": "INT-2",
+      "trigger": "Story status transition (Draft → Ready → InProgress → InReview → Done)",
+      "flow": ["@sm creates story (Draft)", "@po validates (checks 10-point checklist)", "@po sets Ready on GO verdict", "@dev updates InProgress on start", "@dev updates InReview on completion", "@qa sets Done on PASS/CONCERNS"],
+      "states": {
+        "loading": "Status update in progress",
+        "error": "Status transition blocked → story remains in current state",
+        "empty": "Story has no status field → default to Draft"
+      }
+    },
+    {
+      "id": "INT-3",
+      "trigger": "Constitutional gate evaluation",
+      "flow": ["Agent action triggers gate matcher", "Gate evaluates condition", "Decision: allow/block/override", "Decision logged to JSONL", "Metrics updated"],
+      "states": {
+        "loading": "Gate evaluation in progress",
+        "error": "Gate error → warn-and-proceed (graceful degradation)",
+        "empty": "No gate config found → allow (fail-safe for new gates)"
+      }
+    },
+    {
+      "id": "INT-4",
+      "trigger": "Agent memory handoff between sessions",
+      "flow": ["Session 1 ends, memory file saved", "Session 2 starts, agent loads memory", "Context from previous session available", "Agent continues with prior context"],
+      "states": {
+        "loading": "Memory file loading",
+        "error": "Memory file corrupted → start with clean slate + warn",
+        "empty": "No memory file → first session, no prior context"
+      }
+    }
+  ],
+
+  "edgeCases": [
+    {
+      "id": "EC-1",
+      "scenario": "Agent activation fails due to missing persona file",
+      "handling": "Fallback to minimal agent definition (102 ln shim only); display error + remediation path",
+      "severity": "high"
+    },
+    {
+      "id": "EC-2",
+      "scenario": "Constitutional gate blocks legitimate operation",
+      "handling": "Override available with --skip-{gate} flag + audit-log the override; escalate to @aiox-master",
+      "severity": "medium"
+    },
+    {
+      "id": "EC-3",
+      "scenario": "Story status field missing or malformed",
+      "handling": "Validate on load; if missing, set to Draft; if malformed, normalize to nearest valid state",
+      "severity": "medium"
+    },
+    {
+      "id": "EC-4",
+      "scenario": "Agent memory file not persisted between sessions",
+      "handling": "Handoff artifact available in .aiox/handoffs/; re-load from YAML if memory.md missing",
+      "severity": "high"
+    },
+    {
+      "id": "EC-5",
+      "scenario": "Circular dependency between agents (A needs B needs A)",
+      "handling": "Detect at registry load time; log error; fail-fast with clear message",
+      "severity": "critical"
+    },
+    {
+      "id": "EC-6",
+      "scenario": "CodeRabbit auto-healing loop exceeds max iterations (e.g., 2)",
+      "handling": "Halt auto-healing; log issue; require manual review; do not proceed to QA",
+      "severity": "high"
+    }
+  ],
+
+  "terminology": [
+    {
+      "term": "Agent",
+      "definition": "AI persona with specific expertise, commands, and authority scope; interchangeable executor within its domain",
+      "synonyms": ["role", "executor", "worker"],
+      "avoid": ["bot", "automation", "subprocess"]
+    },
+    {
+      "term": "Story",
+      "definition": "Development unit with acceptance criteria, estimated effort, and testing tasks; atomic contract",
+      "synonyms": ["task", "issue", "work item"],
+      "avoid": ["ticket", "requirement"]
+    },
+    {
+      "term": "Gate",
+      "definition": "Enforcement mechanism for constitutional articles (Art. I-VII); blocks or allows operations based on rules",
+      "synonyms": ["checkpoint", "validator", "enforcer"],
+      "avoid": ["filter", "firewall"]
+    },
+    {
+      "term": "Gap",
+      "definition": "Identified operational or infrastructure shortcoming from audit; remediated or escalated",
+      "synonyms": ["issue", "deficiency", "finding"],
+      "avoid": ["bug", "problem"]
+    },
+    {
+      "term": "Authority",
+      "definition": "Exclusive responsibility for specific operations (e.g., @devops exclusive for git push); non-delegable",
+      "synonyms": ["permission", "privilege", "scope"],
+      "avoid": ["access", "role"]
+    },
+    {
+      "term": "Layer",
+      "definition": "Framework hierarchy: L1 (core, immutable), L2 (templates, extend-only), L3 (config, mutable), L4 (runtime, always mutable)",
+      "synonyms": ["level", "tier"],
+      "avoid": ["directory", "folder"]
+    },
+    {
+      "term": "Acceptance Criteria (AC)",
+      "definition": "Precise, measurable conditions in Given/When/Then format; story is Done when ALL AC pass",
+      "synonyms": ["condition", "requirement", "spec"],
+      "avoid": ["feature", "task"]
+    },
+    {
+      "term": "Handoff",
+      "definition": "Transfer of context between agents or sessions; memory + decision log preserved in YAML",
+      "synonyms": ["transition", "context-pass", "baton"],
+      "avoid": ["message", "communication"]
+    }
+  ],
+
+  "openQuestions": [
+    {
+      "id": "OQ-1",
+      "question": "Are all 31 gaps from Morgan's audit still valid, or have some been resolved since Cont 42?",
+      "priority": "high",
+      "blocksProgress": false,
+      "assignedTo": "@architect"
+    },
+    {
+      "id": "OQ-2",
+      "question": "Can gate-logging be async without risking out-of-order writes to JSONL?",
+      "priority": "high",
+      "blocksProgress": false,
+      "assignedTo": "@devops"
+    },
+    {
+      "id": "OQ-3",
+      "question": "What is the Performance SLO for CodeRabbit auto-healing? Should it have timeout?",
+      "priority": "medium",
+      "blocksProgress": false,
+      "assignedTo": "@qa"
+    },
+    {
+      "id": "OQ-4",
+      "question": "Should agent memory be versioned (v1, v2) to support backwards compatibility?",
+      "priority": "medium",
+      "blocksProgress": false,
+      "assignedTo": "@architect"
+    },
+    {
+      "id": "OQ-5",
+      "question": "How should gate overrides be tracked and approved? Self-service or approval chain?",
+      "priority": "high",
+      "blocksProgress": false,
+      "assignedTo": "@pm"
+    }
+  ]
+}

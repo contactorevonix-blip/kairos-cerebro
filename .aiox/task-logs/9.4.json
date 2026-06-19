@@ -1,45 +1,45 @@
 {
   "storyId": "9.4",
-  "storyType": "feature",
-  "suggestedAt": "2026-06-18T21:57:07.446Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-18T22:14:35.288Z",
   "suggestions": [
     {
-      "id": "create-deep-research-prompt",
-      "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/create-next-story.md",
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "dev-develop-story",
-      "name": "Develop Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "sm-create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "build-status",
-      "name": "Task: Build Status",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/build-status.md",
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
       "score": 73,
       "autoActivate": true
     }

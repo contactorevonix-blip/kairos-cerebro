@@ -43,8 +43,37 @@
 
 ---
 
-# 🚀 Session 2026-06-19 (Cont 60) — EPIC-12 Spec Pipeline Execution
-[STARTING NOW]
+# 🚀 Session 2026-06-19 (Cont 60) — EPIC-12 Spec Pipeline Phases 1-2 ✅
+
+**Status: ✅ CONT 60 COMPLETE | 🚀 CONT 61 → PHASE 3 RESEARCH**
+
+## CONT 60 FINAL SUMMARY — @pm @architect Spec Pipeline Setup
+
+**Completed:**
+- ✅ **Phase 1: Gather** — Requirements extracted from EPIC-12-PRD.md
+  - **Output:** `docs/stories/epics/EPIC-12/spec/requirements.json` (20 FRs, 16 NFRs, 7 CONs, 5 ASMs, domain model, interactions, edge cases, terminology)
+  - **Effort:** 1.5 hours (@pm)
+  - **Quality:** 100% traceable to PRD §3-14
+
+- ✅ **Phase 2: Assess** — Complexity scored by @architect
+  - **Output:** `docs/stories/epics/EPIC-12/spec/complexity.json` (COMPLEX, score 17/25)
+  - **Dimensions:** Scope=4, Integration=4, Infrastructure=3, Knowledge=2, Risk=4
+  - **Pipeline:** Full 8-phase pipeline activated (gather→assess→research→spec→critique_v1→revise→critique_v2→plan)
+  - **Effort:** 1 hour (@architect)
+  - **Flags:** Three-Surface Agent Trap identified, boundary blocks documented, unified-activation-pipeline.js merge point flagged
+
+**Architecture Insights:**
+- EPIC-12 is COMPLEX (min_total: 16, actual: 17) — triggers full Spec Pipeline
+- New pattern: Spec Pipeline critique process (Phase 5/7) — no operational precedent yet
+- Risk: High (core agent framework), Reversibility: High (L4 only)
+- Effort estimate: 3+ dias total (research-heavy)
+
+**Next for Cont 61:**
+- Start Phase 3: `@analyst *analyze-impact (EPIC-12)`
+- Input: `requirements.json` + `complexity.json`
+- Topics: Spec Pipeline patterns, gate implementations, agent context determinism, constitutional enforcement
+- Output: `research.json` (8-10 hours effort)
+- Flow: Phase 3 → 4 → 5/6/7 → 8 (remaining phases)
 
 ---
 
@@ -4023,3 +4052,23 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: Cont 57 FINAL + Cont 58 Handoff — EPIC-12 Spec Pipeline Ready ✅
 **Files changed:** .aiox/codebase-map.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json, .aiox/task-logs/9.5.json
+
+## Checkpoint: e74685a — 2026-06-19 17:49
+**Branch:** main
+**Commit:** docs: Cont 59 COMPLETE — EPIC-12 Spec Pipeline (11 phases designed) [Cont 59]
+**Files changed:** .aiox/codebase-map.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json, .aiox/task-logs/9.5.json
+
+## Checkpoint: e74685a — 2026-06-19 17:54
+**Branch:** main
+**Commit:** docs: Cont 59 COMPLETE — EPIC-12 Spec Pipeline (11 phases designed) [Cont 59]
+**Files changed:** .aiox/codebase-map.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/12.1.json, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json
+
+## Checkpoint: e74685a — 2026-06-19 17:56
+**Branch:** main
+**Commit:** docs: Cont 59 COMPLETE — EPIC-12 Spec Pipeline (11 phases designed) [Cont 59]
+**Files changed:** .aiox/codebase-map.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/12.1.json, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json
+
+## Checkpoint: e74685a — 2026-06-19 17:58
+**Branch:** main
+**Commit:** docs: Cont 59 COMPLETE — EPIC-12 Spec Pipeline (11 phases designed) [Cont 59]
+**Files changed:** .aiox/codebase-map.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/12.1.json, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json

@@ -1,0 +1,118 @@
+{
+  "storyId": "EPIC-12",
+  "assessedAt": "2026-06-19T10:30:00Z",
+  "assessedBy": "@architect",
+  "result": "COMPLEX",
+  "overridden": false,
+
+  "dimensions": {
+    "scope": {
+      "score": 4,
+      "notes": "20+ FR files affect: .claude/agents/, .claude/skills/*/SKILL.md, .claude/rules/, .aiox-core/development/agents/, .synapse/metrics/, .aiox/gate-logs/, enforce-*.cjs hooks. Estimated 20-30 files touched (cross-cutting concerns across agent system, gate system, and observability layer)."
+    },
+    "integration": {
+      "score": 4,
+      "notes": "4 workflows (SDC, QA Loop, Spec Pipeline, Brownfield) tested end-to-end. 12 agents interacting. Registry routing required. Gate logging (JSONL). CodeRabbit self-healing integration. Multiple data flows between agents and gate layers."
+    },
+    "infrastructure": {
+      "score": 3,
+      "notes": "New .aiox/gate-logs/ JSONL logging infrastructure. Possible cache layer for context loading (NFR-1.3 >80%). Dependencies: gate-logger.cjs, agent-activation-tracker.cjs, session-manager.js. Mostly configuration, some new service patterns."
+    },
+    "knowledge": {
+      "score": 2,
+      "notes": "AIOX framework well-documented. Gate patterns exist (EPIC-9 reference). But: Spec Pipeline Phase 2-4 (assess/research/critique) are NEW patterns not in production yet. New critique/revision loop cycle (Phase 7-8) is novel. Team knows agents, but Spec Pipeline process itself is unproven operationally."
+    },
+    "risk": {
+      "score": 4,
+      "notes": "Core framework (agent system, constitutional gates Art. I-VII). Affects all 12 agents. If gates fail, determinism compromised. High user impact (internal AIOX team + future deployments). But: High reversibility (L4 stories only, can rollback). No user-facing risk (framework-only)."
+    }
+  },
+
+  "totalScore": 17,
+  "classification": "COMPLEX (min_total: 16)",
+
+  "pipelinePhases": [
+    "1. Gather (complete ✅)",
+    "2. Assess (this phase ✅)",
+    "3. Research — Deep dive into Spec Pipeline precedents, gate patterns",
+    "4. Write Spec — Full specification document with implementation strategy",
+    "5. Critique v1 — QA gate: @qa validates spec completeness",
+    "6. Revise — Incorporate feedback, refine design",
+    "7. Critique v2 — Final QA gate: no blockers",
+    "8. Plan — Implementation roadmap (epic breakdown into 12.1-12.12 stories)"
+  ],
+
+  "flags": [
+    "🏗️ Requires architectural review before Phase 3 (research) — EPIC-12 is foundation; Aria must validate design assumptions",
+    "⚠️ Consider breaking down Phase 3 (research) into 2-3 parallel research tasks (@analyst depth varies by topic)",
+    "🔍 Spike may be needed for Spec Pipeline critique patterns (Phase 5/7) — no operational precedent; design new QA gate checklist",
+    "📚 New artifact: Spec Pipeline process document (how to critique agent framework specs) — becomes template for future epics",
+    "🚨 Three-Surface Agent Trap (memory file) — design must account for .aiox-core/development/agents/*.md vs .claude/agents/aiox-*.md divergence (documented in project-epic12-viability.md)"
+  ],
+
+  "estimatedEffort": "3+ days (research-heavy; gatekeeping new patterns)",
+
+  "phaseBreakdown": {
+    "phase_2_assess": {
+      "effort": "0.5 hours (complete)",
+      "status": "✅ DONE"
+    },
+    "phase_3_research": {
+      "effort": "8-10 hours",
+      "owner": "@analyst",
+      "topics": [
+        "Spec Pipeline critique process (new for agent frameworks)",
+        "Gate patterns from EPIC-9 (reference implementation)",
+        "Agent context loading determinism (from Cont 56 audit)",
+        "Constitutional article enforcement precedents",
+        "Multi-agent validation patterns"
+      ],
+      "deliverable": "research.json"
+    },
+    "phase_4_write_spec": {
+      "effort": "3-4 hours",
+      "owner": "@pm",
+      "focus": "Transform requirements.json into detailed spec document with implementation strategy, risk mitigation",
+      "deliverable": "spec.md"
+    },
+    "phase_5_critique_v1": {
+      "effort": "2-3 hours",
+      "owner": "@qa",
+      "deliverable": "critique_v1.json",
+      "verdict": "APPROVED | NEEDS_REVISION | BLOCKED"
+    },
+    "phase_6_revise": {
+      "effort": "2-3 hours",
+      "owner": "@pm (with @architect guidance)",
+      "deliverable": "spec.md (revised)"
+    },
+    "phase_7_critique_v2": {
+      "effort": "1-2 hours",
+      "owner": "@qa",
+      "deliverable": "critique_v2.json",
+      "verdict": "APPROVED (go to Phase 8) | BLOCKED (escalate)"
+    },
+    "phase_8_plan": {
+      "effort": "3-4 hours",
+      "owner": "@architect + @pm",
+      "deliverable": "implementation.yaml (12 stories, dependencies, phasing)",
+      "output": "docs/stories/epics/EPIC-12/EXECUTION-PLAN.yaml"
+    }
+  },
+
+  "designValidationCheckpoints": [
+    "✅ Requirements comprehensive (20 FRs, 16 NFRs) — PASS",
+    "⚠️ Three-Surface Agent Trap identified — must be addressed in Phase 4 spec",
+    "⚠️ Boundary blocks in .claude/settings.json verified (synapse/*, config-cache.js) — mitigation: route via @aiox-master *propose-modification",
+    "⚠️ Merge point: unified-activation-pipeline.js (31KB, touched by 3 stories) — Phase 4 spec must define PR-0 foundation + hook slots",
+    "✅ Test collision: task-discovery.test.js vs discovery.test.js — IDS check, reuse discovery.test.js"
+  ],
+
+  "nextPhase": {
+    "phase": "3. Research",
+    "agent": "@analyst (Alex)",
+    "command": "*analyze-impact",
+    "input": "docs/stories/epics/EPIC-12/spec/requirements.json + complexity.json",
+    "condition": "Complexity classified as COMPLEX; proceed with full Spec Pipeline"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "storyId": "9.5",
   "storyType": "config",
-  "suggestedAt": "2026-06-18T21:57:07.805Z",
+  "suggestedAt": "2026-06-18T22:15:37.220Z",
   "suggestions": [
     {
       "id": "add-mcp",
@@ -28,19 +28,19 @@
       "autoActivate": true
     },
     {
-      "id": "bootstrap-shadcn-library",
-      "name": "Bootstrap Shadcn/Radix Component Library",
+      "id": "setup-design-system",
+      "name": "Setup Design System Structure",
       "category": "config",
-      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
-      "score": 65,
-      "autoActivate": false
+      "file": ".aiox-core/development/tasks/setup-design-system.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "environment-bootstrap",
-      "name": "environment-bootstrap",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
-      "score": 65,
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 67,
       "autoActivate": false
     }
   ]

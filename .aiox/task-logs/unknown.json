@@ -1,47 +1,47 @@
 {
   "storyId": "unknown",
-  "storyType": "refactor",
-  "suggestedAt": "2026-06-17T17:31:46.861Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-19T17:53:09.436Z",
   "suggestions": [
     {
-      "id": "dev-optimize-performance",
-      "name": "Optimize Performance - AIOX Developer Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 89,
+      "autoActivate": true
+    },
+    {
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 89,
+      "autoActivate": true
+    },
+    {
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 89,
+      "autoActivate": true
+    },
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "dev-improve-code-quality",
-      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
-      "score": 73,
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 81,
       "autoActivate": true
-    },
-    {
-      "id": "cleanup-utilities",
-      "name": "Cleanup Utilities Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
-      "score": 65,
-      "autoActivate": false
-    },
-    {
-      "id": "cleanup-worktrees",
-      "name": "cleanup-worktrees",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/cleanup-worktrees.md",
-      "score": 65,
-      "autoActivate": false
-    },
-    {
-      "id": "consolidate-patterns",
-      "name": "Consolidate Patterns Using Intelligent Clustering",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/consolidate-patterns.md",
-      "score": 65,
-      "autoActivate": false
     }
   ]
 }

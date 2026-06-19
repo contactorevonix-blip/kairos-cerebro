@@ -1,62 +1,47 @@
 {
-  "project": "aiox-core",
-  "mappedAt": "2026-01-29T03:28:24.249Z",
+  "project": "kairos-cerebro",
+  "mappedAt": "2026-06-19T17:04:40.197Z",
   "version": "1.0",
   "structure": {
     "type": "directory",
     "files": [
+      ".aiox-sync.yaml",
       ".coderabbit.yaml",
+      ".dockerignore",
       ".env",
       ".env.example",
+      ".env.example.backup.1779648644651",
       ".gitattributes",
       ".gitignore",
       ".prettierrc",
+      ".railwayignore",
       ".releaserc.json",
       ".tsbuildinfo",
-      "CHANGELOG.md",
-      "CODE_OF_CONDUCT-PT.md",
-      "CODE_OF_CONDUCT.md",
-      "COMMUNITY-PT.md",
-      "COMMUNITY.md",
-      "CONTRIBUTING-PT.md",
-      "CONTRIBUTING.md",
-      "LICENSE",
-      "PRIVACY.md",
-      "README.md",
-      "ROADMAP-PT.md",
-      "ROADMAP.md",
-      "... and 8 more"
+      "AGENTS.md",
+      "AIOX_DNA.md",
+      "AIOX_MAP.html",
+      "AIOX_MAP.json",
+      "AIOX_MAP_ASCII.txt",
+      "AIOX_MAP_INDEX.md",
+      "AIOX_MAP_README.md",
+      "aiox_tree.txt",
+      "... and 24 more"
     ],
-    "filesCount": 28,
+    "filesCount": 44,
     "children": {
-      "apps": {
+      "audits": {
         "type": "directory",
+        "files": [
+          "c-dev-organization-2026-05-07.md",
+          "README.md"
+        ],
         "children": {
-          "dashboard": {
+          "promoted": {
             "type": "directory",
             "files": [
-              ".gitignore",
-              "README.md",
-              "components.json",
-              "eslint.config.mjs",
-              "next-env.d.ts",
-              "next.config.ts",
-              "package-lock.json",
-              "package.json",
-              "postcss.config.mjs",
-              "tsconfig.json",
-              "tsconfig.tsbuildinfo"
-            ],
-            "children": {
-              "public": {
-                "type": "directory",
-                "purpose": "Static assets"
-              },
-              "src": {
-                "type": "directory",
-                "purpose": "Application source code"
-              }
-            }
+              "AF-20260507-aiox-master-routing-gap.yaml",
+              "AF-20260507-vocabulary-contract-failure.yaml"
+            ]
           }
         }
       },
@@ -64,11 +49,25 @@
         "type": "directory",
         "purpose": "CLI/executable scripts",
         "files": [
-          "aiox-init.js",
-          "aiox-minimal.js",
-          "aiox.js"
+          "backup-volume.js",
+          "kairos-command-center.js",
+          "kairos.js",
+          "pipeline.js",
+          "radar.js",
+          "responder.js",
+          "seed-reputation.js",
+          "smoke-test.js",
+          "stats.js",
+          "supervisor.js"
         ],
         "children": {
+          "commands": {
+            "type": "directory",
+            "files": [
+              "squad-create.js",
+              "squad-validate.js"
+            ]
+          },
           "modules": {
             "type": "directory",
             "files": [
@@ -80,761 +79,1874 @@
             "type": "directory",
             "purpose": "Utility functions",
             "files": [
-              "install-errors.js",
+              "framework-guard.js",
               "install-transaction.js"
             ]
           }
         }
       },
-      "common": {
-        "type": "directory",
-        "children": {
-          "utils": {
-            "type": "directory",
-            "purpose": "Utility functions",
-            "files": [
-              "aiox-doc-template.md"
-            ]
-          }
-        }
+      "CUserslealpKAIROS_CEREBRO.husky": {
+        "type": "directory"
       },
       "docs": {
         "type": "directory",
         "purpose": "Documentation",
         "files": [
-          "CHANGELOG.md",
-          "DOCUMENTATION-ROADMAP.md",
-          "ENVIRONMENT.md",
-          "FEATURE_PROCESS.md",
-          "GUIDING-PRINCIPLES.md",
-          "README.md",
-          "agent-reference-guide.md",
-          "aiox-nomenclature-specification.md",
-          "core-architecture.md",
-          "docker-mcp-setup.md",
-          "getting-started.md",
-          "git-workflow-guide.md",
-          "how-to-contribute-with-pull-requests.md",
-          "ide-integration.md",
-          "meta-agent-commands.md",
-          "migration-guide.md",
-          "npx-install.md",
-          "performance-tuning-guide.md",
-          "security-best-practices.md",
-          "troubleshooting.md",
-          "... and 2 more"
+          "AGENT-AUDIT-FRAMEWORK.md",
+          "AGENT-MEMORY-AUDIT.md",
+          "AGENT-MEMORY-GAPS.json",
+          "aiox-academy-research.md",
+          "AIOX-AGENT-MEMORY-AUDIT.md",
+          "AIOX-AGENT-MEMORY-GAPS.json",
+          "AIOX-AUTOMATION-REPORT.md",
+          "AIOX-AUTOMATION-ROADMAP.json",
+          "AIOX-COMPLIANCE-GAPS.json",
+          "AIOX-DOCUMENTATION-AUDIT.md",
+          "AIOX-DOCUMENTATION-GAPS.json",
+          "AIOX-FRAMEWORK-AUDIT.md",
+          "AIOX-INTEGRATED-FLOW.md",
+          "AIOX-SETUP-REPORT.md",
+          "AIOX-SQUAD-AUDIT.md",
+          "AIOX-SQUAD-GAPS.json",
+          "AIOX-WORKFLOW-TEST-REPORT.md",
+          "AIOX-WORKFLOW-TEST-RESULTS.json",
+          "ARCHITECTURE.md",
+          "AUDIT-PLAN.md",
+          "... and 24 more"
         ],
-        "filesCount": 22,
+        "filesCount": 44,
         "children": {
           "agents": {
             "type": "directory",
             "files": [
-              "archetype-rationale.md",
-              "persona-definitions.md",
-              "persona-definitions.yaml"
+              "db-sage.md"
+            ]
+          },
+          "agents-ready": {
+            "type": "directory",
+            "files": [
+              "11.2-river-sm-audit-FINAL.md"
+            ]
+          },
+          "AIOX_ACADEMY": {
+            "type": "directory",
+            "files": [
+              "course.html",
+              "decision-simulator.html",
+              "index.html",
+              "playground.html",
+              "reference-dashboard.html",
+              "terminal-card.html",
+              "visual-map.html",
+              "workflows-guide.html"
+            ]
+          },
+          "AIOX_MAP": {
+            "type": "directory",
+            "files": [
+              "data.json",
+              "index.html",
+              "README.md",
+              "REFERENCE.txt"
+            ]
+          },
+          "amendments": {
+            "type": "directory",
+            "files": [
+              "constitution-v1.1.0-final.md"
             ]
           },
           "api": {
             "type": "directory",
             "purpose": "API routes/endpoints",
             "files": [
-              "squads-api.md"
+              "ERROR-CODES.md"
             ]
           },
           "architecture": {
             "type": "directory",
             "files": [
-              "ADE-ARCHITECT-HANDOFF.md",
-              "ADE-EPIC3-HANDOFF.md",
-              "ADE-EPIC4-HANDOFF.md",
-              "ARCHITECTURE-INDEX.md",
-              "AUTO-CLAUDE-ANALYSIS-COMPLETE.md",
-              "AUTO-CLAUDE-DASHBOARD-ANALYSIS.md",
-              "CLAUDE-MD-V3-CHANGES.md",
-              "HANDOFF-AIOX-DASHBOARD.md",
               "agent-config-audit.md",
-              "agent-responsibility-matrix.md",
-              "agent-tool-integration-guide.md",
-              "ci-cd.md",
-              "coding-standards.md",
-              "contribution-workflow-research.md",
-              "dependency-resolution-plan.md",
-              "hcs-check-specifications.md",
-              "hcs-execution-modes.md",
-              "hcs-self-healing-spec.md",
-              "high-level-architecture.md",
-              "introduction.md",
-              "... and 10 more"
+              "agent-context-determinism-architecture.md",
+              "AGENT-SOURCE-OF-TRUTH.md",
+              "CONTROL-PLANE-DESIGN.md",
+              "db-audit.md",
+              "system-architecture.md",
+              "TASK-SCHEMA-NORMALIZATION.md"
             ],
-            "filesCount": 30,
             "children": {
-              "adr": {
-                "type": "directory"
+              "agent-memory": {
+                "type": "directory",
+                "files": [
+                  "discovery-process.md",
+                  "memory-lifecycle.md",
+                  "memory-sync-rules.md"
+                ]
               }
             }
           },
-          "community": {
+          "audits": {
             "type": "directory",
             "files": [
-              "README-community-snippet-core.md",
-              "README-community-snippet-mcp.md",
-              "README-community-snippet-squads.md"
+              "AGENT_IO_MATRIX.md",
+              "AIOX-CORE-REALIGNMENT-AUDIT-2026-06-10.md",
+              "AIOX-SYNC-AUDIT-2026-06-10.md",
+              "AMBIGUITY_AUDIT.md",
+              "AUDIT-CONT42-DIAGNOSTIC-RESULTS.md",
+              "CONNECTIVITY_GRAPH.md",
+              "ENTITY_CATALOG.md",
+              "FINAL_ARCHITECTURE_AUDIT.md",
+              "INVENTED_COMPONENTS_REPORT.md",
+              "PHASE3-GAP-RECONCILIATION.md",
+              "PHASE3-SPEC-VERIFICATION.md",
+              "SYSTEM_DISCOVERY_REPORT.md"
             ]
           },
-          "es": {
+          "brownfield": {
             "type": "directory",
             "files": [
-              "CHANGELOG.md",
-              "DOCUMENTATION-ROADMAP.md",
-              "ENVIRONMENT.md",
-              "FEATURE_PROCESS.md",
-              "GUIDING-PRINCIPLES.md",
-              "README.md",
-              "agent-reference-guide.md",
-              "aiox-nomenclature-specification.md",
-              "core-architecture.md",
-              "getting-started.md",
-              "git-workflow-guide.md",
-              "how-to-contribute-with-pull-requests.md",
-              "meta-agent-commands.md",
-              "migration-guide.md",
-              "npx-install.md",
-              "performance-tuning-guide.md",
-              "security-best-practices.md",
-              "troubleshooting.md",
-              "uninstallation.md",
-              "versioning-and-releases.md"
-            ],
-            "children": {
-              "agents": {
-                "type": "directory"
-              },
-              "api": {
-                "type": "directory",
-                "purpose": "API routes/endpoints"
-              },
-              "architecture": {
-                "type": "directory"
-              },
-              "community": {
-                "type": "directory"
-              },
-              "examples": {
-                "type": "directory"
-              },
-              "framework": {
-                "type": "directory"
-              },
-              "guides": {
-                "type": "directory"
-              },
-              "installation": {
-                "type": "directory"
-              },
-              "platforms": {
-                "type": "directory"
-              },
-              "specifications": {
-                "type": "directory"
-              }
-            }
+              "DB-AUDIT.md",
+              "db-specialist-review.md",
+              "frontend-spec.md",
+              "qa-review.md",
+              "SCHEMA.md",
+              "system-architecture.md",
+              "technical-debt-assessment.md",
+              "technical-debt-DRAFT.md",
+              "TECHNICAL-DEBT-REPORT.md",
+              "ux-specialist-review.md"
+            ]
           },
-          "examples": {
-            "type": "directory",
-            "children": {
-              "squads": {
-                "type": "directory"
-              }
-            }
-          },
-          "framework": {
+          "contexts": {
             "type": "directory",
             "files": [
-              "README.md",
-              "coding-standards.md",
-              "source-tree.md",
-              "tech-stack.md"
+              "STATE-aiox-academy.md",
+              "STATE-aiox-framework.md",
+              "STATE-kairos-check.md"
+            ]
+          },
+          "design": {
+            "type": "directory",
+            "files": [
+              "MONITOR-CONTROL-UI-SPEC.md"
+            ]
+          },
+          "diagrams": {
+            "type": "directory",
+            "files": [
+              "memory-lifecycle-diagram.md"
+            ]
+          },
+          "frontend": {
+            "type": "directory",
+            "files": [
+              "frontend-spec.md"
             ]
           },
           "guides": {
             "type": "directory",
             "files": [
-              "README.md",
-              "agent-selection-guide.md",
-              "contextual-greeting-system-guide.md",
-              "contributing-squads.md",
-              "ide-sync-guide.md",
-              "installation-troubleshooting.md",
-              "llm-routing.md",
-              "mcp-global-setup.md",
-              "project-status-feature.md",
-              "quality-dashboard.md",
-              "quality-gates.md",
-              "service-discovery.md",
-              "squad-migration.md",
-              "squads-guide.md",
-              "squads-overview.md",
-              "template-engine-v2.md",
-              "user-guide.md"
-            ],
-            "children": {
-              "coderabbit": {
-                "type": "directory"
-              },
-              "hybridOps": {
-                "type": "directory"
-              },
-              "mcp": {
-                "type": "directory"
-              },
-              "squad-examples": {
-                "type": "directory"
-              }
-            }
-          },
-          "installation": {
-            "type": "directory",
-            "files": [
-              "README.md",
-              "faq.md",
-              "macos.md",
-              "troubleshooting.md",
-              "v2.1-quick-start.md"
+              "ade-guide.md",
+              "AIOX-MASTERY-ROADMAP.md",
+              "aiox-playbook.md",
+              "AIOX-SQUAD-CREATION-FLOW.md",
+              "AIOX-USER-STORY-DRIVEN-CYCLE.md",
+              "release-procedure.md",
+              "SQUAD-ARCHITECT-HANDOFF.md",
+              "USER-AIOX-ONBOARDING-FLOW.md",
+              "WORKSPACE-VALIDATION-GUIDE.md"
             ]
           },
-          "migration": {
+          "plans": {
             "type": "directory",
             "files": [
-              "v2.0-to-v2.1.md"
-            ]
-          },
-          "platforms": {
-            "type": "directory",
-            "files": [
-              "README.md",
-              "antigravity.md",
-              "claude-code.md",
-              "cline.md",
-              "cursor.md",
-              "gemini-cli.md",
-              "github-copilot.md",
-              "roo-code.md",
-              "trae.md",
-              "windsurf.md"
+              "EPIC-8-framework-evolution-ARCHITECTURE-NOTES.md",
+              "EPIC-8-framework-evolution-complete.md"
             ]
           },
           "prd": {
             "type": "directory",
             "files": [
-              "aiox-autonomous-development-engine.md",
-              "aiox-dashboard.md"
-            ]
+              "AIOX-CEREBRO-v2-EXPERT-SQUAD-PRD.md",
+              "EPIC-11-AGENT-INFRASTRUCTURE-READINESS.md",
+              "epic-audit-squad-cerebro.md",
+              "FRAMEWORK-EVOLUTION-V3.md",
+              "KAIROS-CEREBRO-MONITOR-CONTROL.md",
+              "PRD-AUDIT-AIOX-OPERACIONAL.md",
+              "PRD-PHASE-3-AIOX-AUDIT.md",
+              "SYNAPSE-ENFORCEMENT-SYNC-PRD.md",
+              "technical-debt-assessment.md",
+              "technical-debt-DRAFT.md"
+            ],
+            "children": {
+              "epic-8": {
+                "type": "directory",
+                "files": [
+                  "EPIC-8-PRD.md",
+                  "phase-1-observability.md",
+                  "phase-2-ids.md",
+                  "phase-3-squad-creator.md",
+                  "phase-4-auto-healing.md"
+                ]
+              },
+              "process-mapper": {
+                "type": "directory",
+                "files": [
+                  "complexity.json",
+                  "critique.json",
+                  "implementation.yaml",
+                  "PRD.md",
+                  "requirements.json",
+                  "research.json",
+                  "spec.md"
+                ]
+              }
+            }
           },
-          "pt": {
+          "process-maps": {
             "type": "directory",
             "files": [
-              "CHANGELOG.md",
-              "DOCUMENTATION-ROADMAP.md",
-              "ENVIRONMENT.md",
-              "FEATURE_PROCESS.md",
-              "GUIDING-PRINCIPLES.md",
-              "README.md",
-              "agent-reference-guide.md",
-              "aiox-nomenclature-specification.md",
-              "core-architecture.md",
-              "getting-started.md",
-              "git-workflow-guide.md",
-              "how-to-contribute-with-pull-requests.md",
-              "meta-agent-commands.md",
-              "migration-guide.md",
-              "npx-install.md",
-              "performance-tuning-guide.md",
-              "security-best-practices.md",
-              "troubleshooting.md",
-              "uninstallation.md",
-              "versioning-and-releases.md"
+              "agent-authority.html",
+              "AIOX-COMPLETE-PROCESS-MAP.html",
+              "aiox-master-map.html",
+              "aiox-squad-creation-pipeline.html",
+              "brownfield.html",
+              "coverage-report.md",
+              "planning-tracks.html",
+              "qa-loop.html",
+              "sdc.html",
+              "smoke-test-results.md",
+              "spec-pipeline.html",
+              "squad-creator-validation-plan.html",
+              "story-lifecycle.html",
+              "test-process.html"
             ],
             "children": {
               "agents": {
-                "type": "directory"
-              },
-              "api": {
                 "type": "directory",
-                "purpose": "API routes/endpoints"
+                "files": [
+                  "authority-map.html",
+                  "handoff-flows.html"
+                ]
               },
-              "architecture": {
-                "type": "directory"
+              "evolution": {
+                "type": "directory",
+                "files": [
+                  "process-debt.md",
+                  "timeline.html"
+                ]
               },
-              "community": {
-                "type": "directory"
+              "figma": {
+                "type": "directory",
+                "files": [
+                  "agent-authority.svg",
+                  "brownfield.svg",
+                  "planning-tracks.svg",
+                  "qa-loop.svg",
+                  "sdc.svg",
+                  "spec-pipeline.svg",
+                  "story-lifecycle.svg",
+                  "test-process.svg"
+                ],
+                "children": {
+                  "agents": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "structure": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
               },
-              "examples": {
-                "type": "directory"
+              "files": {
+                "type": "directory",
+                "files": [
+                  "rules-index.html",
+                  "task-index.html"
+                ]
               },
-              "framework": {
-                "type": "directory"
-              },
-              "guides": {
-                "type": "directory"
-              },
-              "installation": {
-                "type": "directory"
-              },
-              "platforms": {
-                "type": "directory"
-              },
-              "specifications": {
-                "type": "directory"
+              "structure": {
+                "type": "directory",
+                "files": [
+                  "aiox-layers.html",
+                  "squad-anatomy.html"
+                ]
               }
             }
           },
           "qa": {
             "type": "directory",
+            "files": [
+              "COMPREHENSIVE-FRAMEWORK-AUDIT-FINAL-CONT37.md",
+              "EPIC-8-FINAL-AUDIT-PROMPT.md",
+              "FRAMEWORK-COHERENCE-AUDIT-CONT37.md",
+              "GAPS-DESSINCRONIZATION-WORKFLOW-TASKS-CONT37.md",
+              "SESSION-CONT35-RECOMMENDATION.md",
+              "SYNAPSE-ENFORCEMENT-EXPANSION-PLAN.md",
+              "SYNAPSE-ENFORCEMENT-GAP-ANALYSIS.md",
+              "SYNAPSE-RULES-ENFORCEMENT-AUDIT.md"
+            ],
             "children": {
               "gates": {
-                "type": "directory"
+                "type": "directory",
+                "files": [
+                  "1.16-constitutional-enforcement-gates.yml",
+                  "1.17-task-first-automation.yml",
+                  "1.18-state-live-update-hooks.yml",
+                  "1.19-claude-code-mastery-coherence.yml",
+                  "1.2-websocket-real-time-broadcaster.yml",
+                  "1.20-handoff-consolidation-automation.yml",
+                  "10.1-folder-structure-clarification.yml",
+                  "10.2-agent-source-of-truth-drift-audit.yml",
+                  "10.3-task-schema-normalization.yml",
+                  "11.1-audit-framework-definition.yml",
+                  "5.2-sync-complete.yml",
+                  "5.3.4-test-suite-validation.yml",
+                  "7.11-sync-command-documented.yml",
+                  "7.12-ids-status-updated.yml",
+                  "7.2-ajv-formats-dependency.yml",
+                  "7.5-aiox-cerebro-squad-doc.yml",
+                  "7.9-ade-guide-copied.yml",
+                  "8.3.3-squad-template-generation.yml",
+                  "8.3.4-skill-mapping-validation.yml",
+                  "8.3.5-authority-matrix.yml",
+                  "... and 3 more"
+                ],
+                "filesCount": 23
               }
             }
           },
           "reports": {
             "type": "directory",
             "files": [
-              "devops-infrastructure-report.md"
+              "TECHNICAL-DEBT-REPORT.md"
             ]
           },
-          "specifications": {
+          "research": {
             "type": "directory",
             "files": [
-              "docs-agent-technical-specification.md"
+              "AIOX-COMPLETE-MAPPING.md",
+              "auto-healing-workflow-patterns.md",
+              "ids-enhancement-gaps.md",
+              "KAIROS-CEREBRO-AUDIT.md",
+              "observability-platform-audit.md",
+              "squad-creator-dna-patterns.md",
+              "v2-framework-research-REAL.md",
+              "v2-framework-research.md"
+            ],
+            "children": {
+              "2026-06-15-framework-architecture": {
+                "type": "directory",
+                "files": [
+                  "00-query-original.md",
+                  "01-deep-research-prompt.md",
+                  "02-research-report.md",
+                  "03-recommendations.md",
+                  "README.md"
+                ]
+              },
+              "2026-06-15-framework-audit-skills": {
+                "type": "directory",
+                "files": [
+                  "00-query-original.md",
+                  "01-deep-research-prompt.md",
+                  "02-research-report.md",
+                  "03-recommendations.md",
+                  "README.md"
+                ]
+              }
+            }
+          },
+          "reviews": {
+            "type": "directory",
+            "files": [
+              "db-specialist-review.md",
+              "qa-review.md",
+              "ux-specialist-review.md"
             ]
+          },
+          "runlogs": {
+            "type": "directory",
+            "files": [
+              "phase-1-RUN-LOG.md",
+              "unknown-RUN-LOG.md"
+            ]
+          },
+          "squad-creator": {
+            "type": "directory",
+            "files": [
+              "parity-testing-guide.md"
+            ]
+          },
+          "squad-validations": {
+            "type": "directory"
           },
           "stories": {
             "type": "directory",
+            "files": [
+              "1.1.railway-config.md",
+              "1.10-automation-enhancement.md",
+              "1.11-documentation-synchronization.md",
+              "1.12-agent-memory-validation.md",
+              "1.13-cross-agent-workflow-testing.md",
+              "1.14-agent-memory-creation.md",
+              "1.14-memory-lifecycle-architecture.md",
+              "1.15-squad-creator-coherence.md",
+              "1.15-synapse-layer-validation.md",
+              "1.18-state-live-update-hooks.md",
+              "1.19-epic-aiox-rastreabilidade.md",
+              "1.2.counter-fix.md",
+              "1.3.css-centralization.md",
+              "1.4-hooks-setup.md",
+              "1.4.redis-activation.md",
+              "1.5-deny-rules.md",
+              "1.5.verifications-rotation.md",
+              "1.6-validation-gates.md",
+              "1.7-aiox-full-setup.md",
+              "1.8-aiox-compliance-audit.md",
+              "... and 121 more"
+            ],
+            "filesCount": 141,
             "children": {
-              "DEMO-TEST": {
-                "type": "directory"
+              "1": {
+                "type": "directory",
+                "files": [
+                  "1.1.story.md",
+                  "1.16.story.md",
+                  "1.17.story.md",
+                  "1.18.story.md",
+                  "1.19.story.md",
+                  "1.2.story.md",
+                  "1.20.story.md",
+                  "1.3.story.md",
+                  "1.4.story.md",
+                  "1.5.story.md"
+                ]
               },
-              "aiox-core": {
-                "type": "directory"
+              "2": {
+                "type": "directory",
+                "files": [
+                  "2.1.story.md",
+                  "2.2.story.md",
+                  "2.3.story.md",
+                  "2.4.story.md"
+                ]
               },
-              "aiox-core-ade": {
-                "type": "directory"
+              "3": {
+                "type": "directory",
+                "files": [
+                  "3.1.story.md",
+                  "3.2.story.md",
+                  "3.3.story.md"
+                ]
               },
-              "aiox-dashboard": {
-                "type": "directory"
+              "4": {
+                "type": "directory",
+                "files": [
+                  "4.1.story.md",
+                  "4.2.story.md",
+                  "4.3.story.md"
+                ]
+              },
+              "5": {
+                "type": "directory",
+                "files": [
+                  "5.1.story.md",
+                  "5.2.story.md",
+                  "5.2.sync-complete.md",
+                  "5.3-governance-hooks.story.md",
+                  "5.3.story.md",
+                  "5.4.story.md"
+                ]
+              },
+              "epic-1-foundation": {
+                "type": "directory",
+                "files": [
+                  "1.1.setup-nextjs-fumadocs.story.md",
+                  "1.2.content-extraction-github.story.md",
+                  "1.3.content-extraction-youtube.story.md",
+                  "1.4.content-structuring-mdx.story.md"
+                ]
+              },
+              "epic-kcc": {
+                "type": "directory",
+                "files": [
+                  "4.1.kcc-server-infra.story.md",
+                  "4.2.kcc-explorer-dashboard.story.md",
+                  "4.3.kcc-agent-hub.story.md",
+                  "4.4.kcc-story-manager-observatory.story.md",
+                  "EPIC-KCC.md"
+                ],
+                "children": {
+                  "architecture": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "design": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "epics": {
+                "type": "directory",
+                "files": [
+                  "BROWNFIELD-DISCOVERY.md",
+                  "EPIC-001-tech-debt-remediation.md",
+                  "EPIC-002-framework-standardization.md",
+                  "EPIC-003-aiox-masterclass-fix.md",
+                  "EPIC-004-aiox-masterclass-evolution.md",
+                  "EPIC-10-REQUIREMENTS.md",
+                  "EPIC-10-STORY-10.1-SKETCH.md",
+                  "EPIC-10-STORY-10.2-SKETCH.md",
+                  "EPIC-10-STORY-10.3-SKETCH.md",
+                  "EPIC-11-REQUIREMENTS.md",
+                  "EPIC-12-AGENT-TESTING-PRD.md",
+                  "EPIC-12-PRD.md",
+                  "EPIC-13-PRD.md",
+                  "EPIC-2-expert-cloning.md",
+                  "EPIC-2-REFINEMENT-FEEDBACK.md",
+                  "EPIC-2-REFINEMENT-SUMMARY.md",
+                  "EPIC-2-SCOPE.md",
+                  "EPIC-AIOX-2.0-COMPLIANCE.md",
+                  "EPIC-AIOX-OPERACIONAL.md",
+                  "EPIC-SPRINT-1-CRITICAL-FIX.md",
+                  "... and 2 more"
+                ],
+                "filesCount": 22,
+                "children": {
+                  "epic-5-governance": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "EPIC-PM-process-mapper": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "expert-cloning": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
               }
             }
           }
         }
+      },
+      "governance": {
+        "type": "directory",
+        "files": [
+          "evolution-pipeline.md",
+          "README.md",
+          "squad-activation-strategy.md"
+        ],
+        "children": {
+          "patterns": {
+            "type": "directory",
+            "files": [
+              "README.md"
+            ]
+          },
+          "proposals": {
+            "type": "directory",
+            "files": [
+              "PROP-20260507-squad-routing-strategy.yaml",
+              "PROP-20260507-vocabulary-contract.yaml",
+              "README.md"
+            ]
+          },
+          "templates": {
+            "type": "directory",
+            "files": [
+              "audit-finding-tmpl.yaml",
+              "framework-proposal-tmpl.yaml"
+            ]
+          }
+        }
+      },
+      "lib": {
+        "type": "directory",
+        "purpose": "Library/utility code",
+        "files": [
+          "event-bus.js",
+          "outreach-mailer.js"
+        ]
       },
       "packages": {
         "type": "directory",
         "children": {
-          "installer": {
+          "billing": {
             "type": "directory",
             "files": [
+              "index.js",
               "package.json"
+            ]
+          },
+          "compliance": {
+            "type": "directory",
+            "files": [
+              "index.js",
+              "package.json"
+            ]
+          },
+          "kcc": {
+            "type": "directory",
+            "files": [
+              "package-lock.json",
+              "package.json",
+              "server.js"
             ],
             "children": {
-              "src": {
+              "lib": {
                 "type": "directory",
-                "purpose": "Application source code"
+                "purpose": "Library/utility code",
+                "files": [
+                  "workflow-state.js",
+                  "write-guard.js"
+                ]
               },
-              "tests": {
+              "public": {
                 "type": "directory",
-                "purpose": "Test files"
+                "purpose": "Static assets",
+                "files": [
+                  "app.js",
+                  "index.html",
+                  "style.css"
+                ]
+              },
+              "routes": {
+                "type": "directory",
+                "files": [
+                  "agents.js",
+                  "discuss.js",
+                  "files.js",
+                  "health.js",
+                  "metrics.js",
+                  "state.js",
+                  "stories.js",
+                  "write.js"
+                ]
               }
             }
+          },
+          "reputation-graph": {
+            "type": "directory",
+            "files": [
+              "index.js",
+              "package.json",
+              "replicator.js"
+            ],
+            "children": {
+              "adapters": {
+                "type": "directory",
+                "files": [
+                  "index.js",
+                  "json-adapter.js",
+                  "redis-adapter.js"
+                ]
+              }
+            }
+          },
+          "sniper-api": {
+            "type": "directory",
+            "files": [
+              "account-page.js",
+              "api-check.js",
+              "api-check.test.js",
+              "app.js",
+              "auth.js",
+              "chat-handler.js",
+              "docs-pages.js",
+              "email-sender.js",
+              "enterprise-page.js",
+              "events.js",
+              "generate-thumbnail.js",
+              "landing-page.js",
+              "legal-pages.js",
+              "og-image.js",
+              "pricing-page.js",
+              "rate-limit.js",
+              "server.js",
+              "stripe-checkout.js",
+              "stripe-portal.js",
+              "stripe-webhook.js",
+              "... and 3 more"
+            ],
+            "filesCount": 23,
+            "children": {
+              "jobs": {
+                "type": "directory",
+                "files": [
+                  "archive-daily-usage.js"
+                ]
+              },
+              "lib": {
+                "type": "directory",
+                "purpose": "Library/utility code",
+                "files": [
+                  "api-errors.js",
+                  "errors.js",
+                  "key-generator.js",
+                  "logger.js",
+                  "s3-archiver.js"
+                ]
+              },
+              "middleware": {
+                "type": "directory",
+                "purpose": "Middleware functions",
+                "files": [
+                  "auth-apikey.js",
+                  "error-handler.js",
+                  "logging.js",
+                  "rate-limit-headers.js"
+                ]
+              },
+              "routes": {
+                "type": "directory",
+                "files": [
+                  "user-api-keys.js"
+                ]
+              }
+            }
+          },
+          "sniper-db": {
+            "type": "directory",
+            "files": [
+              "index.js",
+              "package.json"
+            ]
+          },
+          "sniper-engine": {
+            "type": "directory",
+            "files": [
+              "api.js",
+              "checkout-inspector.js",
+              "core.js",
+              "dna.js",
+              "domain-heuristic.js",
+              "geo.js",
+              "guru-scam.js",
+              "index.js",
+              "live-reputation.js",
+              "ngram.js",
+              "nlp-heuristic.js",
+              "reputation.js"
+            ],
+            "children": {
+              "graph": {
+                "type": "directory",
+                "files": [
+                  "aggregator.js",
+                  "e2e.test.js",
+                  "engine-integration.js",
+                  "prod-validation.js",
+                  "storage.js",
+                  "storage.test.js"
+                ]
+              },
+              "__tests__": {
+                "type": "directory",
+                "purpose": "Jest test files",
+                "files": [
+                  "benchmark-broader.js",
+                  "benchmark.test.js"
+                ]
+              }
+            }
+          },
+          "sniper-scraper": {
+            "type": "directory",
+            "files": [
+              "extract.js",
+              "fetch.js",
+              "index.js",
+              "package.json"
+            ]
+          },
+          "vault": {
+            "type": "directory",
+            "files": [
+              "index.js",
+              "package.json"
+            ]
+          },
+          "web": {
+            "type": "directory",
+            "files": [
+              ".env.example",
+              "DESIGN_SYSTEM.md"
+            ],
+            "children": {
+              "prisma": {
+                "type": "directory",
+                "files": [
+                  "schema.prisma"
+                ],
+                "children": {
+                  "migrations": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "src": {
+                "type": "directory",
+                "purpose": "Application source code",
+                "files": [
+                  "middleware.ts"
+                ],
+                "children": {
+                  "app": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "components": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "hooks": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "lib": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "styles": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              }
+            }
+          },
+          "webhook-outbox": {
+            "type": "directory",
+            "files": [
+              "index.js",
+              "package.json"
+            ]
           }
         }
-      },
-      "presets": {
-        "type": "directory",
-        "files": [
-          "README.md"
-        ]
-      },
-      "qa": {
-        "type": "directory"
       },
       "scripts": {
         "type": "directory",
         "purpose": "Build/utility scripts",
         "files": [
           "check-markdown-links.py",
-          "dashboard-parallel-dev.sh",
-          "dashboard-parallel-phase3.sh",
-          "dashboard-parallel-phase4.sh",
+          "code-intel-health-check.js",
+          "ensure-manifest.js",
+          "generate-handoff-artifact.js",
           "generate-install-manifest.js",
-          "validate-manifest.js"
+          "install-monitor-hooks.sh",
+          "semantic-lint.js",
+          "sign-manifest.ps1",
+          "sign-manifest.sh",
+          "validate-aiox-core-deps.js",
+          "validate-aiox-core-namespace.js",
+          "validate-l1-l2-changes.js",
+          "validate-manifest.js",
+          "validate-package-completeness.js",
+          "validate-quality-gates.js",
+          "validate-registry-determinism.js",
+          "validate-story-ac.js",
+          "validate-story-structure.js",
+          "validate-syntax.js"
         ]
       },
-      "src": {
+      "squads": {
         "type": "directory",
-        "purpose": "Application source code",
         "children": {
-          "config": {
-            "type": "directory",
-            "purpose": "Configuration files",
-            "files": [
-              "ide-configs.js"
-            ]
-          },
-          "installer": {
+          "aiox-cerebro": {
             "type": "directory",
             "files": [
-              "aiox-core-installer.js",
-              "brownfield-upgrader.js",
-              "dependency-installer.js",
-              "file-hasher.js"
-            ]
-          },
-          "utils": {
-            "type": "directory",
-            "purpose": "Utility functions",
-            "files": [
-              "aiox-colors.js"
-            ]
-          },
-          "wizard": {
-            "type": "directory",
-            "files": [
-              "feedback.js",
-              "i18n.js",
-              "ide-config-generator.js",
-              "ide-selector.js",
-              "index.js",
-              "questions.js",
-              "validators.js"
+              "ARCHITECTURE.md",
+              "arquitetura.md",
+              "CHANGELOG.md",
+              "config.yaml",
+              "HEADLINE.md",
+              "README.md",
+              "squad.yaml",
+              "swipe-config.yaml",
+              "tool-overrides.yaml"
             ],
             "children": {
-              "validation": {
-                "type": "directory"
+              "agents": {
+                "type": "directory",
+                "files": [
+                  "aiox-cerebro.md"
+                ]
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  "aiox-cerebro-quality-gate.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "canonical-baseline.yaml",
+                  "knowledge-base.md"
+                ]
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "children": {
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "tasks": {
+                "type": "directory",
+                "files": [
+                  "audit-workflow.md",
+                  "clone-structure-workflow.md",
+                  "gap-analysis-workflow.md",
+                  "generate-workflow.md",
+                  "gold-mechanisms-workflow.md",
+                  "next-3-actions-workflow.md",
+                  "self-audit-workflow.md"
+                ]
+              },
+              "templates": {
+                "type": "directory",
+                "files": [
+                  "agent-tmpl.md",
+                  "audit-report-tmpl.md",
+                  "checklist-tmpl.md",
+                  "gap-analysis-tmpl.md",
+                  "gold-mechanisms-tmpl.md",
+                  "task-tmpl.md",
+                  "workflow-tmpl.yaml"
+                ]
+              },
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  "kairos-infra-master.yaml"
+                ]
               }
             }
-          }
-        }
-      },
-      "templates": {
-        "type": "directory",
-        "children": {
-          "squad": {
+          },
+          "claude-code-mastery": {
             "type": "directory",
             "files": [
-              ".gitignore",
-              "LICENSE",
+              "ARCHITECTURE.md",
+              "arquitetura.md",
+              "CHANGELOG.md",
+              "config.yaml",
+              "HEADLINE.md",
               "README.md",
-              "package.json",
+              "squad.yaml",
+              "swipe-config.yaml",
+              "tool-overrides.yaml"
+            ],
+            "children": {
+              "agents": {
+                "type": "directory",
+                "files": [
+                  "claude-mastery-chief.md",
+                  "config-engineer.md",
+                  "hooks-architect.md",
+                  "mcp-integrator.md",
+                  "project-integrator.md",
+                  "roadmap-sentinel.md",
+                  "skill-craftsman.md",
+                  "swarm-orchestrator.md"
+                ]
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  "agent-team-readiness-checklist.md",
+                  "brownfield-readiness-checklist.md",
+                  "change-checklist.md",
+                  "context-rot-checklist.md",
+                  "integration-audit-checklist.md",
+                  "multi-agent-review-checklist.md",
+                  "pre-push-checklist.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "ci-cd-patterns.yaml",
+                  "claude-code-quick-ref.yaml",
+                  "hook-patterns.yaml",
+                  "knowledge-base.md",
+                  "mcp-integration-catalog.yaml",
+                  "project-type-signatures.yaml"
+                ]
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "children": {
+                  "audit": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "scripts": {
+                "type": "directory",
+                "purpose": "Build/utility scripts",
+                "files": [
+                  "validate-setup.js"
+                ]
+              },
+              "tasks": {
+                "type": "directory",
+                "files": [
+                  "audit-integration.md",
+                  "audit-settings.md",
+                  "audit-setup.md",
+                  "brownfield-setup.md",
+                  "ci-cd-setup.md",
+                  "claude-md-engineer.md",
+                  "configure-claude-code.md",
+                  "context-rot-audit.md",
+                  "create-agent-definition.md",
+                  "create-rules.md",
+                  "create-team-topology.md",
+                  "diagnose.md",
+                  "enterprise-config.md",
+                  "hook-designer.md",
+                  "integrate-project.md",
+                  "mcp-integration-plan.md",
+                  "mcp-workflow.md",
+                  "multi-project-setup.md",
+                  "optimize-context.md",
+                  "optimize-workflow.md",
+                  "... and 6 more"
+                ],
+                "filesCount": 26
+              },
+              "templates": {
+                "type": "directory",
+                "files": [
+                  "agent-tmpl.md",
+                  "checklist-tmpl.md",
+                  "claude-md-fullstack.md",
+                  "claude-md-library.md",
+                  "claude-md-microservices.md",
+                  "claude-md-mobile.md",
+                  "claude-md-monorepo.md",
+                  "github-actions-claude-ci.yml",
+                  "github-actions-claude-review.yml",
+                  "task-tmpl.md",
+                  "workflow-tmpl.yaml"
+                ]
+              },
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  "wf-audit-complete.yaml",
+                  "wf-knowledge-update.yaml",
+                  "wf-project-setup.yaml"
+                ]
+              }
+            }
+          },
+          "deep-research": {
+            "type": "directory",
+            "files": [
+              "ARCHITECTURE.md",
+              "arquitetura.md",
+              "CHANGELOG.md",
+              "config.yaml",
+              "HEADLINE.md",
+              "README.md",
+              "squad.yaml",
+              "swipe-config.yaml",
+              "tool-overrides.yaml"
+            ],
+            "children": {
+              "agents": {
+                "type": "directory",
+                "files": [
+                  "booth.md",
+                  "cochrane.md",
+                  "creswell.md",
+                  "dr-orchestrator.md",
+                  "forsgren.md",
+                  "gilad.md",
+                  "higgins.md",
+                  "ioannidis.md",
+                  "kahneman.md",
+                  "klein.md",
+                  "sackett.md"
+                ]
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  "decision-quality-checklist.md",
+                  "evidence-reliability-checklist.md",
+                  "pico-quality-checklist.md",
+                  "pipeline-execution-checklist.md",
+                  "report-completeness-checklist.md",
+                  "source-credibility-checklist.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "knowledge-base.md"
+                ],
+                "children": {
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "children": {
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "scripts": {
+                "type": "directory",
+                "purpose": "Build/utility scripts",
+                "files": [
+                  "deep-search.ts",
+                  "search-providers.ts"
+                ]
+              },
+              "tasks": {
+                "type": "directory",
+                "files": [
+                  "analyze-competitive-intelligence.md",
+                  "analyze-decision-patterns.md",
+                  "assess-technical-performance.md",
+                  "audit-decision-quality.md",
+                  "audit-evidence-reliability.md",
+                  "build-activation-plan.md",
+                  "classify-research-query.md",
+                  "conduct-systematic-review.md",
+                  "delete-deep-research.md",
+                  "design-research-plan.md",
+                  "execute-web-search.md",
+                  "formulate-pico-question.md",
+                  "investigate-osint.md",
+                  "select-review-methodology.md",
+                  "synthesize-final-report.md",
+                  "update-deep-research.md",
+                  "validate-source-credibility.md"
+                ]
+              },
+              "templates": {
+                "type": "directory",
+                "files": [
+                  "agent-tmpl.md",
+                  "checklist-tmpl.md",
+                  "pico-question-tmpl.md",
+                  "research-report-tmpl.md",
+                  "task-tmpl.md",
+                  "workflow-tmpl.yaml"
+                ]
+              },
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  "wf-competitive-intel.yaml",
+                  "wf-deep-research.yaml",
+                  "wf-quick-research.yaml"
+                ]
+              }
+            }
+          },
+          "process-mapper": {
+            "type": "directory",
+            "files": [
+              "config.yaml",
+              "README.md",
               "squad.yaml"
             ],
             "children": {
               "agents": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "agent-cartographer.md",
+                  "cartographer-chief.md",
+                  "evolution-tracker.md",
+                  "flow-architect.md",
+                  "map-validator.md",
+                  "process-auditor.md",
+                  "structure-mapper.md"
+                ]
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "map-quality-checklist.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "process-registry.yaml"
+                ],
+                "children": {
+                  "processes": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "hooks": {
+                "type": "directory",
+                "purpose": "Custom React/Vue hooks",
+                "files": [
+                  ".gitkeep",
+                  "process-map-updater.cjs"
+                ]
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "INDEX.md"
+                ]
+              },
+              "scripts": {
+                "type": "directory",
+                "purpose": "Build/utility scripts",
+                "files": [
+                  ".gitkeep",
+                  "coverage-audit.js",
+                  "evolution-tracker.js",
+                  "generate-process-map.js",
+                  "generate-rules-index.js",
+                  "generate-swimlane.js",
+                  "html-templates.js",
+                  "structure-mapper.js",
+                  "task-parser.js",
+                  "validate-squad.js"
+                ]
+              },
+              "tasks": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "audit-coverage.md",
+                  "generate-all-maps.md",
+                  "map-evolution.md",
+                  "map-process.md",
+                  "map-squad.md",
+                  "validate-map.md"
+                ]
+              },
+              "templates": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "process-definition-template.json"
+                ]
+              },
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep",
+                  "wf-audit-coverage.yaml",
+                  "wf-map-evolution.yaml",
+                  "wf-map-process.yaml",
+                  "wf-map-squad.yaml"
+                ]
+              }
+            }
+          },
+          "squad-creator": {
+            "type": "directory",
+            "files": [
+              "ARCHITECTURE.md",
+              "arquitetura.md",
+              "CHANGELOG.md",
+              "config.yaml",
+              "HEADLINE.md",
+              "README.md",
+              "squad.yaml",
+              "swipe-config.yaml",
+              "tool-overrides.yaml"
+            ],
+            "children": {
+              "agents": {
+                "type": "directory",
+                "files": [
+                  "oalanicolas.md",
+                  "pedro-valerio.md",
+                  "squad-chief.md"
+                ]
+              },
+              "archive": {
+                "type": "directory"
+              },
+              "authority": {
+                "type": "directory"
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  "agent-quality-gate.md",
+                  "mind-validation.md",
+                  "smoke-test-agent.md",
+                  "squad-qa-checklist.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "core": {
+                "type": "directory",
+                "files": [
+                  "authority-matrix.js",
+                  "kb-assembler.js",
+                  "rules-inheritor.js",
+                  "skill-validator.js",
+                  "squad-template-generator.js",
+                  "thinking-dna.js",
+                  "voice-dna.js"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "knowledge-base.md",
+                  "squad-registry.yaml"
+                ]
+              },
+              "docs": {
+                "type": "directory",
+                "purpose": "Documentation"
+              },
+              "frameworks": {
+                "type": "directory"
+              },
+              "handoffs": {
+                "type": "directory"
+              },
+              "lib": {
+                "type": "directory",
+                "purpose": "Library/utility code"
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "children": {
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "phrases": {
+                "type": "directory"
+              },
+              "projects": {
+                "type": "directory"
+              },
+              "reference": {
+                "type": "directory",
+                "files": [
+                  ".gitkeep"
+                ]
+              },
+              "scripts": {
+                "type": "directory",
+                "purpose": "Build/utility scripts"
+              },
+              "state": {
+                "type": "directory"
+              },
+              "swipe": {
+                "type": "directory"
+              },
+              "swipe-sources": {
                 "type": "directory"
               },
               "tasks": {
-                "type": "directory"
+                "type": "directory",
+                "files": [
+                  "analyze-synkra-repos.md",
+                  "clone-synkra-approved.md",
+                  "collect-sources.md",
+                  "create-agent.md",
+                  "curate-synkra-content.md",
+                  "extract-thinking-dna.md",
+                  "extract-voice-dna.md",
+                  "mind-research-loop.md",
+                  "validate-squad.md"
+                ]
               },
               "templates": {
-                "type": "directory"
-              },
-              "tests": {
                 "type": "directory",
-                "purpose": "Test files"
+                "files": [
+                  "agent-tmpl.md",
+                  "checklist-tmpl.md",
+                  "squad-kb-tmpl.md",
+                  "squad-rules-overrides-tmpl.md",
+                  "task-tmpl.md",
+                  "workflow-tmpl.yaml"
+                ]
+              },
+              "voice": {
+                "type": "directory"
               },
               "workflows": {
-                "type": "directory"
+                "type": "directory",
+                "files": [
+                  "wf-clone-mind.yaml",
+                  "wf-create-squad.yaml",
+                  "wf-synkra-repo-analysis.yaml"
+                ]
               }
             }
+          },
+          "system-factory": {
+            "type": "directory",
+            "files": [
+              "ARCHITECTURE.md",
+              "arquitetura.md",
+              "CHANGELOG.md",
+              "config.yaml",
+              "HEADLINE.md",
+              "README.md",
+              "squad.yaml",
+              "swipe-config.yaml",
+              "tool-overrides.yaml"
+            ],
+            "children": {
+              "agents": {
+                "type": "directory",
+                "files": [
+                  "forge-architect.md",
+                  "forge-builder.md",
+                  "forge-classifier.md",
+                  "forge-planner.md",
+                  "forge-researcher.md",
+                  "forge-verifier.md"
+                ]
+              },
+              "checklists": {
+                "type": "directory",
+                "files": [
+                  "elite-verification.md"
+                ]
+              },
+              "config": {
+                "type": "directory",
+                "purpose": "Configuration files",
+                "files": [
+                  "model-routing.yaml",
+                  "permissions.yaml",
+                  "quality-gates.yaml"
+                ]
+              },
+              "data": {
+                "type": "directory",
+                "files": [
+                  "agent-registry.yaml",
+                  "complexity-matrix.yaml",
+                  "elite-patterns.yaml",
+                  "knowledge-base.md",
+                  "pipeline-state-schema.yaml",
+                  "research-queries.yaml",
+                  "system-types.yaml"
+                ],
+                "children": {
+                  "anti-patterns": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "market": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "tech-patterns": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "memory": {
+                "type": "directory",
+                "files": [
+                  "MEMORY.md"
+                ]
+              },
+              "outputs": {
+                "type": "directory",
+                "files": [
+                  "audit-system-factory-2026-05-30.md",
+                  "re-audit-2026-05-30.md"
+                ],
+                "children": {
+                  "kairos-orchestrator": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "minds": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "tasks": {
+                "type": "directory",
+                "children": {
+                  "architecture": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "classification": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "creation": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "planning": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "research": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "verification": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "templates": {
+                "type": "directory",
+                "files": [
+                  "agent-tmpl.md",
+                  "checklist-tmpl.md",
+                  "task-tmpl.md",
+                  "workflow-tmpl.yaml"
+                ],
+                "children": {
+                  "agent-system": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "cli-tool": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "data-pipeline": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "fullstack": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "library": {
+                    "type": "directory",
+                    "truncated": true
+                  },
+                  "saas-api": {
+                    "type": "directory",
+                    "truncated": true
+                  }
+                }
+              },
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  "wf-quick-create.yaml",
+                  "wf-research-loop.yaml",
+                  "wf-universal-factory.yaml",
+                  "wf-verification-loop.yaml"
+                ]
+              }
+            }
+          },
+          "_example": {
+            "type": "directory",
+            "files": [
+              "tool-overrides.yaml"
+            ]
+          }
+        }
+      },
+      "src": {
+        "type": "directory",
+        "purpose": "Application source code",
+        "files": [
+          "index.js",
+          "index.ts"
+        ],
+        "children": {
+          "audit": {
+            "type": "directory",
+            "files": [
+              "AuditLog.ts",
+              "types.ts"
+            ]
+          },
+          "monitor": {
+            "type": "directory",
+            "files": [
+              "ParallelMonitorConnector.js",
+              "ParallelMonitorConnector.ts",
+              "types.js",
+              "types.ts"
+            ]
+          },
+          "websocket": {
+            "type": "directory",
+            "files": [
+              "Broadcaster.ts",
+              "types.ts"
+            ]
           }
         }
       },
       "tests": {
         "type": "directory",
         "purpose": "Test files",
-        "files": [
-          "epic-verification.test.js",
-          "setup.js",
-          "story-update-hook.test.js"
-        ],
         "children": {
           "agents": {
             "type": "directory",
             "files": [
-              "backward-compatibility.test.js"
+              "agent-drift-audit.test.js",
+              "task-schema-verify.test.js"
             ]
           },
-          "clickup": {
+          "audit": {
             "type": "directory",
             "files": [
-              "status-sync.test.js"
+              "AuditLog.test.ts"
             ]
           },
-          "core": {
+          "auto-contextualization": {
             "type": "directory",
             "files": [
-              "elicitation-engine.test.js",
-              "registry-loader.test.js"
+              "engine.test.js"
+            ],
+            "children": {
+              "phases": {
+                "type": "directory",
+                "files": [
+                  "phase-1.test.js",
+                  "phase-10.test.js",
+                  "phase-2.test.js",
+                  "phase-3.test.js",
+                  "phase-4.test.js",
+                  "phase-5.test.js",
+                  "phase-6.test.js",
+                  "phase-7.test.js",
+                  "phase-8.test.js",
+                  "phase-9.test.js"
+                ]
+              }
+            }
+          },
+          "auto-heal": {
+            "type": "directory",
+            "files": [
+              "blocker-resolver.test.js",
+              "story-validator.test.js"
             ]
           },
-          "e2e": {
+          "coderabbit": {
             "type": "directory",
-            "purpose": "End-to-end tests",
             "files": [
-              "story-creation-clickup.test.js"
+              "circuit-breaker.test.js"
+            ]
+          },
+          "context-loading": {
+            "type": "directory",
+            "files": [
+              "agent-loader.test.js",
+              "layer-loader.test.js"
+            ]
+          },
+          "context-registry": {
+            "type": "directory",
+            "files": [
+              "registry.test.js"
             ]
           },
           "fixtures": {
             "type": "directory",
             "files": [
-              "tool-invalid.yaml",
-              "tool-v1.0-simple.yaml",
-              "tool-v2.0-complex.yaml"
-            ],
-            "children": {
-              "quality": {
-                "type": "directory"
-              }
-            }
-          },
-          "health-check": {
-            "type": "directory",
-            "files": [
-              "engine.test.js",
-              "healers.test.js",
-              "health-check.test.js",
-              "reporters.test.js"
+              "context-samples.js"
             ]
           },
-          "ide-sync": {
+          "gates": {
             "type": "directory",
             "files": [
-              "agent-parser.test.js",
-              "transformers.test.js",
-              "validator.test.js"
+              "gate-retry.test.js"
             ]
           },
-          "installer": {
+          "hooks": {
             "type": "directory",
+            "purpose": "Custom React/Vue hooks",
             "files": [
-              "brownfield-upgrader.test.js",
-              "dependency-installer.test.js",
-              "file-hasher.test.js",
-              "generate-manifest.test.js",
-              "mcp-installation.test.js",
-              "v21-path-validation.test.js",
-              "v21-structure.test.js"
-            ],
-            "children": {
-              "__fixtures__": {
-                "type": "directory"
-              }
-            }
+              "auto-contextualization-hook.test.js",
+              "enforce-agent-authority.test.js",
+              "enforce-no-invention.test.js",
+              "enforce-quality-gates.test.js",
+              "enforce-story-driven.test.js",
+              "enforcement.test.js",
+              "gate-framework.test.js",
+              "handoff-consolidation.test.js",
+              "state-live-update.test.js",
+              "task-discovery-routing.test.js",
+              "test-story-traceability.test.js"
+            ]
           },
           "integration": {
             "type": "directory",
             "files": [
-              "agent-activation-performance.test.js",
-              "contextual-greeting.test.js",
-              "decision-logging-yolo-workflow.test.js",
-              "formatter-integration.test.js",
-              "full-migration.test.js",
-              "greeting-preference-integration.test.js",
-              "greeting-system-integration.test.js",
-              "human-review-orchestration.test.js",
-              "install-transaction.test.js",
-              "mcp-setup.test.js",
-              "npx.test.js",
-              "performance.test.js",
-              "quality-gate-pipeline.test.js",
-              "search-smoke.test.js",
-              "test-utilities-part-1.js",
-              "test-utilities-part-2.js",
-              "test-utilities-part-3.js",
-              "tools-system.test.js",
-              "wizard-ide-flow.test.js",
-              "wizard-validation-flow.test.js"
+              "sprint-1.test.ts",
+              "sprint-2-s2.1.test.ts",
+              "sprint-2-s2.2.test.ts",
+              "sprint-2-s2.3.test.ts"
             ],
             "children": {
-              "llm-routing": {
-                "type": "directory"
-              },
-              "squad": {
-                "type": "directory"
-              },
-              "windows": {
-                "type": "directory"
-              },
-              "workflow-intelligence": {
-                "type": "directory"
+              "workflows": {
+                "type": "directory",
+                "files": [
+                  "brownfield-workflow.test.js",
+                  "qa-loop-workflow.test.js",
+                  "sdc-workflow.test.js",
+                  "spec-pipeline-workflow.test.js"
+                ]
               }
             }
           },
-          "macos": {
+          "monitor": {
             "type": "directory",
             "files": [
-              "MANUAL-TESTING-GUIDE.md",
-              "README.md",
-              "run-all-tests.sh",
-              "test-apple-silicon-installation.sh",
-              "test-error-recovery.sh",
-              "test-homebrew-integration.sh",
-              "test-intel-installation.sh",
-              "test-line-endings.sh",
-              "test-path-handling.sh",
-              "test-performance.sh",
-              "test-permissions.sh",
-              "test-security.sh",
-              "test-shell-compatibility.sh"
+              "ParallelMonitorConnector.test.ts"
             ]
           },
-          "performance": {
+          "squad-creator": {
             "type": "directory",
             "files": [
-              "decision-logging-benchmark.test.js",
-              "tools-system-benchmark.test.js"
-            ]
-          },
-          "regression": {
-            "type": "directory",
-            "files": [
-              "tools-migration.test.js"
-            ]
-          },
-          "security": {
-            "type": "directory",
-            "files": [
-              "core-security.test.js"
-            ]
-          },
-          "template-engine": {
-            "type": "directory",
-            "files": [
-              "prd-v2.test.js",
-              "template-engine.test.js"
-            ]
-          },
-          "templates": {
-            "type": "directory",
-            "files": [
-              "dbdr.test.js",
-              "pmdr.test.js"
-            ]
-          },
-          "tools": {
-            "type": "directory",
-            "files": [
-              "backward-compatibility.test.js",
-              "clickup-helpers.test.js",
-              "clickup-validators.test.js",
-              "google-workspace-helpers.test.js",
-              "google-workspace-validators.test.js",
-              "n8n-helpers.test.js",
-              "n8n-validators.test.js",
-              "schema-detection.test.js",
-              "supabase-helpers.test.js",
-              "supabase-validators.test.js",
-              "validation-performance.test.js",
-              "validators.test.js"
-            ]
-          },
-          "unit": {
-            "type": "directory",
-            "files": [
-              "cli.test.js",
-              "context-detector.test.js",
-              "decision-context.test.js",
-              "decision-log-generator.test.js",
-              "decision-log-indexer.test.js",
-              "decision-recorder.test.js",
-              "dev-context-loader.test.js",
-              "generate-greeting.test.js",
-              "git-config-detector.test.js",
-              "greeting-builder.test.js",
-              "greeting-preference.test.js",
-              "info-cli.test.js",
-              "list-cli.test.js",
-              "migration-analyze.test.js",
-              "migration-backup.test.js",
-              "migration-execute.test.js",
-              "output-formatter.test.js",
-              "search-cli.test.js",
-              "security-utils.test.js",
-              "session-context-loader.test.js",
-              "... and 3 more"
+              "authority-matrix.test.js",
+              "kb-assembler.test.js",
+              "rules-inheritor.test.js",
+              "skill-validator.test.js",
+              "squad-parity.test.js",
+              "squad-template-generator.test.js",
+              "thinking-dna.test.js",
+              "voice-dna.test.js"
             ],
-            "filesCount": 23,
             "children": {
-              "config": {
+              "fixtures": {
                 "type": "directory",
-                "purpose": "Configuration files"
-              },
-              "documentation-integrity": {
-                "type": "directory"
-              },
-              "manifest": {
-                "type": "directory"
-              },
-              "mcp": {
-                "type": "directory"
-              },
-              "quality": {
-                "type": "directory"
-              },
-              "quality-gates": {
-                "type": "directory"
-              },
-              "squad": {
-                "type": "directory"
-              },
-              "wizard": {
-                "type": "directory"
-              },
-              "workflow-intelligence": {
-                "type": "directory"
+                "files": [
+                  "expected-outputs.json",
+                  "mentor-agents.js"
+                ]
               }
             }
           },
-          "wizard": {
+          "tasks": {
             "type": "directory",
             "files": [
-              "feedback.test.js",
-              "index.test.js",
-              "integration.test.js",
-              "questions.test.js",
-              "validators.test.js"
+              "discovery.test.js"
             ]
-          }
-        }
-      },
-      "tools": {
-        "type": "directory",
-        "files": [
-          "diagnose-installation.js",
-          "diagnose-npx-issue.ps1",
-          "quick-diagnose.cmd",
-          "quick-diagnose.ps1"
-        ],
-        "children": {
-          "health-dashboard": {
+          },
+          "websocket": {
             "type": "directory",
             "files": [
-              ".gitignore",
-              "README.md",
-              "index.html",
-              "package-lock.json",
-              "package.json",
-              "vite.config.js"
-            ],
-            "children": {
-              "public": {
-                "type": "directory",
-                "purpose": "Static assets"
-              },
-              "src": {
-                "type": "directory",
-                "purpose": "Application source code"
-              }
-            }
+              "Broadcaster.test.ts"
+            ]
           }
         }
       }
@@ -842,50 +1954,84 @@
   },
   "services": [
     {
-      "name": "installer",
+      "name": "billing",
       "type": "package",
-      "directory": "packages/installer",
+      "directory": "packages\\billing",
+      "entrypoint": "packages\\billing\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "compliance",
+      "type": "package",
+      "directory": "packages\\compliance",
+      "entrypoint": "packages\\compliance\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "kcc",
+      "type": "package",
+      "directory": "packages\\kcc",
       "entrypoint": null,
       "dependencies": [
-        "@clack/prompts",
-        "chalk",
-        "fs-extra"
+        "express",
+        "js-yaml"
       ]
     },
     {
-      "name": "dashboard",
-      "type": "app",
-      "directory": "apps/dashboard",
-      "entrypoint": null,
-      "dependencies": [
-        "@dnd-kit/core",
-        "@dnd-kit/sortable",
-        "@dnd-kit/utilities",
-        "@radix-ui/react-context-menu",
-        "@radix-ui/react-dialog",
-        "@radix-ui/react-slot",
-        "class-variance-authority",
-        "clsx",
-        "gray-matter",
-        "lucide-react",
-        "next",
-        "react",
-        "react-dom",
-        "swr",
-        "tailwind-merge",
-        "zustand"
-      ]
+      "name": "reputation-graph",
+      "type": "package",
+      "directory": "packages\\reputation-graph",
+      "entrypoint": "packages\\reputation-graph\\index.js",
+      "dependencies": []
     },
     {
-      "name": "@aiox/installer",
-      "type": "workspace",
-      "directory": "packages/installer",
-      "entrypoint": "src/index.js",
-      "dependencies": [
-        "@clack/prompts",
-        "chalk",
-        "fs-extra"
-      ]
+      "name": "sniper-api",
+      "type": "package",
+      "directory": "packages\\sniper-api",
+      "entrypoint": null,
+      "dependencies": []
+    },
+    {
+      "name": "sniper-db",
+      "type": "package",
+      "directory": "packages\\sniper-db",
+      "entrypoint": "packages\\sniper-db\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "sniper-engine",
+      "type": "package",
+      "directory": "packages\\sniper-engine",
+      "entrypoint": "packages\\sniper-engine\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "sniper-scraper",
+      "type": "package",
+      "directory": "packages\\sniper-scraper",
+      "entrypoint": "packages\\sniper-scraper\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "vault",
+      "type": "package",
+      "directory": "packages\\vault",
+      "entrypoint": "packages\\vault\\index.js",
+      "dependencies": []
+    },
+    {
+      "name": "web",
+      "type": "package",
+      "directory": "packages\\web",
+      "entrypoint": null,
+      "dependencies": []
+    },
+    {
+      "name": "webhook-outbox",
+      "type": "package",
+      "directory": "packages\\webhook-outbox",
+      "entrypoint": "packages\\webhook-outbox\\index.js",
+      "dependencies": []
     }
   ],
   "patterns": {
@@ -895,10 +2041,10 @@
     "testing": "jest"
   },
   "conventions": {
-    "fileNaming": "kebabCase (127 files)",
-    "componentNaming": null,
+    "fileNaming": "kebabCase (445 files)",
+    "componentNaming": "PascalCase",
     "imports": "relative paths",
-    "exports": "default exports preferred",
+    "exports": "named exports preferred",
     "indentation": null,
     "quotes": null,
     "linting": "Prettier",
@@ -907,57 +2053,31 @@
   },
   "dependencies": {
     "runtime": [
-      "@clack/prompts",
-      "@kayvan/markdown-tree-parser",
-      "ansi-to-html",
-      "chalk",
-      "cli-progress",
-      "commander",
-      "execa",
-      "fs-extra",
-      "glob",
-      "handlebars",
-      "inquirer",
-      "isolated-vm",
-      "js-yaml",
-      "ora",
-      "picocolors",
-      "semver",
-      "validator"
+      "ajv-formats",
+      "dotenv",
+      "resend",
+      "stripe",
+      "ws"
     ],
     "dev": [
-      "@semantic-release/changelog",
-      "@semantic-release/git",
-      "@types/jest",
+      "@eslint/js",
+      "@types/ws",
       "@typescript-eslint/eslint-plugin",
       "@typescript-eslint/parser",
-      "ajv",
-      "ajv-formats",
       "eslint",
-      "husky",
-      "jest",
-      "lint-staged",
-      "mocha",
-      "prettier",
-      "semantic-release",
-      "typescript",
-      "yaml-lint"
+      "tsx"
     ],
     "peer": [],
     "optional": [],
     "packageManager": "npm",
-    "monorepo": true,
-    "workspaces": [
-      "packages/*"
-    ],
     "nodeVersion": ">=18.0.0"
   },
   "stats": {
-    "totalFiles": 329,
-    "codeFiles": 121,
-    "testFiles": 86,
-    "components": 0,
-    "configFiles": 11
+    "totalFiles": 1113,
+    "codeFiles": 213,
+    "testFiles": 55,
+    "components": 8,
+    "configFiles": 15
   },
   "configFiles": [
     {
@@ -969,16 +2089,8 @@
       "path": ".prettierrc"
     },
     {
-      "name": "package.json",
-      "path": "apps/dashboard/package.json"
-    },
-    {
-      "name": "tsconfig.json",
-      "path": "apps/dashboard/tsconfig.json"
-    },
-    {
-      "name": "jest.config.js",
-      "path": "jest.config.js"
+      "name": "Dockerfile",
+      "path": "Dockerfile"
     },
     {
       "name": "package.json",
@@ -986,19 +2098,43 @@
     },
     {
       "name": "package.json",
-      "path": "packages/installer/package.json"
+      "path": "packages\\billing\\package.json"
     },
     {
       "name": "package.json",
-      "path": "templates/squad/package.json"
+      "path": "packages\\compliance\\package.json"
     },
     {
       "name": "package.json",
-      "path": "tools/health-dashboard/package.json"
+      "path": "packages\\kcc\\package.json"
     },
     {
-      "name": "vite.config.js",
-      "path": "tools/health-dashboard/vite.config.js"
+      "name": "package.json",
+      "path": "packages\\reputation-graph\\package.json"
+    },
+    {
+      "name": "package.json",
+      "path": "packages\\sniper-db\\package.json"
+    },
+    {
+      "name": "package.json",
+      "path": "packages\\sniper-scraper\\package.json"
+    },
+    {
+      "name": "package.json",
+      "path": "packages\\vault\\package.json"
+    },
+    {
+      "name": ".env.example",
+      "path": "packages\\web\\.env.example"
+    },
+    {
+      "name": "package.json",
+      "path": "packages\\webhook-outbox\\package.json"
+    },
+    {
+      "name": "package.json",
+      "path": "squads\\system-factory\\outputs\\kairos-orchestrator\\package.json"
     },
     {
       "name": "tsconfig.json",

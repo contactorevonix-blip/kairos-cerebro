@@ -1,8 +1,16 @@
 {
   "storyId": "9.2",
   "storyType": "config",
-  "suggestedAt": "2026-06-18T21:57:06.323Z",
+  "suggestedAt": "2026-06-18T22:11:01.408Z",
   "suggestions": [
+    {
+      "id": "audit-tailwind-config",
+      "name": "Audit Tailwind v4 Configuration & Utility Health",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
+      "score": 73,
+      "autoActivate": true
+    },
     {
       "id": "list-mcps",
       "name": "list-mcps",
@@ -24,14 +32,6 @@
       "name": "Add MCP Server Task",
       "category": "config",
       "file": ".aiox-core/development/tasks/add-mcp.md",
-      "score": 65,
-      "autoActivate": false
-    },
-    {
-      "id": "audit-tailwind-config",
-      "name": "Audit Tailwind v4 Configuration & Utility Health",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
       "score": 65,
       "autoActivate": false
     },
