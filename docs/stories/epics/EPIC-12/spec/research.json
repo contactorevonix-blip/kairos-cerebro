@@ -95,7 +95,32 @@
           }
         ],
         "precedent": "Cont 56 State-Truth audit: agent determinism 87/100 (high); agent authority enforcement 100/100 (perfect)",
-        "mitigation_in_phase4": "Phase 4 (Write Spec) must define how unified-activation-pipeline.js (31KB, touched by 3 stories) orchestrates surface reconciliation. Design must include: (a) priority order (surface 1 > 2 > 3), (b) conflict detection, (c) graceful degradation (missing surface = use fallback), (d) cache strategy for context efficiency"
+        "mitigation_in_phase4": "Phase 4 (Write Spec) must define how unified-activation-pipeline.js (31KB, touched by 3 stories) orchestrates surface reconciliation. Design must include: (a) priority order (surface 1 > 2 > 3), (b) conflict detection, (c) graceful degradation (missing surface = use fallback), (d) cache strategy for context efficiency",
+        "reconciliation_strategy": {
+          "priority_order": [
+            "PRIORITY 1 (Highest): .claude/agents/aiox-{name}.md — user-customized, project-level definition",
+            "PRIORITY 2 (Medium): .claude/skills/AIOX/agents/{name}/SKILL.md — unified payload, activation source-of-truth",
+            "PRIORITY 3 (Lowest): .aiox-core/development/agents/{name}.md — framework template, fallback only"
+          ],
+          "conflict_resolution": {
+            "scenario_1": "Surface 1 + Surface 2 both exist, commands differ → USE Surface 1 (user override)",
+            "scenario_2": "Surface 1 missing, Surface 2 + Surface 3 exist → USE Surface 2 (skill fallback)",
+            "scenario_3": "All three surfaces present, all different → WARN (log conflict), USE Surface 1, note drift in metrics",
+            "scenario_4": "All surfaces missing → FAIL with actionable error (missing agent definition)"
+          },
+          "graceful_degradation": {
+            "level_1_cache_hit": "Agent definition cached from previous run → use cache, validate freshness (<1h TTL)",
+            "level_2_fallback_surface": "Primary surface missing → fall back to next priority surface",
+            "level_3_hardcoded_defaults": "No surfaces available → use minimal hardcoded persona (id, title, commands placeholder)",
+            "level_4_error": "After 3 fallbacks, error with recovery hint: 'Run `aiox doctor agent-context` to diagnose'"
+          },
+          "cache_strategy": {
+            "what": "Agent definitions (persona, commands, dependencies) cached per agent-id",
+            "where": ".aiox/.agent-context-cache.json (gitignored, per-session)",
+            "ttl": "1 hour (refresh on next session or explicit `aiox clear-cache`)",
+            "benefit": "Reduces surface reconciliation overhead from O(3 file reads) to O(1 cache lookup) for repeated agent loads"
+          }
+        }
       }
     },
     {
@@ -125,6 +150,20 @@
         ],
         "multi_article_scenario": "Story 12.8 tests compound scenario: @dev tries to commit code to spec.md with invented FR-99, under story 12.4, with non-@devops agent → all 3 gates (Art. III, IV, II) should evaluate; which has priority?",
         "gate_priority_order": "Art. II (agent authority) > Art. III (story-driven) > Art. IV (no-invention) > Art. V-VII (quality/boundary) — enforced in gate-logger.cjs decision priority",
+        "gate_evaluation_pseudocode": {
+          "pseudocode": [
+            "function evaluateGates(toolInput) {",
+            "  if (Art.II.isViolation(toolInput)) { BLOCK('Art.II: Non-@devops cannot push'); return; }",
+            "  if (Art.III.isViolation(toolInput)) { BLOCK('Art.III: Story reference required'); return; }",
+            "  if (Art.IV.isViolation(toolInput)) { BLOCK('Art.IV: Requirement traceability failed'); return; }",
+            "  if (Art.V.isViolation(toolInput)) { BLOCK('Art.V: Quality gate failed'); return; }",
+            "  if (Art.VI_VII.isViolation(toolInput)) { BLOCK('Art.VI-VII: Framework boundary violation'); return; }",
+            "  ALLOW('All gates passed');",
+            "}"
+          ],
+          "key_insight": "Early RETURN on first violation — prevents cascading errors. Art. II blocks first because agent identity is prerequisite for all other gates.",
+          "testing_in_story_12_8": "Compound scenario: @dev (non-@devops) tries commit(invented FR-99, story 12.4) → ALL gates evaluate; Art.II blocks first → story 12.8 verifies block, never reaches Art.III/IV evaluation"
+        },
         "evidence": "Cont 57 metrics: Art. II = 0 violations (perfect); Art. III = 0 violations; Art. IV = 0 violations"
       }
     },
@@ -170,6 +209,18 @@
       "4. Multi-agent validation integration: how stories 12.1-12.8 aggregate for ensemble validation (story 12.11 epic gate)",
       "5. Barrier synchronization enforcement: phase gates in EXECUTION-PLAN.yaml (Phase 8 output)"
     ],
+    "phase4ActionItems": {
+      "for_pm_morgan": [
+        "AC1: Write spec.md §1 (Intro) — reference all 5 research topics; frame EPIC-12 as validation of EPIC-9 gates + new patterns",
+        "AC2: Write spec.md §2 (Architecture) — include reconciliation_strategy section (RT-3) with priority order + conflict resolution (4 scenarios) + graceful degradation (4 levels) + cache strategy (TTL, benefit)",
+        "AC3: Write spec.md §3 (Gate Validation Strategy) — include gate_evaluation_pseudocode (RT-4) showing early-return evaluation order + reference story 12.2 / 12.4 / 12.8 test cases",
+        "AC4: Write spec.md §4 (Story Mapping) — cross-reference RT-2 story_mapping (12.1-12.8 per art) + RT-5 multi-agent validation (12.G1-12.G3 gateway stories)",
+        "AC5: Write spec.md §5 (Phase 5 Gate Design) — define new QA critique checklist (5 criteria from RT-1: persona alignment, determinism, boundary enforcement, gate coverage, multi-agent completeness)",
+        "AC6: Write EXECUTION-PLAN.yaml — 12 stories with phasing; barrier gates between phases; Phase 8 output will define phase gates in full"
+      ],
+      "timeline": "3-4 hours total (@pm Morgan writes §1-5, @architect Aria writes EXECUTION-PLAN.yaml in parallel)",
+      "blockers": "None — all research findings confirmed; ready to write"
+    },
     "confidenceLevel": "85/100",
     "confidenceReasoning": "All research topics have strong precedent (EPIC-9 gates confirmed, Cont 56 audit baseline, research methodology validated in Cont 43). One uncertainty: novel Spec Pipeline critique patterns have no production precedent yet; confidence drops to 85 pending Phase 4 spec review."
   },
