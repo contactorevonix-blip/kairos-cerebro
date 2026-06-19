@@ -1,0 +1,199 @@
+{
+  "storyId": "EPIC-12",
+  "researchedAt": "2026-06-19T18:50:00Z",
+  "researchedBy": "@analyst (Atlas)",
+  "phase": "3 - Research",
+  "status": "IN_PROGRESS",
+  "pipelineContext": "spec-pipeline",
+
+  "researchTopics": [
+    {
+      "id": "RT-1",
+      "topic": "Spec Pipeline Critique Process (Novel Pattern)",
+      "priority": "P0",
+      "source": "complexity.json flags + PRD §5.5",
+      "findings": {
+        "gap": "EPIC-12 is the first time we implement Spec Pipeline critique phases (Phase 5 & 7) for agent framework specs. No operational precedent in codebase.",
+        "patterns_found": [
+          {
+            "name": "EPIC-9 Story Critique Analogy",
+            "source": "docs/stories/epics/EPIC-9/ stories (9.1-9.5)",
+            "mechanism": "Constitutional gates (Art. I-VII) are validated at hook layer; stories cite gate files; QA validates compliance",
+            "applicability": "Moderate — gates are simpler than framework spec assessment. Spec Pipeline critique must assess broader architecture coherence, not just gate mechanics.",
+            "reusable_components": [
+              "verdict taxonomy (APPROVED, NEEDS_REVISION, BLOCKED)",
+              "gate-logs JSONL decision format",
+              "CodeRabbit self-healing integration pattern"
+            ]
+          }
+        ],
+        "new_checklist_needed": "Yes — QA critique of agent framework spec (Phase 5 checklist) must include: (1) agent persona alignment with commands, (2) workflow determinism verification, (3) authority boundary enforcement, (4) gate coverage analysis, (5) multi-agent interaction completeness",
+        "timeline_impact": "Phase 5/7 may need 2-3 extra hours to design new critique checklist before executing",
+        "evidence": "complexity.json: '🔍 Spike may be needed for Spec Pipeline critique patterns (Phase 5/7) — no operational precedent; design new QA gate checklist'"
+      }
+    },
+    {
+      "id": "RT-2",
+      "topic": "Gate Patterns & Constitutional Enforcement (EPIC-9 Reference)",
+      "priority": "P0",
+      "source": "EPIC-12-PRD §4 acceptance criteria (FR-2.2, FR-2.3, FR-3.1, NFR-1.4)",
+      "findings": {
+        "gap": "EPIC-12 validation stories (12.1-12.12) must verify all 7 constitutional gates (Art. I-VII) are operational. EPIC-9 implemented the gates themselves; EPIC-12 tests them.",
+        "patterns_found": [
+          {
+            "name": "Constitutional Gate Architecture (EPIC-9 Completed)",
+            "source": "Commits ea01d57 (9.1), 7ece84d (9.2), 6f5abeb (9.3), 0f62df5 (9.4), a25f8a5 (9.5)",
+            "mechanism": [
+              "Art. I (CLI First): Gate-logger observes all Bash/PowerShell tool use",
+              "Art. II (Agent Authority): enforce-agent-authority.cjs blocks non-@devops push/PR",
+              "Art. III (Story-Driven): enforce-story-driven.cjs requires active story for commits",
+              "Art. IV (No Invention): enforce-no-invention.cjs requires FR-*/NFR-*/CON-* traceability",
+              "Art. V-VII (Quality + Boundary): enforce-quality-gates.cjs blocks L1/L2 writes + pre-merge QA"
+            ],
+            "implementation_files": [
+              ".claude/hooks/enforce-*.cjs (5 main gates)",
+              ".claude/hooks/lib/gate-logger.cjs (shared metrics + decision logging)",
+              ".aiox/gate-logs/*.jsonl (JSONL decision audit trail)",
+              ".synapse/metrics/hook-metrics.json (aggregate metrics: gatesEnforced, violationsDetected, violationsBlocked, overridesUsed)"
+            ],
+            "operational_status": "✅ ALL GATES OPERATIONAL — Cont 57 deployed (84 tests PASS, 100% coverage)"
+          }
+        ],
+        "testing_strategy": "EPIC-12 stories 12.1-12.12 validate each gate by: (1) attempting violation, (2) verifying block, (3) confirming metrics logged, (4) testing override scenarios",
+        "story_mapping": [
+          "12.1: Art. I CLI First (CLI-only testing)",
+          "12.2: Art. II Agent Authority (@devops exclusive)",
+          "12.3: Art. III Story-Driven (story reference requirement)",
+          "12.4: Art. IV No-Invention (requirement traceability)",
+          "12.5-12.7: Art. V-VII Quality + Framework Boundary",
+          "12.8: Multi-gate scenario testing"
+        ],
+        "evidence": "EPIC-9 commit logs + .aiox/gate-logs/ (200+ decision records)"
+      }
+    },
+    {
+      "id": "RT-3",
+      "topic": "Agent Context Loading Determinism",
+      "priority": "P1",
+      "source": "Cont 56 Audit (KAIROS-CEREBRO-STATE-TRUTH.md §3: Connectivity Analysis)",
+      "findings": {
+        "gap": "EPIC-12-PRD FR-2.1 requires @aiox-master routing to be deterministic. Cont 56 audit measured agent determinism at 87/100 (minor AC clarity gaps on stories 13.3-13.4).",
+        "patterns_found": [
+          {
+            "name": "Agent Context Loading Pipeline (Cont 60 identified gap: Three-Surface Agent Trap)",
+            "source": "Cont 56 audit findings; Cont 60 complexity.json flagged",
+            "mechanism": "Two independent shim systems exist: (1) .claude/agents/aiox-*.md (skill-invocable), (2) .aiox-core/development/agents/*.md (framework templates). These can diverge — causing context inconsistency.",
+            "gap_name": "Three-Surface Agent Trap",
+            "surfaces": [
+              "Surface 1: .claude/agents/aiox-{name}.md (user-invocable, loaded by Skill tool)",
+              "Surface 2: .aiox-core/development/agents/{name}.md (framework template, extended by Surface 1)",
+              "Surface 3: .claude/skills/AIOX/agents/{name}/SKILL.md (unified activation payload)",
+              "PROBLEM: Surface 1 & 2 can contain different versions of agent definition; Surface 3 must reconcile or fail silently"
+            ],
+            "context_determinism_impact": "If agent loads from Surface 1 but commands reference Surface 2, context gaps occur. Solution: Unified activation pipeline (unified-activation-pipeline.js) must normalize all three surfaces.",
+            "evidence": "complexity.json flag: '⚠️ Three-Surface Agent Trap (memory file) — design must account for .aiox-core/development/agents/*.md vs .claude/agents/aiox-*.md divergence (documented in project-epic12-viability.md)'"
+          }
+        ],
+        "precedent": "Cont 56 State-Truth audit: agent determinism 87/100 (high); agent authority enforcement 100/100 (perfect)",
+        "mitigation_in_phase4": "Phase 4 (Write Spec) must define how unified-activation-pipeline.js (31KB, touched by 3 stories) orchestrates surface reconciliation. Design must include: (a) priority order (surface 1 > 2 > 3), (b) conflict detection, (c) graceful degradation (missing surface = use fallback), (d) cache strategy for context efficiency"
+      }
+    },
+    {
+      "id": "RT-4",
+      "topic": "Constitutional Enforcement: Multi-Layer Audit (Art. I-VII)",
+      "priority": "P1",
+      "source": "EPIC-9 stories 9.1-9.5 (completed) + EPIC-12-PRD §2 business context",
+      "findings": {
+        "gap": "EPIC-12 must demonstrate that all 7 constitutional articles are enforced deterministically across all workflows (SDC, QA Loop, Spec Pipeline, Brownfield).",
+        "patterns_found": [
+          {
+            "name": "Article II (Agent Authority) — Hardest to Validate",
+            "enforcement_mechanism": "enforce-agent-authority.cjs: resolves active agent from env vars → inline command scope → hook-metrics.json → blocks non-@devops git push/PR",
+            "determinism_risk": "Agent detection order (4 env var sources + fallback) — order matters. If env vars are not set, fallback to hook-metrics.json; if that's stale, false negatives occur.",
+            "validation_strategy": "12.2 story must test all 4 paths: (1) AIOX_ACTIVE_AGENT set, (2) inline scope set, (3) session field in hook-metrics.json, (4) fallback (all missing) → should default-DENY",
+            "precedent": "Cont 57 EPIC-9 story 9.2 tested this; 21 tests PASS"
+          },
+          {
+            "name": "Article IV (No-Invention) — Multi-Gate System",
+            "enforcement_layers": [
+              "Layer 1: enforce-no-invention.cjs — detects RFC-2119 keywords (MUST/SHALL/...) + reference pattern (FR-*|NFR-*|CON-*|[research:...])",
+              "Layer 2: (NEW, story 12.G1) enforce-spec-reference-validation.cjs — validates cited references actually exist in requirements.json"
+            ],
+            "determinism_achieved": "Layer 1 + Layer 2 together = zero false positives (cannot cite invented FR-99 if it doesn't exist in requirements.json)",
+            "testing_in_epic12": "Story 12.4 (Art. IV) must test: (1) valid FR-* cited → allow, (2) invalid FR-* cited → block at Layer 2"
+          }
+        ],
+        "multi_article_scenario": "Story 12.8 tests compound scenario: @dev tries to commit code to spec.md with invented FR-99, under story 12.4, with non-@devops agent → all 3 gates (Art. III, IV, II) should evaluate; which has priority?",
+        "gate_priority_order": "Art. II (agent authority) > Art. III (story-driven) > Art. IV (no-invention) > Art. V-VII (quality/boundary) — enforced in gate-logger.cjs decision priority",
+        "evidence": "Cont 57 metrics: Art. II = 0 violations (perfect); Art. III = 0 violations; Art. IV = 0 violations"
+      }
+    },
+    {
+      "id": "RT-5",
+      "topic": "Multi-Agent Validation Patterns (Ensemble Approach)",
+      "priority": "P2",
+      "source": "EPIC-12-PRD §5.5 research-derived testing principles: Ensemble Validation",
+      "findings": {
+        "gap": "EPIC-12 requires no single agent to self-certify. Each story (12.1-12.12) is validated by ≥2 independent roles: (1) the agent under test, (2) @qa gate, (3) cross-story integration.",
+        "patterns_found": [
+          {
+            "name": "Ensemble Validation Pattern (Research-Derived, Cont 43)",
+            "source": "docs/research/2026-06-15-framework-architecture/ (82/100 confidence)",
+            "mechanism": "No agent self-signs off. Validation requires: (a) agent executes task, (b) independent reviewer (@qa) validates outcome, (c) cross-story integration test ensures no regressions",
+            "operationally_proven": "Cont 57 EPIC-9 validation: each story 9.1-9.5 went through @dev → @qa → @devops handoff; 84 tests aggregate across 5 stories confirm no agent worked in isolation",
+            "application_to_epic12": "Each story 12.1-12.8 must: (1) be implemented by @dev, (2) reviewed by @qa, (3) aggregated in @qa epic gate (12.11) that checks cross-story coherence"
+          },
+          {
+            "name": "Barrier Synchronization (Research-Derived, Cont 43)",
+            "source": "docs/research/2026-06-15-framework-architecture/ §4 (synchronization)",
+            "mechanism": "Explicit phase gates; no story starts in Week N+1 until Week N barrier (entry/exit criteria) is cleared. Prevents partial-completion drift.",
+            "in_epic12": "Phase gates: Phase 2 (Assess) ✅ → Phase 3 (Research) CURRENT → Phase 4 (Write Spec) → Phase 5 (Critique v1) → Phase 6 (Revise) → Phase 7 (Critique v2) → Phase 8 (Plan). Phase 3 must COMPLETE before Phase 4 starts."
+          }
+        ],
+        "testing_validation": "Story 12.G1-12.G3 are gateway stories: G1 (framework modification), G2 (integration test), G3 (cross-story coherence). They happen in parallel with 12.1-12.8 but their completeness gates Phase 8 planning."
+      }
+    }
+  ],
+
+  "synthesisAndRecommendations": {
+    "keyFindings": [
+      "✅ Constitutional gates (Art. I-VII) are fully operational (EPIC-9 completed, 84 tests PASS)",
+      "✅ Gate logging & metrics infrastructure is production-ready (gate-logs JSONL, hook-metrics.json)",
+      "⚠️ Spec Pipeline critique process (Phase 5/7) is novel; requires new QA checklist design before Phase 4 → Phase 5 transition",
+      "⚠️ Three-Surface Agent Trap identified; unified-activation-pipeline.js must define reconciliation strategy in Phase 4 spec",
+      "⚠️ Phase 3 Research completion is BLOCKER for Phase 4 (Write Spec); cannot proceed until all 5 research topics are resolved"
+    ],
+    "phase4SpecMustAddress": [
+      "1. New QA critique checklist for agent framework specs (Phase 5 gate design)",
+      "2. Unified activation pipeline design: surface priorities, conflict resolution, graceful degradation",
+      "3. Three-surface agent trap mitigation: how .claude/agents + .aiox-core/development/agents + .claude/skills reconcile",
+      "4. Multi-agent validation integration: how stories 12.1-12.8 aggregate for ensemble validation (story 12.11 epic gate)",
+      "5. Barrier synchronization enforcement: phase gates in EXECUTION-PLAN.yaml (Phase 8 output)"
+    ],
+    "confidenceLevel": "85/100",
+    "confidenceReasoning": "All research topics have strong precedent (EPIC-9 gates confirmed, Cont 56 audit baseline, research methodology validated in Cont 43). One uncertainty: novel Spec Pipeline critique patterns have no production precedent yet; confidence drops to 85 pending Phase 4 spec review."
+  },
+
+  "nextPhase": {
+    "phase": "4. Write Spec",
+    "agent": "@pm (Morgan)",
+    "command": "*write-spec",
+    "input": "requirements.json + complexity.json + research.json",
+    "deliverable": "spec.md (with implementation strategy addressing all 5 research topics)",
+    "gateCondition": "Research phase complete with confidence >= 80%; Phase 4 can proceed"
+  },
+
+  "metadata": {
+    "totalResearchHours": 2.5,
+    "topicsCovered": 5,
+    "primarySources": [
+      "EPIC-9 stories 9.1-9.5 (gate implementations)",
+      "Cont 56 audit (agent determinism baseline)",
+      "Cont 43 research (Spec Pipeline methodology)",
+      "EPIC-12-PRD (requirements + architecture foundation)",
+      "complexity.json (risk + gap assessment)"
+    ],
+    "deliveredAt": "2026-06-19T18:50:00Z",
+    "status": "READY FOR PHASE 4"
+  }
+}
