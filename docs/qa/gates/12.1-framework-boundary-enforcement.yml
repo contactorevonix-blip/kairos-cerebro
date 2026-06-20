@@ -1,0 +1,46 @@
+schema: 1
+story: '12.1'
+gate: PASS
+status_reason: 'All 4 ACs met and verified; L1/L2 protected via active deny-rule backstop, MultiEdit bypass closed, 14/14 + 180/180 tests PASS. One advisory observation on a pre-existing config toggle (out of story scope).'
+reviewer: 'Quinn'
+updated: '2026-06-20T00:00:00Z'
+
+quality_checks:
+  code_review: PASS
+  unit_tests: PASS
+  acceptance_criteria: PASS
+  no_regressions: PASS
+  performance: PASS
+  security: PASS
+  documentation: PASS
+
+evidence:
+  tests_new: '14/14 PASS (tests/hooks/test-boundary-enforce.test.js)'
+  tests_full_hooks: '180/180 PASS'
+  lint: 'clean (eslint --quiet)'
+  typecheck: 'clean (tsc --noEmit)'
+  commit: '797c368 feat: Story 12.1 Complete — Framework Boundary Enforcement'
+
+acceptance_criteria_verified:
+  - ac: 'enforce-quality-gates.cjs validates L1/L2 boundary'
+    status: MET
+    note: 'Hardened isProtectedPath via toProjectRelative + isUnderDir (boundary-anchored, handles Windows/POSIX absolute paths, no substring false-positives). Verified by AC1 tests.'
+  - ac: 'Deny rules in .claude/settings.json block writes to L1/L2'
+    status: MET
+    note: 'All L1/L2 families denied for Write/Edit/MultiEdit; only L3 exceptions in allow (.aiox-core/data/**, agents/*/MEMORY.md, Read). Constitutional fix restored (was in allow). This is the hard backstop and is active independent of the runtime toggle.'
+  - ac: 'Tests verify protection (story 12.11 will aggregate)'
+    status: MET
+    note: '14 dedicated tests; 12.11 aggregation noted in suite header.'
+  - ac: 'Gate decisions logged to .aiox/gate-logs/'
+    status: MET
+    note: 'Verified by spawning hook in isolated temp cwd; block decision with gate=framework-boundary, timestamp, and reason appended.'
+
+top_issues:
+  - id: 'REL-001'
+    severity: low
+    finding: 'Runtime hook enforce-quality-gates.cjs is currently a no-op for L1/L2 writes because core-config.yaml has boundary.frameworkProtection: false (EPIC-8 authorization, expired 2026-06-19). In the real project cwd, a Write to .aiox-core/core/x.js exits 0 (allowed) at the hook layer.'
+    suggested_action: 'Re-enable boundary.frameworkProtection (the EPIC-8 L1 auto-healing window expired 2026-06-19). Note: L1/L2 are still protected by the settings.json deny rules (the hard backstop), so AC2 protection holds regardless. This is a project-config operational item, NOT a story 12.1 scope defect — the toggle is a pre-existing EPIC-8 mechanism the story correctly preserved.'
+
+code_intel_advisory: 'Not run (provider not invoked for this gate).'
+
+waiver: { active: false }
