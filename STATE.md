@@ -3728,3 +3728,8 @@ All 10 remediation stories created from `docs/audits/AIOX-SYNC-AUDIT-2026-06-10.
 **Branch:** main
 **Commit:** feat: Story 9.5 Art. V-VII Quality + Framework Boundary Gate (13 tests PASS) [Story 9.5]
 **Files changed:** .aiox/gate-logs/art-ii-agent-authority-2026-06-18.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-18.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-18.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-18.jsonl, .aiox/task-logs/9.1.json, .aiox/task-logs/9.2.json, .aiox/task-logs/9.3.json, .aiox/task-logs/9.4.json, .aiox/task-logs/9.5.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: ea01d57 — 2026-06-20 00:33
+**Branch:** claude/aiox-master-hrtgc5
+**Commit:** docs: Cont 57 COMPLETE — EPIC-9 Stories 9.1-9.5 Implementation (84 tests PASS) [Cont 57]
+**Files changed:** .synapse/metrics/hook-metrics.json
