@@ -49,12 +49,35 @@ function normPath(p) {
   return String(p || '').replace(/\\/g, '/').replace(/^\.\//, '');
 }
 
+/**
+ * Reduce any path (absolute Windows/POSIX or relative) to a project-relative
+ * path anchored at the first framework marker (`.aiox-core/` or `bin/`).
+ * Returns the normalized path unchanged when no marker is present so that
+ * non-framework paths fall through to a (negative) protection check.
+ */
+function toProjectRelative(filePath) {
+  const norm = normPath(filePath);
+  const markerMatch = norm.match(/(\.aiox-core\/.*|bin\/[^/]+(?:\/.*)?$)/i);
+  return markerMatch ? markerMatch[1] : norm;
+}
+
+/**
+ * True when `candidate` is the prefix `dir` itself or a path *inside* it.
+ * Anchored at the start of the candidate so a deep L4 path that merely
+ * *contains* a protected substring (e.g. `docs/.aiox-core/core/x` copied
+ * elsewhere) is not mistaken for a real L1/L2 write. `dir` ends with `/`.
+ */
+function isUnderDir(candidate, dir) {
+  return candidate === dir.slice(0, -1) || candidate.startsWith(dir);
+}
+
 function isProtectedPath(filePath) {
-  const rel = normPath(filePath)
-    .replace(/^([a-z]:)?\/?.*?(?=\.aiox-core\/|bin\/)/i, ''); // strip any absolute prefix up to the project marker
-  const candidate = rel || normPath(filePath);
-  if (PROTECTED_FILES.some((f) => candidate.endsWith(f))) return true;
-  return PROTECTED_PREFIXES.some((prefix) => candidate.includes(prefix));
+  if (!filePath) return false;
+  const candidate = toProjectRelative(filePath);
+  if (PROTECTED_FILES.some((f) => candidate === f || candidate.endsWith(`/${f}`))) {
+    return true;
+  }
+  return PROTECTED_PREFIXES.some((prefix) => isUnderDir(candidate, prefix));
 }
 
 function isMergeCommand(command) {
@@ -204,6 +227,8 @@ module.exports = {
   FORCE_FLAG,
   PROTECTED_PREFIXES,
   PROTECTED_FILES,
+  toProjectRelative,
+  isUnderDir,
   isProtectedPath,
   isMergeCommand,
   hasForce,
