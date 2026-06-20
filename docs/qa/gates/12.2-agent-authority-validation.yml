@@ -1,0 +1,40 @@
+schema: 1
+story: '12.2'
+gate: PASS
+status_reason: 'All 5 ACs verified against real code, tests, and live runtime logs. 4-path detection chain, default-DENY fail-safe, override, and additive detectionSource logging all confirmed; 199/199 hook tests pass with 21 EPIC-9 regression tests green.'
+reviewer: 'Quinn'
+updated: '2026-06-20T12:25:00Z'
+
+acceptance_criteria:
+  - id: AC1
+    desc: 'resolveActiveAgent resolves active agent via 4 paths (env, inline, session, default-DENY)'
+    status: PASS
+    evidence: 'gate-logger.cjs:88-111 — structured { agent, source }; 5 tests cover all 4 paths + structure invariant'
+  - id: AC2
+    desc: 'Non-@devops push/PR attempts blocked'
+    status: PASS
+    evidence: 'enforce-agent-authority.cjs:104-116 emits deny + exit 2; isDevOpsAgent("") = false; live log shows agent:dev decision:block'
+  - id: AC3
+    desc: 'Detection order AIOX_ACTIVE_AGENT -> AIOX_AGENT -> session -> default-DENY'
+    status: PASS
+    evidence: 'gate-logger.cjs:90-110 precedence; 4 precedence tests (env>inline>session, AIOX_ACTIVE_AGENT>AIOX_AGENT)'
+  - id: AC4
+    desc: 'Tests cover all 4 detection paths + override scenario (--skip-devops-check)'
+    status: PASS
+    evidence: '19-test suite test-agent-authority-detection.test.js; 3 override tests; live log shows decision:override audit entry'
+  - id: AC5
+    desc: 'Metrics updated in .synapse/metrics/hook-metrics.json'
+    status: PASS
+    evidence: 'enforcement counters live (gatesEnforced 86, violationsDetected 48, violationsBlocked 24, overridesUsed 24); enforcementUpdatedAt today'
+
+quality_checks:
+  code_review: PASS  # ADAPT clean — resolveActiveAgent new, getActiveAgent retro-compat wrapper; detectionSource logged on allow/override/block
+  unit_tests: PASS   # 19 new (12.2), 21 EPIC-9 regression, 23 enforcement gates — all green
+  acceptance_criteria: PASS  # 5/5 verified against real artifacts
+  no_regressions: PASS  # 199/199 hook tests; 180 -> 199 (additive); pre-12.2 log lines have no detectionSource, post-12.2 do (parser-safe)
+  performance: PASS  # detection is in-process env reads + one JSON read on session path only; negligible
+  security: PASS  # default-DENY fail-safe; deny + exit 2 on block; override audit-logged per Art. II policy
+  documentation: PASS  # File List accurate, Change Log complete, story refs FR-2.1-2.4
+
+top_issues: []
+waiver: { active: false }
