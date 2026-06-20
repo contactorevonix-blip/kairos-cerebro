@@ -42,12 +42,77 @@
 **Status:** 🟡 **Preliminary Complete | Deep Investigation Scheduled (Cont 67)**  
 **Context:** Ran out (94.6%) — handoff created for continuation
 
-### ✅ What Was Discovered
+---
 
-**Official AIOX (v1.0.0):**
-- Constitution: 6 articles (I-VI) — NO Art. VII, NO Art. IV-A
-- Hooks: 15 files
-- Rules: 11 files
+## 🔍 CONT 67 — TIER 1 INVESTIGATION COMPLETE ✅
+
+**Investigator:** @architect (Aria)  
+**Report:** `docs/research/2026-06-20-aiox-framework-audit/02-GOVERNANCE_COMPLIANCE_AUDIT.md`  
+**Findings:** **Kairos governance is SOUND. NO violations detected.**
+
+### ✅ Executive Verdict
+
+| Question | Answer | Status |
+|----------|--------|--------|
+| **Q1.1: How does AIOX support extensions?** | Kairos created formal triple-sign process | ✅ ANSWERED |
+| **Q1.2: Did Kairos follow protocol?** | YES — 100% compliance (proposal + 3 signatures) | ✅ VERIFIED |
+| **Q1.3: Are Art. VII + IV-A inventions?** | NO — both are formalizations of existing practices | ✅ VERIFIED |
+| **Q1.4: Risk: fork drift?** | YES, but documented + leadership (ahead of official) | ⚠️ NUANCED |
+
+### 🎯 Key Findings
+
+**1. Amendment Process (FORMAL):**
+- Proposal: `CONST-v1.0.0-to-v1.1.0-PROPOSAL.md` (V-DRIFT-004)
+- Triple-signed: @po (Pax) ✅, @architect (Aria) ✅, @aiox-master (Orion) ✅
+- Approval date: 2026-06-09
+- Commitment: c188ce5 + 7454868 (Amendment applied)
+- Story tracking: Story 5.2 (Framework Governance) — explicit task
+
+**2. Art. VII (Framework Boundary) — NOT Invention:**
+- Pre-existed as scattered rules in enforcement-gates.md + CLAUDE.md
+- Gate `enforce-quality-gates.cjs` was active BEFORE amendment
+- Amendment formalized into constitutional principle (NON-NEGOTIABLE)
+- @architect verified: "EXACT MATCH" between Art. VII and live gate implementation
+
+**3. Art. IV-A (IDS) — NOT Invention:**
+- Pre-existed as `.claude/rules/ids-principles.md` (standalone rule)
+- Gates G1-G6 partially implemented before amendment
+- Amendment elevated IDS from "rule" to "MUST constitutional principle"
+- @po verified: "Formalização, não invenção" — Art. IV compliance confirmed
+
+**4. Governance Process:**
+- Kairos created its own amendment framework (v1.1.0 includes "Amendment Process" section)
+- This is **meta-governance**: formalizing the process WHILE using it
+- Official AIOX v1.0.0 had NO amendment process — Kairos is **ahead**
+
+**5. Enforcement Gates — Legitimately Placed:**
+- 6 custom hooks in `.claude/hooks/` (not L1/L2) — placement is allowed
+- Gates enforce Constitutional Articles I-VII (constitutional backing)
+- No L1 conflicts, no unauthorized modifications
+- **Verdict:** ✅ LEGITIMATE
+
+### 📊 Fork Drift Assessment
+
+**Kairos is AHEAD of Official AIOX, not behind:**
+
+| Aspect | Official v1.0.0 | Kairos v1.1.0 |
+|--------|-----------------|--------------|
+| **Framework Boundary (Art. VII)** | Implicit (gates exist) | Explicit + Constitutional |
+| **IDS System (Art. IV-A)** | Implied (patterns) | Explicit + Constitutional |
+| **Amendment Process** | Not documented | Documented + used |
+| **Constitutional Articles** | 6 (I-VI) | 8 (I-VII + IV-A) |
+
+**Risk Profile:**
+- ⚠️ **Fork drift exists** — Kairos has extended beyond official
+- ✅ **But it's leadership** — Extensions are formalizations + rigorous governance
+- 🔴 **ISSUE: No upstream sync** — No strategy to track official AIOX releases or merge changes back
+- 📋 **Recommendation:** Create EPIC for Constitution sync strategy (roadmap item)
+
+### 📁 Artifacts Created
+
+Location: `docs/research/2026-06-20-aiox-framework-audit/`
+- `02-GOVERNANCE_COMPLIANCE_AUDIT.md` — Full investigation (THIS)
+- `HANDOFF-CONT67.md` — Original planning + findings summary
 - L1 Core: 20+ modules with amendment/governance processes
 
 **Kairos (v1.1.0):**
@@ -4657,3 +4722,8 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** chore: serialize node --test to fix shared-registry race in pre-push gate [no-story-req]
 **Files changed:** .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/task-logs/12.1.json, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.2.json, .aiox/task-logs/12.3.json, .aiox/task-logs/12.4.json, .aiox/task-logs/12.5.json
+
+## Checkpoint: 0d5ae6c — 2026-06-20 15:56
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — Preliminary Reports + Handoff (Cont 66 Extended)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .synapse/metrics/hook-metrics.json
