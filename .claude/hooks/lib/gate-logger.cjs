@@ -67,19 +67,62 @@ function getCommandScopedAgent(command) {
   return match ? match[1].toLowerCase() : '';
 }
 
-/** Resolve the active agent from env vars or the command itself. */
-function getActiveAgent(command) {
-  const candidates = [
+/**
+ * Resolve the active agent with a structured 4-path detection chain (Story 12.2).
+ *
+ * Detection order (first non-empty wins):
+ *   1. `env`     — process environment variables
+ *                  (AIOX_ACTIVE_AGENT → AIOX_AGENT → ACTIVE_AGENT →
+ *                   CLAUDE_AGENT_NAME → CLAUDE_CODE_AGENT → AIOX_CURRENT_AGENT)
+ *   2. `inline`  — an agent declared inline in the command itself
+ *                  (e.g. `AIOX_ACTIVE_AGENT=devops git push`)
+ *   3. `session` — the active agent persisted in hook-metrics.json by
+ *                  agent-activation-tracker.cjs
+ *   4. `default-DENY` — nothing resolved; the caller must fail safe (Art. II
+ *                  blocks non-@devops, so an unknown agent is denied a push/PR).
+ *
+ * @param {string} command
+ * @param {string} [cwd]
+ * @returns {{ agent: string, source: 'env'|'inline'|'session'|'default-DENY' }}
+ */
+function resolveActiveAgent(command, cwd = process.cwd()) {
+  // Path 1 — environment variables.
+  const envCandidates = [
     process.env.AIOX_ACTIVE_AGENT,
     process.env.AIOX_AGENT,
     process.env.ACTIVE_AGENT,
     process.env.CLAUDE_AGENT_NAME,
     process.env.CLAUDE_CODE_AGENT,
     process.env.AIOX_CURRENT_AGENT,
-    getCommandScopedAgent(command),
-    readSessionAgent(),
   ];
-  return String(candidates.find(Boolean) || '').toLowerCase();
+  const envAgent = String(envCandidates.find(Boolean) || '').toLowerCase();
+  if (envAgent) return { agent: envAgent, source: 'env' };
+
+  // Path 2 — inline command-scoped declaration.
+  const inlineAgent = getCommandScopedAgent(command);
+  if (inlineAgent) return { agent: inlineAgent, source: 'inline' };
+
+  // Path 3 — persisted session state.
+  const sessionAgent = readSessionAgent(cwd);
+  if (sessionAgent) return { agent: sessionAgent, source: 'session' };
+
+  // Path 4 — nothing resolved. Fail safe: deny by default.
+  return { agent: '', source: 'default-DENY' };
+}
+
+/**
+ * Resolve the active agent from env vars, the command, or session state.
+ *
+ * Retro-compatible wrapper (EPIC-9 callers expect a lowercase string). Internally
+ * delegates to {@link resolveActiveAgent}; use that directly when the detection
+ * source is needed (Story 12.2 detectionSource logging).
+ *
+ * @param {string} command
+ * @param {string} [cwd]
+ * @returns {string} lowercase agent id ('' when unresolved)
+ */
+function getActiveAgent(command, cwd = process.cwd()) {
+  return resolveActiveAgent(command, cwd).agent;
 }
 
 /** Read the active agent persisted by agent-activation-tracker.cjs. */
@@ -190,6 +233,7 @@ module.exports = {
   normalizeCommand,
   getCommandScopedAgent,
   getActiveAgent,
+  resolveActiveAgent,
   readSessionAgent,
   isDevOpsAgent,
   recordMetrics,

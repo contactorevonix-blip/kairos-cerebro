@@ -14731,6 +14731,11 @@ entities:
       layer: L2
       type: agent
       purpose: devops
+      exclusiveOperations:
+        - git push
+        - git push --force
+        - gh pr create
+        - gh pr merge
       keywords:
         - devops
       usedBy:

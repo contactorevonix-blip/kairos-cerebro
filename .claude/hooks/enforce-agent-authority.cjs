@@ -62,7 +62,8 @@ function main() {
 
   gl.recordMetrics({ gatesEnforced: 1 });
 
-  const activeAgent = gl.getActiveAgent(command);
+  // Structured 4-path detection (Story 12.2): env → inline → session → default-DENY.
+  const { agent: activeAgent, source: detectionSource } = gl.resolveActiveAgent(command);
 
   // @devops is always allowed.
   if (gl.isDevOpsAgent(activeAgent)) {
@@ -73,6 +74,7 @@ function main() {
       reason: `Active agent is @devops (${activeAgent}).`,
       agent: activeAgent,
       operation: operation.operation,
+      detectionSource,
     });
     return;
   }
@@ -90,6 +92,7 @@ function main() {
       agent: activeAgent || '@unknown',
       operation: operation.operation,
       override: OVERRIDE_FLAG,
+      detectionSource,
     });
     process.stderr.write(
       `⚠️  Art. II override: ${operation.operation} allowed for ${activeAgent || '@unknown'} via ${OVERRIDE_FLAG} (audit-logged).\n`,
@@ -107,6 +110,7 @@ function main() {
     reason,
     agent: activeAgent || '@unknown',
     operation: operation.operation,
+    detectionSource,
   });
   gl.emitDecision('deny', reason);
   process.exitCode = 2;
