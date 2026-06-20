@@ -1,47 +1,47 @@
 {
   "storyId": "12.8",
-  "storyType": "refactor",
-  "suggestedAt": "2026-06-17T16:29:32.882Z",
+  "storyType": "feature",
+  "suggestedAt": "2026-06-20T11:39:42.955Z",
   "suggestions": [
     {
-      "id": "dev-improve-code-quality",
-      "name": "No checklists needed - this task performs automated code refactoring, validation is through linting and testing",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-improve-code-quality.md",
+      "id": "plan-create-implementation",
+      "name": "Execution Pipeline: Create Implementation Plan",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/plan-create-implementation.md",
+      "score": 89,
+      "autoActivate": true
+    },
+    {
+      "id": "create-deep-research-prompt",
+      "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "dev-optimize-performance",
-      "name": "Optimize Performance - AIOX Developer Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/dev-optimize-performance.md",
+      "id": "create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "consolidate-patterns",
-      "name": "Consolidate Patterns Using Intelligent Clustering",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/consolidate-patterns.md",
-      "score": 73,
+      "id": "dev-develop-story",
+      "name": "Develop Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "improve-self",
-      "name": "improve-self",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/improve-self.md",
-      "score": 73,
+      "id": "plan-create-context",
+      "name": "Plan Pipeline: Create Context",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/plan-create-context.md",
+      "score": 81,
       "autoActivate": true
-    },
-    {
-      "id": "cleanup-utilities",
-      "name": "Cleanup Utilities Task",
-      "category": "refactor",
-      "file": ".aiox-core/development/tasks/cleanup-utilities.md",
-      "score": 65,
-      "autoActivate": false
     }
   ]
 }

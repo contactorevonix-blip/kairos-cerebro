@@ -58,18 +58,6 @@
             "statusMessage": "A sincronizar STATE.md (story update)..."
           }
         ]
-      },
-      {
-        "matcher": "MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/post-story-update.js\"",
-            "timeout": 10,
-            "async": true,
-            "statusMessage": "A sincronizar STATE.md (story update)..."
-          }
-        ]
       }
     ],
     "PreToolUse": [
@@ -151,6 +139,12 @@
           },
           {
             "type": "command",
+            "command": "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. IV (Reference Traceability)..."
+          },
+          {
+            "type": "command",
             "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
             "timeout": 4,
             "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
@@ -168,15 +162,10 @@
           },
           {
             "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "command": "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
             "timeout": 4,
-            "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
-          }
-        ]
-      },
-      {
-        "matcher": "MultiEdit",
-        "hooks": [
+            "statusMessage": "A validar Art. IV (Reference Traceability)..."
+          },
           {
             "type": "command",
             "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
@@ -399,31 +388,22 @@
       "Write(.env.local)",
       "Edit(.aiox-core/core/**)",
       "Write(.aiox-core/core/**)",
-      "MultiEdit(.aiox-core/core/**)",
       "Edit(.aiox-core/development/tasks/**)",
       "Write(.aiox-core/development/tasks/**)",
-      "MultiEdit(.aiox-core/development/tasks/**)",
       "Edit(.aiox-core/development/templates/**)",
       "Write(.aiox-core/development/templates/**)",
-      "MultiEdit(.aiox-core/development/templates/**)",
       "Edit(.aiox-core/development/checklists/**)",
       "Write(.aiox-core/development/checklists/**)",
-      "MultiEdit(.aiox-core/development/checklists/**)",
       "Edit(.aiox-core/development/workflows/**)",
       "Write(.aiox-core/development/workflows/**)",
-      "MultiEdit(.aiox-core/development/workflows/**)",
       "Edit(.aiox-core/infrastructure/**)",
       "Write(.aiox-core/infrastructure/**)",
-      "MultiEdit(.aiox-core/infrastructure/**)",
       "Edit(.aiox-core/constitution.md)",
       "Write(.aiox-core/constitution.md)",
-      "MultiEdit(.aiox-core/constitution.md)",
       "Edit(bin/aiox.js)",
       "Write(bin/aiox.js)",
-      "MultiEdit(bin/aiox.js)",
       "Edit(bin/aiox-init.js)",
-      "Write(bin/aiox-init.js)",
-      "MultiEdit(bin/aiox-init.js)"
+      "Write(bin/aiox-init.js)"
     ]
   }
 }

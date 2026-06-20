@@ -1,47 +1,47 @@
 {
   "storyId": "12.11",
-  "storyType": "config",
-  "suggestedAt": "2026-06-19T18:14:27.724Z",
+  "storyType": "docs",
+  "suggestedAt": "2026-06-20T11:39:44.712Z",
   "suggestions": [
     {
-      "id": "audit-tailwind-config",
-      "name": "Audit Tailwind v4 Configuration & Utility Health",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "create-doc",
+      "name": "Template selection determined dynamically during task execution",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/create-doc.md",
+      "score": 68,
+      "autoActivate": false
     },
     {
-      "id": "add-mcp",
-      "name": "Add MCP Server Task",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/add-mcp.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "check-docs-links",
+      "name": "check-docs-links",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/check-docs-links.md",
+      "score": 60,
+      "autoActivate": false
     },
     {
-      "id": "list-mcps",
-      "name": "list-mcps",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/list-mcps.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "document-gotchas",
+      "name": "Document Gotchas Task",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/document-gotchas.md",
+      "score": 60,
+      "autoActivate": false
     },
     {
-      "id": "setup-design-system",
-      "name": "Setup Design System Structure",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-design-system.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "document-project",
+      "name": "TODO: Create project-documentation-checklist.md for validation (follow-up story needed)",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/document-project.md",
+      "score": 60,
+      "autoActivate": false
     },
     {
-      "id": "setup-llm-routing",
-      "name": "setup-llm-routing",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "gotcha",
+      "name": "Task: Add Gotcha",
+      "category": "docs",
+      "file": ".aiox-core/development/tasks/gotcha.md",
+      "score": 60,
+      "autoActivate": false
     }
   ]
 }

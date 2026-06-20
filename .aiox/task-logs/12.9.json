@@ -1,14 +1,14 @@
 {
   "storyId": "12.9",
   "storyType": "config",
-  "suggestedAt": "2026-06-17T16:29:33.251Z",
+  "suggestedAt": "2026-06-20T11:39:43.955Z",
   "suggestions": [
     {
-      "id": "setup-mcp-docker",
-      "name": "Setup Docker MCP Toolkit",
+      "id": "list-mcps",
+      "name": "list-mcps",
       "category": "config",
-      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
-      "score": 89,
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 73,
       "autoActivate": true
     },
     {
@@ -16,32 +16,32 @@
       "name": "Add MCP Server Task",
       "category": "config",
       "file": ".aiox-core/development/tasks/add-mcp.md",
-      "score": 81,
-      "autoActivate": true
+      "score": 65,
+      "autoActivate": false
     },
     {
       "id": "audit-tailwind-config",
       "name": "Audit Tailwind v4 Configuration & Utility Health",
       "category": "config",
       "file": ".aiox-core/development/tasks/audit-tailwind-config.md",
-      "score": 81,
-      "autoActivate": true
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "list-mcps",
-      "name": "list-mcps",
+      "id": "bootstrap-shadcn-library",
+      "name": "Bootstrap Shadcn/Radix Component Library",
       "category": "config",
-      "file": ".aiox-core/development/tasks/list-mcps.md",
-      "score": 81,
-      "autoActivate": true
+      "file": ".aiox-core/development/tasks/bootstrap-shadcn-library.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "remove-mcp",
-      "name": "remove-mcp",
+      "id": "environment-bootstrap",
+      "name": "environment-bootstrap",
       "category": "config",
-      "file": ".aiox-core/development/tasks/remove-mcp.md",
-      "score": 81,
-      "autoActivate": true
+      "file": ".aiox-core/development/tasks/environment-bootstrap.md",
+      "score": 65,
+      "autoActivate": false
     }
   ]
 }

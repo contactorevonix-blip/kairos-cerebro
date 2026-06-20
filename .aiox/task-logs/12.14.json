@@ -1,7 +1,7 @@
 {
-  "storyId": "12.4",
+  "storyId": "12.14",
   "storyType": "arch",
-  "suggestedAt": "2026-06-20T15:54:01.064Z",
+  "suggestedAt": "2026-06-20T11:39:46.303Z",
   "suggestions": [
     {
       "id": "brownfield-create-epic",
@@ -28,18 +28,18 @@
       "autoActivate": true
     },
     {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
       "id": "extend-pattern",
       "name": "Extend Existing Pattern",
       "category": "arch",
       "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "score": 81,
-      "autoActivate": true
-    },
-    {
-      "id": "qa-test-design",
-      "name": "test-design",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/qa-test-design.md",
       "score": 73,
       "autoActivate": true
     }

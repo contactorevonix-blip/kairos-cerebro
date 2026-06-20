@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-17T17:41:27.931Z'
-  entityCount: 832
+  lastUpdated: '2026-06-20T15:54:55.109Z'
+  entityCount: 833
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -8420,6 +8420,25 @@ entities:
         extensionPoints: []
       checksum: sha256:bba0ca266653ca7d6162de011165256e6e49ebe34f2136ae16a4c3393901ab27
       lastVerified: '2026-06-01T17:32:25.062Z'
+    surface-reconciler:
+      path: .aiox-core/development/scripts/surface-reconciler.js
+      layer: L2
+      type: script
+      purpose: Entity at .aiox-core\development\scripts\surface-reconciler.js
+      keywords:
+        - surface
+        - reconciler
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:85444dbbc4d30c131df1de5825173b0d259d2df9b757dcfbf3dbf308e397ff14
+      lastVerified: '2026-06-20T15:54:55.098Z'
   modules:
     index.esm:
       path: .aiox-core/core/index.esm.js

@@ -1,0 +1,12 @@
+{
+  "reconciliations": 1,
+  "cacheHits": 0,
+  "cacheMisses": 1,
+  "conflictsDetected": 1,
+  "degradations": {
+    "L3": 0,
+    "L4": 0
+  },
+  "cacheHitRate": 0,
+  "lastUpdated": "2026-06-20T15:22:18.834Z"
+}

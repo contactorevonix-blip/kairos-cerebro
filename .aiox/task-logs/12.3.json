@@ -1,46 +1,46 @@
 {
   "storyId": "12.3",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-17T16:47:51.825Z",
+  "storyType": "feature",
+  "suggestedAt": "2026-06-20T15:53:58.342Z",
   "suggestions": [
     {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "id": "dev-develop-story",
+      "name": "Develop Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "score": 89,
+      "autoActivate": true
+    },
+    {
+      "id": "build-status",
+      "name": "Task: Build Status",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/build-status.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "id": "create-deep-research-prompt",
+      "name": "No checklists needed - this task creates research prompts, validation is built into the research methodology",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-deep-research-prompt.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "id": "create-next-story",
+      "name": "Create Next Story Task",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-next-story.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "qa-test-design",
-      "name": "test-design",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "id": "create-task",
+      "name": "TODO: Create task-validation-checklist.md for validation (follow-up story needed)",
+      "category": "feature",
+      "file": ".aiox-core/development/tasks/create-task.md",
       "score": 81,
-      "autoActivate": true
-    },
-    {
-      "id": "architect-analyze-impact",
-      "name": "Architect Analyze Impact",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
-      "score": 73,
       "autoActivate": true
     }
   ]

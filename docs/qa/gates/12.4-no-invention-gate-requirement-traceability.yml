@@ -1,0 +1,51 @@
+schema: 1
+story: '12.4'
+gate: PASS
+status_reason: 'Two-layer Art. IV gate fully implemented and verified — L1 pattern detection + L2 reference validation; 31/31 new tests pass, E2E allow/block confirmed, lint/typecheck clean. All 6 AC met.'
+reviewer: 'Quinn'
+updated: '2026-06-20T00:00:00Z'
+
+acceptance_criteria_verification:
+  - ac: 'AC1 — enforce-no-invention.cjs detects RFC-2119 keywords without reference pattern'
+    status: PASS
+    evidence: 'NORMATIVE_RE + REFERENCE_RE in enforce-no-invention.cjs; tests AC1 (3 assertions) green.'
+  - ac: 'AC2 — enforce-spec-reference-validation.cjs validates cited FR/NFR/CON exist in requirements.json'
+    status: PASS
+    evidence: 'loadKnownReferences() collects functional/nonFunctional/constraints ids; tests AC2 green; requirements.json located via walk-up.'
+  - ac: 'AC3 — Layer 1 + Layer 2 = zero false positives'
+    status: PASS
+    evidence: 'Test "fabricated reference caught only by Layer 2, not Layer 1" + "fully traceable spec passes BOTH layers" green.'
+  - ac: 'AC4 — all spec.md statements traceable to requirements.json'
+    status: PASS
+    evidence: 'Delivered as mechanism guarantee (L1 forces citation, L2 forces resolution). Documented honestly in Dev Notes; AC text amended and validated by @po (GO 8/10). No invented spec body claimed.'
+  - ac: 'AC5 — tests verify valid FR allowed, invalid FR blocked at Layer 2'
+    status: PASS
+    evidence: 'Tests AC5 green; E2E: [FR-5.4] exit 0 / [FR-99.9] exit 2 (deny emitted).'
+  - ac: 'AC6 — compound scenario validates gate priority order'
+    status: PASS
+    evidence: 'test-gate-priority-order.test.js: registration order (no-invention → spec-ref → quality-gates) + short-circuit + cross-article priority green.'
+
+quality_checks:
+  code_review: PASS  # Clean, well-documented; reuses gate-logger (IDS REUSE)
+  unit_tests: PASS   # 31/31 new tests pass
+  acceptance_criteria: PASS  # 6/6 met
+  no_regressions: PASS  # Full hooks suite 253/254; 1 failure is pre-existing 12.1 MultiEdit gap, out of scope
+  performance: PASS  # Hook timeout 4s; walk-up bounded depth 12; CON-3 graceful degradation honoured
+  security: PASS  # No secrets; no injection; fenced-code blocks skipped to avoid validating examples
+  documentation: PASS  # Story Dev Notes + hook headers complete
+
+top_issues: []
+
+waiver: { active: false }
+
+notes: |
+  Verified independently by Quinn (not trusting story claims):
+  - Both hooks read end-to-end; registration order correct in Write + Edit matchers.
+  - 31/31 new tests reproduced; full hooks suite reproduced (253/254).
+  - Single failing test (AC2 MultiEdit registration) confirmed pre-existing Story 12.1
+    framework-boundary gap in test-boundary-enforce.test.js — MultiEdit absent from
+    settings.json matchers entirely. Orthogonal to 12.4 (Art. IV). Recommend tracking
+    as a 12.1 follow-up, NOT a 12.4 blocker.
+  - E2E allow/block reproduced live (exit 0 / exit 2).
+  - lint + typecheck clean.
+  Barrier Gate 2 (Wave 2): 12.3 PASS + 12.4 PASS — exit criteria met.

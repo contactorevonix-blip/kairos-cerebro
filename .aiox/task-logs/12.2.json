@@ -1,7 +1,7 @@
 {
   "storyId": "12.2",
   "storyType": "bug",
-  "suggestedAt": "2026-06-17T17:09:22.249Z",
+  "suggestedAt": "2026-06-20T12:23:22.209Z",
   "suggestions": [
     {
       "id": "correct-course",
@@ -20,27 +20,27 @@
       "autoActivate": false
     },
     {
-      "id": "execute-checklist",
-      "name": "No templates needed - this task executes existing checklists, doesn't create document outputs",
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
       "category": "qa",
-      "file": ".aiox-core/development/tasks/execute-checklist.md",
-      "score": 51,
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 59,
       "autoActivate": false
     },
     {
-      "id": "fast-path-gate",
-      "name": "Fast Path Gate",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/fast-path-gate.md",
-      "score": 51,
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "score": 54,
       "autoActivate": false
     },
     {
-      "id": "qa-create-fix-request",
-      "name": "Create Fix Request Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
-      "score": 51,
+      "id": "devops-pro-validate-login",
+      "name": "Task: DevOps Pro Validate Login",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
+      "score": 54,
       "autoActivate": false
     }
   ]

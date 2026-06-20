@@ -1,14 +1,22 @@
 {
   "storyId": "12.7",
   "storyType": "bug",
-  "suggestedAt": "2026-06-17T16:29:25.133Z",
+  "suggestedAt": "2026-06-20T11:39:37.747Z",
   "suggestions": [
     {
       "id": "correct-course",
       "name": "Correct Course Task",
       "category": "bug",
       "file": ".aiox-core/development/tasks/correct-course.md",
-      "score": 65,
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 54,
       "autoActivate": false
     },
     {
@@ -16,30 +24,22 @@
       "name": "Create Fix Request Task",
       "category": "qa",
       "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
-      "score": 59,
-      "autoActivate": false
-    },
-    {
-      "id": "test-validation-task",
-      "name": "Test Validation Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/test-validation-task.md",
-      "score": 59,
-      "autoActivate": false
-    },
-    {
-      "id": "fast-path-gate",
-      "name": "Fast Path Gate",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/fast-path-gate.md",
       "score": 51,
       "autoActivate": false
     },
     {
-      "id": "qa-evidence-requirements",
-      "name": "Evidence Requirements Task",
+      "id": "qa-run-tests",
+      "name": "Run Tests (with Code Quality Gate)",
       "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-evidence-requirements.md",
+      "file": ".aiox-core/development/tasks/qa-run-tests.md",
+      "score": 51,
+      "autoActivate": false
+    },
+    {
+      "id": "spec-critique",
+      "name": "Spec Pipeline: Critique Specification",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/spec-critique.md",
       "score": 51,
       "autoActivate": false
     }

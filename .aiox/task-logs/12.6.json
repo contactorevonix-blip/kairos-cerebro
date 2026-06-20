@@ -1,47 +1,47 @@
 {
   "storyId": "12.6",
-  "storyType": "docs",
-  "suggestedAt": "2026-06-17T16:31:49.757Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-20T11:39:37.400Z",
   "suggestions": [
     {
-      "id": "check-docs-links",
-      "name": "check-docs-links",
-      "category": "docs",
-      "file": ".aiox-core/development/tasks/check-docs-links.md",
-      "score": 76,
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "create-doc",
-      "name": "Template selection determined dynamically during task execution",
-      "category": "docs",
-      "file": ".aiox-core/development/tasks/create-doc.md",
-      "score": 76,
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "document-gotchas",
-      "name": "Document Gotchas Task",
-      "category": "docs",
-      "file": ".aiox-core/development/tasks/document-gotchas.md",
-      "score": 68,
-      "autoActivate": false
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "document-project",
-      "name": "TODO: Create project-documentation-checklist.md for validation (follow-up story needed)",
-      "category": "docs",
-      "file": ".aiox-core/development/tasks/document-project.md",
-      "score": 68,
-      "autoActivate": false
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "index-docs",
-      "name": "No checklists needed - this task maintains documentation index, validation is through file system checks",
-      "category": "docs",
-      "file": ".aiox-core/development/tasks/index-docs.md",
-      "score": 68,
-      "autoActivate": false
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 73,
+      "autoActivate": true
     }
   ]
 }

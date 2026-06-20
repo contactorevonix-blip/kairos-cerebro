@@ -36,6 +36,71 @@
 
 ---
 
+## EXTENDED CONT 66: AIOX Framework Deep Audit (@architect)
+
+**Scope:** Forensic audit — Kairos vs. official AIOX-core  
+**Status:** 🟡 **Preliminary Complete | Deep Investigation Scheduled (Cont 67)**  
+**Context:** Ran out (94.6%) — handoff created for continuation
+
+### ✅ What Was Discovered
+
+**Official AIOX (v1.0.0):**
+- Constitution: 6 articles (I-VI) — NO Art. VII, NO Art. IV-A
+- Hooks: 15 files
+- Rules: 11 files
+- L1 Core: 20+ modules with amendment/governance processes
+
+**Kairos (v1.1.0):**
+- Constitution: 8 principles (I-VII + IV-A) — EXTENDED beyond official
+- Hooks: 24 files (+60% more)
+- Rules: 16 files (+45% more)
+- Custom enforcement gates for Art. III-VII (NOT in official)
+
+### 🔴 Critical Finding
+
+**Kairos extended Constitution WITHOUT following formal amendment process:**
+1. Added Art. VII (Framework Boundary) — Novel principle
+2. Added Art. IV-A (IDS Protocol) — Novel principle
+3. No evidence of `*propose-modification` workflow used
+4. Likely a governance violation if official has formal process
+
+### ❓ Open Questions (for Cont 67 Deep Investigation)
+
+**TIER 1 (Must answer):**
+1. How does AIOX officially support Constitution amendments?
+2. Did Kairos follow the formal amendment process? (Hypothesis: NO)
+3. Are custom enforcement gates against official guidelines?
+
+**TIER 2 (Should answer):**
+4. Is context loading (Story 12.3) actually implemented? (Verify hook execution)
+5. Which of 9 custom hooks are truly necessary vs. duplicates?
+6. Which 5 custom rules should be upstreamed?
+
+**TIER 3 (Nice to have):**
+7. Is IDS Protocol (Art. IV-A) production-ready? Should it be official?
+
+### 📄 Artifacts Generated
+
+Location: `docs/research/2026-06-20-aiox-framework-audit/`
+- `HANDOFF-CONT67.md` — Full briefing + investigation plan
+- `00-EXECUTIVE_SUMMARY.md` — Preliminary findings
+- `01-KAIROS_IMPLEMENTATION_INVENTORY.md` — Feature inventory
+- `FINAL_AUDIT_REPORT.md` — Preliminary verdict
+
+**Note:** These are PRELIMINARY — require Tier 1 investigation for final verdict.
+
+### 🎯 Next Steps (Cont 67)
+
+1. **TIER 1 investigation:** Governance compliance audit
+2. **TIER 2 verification:** Context loading actual status
+3. **Generate:** Final remediation roadmap + compliance report
+4. **Deliver:** "How to align Kairos with official AIOX properly"
+
+**Owner:** @architect (continue) or @aiox-cerebro (deep audit)  
+**Estimated time:** 2-3 hours (quick) or 6-8 hours (complete)
+
+---
+
 # 🚀 Session 2026-06-20 (Cont 65) — EPIC-12 Wave 1 COMPLETE ✅
 
 **Status: ✅ CONT 65 COMPLETE | ✅ CONT 66 PUSH COMPLETE**

@@ -1,7 +1,7 @@
 {
   "storyId": "12.12",
   "storyType": "arch",
-  "suggestedAt": "2026-06-17T16:29:33.935Z",
+  "suggestedAt": "2026-06-20T11:39:45.172Z",
   "suggestions": [
     {
       "id": "brownfield-create-epic",
@@ -36,12 +36,12 @@
       "autoActivate": true
     },
     {
-      "id": "extend-pattern",
-      "name": "Extend Existing Pattern",
+      "id": "analyze-brownfield",
+      "name": "Analyze Brownfield Project",
       "category": "arch",
-      "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "score": 73,
-      "autoActivate": true
+      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
+      "score": 65,
+      "autoActivate": false
     }
   ]
 }

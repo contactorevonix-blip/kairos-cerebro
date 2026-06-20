@@ -1,0 +1,33 @@
+{
+  "agentId": "dev",
+  "quality": "full",
+  "totalDuration": 177,
+  "requireChainMs": 349.3923,
+  "loaders": {
+    "surfaceReconciliation": {
+      "duration": 6,
+      "status": "ok"
+    },
+    "agentConfig": {
+      "duration": 11,
+      "status": "ok"
+    },
+    "gitConfig": {
+      "duration": 38,
+      "status": "ok"
+    },
+    "permissionMode": {
+      "duration": 38,
+      "status": "ok"
+    },
+    "sessionContext": {
+      "duration": 1,
+      "status": "ok"
+    },
+    "synapseSession": {
+      "duration": 1,
+      "status": "ok"
+    }
+  },
+  "timestamp": "2026-06-20T15:22:19.005Z"
+}

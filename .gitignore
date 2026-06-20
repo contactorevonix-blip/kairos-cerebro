@@ -84,6 +84,9 @@ logs/
 .claude/settings.local.json
 .aiox/install-log.txt
 
+# Agent-context cache (Story 12.3 — per-session, regenerated on activation)
+.aiox/.agent-context-cache.json
+
 # Claude Code logs (gerados automaticamente)
 .claude/logs/
 

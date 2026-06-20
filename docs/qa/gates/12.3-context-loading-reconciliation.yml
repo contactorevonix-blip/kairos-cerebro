@@ -1,0 +1,94 @@
+schema: 1
+story: '12.3'
+gate: CONCERNS
+status_reason: 'Surface reconciler is correct and well-tested (6/7 ACs PASS, 24 tests green, lint/typecheck clean); AC7/FR-4.2 (102 ln shim → 937+ ln aggregate context) is not met — the reconciler reports the winning surface line count (102 for the dev shim), and aggregate context expansion is unimplemented.'
+reviewer: 'Quinn'
+updated: '2026-06-20T00:00:00Z'
+top_issues:
+  - id: 'REQ-001'
+    severity: medium
+    finding: >-
+      AC7 / FR-4.2 not met as specified. requirements.json FR-4.2 acceptance is
+      "Context size > 937 lines" and INT-1 describes the aggregate flow (shim
+      ~102 ln → persona + tasks + workflows + memory → 937+ ln). The delivered
+      surface-reconciler resolves the winning surface RAW content and reports
+      ITS lineCount. Empirically the winning surface for `dev` is the 102-line
+      `.claude/agents/aiox-dev.md` shim (Surface 1, highest priority); no single
+      surface reaches 937 ln (SKILL=582, template=572). The FR-4.2 unit test
+      only proves the counter returns >=937 when handed 950 synthetic lines — it
+      never proves the real shim expands to 937+. Aggregate context expansion is
+      out of the reconciler's scope and lives in the broader pipeline enrichment.
+    suggested_action: >-
+      Route to @po to split FR-4.2 aggregate-expansion verification into the
+      pipeline-enrichment work (alongside FR-4.1 Tier A loading) and add an
+      integration test that activates @dev end-to-end and asserts the assembled
+      context >= 937 ln. The reconciler module itself needs no change.
+  - id: 'DOC-001'
+    severity: low
+    finding: >-
+      Dev Note (story line 68) says "103-line shim" while AC7 (line 32),
+      FR-4.2, and the actual file all say/measure 102 lines. Cosmetic
+      inconsistency.
+    suggested_action: 'Correct the Dev Note to 102 lines for consistency.'
+ac_validation:
+  - ac: 1
+    requirement: 'Pipeline implements surface reconciliation (Surface 1 > 2 > 3 priority)'
+    verdict: PASS
+    evidence: >-
+      surface-reconciler.js SURFACE_DEFINITIONS ordered 1=.claude/agents,
+      2=SKILL.md, 3=.aiox-core; winner = lowest id found; wired into
+      unified-activation-pipeline.js Tier-1 parallel loader. Tests: "prefers
+      Surface 1", "falls back to Surface 2", "falls back to Surface 3" PASS.
+  - ac: 2
+    requirement: 'Conflict detection for divergent surfaces + warning logged'
+    verdict: PASS
+    evidence: >-
+      _detectConflict normalizes (CRLF/trailing-ws/blank-line) then compares;
+      logs "[SurfaceReconciler] Conflict detected". Tests: divergent→conflict+warning,
+      identical→no conflict, CRLF/whitespace→no false positive. PASS.
+  - ac: 3
+    requirement: 'Graceful degradation L1 cache → L2 fallback → L3 hardcoded → L4 error'
+    verdict: PASS
+    evidence: >-
+      DEGRADATION_LEVEL ladder; never throws (try/catch on all reads, cache,
+      metrics). Tests: L3 hardcoded persona, L4 error w/ recovery hint, never
+      throws on partial surfaces. PASS. (Note: research.json RT-3 labels
+      L1-cache/L2-fallback/L3-hardcoded/L4-error; module enum matches semantics.)
+  - ac: 4
+    requirement: 'Cache .aiox/.agent-context-cache.json with 1h TTL'
+    verdict: PASS
+    evidence: >-
+      CACHE_TTL_MS = 60*60*1000; CACHE_RELATIVE_PATH = .aiox/.agent-context-cache.json;
+      gitignored (line 88). Tests: TTL constant, path, miss-then-hit, stale miss,
+      boundary hit, forceRefresh, clearCache, corrupt-cache graceful. PASS.
+  - ac: 5
+    requirement: 'Agent load time < 500ms (NFR-1.1)'
+    verdict: PASS
+    evidence: >-
+      Live activation logged 179ms total (reconcile 6ms), well under 500ms.
+      Reconciler runs in Tier-1 budget in parallel with AgentConfig.
+  - ac: 6
+    requirement: 'Cache hit rate > 80% (NFR-1.3)'
+    verdict: PASS
+    evidence: >-
+      Metrics track cacheHits/cacheMisses + cacheHitRate. Test "cache hit rate
+      exceeds 80% after warm-up (10 loads)" = 90% (1 miss + 9 hits). PASS.
+  - ac: 7
+    requirement: 'Context expansion 102 ln shim → 937+ ln context (FR-4.2)'
+    verdict: CONCERNS
+    evidence: >-
+      See REQ-001. Reconciler exposes + counts lineCount correctly, but the
+      resolved winning-surface content for a shim-backed agent is 102 ln, not
+      937+. FR-4.2 requirements.json acceptance ("Context size > 937 lines")
+      and INT-1 describe the AGGREGATE loaded context — not the winning surface
+      raw size — so the requirement is genuinely unmet at the integration level.
+      Not a reconciler defect; aggregate expansion is out of this module's scope.
+quality_checklist:
+  code_review: PASS  # clean, well-documented, follows existing pipeline patterns; never-throws discipline
+  unit_tests: PASS   # 24 tests green (node --test); covers priority/conflict/degradation/cache/TTL/metrics
+  acceptance_criteria: CONCERNS  # 6/7 PASS, AC7 (P1) unmet at integration level
+  no_regressions: PASS  # ADAPT <30% to pipeline; pre-existing 12.1 MultiEdit-matcher failure is out of scope
+  performance: PASS  # 179ms activation, reconcile 6ms (<500ms NFR-1.1)
+  security: PASS  # read-only fs, no injection surface, no secrets; cache gitignored
+  documentation: PASS  # JSDoc + traceability headers; DOC-001 cosmetic typo noted
+waiver: { active: false }

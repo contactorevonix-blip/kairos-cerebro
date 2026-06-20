@@ -1,7 +1,7 @@
 {
-  "storyId": "12.4",
+  "storyId": "12.13",
   "storyType": "arch",
-  "suggestedAt": "2026-06-20T15:54:01.064Z",
+  "suggestedAt": "2026-06-20T11:39:46.143Z",
   "suggestions": [
     {
       "id": "brownfield-create-epic",
@@ -32,7 +32,7 @@
       "name": "Extend Existing Pattern",
       "category": "arch",
       "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "score": 81,
+      "score": 73,
       "autoActivate": true
     },
     {
