@@ -1,0 +1,335 @@
+epicId: EPIC-12
+epicTitle: "Agent Framework Validation & Context Determinism"
+epicStatus: "Planning"
+generatedAt: "2026-06-20T10:00:00Z"
+generatedBy: "@pm (Morgan)"
+
+summary: |
+  8-phase Spec Pipeline complete. Spec approved v2.
+  This execution plan breaks down implementation into 12 stories across 3 waves + 3 gateway stories.
+  Barrier synchronization enforced between waves.
+
+---
+
+## Story Breakdown (12 Stories)
+
+### Wave 1: Framework Boundary & Agent Authority (Stories 12.1–12.2)
+**Gate condition:** All Phase 1 stories PASS QA before Wave 2 starts
+
+#### Story 12.1: Framework Boundary Enforcement
+- **Title:** Enforce L1/L2 Framework Boundary (FR-1.1–1.4)
+- **Owner:** @dev
+- **Complexity:** Medium (4/5)
+- **Effort:** 1.5 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - enforce-quality-gates.cjs validates L1/L2 boundary
+  - Deny rules in .claude/settings.json block writes to L1/L2
+  - Tests verify protection (story 12.11 will aggregate)
+  - Gate decisions logged to .aiox/gate-logs/
+- **Dependencies:** [EPIC-9 gate implementations]
+- **Files:**
+  - Modify: `.claude/hooks/enforce-quality-gates.cjs`
+  - Modify: `.claude/settings.json` (review deny rules)
+  - Create: `tests/hooks/test-boundary-enforce.test.js`
+
+#### Story 12.2: Agent Authority Validation (Art. II)
+- **Title:** Validate @devops-Exclusive git push/PR Authority (FR-2.1–2.4)
+- **Owner:** @dev
+- **Complexity:** Medium (5/5)
+- **Effort:** 1.5 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - enforce-agent-authority.cjs resolves active agent (4 paths: env vars, inline scope, session state, fallback)
+  - Non-@devops push/PR attempts blocked
+  - Agent detection order: AIOX_ACTIVE_AGENT → AIOX_AGENT → hook-metrics.json session → default-DENY
+  - Tests cover all 4 detection paths + override scenario (--skip-devops-check)
+  - Metrics updated in .synapse/metrics/hook-metrics.json
+- **Dependencies:** [story 12.1, EPIC-9 gate implementations, entity-registry.yaml]
+- **Files:**
+  - Modify: `.claude/hooks/enforce-agent-authority.cjs`
+  - Modify: `entity-registry.yaml` (populate task→agent mappings)
+  - Create: `tests/hooks/test-agent-authority-detection.test.js`
+
+---
+
+### Wave 2: Context Loading & No-Invention Gate (Stories 12.3–12.4)
+**Gate condition:** All Phase 2 stories PASS QA + Wave 1 complete before Wave 2 starts
+
+#### Story 12.3: Context Loading & Reconciliation (RT-3 Strategy)
+- **Title:** Implement Three-Surface Agent Reconciliation (FR-4.1–4.4)
+- **Owner:** @dev
+- **Complexity:** High (5/5)
+- **Effort:** 2 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - unified-activation-pipeline.js implements surface reconciliation (Surface 1 > 2 > 3 priority)
+  - Conflict detection for divergent surfaces + warning logged
+  - Graceful degradation: cache (L1) → fallback surfaces (L2-3) → hardcoded defaults (L4) → error (L5)
+  - Cache strategy: `.aiox/.agent-context-cache.json` with 1h TTL
+  - Agent load time < 500ms (NFR-1.1)
+  - Cache hit rate > 80% (NFR-1.3)
+  - Context expansion 102 ln shim → 937+ ln context (FR-4.2)
+- **Dependencies:** [story 12.1, research.json RT-3]
+- **Files:**
+  - Create/Modify: `unified-activation-pipeline.js` (surface reconciliation logic)
+  - Create: `.aiox/.agent-context-cache.json` (template, gitignored)
+  - Create: `tests/hooks/test-context-loading-surfaces.test.js`
+  - Create: `tests/hooks/test-cache-ttl.test.js`
+
+#### Story 12.4: No-Invention Gate & Requirement Traceability (Art. IV)
+- **Title:** Enforce Specification Requirement Traceability (FR-5.4, Art. IV)
+- **Owner:** @dev
+- **Complexity:** Medium (4/5)
+- **Effort:** 1.5 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - enforce-no-invention.cjs detects RFC-2119 keywords (MUST/SHALL/...) without reference pattern
+  - NEW: enforce-spec-reference-validation.cjs validates cited FR-*/NFR-*/CON-* exist in requirements.json
+  - Layer 1 (pattern detection) + Layer 2 (reference validation) = zero false positives
+  - All spec.md statements (150/150) traceable to requirements.json/complexity.json/research.json
+  - Tests verify valid FR-* allowed, invalid FR-* blocked at Layer 2
+  - Compound scenario (story 12.8) validates gate priority order
+- **Dependencies:** [story 12.1, research.json RT-4]
+- **Files:**
+  - Modify: `.claude/hooks/enforce-no-invention.cjs`
+  - Create: `.claude/hooks/enforce-spec-reference-validation.cjs` (NEW)
+  - Create: `tests/hooks/test-no-invention-validation.test.js`
+  - Create: `tests/hooks/test-gate-priority-order.test.js`
+
+---
+
+### Wave 3: QA Critique, Integration & Testing (Stories 12.5–12.8)
+**Gate condition:** All Phase 3 stories PASS QA + Wave 2 complete before Wave 3 starts
+
+#### Story 12.5: QA Critique Checklist Design (RT-1 Novel Pattern)
+- **Title:** Design Phase 5 QA Gate Checklist for Agent Framework Specs
+- **Owner:** @qa + @pm
+- **Complexity:** Medium (4/5)
+- **Effort:** 1 day
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - NEW: `.claude/rules/spec-pipeline-critique-checklist.md` created (5-point checklist)
+  - Checklist items: (1) persona alignment, (2) determinism verification, (3) boundary enforcement, (4) gate coverage, (5) multi-agent interaction
+  - Becomes template for future agent framework specs
+  - Phase 5 critique gates now have formal checklist (was EPIC-12 first)
+- **Dependencies:** [research.json RT-1, EPIC-9 critique patterns]
+- **Files:**
+  - Create: `.claude/rules/spec-pipeline-critique-checklist.md`
+  - Create: `docs/qa/spec-pipeline-critique-gate.md` (gate template)
+
+#### Story 12.6: Gap Traceability Matrix
+- **Title:** Trace All 31 Operational Gaps from Morgan's Audit
+- **Owner:** @architect + @qa
+- **Complexity:** Low (3/5)
+- **Effort:** 1 day
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - All 31 gaps from Morgan's audit (Cont 42) accounted for
+  - Each gap: traced to story or explicitly escalated via @aiox-master *propose-modification
+  - Traceability matrix created: gap → story/escalation → status
+  - NFR-3.2 verified: 31/31 gaps covered
+- **Dependencies:** [requirements.json CON-5, Morgan's audit findings]
+- **Files:**
+  - Create: `docs/stories/epics/EPIC-12/gap-traceability-matrix.md`
+
+#### Story 12.7: Multi-Workflow Integration Testing
+- **Title:** Validate All 4 Workflows + All Gates End-to-End
+- **Owner:** @qa
+- **Complexity:** High (5/5)
+- **Effort:** 2 days
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - Story Development Cycle (SDC): @sm create → @po validate → @dev code → @qa gate → @devops push ✅
+  - QA Loop: @qa gate → @dev fix (max 5 iterations) ✅
+  - Spec Pipeline: Phase 1-8 flow (uses critique checklist from 12.5) ✅
+  - Brownfield: agent activation + gate evaluation in legacy audit scenario ✅
+  - All 7 constitutional gates evaluated in each workflow
+  - No regressions from EPIC-9 gates
+- **Dependencies:** [stories 12.1–12.5, EPIC-9]
+- **Files:**
+  - Create: `tests/integration/test-sdc-full-cycle.test.js`
+  - Create: `tests/integration/test-qa-loop-iteration.test.js`
+  - Create: `tests/integration/test-spec-pipeline-critique.test.js`
+  - Create: `tests/integration/test-brownfield-gate-evaluation.test.js`
+
+#### Story 12.8: Compound Gate Scenario (RT-4 Pseudocode Validation)
+- **Title:** Validate Multi-Gate Priority Order & Compound Violation
+- **Owner:** @qa
+- **Complexity:** Medium (4/5)
+- **Effort:** 1 day
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - Compound scenario: @dev (non-@devops) commits invented FR-99 to spec.md under story 12.4
+  - ALL 3 gates evaluate: Art. II (agent), Art. III (story), Art. IV (invention)
+  - Early-return on FIRST violation: Art. II blocks FIRST (agent check) → story never reaches Art. III/IV evaluation
+  - Gate priority order verified (Art. II > III > IV > V-VII)
+  - Pseudocode from research.json RT-4 validated in test
+- **Dependencies:** [stories 12.1–12.4, research.json RT-4]
+- **Files:**
+  - Create: `tests/hooks/test-compound-gate-scenario.test.js`
+
+---
+
+### Gateway Stories (Parallel with Wave 3: 12.G1–12.G3)
+**Dependency:** Run in parallel with Wave 3; completeness gates Phase 8 output
+
+#### Story 12.G1: Framework Modification Proposal
+- **Title:** Route L1/L2 Fixes via @aiox-master *propose-modification
+- **Owner:** @architect
+- **Complexity:** Low (2/5)
+- **Effort:** 0.5 days
+- **Priority:** P2
+- **Acceptance Criteria:**
+  - L1/L2 gaps blocked by deny rules → escalation path documented
+  - *propose-modification workflow callable
+  - Example: propose change to .aiox-core/constitution.md structure (if needed)
+- **Dependencies:** [CON-1, EPIC-9 gates]
+
+#### Story 12.G2: Cross-Story Integration Test (Ensemble Validation)
+- **Title:** Validate Multi-Agent Ensemble Pattern (RT-5)
+- **Owner:** @qa
+- **Complexity:** Medium (4/5)
+- **Effort:** 1 day
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - No agent self-signs off (ensemble pattern: agent executes, @qa validates, cross-story test confirms)
+  - Story 12.1-12.8 aggregate in integration test (12.7) for coherence
+  - Parallel story execution scenarios validated (12.G2-12.G3 run in parallel with 12.5-12.8)
+- **Dependencies:** [stories 12.1–12.8, research.json RT-5]
+
+#### Story 12.G3: Phase Gates & Barrier Synchronization
+- **Title:** Enforce Barrier Synchronization Between Waves
+- **Owner:** @architect + @devops
+- **Complexity:** Medium (4/5)
+- **Effort:** 1 day
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - Phase gates defined: Wave 1 → Wave 2 → Wave 3 (entry/exit criteria)
+  - No story starts Wave N+1 until Wave N barrier cleared
+  - Barrier logic: all stories in Wave PASS QA + no blockers
+  - Documented in EXECUTION-PLAN.yaml (this file)
+  - Prevents partial-completion drift (research.json RT-5 synchronization pattern)
+- **Dependencies:** [stories 12.1–12.8]
+
+---
+
+### Support Stories (Wave 3+, after 12.1–12.8 complete)
+
+#### Story 12.9: Comprehensive Hook Testing (All 7 Gates + Overrides)
+- **Title:** Test All Constitutional Gates + Override Scenarios
+- **Owner:** @qa
+- **Complexity:** High (5/5)
+- **Effort:** 1.5 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - All 7 gates tested: Art. I-VII (each has unit + integration tests)
+  - Override scenarios tested: --skip-devops-check, [no-story-req], --force-gate, AIOX_NO_INVENTION_PERMISSIVE
+  - No regressions from EPIC-9 (84 tests PASS baseline)
+  - CodeRabbit integration validated
+- **Files:**
+  - Expand: `tests/hooks/enforcement.test.js`
+
+#### Story 12.10: Documentation & Runbook
+- **Title:** Document Gate Operations & Debugging Guide
+- **Owner:** @pm
+- **Complexity:** Low (3/5)
+- **Effort:** 1 day
+- **Priority:** P1
+- **Acceptance Criteria:**
+  - Operator runbook: how to check gate status, debug failures, override when needed
+  - Decision logs guide: how to read .aiox/gate-logs/ JSONL
+  - Troubleshooting: common gate failures + solutions
+- **Files:**
+  - Create: `docs/operations/constitutional-gates-runbook.md`
+
+#### Story 12.11: Epic QA Gate (Cross-Story Coherence)
+- **Title:** QA Gate: Verify All Stories Coherent, No Regressions
+- **Owner:** @qa
+- **Complexity:** Medium (4/5)
+- **Effort:** 0.5 days
+- **Priority:** P0
+- **Acceptance Criteria:**
+  - All 11 stories (12.1-12.11) PASS individual QA gates
+  - Cross-story coherence verified (no contradictions between stories)
+  - No regressions from EPIC-9 (84 tests still PASS)
+  - Ensemble validation complete (12.G2)
+  - Gate metrics aggregated: gatesEnforced, violationsDetected, violationsBlocked, overridesUsed
+  - Final verdict: PASS (allows deployment) or FAIL (escalate)
+- **Dependencies:** [all stories 12.1–12.10]
+
+---
+
+## Phasing & Barrier Gates
+
+```
+Wave 1 (Stories 12.1–12.2)
+  ↓
+  BARRIER GATE 1: All Phase 1 stories PASS QA
+  ├─ Entry criteria: Ready
+  └─ Exit criteria: 12.1 PASS ✅, 12.2 PASS ✅
+  ↓
+Wave 2 (Stories 12.3–12.4)
+  ↓
+  BARRIER GATE 2: All Phase 2 stories PASS QA + Wave 1 complete
+  ├─ Entry criteria: Wave 1 exit cleared
+  └─ Exit criteria: 12.3 PASS ✅, 12.4 PASS ✅
+  ↓
+Wave 3 (Stories 12.5–12.8) + Gateway Stories (12.G1–12.G3, parallel)
+  ↓
+  BARRIER GATE 3: All Phase 3 stories PASS QA + Gateway stories complete
+  ├─ Entry criteria: Wave 2 exit cleared
+  └─ Exit criteria: 12.5-12.8 PASS ✅, 12.G1-12.G3 PASS ✅
+  ↓
+Support Stories (12.9–12.11, sequential after Wave 3)
+  ↓
+  FINAL EPIC GATE: Cross-story coherence + regression check
+  ├─ Entry criteria: All Wave 3 complete
+  └─ Exit criteria: 12.11 PASS ✅ → EPIC-12 APPROVED
+```
+
+---
+
+## Effort Summary
+
+| Wave | Stories | Effort | Dependency |
+|---|---|---|---|
+| **Wave 1** | 12.1–12.2 (2 stories) | 3 days | None (start immediately) |
+| **Wave 2** | 12.3–12.4 (2 stories) | 3.5 days | Wave 1 barrier cleared |
+| **Wave 3** | 12.5–12.8 (4 stories) + 12.G1–12.G3 (3 parallel) | 7 days | Wave 2 barrier cleared |
+| **Support** | 12.9–12.11 (3 stories) | 3 days | Wave 3 complete |
+| **TOTAL** | 12 stories (+ 11 support tasks) | **16.5 days** | Sequential phasing |
+
+**Critical Path:** Wave 1 (3d) → Wave 2 (3.5d) → Wave 3 (7d) → Support (3d) = **16.5 days**
+
+---
+
+## Quality Gates
+
+- **Story-level gate:** Each story PASS QA before next story starts (or parallel in same wave)
+- **Wave-level barrier gate:** All stories in wave PASS before next wave entry
+- **Epic-level gate (12.11):** All stories PASS + cross-story coherence verified + no regressions
+
+---
+
+## Success Criteria (from spec.md §10)
+
+| Metric | Target | Verified By | Story |
+|---|---|---|---|
+| Context Determinism | >= 95% (38/40 files) | NFR-2.3 test | 12.3 |
+| Gate Enforcement | 0 false negatives | All 7 gates tested | 12.1–12.4, 12.9 |
+| Agent Authority Zero Ambiguity | 100% explicit | FR-2.3 audit | 12.2 |
+| Gap Remediation | 31/31 traced | Gap traceability matrix | 12.6 |
+| AC Traceability | 100% to FR/NFR | Phase 5 critique | Spec phase |
+| Performance SLO | <500ms load, >80% cache | NFR-1.1–1.3 | 12.3 |
+| Test Coverage | 7/7 QA checks per story | All stories | 12.9 |
+
+---
+
+## Metadata
+
+- **Generated by:** @pm (Morgan) — Phase 8 Planning
+- **Input:** spec.md (v2, approved), requirements.json, research.json
+- **Output:** EXECUTION-PLAN.yaml (this file)
+- **Next:** Wave 1 (12.1–12.2) ready to start
+- **Phase:** 8 of 8 (implementation planning complete)
