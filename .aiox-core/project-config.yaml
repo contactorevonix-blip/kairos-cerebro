@@ -164,3 +164,15 @@ auto_claude:
     enabled: false
   qa:
     enabled: false
+
+# --- Session Tracking (AIOX Official Pattern) ---
+session:
+  enabled: true
+  tracking:
+    mode: "hybrid"
+    auto_persist: true
+    state_location: ".aiox/session-state.yaml"
+  metadata:
+    current_continuation: "Cont 71"
+    session_count: 71
+    last_session_date: "2026-06-21"
