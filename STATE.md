@@ -1,4 +1,56 @@
-# 🚀 Session 2026-06-21 (Cont 69) — EPIC-13 Foundation Auditoria Complete ✅
+# 🚀 Session 2026-06-21 (Cont 70) — STORY 13.11 COMPLETE + QA PASS ✅
+
+**Status: ✅ STORY 13.11 DONE | READY FOR @devops PUSH | ONDA 2 READY**
+
+## CONT 70 — Story 13.11 Implementation + QA Gate Review
+
+**Outcomes:**
+
+- ✅ **Story 13.11 Complete** (Fix Enforcement Gates YAML Regex)
+  - AC1-3: Regex fix + function export + 6 tests PASS
+  - AC4-6: Lint, typecheck, tests validation PASS
+  - QA Gate: PASS by @qa/Quinn (verdict: No issues, ready)
+  - Status: InReview → Done
+  - Commit: feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
+
+- ⏳ **Next Session (Cont 71):**
+  - @devops push Story 13.11 to remote + PR
+  - Onda 2 Stories create: 13.8 (Rules), 13.9 (Synapse), 13.10 (Constitution)
+  - Effort: 7 hours | Architecture ready
+
+**Previous (Cont 69):**
+
+- ✅ **Meta-Agent Commands Deep Analysis** (4 Phases, @analyst-driven)
+  - Phase 1: Structural mapping (9 categories, 40+ commands, dependency hierarchy)
+  - Phase 2: User journey segmentation (Beginner/Intermediate/Advanced learning paths)
+  - Phase 3: Gap & constraint analysis (Hidden prerequisites, error patterns, 6 documented)
+  - Phase 4: Patterns & best practices (5 workflow recipes, anti-patterns guide)
+  - Deliverable: `docs/analysis/META-AGENT-COMMANDS-STRUCTURED.md` (analysis saved to memory)
+
+- ✅ **Onda 2 Architecture Plan** (Designed by @architect)
+  - 3 Stories ready to create: 13.8 (Rules), 13.9 (Synapse), 13.10 (Constitution)
+  - Effort: 7 hours total | 3 phases | Clear acceptance criteria
+  - Next: `*create-plan --for onda2` in Cont 70
+
+- ✅ **Pedro's CLI Training** (Interactive mode demonstrated)
+  - Taught: Command syntax, flags, parameters, when/how to use
+  - Validated: Hybrid approach (interactive + automation preferred)
+  - Reference: `memory/session_onda2_reference.md` (6-phase workflow, copy-paste ready)
+  - Status: Ready for Cont 70 start with `*status` → `*create-plan`
+
+**Memory Saved:**
+- Key: "onda2-commands" → 6-phase checklist (Cont 70 entry point)
+- Key: "pedro-preferences" → Interactive mode + cheat sheet style
+- File: `session_onda2_reference.md` → Complete workflow reference
+
+**Next: CONT 70 (Tomorrow)**
+- Start: `*create-plan --for onda2`
+- Goal: Create 3 formal stories (13.8–13.10)
+- Timeline: 1-week implementation sprint after planning
+
+---
+
+# CONT 69 (First Part) — EPIC-13 Foundation Auditoria Complete ✅
 
 **Status: ✅ ONDA 1 ARCHITECTURE DOCS COMPLETE | READY FOR ONDA 2**
 
@@ -23,11 +75,6 @@
   - P3.1: Constitution Enforcement Audit (2h, @architect + @qa)
 
 **Commit:** afcecf3 (`docs: architect auditoria — Story Schema + Agent Authority investigation docs`)
-
-**Next Session:**
-- @architect continues Onda 2 (P2.1 + P2.2)
-- @dev executes 13.1 (agent audit)
-- @sm executes 13.2 (story index)
 
 ---
 
@@ -5415,3 +5462,408 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: architect auditoria — Story Schema + Agent Authority investigation docs
 **Files changed:** none
+
+## Checkpoint: 00b9e42 — 2026-06-21 14:33
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** none
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:51
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:53
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:55
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:55
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:57
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:58
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 17:59
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:01
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:09
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:11
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:14
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:16
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:17
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:18
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:20
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:22
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:23
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:24
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:25
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:26
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:26
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:29
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:30
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:30
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:31
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:32
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:32
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox/task-logs/13.2.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:35
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:36
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:37
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:39
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:39
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:40
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:41
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:43
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:43
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:44
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:45
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:47
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:48
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:50
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:51
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:52
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:52
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:53
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:54
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:55
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:55
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:56
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:57
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:58
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:58
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:58
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 18:59
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 19:00
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 19:00
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 19:01
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 19:02
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 19:03
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:01
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:01
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:01
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:02
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:02
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:03
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:03
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:03
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:04
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:04
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:04
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:04
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:05
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 00b9e42 — 2026-06-21 20:05
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 69 complete (auditoria AIOX foundation, Onda 1 docs ready)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 81921d4 — 2026-06-21 20:06
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + test coverage [Cont 72]
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 81921d4 — 2026-06-21 20:08
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + test coverage [Cont 72]
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 81921d4 — 2026-06-21 20:10
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + test coverage [Cont 72]
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 81921d4 — 2026-06-21 20:11
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + test coverage [Cont 72]
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: c9b65eb — 2026-06-21 20:27
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: c9b65eb — 2026-06-21 20:31
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: c9b65eb — 2026-06-21 20:33
+**Branch:** main
+**Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
