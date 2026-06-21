@@ -1,7 +1,7 @@
 # Story XX.3: Workflow Chains Router
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** Draft  
+**Status:** Ready  
 **Complexity:** 12 points  
 **Depends On:** XX.1 (Agent Sync Validator PASS)  
 **Owner:** @dev  
@@ -76,3 +76,4 @@ Complete `workflow-chains.yaml` mapping all 4 primary workflows (SDC, QA Loop, S
 ## Change Log
 
 - Created: 2026-06-21 by @sm (River)
+- 2026-06-21 17:00 (Cont 67) — @po Validated (GO) — Status: Draft → Ready | Applied conditional ACs (Scope, Risks, DoD, Dependencies) | Commit: 66e9a6d

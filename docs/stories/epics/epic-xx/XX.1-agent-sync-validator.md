@@ -1,7 +1,7 @@
 # Story XX.1: Agent Sync Validator
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** Draft  
+**Status:** Ready  
 **Complexity:** 13 points  
 **Owner:** @dev  
 
@@ -75,3 +75,4 @@ Create a validator tool that ensures L1 (`.aiox-core/development/agents/*.md`) d
 ## Change Log
 
 - Created: 2026-06-21 by @sm (River)
+- 2026-06-21 17:00 (Cont 67) — @po Validated (GO) — Status: Draft → Ready | Applied conditional ACs (Scope, Risks, DoD, Blocks) | Commit: 66e9a6d
