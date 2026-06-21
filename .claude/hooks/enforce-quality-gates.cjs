@@ -103,17 +103,19 @@ function readQualityStatus(cwd = process.cwd()) {
   }
 }
 
-function isFrameworkProtectionEnabled(cwd = process.cwd()) {
+function isFrameworkProtectionEnabled(cwd = process.cwd(), contentOverride = null) {
   try {
     // Check env override first
     if (process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED === '1') return false;
 
-    const configPath = path.join(cwd, '.aiox-core', 'core-config.yaml');
-    if (!fs.existsSync(configPath)) return true;
-
-    const content = fs.readFileSync(configPath, 'utf8');
-    // Check for boundary.frameworkProtection: false (handles Windows \r\n line endings)
-    const match = /boundary:\s*[\r\n]+\s*frameworkProtection:\s*false/i.test(content);
+    let content = contentOverride;
+    if (!content) {
+      const configPath = path.join(cwd, '.aiox-core', 'core-config.yaml');
+      if (!fs.existsSync(configPath)) return true;
+      content = fs.readFileSync(configPath, 'utf8');
+    }
+    // Check for boundary.frameworkProtection: false (handles Windows \r\n and Unix \n line endings)
+    const match = /boundary:[^]*?frameworkProtection:\s*false\b/i.test(content);
     return !match; // if found 'false', return false (disabled)
   } catch {
     return true; // fail-safe: default enabled
@@ -233,6 +235,7 @@ module.exports = {
   isMergeCommand,
   hasForce,
   readQualityStatus,
+  isFrameworkProtectionEnabled,
   handleFrameworkBoundary,
   handleMergeQuality,
   main,

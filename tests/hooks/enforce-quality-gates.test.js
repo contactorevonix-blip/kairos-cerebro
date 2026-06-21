@@ -108,30 +108,21 @@ test('Art. V-VII — Code Quality', async (t) => {
   await t.test('AC4-ext: Framework protection regex — single line YAML', () => {
     const gate = require(gatePath);
     const yamlSingleLine = 'boundary:\n  frameworkProtection: false\n';
-    const result = gate.isFrameworkProtectionEnabled.call(
-      { cwd: () => process.cwd() },
-      yamlSingleLine,
-    );
+    const result = gate.isFrameworkProtectionEnabled(process.cwd(), yamlSingleLine);
     assert.strictEqual(result, false, 'Must detect single-line boundary + frameworkProtection');
   });
 
   await t.test('AC4-ext: Framework protection regex — multi-line YAML', () => {
     const gate = require(gatePath);
     const yamlMultiLine = 'boundary:\n  frameworkProtection: false\n  otherKey: value\n';
-    const result = gate.isFrameworkProtectionEnabled.call(
-      { cwd: () => process.cwd() },
-      yamlMultiLine,
-    );
+    const result = gate.isFrameworkProtectionEnabled(process.cwd(), yamlMultiLine);
     assert.strictEqual(result, false, 'Must detect multi-line boundary + frameworkProtection');
   });
 
   await t.test('AC4-ext: Framework protection regex — Windows CRLF', () => {
     const gate = require(gatePath);
     const yamlCRLF = 'boundary:\r\n  frameworkProtection: false\r\n';
-    const result = gate.isFrameworkProtectionEnabled.call(
-      { cwd: () => process.cwd() },
-      yamlCRLF,
-    );
+    const result = gate.isFrameworkProtectionEnabled(process.cwd(), yamlCRLF);
     assert.strictEqual(result, false, 'Must detect CRLF line endings');
   });
 
