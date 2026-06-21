@@ -46,8 +46,6 @@ const yaml = require('js-yaml');
 
 const GreetingBuilder = require('./greeting-builder');
 const { AgentConfigLoader } = require('./agent-config-loader');
-// Story 12.3 (FR-4.1–4.4): Three-Surface Agent Reconciliation.
-const { SurfaceReconciler } = require('./surface-reconciler');
 const SessionContextLoader = require('../../core/session/context-loader');
 // NOG-18: loadProjectStatus removed — gitStatus is native in Claude Code system prompt.
 // const { loadProjectStatus } = require('../../infrastructure/scripts/project-status-loader');
@@ -124,9 +122,6 @@ class UnifiedActivationPipeline {
     this.contextDetector = options.contextDetector || new ContextDetector();
     this.workflowNavigator = options.workflowNavigator || new WorkflowNavigator();
     this.gitConfigDetector = options.gitConfigDetector || new GitConfigDetector();
-    // Story 12.3 (FR-4.1–4.4): reconciles the three agent-definition surfaces.
-    this.surfaceReconciler = options.surfaceReconciler
-      || new SurfaceReconciler({ projectRoot: this.projectRoot });
   }
 
   /**
@@ -213,21 +208,12 @@ class UnifiedActivationPipeline {
     const pipelineStart = Date.now();
     const metrics = { loaders: {} };
 
-    // --- Tier 1: Critical (AgentConfig + Surface Reconciliation) — parallel ---
-    // Story 12.3 (FR-4.1–4.4): surface reconciliation runs alongside AgentConfig
-    // within the critical budget so the resolved three-surface definition is
-    // available for context enrichment. Reconciler never throws (graceful
-    // degradation collapses to L3/L4 result objects), so it cannot break Tier 1.
+    // --- Tier 1: Critical (AgentConfig) ---
     const tier1Budget = this._resolveLoaderTimeout('critical', LOADER_TIERS.critical.timeout);
-    const [agentComplete, surfaceContext] = await Promise.all([
-      this._profileLoader('agentConfig', metrics, tier1Budget, () => {
-        const loader = new AgentConfigLoader(agentId);
-        return loader.loadComplete(coreConfig);
-      }),
-      this._profileLoader('surfaceReconciliation', metrics, tier1Budget, () => {
-        return this.surfaceReconciler.reconcile(agentId, options.surfaceOptions || {});
-      }),
-    ]);
+    const agentComplete = await this._profileLoader('agentConfig', metrics, tier1Budget, () => {
+      const loader = new AgentConfigLoader(agentId);
+      return loader.loadComplete(coreConfig);
+    });
 
     // If Tier 1 failed, we can still build a minimal greeting but mark as fallback
     const agentDefinition = this._buildAgentDefinition(agentId, agentComplete);
@@ -333,10 +319,6 @@ class UnifiedActivationPipeline {
       userProfile,
       // MIS-6: Agent memories from progressive retrieval
       memories: memories || [],
-      // Story 12.3 (FR-4.1–4.4): reconciled three-surface agent definition.
-      // Null only if reconciliation timed out within the Tier 1 budget; the
-      // greeting still builds from agentComplete (independent critical loader).
-      surfaceContext: surfaceContext || null,
       // ACT-11: Share coreConfig with GreetingBuilder to eliminate double resolveConfig()
       _coreConfig: coreConfig,
       // Legacy context fields for backward compatibility with GreetingBuilder
@@ -713,8 +695,6 @@ class UnifiedActivationPipeline {
       userProfile: 'advanced',
       // MIS-6: Include memories field in fallback context
       memories: [],
-      // Story 12.3: surface context unavailable in fallback path
-      surfaceContext: null,
       conversationHistory: [],
       lastCommands: [],
       previousAgent: null,
