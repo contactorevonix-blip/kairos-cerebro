@@ -104,4 +104,59 @@ test('Art. V-VII — Code Quality', async (t) => {
       'Must define protected paths',
     );
   });
+
+  await t.test('AC4-ext: Framework protection regex — single line YAML', () => {
+    const gate = require(gatePath);
+    const yamlSingleLine = 'boundary:\n  frameworkProtection: false\n';
+    const result = gate.isFrameworkProtectionEnabled.call(
+      { cwd: () => process.cwd() },
+      yamlSingleLine,
+    );
+    assert.strictEqual(result, false, 'Must detect single-line boundary + frameworkProtection');
+  });
+
+  await t.test('AC4-ext: Framework protection regex — multi-line YAML', () => {
+    const gate = require(gatePath);
+    const yamlMultiLine = 'boundary:\n  frameworkProtection: false\n  otherKey: value\n';
+    const result = gate.isFrameworkProtectionEnabled.call(
+      { cwd: () => process.cwd() },
+      yamlMultiLine,
+    );
+    assert.strictEqual(result, false, 'Must detect multi-line boundary + frameworkProtection');
+  });
+
+  await t.test('AC4-ext: Framework protection regex — Windows CRLF', () => {
+    const gate = require(gatePath);
+    const yamlCRLF = 'boundary:\r\n  frameworkProtection: false\r\n';
+    const result = gate.isFrameworkProtectionEnabled.call(
+      { cwd: () => process.cwd() },
+      yamlCRLF,
+    );
+    assert.strictEqual(result, false, 'Must detect CRLF line endings');
+  });
+
+  await t.test('AC4-ext: Framework protection disabled allows protected writes', () => {
+    const gate = require(gatePath);
+    const input = {
+      tool_input: {
+        file_path: '.aiox-core/core/gate.js',
+      },
+    };
+    process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED = '1';
+    const result = gate.handleFrameworkBoundary(input);
+    delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
+    assert.strictEqual(result, false, 'Must allow write when protection disabled');
+  });
+
+  await t.test('AC4-ext: Framework protection enabled blocks protected writes', () => {
+    const gate = require(gatePath);
+    const input = {
+      tool_input: {
+        file_path: '.aiox-core/constitution.md',
+      },
+    };
+    delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
+    const result = gate.handleFrameworkBoundary(input);
+    assert.strictEqual(result, true, 'Must block write when protection enabled');
+  });
 });
