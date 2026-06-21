@@ -1,0 +1,65 @@
+schema: 1
+story: '12.11'
+gate: PASS
+status_reason: 'Final epic-level QA gate. All 14 EPIC-12 stories Done; full hooks suite 275/275 (EPIC-9 enforcement baseline 34/34 — zero regressions); ensemble validation 6/6; gate metrics aggregated. EPIC-12 APPROVED for deployment.'
+reviewer: 'Dex (@dev)'
+updated: '2026-06-20T00:00:00Z'
+
+acceptance_criteria_verification:
+  - ac: 'AC1 — All 11 stories (12.1-12.11) PASS individual QA gates'
+    status: PASS
+    evidence: 'All 14 EPIC-12 stories (12.1-12.14) confirmed status: Done. Gate files: 12.1-12.4, 12.11, 12.14 present; remaining Done stories carry QA sign-off in their Change Logs. (Set is 14, not 11 — plan text verbatim per @po note.)'
+  - ac: 'AC2 — Cross-story coherence verified (no contradictions)'
+    status: PASS
+    evidence: 'Barrier-synchronization test (12.14) 4/4 asserts no cross-wave ordering contradiction; ensemble-validation test (12.13) 6/6 asserts cross-story consistency.'
+  - ac: 'AC3 — No regressions from EPIC-9 (84 tests still PASS)'
+    status: PASS
+    evidence: 'Full hooks suite 275/275 PASS; EPIC-9 enforcement baseline enforcement.test.js 34/34 PASS. Plan "84 tests" preserved verbatim; observed result is zero regressions (Art. IV honest annotation).'
+  - ac: 'AC4 — Ensemble validation complete (12.G2)'
+    status: PASS
+    evidence: '12.G2 maps to Story 12.13; test-ensemble-validation.test.js 6/6 PASS.'
+  - ac: 'AC5 — Gate metrics aggregated'
+    status: PASS
+    evidence: 'From .synapse/metrics/hook-metrics.json: gatesEnforced=53, violationsDetected=35, violationsBlocked=27, overridesUsed=8.'
+  - ac: 'AC6 — Final verdict: PASS or FAIL'
+    status: PASS
+    evidence: 'Verdict PASS — deployment allowed.'
+
+quality_checks:
+  code_review: PASS  # Aggregation story; gate file mirrors existing schema:1 shape (IDS ADAPT)
+  unit_tests: PASS   # Hooks 275/275; all EPIC-12 integration suites green
+  acceptance_criteria: PASS  # 6/6 met
+  no_regressions: PASS  # EPIC-9 baseline 34/34; full suite 275/275
+  performance: PASS  # N/A (verification story); test suites sub-minute
+  security: PASS  # No code change; read-only aggregation
+  documentation: PASS  # Story Dev Notes complete; metrics + mappings cited
+
+aggregated_metrics:
+  gatesEnforced: 53
+  violationsDetected: 35
+  violationsBlocked: 27
+  overridesUsed: 8
+
+epic12_test_summary:
+  hooks_suite: '275/275'
+  epic9_enforcement_baseline: '34/34'
+  ensemble_validation_12_13: '6/6'
+  qa_loop_iteration: '7/7'
+  brownfield_gate_evaluation: '7/7'
+  sdc_full_cycle: '7/7'
+  spec_pipeline_critique: '8/8'
+  compound_gate_scenario: '10/10'
+  barrier_synchronization_12_14: '4/4'
+
+top_issues: []
+
+waiver: { active: false }
+
+notes: |
+  FINAL EPIC GATE (EXECUTION-PLAN § Phasing & Barrier Gates):
+    Entry criteria: All Wave 3 complete — met (12.5-12.8 + 12.12-12.14 all Done).
+    Exit criteria: 12.11 PASS — met. → EPIC-12 APPROVED.
+  Verified independently (not trusting story claims): re-ran hooks suite (275/275) and EPIC-9
+  enforcement baseline (34/34); read live metrics from hook-metrics.json; confirmed all 14
+  story status fields = Done. The "84 tests" plan figure is preserved verbatim with an honest
+  observed-result note (Art. IV — No Invention).

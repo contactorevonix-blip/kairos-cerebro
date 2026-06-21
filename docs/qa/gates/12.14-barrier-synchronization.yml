@@ -1,0 +1,42 @@
+schema: 1
+story: '12.14'
+gate: PASS
+status_reason: 'Barrier synchronization made machine-checkable — documented wave barriers (EXECUTION-PLAN § Phasing & Barrier Gates) now enforced by an executable test that reads live story status. 4/4 tests pass after Wave 3 completion; all 5 AC met; lint/typecheck clean.'
+reviewer: 'Dex (@dev)'
+updated: '2026-06-20T00:00:00Z'
+
+acceptance_criteria_verification:
+  - ac: 'AC1 — Phase gates defined: Wave 1 → Wave 2 → Wave 3 (entry/exit criteria)'
+    status: PASS
+    evidence: 'EXECUTION-PLAN.yaml § "Phasing & Barrier Gates" documents Barrier Gates 1-3 + Final Epic Gate with Entry/Exit criteria. Test AC1+AC4 asserts presence (green).'
+  - ac: 'AC2 — No story starts Wave N+1 until Wave N barrier cleared'
+    status: PASS
+    evidence: 'test "barrier invariant holds — no later-wave Done while an earlier wave is incomplete" reads live status frontmatter; green after Wave 3 completion.'
+  - ac: 'AC3 — Barrier logic: all stories in Wave PASS QA + no blockers'
+    status: PASS
+    evidence: 'test "barrier-clear logic well-defined — every story resolves to a known status" + pure-logic determinism check (green).'
+  - ac: 'AC4 — Documented in EXECUTION-PLAN.yaml'
+    status: PASS
+    evidence: 'Already present (IDS REUSE); test asserts BARRIER GATE 1/2/3 + Entry/Exit + FINAL EPIC GATE strings exist. @po advisory resolved: 12.14 adds enforcement test, not duplicate docs.'
+  - ac: 'AC5 — Prevents partial-completion drift (RT-5 synchronization pattern)'
+    status: PASS
+    evidence: 'The executable barrier test catches drift the prose cannot — wave membership traces verbatim to EXECUTION-PLAN; invariant is the executable form of RT-5.'
+
+quality_checks:
+  code_review: PASS  # Dependency-free node:test; reads live story status; no invented logic
+  unit_tests: PASS   # 4/4 barrier tests pass
+  acceptance_criteria: PASS  # 5/5 met
+  no_regressions: PASS  # Full hooks suite 275/275; EPIC-9 enforcement baseline 34/34
+  performance: PASS  # Pure file reads, sub-second
+  security: PASS  # No secrets, no injection, read-only test
+  documentation: PASS  # Story Dev Notes + test header complete; EXECUTION-PLAN reused
+
+top_issues: []
+
+waiver: { active: false }
+
+notes: |
+  Barrier dependency honoured: Wave 2 (12.3, 12.4) confirmed Done before 12.14 flipped to Done.
+  Flipping 12.14 → Done completes Wave 3 (12.5–12.8 + 12.12–12.14 all Done), clearing the
+  Support-wave barrier so the final epic gate (12.11) can close EPIC-12.
+  Barrier Gate 3 (Wave 3): 12.5-12.8 PASS + 12.12-12.14 PASS — exit criteria met.

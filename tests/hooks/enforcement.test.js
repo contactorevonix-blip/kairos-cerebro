@@ -243,3 +243,119 @@ test('AC5: gate-logger never throws on unwritable paths', () => {
   assert.doesNotThrow(() => gl.recordMetrics({ gatesEnforced: 1 }, '\0invalid'));
   assert.doesNotThrow(() => gl.logGateDecision({ article: 'x', decision: 'allow' }, '\0invalid'));
 });
+
+// ===========================================================================
+// Story 12.9 — Comprehensive Hook Testing (All 7 Gates + Override Scenarios)
+//
+// Expands the EPIC-9 baseline to assert: (a) every defined override scenario
+// end-to-end via exit code, (b) the Art. VI-VII boundary BLOCK path (the
+// EPIC-9 baseline only covered the toggle-OFF allow path), and (c) Art. I
+// (CLI First) is wired as a documented gate. No regression to the 23 baseline
+// tests above.
+// ===========================================================================
+
+// ---- Override scenario 1: --skip-devops-check (Art. II) --------------------
+
+test('12.9 override: --skip-devops-check lets a non-@devops push through (exit != 2)', () => {
+  const { code, stdout } = runHook(
+    'enforce-agent-authority.cjs',
+    { tool_input: { command: 'git push origin main --skip-devops-check' } },
+    { AIOX_ACTIVE_AGENT: 'dev' },
+  );
+  assert.notStrictEqual(code, 2, 'override must not block');
+  assert.doesNotMatch(stdout, /"permissionDecision":"deny"/);
+});
+
+test('12.9 control: same push WITHOUT the override is blocked (exit 2)', () => {
+  const { code } = runHook(
+    'enforce-agent-authority.cjs',
+    { tool_input: { command: 'git push origin main' } },
+    { AIOX_ACTIVE_AGENT: 'dev' },
+  );
+  assert.strictEqual(code, 2, 'no override → block');
+});
+
+// ---- Override scenario 2: [no-story-req] (Art. III) ------------------------
+
+test('12.9 override: [no-story-req] allows a config commit with no story (exit != 2)', () => {
+  const { code } = runHook(
+    'enforce-story-driven.cjs',
+    { tool_input: { command: 'git commit -m "chore: editorconfig [no-story-req]"' } },
+  );
+  assert.notStrictEqual(code, 2, 'override tag must not block');
+});
+
+// ---- Override scenario 3: --force-gate (Art. V quality merge) --------------
+
+test('12.9 override: --force-gate is recognised by the quality gate', () => {
+  // hasForce is the predicate the Art. V merge gate uses to allow an override.
+  assert.ok(quality.hasForce('git merge feature/x --force-gate'));
+  assert.ok(!quality.hasForce('git merge feature/x'));
+});
+
+// ---- Override scenario 4: AIOX_NO_INVENTION_PERMISSIVE (Art. IV) -----------
+
+test('12.9 override: AIOX_NO_INVENTION_PERMISSIVE downgrades block→warn (exit 0)', () => {
+  const payload = { tool_input: { file_path: 'docs/y-spec.md', content: 'It MUST be magic.' } };
+  const strict = runHook('enforce-no-invention.cjs', payload);
+  assert.strictEqual(strict.code, 2, 'strict mode blocks');
+  const permissive = runHook('enforce-no-invention.cjs', payload, { AIOX_NO_INVENTION_PERMISSIVE: '1' });
+  assert.strictEqual(permissive.code, 0, 'permissive mode warns, does not block');
+});
+
+// ---- Art. VI-VII boundary BLOCK path (complement to the toggle-OFF test) ---
+
+test('12.9 boundary: with protection forced ON, an L1 write is blocked (exit 2)', () => {
+  const { code, stdout } = runHook(
+    'enforce-quality-gates.cjs',
+    { tool_name: 'Write', tool_input: { file_path: '.aiox-core/core/synapse/engine.js', content: 'x' } },
+    { AIOX_FRAMEWORK_PROTECTION_ENABLED: '1' },
+  );
+  assert.strictEqual(code, 2, 'L1 write must block when protection is enabled');
+  assert.match(stdout, /deny/);
+});
+
+test('12.9 boundary: with protection forced ON, an L2 write is blocked (exit 2)', () => {
+  const { code } = runHook(
+    'enforce-quality-gates.cjs',
+    { tool_name: 'Edit', tool_input: { file_path: '.aiox-core/development/templates/x.md', content: 'x' } },
+    { AIOX_FRAMEWORK_PROTECTION_ENABLED: '1' },
+  );
+  assert.strictEqual(code, 2, 'L2 write must block when protection is enabled');
+});
+
+test('12.9 boundary: ENABLED override beats DISABLED override (fail-safe to enforce)', () => {
+  const { code } = runHook(
+    'enforce-quality-gates.cjs',
+    { tool_name: 'Write', tool_input: { file_path: '.aiox-core/constitution.md', content: 'x' } },
+    { AIOX_FRAMEWORK_PROTECTION_ENABLED: '1', AIOX_FRAMEWORK_PROTECTION_DISABLED: '1' },
+  );
+  assert.strictEqual(code, 2, 'when both env flags set, ENABLED wins → block');
+});
+
+// ---- All 7 articles accounted for -----------------------------------------
+
+test('12.9 roster: the four hook-enforced article modules expose canonical ids', () => {
+  assert.strictEqual(authority.ARTICLE, 'art-ii-agent-authority');
+  assert.strictEqual(storyDriven.ARTICLE, 'art-iii-story-driven');
+  assert.strictEqual(noInvention.ARTICLE, 'art-iv-no-invention');
+  assert.strictEqual(quality.ARTICLE, 'art-v-vii-quality-boundary');
+});
+
+test('12.9 roster: Art. I (CLI First) is declared in the enforcement-gates rule', () => {
+  // Art. I is documentary (advisory WARN in dev-develop-story), not a blocking
+  // PreToolUse hook. Confirm the constitutional roster still names it so the
+  // "all 7 articles" coverage is complete and honest.
+  const constitution = fs.readFileSync(
+    path.join(__dirname, '..', '..', '.aiox-core', 'constitution.md'),
+    'utf8',
+  );
+  assert.ok(/CLI[- ]?First/i.test(constitution), 'Art. I CLI First must be in the constitution');
+});
+
+test('12.9 no-regression: a benign git status passes every enforced gate (exit != 2)', () => {
+  const benign = { tool_input: { command: 'git status' } };
+  assert.notStrictEqual(runHook('enforce-agent-authority.cjs', benign).code, 2);
+  assert.notStrictEqual(runHook('enforce-story-driven.cjs', benign).code, 2);
+  assert.notStrictEqual(runHook('enforce-quality-gates.cjs', benign).code, 2);
+});

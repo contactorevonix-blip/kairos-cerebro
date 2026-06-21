@@ -14,7 +14,7 @@ Story 12.1 (EPIC-12, Framework Boundary Enforcement) corrigiu uma contradição 
 **How to apply:**
 - A partir de Story 12.1, escrever a `.aiox-core/core/**`, `.aiox-core/development/{tasks,templates,checklists,workflows}/**`, `.aiox-core/infrastructure/**`, `.aiox-core/constitution.md`, `bin/aiox*.js` é bloqueado por deny rules (Write/Edit/MultiEdit). Rota legítima continua: `@aiox-master *propose-modification`.
 - Excepções L3 mantidas em `allow`: `.aiox-core/data/**`, `agents/*/MEMORY.md`, `Read(.aiox-core/**)`. Os antigos allow de `core/config/schemas/**` e `core/config/template-overrides.js` foram removidos (são L1; nenhum hook runtime depende deles).
-- `MultiEdit` agora também passa pelo gate (antes só Write/Edit) — fechado um bypass real.
+- `MultiEdit` agora também passa pelo gate (antes só Write/Edit) — fechado um bypass real. O matcher PreToolUse `MultiEdit` em `settings.json` (mesmos 3 hooks de Write/Edit, incl. `enforce-quality-gates.cjs`) faltava de facto até 2026-06-20; adicionado então como fix config-only `[no-story-req]`, satisfazendo o teste AC2 `tests/hooks/test-boundary-enforce.test.js:229`.
 - Hook hardening: `isProtectedPath` usa `toProjectRelative()` + `isUnderDir()` (boundary-anchored, lida com caminhos absolutos Windows/POSIX). Helpers exportados para teste em `tests/hooks/test-boundary-enforce.test.js`.
 
 Se um EPIC futuro precisar de escrever L1 (como EPIC-8/8.4 precisou), NÃO reverter para allow — usar a rota upstream `propose-modification` ou relocar para L4.

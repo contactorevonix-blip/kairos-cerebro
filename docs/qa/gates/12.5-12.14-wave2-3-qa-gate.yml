@@ -1,0 +1,76 @@
+schema: 1
+story: '12.5-12.14'
+gate: CONCERNS
+status_reason: 'Wave 2+3 work is technically sound (all suites green, lint/typecheck clean, zero regressions, no invention) but Stories 12.5-12.14 were marked Done by @dev without an independent @qa gate, and 12.11/12.14 gate files are self-signed by @dev — violating the ensemble no-self-sign-off pattern (Art. II / Story 12.13 AC1). This @qa review now supplies the missing independent gate.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-06-20T00:00:00Z'
+
+scope: >
+  Independent @qa gate for EPIC-12 Wave 2 (12.3-12.4, already gated; re-confirmed)
+  and Wave 3 (12.5-12.14). Verified against live test execution, lint, typecheck,
+  metrics file, settings.json, and all cited source artifacts — not story claims.
+
+independent_verification:
+  enforcement_baseline: '34/34 PASS (tests/hooks/enforcement.test.js — EPIC-9 baseline + 12.9 expansion)'
+  full_hooks_suite: '275/275 PASS, 0 fail (regression-free; prior 12.1 MultiEdit gap now resolved)'
+  integration_suites: '39/39 PASS (sdc, qa-loop, spec-pipeline-critique, brownfield, ensemble, barrier)'
+  wave23_hook_suites: '65/65 PASS (compound-gate, context-loading-surfaces, cache-ttl, no-invention-validation, gate-priority-order)'
+  lint: 'clean (eslint --quiet)'
+  typecheck: 'clean (tsc --noEmit)'
+  multiedit_matcher: 'registered in settings.json PreToolUse (resolves pre-existing 12.1 gap)'
+  cited_sources: 'all resolve — EPIC-12-PRD, PHASE3-GAP-RECONCILIATION, HANDOFF-CONT41, requirements.json, research.json, EXECUTION-PLAN, propose-modification.md, surface-reconciler.js'
+  requirement_ids: 'CON-5, NFR-3.2, FR-4.2, FR-5.4 all present in requirements.json (no invented refs)'
+  barrier_invariant: 'all 14 stories Done; no later-wave Done while earlier wave incomplete — invariant holds'
+
+top_issues:
+  - id: 'PROC-001'
+    severity: medium
+    finding: 'Stories 12.5-12.10, 12.12, 12.13 transitioned Ready → InProgress → Done in a single @dev step, skipping InReview and the @qa gate. story-lifecycle.md makes InReview → Done a @qa-exclusive transition and QA Results a @qa-only section. No active Wave 3 story has a @qa-authored QA Results section.'
+    suggested_action: 'This gate file + the QA Results appended to each story supply the missing independent @qa sign-off. Going forward, @dev must stop at InReview and hand off to @qa.'
+  - id: 'PROC-002'
+    severity: medium
+    finding: 'Gate files docs/qa/gates/12.11-epic-qa-gate.yml and 12.14-barrier-synchronization.yml carry reviewer: "Dex (@dev)" — @dev self-signing its own QA gate, which is exactly the self-sign-off the ensemble pattern (Story 12.13 AC1) exists to prevent.'
+    suggested_action: 'Independent @qa review (this file) overrides the self-signed verdicts. The underlying PASS verdicts are reproduced and confirmed by @qa; the authorship defect is non-blocking now that an independent gate exists.'
+  - id: 'REL-001'
+    severity: low
+    finding: 'docs/qa/gates/12.11-epic-qa-gate.yml records gatesEnforced=53, violationsDetected=35, violationsBlocked=27, overridesUsed=8. hook-metrics.json is cumulative and mutates on every hook invocation (it read 26/17/13/4 at this review after intervening runs). The snapshot is presented as an authoritative figure but is a moving target.'
+    suggested_action: 'Annotate metric snapshots in gate files as point-in-time, or aggregate from gate-logs JSONL (immutable append-only) instead of the live counter.'
+  - id: 'REQ-001'
+    severity: medium
+    finding: 'Carried from Story 12.3 (Wave 2, already CONCERNS): AC7/FR-4.2 aggregate context expansion (102 ln shim → 937+ ln) is unmet at the integration level. The reconciler reports the winning surface lineCount (102 ln dev shim), not the assembled pipeline context. Routed to @po for pipeline-enrichment re-scope.'
+    suggested_action: 'Track as @po re-scope item with an end-to-end activation integration test asserting assembled context >= 937 ln (alongside FR-4.1 Tier A loading). Not a 12.3 defect; reconciler is production-ready.'
+
+per_story:
+  '12.5': { verdict: PASS, evidence: 'spec-pipeline-critique-checklist.md (148 ln) + gate template (120 ln) exist; 5 items verbatim from RT-1; spec-pipeline-critique suite 8/8.' }
+  '12.6': { verdict: PASS, evidence: 'gap-traceability-matrix.md (130 ln) — 31/31 routed (29 TRACED + 2 ESCALATE); honest Art. IV disclosure of non-persisted item-prose; all cited line-refs resolve.' }
+  '12.7': { verdict: PASS, evidence: '4 integration suites exercise REAL gate hooks as subprocesses; symmetric AIOX_FRAMEWORK_PROTECTION_ENABLED override confirmed in enforce-quality-gates.cjs; suites green.' }
+  '12.8': { verdict: PASS, evidence: 'test-compound-gate-scenario.test.js validates RT-4 early-return short-circuit + Art. II>III>IV priority against real hooks.' }
+  '12.9': { verdict: PASS, evidence: 'enforcement.test.js 34/34 — 4 overrides end-to-end + boundary BLOCK path + Art. I roster + no-regression.' }
+  '12.10': { verdict: PASS, evidence: 'constitutional-gates-runbook.md (185 ln) — markdown-only L4; snippets sourced from real artifacts.' }
+  '12.11': { verdict: PASS, evidence: 'Final epic gate verdict reproduced by @qa: 275/275 hooks, 34/34 baseline, all 14 Done. PROC-002 self-sign noted; verdict confirmed independently.' }
+  '12.12': { verdict: PASS, evidence: 'framework-modification-escalation.md (89 ln); propose-modification.md task confirmed registered; constitution-edit deny verified live (exit 2).' }
+  '12.13': { verdict: PASS, evidence: 'test-ensemble-validation.test.js 6/6 — ensemble structure checkable. NOTE: this story''s own AC1 (no self-sign-off) is what PROC-001/002 flag at the epic process level.' }
+  '12.14': { verdict: PASS, evidence: 'test-barrier-synchronization.test.js 4/4; EXECUTION-PLAN § Phasing & Barrier Gates present; barrier invariant holds across all 14 stories.' }
+
+quality_checks:
+  code_review: PASS        # clean, dependency-free node:test, never-throws discipline, real-hook subprocess testing
+  unit_tests: PASS         # 275/275 hooks + 39/39 integration + 65/65 wave2-3 suites
+  acceptance_criteria: CONCERNS  # all ACs technically met; process AC of 12.13 (no self-sign) violated at epic level (PROC-001/002)
+  no_regressions: PASS     # EPIC-9 baseline 34/34; full suite 275/275; prior 12.1 MultiEdit gap resolved
+  performance: PASS        # surface reconcile 6ms, activation 179ms (<500ms NFR-1.1); suites sub-3s
+  security: PASS           # read-only fs, no injection, no secrets, cache gitignored
+  documentation: PASS      # File Lists, Dev Notes, Change Logs complete and honest (Art. IV disclosures present)
+
+waiver: { active: false }
+
+notes: |
+  VERDICT: CONCERNS — Wave 2+3 moves to Done with documented non-blocking process issues.
+  The engineering is sound and production-ready: every test claim was independently reproduced,
+  lint/typecheck are clean, there are zero regressions, and the Art. IV no-invention discipline
+  is strong (cited refs resolve; non-persisted gap-prose is honestly flagged, not fabricated).
+  The CONCERNS are PROCESS, not product: @dev marked Wave 3 stories Done and self-authored the
+  12.11/12.14 gate files, bypassing the independent @qa gate the ensemble pattern mandates. This
+  @qa review supplies that missing independent gate and confirms the verdicts. PROC-001/002 are
+  recorded so the lifecycle is corrected going forward; REL-001 (mutable metric snapshot) and
+  REQ-001 (12.3 FR-4.2 aggregate expansion, already routed to @po) are tracked, non-blocking.
+  Ready for @devops push.

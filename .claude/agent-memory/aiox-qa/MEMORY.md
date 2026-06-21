@@ -8,3 +8,4 @@
 - [EPIC12 Wave1 Barrier Gate](project_epic12-wave1-barrier-gate.md) — 12.1 PASS + 12.2 PASS = Barrier Gate 1 cleared (Wave 2 pode iniciar); Art. II 4-path detection + detectionSource additive verificado em log runtime real (QA 2026-06-20)
 - [EPIC12 Wave2 Barrier Gate](project_epic12-wave2-barrier-gate.md) — 12.4 Art. IV two-layer no-invention gate PASS (31/31 tests, E2E exit 0/2); Barrier Gate 2 (12.3+12.4) cleared; pre-existing 12.1 MultiEdit test gap NÃO é blocker
 - [EPIC12 Wave2 FR-4.2 Scope Gap](project_epic12-wave2-fr42-scope-gap.md) — 12.3 CONCERNS: AC7/FR-4.2 "937+ ln" é expansão AGREGADA do pipeline, NÃO o lineCount da surface vencedora (shim=102 ln); reconciler sozinho não satisfaz — routed @po
+- [EPIC12 Wave2+3 QA Gate](project_epic12_wave23_qa_gate.md) — 12.5-12.14 CONCERNS: work sound (275/275 hooks, 0 regress, no invention) mas @dev pulou @qa gate + self-signed 12.11/12.14 (PROC-001/002); @qa supriu gates retroativamente. EPIC-12 APPROVED.

@@ -4727,3 +4727,103 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: AIOX Framework Deep Audit — Preliminary Reports + Handoff (Cont 66 Extended)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: f13b227 — 2026-06-20 16:00
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.3.json, .aiox/task-logs/5.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-dev/project_story121_l1l2_deny_restore.md
+
+## Checkpoint: f13b227 — 2026-06-20 16:00
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.3.json, .aiox/task-logs/5.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-dev/project_story121_l1l2_deny_restore.md
+
+## Checkpoint: f13b227 — 2026-06-20 18:25
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-20 18:25
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:16
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:16
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:17
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:18
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:19
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:21
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:25
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 10:25
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 11:27
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl, .aiox/gate-logs/art-iii-story-driven-2026-06-20.jsonl, .aiox/gate-logs/art-iv-no-invention-2026-06-20.jsonl, .aiox/gate-logs/art-v-vii-quality-boundary-2026-06-20.jsonl, .aiox/task-logs/12.10.json, .aiox/task-logs/12.11.json, .aiox/task-logs/12.12.json, .aiox/task-logs/12.13.json
+
+## Checkpoint: f13b227 — 2026-06-21 11:38
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:38
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:38
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:40
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:40
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:42
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
+
+## Checkpoint: f13b227 — 2026-06-21 11:42
+**Branch:** main
+**Commit:** docs: AIOX Framework Deep Audit — TIER 1 Complete, Governance Compliance Verified (Cont 67)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/gate-logs/art-ii-agent-authority-2026-06-20.jsonl
