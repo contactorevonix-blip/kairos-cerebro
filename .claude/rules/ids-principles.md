@@ -7,7 +7,7 @@ paths:
 
 # IDS Principles — Detailed Rules
 
-> Status: Partially Active (IDS framework implemented with gates G1-G5, incrementally integrated, G6 validation in progress)
+> Status: Planned (IDS epic is Draft — principles apply as aspirational guidance)
 
 ## Decision Hierarchy: REUSE > ADAPT > CREATE
 

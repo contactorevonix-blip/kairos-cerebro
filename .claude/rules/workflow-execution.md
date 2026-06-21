@@ -1,11 +1,3 @@
----
-name: workflow-execution
-description: 4 primary workflows (SDC, QA Loop, Spec Pipeline, Brownfield) execution rules
-metadata:
-  type: project
-  paths: "docs/stories/**,docs/prd/**"
----
-
 # Workflow Execution — Detailed Rules
 
 ## Task-First Principle

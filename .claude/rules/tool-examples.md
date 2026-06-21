@@ -1,10 +1,3 @@
----
-name: tool-examples
-description: Concrete input examples for most-used tools (Tier 1/2 only)
-metadata:
-  type: project
----
-
 # Tool Input Examples — Selection Guidance
 
 ## Purpose
