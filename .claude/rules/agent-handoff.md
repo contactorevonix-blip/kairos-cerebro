@@ -1,3 +1,10 @@
+---
+name: agent-handoff
+description: Agent switch context compaction protocol (conserve tokens, maintain context)
+metadata:
+  type: project
+---
+
 # Agent Handoff Protocol — Context Compaction
 
 ## Purpose

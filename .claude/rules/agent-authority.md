@@ -1,3 +1,11 @@
+---
+name: agent-authority
+description: Agent delegation matrix and exclusive operations (Art. II enforcement)
+metadata:
+  type: project
+  paths: "**/*.cjs,**/*.js"
+---
+
 # Agent Authority — Detailed Rules
 
 ## Delegation Matrix

@@ -1,3 +1,11 @@
+---
+name: handoff-consolidation
+description: Consolidate 5+ handoffs per epic into RUN-LOG.md (prevent clutter)
+metadata:
+  type: project
+  paths: ".aiox/handoffs/**,docs/**/RUN-LOG.md"
+---
+
 # Handoff Consolidation — Rule
 
 ## Purpose

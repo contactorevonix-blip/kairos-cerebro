@@ -1,3 +1,11 @@
+---
+name: enforcement-gates
+description: Constitutional gates (Art. II-VII) enforcement at hook layer
+metadata:
+  type: project
+  paths: ".claude/hooks/**,.aiox/gate-logs/**"
+---
+
 # Constitutional Enforcement Gates
 
 > **Story:** 1.16 — Constitutional Enforcement Gates

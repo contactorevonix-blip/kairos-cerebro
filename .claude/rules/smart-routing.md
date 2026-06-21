@@ -1,3 +1,10 @@
+---
+name: smart-routing
+description: Automatic workflow routing decision tree (quick vs standard vs enterprise)
+metadata:
+  type: project
+---
+
 # Smart Routing — Guia Automático para Pedro
 
 ## Comportamento obrigatório em TODAS as respostas
