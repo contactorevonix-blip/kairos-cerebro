@@ -42,3 +42,5 @@
 {"timestamp":"2026-06-17T17:41:27.922Z","action":"add","path":".aiox-core/core/context-loading/agent-loader.js","trigger":"watcher"}
 {"timestamp":"2026-06-20T15:54:55.100Z","action":"add","path":".aiox-core/development/scripts/surface-reconciler.js","trigger":"watcher"}
 {"timestamp":"2026-06-21T12:24:14.052Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-21T21:13:30.464Z","action":"change","path":".aiox-core/core-config.yaml","trigger":"watcher"}
+{"timestamp":"2026-06-21T21:13:30.470Z","action":"change","path":".aiox-core/development/scripts/unified-activation-pipeline.js","trigger":"watcher"}

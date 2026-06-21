@@ -1,0 +1,47 @@
+{
+  "storyId": "13.11",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-21T20:07:28.070Z",
+  "suggestions": [
+    {
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 73,
+      "autoActivate": true
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 70,
+      "autoActivate": true
+    },
+    {
+      "id": "qa-false-positive-detection",
+      "name": "False Positive Detection Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-false-positive-detection.md",
+      "score": 59,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "devops-pro-validate-login",
+      "name": "Task: DevOps Pro Validate Login",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
+      "score": 54,
+      "autoActivate": false
+    }
+  ]
+}

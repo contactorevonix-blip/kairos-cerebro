@@ -93,3 +93,9 @@ logs/
 # VS Code workspace files (não pertencem ao repo)
 *.code-workspace
 .claude/agents/*.code-workspace
+
+# Backups automáticos (nunca entram no repo)
+*.backup.*
+
+# Gate decision logs (runtime, regenerados pelos hooks)
+.aiox/gate-logs/*.jsonl

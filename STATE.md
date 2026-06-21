@@ -5867,3 +5867,23 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
 **Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 872dc11 — 2026-06-21 20:56
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 70 complete (Story 13.11 implementation + QA PASS)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 872dc11 — 2026-06-21 20:57
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 70 complete (Story 13.11 implementation + QA PASS)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 872dc11 — 2026-06-21 21:08
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 70 complete (Story 13.11 implementation + QA PASS)
+**Files changed:** .aiox-core/.installed-manifest.yaml, .aiox-core/constitution.md, .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/development/scripts/unified-activation-pipeline.js, .aiox-core/package-lock.json, .aiox-core/package.json, .aiox-core/version.json, .aiox/task-logs/13.2.json, .claude/CLAUDE.md
+
+## Checkpoint: 2ab749c — 2026-06-21 21:13
+**Branch:** main
+**Commit:** chore: update aiox-core config, registry, manifest + activation pipeline [no-story-req]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/13.2.json, .env.example, .gitignore, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md, package-lock.json
