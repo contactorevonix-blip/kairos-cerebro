@@ -1,7 +1,7 @@
 # Story XX.2: Authority Enforcement Gate
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** Ready  
+**Status:** InProgress  
 **Complexity:** 9 points  
 **Depends On:** XX.1 (Sync Validator PASS)  
 **Owner:** @dev  

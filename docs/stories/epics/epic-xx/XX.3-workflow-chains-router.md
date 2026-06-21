@@ -1,7 +1,7 @@
 # Story XX.3: Workflow Chains Router
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** Ready  
+**Status:** InProgress  
 **Complexity:** 12 points  
 **Depends On:** XX.1 (Agent Sync Validator PASS)  
 **Owner:** @dev  

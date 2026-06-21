@@ -1,7 +1,7 @@
 # Story XX.1: Agent Sync Validator
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** Ready  
+**Status:** InProgress  
 **Complexity:** 13 points  
 **Owner:** @dev  
 
