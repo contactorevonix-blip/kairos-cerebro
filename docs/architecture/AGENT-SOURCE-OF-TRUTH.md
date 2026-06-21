@@ -149,3 +149,91 @@ node --test tests/agents/agent-drift-audit.test.js
 - **Pipeline:** `.aiox-core/infrastructure/scripts/ide-sync/`
 - **Constitution:** `.aiox-core/constitution.md` (Art. II — Agent Authority; Art. VI–VII — Framework Boundary)
 - **Test:** `tests/agents/agent-drift-audit.test.js`
+
+---
+
+## 9. Story 13.1 Audit — Shim Consolidation (2026-06-21)
+
+> **Story:** [13.1 — Agent Definition Shim Consolidation](../stories/13.1.agent-shim-consolidation.story.md) · **Epic:** EPIC-13 · **Auditor:** @dev (Dex)
+
+Story 13.1 re-audited the four agent-definition locations. Findings below
+**confirm and extend** §1–§4; they do not contradict them.
+
+### 9.1 Source of truth (AC1) — confirmed
+
+The canonical source is **`.aiox-core/development/agents/` (12 `*.md`)**, declared
+in `core-config.yaml → ideSync.source`. SKILLs are **generated** from this source
+by the ide-sync pipeline — they are **not** manually maintained and **not** an
+independent master. This matches §1. No generator named `generate-skills.js`
+exists; generation is the `ide-sync` pipeline
+(`.aiox-core/infrastructure/scripts/ide-sync/index.js`, `commandSync`).
+
+### 9.2 Three agent systems, not one (AC3 correction)
+
+The story premise ("`.claude/agents/*.md` are dead copies of L2") is **incorrect**.
+There are **three distinct agent systems**, only one of which is sourced from L2:
+
+| Location | System | Sourced from L2? | Action |
+|----------|--------|------------------|--------|
+| `.claude/commands/AIOX/agents/{id}.md` | ideSync command shim | ✅ Yes (target) | Drift-audited (§3) |
+| `.claude/skills/AIOX/agents/{id}/SKILL.md` | ideSync runtime skill | ✅ Yes (target) | Drift-audited (§3) |
+| `.claude/agents/{name}.md` | **Claude Code Task subagents** | ❌ **No** — independent | **Keep — do not deprecate** |
+
+`.claude/agents/*.md` (e.g. `aiox-dev.md`, `aiox-qa.md`, `squad.md`) are **native
+Claude Code subagent definitions** — YAML frontmatter with `tools`,
+`permissionMode`, `hooks`, `skills`, used by the Task tool to spawn autonomous
+agents. They use a different naming (`aiox-dev` vs L2 `dev`) and a different
+purpose. **They are active, not dead.** Deprecating or deleting them (as AC3's
+literal wording suggests) would break the autonomous-agent spawn system. The
+correct action is this classification note — not a deprecation. They are
+**out of scope** for ideSync drift enforcement.
+
+### 9.3 Live drift detected (AC2)
+
+The drift audit (`node --test tests/agents/agent-drift-audit.test.js`) currently
+**FAILS** with **1 accidental content drift**:
+
+| Target | File | Nature |
+|--------|------|--------|
+| `claude-code-skills` | `.claude/skills/AIOX/agents/sm/SKILL.md` | Generated SKILL diverges from L2 `sm.md` |
+
+Direction of drift: the **generated SKILL is *ahead* of the source** — it carries
+hand-added explicit dependency paths (`.aiox-core/product/templates/story-tmpl.yaml`,
+explicit task-path comments) that the L2 `sm.md` source does not yet produce.
+i.e. the target was hand-edited to be *more correct* and the source was never
+updated to match.
+
+**Remediation is BLOCKED for @dev:** the canonical fix
+(`ide-sync sync --ide claude-code`) regenerates the SKILL from the staler source
+and would **delete** the better hand-edits. The correct fix — porting the
+explicit-path improvement back into `.aiox-core/development/agents/sm.md` (L2) —
+requires a write to an L2 path denied to @dev by `settings.json` and the
+Art. VI–VII boundary gate. **Routed upstream** via
+`@aiox-master *propose-modification` (see §9.5).
+
+### 9.4 Pre-commit gate (AC4) — designed, install BLOCKED
+
+A dependency-free gate `validate-agent-sync.cjs` was designed to enforce, on
+`git commit`: (1) every L2 source agent has both a command shim and a SKILL,
+(2) deep content-drift detection delegated to the existing ide-sync validator
+(graceful skip if `js-yaml` unavailable). Its target directory **`.claude/hooks/`
+is in the `settings.json` deny list** (and protected by the boundary gate), so
+@dev cannot install it. **Routed upstream** (see §9.5). Until installed, the
+existing test `tests/agents/agent-drift-audit.test.js` is the drift backstop —
+run it in CI.
+
+### 9.5 Boundary blockers — upstream routing required
+
+Story 13.1's literal ACs target paths @dev is constitutionally forbidden to write:
+
+| AC | Literal target | Layer | Status | Resolution path |
+|----|----------------|-------|--------|-----------------|
+| AC4 | `.claude/hooks/validate-agent-sync.cjs` | protected (deny) | BLOCKED | `@aiox-master *propose-modification` |
+| AC5 | `.aiox-core/core/README.md` | **L1** (deny) | BLOCKED + wrong location | document in **this** L4 doc instead |
+| AC2 fix | `.aiox-core/development/agents/sm.md` | **L2** (deny) | BLOCKED | `@aiox-master *propose-modification` |
+
+AC5's literal target (`.aiox-core/core/README.md`) is both boundary-blocked and
+the **wrong location** — that README documents the core *runtime module*
+(Story 2.2), unrelated to agent source-of-truth. The agent source-of-truth is
+**already** canonically documented in **this** document (`AGENT-SOURCE-OF-TRUTH.md`,
+L4). AC5 is therefore satisfied here, not in `core/README.md`.

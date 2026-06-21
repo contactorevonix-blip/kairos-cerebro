@@ -3,7 +3,7 @@
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
 **Status:** InProgress  
 **Complexity:** 12 points  
-**Depends On:** XX.1 (Agent Sync Validator PASS)  
+**Depends On:** EPIC-13 Story 13.1 (Agent Definition Shim Consolidation PASS) — was XX.1, now consolidated  
 **Owner:** @dev  
 
 ## Description

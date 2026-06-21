@@ -1,13 +1,15 @@
 # Story XX.1: Agent Sync Validator
 
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
-**Status:** InProgress  
+**Status:** Cancelled  
 **Complexity:** 13 points  
 **Owner:** @dev  
 
 ## Description
 
-Create a validator tool that ensures L1 (`.aiox-core/development/agents/*.md`) definitions exactly match L2 (`.claude/skills/AIOX/agents/*/SKILL.md`) SKILLs. Foundation for all subsequent agent architecture fixes.
+~~Create a validator tool that ensures L1 (`.aiox-core/development/agents/*.md`) definitions exactly match L2 (`.claude/skills/AIOX/agents/*/SKILL.md`) SKILLs.~~ 
+
+**CANCELLED — Duplicate of EPIC-13 Story 13.1 (Agent Definition Shim Consolidation).** Core sync logic already exists in `ide-sync.js` + decision-log of 13.1. XX.2 and XX.3 now depend on **13.1 instead of XX.1**.
 
 ## Scope
 
@@ -52,10 +54,9 @@ Create a validator tool that ensures L1 (`.aiox-core/development/agents/*.md`) d
 - No regressions (258 existing tests still passing)
 - Code review approved (CodeRabbit GREEN)
 
-## Blocks
+## Note
 
-- **XX.2:** Authority Enforcement Gate (depends on sync validator baseline)
-- **XX.3:** Workflow Chains Router (depends on agent definitions stability)
+This story is superseded by **EPIC-13 Story 13.1** (Agent Definition Shim Consolidation). All validator logic, CLI commands, and CI gates are consolidated there. XX.2 and XX.3 dependencies updated to 13.1.
 
 ## Technical Notes
 
@@ -76,3 +77,4 @@ Create a validator tool that ensures L1 (`.aiox-core/development/agents/*.md`) d
 
 - Created: 2026-06-21 by @sm (River)
 - 2026-06-21 17:00 (Cont 67) — @po Validated (GO) — Status: Draft → Ready | Applied conditional ACs (Scope, Risks, DoD, Blocks) | Commit: 66e9a6d
+- 2026-06-21 Cont 69 — @architect discovery: XX.1 duplicates EPIC-13 13.1. Sync logic already exists in `ide-sync.js`. **Status: Cancelled** as duplicate. XX.2/XX.3 dependencies redirected to 13.1.

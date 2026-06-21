@@ -1,45 +1,45 @@
 {
   "storyId": "13.2",
-  "storyType": "feature",
-  "suggestedAt": "2026-06-18T19:01:52.299Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-21T14:32:42.272Z",
   "suggestions": [
     {
-      "id": "dev-develop-story",
-      "name": "Develop Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/dev-develop-story.md",
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "build-status",
-      "name": "Task: Build Status",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/build-status.md",
-      "score": 73,
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/create-next-story.md",
-      "score": 73,
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "plan-create-context",
-      "name": "Plan Pipeline: Create Context",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/plan-create-context.md",
-      "score": 73,
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 81,
       "autoActivate": true
     },
     {
-      "id": "sm-create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
+      "id": "export-design-tokens-dtcg",
+      "name": "Export Design Tokens to W3C DTCG",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
       "score": 73,
       "autoActivate": true
     }

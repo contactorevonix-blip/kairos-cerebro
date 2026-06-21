@@ -1,0 +1,258 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * PROPOSED HOOK — Story 13.1 (EPIC-13) AC4. NOT YET INSTALLED.
+ *
+ * Intended install path: `.claude/hooks/validate-agent-sync.cjs`
+ * That directory is in the `settings.json` deny list and protected by the
+ * Art. VI–VII boundary gate, so @dev cannot install it directly. This file is
+ * the ready-to-install source, staged for `@aiox-master *propose-modification`.
+ *
+ * Once installed, register in `.claude/settings.json` under
+ * `hooks.PreToolUse` with matcher `Bash(git commit*)`:
+ *   { "type": "command",
+ *     "command": "node \".claude/hooks/validate-agent-sync.cjs\"",
+ *     "timeout": 6,
+ *     "statusMessage": "A validar sincronização de agentes (Story 13.1 AC4)..." }
+ *
+ * ----------------------------------------------------------------------------
+ * validate-agent-sync.cjs — Agent Definition Sync Gate
+ *
+ * Prevents orphaned / out-of-sync agent definitions. The canonical source of
+ * truth for the 12 AIOX agents is `.aiox-core/development/agents/*.md` (L2),
+ * declared in `core-config.yaml → ideSync.source`. The Claude Code runtime
+ * loads its agents from two generated targets:
+ *   - `.claude/commands/AIOX/agents/{id}.md`        (legacy command shim)
+ *   - `.claude/skills/AIOX/agents/{id}/SKILL.md`    (canonical runtime skill)
+ *
+ * NOTE: `.claude/agents/{name}.md` are Claude Code Task subagents — a separate
+ * system NOT sourced from L2 (see docs/architecture/AGENT-SOURCE-OF-TRUTH.md
+ * §9.2). They are intentionally NOT checked here.
+ *
+ * Checks (dependency-free):
+ *   1. PRESENCE — every L2 source agent has both generated targets.
+ *   2. DRIFT (optional, deep) — delegated to the existing ide-sync validator
+ *      when resolvable; skipped silently if js-yaml is unavailable.
+ *
+ * Modes:
+ *   - Direct CLI:    `node validate-agent-sync.cjs [--quiet] [--no-drift]`
+ *                    exit 0 = in sync, exit 1 = drift/missing found.
+ *   - PreToolUse:    matcher `Bash(git commit*)`. Reads stdin, BLOCKS the
+ *                    commit (exit 2) on failure.
+ *
+ * Graceful degradation: any unexpected failure warns and proceeds.
+ *
+ * Reference: docs/architecture/AGENT-SOURCE-OF-TRUTH.md §9
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const SOURCE_DIR = path.join('.aiox-core', 'development', 'agents');
+const COMMANDS_DIR = path.join('.claude', 'commands', 'AIOX', 'agents');
+const SKILLS_DIR = path.join('.claude', 'skills', 'AIOX', 'agents');
+
+function readSourceAgentIds(cwd = process.cwd()) {
+  const dir = path.join(cwd, SOURCE_DIR);
+  if (!fs.existsSync(dir)) return { ids: [], error: 'no-source-dir' };
+  try {
+    const ids = fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter((e) => e.isFile() && e.name.endsWith('.md'))
+      .map((e) => e.name.slice(0, -3))
+      .sort();
+    return { ids };
+  } catch (err) {
+    return { ids: [], error: String(err && err.message) };
+  }
+}
+
+function readCommandAgentIds(cwd = process.cwd()) {
+  const dir = path.join(cwd, COMMANDS_DIR);
+  if (!fs.existsSync(dir)) return [];
+  try {
+    return fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter((e) => e.isFile() && e.name.endsWith('.md'))
+      .map((e) => e.name.slice(0, -3));
+  } catch {
+    return [];
+  }
+}
+
+function readSkillAgentIds(cwd = process.cwd()) {
+  const dir = path.join(cwd, SKILLS_DIR);
+  if (!fs.existsSync(dir)) return [];
+  try {
+    return fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter(
+        (e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'SKILL.md'))
+      )
+      .map((e) => e.name);
+  } catch {
+    return [];
+  }
+}
+
+function detectContentDrift(cwd = process.cwd()) {
+  const D = path.join(cwd, '.aiox-core', 'infrastructure', 'scripts', 'ide-sync');
+  let idesync;
+  let parseAllAgents;
+  let validatorLib;
+  try {
+    idesync = require(path.join(D, 'index.js'));
+    ({ parseAllAgents } = require(path.join(D, 'agent-parser.js')));
+    validatorLib = require(path.join(D, 'validator.js'));
+  } catch {
+    return null;
+  }
+  const hashContent = validatorLib && validatorLib.hashContent;
+  if (typeof hashContent !== 'function') return null;
+
+  try {
+    const config = idesync.loadConfig(cwd);
+    const agents = parseAllAgents(path.join(cwd, config.source));
+    const transformer = idesync.getTransformer('full-markdown-yaml');
+    if (!transformer || typeof transformer.transformSkill !== 'function') return null;
+    const drifted = [];
+    const skillsRoot = path.join(cwd, SKILLS_DIR);
+    for (const agent of agents) {
+      if (agent.error) continue;
+      let expected;
+      let rel;
+      try {
+        expected = transformer.transformSkill(agent);
+        rel = transformer.getSkillRelativePath(agent).replace(/^AIOX\/agents\//, '');
+      } catch {
+        continue;
+      }
+      const actualPath = path.join(skillsRoot, rel);
+      if (!fs.existsSync(actualPath)) continue;
+      const actual = fs.readFileSync(actualPath, 'utf8');
+      if (hashContent(expected) !== hashContent(actual)) {
+        drifted.push({ id: agent.id, file: path.posix.join('AIOX', 'agents', rel) });
+      }
+    }
+    return drifted;
+  } catch {
+    return null;
+  }
+}
+
+function audit(cwd = process.cwd(), { checkDrift = true } = {}) {
+  const src = readSourceAgentIds(cwd);
+  if (src.error) {
+    return { ok: true, degraded: true, missing: [], drift: null, error: src.error };
+  }
+  const commandSet = new Set(readCommandAgentIds(cwd));
+  const skillSet = new Set(readSkillAgentIds(cwd));
+
+  const missing = [];
+  for (const id of src.ids) {
+    if (!commandSet.has(id)) missing.push({ id, target: path.join(COMMANDS_DIR, `${id}.md`) });
+    if (!skillSet.has(id)) missing.push({ id, target: path.join(SKILLS_DIR, id, 'SKILL.md') });
+  }
+
+  const drift = checkDrift ? detectContentDrift(cwd) : null;
+  const ok = missing.length === 0 && (!drift || drift.length === 0);
+  return { ok, degraded: false, sourceIds: src.ids, missing, drift };
+}
+
+function formatReport(result) {
+  const lines = [];
+  lines.push('Agent Definition Sync Audit (Story 13.1 AC4)');
+  lines.push(`  Source (L2): ${result.sourceIds ? result.sourceIds.length : 0} agents`);
+  if (result.degraded) {
+    lines.push(`  Degraded: ${result.error} — checks skipped, proceeding.`);
+    return lines.join('\n');
+  }
+  if (result.missing.length === 0) {
+    lines.push('  OK Presence: every source agent has command + skill targets.');
+  } else {
+    lines.push(`  FAIL Missing targets (${result.missing.length}):`);
+    for (const m of result.missing) lines.push(`     - ${m.id}: ${m.target}`);
+  }
+  if (result.drift === null) {
+    lines.push('  SKIP Drift: deep check unavailable (ide-sync validator not resolvable).');
+  } else if (result.drift.length === 0) {
+    lines.push('  OK Drift: 0 content drift across generated skills.');
+  } else {
+    lines.push(`  FAIL Content drift (${result.drift.length}):`);
+    for (const d of result.drift) lines.push(`     - ${d.id}: ${d.file}`);
+    lines.push('     Fix: re-sync from source (never hand-edit targets):');
+    lines.push('       node .aiox-core/infrastructure/scripts/ide-sync/index.js sync --ide claude-code');
+  }
+  return lines.join('\n');
+}
+
+function readStdin() {
+  try {
+    return fs.readFileSync(0, 'utf8');
+  } catch {
+    return '';
+  }
+}
+
+function isGitCommit(command) {
+  return /\bgit\s+commit\b/i.test(String(command || ''));
+}
+
+function main() {
+  const args = process.argv.slice(2);
+  const quiet = args.includes('--quiet');
+  const checkDrift = !args.includes('--no-drift');
+
+  const raw = process.stdin.isTTY ? '' : readStdin();
+  let hookPayload = null;
+  if (raw) {
+    try {
+      hookPayload = JSON.parse(raw);
+    } catch {
+      hookPayload = null;
+    }
+  }
+
+  if (hookPayload) {
+    const command = hookPayload && hookPayload.tool_input && hookPayload.tool_input.command;
+    if (!isGitCommit(command)) {
+      process.exitCode = 0;
+      return;
+    }
+    const result = audit(process.cwd(), { checkDrift });
+    if (result.ok) {
+      process.exitCode = 0;
+      return;
+    }
+    process.stderr.write(formatReport(result) + '\n');
+    process.stderr.write(
+      '\nAgent definitions are out of sync — commit blocked (Story 13.1 AC4).\n' +
+        '   Re-sync targets from the L2 source, then retry.\n'
+    );
+    process.exitCode = 2;
+    return;
+  }
+
+  const result = audit(process.cwd(), { checkDrift });
+  if (!quiet) process.stdout.write(formatReport(result) + '\n');
+  process.exitCode = result.ok ? 0 : 1;
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  SOURCE_DIR,
+  COMMANDS_DIR,
+  SKILLS_DIR,
+  readSourceAgentIds,
+  readCommandAgentIds,
+  readSkillAgentIds,
+  detectContentDrift,
+  audit,
+  formatReport,
+  isGitCommit,
+  main,
+};

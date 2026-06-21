@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-20T15:54:55.109Z'
+  lastUpdated: '2026-06-21T12:24:14.061Z'
   entityCount: 833
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -14202,8 +14202,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d487000ccb9965c3156012b6da81f70ce4c7f9014f5aa63678c2db966edbeaa1
-      lastVerified: '2026-06-14T20:56:55.624Z'
+      checksum: sha256:61388066c9d72e8d8f4124c38352f523e1d3dd6e1cb5b6a65067c6f6c7eccd27
+      lastVerified: '2026-06-21T12:24:14.050Z'
     blocker-resolver:
       path: .aiox-core/core/auto-heal/blocker-resolver.js
       layer: L1

@@ -1,47 +1,47 @@
 {
   "storyId": "unknown",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-20T11:22:10.525Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-21T14:32:53.104Z",
   "suggestions": [
     {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "devops-pro-resend-verification",
+      "name": "Task: DevOps Pro Resend Verification",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-resend-verification.md",
+      "score": 46,
+      "autoActivate": false
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 46,
+      "autoActivate": false
     },
     {
-      "id": "extend-pattern",
-      "name": "Extend Existing Pattern",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/extend-pattern.md",
-      "score": 81,
-      "autoActivate": true
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 46,
+      "autoActivate": false
     },
     {
-      "id": "analyze-brownfield",
-      "name": "Analyze Brownfield Project",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/analyze-brownfield.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "resolve-github-issue",
+      "name": "resolve-github-issue.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/resolve-github-issue.md",
+      "score": 46,
+      "autoActivate": false
     }
   ]
 }
