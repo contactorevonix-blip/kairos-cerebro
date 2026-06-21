@@ -16,7 +16,7 @@
     "compliance:purge": "node bin/kairos.js compliance:purge",
     "lint": "eslint .claude/hooks .aiox/task-discovery.js tests/hooks --quiet",
     "lint:all": "eslint .",
-    "build": "npm run typecheck && npm run kairos:web:build",
+    "build": "npm run typecheck",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "kairos:hyperdrive": "node packages/hyperdrive/src/cli.js",
     "kairos:ledger:verify": "node packages/hyperdrive/src/memory/ledger.js --verify",
