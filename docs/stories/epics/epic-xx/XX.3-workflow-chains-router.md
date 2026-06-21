@@ -3,11 +3,35 @@
 **Epic:** EPIC-XX (Agent Architecture Hardening)  
 **Status:** Draft  
 **Complexity:** 12 points  
+**Depends On:** XX.1 (Agent Sync Validator PASS)  
 **Owner:** @dev  
 
 ## Description
 
 Complete `workflow-chains.yaml` mapping all 4 primary workflows (SDC, QA Loop, Spec Pipeline, Brownfield) with conditional routing. Implement router logic to auto-suggest next commands during agent activation.
+
+## Scope
+
+**In:**
+- Workflow-chains.yaml population (all 4 workflows with conditionals)
+- Router logic (`getNextCommand(fromAgent, lastCommand, context)`)
+- Agent activation STEP 3.5 integration (auto-suggestions display)
+- Handoff artifact consumption marking
+- 25+ unit tests covering all chains and conditionals
+- Reference guide (`WORKFLOW-CHAINS.md`)
+
+**Out:**
+- Workflow definition changes (already defined in workflow-execution.md)
+- Agent persona changes (handled by XX.2)
+- UI/dashboard suggestions (CLI-only in this story)
+- Real-time agent state tracking
+
+## Risks
+
+- **Risk 1:** Complex conditional logic may have edge cases (e.g., failed fix loops, escalation paths)
+  - **Mitigation:** 25+ unit tests cover all chains; QA loop testing validates real scenarios
+- **Risk 2:** Handoff artifact consumption marking may desynchronize if agents crash mid-workflow
+  - **Mitigation:** Consumption logic is idempotent; re-running does not double-mark
 
 ## Acceptance Criteria
 
@@ -21,6 +45,18 @@ Complete `workflow-chains.yaml` mapping all 4 primary workflows (SDC, QA Loop, S
 - [ ] **AC8:** Handoff artifacts marked consumed after suggestion displayed
 - [ ] **AC9:** 25+ unit tests covering all chains and conditionals
 - [ ] **AC10:** All 258 existing tests pass; no regressions
+
+## Criteria of Done
+
+- All 10 ACs verified passing
+- `workflow-chains.yaml` fully populated (all 4 workflows with conditionals)
+- Router logic tested (25+ scenarios passing)
+- Agent activation STEP 3.5 integration complete
+- Auto-suggestions displayed correctly (≥80% coverage)
+- Handoff artifact consumption marking working
+- Reference guide (`WORKFLOW-CHAINS.md`) complete
+- No regressions (258 existing tests still passing)
+- Code review approved (CodeRabbit GREEN)
 
 ## Technical Notes
 

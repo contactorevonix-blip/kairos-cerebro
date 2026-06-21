@@ -10,6 +10,29 @@
 
 Implement pre-flight authority checks during agent activation that block forbidden operations and redirect to appropriate agents. Enforces Constitutional Art. II (Agent Authority).
 
+## Scope
+
+**In:**
+- Agent activation STEP 3 pre-flight check logic
+- `whenToUse` field parsing from agent definitions
+- Exclusive operations registry (`.aiox-core/data/exclusive-operations.yaml`)
+- User redirect suggestions (e.g., "Only @devops can git push")
+- 20+ test scenarios covering all exclusive operations
+- Integration with agent activation pipeline
+
+**Out:**
+- Agent persona redesign (handled by XX.1 sync validator)
+- Workflow routing improvements (scope of XX.3)
+- UI/dashboard modifications
+- Authentication logic changes
+
+## Risks
+
+- **Risk 1:** Overly strict enforcement may block edge cases (e.g., @dev testing framework changes)
+  - **Mitigation:** Authority gate logs all blocks; @aiox-master can override with audit trail
+- **Risk 2:** False positives if `whenToUse` field is malformed or incomplete
+  - **Mitigation:** XX.1 sync validator ensures L1 ≡ L2 consistency before enforcement activates
+
 ## Acceptance Criteria
 
 - [ ] **AC1:** Agent activation STEP 3 reads agent's `whenToUse` field to extract exclusive operations
@@ -20,6 +43,15 @@ Implement pre-flight authority checks during agent activation that block forbidd
 - [ ] **AC6:** Tests cover: allowed ops (pass), blocked ops (halt), suggestions (correct)
 - [ ] **AC7:** 20+ scenarios tested: @dev blocks *create-story, @qa blocks *push, etc.
 - [ ] **AC8:** All 258 existing tests still pass; no regressions
+
+## Criteria of Done
+
+- All 8 ACs verified passing
+- 20+ test scenarios (exclusive operations, blocked ops, suggestions) passing
+- Integration with agent activation STEP 3 complete
+- `exclusive-operations.yaml` populated and validated
+- No regressions (258 existing tests still passing)
+- Code review approved (CodeRabbit GREEN)
 
 ## Technical Notes
 
