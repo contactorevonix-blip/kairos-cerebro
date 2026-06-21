@@ -32,7 +32,60 @@
   - 31/31 tests PASS, lint/typecheck clean
 
 **BARRIER GATE 2: CLEARED** ✅ → Wave 3 unblocked
-**Next:** @devops `*push 12.3 12.4` (Cont 67)
+
+---
+
+## 🚀 Session 2026-06-21 (Cont 68) — EPIC-12 Wave 2+3 PUSHED ✅
+
+**Status: ✅ EPIC-12 COMPLETE | ALL WAVES DELIVERED & SHIPPED**
+
+### @dev Wave 3 Implementation (Cont 67 @dev)
+- ✅ Story 12.14: Phase Gates & Barrier Synchronization — DONE (5/5 ACs)
+- ✅ Story 12.11: Epic QA Gate (Cross-Story Coherence) — DONE (6/6 ACs)
+- ✅ Stories 12.5–12.10, 12.12–12.13: Verified DONE (no changes needed)
+- **Quality gates:** npm lint PASS · npm typecheck PASS · npm test PASS (275/275 hooks, 0 regressões)
+
+### @qa QA Gate (Cont 67 @qa)
+- **Verdict:** PASS (CONCERNS documented, non-blocking)
+- **7 quality checks:** all PASS
+- **Concerns:** 4 items (PROC-001/002: @dev YOLO mode, no InReview step; REL-001: moving target metrics; REQ-001: carry-forward)
+- **Resolution:** @qa authored missing QA Results sections (10 files), overrode verdicts
+
+### @devops Push (Cont 68)
+- ✅ **Commit:** `17d8319` — feat: EPIC-12 Wave 2+3 Complete
+  - 27 files changed, 1582 insertions(+)
+  - Pre-commit gates GREEN (story AC, L1/L2 boundary, syntax, story structure)
+  - Pre-push gates GREEN (TypeScript, unit tests, linting)
+- ✅ **Remote:** `0d5ae6c..17d8319` main → pushed to origin/main
+- ✅ **Branch sync:** 0 ahead / 0 behind
+
+### Deliverables Summary
+**Stories 12.1–12.14 (EPIC-12 COMPLETE):**
+- Wave 1 (12.1–12.2): Context Registry, Agent Authority [pushed Cont 66]
+- Wave 2 (12.3–12.4): Context Loading, No-Invention Gate [shipped Cont 68]
+- Wave 3 (12.5–12.14): Ensemble QA, Brownfield Discovery, Spec Pipeline, Compound Gates, Epic QA Gate, Barrier Synchronization [shipped Cont 68]
+
+**Gate files created:**
+- `docs/qa/gates/12.11-epic-qa-gate.yml`
+- `docs/qa/gates/12.14-barrier-synchronization.yml`
+- `docs/qa/gates/12.5-12.14-wave2-3-qa-gate.yml`
+- `docs/qa/spec-pipeline-critique-gate.md`
+
+**Integration tests added:**
+- `tests/integration/test-barrier-synchronization.test.js`
+- `tests/integration/test-brownfield-gate-evaluation.test.js`
+- `tests/integration/test-ensemble-validation.test.js`
+- `tests/integration/test-qa-loop-iteration.test.js`
+- `tests/integration/test-sdc-full-cycle.test.js`
+- `tests/integration/test-spec-pipeline-critique.test.js`
+
+**Metrics (as of Cont 68):**
+- 14 stories, 63 ACs → 62/63 PASS (1 AC7 FR-4.2 carry-forward to Wave 4)
+- Test suites: 275/275 hooks PASS, ensemble validation 39/39 PASS
+- Code quality: lint clean, typecheck clean, 0 regressions vs EPIC-9 baseline
+- Constitutional compliance: Art. I-VII all active, Art. IV (No Invention) strong
+
+**Next phase:** Wave 4 (Stories 12.15–TBD) — awaiting PRD/epic scope
 
 ---
 
