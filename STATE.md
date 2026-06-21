@@ -23,15 +23,23 @@
 
 **Wave 2 — COMPLETE ✅**
 - ✅ Story 12.3: Context Loading & Reconciliation — DONE (6 ACs PASS, 1 CONCERN non-blocking)
-  - Modules: surface-reconciler.js + unified-activation-pipeline
-  - Load: 179ms (NFR <500ms) ✓ | Cache hit: 90% (NFR >80%) ✓
-  - 23/23 tests PASS, lint/typecheck clean
-  
 - ✅ Story 12.4: No-Invention Gate & Requirement Traceability — DONE (6/6 ACs PASS)
-  - Hook: enforce-spec-reference-validation.cjs (Layer 2 Art. IV)
-  - 31/31 tests PASS, lint/typecheck clean
 
 **BARRIER GATE 2: CLEARED** ✅ → Wave 3 unblocked
+
+---
+
+## 🚀 Session 2026-06-21 (Cont 67) — Agent Architecture Research & Formalization ✅
+
+**Status: ✅ RESEARCH COMPLETE | EPIC-XX STORIES CREATED (34sp)**
+
+**Outcome:**
+1. ✅ @architect (Aria): Deep agent architecture research (5 findings: 2-layer divergence, authority gaps, routing gaps, DNA blueprint, expert cloning)
+2. ✅ @pm (Morgan): PRD created `docs/prd/EPIC-XX-agent-architecture-hardening.md` (3 fixes, 40-50sp)
+3. ✅ @po (Pax): PRD validated (GO verdict, 1 AC: @dev estimates validation)
+4. ✅ @sm (River): 3 stories created (XX.1: 13sp, XX.2: 9sp, XX.3: 12sp = 34sp total)
+
+**Next:** @po validates stories → @dev validates estimates → implementation → @qa gate → @devops push
 
 ---
 
@@ -4971,4 +4979,159 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 ## Checkpoint: f264924 — 2026-06-21 12:29
 **Branch:** main
 **Commit:** epic: Framework Enforcement Hardening (Phase 6 — Cont 70)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:32
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:48
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:49
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:49
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:50
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:51
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:53
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:53
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:54
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:55
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:55
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:56
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:56
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:56
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:58
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:58
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:59
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:59
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 13:59
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:00
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:01
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:01
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:01
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:02
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:02
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:03
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:03
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:04
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:04
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:05
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 7fc8473 — 2026-06-21 14:05
+**Branch:** main
+**Commit:** docs: Cont 70 COMPLETE — Framework Enforcement Hardening (6 phases)
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .synapse/metrics/hook-metrics.json, STATE.md
