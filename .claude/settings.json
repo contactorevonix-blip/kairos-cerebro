@@ -119,12 +119,6 @@
             "command": "node \".claude/hooks/enforce-agent-authority.cjs\"",
             "timeout": 5,
             "statusMessage": "A validar Art. II (Agent Authority)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-git-push-authority.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A verificar autoridade git push..."
           }
         ]
       },
@@ -171,6 +165,40 @@
             "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
             "timeout": 4,
             "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
+          }
+        ]
+      },
+      {
+        "matcher": "MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. IV (No Invention — MultiEdit)..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. VI-VII (Framework Boundary — MultiEdit)..."
+          }
+        ]
+      },
+      {
+        "matcher": "NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. IV (No Invention — NotebookEdit)..."
+          },
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
+            "timeout": 4,
+            "statusMessage": "A validar Art. VI-VII (Framework Boundary — NotebookEdit)..."
           }
         ]
       },

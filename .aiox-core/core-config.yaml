@@ -166,9 +166,9 @@ projectStatus:
   maxModifiedFiles: 5
   maxRecentCommits: 2
 boundary:
-  frameworkProtection: false
-  frameworkProtectionReason: 'EPIC-8 Phase 4 (Auto-Healing) — L1 modules authorized via governance decision 2026-06-12'
-  frameworkProtectionExpires: '2026-06-19T23:59:59.000Z'
+  frameworkProtection: true
+  frameworkProtectionReason: 'EPIC-12 Enforcement Hardening — Reactivated 2026-06-21 (G1 fix)'
+  frameworkProtectionExpires: null
 synapse:
   session:
     staleTTLHours: 168
