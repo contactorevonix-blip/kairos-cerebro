@@ -2,10 +2,11 @@
 
 ## Compatibility Overview
 
-This document defines the compatibility status of AIOX with various Integrated Development Environments (IDEs) and editor integrations.
+KAIROS_CEREBRO uses **Claude Code only** as its primary IDE integration. This document defines the compatibility status of AIOX across various IDEs for reference, but only Claude Code is actively supported and tested.
 
 **Last Updated:** 2026-02-16  
 **AIOX Version:** 4.0.4  
+**Primary IDE:** Claude Code  
 **Validator:** `.aiox-core/infrastructure/scripts/validate-parity.js`
 
 ---
@@ -14,165 +15,140 @@ This document defines the compatibility status of AIOX with various Integrated D
 
 | IDE | Status | Notes |
 |-----|--------|-------|
-| Claude Code | Works | Full integration with Claude Code hooks and MCP servers |
-| Gemini CLI | Works | Full integration with Gemini CLI features |
-| Codex CLI | Limited | Partial support; skills sync via codex-skills-sync |
-| Cursor | Limited | IDE sync available; some features not fully supported |
-| GitHub Copilot | Limited | IDE sync available; some features not fully supported |
-| AntiGravity | Limited | IDE sync available; some features not fully supported |
+| Claude Code | Works | ✅ **Active** — Full integration with Claude Code hooks and MCP servers |
+| Gemini CLI | Works | Framework support only; not used in KAIROS_CEREBRO |
+| Codex CLI | Limited | Framework support only; not used in KAIROS_CEREBRO |
+| Cursor | Limited | Framework support only; not used in KAIROS_CEREBRO |
+| GitHub Copilot | Limited | Framework support only; not used in KAIROS_CEREBRO |
+| AntiGravity | Limited | Framework support only; not used in KAIROS_CEREBRO |
 
 ---
 
 ## Integration Details
 
-### Claude Code — Works ✅
+### Claude Code — Works ✅ (KAIROS_CEREBRO Primary)
+
+**Status:** **Actively Supported and Tested**
 
 **Features:**
-- Agents and agent commands (`@agent-name` syntax)
-- Skills integration
-- Hook system (PreToolUse, PostToolUse)
-- MCP server configuration
-- Full AIOX command support
+- ✅ Agents and agent commands (`@agent-name` syntax)
+- ✅ Skills integration (`.claude/skills/`)
+- ✅ Hook system (PreToolUse, PostToolUse)
+- ✅ MCP server configuration and management
+- ✅ Full AIOX command support
+- ✅ Agent activation tracking
+- ✅ Story-driven development integration
+- ✅ Quality gates and enforcement
 
-**Location:** `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`
+**Configuration:**
+- **Agent Definitions:** `.claude/agents/`
+- **Skills:** `.claude/skills/*/SKILL.md`
+- **Hooks:** `.claude/hooks/*.cjs`
+- **Rules:** `.claude/rules/`
+- **Settings:** `.claude/settings.json`, `.claude/settings.local.json`
+
+**Recent Commits:**
+- feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
+- AIOX Agent Authority enforcement gates active
 
 ---
 
-### Gemini CLI — Works ✅
+### Other IDEs (Framework Support Only)
 
-**Features:**
-- Gemini CLI integration
-- Agent activation and commands
-- AIOX framework support
+The following IDEs are supported by the AIOX framework but **not used in KAIROS_CEREBRO**:
 
-**Location:** `.aiox-core/infrastructure/ide-sync/gemini/`
+- **Gemini CLI** — Framework support available
+- **Codex CLI** — Framework support available
+- **Cursor** — Framework support available
+- **GitHub Copilot** — Framework support available
+- **AntiGravity** — Framework support available
 
----
-
-### Codex CLI — Limited ⚠️
-
-**Features:**
-- Codex CLI IDE sync
-- Codex integration via `@devops` commands
-- Skills synchronization
-
-**Limitations:**
-- Some advanced AIOX features not supported
-- Skills sync requires explicit validation
-
-**Location:** `.aiox-core/infrastructure/ide-sync/codex/`, `.aiox-core/infrastructure/scripts/codex-skills-sync/`
-
----
-
-### Cursor — Limited ⚠️
-
-**Features:**
-- IDE sync for basic AIOX integration
-- Cursor IDE support
-
-**Limitations:**
-- Some AIOX features not fully integrated
-- Requires manual configuration
-
-**Location:** `.aiox-core/infrastructure/ide-sync/cursor/`
-
----
-
-### GitHub Copilot — Limited ⚠️
-
-**Features:**
-- GitHub Copilot IDE sync
-- Basic AIOX integration
-
-**Limitations:**
-- Limited feature parity with Claude Code
-- Some workflows not supported
-
-**Location:** `.aiox-core/infrastructure/ide-sync/github-copilot/`
-
----
-
-### AntiGravity — Limited ⚠️
-
-**Features:**
-- AntiGravity IDE sync
-- Basic AIOX integration
-
-**Limitations:**
-- Early-stage integration
-- Some features may be unstable
-
-**Location:** `.aiox-core/infrastructure/ide-sync/antigravity/`
+These can be integrated in other projects using AIOX.
 
 ---
 
 ## Quality Gates
 
-All IDE integrations pass the following validation checks:
+### Claude Code Validation (KAIROS_CEREBRO)
 
-| Check | Purpose |
-|-------|---------|
-| `claude-sync` | Claude Code IDE sync validation |
-| `claude-integration` | Claude Code feature integration |
-| `gemini-sync` | Gemini CLI IDE sync validation |
-| `gemini-integration` | Gemini CLI feature integration |
-| `codex-sync` | Codex CLI IDE sync validation |
-| `codex-integration` | Codex CLI feature integration |
-| `codex-skills` | Codex skills synchronization |
-| `cursor-sync` | Cursor IDE sync validation |
-| `github-copilot-sync` | GitHub Copilot IDE sync validation |
-| `antigravity-sync` | AntiGravity IDE sync validation |
-| `paths` | Framework path integrity check |
+The following validation checks ensure Claude Code integration is working:
 
-Run validation with:
-```bash
-node .aiox-core/infrastructure/scripts/validate-parity.js
-```
+| Check | Purpose | Status |
+|-------|---------|--------|
+| `claude-sync` | Claude Code IDE sync validation | ✅ Tested |
+| `claude-integration` | Claude Code feature integration | ⚠️ Framework-level |
+| `codex-skills` | Skills synchronization | ✅ Tested |
+| `paths` | Framework path integrity check | ✅ Tested |
 
----
+### Framework-Level Checks
 
-## Architecture
+The AIOX framework also validates other IDEs (not used in KAIROS_CEREBRO):
 
-IDE integrations are located in `.aiox-core/infrastructure/ide-sync/` with the following structure:
+| Check | IDE | Notes |
+|-------|-----|-------|
+| `gemini-sync`, `gemini-integration` | Gemini CLI | Framework support only |
+| `codex-sync`, `codex-integration` | Codex CLI | Framework support only |
+| `cursor-sync` | Cursor | Framework support only |
+| `github-copilot-sync` | GitHub Copilot | Framework support only |
+| `antigravity-sync` | AntiGravity | Framework support only |
 
-```
-.aiox-core/infrastructure/
-├── ide-sync/
-│   ├── claude-code/      # Claude Code integration
-│   ├── gemini/           # Gemini CLI integration
-│   ├── codex/            # Codex CLI integration
-│   ├── cursor/           # Cursor IDE integration
-│   ├── github-copilot/   # GitHub Copilot integration
-│   └── antigravity/      # AntiGravity integration
-└── scripts/
-    ├── validate-parity.js              # Main parity validator
-    ├── validate-claude-integration.js
-    ├── validate-codex-integration.js
-    ├── validate-gemini-integration.js
-    └── codex-skills-sync/              # Codex skills validation
-```
-
----
-
-## Validation Command
-
-Run the full parity validation suite:
+### Run Validation
 
 ```bash
-# Human-readable output
+# Full framework validation
 node .aiox-core/infrastructure/scripts/validate-parity.js
 
 # JSON output (for CI/CD)
 node .aiox-core/infrastructure/scripts/validate-parity.js --json
 
-# Quiet mode (exit code only)
+# Quiet mode
 node .aiox-core/infrastructure/scripts/validate-parity.js --quiet
+```
 
-# Compare compatibility contracts (diff)
-node .aiox-core/infrastructure/scripts/validate-parity.js --diff=old-contract.yaml
+**Note:** Only Claude Code checks (`claude-sync`, `paths`) are expected to pass for KAIROS_CEREBRO. Other IDE checks are framework-level and may show warnings/failures if those IDEs are not configured.
 
-# Custom contract path
-node .aiox-core/infrastructure/scripts/validate-parity.js --contract=custom-contract.yaml
+---
+
+## Project-Specific Configuration
+
+### KAIROS_CEREBRO Setup
+
+```
+.claude/
+├── agents/              # Agent definitions active in this project
+├── skills/              # Skills registered for Claude Code
+├── hooks/               # PreToolUse/PostToolUse hooks
+├── rules/               # Development rules and enforcement
+└── settings.json        # Claude Code integration settings
+```
+
+### Active Integration Points
+
+- **Agent Activation:** Via `@agent-name` syntax in Claude Code
+- **Story Management:** Via story files in `docs/stories/`
+- **Quality Gates:** Via enforcement hooks in `.claude/hooks/`
+- **Configuration:** Via `.claude/settings.json` and `.claude/CLAUDE.md`
+
+---
+
+## Framework Architecture
+
+IDE integrations are defined in the AIOX framework at `.aiox-core/infrastructure/ide-sync/`:
+
+```
+.aiox-core/infrastructure/
+├── ide-sync/
+│   ├── claude-code/      # Claude Code (ACTIVE)
+│   ├── gemini/           # Gemini CLI (framework only)
+│   ├── codex/            # Codex CLI (framework only)
+│   ├── cursor/           # Cursor (framework only)
+│   ├── github-copilot/   # GitHub Copilot (framework only)
+│   └── antigravity/      # AntiGravity (framework only)
+└── scripts/
+    ├── validate-parity.js              # Main parity validator
+    └── contracts/
+        └── compatibility/
+            └── aiox-4.0.4.yaml         # Framework compatibility matrix
 ```
 
 ---
@@ -181,5 +157,7 @@ node .aiox-core/infrastructure/scripts/validate-parity.js --contract=custom-cont
 
 - **Compatibility Contract:** `.aiox-core/infrastructure/contracts/compatibility/aiox-4.0.4.yaml`
 - **Validator Script:** `.aiox-core/infrastructure/scripts/validate-parity.js`
-- **Claude Code Rules:** `.claude/rules/`
+- **Claude Code Configuration:** `.claude/CLAUDE.md`
+- **Development Rules:** `.claude/rules/`
 - **Framework Constitution:** `.aiox-core/constitution.md`
+- **Agent Authority:** `.claude/rules/agent-authority.md`
