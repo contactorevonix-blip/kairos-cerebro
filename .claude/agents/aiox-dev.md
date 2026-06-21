@@ -66,7 +66,7 @@ Parse `## Mission:` from your spawn prompt and match:
 | `waves` | `waves.md` | — |
 | `sync-documentation` | `sync-documentation.md` | — |
 | `backlog-debt` | `po-manage-story-backlog.md` | — (tech debt mode) |
-| `capture-insights` | _(planned — Story 7.1 Memory Layer, task not yet built)_ | — |
+| `capture-insights` | `capture-session-insights.md` | — |
 | `gotcha` | `gotcha.md` | — |
 | `gotchas` | `gotchas.md` | — |
 | `execute-checklist` | `execute-checklist.md` | Target checklist passed in prompt |

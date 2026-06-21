@@ -1,8 +1,8 @@
-# Agent Redirect: db-sage → data-engineer
+# Agent Redirect: github-devops → devops
 
 **DEPRECATED:** This agent has been renamed/merged.
 
-Use `@data-engineer` instead.
+Use `@devops` instead.
 
 ---
 
@@ -10,8 +10,8 @@ Use `@data-engineer` instead.
 
 | Property | Value |
 |----------|-------|
-| Old ID | @db-sage |
-| New ID | @data-engineer |
+| Old ID | @github-devops |
+| New ID | @devops |
 | Status | Deprecated |
 
 ---
