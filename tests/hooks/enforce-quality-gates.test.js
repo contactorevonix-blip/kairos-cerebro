@@ -133,9 +133,15 @@ test('Art. V-VII — Code Quality', async (t) => {
         file_path: '.aiox-core/core/gate.js',
       },
     };
-    process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED = '1';
-    const result = gate.handleFrameworkBoundary(input);
-    delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
+    const savedExitCode = process.exitCode;
+    let result;
+    try {
+      process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED = '1';
+      result = gate.handleFrameworkBoundary(input);
+    } finally {
+      delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
+      process.exitCode = savedExitCode;
+    }
     assert.strictEqual(result, false, 'Must allow write when protection disabled');
   });
 
@@ -146,8 +152,14 @@ test('Art. V-VII — Code Quality', async (t) => {
         file_path: '.aiox-core/constitution.md',
       },
     };
-    delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
-    const result = gate.handleFrameworkBoundary(input);
+    const savedExitCode = process.exitCode;
+    let result;
+    try {
+      delete process.env.AIOX_FRAMEWORK_PROTECTION_DISABLED;
+      result = gate.handleFrameworkBoundary(input);
+    } finally {
+      process.exitCode = savedExitCode;
+    }
     assert.strictEqual(result, true, 'Must block write when protection enabled');
   });
 });

@@ -183,13 +183,15 @@ test('AC4: force flag detected', () => {
 });
 
 test('AC4: write to protected path allowed when protection disabled', () => {
-  // EPIC-8 Phase 4: framework protection temporarily disabled (2026-06-12 to 2026-06-19)
-  // L1 writes are authorized for auto-healing modules
+  // Protection is ON by default (EPIC-12 hardening, reactivated 2026-06-21). The
+  // explicit contributor override AIOX_FRAMEWORK_PROTECTION_DISABLED=1 is the
+  // deterministic way to allow an L1 write, independent of the project config.
   const { code } = runHook(
     'enforce-quality-gates.cjs',
     { tool_input: { file_path: '.aiox-core/core/synapse/engine.js', content: 'x' } },
+    { AIOX_FRAMEWORK_PROTECTION_DISABLED: '1' },
   );
-  // When boundary.frameworkProtection: false, writes are allowed (exit 0)
+  // With the override set, writes are allowed (exit 0).
   assert.notStrictEqual(code, 2);
 });
 
@@ -324,13 +326,16 @@ test('12.9 boundary: with protection forced ON, an L2 write is blocked (exit 2)'
   assert.strictEqual(code, 2, 'L2 write must block when protection is enabled');
 });
 
-test('12.9 boundary: ENABLED override beats DISABLED override (fail-safe to enforce)', () => {
+test('12.9 boundary: explicit DISABLED override takes precedence (contributor escape hatch)', () => {
+  // The hook treats AIOX_FRAMEWORK_PROTECTION_DISABLED=1 as the highest-precedence
+  // signal (checked first in isFrameworkProtectionEnabled): an explicit contributor
+  // override always wins, so the write is allowed even on an L1 path.
   const { code } = runHook(
     'enforce-quality-gates.cjs',
     { tool_name: 'Write', tool_input: { file_path: '.aiox-core/constitution.md', content: 'x' } },
-    { AIOX_FRAMEWORK_PROTECTION_ENABLED: '1', AIOX_FRAMEWORK_PROTECTION_DISABLED: '1' },
+    { AIOX_FRAMEWORK_PROTECTION_DISABLED: '1' },
   );
-  assert.strictEqual(code, 2, 'when both env flags set, ENABLED wins → block');
+  assert.notStrictEqual(code, 2, 'explicit DISABLED override allows the write');
 });
 
 // ---- All 7 articles accounted for -----------------------------------------
