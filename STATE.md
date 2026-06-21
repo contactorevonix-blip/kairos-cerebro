@@ -13,6 +13,20 @@
   - Status: InReview → Done
   - Commit: feat: Story 13.11 — Fix Enforcement Gates YAML Regex + full test support
 
+- ✅ **IDE Integration Documentation** (Cont 70 extended)
+  - Created: `docs/ide-integration.md` (Claude Code only, validates with official AIOX 4.0.4 contract)
+  - Validated: `validate-parity.js` confirms documentation sync
+  
+- ✅ **Documentation Audit** (Cont 70 extended)
+  - Scanned: 408 docs files, 159 stories, 3 actionable cleanup items identified
+  - Stale findings: 10+ old audit reports, 2 technical-debt duplicates, STATE files
+  
+- ✅ **PROJECT STATE MIGRATION** (Cont 70 final)
+  - Migrated to AIOX Official Pattern (SessionService + project-config.yaml)
+  - Deleted: `docs/contexts/STATE-*.md`, `KAIROS-CEREBRO-STATE-TRUTH.md`
+  - Updated: `.aiox-core/project-config.yaml` with session tracking section
+  - Commit: `b5c3d3c` (chore: migrate project state tracking to AIOX official pattern)
+
 - ⏳ **Next Session (Cont 71):**
   - @devops push Story 13.11 to remote + PR
   - Onda 2 Stories create: 13.8 (Rules), 13.9 (Synapse), 13.10 (Constitution)
@@ -5887,3 +5901,88 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** chore: update aiox-core config, registry, manifest + activation pipeline [no-story-req]
 **Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/13.2.json, .env.example, .gitignore, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md, package-lock.json
+
+## Checkpoint: 0fb1ec9 — 2026-06-21 21:15
+**Branch:** main
+**Commit:** feat: add multi-IDE integration configs (cursor, gemini, kimi) [no-story-req]
+**Files changed:** .aiox-core/constitution.md, .synapse/metrics/hook-metrics.json, docs/ide-integration.md
+
+## Checkpoint: 0fb1ec9 — 2026-06-21 21:21
+**Branch:** main
+**Commit:** feat: add multi-IDE integration configs (cursor, gemini, kimi) [no-story-req]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/ide-integration.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:22
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:23
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:26
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:27
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:30
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:31
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:34
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:34
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:36
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:38
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:39
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:41
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:42
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b12e533 — 2026-06-21 21:43
+**Branch:** main
+**Commit:** docs: add IDE integration matrix — Claude Code only
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/INDEX-AUTHORITATIVE.md
+
+## Checkpoint: b5c3d3c — 2026-06-21 21:45
+**Branch:** main
+**Commit:** chore: migrate project state tracking to AIOX official pattern
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/KAIROS-CEREBRO-STATE-TRUTH.md, docs/contexts/STATE-aiox-academy.md
