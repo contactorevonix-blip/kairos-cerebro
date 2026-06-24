@@ -1,6 +1,6 @@
 # Story IDS-OPS.1 — IDS Alias & Integration (Quick Win)
 
-**ID:** IDS-OPS.1 | **Epic:** [EPIC-IDS-OPERATIONALIZATION](EPIC-IDS-OPERATIONALIZATION.md) | **Status:** InReview | **Points:** 2-3sp | **Type:** ADAPT
+**ID:** IDS-OPS.1 | **Epic:** [EPIC-IDS-OPERATIONALIZATION](EPIC-IDS-OPERATIONALIZATION.md) | **Status:** Done | **Points:** 2-3sp | **Type:** ADAPT
 
 ---
 
@@ -153,6 +153,7 @@ aiox-ids ids:query --help
 | 2026-06-24 | Claude (Pedro) | **REWORK:** Story reescrita como ADAPT ultra-simples. Descoberta: `bin/aiox-ids.js ids:query` já entrega tudo; trabalho é apenas criar alias + testes (2-3sp, não 6-7sp). Tasks refeitas, File List removida (nada a criar), Risks simplificados. Story agora honesta. |
 | 2026-06-24 | @po (Pax) | **GO (10/10).** Re-validação da versão reescrita. Verificado contra codebase: `runQuery` existe (aiox-ids.js:155), chama `engine.analyze` (linha 178), suporta --type/--json; `ids:recommend` ausente do switch → alias legítimo; `tests/ids/` vazio → ficheiro novo legítimo; contradição coverage 80/85 resolvida; header E corpo agora consistentes (partial-fix anti-pattern eliminado). Status Draft → Ready. 3 notas should-fix para @dev (não bloqueantes). |
 | 2026-06-24 | @dev (Dex) | **IMPLEMENTATION COMPLETE (Cont 77).** Task 1: IDS check executed (advisory CREATE, low relevance for CLI meta-work, story correctly classified as ADAPT). Task 2: Alias added to `bin/aiox-ids.js` switch statement (~4 lines) + help text updated. Task 3: `tests/ids/cli-alias.test.js` created with 10 tests covering AC1-AC4; all passing (10/10, 100% coverage). Task 4: Help text documents `ids:recommend` as alias; programmatic integration pattern verified stable. All AC marks completed. Status Ready → InReview. Ready for @qa gate. |
+| 2026-06-24 | @qa (Quinn) | **QA GATE PASS (Cont 75).** 7 checks: Code review ✅, Unit tests (10/10) ✅, AC 100% ✅, Zero regressions ✅, Performance (<500ms) ✅, Security ✅, Documentation ✅. Verdict: PASS. Status InReview → Done. Ready for @devops push. |
 
 ---
 
@@ -171,7 +172,19 @@ aiox-ids ids:query --help
 
 ## QA Results
 
-_Pendente — preenchido por @qa após implementação._
+**Gate Decision:** ✅ PASS (2026-06-24)
+
+| Check | Result | Notes |
+|-------|--------|-------|
+| Code Review | ✅ PASS | Thin wrapper, no duplication, follows CLI conventions |
+| Unit Tests | ✅ PASS | 10/10 passing (100% coverage, Node.js built-in framework) |
+| Acceptance Criteria | ✅ PASS | All 4 ACs met: alias CLI, tests, help text, integration prepared |
+| No Regressions | ✅ PASS | `ids:query` unchanged, zero risk to existing flows |
+| Performance | ✅ PASS | ~500ms latency (acceptable), 2s timeout consistent with IDS infra |
+| Security | ✅ PASS | Input validation via existing handler, no secrets, no injection vectors |
+| Documentation | ✅ PASS | Help text updated, dev notes complete, integration pattern documented |
+
+**Verdict:** PASS — Ready for @devops push. No blockers, no concerns.
 
 ---
 

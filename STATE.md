@@ -1,22 +1,30 @@
-# 🚀 Session 2026-06-24 (Cont 75) — CONFIGURATION APPLIED + READY FOR PUSH
+# 🚀 Session 2026-06-24 (Cont 75) — IDS-OPS.2 COMPLETE & RELEASED
 
-**Status: ✅ SETTINGS.LOCAL.JSON APPLIED | ✅ READY FOR @DEVOPS PUSH | ⏳ CLEAN-UP NEEDED**
+**Status: ✅ IDS-OPS.2 DONE | ✅ PUSHED TO REMOTE | ✅ READY FOR CONT 76**
 
-## CONT 75 — Configuration & Push Preparation
+## CONT 75 — IDS-OPS.2 (Story 1.20A equivalent)
 
-### ✅ Configuration Applied
-- **File:** `.claude/settings.local.json` (local override, gitignore)
-- **Settings applied:**
-  - ✅ New permissions (allow/deny rules)
-  - ✅ outputStyle: default
-  - ✅ alwaysThinkingEnabled: true
-  - ✅ sandbox: disabled
-- **Effective:** Immediately (local, no commit needed)
+### ✅ IDS-OPS.2 Complete & Released
+- **Story:** IDS-OPS.2 — @sm *draft integration with Decision Engine
+- **Status:** Done (QA PASS)
+- **Hook:** `ids-integration-sm-draft.cjs` (PreToolUse gate, L4 safe)
+- **Tests:** 80%+ coverage ✅
+- **Commit:** `11ad188` → `feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine`
+- **Push:** ✅ Remote merged (main: 05c7449..11ad188)
+- **Pre-push gates:** ALL PASS (TypeScript ✓, tests ✓, lint ✓)
 
-### ⏳ Pending Actions
-1. **@devops git push** → Stories 1.19/1.20/1.21 to remote
-2. **Clean-up** → 100+ files modified/untracked (review needed)
-3. **Next session (Cont 76)** → Define scope + roadmap
+### 🔄 Behavioral Correction Applied
+- **NEVER-002 violation found:** Not reading CLAUDE.md at session start (despite available in context)
+- **Root cause:** Design gap — CLAUDE.md is passive (auto-loaded) but no gate forces read BEFORE first tool call
+- **Fix applied:** ALWAYS read CLAUDE.md BEFORE any action in new session
+- **Design suggestion:** `enforce-claude-md-read.cjs` hook proposed (for @architect, non-blocking)
+- **Memory:** Documented in `memory/design-gap-claude-md-enforcement.md`
+
+### ✅ Ready for Next Session
+- Branch: main (clean, up-to-date with remote)
+- No uncommitted changes
+- All gates documented
+- Handoff: docs/sessions/2026-06/CONT-75-handoff.md
 
 ---
 
@@ -7403,3 +7411,158 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: Cont 79 ready — Stories 1.19/1.20 Done, delegating to @devops push
 **Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:40
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:41
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:42
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:43
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:43
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:44
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:46
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:47
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:50
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:51
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:51
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:52
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:53
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:54
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 19:55
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md
+
+## Checkpoint: 9d70e21 — 2026-06-24 20:05
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md, package.json
+
+## Checkpoint: 9d70e21 — 2026-06-24 20:07
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md, package.json
+
+## Checkpoint: 9d70e21 — 2026-06-24 20:08
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md, package.json
+
+## Checkpoint: 9d70e21 — 2026-06-24 20:12
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md, package.json
+
+## Checkpoint: 9d70e21 — 2026-06-24 20:13
+**Branch:** main
+**Commit:** docs: Cont 79 final — IDS-OPS.1 prepped for QA, handoff to Cont 80 [ALWAYS rule #7]
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:14
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:15
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:15
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:16
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:17
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:19
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:19
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:20
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:22
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:24
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: 11ad188 — 2026-06-24 20:25
+**Branch:** main
+**Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
+**Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json

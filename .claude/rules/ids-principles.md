@@ -43,11 +43,13 @@ Required justification:
 - **Blocking:** No
 
 ### G2: Story Creation (@sm)
-- **Type:** Human-in-loop, Advisory
-- **Trigger:** `*draft` workflow
-- **Action:** Check existing tasks/templates matching story work
-- **Latency:** < 24h (async)
-- **Blocking:** No
+- **Type:** Human-in-loop, **Enforced at creation time with user prompt** (Story IDS-OPS.2)
+- **Trigger:** `*draft` workflow — PreToolUse hook `.claude/hooks/ids-integration-sm-draft.cjs` on a `*.story.md` Write/Edit
+- **Action:** Invoke the IDS Decision Engine (`aiox-ids ids:recommend --json`, Story IDS-OPS.1) with an intent derived from the story title/summary, then:
+  - **REUSE (≥90%)** or **ADAPT (60-89%):** surface the candidate + match score to @sm as numbered options (`1. REUSE, 2. ADAPT, 3. CREATE anyway`); the user accepts or rejects before the story is created (PreToolUse `ask`). Rejection (option 3) is recorded in the new story's Change Log as `[AUTO-DECISION]` + reason.
+  - **CREATE (no match):** proceed silently (no prompt — no ambiguity to resolve).
+- **Latency:** < 2s (Art. IV-A circuit breaker — engine call times out at 2s)
+- **Blocking:** **No.** REUSE/ADAPT prompt the user (`ask`), never hard-block; if the Decision Engine is unavailable/times out, the hook logs `warn-and-proceed` and allows the Write (Development NEVER blocked by IDS failures).
 
 ### G3: Story Validation (@po)
 - **Type:** Human-in-loop, Soft Block
