@@ -1,5 +1,5 @@
 {
-  "totalDuration": 47.0349,
+  "totalDuration": 6.1157,
   "hookBootMs": 0,
   "bracket": "FRESH",
   "layersLoaded": 2,
@@ -8,12 +8,12 @@
   "totalRules": 73,
   "perLayer": {
     "constitution": {
-      "duration": 0.8918,
+      "duration": 1.2704,
       "status": "ok",
       "rules": 34
     },
     "global": {
-      "duration": 0.6547,
+      "duration": 1.4282,
       "status": "ok",
       "rules": 39
     },
@@ -48,28 +48,19 @@
       "rules": 0
     }
   },
-  "immortality": {
-    "sessions_captured": 0,
-    "snapshots_logged": 0,
-    "serialization_errors": 0,
-    "last_capture_timestamp": null,
-    "daily_rollover_pattern": "logs-{YYYY-MM-DD}.jsonl",
-    "log_directory": ".aiox/agent-memory/logs",
-    "status": "enabled",
-    "ttl_hours": 168
-  },
-  "enforcement": {
-    "gatesEnforced": 0,
-    "violationsDetected": 0,
-    "violationsBlocked": 0,
-    "overridesUsed": 0
-  },
-  "timestamp": "2026-06-24T15:26:52.392Z",
+  "timestamp": "2026-06-24T18:20:58.202Z",
   "taskFirst": {
     "tasksIndexed": 213,
     "tasksActivated": 5,
     "taskExecutionTime": 0,
     "taskAutoActivationRate": 0,
     "lastIndexedAt": "2026-06-08T22:27:07.273Z"
-  }
+  },
+  "enforcement": {
+    "gatesEnforced": 17,
+    "violationsDetected": 11,
+    "violationsBlocked": 7,
+    "overridesUsed": 4
+  },
+  "enforcementUpdatedAt": "2026-06-24T18:22:22.798Z"
 }

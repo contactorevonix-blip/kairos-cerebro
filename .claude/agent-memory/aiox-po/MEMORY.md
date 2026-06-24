@@ -8,6 +8,7 @@
 - [EPIC-8 Phase 2 IDS](project_epic8-phase2-ids.md) — 9 stories 8.2.1-8.2.9 GO 2026-06-11 (avg 8.3). Q1-Q6 arch resolutions + dev waves. Live registry=823 entities, no per-entity metadata.
 - [EPIC-10 Framework Cleanup](project_epic10-framework-cleanup.md) — 3 stories 10.1/10.2/10.3 all GO 2026-06-13 (9/10). Pre-req to EPIC-9. core-config.yaml at .aiox-core/ not root. Verified facts inside.
 - [EPIC-12 Gap Fixes](project_epic12-gap-fixes.md) — 12.G1/G2 GO (8/7), G3 NO-GO 2026-06-19. KEY TRAP: two contradictory critique.json schemas; spec-critique.md is canonical, process-mapper/critique.json is legacy.
+- [EPIC-IDS-OPS](project_epic-ids-ops.md) — IDS-OPS.1 NO-GO (5/10, engine already exists at .aiox-core/core/ids/), IDS-OPS.2 GO-cond (7/10) 2026-06-24. CLI=bin/aiox-ids.js not kairos.js; ids:recommend doesn't exist.
 
 ## IDS Epic Backlog Analysis (2026-02-09)
 - IDS-1/2/3: Done. Foundation solid (474 entities, RegistryLoader, DecisionEngine, RegistryUpdater all implemented).

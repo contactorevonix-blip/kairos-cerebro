@@ -50,7 +50,8 @@ function showHelp() {
 AIOX IDS — Incremental Development System
 
 Commands:
-  ids:query {intent}       Query registry for matching artifacts
+  ids:query {intent}       Query registry for matching artifacts (alias: ids:recommend)
+  ids:recommend {intent}   Alias for ids:query — get REUSE/ADAPT/CREATE recommendation
   ids:create-review        Review CREATE decisions (30-day review)
   ids:health               Run registry health check (self-healing)
   ids:check {intent}       Pre-check registry (advisory REUSE/ADAPT/CREATE)
@@ -66,6 +67,7 @@ Flags:
 
 Examples:
   aiox ids:query "validate story drafts"
+  aiox ids:recommend "workflow automation" --type task
   aiox ids:query "template rendering engine" --json
   aiox ids:query "database migration" --type script
   aiox ids:create-review
@@ -510,7 +512,9 @@ async function runRegister() {
 
 switch (command) {
   case 'ids:query':
+  case 'ids:recommend':
   case 'query':
+  case 'recommend':
     runQuery();
     break;
 

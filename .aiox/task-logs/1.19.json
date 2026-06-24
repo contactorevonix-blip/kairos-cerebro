@@ -1,47 +1,47 @@
 {
   "storyId": "1.19",
-  "storyType": "arch",
-  "suggestedAt": "2026-06-13T09:53:45.754Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-24T17:56:23.777Z",
   "suggestions": [
     {
-      "id": "architect-analyze-impact",
-      "name": "Architect Analyze Impact",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "brownfield-create-epic",
-      "name": "Create Brownfield Epic Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 59,
+      "autoActivate": false
     },
     {
-      "id": "brownfield-create-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 54,
+      "autoActivate": false
     },
     {
-      "id": "create-brownfield-story",
-      "name": "Create Brownfield Story Task",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "fast-path-gate",
+      "name": "Fast Path Gate",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/fast-path-gate.md",
+      "score": 51,
+      "autoActivate": false
     },
     {
-      "id": "qa-test-design",
-      "name": "test-design",
-      "category": "arch",
-      "file": ".aiox-core/development/tasks/qa-test-design.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "qa-review-story",
+      "name": "review-story",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/qa-review-story.md",
+      "score": 51,
+      "autoActivate": false
     }
   ]
 }
