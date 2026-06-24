@@ -1,4 +1,4 @@
-{
+﻿{
     "language":  "portuguese",
     "worktree":  {
                      "symlinkDirectories":  [
@@ -142,6 +142,12 @@
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
                                                            "statusMessage":  "A validar Art. VI-VII (Framework Boundary)..."
+                                                       },
+                                                       {
+                                                           "command":  "node \".claude/hooks/enforce-ids.cjs\"",
+                                                           "timeout":  4,
+                                                           "type":  "command",
+                                                           "statusMessage":  "A validar IDS enforcement (AC1 - G1-G6 gates)..."
                                                        }
                                                    ]
                                      },
@@ -165,6 +171,12 @@
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
                                                            "statusMessage":  "A validar Art. VI-VII (Framework Boundary)..."
+                                                       },
+                                                       {
+                                                           "command":  "node \".claude/hooks/enforce-ids.cjs\"",
+                                                           "timeout":  4,
+                                                           "type":  "command",
+                                                           "statusMessage":  "A validar IDS enforcement (AC1 - G1-G6 gates)..."
                                                        }
                                                    ]
                                      },
@@ -175,13 +187,19 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. IV (No Invention Ã¢â‚¬â€ MultiEdit)..."
+                                                           "statusMessage":  "A validar Art. IV (No Invention ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MultiEdit)..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary Ã¢â‚¬â€ MultiEdit)..."
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â MultiEdit)..."
+                                                       },
+                                                       {
+                                                           "command":  "node \".claude/hooks/enforce-ids.cjs\"",
+                                                           "timeout":  4,
+                                                           "type":  "command",
+                                                           "statusMessage":  "A validar IDS enforcement (AC1 - G1-G6 gates)..."
                                                        }
                                                    ]
                                      },
@@ -192,13 +210,13 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. IV (No Invention Ã¢â‚¬â€ NotebookEdit)..."
+                                                           "statusMessage":  "A validar Art. IV (No Invention ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â NotebookEdit)..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary Ã¢â‚¬â€ NotebookEdit)..."
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â NotebookEdit)..."
                                                        }
                                                    ]
                                      },
@@ -246,7 +264,7 @@
                                                                  "type":  "command",
                                                                  "command":  "node \".claude/hooks/agent-activation-tracker.cjs\"",
                                                                  "timeout":  3,
-                                                                 "statusMessage":  "A rastrear activaÃƒÂ§ÃƒÂ£o de agente...",
+                                                                 "statusMessage":  "A rastrear activaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o de agente...",
                                                                  "async":  true
                                                              },
                                                              {
@@ -284,13 +302,13 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/precompact-session-digest.cjs\"",
                                                            "timeout":  10,
-                                                           "statusMessage":  "A gerar digest da sessÃƒÂ£o antes de compactar..."
+                                                           "statusMessage":  "A gerar digest da sessÃƒÆ’Ã‚Â£o antes de compactar..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/precompact-wrapper.cjs\"",
                                                            "timeout":  10,
-                                                           "statusMessage":  "A executar wrapper de prÃƒÂ©-compactaÃƒÂ§ÃƒÂ£o..."
+                                                           "statusMessage":  "A executar wrapper de prÃƒÆ’Ã‚Â©-compactaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o..."
                                                        }
                                                    ]
                                      }
@@ -302,7 +320,7 @@
                                                      "type":  "command",
                                                      "command":  "node \"C:\\Users\\lealp\\.claude\\helpers\\session-end.cjs\"",
                                                      "timeout":  5,
-                                                     "statusMessage":  "A guardar estado da sessÃƒÂ£o..."
+                                                     "statusMessage":  "A guardar estado da sessÃƒÆ’Ã‚Â£o..."
                                                  }
                                              ]
                                },
@@ -333,9 +351,9 @@
                                           "hooks":  [
                                                         {
                                                             "type":  "prompt",
-                                                            "prompt":  "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently Ã¢â‚¬â€ no need to announce it.",
+                                                            "prompt":  "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â no need to announce it.",
                                                             "timeout":  30,
-                                                            "statusMessage":  "A recarregar contexto apÃƒÂ³s compactaÃƒÂ§ÃƒÂ£o..."
+                                                            "statusMessage":  "A recarregar contexto apÃƒÆ’Ã‚Â³s compactaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o..."
                                                         }
                                                     ]
                                       }
@@ -347,7 +365,7 @@
                                                              "type":  "command",
                                                              "command":  "node \".claude/hooks/session-start.cjs\"",
                                                              "timeout":  5,
-                                                             "statusMessage":  "A carregar contexto da sessÃƒÂ£o..."
+                                                             "statusMessage":  "A carregar contexto da sessÃƒÆ’Ã‚Â£o..."
                                                          }
                                                      ]
                                        }
@@ -355,6 +373,13 @@
                   "SubagentStop":  [
                                        {
                                            "hooks":  [
+                                                         {
+                                                             "async":  true,
+                                                             "command":  "node \".claude/hooks/deactivate-immortality-logger.cjs\"",
+                                                             "timeout":  5,
+                                                             "type":  "command",
+                                                             "statusMessage":  "A desativar agente immortality logger..."
+                                                         },
                                                          {
                                                              "type":  "command",
                                                              "command":  "node \".claude/hooks/subagent-stop-observer.cjs\"",
@@ -371,7 +396,7 @@
                                                               "type":  "prompt",
                                                               "prompt":  "A task was just marked as completed. Before allowing it, verify: 1) Does the output match what was requested? 2) Were tests run and passing (if applicable)? 3) Would a staff engineer approve this? If stop_hook_active is true in the input, respond {\"ok\":true}. If all 3 verified, respond {\"ok\":true}. If incomplete, respond {\"ok\":false, \"reason\":\"specific missing work\"} and continue working.",
                                                               "timeout":  60,
-                                                              "statusMessage":  "A verificar se a task estÃƒÂ¡ realmente completa..."
+                                                              "statusMessage":  "A verificar se a task estÃƒÆ’Ã‚Â¡ realmente completa..."
                                                           }
                                                       ]
                                         }
@@ -384,11 +409,31 @@
                                                              "command":  "node \".claude/hooks/config-change-audit.cjs\"",
                                                              "timeout":  5,
                                                              "async":  true,
-                                                             "statusMessage":  "A auditar mudanÃƒÂ§a de configuraÃƒÂ§ÃƒÂ£o..."
+                                                             "statusMessage":  "A auditar mudanÃƒÆ’Ã‚Â§a de configuraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o..."
                                                          }
                                                      ]
                                        }
-                                   ]
+                                   ],
+                  "SubagentStart":  [
+                                        {
+                                            "hooks":  [
+                                                          {
+                                                              "async":  true,
+                                                              "command":  "node \".claude/hooks/activate-immortality-logger.cjs\"",
+                                                              "timeout":  5,
+                                                              "type":  "command",
+                                                              "statusMessage":  "A ativar agente immortality (Phase 1 logging)..."
+                                                          },
+                                                          {
+                                                              "async":  true,
+                                                              "command":  "node \".claude/hooks/state-change-immortality-logger.cjs\"",
+                                                              "timeout":  5,
+                                                              "type":  "command",
+                                                              "statusMessage":  "A registar state change immortality logger..."
+                                                          }
+                                                      ]
+                                        }
+                                    ]
               },
     "permissions":  {
                         "defaultMode":  "default",
