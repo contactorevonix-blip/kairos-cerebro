@@ -148,6 +148,12 @@
                                                            "timeout":  4,
                                                            "type":  "command",
                                                            "statusMessage":  "A validar IDS enforcement (AC1 - G1-G6 gates)..."
+                                                       },
+                                                       {
+                                                           "command":  "node \".claude/hooks/ids-integration-sm-draft.cjs\"",
+                                                           "timeout":  4,
+                                                           "type":  "command",
+                                                           "statusMessage":  "A validar IDS G2 (@sm story creation - REUSE/ADAPT/CREATE)..."
                                                        }
                                                    ]
                                      },
@@ -177,6 +183,12 @@
                                                            "timeout":  4,
                                                            "type":  "command",
                                                            "statusMessage":  "A validar IDS enforcement (AC1 - G1-G6 gates)..."
+                                                       },
+                                                       {
+                                                           "command":  "node \".claude/hooks/ids-integration-sm-draft.cjs\"",
+                                                           "timeout":  4,
+                                                           "type":  "command",
+                                                           "statusMessage":  "A validar IDS G2 (@sm story creation - REUSE/ADAPT/CREATE)..."
                                                        }
                                                    ]
                                      },
