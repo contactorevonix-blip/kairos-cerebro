@@ -1,45 +1,45 @@
 {
   "storyId": "unknown",
-  "storyType": "feature",
-  "suggestedAt": "2026-06-24T21:13:20.052Z",
+  "storyType": "config",
+  "suggestedAt": "2026-06-24T21:39:46.726Z",
   "suggestions": [
     {
-      "id": "create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/create-next-story.md",
-      "score": 89,
+      "id": "list-mcps",
+      "name": "list-mcps",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "score": 73,
       "autoActivate": true
     },
     {
-      "id": "dev-develop-story",
-      "name": "Develop Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/dev-develop-story.md",
-      "score": 89,
+      "id": "search-mcp",
+      "name": "Search MCP Catalog Task",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/search-mcp.md",
+      "score": 73,
       "autoActivate": true
     },
     {
-      "id": "sm-create-next-story",
-      "name": "Create Next Story Task",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/sm-create-next-story.md",
-      "score": 89,
+      "id": "setup-design-system",
+      "name": "Setup Design System Structure",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-design-system.md",
+      "score": 73,
       "autoActivate": true
     },
     {
-      "id": "create-task",
-      "name": "TODO: Create task-validation-checklist.md for validation (follow-up story needed)",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/create-task.md",
-      "score": 81,
+      "id": "setup-llm-routing",
+      "name": "setup-llm-routing",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
+      "score": 73,
       "autoActivate": true
     },
     {
-      "id": "build-status",
-      "name": "Task: Build Status",
-      "category": "feature",
-      "file": ".aiox-core/development/tasks/build-status.md",
+      "id": "setup-mcp-docker",
+      "name": "Setup Docker MCP Toolkit",
+      "category": "config",
+      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
       "score": 73,
       "autoActivate": true
     }

@@ -6,3 +6,4 @@
 - [EPIC-11 (agent audit)](project-epic11-not-epic12.md) — EPIC-11 = agent infra readiness (PRD existe, 11.1 DONE). NOTA: a velha asserção "EPIC-11 = EPIC-12, nunca criar EPIC-12" está DESACTUALIZADA — ver entry EPIC-12 Gather. Há agora um EPIC-12 distinto (Spec Pipeline) com stories próprias.
 - [Story 11.2 Status + Owner](project-epic11-story112-status.md) — 11.2 READY/NOT-STARTED (zero output). Owner reatribuído @config-engineer → @aiox-cerebro. É template para 11.3-11.8.
 - [EPIC-12 Gather Phase 1](project-epic12-gather-phase1.md) — Spec Pipeline Design (epic DISTINTO de EPIC-11). requirements.json escrito (6FR/3NFR/3CON/5gaps verificados). Phase 6 Plan SEM task spec-*.md; C4.4 = divergência estrutural de schema.
+- [EPIC-79 Retail Arbitrage](project-epic79-retail-arbitrage.md) — €300 Month-1 test (iniciativa de negócio do founder, NÃO Kairos Check). Niche=electronics clearance (fundamentado nos dados, provisório até S1). 5 stories Draft, ready @sm.
