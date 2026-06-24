@@ -1,0 +1,7 @@
+# Error escalation log — cada linha é uma correcção que o Pedro faz ao Claude que implica "não devias ter feito isto"
+# Formato: jsonl (um JSON válido por linha, append-only)
+# Campo escalated_to fica null até a categoria atingir 2 ocorrências; depois aponta para rule-id (ex: "NEVER-012")
+# Session identifica o Continuation (ex: "cont-75")
+#
+# Exemplo de entrada esperada:
+# {"timestamp":"2026-06-25T14:30:00Z","category":"delete-without-asking","description":"Apagou ficheiro sem pedir confirmação","session":"cont-75","escalated_to":null}

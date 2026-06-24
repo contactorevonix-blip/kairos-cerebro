@@ -1,356 +1,199 @@
-# Synkra AIOX Development Rules for Claude Code
+# AIOX Development Rules for Claude Code
 
-You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
-
-<!-- AIOX-MANAGED-START: core-framework -->
-## Core Framework Understanding
-
-Synkra AIOX is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
-<!-- AIOX-MANAGED-END: core-framework -->
-
-<!-- AIOX-MANAGED-START: constitution -->
-## Constitution
-
-O AIOX possui uma **Constitution formal** com princípios inegociáveis e gates automáticos.
-
-**Documento completo:** `.aiox-core/constitution.md`
-
-**Princípios fundamentais:**
-
-| Artigo | Princípio | Severidade |
-|--------|-----------|------------|
-| I | CLI First | NON-NEGOTIABLE |
-| II | Agent Authority | NON-NEGOTIABLE |
-| III | Story-Driven Development | MUST |
-| IV | No Invention | MUST |
-| V | Quality First | MUST |
-| VI | Absolute Imports | SHOULD |
-
-**Gates automáticos bloqueiam violações.** Consulte a Constitution para detalhes completos.
-<!-- AIOX-MANAGED-END: constitution -->
-
-<!-- AIOX-MANAGED-START: sistema-de-agentes -->
-## Sistema de Agentes
-
-### Ativação de Agentes
-Use `@agent-name` ou `/AIOX:agents:agent-name`:
-
-| Agente | Persona | Escopo Principal |
-|--------|---------|------------------|
-| `@dev` | Dex | Implementação de código |
-| `@qa` | Quinn | Testes e qualidade |
-| `@architect` | Aria | Arquitetura e design técnico |
-| `@pm` | Morgan | Product Management |
-| `@po` | Pax | Product Owner, stories/epics |
-| `@sm` | River | Scrum Master |
-| `@analyst` | Alex | Pesquisa e análise |
-| `@data-engineer` | Dara | Database design |
-| `@ux-design-expert` | Uma | UX/UI design |
-| `@devops` | Gage | CI/CD, git push (EXCLUSIVO) |
-
-### Comandos de Agentes
-Use prefixo `*` para comandos:
-- `*help` - Mostrar comandos disponíveis
-- `*create-story` - Criar story de desenvolvimento
-- `*task {name}` - Executar task específica
-- `*exit` - Sair do modo agente
-<!-- AIOX-MANAGED-END: sistema-de-agentes -->
-
-<!-- AIOX-MANAGED-START: agent-system -->
-## Agent System
-
-### Agent Activation
-- Agents are activated with @agent-name syntax: @dev, @qa, @architect, @pm, @po, @sm, @analyst
-- The master agent is activated with @aiox-master
-- Agent commands use the * prefix: *help, *create-story, *task, *exit
-
-### Agent Context
-When an agent is active:
-- Follow that agent's specific persona and expertise
-- Use the agent's designated workflow patterns
-- Maintain the agent's perspective throughout the interaction
-<!-- AIOX-MANAGED-END: agent-system -->
-
-## Development Methodology
-
-### Story-Driven Development
-1. **Work from stories** - All development starts with a story in `docs/stories/`
-2. **Update progress** - Mark checkboxes as tasks complete: [ ] → [x]
-3. **Track changes** - Maintain the File List section in the story
-4. **Follow criteria** - Implement exactly what the acceptance criteria specify
-
-### Code Standards
-- Write clean, self-documenting code
-- Follow existing patterns in the codebase
-- Include comprehensive error handling
-- Add unit tests for all new functionality
-- Use TypeScript/JavaScript best practices
-
-### Testing Requirements
-- Run all tests before marking tasks complete
-- Ensure linting passes: `npm run lint`
-- Verify type checking: `npm run typecheck`
-- Add tests for new features
-- Test edge cases and error scenarios
-
-<!-- AIOX-MANAGED-START: framework-structure -->
-## AIOX Framework Structure
-
-```
-aiox-core/
-├── agents/         # Agent persona definitions (YAML/Markdown)
-├── tasks/          # Executable task workflows
-├── workflows/      # Multi-step workflow definitions
-├── templates/      # Document and code templates
-├── checklists/     # Validation and review checklists
-└── rules/          # Framework rules and patterns
-
-docs/
-├── stories/        # Development stories (numbered)
-├── prd/            # Product requirement documents
-├── architecture/   # System architecture documentation
-└── guides/         # User and developer guides
-```
-<!-- AIOX-MANAGED-END: framework-structure -->
-
-<!-- AIOX-MANAGED-START: framework-boundary -->
-## Framework vs Project Boundary
-
-O AIOX usa um modelo de 4 camadas (L1-L4) para separar artefatos do framework e do projeto. Deny rules em `.claude/settings.json` reforçam isso deterministicamente.
-
-| Camada | Mutabilidade | Paths | Notas |
-|--------|-------------|-------|-------|
-| **L1** Framework Core | NEVER modify | `.aiox-core/core/`, `.aiox-core/constitution.md`, `bin/aiox.js`, `bin/aiox-init.js` | Protegido por deny rules |
-| **L2** Framework Templates | NEVER modify | `.aiox-core/development/tasks/`, `.aiox-core/development/templates/`, `.aiox-core/development/checklists/`, `.aiox-core/development/workflows/`, `.aiox-core/infrastructure/` | Extend-only |
-| **L3** Project Config | Mutable (exceptions) | `.aiox-core/data/`, `agents/*/MEMORY.md`, `core-config.yaml` | Allow rules permitem |
-| **L4** Project Runtime | ALWAYS modify | `docs/stories/`, `packages/`, `squads/`, `tests/` | Trabalho do projeto |
-
-**Toggle:** `core-config.yaml` → `boundary.frameworkProtection: true/false` controla se deny rules são ativas (default: true para projetos, false para contribuidores do framework).
-
-> **Referência formal:** `.claude/settings.json` (deny/allow rules), `.claude/rules/agent-authority.md`
-<!-- AIOX-MANAGED-END: framework-boundary -->
-
-<!-- AIOX-MANAGED-START: rules-system -->
-## Rules System
-
-O AIOX carrega regras contextuais de `.claude/rules/` automaticamente. Regras com frontmatter `paths:` só carregam quando arquivos correspondentes são editados.
-
-| Rule File | Description |
-|-----------|-------------|
-| `agent-authority.md` | Agent delegation matrix and exclusive operations |
-| `agent-handoff.md` | Agent switch compaction protocol for context optimization |
-| `agent-memory-imports.md` | Agent memory lifecycle and CLAUDE.md ownership |
-| `coderabbit-integration.md` | Automated code review integration rules |
-| `ids-principles.md` | Incremental Development System principles |
-| `mcp-usage.md` | MCP server usage rules and tool selection priority |
-| `story-lifecycle.md` | Story status transitions and quality gates |
-| `workflow-execution.md` | 4 primary workflows (SDC, QA Loop, Spec Pipeline, Brownfield) |
-
-> **Diretório:** `.claude/rules/` — rules são carregadas automaticamente pelo Claude Code quando relevantes.
-<!-- AIOX-MANAGED-END: rules-system -->
-
-<!-- AIOX-MANAGED-START: code-intelligence -->
-## Code Intelligence
-
-O AIOX possui um sistema de code intelligence opcional que enriquece operações com dados de análise de código.
-
-| Status | Descrição | Comportamento |
-|--------|-----------|---------------|
-| **Configured** | Provider ativo e funcional | Enrichment completo disponível |
-| **Fallback** | Provider indisponível | Sistema opera normalmente sem enrichment — graceful degradation |
-| **Disabled** | Nenhum provider configurado | Funcionalidade de code-intel ignorada silenciosamente |
-
-**Graceful Fallback:** Code intelligence é sempre opcional. `isCodeIntelAvailable()` verifica disponibilidade antes de qualquer operação. Se indisponível, o sistema retorna o resultado base sem modificação — nunca falha.
-
-**Diagnóstico:** `aiox doctor` inclui check de code-intel provider status.
-
-> **Referência:** `.aiox-core/core/code-intel/` — provider interface, enricher, client
-<!-- AIOX-MANAGED-END: code-intelligence -->
-
-<!-- AIOX-MANAGED-START: graph-dashboard -->
-## Graph Dashboard
-
-O CLI `aiox graph` visualiza dependências, estatísticas de entidades e status de providers.
-
-### Comandos
-
-```bash
-aiox graph --deps                        # Dependency tree (ASCII)
-aiox graph --deps --format=json          # Output como JSON
-aiox graph --deps --format=html          # Interactive HTML (abre browser)
-aiox graph --deps --format=mermaid       # Mermaid diagram
-aiox graph --deps --format=dot           # DOT format (Graphviz)
-aiox graph --deps --watch                # Live mode com auto-refresh
-aiox graph --deps --watch --interval=10  # Refresh a cada 10 segundos
-aiox graph --stats                       # Entity stats e cache metrics
-```
-
-**Formatos de saída:** ascii (default), json, dot, mermaid, html
-
-> **Referência:** `.aiox-core/core/graph-dashboard/` — CLI, renderers, data sources
-<!-- AIOX-MANAGED-END: graph-dashboard -->
-
-## Workflow Execution
-
-### Task Execution Pattern
-1. Read the complete task/workflow definition
-2. Understand all elicitation points
-3. Execute steps sequentially
-4. Handle errors gracefully
-5. Provide clear feedback
-
-### Interactive Workflows
-- Workflows with `elicit: true` require user input
-- Present options clearly
-- Validate user responses
-- Provide helpful defaults
-
-## Best Practices
-
-### When implementing features:
-- Check existing patterns first
-- Reuse components and utilities
-- Follow naming conventions
-- Keep functions focused and testable
-- Document complex logic
-
-### When working with agents:
-- Respect agent boundaries
-- Use appropriate agent for each task
-- Follow agent communication patterns
-- Maintain agent context
-
-### When handling errors:
-```javascript
-try {
-  // Operation
-} catch (error) {
-  console.error(`Error in ${operation}:`, error);
-  // Provide helpful error message
-  throw new Error(`Failed to ${operation}: ${error.message}`);
-}
-```
-
-## Git & GitHub Integration
-
-### Commit Conventions
-- Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, etc.
-- Reference story ID: `feat: implement IDE detection [Story 2.1]`
-- Keep commits atomic and focused
-
-### GitHub CLI Usage
-- Ensure authenticated: `gh auth status`
-- Use for PR creation: `gh pr create`
-- Check org access: `gh api user/memberships`
-
-<!-- AIOX-MANAGED-START: aiox-patterns -->
-## AIOX-Specific Patterns
-
-### Working with Templates
-```javascript
-const template = await loadTemplate('template-name');
-const rendered = await renderTemplate(template, context);
-```
-
-### Agent Command Handling
-```javascript
-if (command.startsWith('*')) {
-  const agentCommand = command.substring(1);
-  await executeAgentCommand(agentCommand, args);
-}
-```
-
-### Story Updates
-```javascript
-// Update story progress
-const story = await loadStory(storyId);
-story.updateTask(taskId, { status: 'completed' });
-await story.save();
-```
-<!-- AIOX-MANAGED-END: aiox-patterns -->
-
-## Environment Setup
-
-### Required Tools
-- Node.js 18+
-- GitHub CLI
-- Git
-- Your preferred package manager (npm/yarn/pnpm)
-
-### Configuration Files
-- `.aiox/config.yaml` - Framework configuration
-- `.env` - Environment variables
-- `aiox.config.js` - Project-specific settings
-
-<!-- AIOX-MANAGED-START: common-commands -->
-## Common Commands
-
-### AIOX Master Commands
-- `*help` - Show available commands
-- `*create-story` - Create new story
-- `*task {name}` - Execute specific task
-- `*workflow {name}` - Run workflow
-
-### Development Commands
-- `npm run dev` - Start development
-- `npm test` - Run tests
-- `npm run lint` - Check code style
-- `npm run build` - Build project
-<!-- AIOX-MANAGED-END: common-commands -->
-
-## Debugging
-
-### Enable Debug Mode
-```bash
-export AIOX_DEBUG=true
-```
-
-### View Agent Logs
-```bash
-tail -f .aiox/logs/agent.log
-```
-
-### Trace Workflow Execution
-```bash
-npm run trace -- workflow-name
-```
-
-## Claude Code Specific Configuration
-
-### Performance Optimization
-- Prefer batched tool calls when possible for better performance
-- Use parallel execution for independent operations
-- Cache frequently accessed data in memory during sessions
-
-### Tool Usage Guidelines
-- Always use the Grep tool for searching, never `grep` or `rg` in bash
-- Use the Task tool for complex multi-step operations
-- Batch file reads/writes when processing multiple files
-- Prefer editing existing files over creating new ones
-
-### Session Management
-- Track story progress throughout the session
-- Update checkboxes immediately after completing tasks
-- Maintain context of the current story being worked on
-- Save important state before long-running operations
-
-### Error Recovery
-- Always provide recovery suggestions for failures
-- Include error context in messages to user
-- Suggest rollback procedures when appropriate
-- Document any manual fixes required
-
-### Testing Strategy
-- Run tests incrementally during development
-- Always verify lint and typecheck before marking complete
-- Test edge cases for each new feature
-- Document test scenarios in story files
-
-### Documentation
-- Update relevant docs when changing functionality
-- Include code examples in documentation
-- Keep README synchronized with actual behavior
-- Document breaking changes prominently
+Synkra AIOX é um meta-framework que orquestra agentes AI em workflows de desenvolvimento estruturados. Todos os agentes, tasks, e workflows DEVEM respeitar a **Constitution** (.aiox-core/constitution.md) com seus 7 princípios inegociáveis.
 
 ---
-*Synkra AIOX Claude Code Configuration v2.0*
+
+## Constitution — 7 Artigos + Severidade
+
+| Artigo | Princípio | Severity | Gate File |
+|--------|-----------|----------|-----------|
+| **I** | CLI First | NON-NEGOTIABLE | `dev-develop-story.md` (WARN) |
+| **II** | Agent Authority | NON-NEGOTIABLE | Agent definitions (implicit) |
+| **III** | Story-Driven Development | MUST | `dev-develop-story.md` (BLOCK) |
+| **IV** | No Invention | MUST | `spec-write-spec.md` (BLOCK) |
+| **IV-A** | Incremental Development (IDS) | MUST | `ids-governor.md` + gates G1-G6 |
+| **V** | Quality First | MUST | `pre-push.md` (BLOCK) |
+| **VI** | Absolute Imports | SHOULD | ESLint rule |
+| **VII** | Framework Boundary | NON-NEGOTIABLE | `enforce-quality-gates.cjs` (BLOCK) |
+
+**Reference:** `.aiox-core/constitution.md` (v1.1.0, versão completa com detalhes de implementação)
+
+---
+
+## Gate Severity Levels & Override Syntax
+
+| Severity | Behavior | Quando |
+|----------|----------|--------|
+| **BLOCK** | Impede execução, requer correção | NON-NEGOTIABLE, MUST críticos |
+| **WARN** | Permite continuar com alerta | MUST não-críticos |
+| **INFO** | Apenas reporta | SHOULD |
+
+**Override Commands (executáveis, sintaxe real):**
+- Art. II (git push): `git push --skip-devops-check` — logged as override, audit trail
+- Art. III (story-driven): `git commit -m "msg [no-story-req]"` — config-only, no story needed
+- Art. V (quality gate): `git merge feature/x --force-gate` — merge despite failing gate
+- Art. IV-A (IDS): `--override-ids --override-reason "explanation"` — audit-logged, review 7d
+
+---
+
+## Agent Authority Matrix — Quem Pode O Quê
+
+| Autoridade | Agent Exclusivo | Notas |
+|-----------|-----------------|-------|
+| `git push` | @devops | NUNCA de outro agente |
+| PR creation | @devops | NUNCA directo |
+| Release/Tag | @devops | NUNCA de outro agente |
+| Story creation | @sm, @po | @po valida, @sm cria |
+| Architecture decisions | @architect | NUNCA assumir de outro agente |
+| Quality verdicts | @qa | BLOCK, CONCERNS, ou PASS |
+
+**Delegação:** Agente fora seu escopo DEVE delegar para agente apropriado.
+
+---
+
+## Framework Boundary (L1-L4) — Paths Exactos
+
+| Layer | Mutabilidade | Paths | Protecção |
+|-------|-------------|-------|----------|
+| **L1** Core | NEVER | `.aiox-core/core/`, `bin/aiox.js`, `.aiox-core/constitution.md` | Deny rules (L1 imutável) |
+| **L2** Templates | NEVER | `.aiox-core/development/tasks/`, `templates/`, `checklists/`, `workflows/` | Deny rules (extend-only) |
+| **L3** Config | Exceptions | `.aiox-core/data/`, `agents/*/MEMORY.md`, `core-config.yaml` | Allow rules (autorizado) |
+| **L4** Runtime | ALWAYS | `docs/stories/`, `packages/`, `squads/`, `tests/` | Sempre modificável |
+
+**Override para L1:** `@aiox-master *propose-modification` (formal amendment, requer aprovação). Não há workaround — boundary é hard backstop.
+
+---
+
+## IDS — Incremental Development System (Article IV-A)
+
+**Decision Hierarchy:**
+```
+REUSE (≥90% relevância) > ADAPT (60-89%, <30% changes) > CREATE (sem match)
+```
+
+**Regra:** Query registry ANTES de criar qualquer entity (task, template, agent, skill).
+
+**Comando:** `*ids check {intent}` — advisory check antes de CREATE/MODIFY
+
+**Thresholds:**
+- **REUSE:** Match relevância ≥90%, usar directamente sem mudanças
+- **ADAPT:** Match 60-89%, mudanças <30%, não quebrar consumers (check usedBy)
+- **CREATE:** Sem match → registar em `.aiox-core/data/entity-registry.yaml` em 24h
+
+**Gates G1-G6:** G5 (@qa, merge check) e G6 (@devops, CI) são BLOCKING se nova entity sem registry entry ou justification documentada.
+
+---
+
+## Story-Driven Cycle (SDC) — 4 Fases
+
+| Fase | Agent | Task File | Saída | Status |
+|------|-------|-----------|-------|--------|
+| 1. Create | @sm | `create-next-story.md` | `{epic}.{story}.story.md` | Draft |
+| 2. Validate | @po | `validate-next-story.md` | Go/No-Go (≥7/10 checklist) | Draft → Ready |
+| 3. Implement | @dev | `dev-develop-story.md` | Code + tests | InProgress |
+| 4. QA Gate | @qa | `qa-gate.md` | PASS/CONCERNS/FAIL/WAIVED | InReview → Done |
+| 5. Push | @devops | (git push) | Remote merge | Released |
+
+**Quality Reqs:** npm run lint pass, typecheck clean, test pass, build success, CodeRabbit no CRITICAL.
+
+---
+
+## Routing Decision Tree — Qual Workflow?
+
+| Scope | Track | Process | Quando |
+|-------|-------|---------|--------|
+| < 5 stories, < 2h | **Quick Flow** | Só @dev (YOLO, sem spec) | Bug fixes, config changes |
+| 5-15 stories, 2-5 dias | **Standard** | SDC completo (@sm→@po→@dev→@qa→@devops) | Features novas |
+| > 15 stories, > 1 semana | **Enterprise** | SDC + Spec Pipeline + PRD obrigatório | Produtos, epics complexas |
+
+**Regra:** SE task é bug fix OU config change OU <2h → Quick Flow; SE feature nova → Standard; SE >15 stories OU novo produto → Enterprise.
+
+---
+
+## Quality Gates — Checklist Pré-Push
+
+```yaml
+MUST PASS:
+  - npm run lint (no errors)
+  - npm run typecheck (no errors)
+  - npm test (all passing)
+  - npm run build (success)
+  - CodeRabbit CRITICAL (none) + HIGH (auto-fixed or documented)
+  - Story status: Done ou Ready for Review
+```
+
+**Gate File:** `.aiox-core/development/tasks/pre-push.md` — executed por @qa antes merge.
+
+---
+
+## Tool Usage — Padrões Obrigatórios
+
+| Task | USE THIS | NUNCA |
+|------|----------|-------|
+| Ler ficheiros | `Read` tool | PowerShell `cat` (UTF-8 errado no Windows) |
+| Pesquisar conteúdo | `Grep` tool | `grep` ou `rg` em Bash |
+| Pesquisar ficheiros | `Glob` tool | `find` em Bash |
+| Escrever ficheiros | `Write` / `Edit` tools | Echo/heredoc em Bash |
+| Executar comandos | `Bash` tool | Equivalentes em PowerShell |
+
+**Motivo:** Ferramentas nativas garantem encoding correcto, permissões, e execução determinística no Windows.
+
+---
+
+## Git Conventions
+
+**Commit Format:** `<type>: <message> [Story {id}]`
+- `feat:` nova feature
+- `fix:` bug fix
+- `docs:` documentação
+- `chore:` build, config, deps
+- `refactor:` código sem mudança de behavior
+
+**Exemplo:** `feat: add IDS registry check hook [Story 1.19]`
+
+**Atomic:** Cada commit = uma unidade lógica, uma story = múltiplos commits (agrupa com checkpoint lógico).
+
+---
+
+## NEVER — 11 Comportamentos Proibidos
+
+1. Implementar sem mostrar opções 1/2/3 — sempre apresentar alternativas
+2. Deletar sem perguntar — nunca remover conteúdo sem aprovação explícita
+3. Deletar <7 dias sem aprovação — criado recentemente = protegido
+4. Mudar código funcionando — sem validar side-effects
+5. Fingir trabalho pronto — marcar [WIP] ou listar bloqueadores
+6. Batch sem validar 1 primeiro — testar padrão antes de massa
+7. Adicionar features não pedidas — Art. IV: No Invention
+8. Usar mock data se reais existem — sempre dados reais
+9. Explicar crítica — receber feedback → corrigir, não argumentar
+10. Confiar AI/subagent sem verificação — validar output (grep, diff)
+11. Criar do zero se similar existe — IDS: REUSE > ADAPT > CREATE
+
+---
+
+## ALWAYS — 7 Padrões Obrigatórios
+
+1. Opções como "1. X, 2. Y, 3. Z" — formato explícito antes de agir
+2. AskUserQuestion para clarificações — nunca perguntar em texto solto
+3. Verificar squads/ + libs/ antes de CREATE — REUSE ou ADAPT primeiro
+4. Ler schema COMPLETO antes de DDL — verificar constraints + relationships
+5. Investigar root cause se erro >1x — nunca workaround sem diagnosticar
+6. Commit antes de próxima task — checkpoints lógicos
+7. Handoff em docs/sessions/YYYY-MM/ ao fim — future session contexto
+
+---
+
+## Detalhes Completos
+
+Regras contextuais detalhadas carregadas automaticamente de `.claude/rules/`:
+- `agent-authority.md` — matriz de delegação completa
+- `enforcement-gates.md` — sintaxe de gates e overrides
+- `ids-principles.md` — thresholds IDS e G1-G6 gates
+- `story-lifecycle.md` — story status transitions
+- `planning-tracks.md` — workflow selection
+- `coderabbit-integration.md` — self-healing configuration
+- `rule-escalation-protocol.md` — meta-regra: erro repetido 2x → nova regra (determinístico)
+
+---
+*AIOX Framework Governance v2.3 — Constitution Full + Rule Management System*

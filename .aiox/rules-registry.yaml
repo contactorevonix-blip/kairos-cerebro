@@ -1,0 +1,353 @@
+version: "1.0.0"
+lastUpdated: 2026-06-24T00:00:00Z
+description: "Rule Management System registry — versionamento incremental, escalation protocol, matriz de dependências. Fonte única de verdade para regras NEVER/ALWAYS operacionais."
+rules:
+  # NEVER — Comportamentos Proibidos (11 regras)
+  - id: NEVER-001
+    category: never
+    rule: "Implementar sem mostrar opções 1/2/3 primeiro"
+    description: "Sempre apresentar alternativas antes de agir"
+    severity: HIGH
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-002
+    category: never
+    rule: "Deletar sem perguntar"
+    description: "Nunca remover conteúdo sem aprovação explícita"
+    severity: CRITICAL
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-003
+    category: never
+    rule: "Deletar <7 dias sem aprovação"
+    description: "Nada criado recentemente pode ser removido"
+    severity: HIGH
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: [NEVER-002]
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-004
+    category: never
+    rule: "Mudar código funcionando sem validação"
+    description: "Sem validar side-effects"
+    severity: HIGH
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-005
+    category: never
+    rule: "Fingir trabalho pronto"
+    description: "Marcar como [WIP] ou listar bloqueadores"
+    severity: HIGH
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-006
+    category: never
+    rule: "Batch sem validar 1 primeiro"
+    description: "Testar padrão em 1 item antes de massa"
+    severity: MEDIUM
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-007
+    category: never
+    rule: "Adicionar features não pedidas"
+    description: "Implementar EXACTAMENTE o requisito (Art. IV: No Invention)"
+    severity: HIGH
+    reinforces_article: IV
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-008
+    category: never
+    rule: "Usar mock data se reais existem"
+    description: "Sempre dados reais, nunca simulados"
+    severity: MEDIUM
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-009
+    category: never
+    rule: "Explicar crítica recebida"
+    description: "Receber feedback → corrigir, não justificar"
+    severity: HIGH
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-010
+    category: never
+    rule: "Confiar AI/subagent sem verificação"
+    description: "Sempre validar output (grep, git diff)"
+    severity: MEDIUM
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: NEVER-011
+    category: never
+    rule: "Criar do zero se similar existe"
+    description: "Squads/ first (IDS: REUSE > ADAPT > CREATE)"
+    severity: HIGH
+    reinforces_article: "IV-A"
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  # ALWAYS — Padrões Obrigatórios (7 regras)
+  - id: ALWAYS-001
+    category: always
+    rule: "Opções como 1/2/3 antes de agir"
+    description: "Formato explícito de escolha"
+    severity: HIGH
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-002
+    category: always
+    rule: "AskUserQuestion para clarificações"
+    description: "Nunca perguntar em texto solto"
+    severity: HIGH
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-003
+    category: always
+    rule: "Verificar squads/ + libs/ antes de CREATE"
+    description: "REUSE ou ADAPT primeiro"
+    severity: HIGH
+    reinforces_article: "IV-A"
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-004
+    category: always
+    rule: "Ler schema COMPLETO antes de DDL"
+    description: "Verificar constraints + relationships"
+    severity: HIGH
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-005
+    category: always
+    rule: "Investigar root cause se erro >1x"
+    description: "Nunca workaround sem diagnosticar"
+    severity: HIGH
+    reinforces_article: V
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-006
+    category: always
+    rule: "Commit antes de próxima task"
+    description: "Checkpoints lógicos"
+    severity: MEDIUM
+    reinforces_article: III
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+  - id: ALWAYS-007
+    category: always
+    rule: "Handoff em docs/sessions/YYYY-MM/ ao fim"
+    description: "Future session contexto preservado"
+    severity: MEDIUM
+    reinforces_article: null
+    conflicts_with: []
+    depends_on: []
+    status: active
+    source:
+      type: user-directive
+      session: cont-74
+    history:
+      - date: 2026-06-24
+        action: added
+        reason: "Pedro definiu directivas NEVER/ALWAYS"
+
+# Meta-rules (como novas regras são criadas automaticamente)
+meta_rules:
+  error_escalation_threshold: 2
+  escalation_process: "rule-escalation-protocol.md"
+  gap_audit_enabled: true
+  article_reinforcement_required: true
+
+# Matriz de dependências entre artigos da Constitution e regras
+article_coverage:
+  I-CLI-First:
+    rules: []
+    gaps: "Nenhuma regra operacional associada ao CLI First (Art. I)"
+  II-Agent-Authority:
+    rules: []
+    gaps: "Nenhuma regra operacional associada a Agent Authority (Art. II)"
+  III-Story-Driven:
+    rules: [ALWAYS-006]
+    gaps: "Poucos reforços — considerar regra sobre story tracking"
+  IV-No-Invention:
+    rules: [NEVER-007]
+    gaps: "Coberto apenas no nível de regra NEVER"
+  IV-A-IDS-Incremental:
+    rules: [NEVER-011, ALWAYS-003]
+    gaps: "Bom, cobertura dupla"
+  V-Quality-First:
+    rules: [NEVER-004, NEVER-005, NEVER-008, NEVER-010, ALWAYS-004, ALWAYS-005]
+    gaps: "Cobertura forte"
+  VI-Absolute-Imports:
+    rules: []
+    gaps: "ESLint rule, nenhuma regra comportamental"
+  VII-Framework-Boundary:
+    rules: []
+    gaps: "Protegido por deny rules, nenhuma regra comportamental necessária"
+
+# Change log global
+change_log:
+  - date: 2026-06-24
+    version: "1.0.0"
+    action: "Initial migration"
+    description: "Migrados 11 NEVER + 7 ALWAYS rules existentes de feedback_never-rules.md e feedback_always-rules.md para structured registry"
+    author: "Pedro + Claude (Cont 75)"
