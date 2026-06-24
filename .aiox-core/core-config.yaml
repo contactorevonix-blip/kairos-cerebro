@@ -119,3 +119,8 @@ agentIdentity:
     performance:
       gitCheckCache: true
       gitCheckTTL: 300
+immortality:
+  enabled: false
+  logging: true
+  logDir: .aiox/agent-memory/logs
+  sessionTTLHours: 168

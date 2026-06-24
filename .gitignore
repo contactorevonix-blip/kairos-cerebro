@@ -99,3 +99,9 @@ logs/
 
 # Gate decision logs (runtime, regenerados pelos hooks)
 .aiox/gate-logs/*.jsonl
+
+# Activation benchmark artifacts (runtime, one-per-run — Story ACTV-1)
+.synapse/metrics/benchmark-*.json
+
+# Agent memory logs (runtime, Story 1.20 — Immortality Phase 1)
+.aiox/agent-memory/logs/

@@ -10,7 +10,7 @@
     "start": "node bin/kairos.js start",
     "start:server": "node packages/sniper-api/server.js",
     "backup": "node bin/backup-volume.js",
-    "test": "node --test --test-concurrency=1 packages/sniper-api/*.test.js tests/hooks/*.test.js tests/auto-contextualization/**/*.test.js tests/context-registry/*.test.js && npm run test:ws",
+    "test": "node --test --test-concurrency=1 packages/sniper-api/*.test.js tests/hooks/*.test.js tests/auto-contextualization/**/*.test.js tests/context-registry/*.test.js tests/immortality/*.test.js && npm run test:ws",
     "test:ws": "node --import tsx --test tests/websocket/Broadcaster.test.ts",
     "audit:verify": "node bin/kairos.js audit:verify",
     "compliance:purge": "node bin/kairos.js compliance:purge",

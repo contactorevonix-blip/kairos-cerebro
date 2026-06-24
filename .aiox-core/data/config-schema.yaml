@@ -1,0 +1,50 @@
+# AIOX Configuration Schema
+# Reference guide for core-config.yaml fields
+
+schema:
+  immortality:
+    description: "Agent memory logging and persistence (v5 feature)"
+    fields:
+      enabled:
+        type: boolean
+        default: false
+        description: "Enable agent memory persistence and resurrection (Phase 2+)"
+        phase: "Phase 2 and beyond"
+      logging:
+        type: boolean
+        default: true
+        description: "Enable agent memory logging (Phase 1)"
+        phase: "Phase 1"
+      logDir:
+        type: string
+        default: ".aiox/agent-memory/logs"
+        description: "Directory for agent memory logs (JSON lines format, gitignored)"
+        phase: "Phase 1"
+      sessionTTLHours:
+        type: integer
+        default: 168
+        description: "Time-to-live for agent session logs (hours, 7 days default)"
+        phase: "Phase 1"
+
+phases:
+  phase_1:
+    name: "Logging Foundation"
+    stories: ["1.20"]
+    features:
+      - Agent memory logging enabled
+      - Memory snapshots captured at activation/deactivation
+      - Metrics tracked to hook-metrics.json
+  phase_2:
+    name: "Memory Persistence Store"
+    stories: ["1.20A (future)"]
+    features:
+      - Agent memory serialization
+      - Persistence to database
+      - Session recovery mechanism
+  phase_3:
+    name: "Agent Resurrection"
+    stories: ["1.20B (future)"]
+    features:
+      - Agent context restoration
+      - Session replay
+      - Cross-session continuity
