@@ -233,8 +233,46 @@ Regras contextuais detalhadas carregadas automaticamente de `.claude/rules/`:
 - `feedback_never-rules.md` — 11 proibições (versionadas)
 - `feedback_always-rules.md` — 7 obrigações (versionadas)
 - `rule-escalation-protocol.md` — meta-regra: erro repetido 2x → nova regra (determinístico)
+- `smart-routing.md` — routing automático de pedidos para workflows/agentes
+- `constitution-sync-guard.md` — protecção do constitution.md vs syncs automáticos
+- `confidence-scoring.md` — tiers de confiança antes de executar ações
+- `mcp-usage.md` — MCP governance (exclusive @devops)
+- `immortality-lifecycle.md` — agent memory persistence (Phase 1-3)
+- `handoff-consolidation.md` — consolidação de handoffs em RUN-LOG.md (>5 handoffs)
+- `tool-examples.md` — exemplos concretos de input/output para ferramentas
+- `workflow-execution.md` — task-first workflows (SDC, QA Loop, Spec Pipeline, Brownfield)
+- `token-budget.md` — eficiência de tokens por tipo de tarefa
+
+---
+
+## 🔄 Leitura Automática de CLAUDE.md
+
+**CRÍTICO:** Este ficheiro é **lido e internalizado automaticamente a cada nova sessão** Claude Code.
+
+**Procedimento automático:**
+1. SessionStart hook: carrega CLAUDE.md + `.claude/rules/*.md`
+2. Contexto é injectado nos system reminders
+3. Todas as regras (Constitution, Agent Authority, NEVER/ALWAYS, IDS) estão **sempre activas**
+4. Não precisa de confirmação — é automático
+
+**Se CLAUDE.md mudar:**
+- Nova versão é lida na próxima sessão automaticamente
+- Mudanças entram em vigor imediatamente
+- Não requer restart manual
+
+---
+
+## 📋 Changelog
+
+| Versão | Data | Mudanças |
+|--------|------|----------|
+| v2.3 | 2026-06-24 | Rule files expandidos (+8), leitura automática documentada, immortality lifecycle adicionado |
+| v2.2 | 2026-06-20 | Constitution v1.1.0 completa, enforcement gates activos |
+| v2.1 | 2026-06-15 | IDS system (Article IV-A), smart routing |
+| v2.0 | 2026-06-10 | AIOX Framework Governance completo, 7 artigos Constitution |
 
 ---
 
 *AIOX Framework Governance v2.3 — Constitution Full + Rule Management System*
 *Actualizado: 2026-06-24 | Pedro Leal | Kairos Check*
+*Leitura automática: ✅ Activada | Próxima: Cada nova sessão*
