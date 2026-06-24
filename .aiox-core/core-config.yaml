@@ -103,6 +103,14 @@ boundary:
     - .aiox-core/development/agents/*/MEMORY.md
     - .aiox-core/core/config/schemas/**
     - .aiox-core/core/config/template-overrides.js
+sync:
+  enabled: true
+  excludePaths:
+    - .aiox-core/constitution.md
+    - .aiox-core/data/entity-registry.yaml
+  rationale: |
+    constitution.md contains local amendments (Article VII) that must be preserved.
+    entity-registry.yaml is domain-specific and should not be overwritten by upstream syncs.
 agentIdentity:
   greeting:
     contextDetection: true
