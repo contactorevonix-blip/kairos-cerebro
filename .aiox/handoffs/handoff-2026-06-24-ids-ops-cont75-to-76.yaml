@@ -1,0 +1,58 @@
+handoff:
+  from_session: "Cont 75"
+  to_session: "Cont 76"
+  timestamp: "2026-06-24T00:00:00Z"
+  from_agent: "Claude Code (Pedro)"
+
+story_context:
+  active_stories:
+    - story_id: "IDS-OPS.1"
+      path: "docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md"
+      status: "Done"
+      action: "Ready for @devops push to remote"
+      deliverable: "CLI alias ids:recommend + 10/10 tests + help text"
+      qa_gate: "PASS (7/10 checks all green)"
+
+    - story_id: "IDS-OPS.2"
+      path: "docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md"
+      status: "Ready"
+      action: "Ready for @dev *develop-story IDS-OPS.2 --mode interactive"
+      deliverable: "PreToolUse hook + @sm *draft integration + testes"
+      po_validation: "GO (10/10 checklist)"
+      architect_approval: "Hook pattern approved (zero L2 modifications)"
+
+decisions:
+  - id: "1"
+    decision: "L2 Boundary Solution: PreToolUse Hook Pattern"
+    rationale: "Avoids modifying .aiox-core/development/tasks/create-next-story.md (L2 protected)"
+    chosen_path: "Option 2 — Hook externo em .claude/hooks/ids-integration-draft.cjs"
+    architect_validated: "Yes"
+
+  - id: "2"
+    decision: "Session Handoff vs Continue"
+    rationale: "IDS-OPS.2 is 6-7sp; continuing would exhaust context mid-implementation"
+    chosen_action: "Start Cont 76 fresh for full @dev workflow"
+
+files_modified:
+  - "docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md (status Done, QA Results added)"
+  - "docs/stories/epics/IDS-OPS.2-sm-ids-integration.story.md (status Draft → Ready, validation logged)"
+
+next_action: "Start Cont 76: @dev *develop-story IDS-OPS.2 --mode interactive"
+
+next_commands:
+  - command: "@dev *develop-story IDS-OPS.2 --mode interactive"
+    description: "Implement hook + integration (tasks 1-6, ~6-7sp)"
+    expected_outcome: "IDS-OPS.2 InProgress → InReview after implementation"
+
+  - command: "@qa *gate IDS-OPS.2 (after @dev completes)"
+    description: "QA validation gate for IDS-OPS.2"
+    expected_outcome: "IDS-OPS.2 InReview → Done"
+
+  - command: "@devops push (after both stories Done)"
+    description: "Push IDS-OPS.1 + IDS-OPS.2 to remote"
+    expected_outcome: "Both stories released to main"
+
+blockers: []
+notes: "IDS-OPS.1 already Done and passing QA. IDS-OPS.2 architecture validated, ready for implementation. No blocking dependencies."
+
+consumed: false

@@ -7,6 +7,7 @@
 - [SYNAPSE Enforcement EPIC-9](project-synapse-enforcement-epic9.md) — Cont 36: Option A under new EPIC-9 (9.0 retire dead validator → 9.1∥9.2). Real coverage ~22%; pre-tool-use-validator.cjs is dead code; Cont 35 docs contradict on scope
 - [EPIC-12 Viability](project-epic12-viability.md) — AJUSTAR verdict: Three-Surface agent trap (.claude/agents/ has no generator), 3 synapse/** boundary blocks, pipeline PR-0+slots sequencing, tests/tasks REUSE collision
 - [XX.1 L1 Authorization Review](project-xx1-l1-authorization-review.md) — NO-GO on 3-file L1 proposal: duplicates Story 13.1 + ide-sync (Art. IV-A). Reduce to 1-2 writes; cut the 2 .aiox-core/core/ files; @aiox-master decides, not @architect
+- [IDS-OPS.2 L1 Review](project-ids-ops2-l1-review.md) — AJUSTAR: settings.json hook registration has 2 wrong line positions (151/180 are closers, not insertion points); 5th-hook overhead OK (early-return before spawn); no security risk; @aiox-master executes
 
 ## EPIC-ACT Wave 2 Quality Gate Review (2026-02-06)
 - Reviewed: ACT-6 (Unified Activation Pipeline, 67 tests, APPROVED)

@@ -7589,3 +7589,78 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: register IDS-OPS.2 hook in settings.json (L1 amendment)
 **Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: bb697c9 — 2026-06-24 20:42
+**Branch:** main
+**Commit:** docs: Cont 77 complete — IDS-OPS epic shipped, handoff ready for Cont 78 [ALWAYS rule #7]
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: d35997f — 2026-06-24 20:44
+**Branch:** main
+**Commit:** docs: IDS-OPS.2 gate PASS + story Released — REL-001 resolved
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: d35997f — 2026-06-24 20:45
+**Branch:** main
+**Commit:** docs: IDS-OPS.2 gate PASS + story Released — REL-001 resolved
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 0834c36 — 2026-06-24 20:48
+**Branch:** main
+**Commit:** docs: expand CLAUDE.md — complete rule files list + auto-load documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92c45c5 — 2026-06-24 20:53
+**Branch:** main
+**Commit:** docs: CLAUDE.md v2.4 — comprehensive update with full agent/squad/workflow documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92c45c5 — 2026-06-24 20:54
+**Branch:** main
+**Commit:** docs: CLAUDE.md v2.4 — comprehensive update with full agent/squad/workflow documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92c45c5 — 2026-06-24 20:55
+**Branch:** main
+**Commit:** docs: CLAUDE.md v2.4 — comprehensive update with full agent/squad/workflow documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92c45c5 — 2026-06-24 21:02
+**Branch:** main
+**Commit:** docs: CLAUDE.md v2.4 — comprehensive update with full agent/squad/workflow documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 92c45c5 — 2026-06-24 21:05
+**Branch:** main
+**Commit:** docs: CLAUDE.md v2.4 — comprehensive update with full agent/squad/workflow documentation
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:08
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:09
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:10
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:14
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:20
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: ae530b5 — 2026-06-24 21:23
+**Branch:** main
+**Commit:** docs: Cont 78 handoff — session 77 complete and documented
+**Files changed:** .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .synapse/metrics/hook-metrics.json, STATE.md
