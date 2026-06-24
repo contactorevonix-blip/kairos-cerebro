@@ -175,13 +175,13 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. IV (No Invention â€” MultiEdit)..."
+                                                           "statusMessage":  "A validar Art. IV (No Invention Ã¢â‚¬â€ MultiEdit)..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary â€” MultiEdit)..."
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary Ã¢â‚¬â€ MultiEdit)..."
                                                        }
                                                    ]
                                      },
@@ -192,13 +192,13 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. IV (No Invention â€” NotebookEdit)..."
+                                                           "statusMessage":  "A validar Art. IV (No Invention Ã¢â‚¬â€ NotebookEdit)..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
                                                            "timeout":  4,
-                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary â€” NotebookEdit)..."
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary Ã¢â‚¬â€ NotebookEdit)..."
                                                        }
                                                    ]
                                      },
@@ -246,7 +246,7 @@
                                                                  "type":  "command",
                                                                  "command":  "node \".claude/hooks/agent-activation-tracker.cjs\"",
                                                                  "timeout":  3,
-                                                                 "statusMessage":  "A rastrear activaÃ§Ã£o de agente...",
+                                                                 "statusMessage":  "A rastrear activaÃƒÂ§ÃƒÂ£o de agente...",
                                                                  "async":  true
                                                              },
                                                              {
@@ -284,13 +284,13 @@
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/precompact-session-digest.cjs\"",
                                                            "timeout":  10,
-                                                           "statusMessage":  "A gerar digest da sessÃ£o antes de compactar..."
+                                                           "statusMessage":  "A gerar digest da sessÃƒÂ£o antes de compactar..."
                                                        },
                                                        {
                                                            "type":  "command",
                                                            "command":  "node \".claude/hooks/precompact-wrapper.cjs\"",
                                                            "timeout":  10,
-                                                           "statusMessage":  "A executar wrapper de prÃ©-compactaÃ§Ã£o..."
+                                                           "statusMessage":  "A executar wrapper de prÃƒÂ©-compactaÃƒÂ§ÃƒÂ£o..."
                                                        }
                                                    ]
                                      }
@@ -302,7 +302,7 @@
                                                      "type":  "command",
                                                      "command":  "node \"C:\\Users\\lealp\\.claude\\helpers\\session-end.cjs\"",
                                                      "timeout":  5,
-                                                     "statusMessage":  "A guardar estado da sessÃ£o..."
+                                                     "statusMessage":  "A guardar estado da sessÃƒÂ£o..."
                                                  }
                                              ]
                                },
@@ -333,9 +333,9 @@
                                           "hooks":  [
                                                         {
                                                             "type":  "prompt",
-                                                            "prompt":  "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently â€” no need to announce it.",
+                                                            "prompt":  "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently Ã¢â‚¬â€ no need to announce it.",
                                                             "timeout":  30,
-                                                            "statusMessage":  "A recarregar contexto apÃ³s compactaÃ§Ã£o..."
+                                                            "statusMessage":  "A recarregar contexto apÃƒÂ³s compactaÃƒÂ§ÃƒÂ£o..."
                                                         }
                                                     ]
                                       }
@@ -347,7 +347,7 @@
                                                              "type":  "command",
                                                              "command":  "node \".claude/hooks/session-start.cjs\"",
                                                              "timeout":  5,
-                                                             "statusMessage":  "A carregar contexto da sessÃ£o..."
+                                                             "statusMessage":  "A carregar contexto da sessÃƒÂ£o..."
                                                          }
                                                      ]
                                        }
@@ -371,7 +371,7 @@
                                                               "type":  "prompt",
                                                               "prompt":  "A task was just marked as completed. Before allowing it, verify: 1) Does the output match what was requested? 2) Were tests run and passing (if applicable)? 3) Would a staff engineer approve this? If stop_hook_active is true in the input, respond {\"ok\":true}. If all 3 verified, respond {\"ok\":true}. If incomplete, respond {\"ok\":false, \"reason\":\"specific missing work\"} and continue working.",
                                                               "timeout":  60,
-                                                              "statusMessage":  "A verificar se a task estÃ¡ realmente completa..."
+                                                              "statusMessage":  "A verificar se a task estÃƒÂ¡ realmente completa..."
                                                           }
                                                       ]
                                         }
@@ -384,7 +384,7 @@
                                                              "command":  "node \".claude/hooks/config-change-audit.cjs\"",
                                                              "timeout":  5,
                                                              "async":  true,
-                                                             "statusMessage":  "A auditar mudanÃ§a de configuraÃ§Ã£o..."
+                                                             "statusMessage":  "A auditar mudanÃƒÂ§a de configuraÃƒÂ§ÃƒÂ£o..."
                                                          }
                                                      ]
                                        }
@@ -402,7 +402,15 @@
                                       "Write(.aiox-core/data/**)",
                                       "Edit(.aiox-core/development/agents/*/MEMORY.md)",
                                       "Write(.aiox-core/development/agents/*/MEMORY.md)",
-                                      "Read(.aiox-core/**)"
+                                      "Read(.aiox-core/**)",
+                                      "Write(.claude/hooks/enforce-ids.cjs)",
+                                      "Edit(.claude/hooks/enforce-ids.cjs)",
+                                      "Write(.claude/hooks/activate-immortality-logger.cjs)",
+                                      "Edit(.claude/hooks/activate-immortality-logger.cjs)",
+                                      "Write(.claude/hooks/state-change-immortality-logger.cjs)",
+                                      "Edit(.claude/hooks/state-change-immortality-logger.cjs)",
+                                      "Write(.claude/hooks/deactivate-immortality-logger.cjs)",
+                                      "Edit(.claude/hooks/deactivate-immortality-logger.cjs)"
                                   ],
                         "deny":  [
                                      "Read(.env)",
@@ -453,9 +461,6 @@
                                      "Write(bin/aiox.js)",
                                      "Edit(bin/aiox-init.js)",
                                      "Write(bin/aiox-init.js)",
-                                     "Edit(.claude/hooks/**)",
-                                     "Write(.claude/hooks/**)",
-                                     "MultiEdit(.claude/hooks/**)",
                                      "Edit(.claude/settings.json)",
                                      "Write(.claude/settings.json)",
                                      "MultiEdit(.claude/settings.json)"
