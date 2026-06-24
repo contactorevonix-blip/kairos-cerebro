@@ -1,30 +1,34 @@
-# 🚀 Session 2026-06-24 (Cont 73) — AC4-AC5 + STORY 1.19 READY ✅
+# 🚀 Session 2026-06-24 (Cont 74) — HOOK REGISTRATION ✅ + QA GATES APPROVED
 
-**Status: ✅ STORY 1.21 DONE (pushed) | ✅ STORY 1.20 AC4-AC5 DONE | ✅ STORY 1.19 READY | 🔒 Blocker: Hook Registration**
+**Status: ✅ HOOK REGISTRATION DONE | ✅ QA GATES APPROVED (CONCERNS) | ✅ READY FOR PUSH**
 
-## CONT 73 — Development Session — COMPLETE
+## CONT 74 — Framework Governance Session — COMPLETE
+
+### ✅ Hook Registration (Art. VI-VII Resolved)
+- **Commit:** `a1d1b3a` (hook registration complete)
+- **Hooks registered:**
+  - SubagentStart: `activate-immortality-logger.cjs`, `state-change-immortality-logger.cjs`
+  - SubagentStop: `deactivate-immortality-logger.cjs`
+  - PreToolUse Write/Edit/MultiEdit: `enforce-ids.cjs`
+- **Impact:** Story 1.20 AC3 + Story 1.19 AC1 now COMPLETE ✅
 
 ### ✅ Story 1.21: Constitution Sync Guard (2sp) — DONE ✅
 - **Status:** Done (QA: APPROVED WITH CONCERNS)
 - **Commits:** `d5f6255` (code) + `d54b4a0` + `bc407f8` (QA + BOM fix)
 - **Pushed:** ✅ Remote (main branch)
 
-### ✅ Story 1.20: Agent Immortality Phase 1 (3sp) — InReview ✅
-- **AC1-AC2, AC4-AC6:** COMPLETE (AC4 metrics + AC5 docs added)
-- **AC3:** Blocked by hook registration (settings.json deny-guarded)
-- **Commit:** `9ab7eb7` (AC4-AC5 delivered)
-- **Status:** Ready for @qa gate
+### ✅ Story 1.20: Agent Immortality Phase 1 (3sp) — DONE ✅
+- **AC1-AC6:** ALL COMPLETE (AC3 unblocked via hook registration)
+- **AC4:** Metrics + AC5 docs complete
+- **AC3:** Hook registration complete ✅
+- **QA Gate:** ✅ APPROVED WITH CONCERNS (low-priority findings)
+- **Status:** Done, ready for @devops push
 
-### ✅ Story 1.19: IDS Enforcement Wiring (4sp) — InReview ✅
-- **AC1-AC6:** Functionally COMPLETE (enforce-ids.cjs + tests exist)
-- **AC1/AC3:** Blocked by hook registration (same blocker)
-- **Commit:** `9ab7eb7` (status updated)
-- **Status:** Ready for @qa gate
-
-## 🔒 Critical Blocker: Hook Registration (Cont 74)
-Both Story 1.20 AC3 + Story 1.19 AC1 require hook registration in `.claude/settings.json` (framework boundary protection).
-- **Resolution:** `@aiox-master *propose-modification` (requires framework authority)
-- **Impact:** 6 hooks created, not registered (functionality works, integration missing)
+### ✅ Story 1.19: IDS Enforcement Wiring (4sp) — DONE ✅
+- **AC1-AC6:** ALL COMPLETE (AC1 unblocked via hook registration)
+- **AC1:** Hook registration complete ✅
+- **QA Gate:** ✅ APPROVED WITH CONCERNS (low-priority findings)
+- **Status:** Done, ready for @devops push
 
 ---
 
@@ -7076,4 +7080,29 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 ## Checkpoint: 9ab7eb7 — 2026-06-24 15:30
 **Branch:** main
 **Commit:** feat: Story 1.20 AC4-AC5 complete + Story 1.19 ready for QA [Cont 73]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: 13194cb — 2026-06-24 15:32
+**Branch:** main
+**Commit:** docs: Cont 73 session complete — handoff to Cont 74 [STATE + HANDOFF]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: 13194cb — 2026-06-24 15:32
+**Branch:** main
+**Commit:** docs: Cont 73 session complete — handoff to Cont 74 [STATE + HANDOFF]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: 13194cb — 2026-06-24 15:33
+**Branch:** main
+**Commit:** docs: Cont 73 session complete — handoff to Cont 74 [STATE + HANDOFF]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: 13194cb — 2026-06-24 15:34
+**Branch:** main
+**Commit:** docs: Cont 73 session complete — handoff to Cont 74 [STATE + HANDOFF]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: 13194cb — 2026-06-24 15:38
+**Branch:** main
+**Commit:** docs: Cont 73 session complete — handoff to Cont 74 [STATE + HANDOFF]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
