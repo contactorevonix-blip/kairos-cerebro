@@ -205,6 +205,18 @@ commands:
   - name: backlog-debt
     visibility: [full]
     description: 'Register technical debt item (prompts for details)'
+  - name: improve-code-quality
+    visibility: [full, quick]
+    description: 'Analyze and improve code quality (readability, maintainability, standards)'
+  - name: optimize-performance
+    visibility: [full, quick]
+    description: 'Identify and apply performance optimizations'
+  - name: suggest-refactoring
+    visibility: [full, quick]
+    description: 'Suggest refactoring opportunities for cleaner, more maintainable code'
+  - name: sync-documentation
+    visibility: [full, quick]
+    description: 'Synchronize documentation with current implementation'
 
   # Context & Performance
   - name: load-full

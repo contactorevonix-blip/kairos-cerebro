@@ -218,12 +218,24 @@ commands:
     description: 'Generate codebase map (structure, services, patterns, conventions)'
 
   # Document Operations
+  - name: collaborative-edit
+    visibility: [full, quick]
+    description: 'Collaboratively edit a document section-by-section with the user'
+  - name: create-doc
+    visibility: [full, quick]
+    args: '{template}'
+    description: 'Create a document from a template (interactive workflow)'
   - name: doc-out
     visibility: [full]
     description: 'Output complete document'
   - name: shard-prd
     visibility: [full]
     description: 'Break architecture into smaller parts'
+
+  # Process Management
+  - name: correct-course
+    visibility: [full, quick]
+    description: 'Generate a course-correction proposal for an in-flight story/epic (proposal-only)'
 
   # Utilities
   - name: session-info
@@ -243,6 +255,7 @@ dependencies:
     - analyze-project-structure.md
     - architect-analyze-impact.md
     - collaborative-edit.md
+    - correct-course.md
     - create-deep-research-prompt.md
     - create-doc.md
     - document-project.md

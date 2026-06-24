@@ -149,9 +149,9 @@ commands:
     description: 'Run story draft checklist'
 
   # Process Management
-  # NOTE: correct-course removed - delegated to @aiox-master
-  # See: docs/architecture/command-authority-matrix.md
-  # For course corrections → Escalate to @aiox-master using *correct-course
+  - name: correct-course
+    visibility: [full, quick]
+    description: 'Generate a course-correction proposal for an in-flight story/epic (proposal-only)'
 
   # Utilities
   - name: session-info

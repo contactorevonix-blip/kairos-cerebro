@@ -234,6 +234,9 @@ commands:
   - name: health-check
     visibility: [full, quick, key]
     description: 'Run unified health diagnostic (aiox doctor --json + governance interpretation)'
+  - name: security-scan
+    visibility: [full, quick]
+    description: 'Run security scan to detect vulnerabilities, secrets, and compliance issues'
   - name: sync-registry
     visibility: [full, quick, key]
     args: '[--full] [--heal]'
@@ -299,6 +302,8 @@ dependencies:
     - setup-mcp-docker.md
     # Health Diagnostic (INS-4.8)
     - health-check.yaml
+    # Security
+    - security-scan.md
     # Documentation Quality
     - check-docs-links.md
     # GitHub Issues Management

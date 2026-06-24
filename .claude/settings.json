@@ -1,466 +1,464 @@
 {
-  "language": "portuguese",
-  "worktree": {
-    "symlinkDirectories": [
-      "node_modules",
-      ".aiox"
-    ],
-    "baseRef": "head"
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/post-tool-use-observer.cjs\"",
-            "timeout": 5,
-            "async": true,
-            "statusMessage": "A registar tool call..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
-            "timeout": 35,
-            "async": true,
-            "statusMessage": "A actualizar process maps..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/post-story-update.js\"",
-            "timeout": 10,
-            "async": true,
-            "statusMessage": "A sincronizar STATE.md (story update)..."
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
-            "timeout": 35,
-            "async": true,
-            "statusMessage": "A actualizar process maps..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/post-story-update.js\"",
-            "timeout": 10,
-            "async": true,
-            "statusMessage": "A sincronizar STATE.md (story update)..."
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "WebSearch",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
-            "timeout": 3,
-            "statusMessage": "A autorizar WebSearch..."
-          }
-        ]
-      },
-      {
-        "matcher": "WebFetch",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
-            "timeout": 3,
-            "statusMessage": "A autorizar WebFetch..."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash(git commit*)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-story-driven.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A validar Art. III (Story-Driven)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/pre-commit-lint.cjs\"",
-            "timeout": 15,
-            "statusMessage": "A verificar terminologia antes do commit..."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash(git merge*)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A validar Art. V (Quality First) antes do merge..."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash(*git push*)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-agent-authority.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A validar Art. II (Agent Authority)..."
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (No Invention)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (Reference Traceability)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (No Invention)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (Reference Traceability)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. VI-VII (Framework Boundary)..."
-          }
-        ]
-      },
-      {
-        "matcher": "MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (No Invention — MultiEdit)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. VI-VII (Framework Boundary — MultiEdit)..."
-          }
-        ]
-      },
-      {
-        "matcher": "NotebookEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-no-invention.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. IV (No Invention — NotebookEdit)..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/enforce-quality-gates.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A validar Art. VI-VII (Framework Boundary — NotebookEdit)..."
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/task-auto-suggest.cjs\"",
-            "timeout": 5,
-            "async": true,
-            "statusMessage": "A sugerir tasks (Task-First)..."
-          }
-        ]
-      },
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/pre-tool-use-validator.cjs\"",
-            "timeout": 3,
-            "statusMessage": "A validar autoridades de tool use..."
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/user-prompt-submit-validator.cjs\"",
-            "timeout": 3,
-            "statusMessage": "A validar input de utilizador..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/prompt-router.cjs\"",
-            "timeout": 5,
-            "async": true
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/agent-activation-tracker.cjs\"",
-            "timeout": 3,
-            "statusMessage": "A rastrear activação de agente...",
-            "async": true
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/synapse-engine.cjs\"",
-            "timeout": 10,
-            "statusMessage": "Synapse Engine a processar..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/synapse-wrapper.cjs\"",
-            "timeout": 10,
-            "async": true,
-            "statusMessage": "Synapse Wrapper a processar..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/process-map-gate.cjs\"",
-            "timeout": 4,
-            "statusMessage": "A verificar mapa de processo..."
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"C:\\Users\\lealp\\.claude\\helpers\\precompact.cjs\"",
-            "timeout": 10,
-            "statusMessage": "A preservar contexto antes de compactar..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/precompact-session-digest.cjs\"",
-            "timeout": 10,
-            "statusMessage": "A gerar digest da sessão antes de compactar..."
-          },
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/precompact-wrapper.cjs\"",
-            "timeout": 10,
-            "statusMessage": "A executar wrapper de pré-compactação..."
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"C:\\Users\\lealp\\.claude\\helpers\\session-end.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A guardar estado da sessão..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/update-state.js\"",
-            "timeout": 10,
-            "statusMessage": "A actualizar STATE.md..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/post-push-handoff-consolidate.js\"",
-            "timeout": 30,
-            "async": true,
-            "statusMessage": "A consolidar handoffs..."
-          }
-        ]
-      }
-    ],
-    "PostCompact": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently — no need to announce it.",
-            "timeout": 30,
-            "statusMessage": "A recarregar contexto após compactação..."
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/session-start.cjs\"",
-            "timeout": 5,
-            "statusMessage": "A carregar contexto da sessão..."
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/subagent-stop-observer.cjs\"",
-            "timeout": 5,
-            "async": true
-          }
-        ]
-      }
-    ],
-    "TaskCompleted": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "A task was just marked as completed. Before allowing it, verify: 1) Does the output match what was requested? 2) Were tests run and passing (if applicable)? 3) Would a staff engineer approve this? If stop_hook_active is true in the input, respond {\"ok\":true}. If all 3 verified, respond {\"ok\":true}. If incomplete, respond {\"ok\":false, \"reason\":\"specific missing work\"} and continue working.",
-            "timeout": 60,
-            "statusMessage": "A verificar se a task está realmente completa..."
-          }
-        ]
-      }
-    ],
-    "ConfigChange": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \".claude/hooks/config-change-audit.cjs\"",
-            "timeout": 5,
-            "async": true,
-            "statusMessage": "A auditar mudança de configuração..."
-          }
-        ]
-      }
-    ]
-  },
-  "permissions": {
-    "defaultMode": "default",
-    "additionalDirectories": [
-      "C:/Users/lealp/kairoscheck"
-    ],
-    "allow": [
-      "WebSearch",
-      "WebFetch",
-      "Edit(.aiox-core/data/**)",
-      "Write(.aiox-core/data/**)",
-      "Edit(.aiox-core/development/agents/*/MEMORY.md)",
-      "Write(.aiox-core/development/agents/*/MEMORY.md)",
-      "Read(.aiox-core/**)"
-    ],
-    "deny": [
-      "Read(.env)",
-      "Edit(.env)",
-      "Write(.env)",
-      "Read(.env.*)",
-      "Edit(.env.*)",
-      "Write(.env.*)",
-      "Read(.env.local)",
-      "Edit(.env.local)",
-      "Write(.env.local)",
-      "Edit(.aiox-core/core/**)",
-      "Write(.aiox-core/core/**)",
-      "MultiEdit(.aiox-core/core/**)",
-      "Edit(.aiox-core/development/tasks/**)",
-      "Write(.aiox-core/development/tasks/**)",
-      "Edit(.aiox-core/development/templates/**)",
-      "Write(.aiox-core/development/templates/**)",
-      "Edit(.aiox-core/development/checklists/**)",
-      "Write(.aiox-core/development/checklists/**)",
-      "Edit(.aiox-core/development/workflows/**)",
-      "Write(.aiox-core/development/workflows/**)",
-      "Edit(.aiox-core/development/agents/**)",
-      "Write(.aiox-core/development/agents/**)",
-      "Edit(.aiox-core/development/scripts/**)",
-      "Write(.aiox-core/development/scripts/**)",
-      "Edit(.aiox-core/development/external-executors/**)",
-      "Write(.aiox-core/development/external-executors/**)",
-      "Edit(.aiox-core/infrastructure/**)",
-      "Write(.aiox-core/infrastructure/**)",
-      "Edit(.aiox-core/infrastructure/scripts/**)",
-      "Write(.aiox-core/infrastructure/scripts/**)",
-      "Edit(.aiox-core/cli/**)",
-      "Write(.aiox-core/cli/**)",
-      "Edit(.aiox-core/product/**)",
-      "Write(.aiox-core/product/**)",
-      "Edit(.aiox-core/schemas/**)",
-      "Write(.aiox-core/schemas/**)",
-      "Edit(.aiox-core/quality/**)",
-      "Write(.aiox-core/quality/**)",
-      "Edit(.aiox-core/scripts/**)",
-      "Write(.aiox-core/scripts/**)",
-      "Edit(.aiox-core/utils/**)",
-      "Write(.aiox-core/utils/**)",
-      "Edit(.aiox-core/workflow-intelligence/**)",
-      "Write(.aiox-core/workflow-intelligence/**)",
-      "Edit(.aiox-core/constitution.md)",
-      "Write(.aiox-core/constitution.md)",
-      "Edit(bin/aiox.js)",
-      "Write(bin/aiox.js)",
-      "Edit(bin/aiox-init.js)",
-      "Write(bin/aiox-init.js)",
-      "Edit(.claude/hooks/**)",
-      "Write(.claude/hooks/**)",
-      "MultiEdit(.claude/hooks/**)",
-      "Edit(.claude/settings.json)",
-      "Write(.claude/settings.json)",
-      "MultiEdit(.claude/settings.json)"
-    ]
-  }
+    "language":  "portuguese",
+    "worktree":  {
+                     "symlinkDirectories":  [
+                                                "node_modules",
+                                                ".aiox"
+                                            ],
+                     "baseRef":  "head"
+                 },
+    "hooks":  {
+                  "PostToolUse":  [
+                                      {
+                                          "matcher":  "",
+                                          "hooks":  [
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \".claude/hooks/post-tool-use-observer.cjs\"",
+                                                            "timeout":  5,
+                                                            "async":  true,
+                                                            "statusMessage":  "A registar tool call..."
+                                                        }
+                                                    ]
+                                      },
+                                      {
+                                          "matcher":  "Write",
+                                          "hooks":  [
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
+                                                            "timeout":  35,
+                                                            "async":  true,
+                                                            "statusMessage":  "A actualizar process maps..."
+                                                        },
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \".claude/hooks/post-story-update.js\"",
+                                                            "timeout":  10,
+                                                            "async":  true,
+                                                            "statusMessage":  "A sincronizar STATE.md (story update)..."
+                                                        }
+                                                    ]
+                                      },
+                                      {
+                                          "matcher":  "Edit",
+                                          "hooks":  [
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \"squads/process-mapper/hooks/process-map-updater.cjs\"",
+                                                            "timeout":  35,
+                                                            "async":  true,
+                                                            "statusMessage":  "A actualizar process maps..."
+                                                        },
+                                                        {
+                                                            "type":  "command",
+                                                            "command":  "node \".claude/hooks/post-story-update.js\"",
+                                                            "timeout":  10,
+                                                            "async":  true,
+                                                            "statusMessage":  "A sincronizar STATE.md (story update)..."
+                                                        }
+                                                    ]
+                                      }
+                                  ],
+                  "PreToolUse":  [
+                                     {
+                                         "matcher":  "WebSearch",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
+                                                           "timeout":  3,
+                                                           "statusMessage":  "A autorizar WebSearch..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "WebFetch",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/allow-websearch-webfetch.cjs\"",
+                                                           "timeout":  3,
+                                                           "statusMessage":  "A autorizar WebFetch..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash(git commit*)",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-story-driven.cjs\"",
+                                                           "timeout":  5,
+                                                           "statusMessage":  "A validar Art. III (Story-Driven)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/pre-commit-lint.cjs\"",
+                                                           "timeout":  15,
+                                                           "statusMessage":  "A verificar terminologia antes do commit..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash(git merge*)",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
+                                                           "timeout":  5,
+                                                           "statusMessage":  "A validar Art. V (Quality First) antes do merge..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash(*git push*)",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-agent-authority.cjs\"",
+                                                           "timeout":  5,
+                                                           "statusMessage":  "A validar Art. II (Agent Authority)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Write",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (No Invention)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (Reference Traceability)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Edit",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (No Invention)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-spec-reference-validation.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (Reference Traceability)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "MultiEdit",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (No Invention â€” MultiEdit)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary â€” MultiEdit)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "NotebookEdit",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-no-invention.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. IV (No Invention â€” NotebookEdit)..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/enforce-quality-gates.cjs\"",
+                                                           "timeout":  4,
+                                                           "statusMessage":  "A validar Art. VI-VII (Framework Boundary â€” NotebookEdit)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Read",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/task-auto-suggest.cjs\"",
+                                                           "timeout":  5,
+                                                           "async":  true,
+                                                           "statusMessage":  "A sugerir tasks (Task-First)..."
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/pre-tool-use-validator.cjs\"",
+                                                           "timeout":  3,
+                                                           "statusMessage":  "A validar autoridades de tool use..."
+                                                       }
+                                                   ]
+                                     }
+                                 ],
+                  "UserPromptSubmit":  [
+                                           {
+                                               "matcher":  "",
+                                               "hooks":  [
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/user-prompt-submit-validator.cjs\"",
+                                                                 "timeout":  3,
+                                                                 "statusMessage":  "A validar input de utilizador..."
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/prompt-router.cjs\"",
+                                                                 "timeout":  5,
+                                                                 "async":  true
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/agent-activation-tracker.cjs\"",
+                                                                 "timeout":  3,
+                                                                 "statusMessage":  "A rastrear activaÃ§Ã£o de agente...",
+                                                                 "async":  true
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/synapse-engine.cjs\"",
+                                                                 "timeout":  10,
+                                                                 "statusMessage":  "Synapse Engine a processar..."
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/synapse-wrapper.cjs\"",
+                                                                 "timeout":  10,
+                                                                 "async":  true,
+                                                                 "statusMessage":  "Synapse Wrapper a processar..."
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "node \".claude/hooks/process-map-gate.cjs\"",
+                                                                 "timeout":  4,
+                                                                 "statusMessage":  "A verificar mapa de processo..."
+                                                             }
+                                                         ]
+                                           }
+                                       ],
+                  "PreCompact":  [
+                                     {
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \"C:\\Users\\lealp\\.claude\\helpers\\precompact.cjs\"",
+                                                           "timeout":  10,
+                                                           "statusMessage":  "A preservar contexto antes de compactar..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/precompact-session-digest.cjs\"",
+                                                           "timeout":  10,
+                                                           "statusMessage":  "A gerar digest da sessÃ£o antes de compactar..."
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "node \".claude/hooks/precompact-wrapper.cjs\"",
+                                                           "timeout":  10,
+                                                           "statusMessage":  "A executar wrapper de prÃ©-compactaÃ§Ã£o..."
+                                                       }
+                                                   ]
+                                     }
+                                 ],
+                  "Stop":  [
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "node \"C:\\Users\\lealp\\.claude\\helpers\\session-end.cjs\"",
+                                                     "timeout":  5,
+                                                     "statusMessage":  "A guardar estado da sessÃ£o..."
+                                                 }
+                                             ]
+                               },
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "node \".claude/hooks/update-state.js\"",
+                                                     "timeout":  10,
+                                                     "statusMessage":  "A actualizar STATE.md..."
+                                                 }
+                                             ]
+                               },
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "node \".claude/hooks/post-push-handoff-consolidate.js\"",
+                                                     "timeout":  30,
+                                                     "async":  true,
+                                                     "statusMessage":  "A consolidar handoffs..."
+                                                 }
+                                             ]
+                               }
+                           ],
+                  "PostCompact":  [
+                                      {
+                                          "hooks":  [
+                                                        {
+                                                            "type":  "prompt",
+                                                            "prompt":  "The conversation was just compacted. Re-read PROJECT.md and STATE.md to restore your context about this project. Do this silently â€” no need to announce it.",
+                                                            "timeout":  30,
+                                                            "statusMessage":  "A recarregar contexto apÃ³s compactaÃ§Ã£o..."
+                                                        }
+                                                    ]
+                                      }
+                                  ],
+                  "SessionStart":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "node \".claude/hooks/session-start.cjs\"",
+                                                             "timeout":  5,
+                                                             "statusMessage":  "A carregar contexto da sessÃ£o..."
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "SubagentStop":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "node \".claude/hooks/subagent-stop-observer.cjs\"",
+                                                             "timeout":  5,
+                                                             "async":  true
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "TaskCompleted":  [
+                                        {
+                                            "hooks":  [
+                                                          {
+                                                              "type":  "prompt",
+                                                              "prompt":  "A task was just marked as completed. Before allowing it, verify: 1) Does the output match what was requested? 2) Were tests run and passing (if applicable)? 3) Would a staff engineer approve this? If stop_hook_active is true in the input, respond {\"ok\":true}. If all 3 verified, respond {\"ok\":true}. If incomplete, respond {\"ok\":false, \"reason\":\"specific missing work\"} and continue working.",
+                                                              "timeout":  60,
+                                                              "statusMessage":  "A verificar se a task estÃ¡ realmente completa..."
+                                                          }
+                                                      ]
+                                        }
+                                    ],
+                  "ConfigChange":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "node \".claude/hooks/config-change-audit.cjs\"",
+                                                             "timeout":  5,
+                                                             "async":  true,
+                                                             "statusMessage":  "A auditar mudanÃ§a de configuraÃ§Ã£o..."
+                                                         }
+                                                     ]
+                                       }
+                                   ]
+              },
+    "permissions":  {
+                        "defaultMode":  "default",
+                        "additionalDirectories":  [
+                                                      "C:/Users/lealp/kairoscheck"
+                                                  ],
+                        "allow":  [
+                                      "WebSearch",
+                                      "WebFetch",
+                                      "Edit(.aiox-core/data/**)",
+                                      "Write(.aiox-core/data/**)",
+                                      "Edit(.aiox-core/development/agents/*/MEMORY.md)",
+                                      "Write(.aiox-core/development/agents/*/MEMORY.md)",
+                                      "Read(.aiox-core/**)"
+                                  ],
+                        "deny":  [
+                                     "Read(.env)",
+                                     "Edit(.env)",
+                                     "Write(.env)",
+                                     "Read(.env.*)",
+                                     "Edit(.env.*)",
+                                     "Write(.env.*)",
+                                     "Read(.env.local)",
+                                     "Edit(.env.local)",
+                                     "Write(.env.local)",
+                                     "Edit(.aiox-core/core/**)",
+                                     "Write(.aiox-core/core/**)",
+                                     "MultiEdit(.aiox-core/core/**)",
+                                     "Edit(.aiox-core/development/tasks/**)",
+                                     "Write(.aiox-core/development/tasks/**)",
+                                     "Edit(.aiox-core/development/templates/**)",
+                                     "Write(.aiox-core/development/templates/**)",
+                                     "Edit(.aiox-core/development/checklists/**)",
+                                     "Write(.aiox-core/development/checklists/**)",
+                                     "Edit(.aiox-core/development/workflows/**)",
+                                     "Write(.aiox-core/development/workflows/**)",
+                                     "Edit(.aiox-core/development/scripts/**)",
+                                     "Write(.aiox-core/development/scripts/**)",
+                                     "Edit(.aiox-core/development/external-executors/**)",
+                                     "Write(.aiox-core/development/external-executors/**)",
+                                     "Edit(.aiox-core/infrastructure/**)",
+                                     "Write(.aiox-core/infrastructure/**)",
+                                     "Edit(.aiox-core/infrastructure/scripts/**)",
+                                     "Write(.aiox-core/infrastructure/scripts/**)",
+                                     "Edit(.aiox-core/cli/**)",
+                                     "Write(.aiox-core/cli/**)",
+                                     "Edit(.aiox-core/product/**)",
+                                     "Write(.aiox-core/product/**)",
+                                     "Edit(.aiox-core/schemas/**)",
+                                     "Write(.aiox-core/schemas/**)",
+                                     "Edit(.aiox-core/quality/**)",
+                                     "Write(.aiox-core/quality/**)",
+                                     "Edit(.aiox-core/scripts/**)",
+                                     "Write(.aiox-core/scripts/**)",
+                                     "Edit(.aiox-core/utils/**)",
+                                     "Write(.aiox-core/utils/**)",
+                                     "Edit(.aiox-core/workflow-intelligence/**)",
+                                     "Write(.aiox-core/workflow-intelligence/**)",
+                                     "Edit(.aiox-core/constitution.md)",
+                                     "Write(.aiox-core/constitution.md)",
+                                     "Edit(bin/aiox.js)",
+                                     "Write(bin/aiox.js)",
+                                     "Edit(bin/aiox-init.js)",
+                                     "Write(bin/aiox-init.js)",
+                                     "Edit(.claude/hooks/**)",
+                                     "Write(.claude/hooks/**)",
+                                     "MultiEdit(.claude/hooks/**)",
+                                     "Edit(.claude/settings.json)",
+                                     "Write(.claude/settings.json)",
+                                     "MultiEdit(.claude/settings.json)"
+                                 ]
+                    }
 }

@@ -148,9 +148,9 @@ commands:
   - name: execute-checklist-po
     visibility: [quick]
     description: 'Run PO master checklist'
-  # NOTE: correct-course removed - delegated to @aiox-master
-  # See: docs/architecture/command-authority-matrix.md
-  # For course corrections → Escalate to @aiox-master using *correct-course
+  - name: correct-course
+    visibility: [full, quick]
+    description: 'Generate a course-correction proposal for an in-flight story/epic (proposal-only; @po is canonical owner)'
 
   # Document Operations
   - name: shard-doc
