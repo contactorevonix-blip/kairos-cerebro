@@ -1,23 +1,28 @@
-# 🚀 Session 2026-06-24 (Cont 72) — STORY 1.21 IMPLEMENTATION ✅
+# 🚀 Session 2026-06-24 (Cont 72) — STORY IMPLEMENTATIONS ✅
 
-**Status: ✅ STORY 1.21 DONE (InReview) | 1.20 + 1.19 STAGED FOR CONT 73**
+**Status: ✅ STORY 1.21 DONE (InReview) | STORY 1.20 InProgress (AC1-AC2-AC6 complete) | STORY 1.19 Ready for Cont 73**
 
 ## CONT 72 — Development Session (Dex @dev)
 
 ### ✅ Story 1.21: Constitution Sync Guard (2sp) — COMPLETE
 - **Status:** InReview (ready for @qa gate)
-- **Deliverables:**
-  - `.aiox-core/core-config.yaml` — Added `sync.excludePaths` config section (constitution.md + entity-registry.yaml)
-  - `.claude/rules/constitution-sync-guard.md` — 9-section protection procedure + FAQ
-  - `tests/sync/exclude-logic.test.js` — 8 comprehensive unit tests for sync exclusion logic
-  - `docs/stories/1.21.constitution-sync-guard.story.md` — AC1-AC5 marked complete, File List updated
-- **Commit:** `d5f6255` — All pre-commit gates passed (story AC validation ✅, L1/L2 check ✅, syntax ✅)
-- **Key decision:** Config-based protection (vs file marker) due to L1 framework boundary
+- **Commit:** `d5f6255` — Constitution protection fully implemented
+- **Key deliverables:** Config protection, guard rules doc, unit tests
+
+### ⏳ Story 1.20: Agent Immortality Phase 1 (3sp) — IN PROGRESS
+- **Status:** InProgress (AC1 ✅, AC2 ✅, AC6 ✅; AC3-AC4-AC5 deferred)
+- **Commit:** `bd51b2c` — Logging foundation delivered
+- **Deliverables completed:**
+  - AC1: Configuration (core-config.yaml + schema + directory)
+  - AC2: Memory logger (packages/immortality-logger/logger.cjs with 4 exports)
+  - AC6: Testing (13/13 unit tests passing)
+- **Constitutional note:** Logger in L4 (packages/) not L1 due to framework boundary protection
+- **Next:** AC3 (integration hooks), AC4 (metrics), AC5 (documentation)
 
 ### 📋 Staged for Cont 73 (@dev continuation)
-1. **Story 1.20** (3sp) — Agent Immortality Phase 1: Logging Foundation (Ready status)
-2. **Story 1.19** (4sp) — IDS Enforcement Wiring (Ready status)
-- Total: 7sp estimated (~3h 30m)
+1. **Story 1.20 continuation** (3sp) — AC3-AC4-AC5 completion + status InReview
+2. **Story 1.19** (4sp) — IDS Enforcement Wiring (full implementation)
+- Total: 7sp estimated (~3-4 hours)
 
 ---
 
@@ -6831,3 +6836,23 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
 **Files changed:** .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json
+
+## Checkpoint: af37538 — 2026-06-24 13:15
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 72 session summary (Story 1.21 complete)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: af37538 — 2026-06-24 13:15
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 72 session summary (Story 1.21 complete)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: af37538 — 2026-06-24 13:17
+**Branch:** main
+**Commit:** docs: update STATE.md — Cont 72 session summary (Story 1.21 complete)
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: bd51b2c — 2026-06-24 13:26
+**Branch:** main
+**Commit:** feat: implement Story 1.20 — Agent Immortality Phase 1 Logging Foundation [Cont 72]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
