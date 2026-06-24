@@ -1,3 +1,71 @@
+# 🚀 Session 2026-06-24 (Cont 72) — STORY 1.21 IMPLEMENTATION ✅
+
+**Status: ✅ STORY 1.21 DONE (InReview) | 1.20 + 1.19 STAGED FOR CONT 73**
+
+## CONT 72 — Development Session (Dex @dev)
+
+### ✅ Story 1.21: Constitution Sync Guard (2sp) — COMPLETE
+- **Status:** InReview (ready for @qa gate)
+- **Deliverables:**
+  - `.aiox-core/core-config.yaml` — Added `sync.excludePaths` config section (constitution.md + entity-registry.yaml)
+  - `.claude/rules/constitution-sync-guard.md` — 9-section protection procedure + FAQ
+  - `tests/sync/exclude-logic.test.js` — 8 comprehensive unit tests for sync exclusion logic
+  - `docs/stories/1.21.constitution-sync-guard.story.md` — AC1-AC5 marked complete, File List updated
+- **Commit:** `d5f6255` — All pre-commit gates passed (story AC validation ✅, L1/L2 check ✅, syntax ✅)
+- **Key decision:** Config-based protection (vs file marker) due to L1 framework boundary
+
+### 📋 Staged for Cont 73 (@dev continuation)
+1. **Story 1.20** (3sp) — Agent Immortality Phase 1: Logging Foundation (Ready status)
+2. **Story 1.19** (4sp) — IDS Enforcement Wiring (Ready status)
+- Total: 7sp estimated (~3h 30m)
+
+---
+
+# 🚀 Session 2026-06-24 (Cont 71) — AIOX OFFICIAL RESEARCH + CONSTITUTION FIX ✅
+
+**Status: ✅ RESEARCH COMPLETE | CONSTITUTION RESTORED | IDS AUDIT DONE | READY FOR CONT 72**
+
+## CONT 71 — Complete Session Summary
+
+### ✅ AIOX Official Repository Investigation (@analyst)
+- **GitHub:** `SynkraAI/aiox-core` — 47 releases analyzed
+- **Discovery:** KAIROS_CEREBRO is at v5.2.9 (HEAD) vs official v5.2.8 (2026-05-21 tag)
+- **Status:** ✅ AHEAD of published release, not behind
+- **Breaking changes:** Only 3 flagged (all already absorbed locally)
+- **New v5 capabilities:** Semantic Handshake Gate + Agent Immortality (both present, Cont 71 validated)
+- **Deliverable:** `docs/research/2026-06-24-aiox-official-releases-analysis/` (5 files)
+
+### ✅ Constitution Downgrade Investigation + Fix
+- **Finding:** Working tree had constitution.md v1.0.0 stub (accidental overwrite 2026-06-21)
+- **HEAD state:** v1.1.0 triple-signed (2026-06-09) — CORRECT, contains Article IV-A + Article VII
+- **Root cause:** Non-tracked modification (not a git commit downgrade)
+- **Fix applied:** `git checkout HEAD -- .aiox-core/constitution.md` ✅
+- **Result:** Constitution now coherent (working tree = HEAD = v1.1.0)
+
+### ✅ IDS System Audit
+- **Code status:** Exists (`.aiox-core/core/ids/` gates G1-G5, registry, circuit-breaker)
+- **Wiring status:** **NOT enforced** (no `enforce-ids.cjs` hook, no gate-logs)
+- **Status:** Aspirational (Article IV-A in Constitution, but gates dormant in hooks layer)
+- **Immortality foundation:** Exists in code, not activated in runtime
+- **Conclusion:** IDS infrastructure staged, enforcement pending @architect decision
+
+### 📋 Pending Governance Decisions (for @architect)
+1. Should IDS gates G1-G6 be wired to `.claude/hooks/` (activate Article IV-A enforcement)?
+2. Should agent immortality be activated or remain dormant?
+3. Should constitution.md be protected from future syncs (amendment guard)?
+
+### 🔧 Pre-sync Guard Recommendation
+- Prevent `.aiox-core/constitution.md` from being overwritten by future syncs
+- Add local-amendment header to constitution
+- Exclude from byte-sync: `constitution.md` + `entity-registry.yaml` (833 domain-specific entities)
+
+### Related Artifacts
+- Analysis: `docs/research/2026-06-24-aiox-official-releases-analysis/` (6 markdown files)
+- Constitution: `.aiox-core/constitution.md` (v1.1.0, restored ✅)
+- IDS rules: `.claude/rules/ids-principles.md` (status clarified)
+
+---
+
 # 🚀 Session 2026-06-21 (Cont 70) — STORY 13.11 PUSH + AIOX AUDITS + MEMORY ALIGNMENT ✅
 
 **Status: ✅ PUSHED + AUDITS COMPLETE | ONDA 2 READY | GAPS DOCUMENTED**
@@ -6333,3 +6401,433 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: create EPIC-14 stories for AIOX documentation alignment
 **Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:17
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:19
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:19
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:20
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:21
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:21
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:21
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:23
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 363b129 — 2026-06-24 00:23
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 363b129 — 2026-06-24 00:24
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 363b129 — 2026-06-24 00:27
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 363b129 — 2026-06-24 00:27
+**Branch:** main
+**Commit:** feat: EPIC-14 framework alignment — Story 14.3 complete + 14.1 checkpoint
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 00:28
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 00:29
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 00:29
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 00:31
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 00:34
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 09:49
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 09:55
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/dev.md, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md
+
+## Checkpoint: c241db5 — 2026-06-24 09:56
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 09:57
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 09:57
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 09:58
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 09:59
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:00
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:01
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:03
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:03
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:09
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:10
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:11
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:14
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:16
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:16
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:16
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:36
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: c241db5 — 2026-06-24 10:37
+**Branch:** main
+**Commit:** feat: implement validate-tool-references.js script [Story 13.15]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: f3b86b6 — 2026-06-24 10:39
+**Branch:** main
+**Commit:** docs: ACT-6 pipeline validation + Hook system audit [Cont 71]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: f3b86b6 — 2026-06-24 11:13
+**Branch:** main
+**Commit:** docs: ACT-6 pipeline validation + Hook system audit [Cont 71]
+**Files changed:** .aiox-core/constitution.md, .aiox-core/development/agents/architect.md, .aiox-core/development/agents/dev.md, .aiox-core/development/agents/devops.md, .aiox-core/development/agents/pm.md, .aiox-core/development/agents/po.md, .aiox-core/development/agents/sm.md, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json
+
+## Checkpoint: b6d07eb — 2026-06-24 11:15
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:15
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:16
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:17
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:21
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:28
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:31
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:36
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:37
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:40
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:41
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:43
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:44
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:45
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:46
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:46
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:47
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:49
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:50
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:51
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:52
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:53
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:54
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:54
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:55
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:55
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 11:56
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:00
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:01
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:02
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:48
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/constitution.md, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:50
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:52
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:53
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:54
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:55
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:57
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:58
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 12:59
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:00
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:01
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:02
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:03
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:04
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md, .claude/agent-memory/aiox-analyst/project_aiox-cli-not-installed.md, .claude/agent-memory/aiox-architect/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:06
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:07
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-analyst/MEMORY.md
+
+## Checkpoint: b6d07eb — 2026-06-24 13:12
+**Branch:** main
+**Commit:** feat: AIOX command surface parity wiring (Story 14.1) — expose 11 commands across 6 agents
+**Files changed:** .aiox-core/core-config.yaml, .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/13.1.json, .aiox/task-logs/13.11.json, .aiox/task-logs/8.4.json, .aiox/task-logs/unknown.json
