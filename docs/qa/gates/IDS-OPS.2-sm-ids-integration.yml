@@ -1,0 +1,8 @@
+schema: 1
+story: 'IDS-OPS.2'
+gate: PASS
+status_reason: 'Hook implemented, tested (93.27% coverage, 24/24 pass), regression-clean, and activated (settings.json registration applied). AC1 functionally live. REL-001 resolved.'
+reviewer: 'Quinn'
+updated: '2026-06-24T13:00:00Z'
+top_issues: []
+waiver: { active: false }

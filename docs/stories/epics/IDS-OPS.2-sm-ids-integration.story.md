@@ -1,6 +1,6 @@
 # Story IDS-OPS.2 — @sm Integration
 
-**ID:** IDS-OPS.2 | **Epic:** [EPIC-IDS-OPERATIONALIZATION](EPIC-IDS-OPERATIONALIZATION.md) | **Status:** Done | **Points:** 6-7sp
+**ID:** IDS-OPS.2 | **Epic:** [EPIC-IDS-OPERATIONALIZATION](EPIC-IDS-OPERATIONALIZATION.md) | **Status:** Released | **Points:** 6-7sp
 
 ---
 
@@ -182,6 +182,7 @@ Copiado/preservado da missão (texto exacto):
 | 2026-06-24 | @dev (Dex) | **Status Ready → InProgress.** Implementação iniciada (YOLO mode). |
 | 2026-06-24 | 1.0.0 | QA Gate CONCERNS — Status: InReview → Done | @qa |
 | 2026-06-24 | @dev (Dex) | **Implementação completa. Status InProgress → InReview.** Criado hook `ids-integration-sm-draft.cjs` (caminho #2, PreToolUse, zero L2) + 24 testes (`tests/ids/sm-integration.test.js`), coverage 93.27% line / 100% funcs (≥80% ✅). Lint clean, typecheck clean, 0 regressões (enforcement 34/34, ids 34/34). G2 actualizado em `ids-principles.md`. `package.json` test script passa a incluir `tests/ids/`. **IDS decisions:** REUSE `lib/gate-logger.cjs`; ADAPT padrão de `enforce-story-driven.cjs`; CREATE do hook (justificado — nenhum hook de story-creation existente). **Residual Blocker:** registo em `.claude/settings.json` é L1 (deny rules) → requer `@aiox-master *propose-modification` (diff exacto documentado na secção "Residual Blocker"). Hook funcional e testado, mas inactivo até registo. |
+| 2026-06-24 | @qa (Quinn) | **Gate PASS. Status InReview → Released. REL-001 resolvido:** Hook agora registado em `.claude/settings.json` por @aiox-master. AC1 "sempre chama IDS" é agora totalmente funcional. G2 enforcement live. Epic EPIC-IDS-OPERATIONALIZATION pronto para conclusão. |
 
 ---
 
