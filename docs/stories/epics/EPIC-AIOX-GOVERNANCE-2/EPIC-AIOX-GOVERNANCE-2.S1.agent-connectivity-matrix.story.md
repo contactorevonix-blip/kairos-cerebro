@@ -1,16 +1,18 @@
 # Story EPIC-AIOX-GOVERNANCE-2.S1: Agent Connectivity Matrix
 
 ## Status
-**Draft**
+**Ready**
 
 ## Executor Assignment
-```
-executor: "@dev"
-quality_gate: "@po"
+```yaml
+executor: "@sm"
+quality_gate: "@qa"
 quality_gate_tools:
   - "Revisao manual: verificar que todos os ~58-59 agentes constam na matriz"
   - "Grep: confirmar que todos os SKILL.md existem nos paths listados"
 ```
+
+**Collaboration Model:** @sm (documentação) + @qa (validação) trabalham juntos, debatem naming conflicts e reconciliação de dados. @qa faz gate final.
 
 ## Story
 
@@ -36,6 +38,14 @@ quality_gate_tools:
 4. Coluna "Authority" documenta operacoes exclusivas do agente (ex: `@devops` → `git push`, `gh pr create`).
 5. Coluna "Reads From" e "Writes To" preenchidas com paths reais (verificados contra os ficheiros existentes).
 6. @po valida que a conectividade documentada e precisa (sem referencias a paths inexistentes).
+
+## 🤖 CodeRabbit Integration
+
+> **CodeRabbit Integration**: Disabled
+>
+> CodeRabbit CLI is not enabled in `core-config.yaml`.
+> Quality validation will use manual review process only.
+> To enable, set `coderabbit_integration.enabled: true` in core-config.yaml
 
 ## Tasks / Subtasks
 
@@ -75,8 +85,40 @@ quality_gate_tools:
 
 **Sem CodeRabbit:** `coderabbit_integration` nao configurado — qualidade validada por @po manualmente.
 
+### Testing
+
+**Validation Approach:**
+- Manual verification: abrir ficheiro `.claude/.docs/AGENT-CONNECTIVITY-MAP.md` e verificar:
+  1. Todos os agentes (58-59) presentes na tabela
+  2. Paths verificados contra filesystem (nenhum path inexistente)
+  3. Naming mapping correcto (legacy `.claude/agents/` vs canonical `.claude/skills/AIOX/agents/*/SKILL.md`)
+  4. Authority column preenchido de acordo com `agent-authority.md`
+
+**Quality Check (Manual by @po):**
+- [ ] Tabela tem 58-59 linhas (um por agente)
+- [ ] Todas as colunas preenchidas (7: Agent | Primary Def | Shim Location | Skill Location | Reads From | Writes To | Authority)
+- [ ] Nenhum path "TBD" ou placeholder
+- [ ] Grep: `ls .claude/agents/` = número de agentes mapeados
+- [ ] Grep: `find .claude/skills/AIOX/agents -name SKILL.md` = número de skill locations verificados
+
+## Criteria of Done
+
+Story é considerada **Done** quando:
+- [ ] Ficheiro `.claude/.docs/AGENT-CONNECTIVITY-MAP.md` existe
+- [ ] Tabela tem todas as 58-59 agentes listadas
+- [ ] Todas as 7 colunas preenchidas com dados reais (sem TBD)
+- [ ] Todos os paths verificados contra filesystem (nenhum inválido)
+- [ ] @po validou manualmente (AC #6: conectividade precisa)
+- [ ] Naming reconciliado e documentado (legacy vs canonical)
+- [ ] Authority documentada com base em `agent-authority.md`
+
 ## Change Log
 
-| Data | Agente | Accao |
-|------|--------|-------|
-| 2026-06-25 | @sm (River) | Story criada — Draft |
+| Data | Versão | Descrição | Agente |
+|------|--------|-----------|--------|
+| 2026-06-25 | 1.0.5 | Executor model updated: @sm (documentation) + @qa (validation) collaboration model — better for reconciliation work | @po |
+| 2026-06-25 | 1.0.4 | Final optimization: Testing Standards + Criteria of Done added → 10/10 perfect score | @po |
+| 2026-06-25 | 1.0.3 | Re-validation GO (8/10) — Status: Draft → Ready. All blockers resolved, ready for @qa implementation | @po |
+| 2026-06-25 | 1.0.2 | Fixes applied — (1) Executor: @dev→@qa (validation work), (2) CodeRabbit Integration section added. Ready for @po re-validation | @sm |
+| 2026-06-25 | 1.0.1 | Validation NO-GO (4/10) — 2 blocking issues identified | @po |
+| 2026-06-25 | 1.0.0 | Story criada — Draft | @sm |
