@@ -1,47 +1,47 @@
 {
   "storyId": "unknown",
-  "storyType": "config",
-  "suggestedAt": "2026-06-24T21:39:46.726Z",
+  "storyType": "bug",
+  "suggestedAt": "2026-06-24T21:51:43.384Z",
   "suggestions": [
     {
-      "id": "list-mcps",
-      "name": "list-mcps",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/list-mcps.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "correct-course",
+      "name": "Correct Course Task",
+      "category": "bug",
+      "file": ".aiox-core/development/tasks/correct-course.md",
+      "score": 65,
+      "autoActivate": false
     },
     {
-      "id": "search-mcp",
-      "name": "Search MCP Catalog Task",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/search-mcp.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "dev-apply-qa-fixes",
+      "name": "Dev Apply Qa Fixes",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
+      "score": 51,
+      "autoActivate": false
     },
     {
-      "id": "setup-design-system",
-      "name": "Setup Design System Structure",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-design-system.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 51,
+      "autoActivate": false
     },
     {
-      "id": "setup-llm-routing",
-      "name": "setup-llm-routing",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "devops-pro-access-grant",
+      "name": "Task: DevOps Pro Access Grant",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-access-grant.md",
+      "score": 46,
+      "autoActivate": false
     },
     {
-      "id": "setup-mcp-docker",
-      "name": "Setup Docker MCP Toolkit",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
-      "score": 73,
-      "autoActivate": true
+      "id": "devops-pro-check-access",
+      "name": "Task: DevOps Pro Check Access",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
+      "score": 46,
+      "autoActivate": false
     }
   ]
 }
