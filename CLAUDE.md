@@ -108,6 +108,41 @@ git commit -m "..." [Story {id}]  # Atomic commits with story ref
 
 ---
 
+## 🧠 Karpathy Principles — 4 Pilares de Desenvolvimento
+
+**Fonte:** https://github.com/multica-ai/andrej-karpathy-skills
+
+### 1. **Think Before Coding** (Pensa Antes de Programar)
+Evita suposições silenciosas e confusão oculta:
+- Declara premissas explicitamente
+- Apresenta múltiplas interpretações quando há ambiguidade
+- Questiona se uma abordagem mais simples existe
+- Solicita esclarecimentos quando confuso
+
+### 2. **Simplicity First** (Simplicidade em Primeiro Lugar)
+Combate a tendência de sobreengenharia:
+- Código mínimo que resolve o problema
+- Sem recursos especulativos além do solicitado
+- Sem abstrações para código de uso único
+- Sem tratamento de erros para cenários impossíveis
+
+### 3. **Surgical Changes** (Mudanças Cirúrgicas)
+Toca apenas o necessário:
+- Não "melhora" código adjacente não solicitado
+- Não refatora código funcionando
+- Mantém o estilo existente
+- Remove apenas dependências órfãs criadas pelas tuas mudanças
+
+### 4. **Goal-Driven Execution** (Execução Orientada por Objetivos)
+Define critérios de sucesso verificáveis:
+- Transforma tarefas em metas mensuráveis
+- Escreve testes antes da implementação
+- Confirma sucesso através de loops iterativos
+
+**Insight Principal:** "Modelos são excepcionalmente bons em fazer loops até atingir objetivos específicos... Não digas o que fazer, dá critérios de sucesso e observa funcionar." — Andrej Karpathy
+
+---
+
 ## 🛠️ Tool Usage — Mandatory Patterns
 
 | Task | USE THIS | NEVER |
@@ -178,12 +213,13 @@ Carregados automaticamente de `.claude/rules/` em cada sessão:
 
 | Versão | Data | Mudanças |
 |--------|------|----------|
+| **v3.1** | 2026-06-26 | **KARPATHY:** Adicionado 4 Pilares de Desenvolvimento (Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution) |
 | **v3.0** | 2026-06-25 | **OPTIMIZED:** 359 → 105 linhas. Consolidado NEVER (11→7), removido escala/contexto (referências em `.claude/rules/`), adicionado Critical Commands, Routing Tree. High-signal focus. |
 | v2.4 | 2026-06-24 | Audit completo + 6 squads + 9 agentes + 20 rule files documentados |
 | v2.3 | 2026-06-24 | Rule files expandidos, leitura automática, immortality lifecycle |
 
 ---
 
-*AIOX Framework Governance v3.0 — Constitution Full + Optimized*
-*Actualizado: 2026-06-25 | Pedro Leal | Kairos Check*
+*AIOX Framework Governance v3.1 — Constitution Full + Karpathy Principles*
+*Actualizado: 2026-06-26 | Pedro Leal | Kairos Check*
 *Leitura automática: ✅ Activada | Próxima: Cada nova sessão*
