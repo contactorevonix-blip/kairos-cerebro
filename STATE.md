@@ -7566,3 +7566,8 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: IDS-OPS.2 complete — @sm *draft integration with Decision Engine
 **Files changed:** .aiox/error-log.jsonl, .aiox/task-logs/1.19.json, .aiox/task-logs/1.20.json, .aiox/task-logs/unknown.json, .claude/rules/ids-principles.md, .synapse/metrics/hook-metrics.json, STATE.md, docs/stories/epics/IDS-OPS.1-ids-decision-engine.story.md, package.json
+
+## Checkpoint: e7033b2 — 2026-06-26 10:05
+**Branch:** claude/aiox-context-validation-o8yjkm
+**Commit:** feat: register IDS-OPS.2 hook in settings.json (L1 amendment)
+**Files changed:** .synapse/metrics/hook-metrics.json
