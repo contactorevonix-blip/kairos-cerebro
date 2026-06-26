@@ -10,6 +10,7 @@
 - [EPIC-12 Gap Fixes](project_epic12-gap-fixes.md) — 12.G1/G2 GO (8/7), G3 NO-GO 2026-06-19. KEY TRAP: two contradictory critique.json schemas; spec-critique.md is canonical, process-mapper/critique.json is legacy.
 - [EPIC-IDS-OPS](project_epic-ids-ops.md) — IDS-OPS.1 NO-GO (5/10, engine already exists at .aiox-core/core/ids/), IDS-OPS.2 GO-cond (7/10) 2026-06-24. CLI=bin/aiox-ids.js not kairos.js; ids:recommend doesn't exist.
 - [EPIC-79 Retail Arbitrage](project-epic79-retail-arbitrage.md) — 5 stories S1-S5 all GO 2026-06-24 (avg 8.6), Draft→Ready. PM business stubs (no Tasks/Dev Notes); Art.IV verified vs 02-financial-models.md. S4 only code story.
+- [EPIC-82 SYNAPSE Dynamic Injection](project-epic82-synapse-dynamic-injection.md) — PRD GO 10/10 2026-06-26, READY FOR ARCHITECT (CON-1 L1 boundary first). Code claims verified; real path is domain/domain-loader.js. 6 stories 63SP.
 
 ## IDS Epic Backlog Analysis (2026-02-09)
 - IDS-1/2/3: Done. Foundation solid (474 entities, RegistryLoader, DecisionEngine, RegistryUpdater all implemented).

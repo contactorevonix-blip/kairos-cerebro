@@ -1,0 +1,360 @@
+# EPIC-82 — SYNAPSE Dynamic Injection (Layers 2-7)
+# Implementation Plan (Spec Pipeline Phase 6 — @architect / Aria)
+#
+# Input:  docs/specs/EPIC-82-SYNAPSE-DYNAMIC-INJECTION-spec.md (PRD, GO 10/10 @po)
+# Author: Aria (@architect)
+# Date:   2026-06-26 (Cont 84)
+# Status: CON-1 RESOLVED — stories 82.1-82.6 unblocked under one batched L1 amendment.
+#
+# Grounding: every decision below traces to a verified file:line, not to the audit
+# narrative. Independently re-verified by @architect (not inherited from PRD).
+
+meta:
+  epic: EPIC-82
+  title: SYNAPSE Dynamic Injection (Layers 2-7)
+  track: Enterprise
+  complexity_class: STANDARD          # borderline COMPLEX (score 15/25)
+  total_sp: 63
+  stories: [82.1, 82.2, 82.3, 82.4, 82.5, 82.6]
+  prd: docs/specs/EPIC-82-SYNAPSE-DYNAMIC-INJECTION-spec.md
+
+complexity_assessment:                # Spec Pipeline 5-dimension score (1-5 each)
+  scope: 4          # engine + l2-agent + formatter + diagnostics + hooks + tests + .synapse data
+  integration: 2    # no external APIs; internal UserPromptSubmit hook chain only
+  infrastructure: 3 # L1 amendment process (governance round-trip), not infra build
+  knowledge: 2      # existing tested code, PRD grounded to file:line
+  risk: 4           # runs on EVERY prompt; 100ms cap; L1 Core surface
+  total: 15
+  class: STANDARD   # 9-15 band, top edge
+
+# ===========================================================================
+# CON-1 DECISION — the architect's first task (PRD §6b HIGH item)
+# ===========================================================================
+con1_decision:
+  question: >
+    Which edits to .aiox-core/core/synapse/** require an @aiox-master
+    *propose-modification (L1 amendment) vs which migrate to .claude/hooks/** (L4)?
+
+  recommended_option: "3-REScoped"   # Hybrid, with a hard L1/L4 boundary split
+
+  options_considered:
+    - id: 1
+      name: "Pure L1 Amendment (modify engine.js for everything incl. G1)"
+      verdict: REJECT
+      trade_offs:
+        pro:
+          - Single mechanism; everything permanent in core.
+        con:
+          - Forces FR-1/FR-2/FR-3/FR-8 (prompt-parsing + session writes) into the
+            engine — wrong layer. The engine is stateless w.r.t. the prompt; it
+            receives `session` and `processConfig` (engine.js:263). Prompt detection
+            belongs at the hook (UserPromptSubmit), per CON-2.
+          - Would require amending hook-runtime.js:67 unnecessarily.
+          - Maximises the L1 amendment surface = maximises governance latency.
+
+    - id: 2
+      name: "Pure L4 sync hook (.claude/hooks/l2-session-sync.cjs syncing both sources)"
+      verdict: REJECT  # ANTI-PATTERN
+      trade_offs:
+        pro:
+          - Fast, no approval round-trip.
+        con:
+          - "Sync both sources" institutionalises TWO sources of truth for
+            active_agent (hook-metrics.json vs sessions file) — this is exactly
+            PRD risk R7 ("drift"). A sync hook makes the drift permanent, not fixed.
+          - FR-4/FR-5/FR-6/FR-7/FR-9 are engine-INTERNAL logic (layer selection,
+            merge, precedence, validation). They cannot be done from L4 without a
+            grotesque post-processor that re-implements the engine's job outside it.
+          - Verdict: the "sync" framing is the wrong mental model. G1 is not a sync
+            problem; it is a "remove the second source of truth" problem.
+
+    - id: "3-REScoped"
+      name: "Hybrid with hard L1/L4 boundary split (RECOMMENDED)"
+      verdict: ADOPT
+      rationale: >
+        Two facts from direct code inspection collapse the decision:
+        (a) G1 (FR-1) is NOT an L1 problem. synapse-engine.cjs:48 calls
+            engine.process(prompt, session) and at :53-58 ALREADY calls the L1
+            updateSession() API from L4 (the QW-1 bracket-persist pattern). The
+            activation bridge writes active_agent into the SAME sessions file the
+            engine reads (hook-runtime.js:56-60), via that existing L1 API.
+            Calling an L1 function is consuming a public API — it does NOT trip
+            the .aiox-core/core/** Write/Edit boundary (core-config.yaml:91-92).
+            So FR-1/FR-2/FR-3/FR-8 are PURE L4. No amendment. No sync hook.
+        (b) The manifest gap (FR-3) is solved from L4 too: engine.process merges
+            processConfig over this.config (engine.js:264-265) and passes
+            manifest into buildLayerContext (engine.js:321-328). Supplying
+            { manifest } as the third arg to process() wires L2/L3 domain
+            resolution WITHOUT editing the engine.
+        The only genuine L1 surface is engine-internal behaviour: FR-4 (l2-agent
+        fallback ordering), FR-5 (replace DEFAULT_ACTIVE_LAYERS with per-layer
+        triggers), FR-6/FR-7 (merge + precedence apply), FR-9 (validation/sanitise),
+        FR-10 (degrade hardening), FR-12 (diagnostics reporting). Batch these into
+        ONE amendment.
+      trade_offs:
+        pro:
+          - G1 closed in L4 immediately (no approval latency on the activation bridge).
+          - Single source of truth (sessions file); hook-metrics.json demoted to
+            observability-only — kills R7 at the root instead of syncing around it.
+          - L1 amendment surface minimised to engine internals that genuinely belong
+            in core; one batched approval unblocks 82.2/82.4/82.5/82.6.
+          - Honours CON-2 (bridge in hooks) and Art. VI-VII (engine via amendment).
+        con:
+          - Requires discipline: the batched amendment must declare the FULL L1
+            surface up front (mitigated below).
+
+  # --- The boundary ruling, per FR ---
+  boundary_ruling:
+    L4_no_amendment:            # .claude/hooks/** + tests/** + .synapse/** (L3 data)
+      - fr: FR-1
+        change: "Activation bridge writes active_agent.{id,activated_at} into
+                 .synapse/sessions/{uuid}.json via updateSession() (L1 API call)."
+        file: .claude/hooks/synapse-engine.cjs   # extend existing :53-58 block
+        note: "Mirror QW-1 pattern; detection reuses agent-activation-tracker.cjs
+               detectActiveAgent(). hook-metrics.json write kept for diagnostics only."
+      - fr: FR-2
+        change: "detectWorkflow()/detectStoryId() in the bridge; persist
+                 active_workflow/active_task via updateSession (else-branch merge,
+                 session-manager.js:219). Null when no signal (no invention)."
+        file: .claude/hooks/synapse-engine.cjs
+      - fr: FR-3
+        change: "Call parseManifest() (domain-loader.js:49, pure fn) in the hook;
+                 pass engine.process(prompt, session, { manifest }) — 3rd arg."
+        file: .claude/hooks/synapse-engine.cjs   # one-line call-site change
+        evidence: "engine.js:264-265 merges processConfig; :321-328 forwards manifest."
+      - fr: FR-8
+        change: "Persist active_* + history.* + sticky agent via updateSession;
+                 TTL cleanup already implemented (hook-runtime.js:70-80). Single
+                 write per prompt (do NOT double-increment prompt_count)."
+        file: .claude/hooks/synapse-engine.cjs
+      - fr: FR-11-format
+        change: "Reshape .synapse/commands so [*brief] blocks survive loadDomainFile
+                 (expose live [*command] delimiters / COMMANDS_RULE_* keys)."
+        file: .synapse/commands                  # L3 config, mutable, no amendment
+      - fr: FR-7-data
+        change: "Precedence table as DATA (L0=100..L7=10) lives in .synapse/ or a
+                 small L3 data file; engine READS it (apply logic is L1, below)."
+        file: .synapse/precedence.json           # L3 data (new, allowed)
+      - fr: FR-12-tests
+        change: "Integration + golden-snapshot + perf + degradation tests."
+        file: tests/hooks/synapse-*.test.js, tests/synapse/**
+
+    L1_amendment_required:      # .aiox-core/core/synapse/** — ONE batched propose-modification
+      - fr: FR-4
+        file: .aiox-core/core/synapse/layers/l2-agent.js
+        edit: "Make the .synapse/agent-{id} fallback REACHABLE: it is dead today
+               because `if (!domainKey) return null` (l2-agent.js:62-64) fires
+               before the fallback at :68-70. Reorder so unresolved domain key
+               falls through to direct-file load."
+        size: small
+      - fr: [FR-5, FR-6, FR-7, FR-9, FR-10]
+        file: .aiox-core/core/synapse/engine.js
+        edit: "Replace DEFAULT_ACTIVE_LAYERS=[0,1,2] (engine.js:191) + the
+               activeLayers gate (:300-305) with per-layer trigger evaluation
+               (L3:active_workflow, L4:active_task, L5:active_squad, L6:keyword,
+               L7:*command). Apply precedence+dedup over `results` before
+               formatSynapseRules (:375). Pre-injection validation (FR-9) + skip-on-
+               fail (FR-10) on the L2-L7 paths. Keep SYNAPSE_LEGACY_MODE escape hatch."
+        size: medium-large
+      - fr: [FR-6, FR-9]
+        file: .aiox-core/core/synapse/output/formatter.js
+        edit: "Dedup identical rule strings keeping highest precedence; envelope
+               sanitisation (strip </synapse-rules>-like seqs); size caps; trim
+               lowest-precedence first, NEVER L0 (NFR-2)."
+        size: medium
+      - fr: FR-12
+        file: .aiox-core/core/synapse/diagnostics/synapse-diagnostics.js (+ collectors)
+        edit: "Report L2-L7 status (active/skipped/error + rules count) so the gate
+               can assert 0 FAIL for the active-agent + *command scenario."
+        size: small-medium
+
+  amendment_strategy:
+    decision: "ONE consolidated @aiox-master *propose-modification, filed in 82.1."
+    rationale: >
+      The L1 surface spans 82.1 (l2-agent), 82.2 (engine+formatter), 82.4 (engine
+      validation), 82.6 (diagnostics). Four separate amendments = four approval
+      round-trips = serialization bottleneck (R1). Instead, 82.1 files ONE amendment
+      that declares the FULL L1 surface (the 4 files + nature of each edit) and is
+      approved ONCE. Each story then implements its slice under that umbrella
+      approval. This is an "amendment plan", approved up front, executed
+      incrementally — it unblocks 82.2/82.4/82.6 without per-story governance latency.
+    owner: "@aiox-master (Orion) approves; @architect (Aria) authors the proposal;
+            @dev implements slices. Per Art. II, only @aiox-master executes the L1 write
+            authorization — @architect does NOT self-approve."
+    artifact: ".aiox/proposals/EPIC-82-L1-amendment.md (filed by 82.1)"
+
+# ===========================================================================
+# STORY PREREQUISITES (explicit) + per-story L1/L4 burden
+# ===========================================================================
+stories:
+  - id: 82.1
+    name: Activation Engine and Manifest Wiring
+    sp: 13
+    prereq: ["L1 amendment plan FILED + APPROVED by @aiox-master"]
+    blocks: [82.2, 82.3, 82.4, 82.5, 82.6]
+    layers_touched:
+      L4: [.claude/hooks/synapse-engine.cjs]
+      L1: [.aiox-core/core/synapse/layers/l2-agent.js]   # FR-4 fallback reorder only
+    note: >
+      Files the consolidated L1 amendment (covers all 4 L1 files) but only
+      IMPLEMENTS the l2-agent FR-4 slice. The G1 bridge (FR-1/2/3) is L4-only.
+
+  - id: 82.2
+    name: Merge Logic, Layer Re-enablement and Conflict Resolution
+    sp: 13
+    prereq: [82.1]
+    blocks: [82.4, 82.5, 82.6]
+    layers_touched:
+      L1: [.aiox-core/core/synapse/engine.js, .aiox-core/core/synapse/output/formatter.js]
+      L3: [.synapse/precedence.json]
+    note: "Implements under 82.1's umbrella amendment. Verify <100ms (AC6) after re-enable."
+
+  - id: 82.3
+    name: Cache Manager / Session Persistence
+    sp: 8
+    prereq: [82.1]
+    blocks: [82.6]
+    layers_touched:
+      L4: [.claude/hooks/synapse-engine.cjs]
+    note: "PURE L4. session-manager.js (L1) already complete — no amendment. Guard
+           single prompt_count increment per prompt."
+
+  - id: 82.4
+    name: Validation and Graceful Degradation
+    sp: 8
+    prereq: [82.2]
+    blocks: [82.6]
+    layers_touched:
+      L1: [.aiox-core/core/synapse/engine.js, .aiox-core/core/synapse/output/formatter.js]
+    note: "Implements FR-9/FR-10/NFR-3 slice under 82.1's umbrella amendment."
+
+  - id: 82.5
+    name: Command Routing (L7 Star-Commands)
+    sp: 8
+    prereq: [82.2]
+    blocks: [82.6]
+    layers_touched:
+      L3: [.synapse/commands]                 # format reshape — no amendment
+      L1: []                                  # L7 trigger rides FR-5 (already in 82.2)
+    note: "Prefer L3 file-format fix over L1 parser edit (l7-star-command.js).
+           Only escalate to L1 parser edit if the format reshape proves insufficient."
+
+  - id: 82.6
+    name: Integration Tests and Diagnostics Gate
+    sp: 13
+    prereq: [82.1, 82.2, 82.3, 82.4, 82.5]
+    blocks: []
+    layers_touched:
+      L4: [tests/hooks/**, tests/synapse/**]
+      L1: [.aiox-core/core/synapse/diagnostics/synapse-diagnostics.js]  # FR-12 reporting
+    note: "Diagnostics extension under 82.1's umbrella amendment; tests are L4."
+
+# ===========================================================================
+# EXPECTED FILE LIST (end of epic)
+# ===========================================================================
+file_list:
+  modified_L4_hooks:
+    - .claude/hooks/synapse-engine.cjs            # activation bridge: FR-1/2/3/8 + manifest arg
+  modified_L1_amendment:                          # under ONE *propose-modification
+    - .aiox-core/core/synapse/layers/l2-agent.js  # FR-4
+    - .aiox-core/core/synapse/engine.js           # FR-5/6/7/9/10
+    - .aiox-core/core/synapse/output/formatter.js # FR-6/9
+    - .aiox-core/core/synapse/diagnostics/synapse-diagnostics.js  # FR-12
+  modified_L3_data:
+    - .synapse/commands                           # FR-11 format reshape
+  new_L3_data:
+    - .synapse/precedence.json                    # FR-7 precedence table (data)
+  new_L4_tests:
+    - tests/hooks/synapse-activation.test.js
+    - tests/synapse/merge-precedence.test.js
+    - tests/synapse/integration-pipeline.test.js
+    - tests/synapse/golden-snapshot.test.js
+  new_governance:
+    - .aiox/proposals/EPIC-82-L1-amendment.md     # filed by 82.1
+  unchanged_reused_IDS:                           # CON-6 REUSE (do NOT recreate)
+    - .aiox-core/core/synapse/session/session-manager.js   # updateSession already supports it
+    - .aiox-core/core/synapse/domain/domain-loader.js      # parseManifest already exists
+    - .aiox-core/core/synapse/runtime/hook-runtime.js      # session load/create done
+
+# ===========================================================================
+# RISK MITIGATIONS (R1/R2 dominant, per PRD §6)
+# ===========================================================================
+risk_mitigations:
+  R1:
+    risk: "L1 Core boundary blocks engine edits (governance latency)."
+    severity: "High likelihood / High impact — DOMINANT."
+    mitigation:
+      - "ONE batched *propose-modification filed in 82.1 declaring the FULL L1 surface
+         (4 files), approved once — eliminates per-story approval round-trips."
+      - "Minimise L1 surface: FR-1/2/3/8 done in L4 (calling L1 APIs, not editing L1)."
+      - "@architect authors proposal; @aiox-master approves+authorises the write
+         (Art. II — architect does NOT self-approve L1 writes)."
+    residual: "Low — surface is small, well-bounded, and front-loaded."
+  R2:
+    risk: "Re-enabling L3-L7 reintroduces NOG-17 latency that caused the disable."
+    severity: "Medium likelihood / High impact — DOMINANT."
+    mitigation:
+      - "Lazy per-layer triggers (FR-5): common case stays L0+L1+L2 (+L7 only on
+         *command). Never the NOG-17 '17 files every prompt'."
+      - "Keep PIPELINE_TIMEOUT_MS=100 hard cap (engine.js:184); remaining layers
+         skipped on overrun (engine.js:308-317)."
+      - "82.6 AC5 perf test asserts median <100ms with all triggers firing — a
+         BLOCKING gate, not advisory."
+    residual: "Low-Medium — lazy triggers structurally prevent regression."
+  R7:
+    risk: "Two sources of truth (sessions file vs hook-metrics.json) drift."
+    mitigation:
+      - "Resolved BY DESIGN: sessions file = single source of truth (FR-1);
+         hook-metrics.json demoted to observability-only. No sync hook (rejected
+         Option 2) — there is nothing to sync because there is one source."
+    residual: "Eliminated at root."
+
+# ===========================================================================
+# 82.1 ENTRY POINT — test-first acceptance criterion that validates the G1 fix
+# ===========================================================================
+entry_point_82_1:
+  test_first_ac: >
+    G1-CLOSURE (write the FAILING test before the fix):
+    Given a UserPromptSubmit event { prompt: "@pm draft the epic", session_id: S, cwd },
+    when the SYNAPSE hook chain runs (synapse-engine.cjs activation bridge),
+    then loadSession(S, .synapse/sessions) returns a session with
+    active_agent.id === "pm"  (i.e. the agent id is present in the FILE THE ENGINE
+    READS — hook-runtime.js:56-60 — not only in hook-metrics.json),
+    AND SynapseEngine.process(prompt, thatSession, { manifest }) yields a result whose
+    L2 layer metric is status:"ok" with rules.length > 0 sourced from .synapse/agent-pm.
+  why_this_proves_g1: >
+    The disconnect is precisely "writer (hook → hook-metrics.json) and reader
+    (engine ← sessions file) target different files". This AC asserts both ends now
+    agree on the sessions file AND that agreement produces non-zero L2 rules — the
+    exact symptom (L2 functionally dead) flips to alive. It is executable via
+    `node --test` with no UI, satisfying CON-4 (CLI-first).
+  cli_verification: |
+    node --test tests/hooks/synapse-activation.test.js
+    node -e "const {runDiagnostics}=require('./.aiox-core/core/synapse/diagnostics/synapse-diagnostics');console.log(runDiagnostics(process.cwd()))"
+    # Expect: L2 status active, rules > 0; 0 FAIL items.
+  definition_of_done_82_1:
+    - "L1 amendment plan filed (.aiox/proposals/EPIC-82-L1-amendment.md) + @aiox-master approved."
+    - "PRD AC1-AC6 for 82.1 pass."
+    - "G1-CLOSURE test green; no regression for the no-agent case (AC5)."
+    - "synapse-diagnostics: L2 active, 0 FAIL (AC6)."
+
+# ===========================================================================
+# HANDOFF
+# ===========================================================================
+handoff:
+  to: "@sm (River)"
+  action: >
+    Draft stories 82.1-82.6 with create-next-story.md. For EVERY story touching
+    .aiox-core/core/synapse/**, Dev Notes MUST cite CON-1: implementation proceeds
+    under the SINGLE consolidated *propose-modification filed in 82.1, NOT a new
+    amendment per story. FR-1/2/3/8 are L4 (no amendment). Sequence strictly
+    82.1 -> 82.2 -> (82.3, 82.4, 82.5) -> 82.6.
+  to_secondary: "@aiox-master (Orion)"
+  action_secondary: >
+    Expect the consolidated EPIC-82 L1 amendment proposal from 82.1 (4 files:
+    l2-agent.js, engine.js, formatter.js, synapse-diagnostics.js). Approve as a
+    plan; @dev implements slices per story under that approval.
+  architect_constraints_flagged:
+    - "Art. VI-VII: engine edits are amendments, never free edits."
+    - "Art. II: @architect authored this plan; does not push, does not self-approve L1."
+    - "NFR-5 backward-compat: no-agent case output MUST stay byte-identical."

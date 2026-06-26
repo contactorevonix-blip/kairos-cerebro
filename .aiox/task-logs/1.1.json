@@ -1,47 +1,47 @@
 {
   "storyId": "1.1",
-  "storyType": "config",
-  "suggestedAt": "2026-06-18T19:01:33.954Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-25T18:35:26.146Z",
   "suggestions": [
     {
-      "id": "setup-design-system",
-      "name": "Setup Design System Structure",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-design-system.md",
+      "id": "export-design-tokens-dtcg",
+      "name": "Export Design Tokens to W3C DTCG",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
       "score": 81,
       "autoActivate": true
     },
     {
-      "id": "list-mcps",
-      "name": "list-mcps",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/list-mcps.md",
+      "id": "qa-test-design",
+      "name": "test-design",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/qa-test-design.md",
+      "score": 81,
+      "autoActivate": true
+    },
+    {
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "setup-llm-routing",
-      "name": "setup-llm-routing",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-llm-routing.md",
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
       "score": 73,
       "autoActivate": true
     },
     {
-      "id": "setup-mcp-docker",
-      "name": "Setup Docker MCP Toolkit",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/setup-mcp-docker.md",
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
       "score": 73,
       "autoActivate": true
-    },
-    {
-      "id": "add-mcp",
-      "name": "Add MCP Server Task",
-      "category": "config",
-      "file": ".aiox-core/development/tasks/add-mcp.md",
-      "score": 65,
-      "autoActivate": false
     }
   ]
 }

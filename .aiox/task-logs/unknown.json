@@ -1,47 +1,47 @@
 {
   "storyId": "unknown",
-  "storyType": "bug",
-  "suggestedAt": "2026-06-24T21:51:43.384Z",
+  "storyType": "arch",
+  "suggestedAt": "2026-06-26T17:59:50.133Z",
   "suggestions": [
     {
-      "id": "correct-course",
-      "name": "Correct Course Task",
-      "category": "bug",
-      "file": ".aiox-core/development/tasks/correct-course.md",
-      "score": 65,
-      "autoActivate": false
+      "id": "architect-analyze-impact",
+      "name": "Architect Analyze Impact",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/architect-analyze-impact.md",
+      "score": 81,
+      "autoActivate": true
     },
     {
-      "id": "dev-apply-qa-fixes",
-      "name": "Dev Apply Qa Fixes",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
-      "score": 51,
-      "autoActivate": false
+      "id": "brownfield-create-epic",
+      "name": "Create Brownfield Epic Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-epic.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "test-validation-task",
-      "name": "Test Validation Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/test-validation-task.md",
-      "score": 51,
-      "autoActivate": false
+      "id": "brownfield-create-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/brownfield-create-story.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "devops-pro-access-grant",
-      "name": "Task: DevOps Pro Access Grant",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/devops-pro-access-grant.md",
-      "score": 46,
-      "autoActivate": false
+      "id": "create-brownfield-story",
+      "name": "Create Brownfield Story Task",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/create-brownfield-story.md",
+      "score": 73,
+      "autoActivate": true
     },
     {
-      "id": "devops-pro-check-access",
-      "name": "Task: DevOps Pro Check Access",
-      "category": "devops",
-      "file": ".aiox-core/development/tasks/devops-pro-check-access.md",
-      "score": 46,
-      "autoActivate": false
+      "id": "export-design-tokens-dtcg",
+      "name": "Export Design Tokens to W3C DTCG",
+      "category": "arch",
+      "file": ".aiox-core/development/tasks/export-design-tokens-dtcg.md",
+      "score": 73,
+      "autoActivate": true
     }
   ]
 }
