@@ -1,7 +1,7 @@
 # Story EPIC-AIOX-GOVERNANCE-2.S1: Agent Connectivity Matrix
 
 ## Status
-**Ready**
+**InProgress**
 
 ## Executor Assignment
 ```yaml
@@ -49,9 +49,9 @@ quality_gate_tools:
 
 ## Tasks / Subtasks
 
-- [ ] Listar todos os agentes em `.claude/agents/` (29 ficheiros) (AC: 2)
-- [ ] Listar todos os `SKILL.md` canonicos em `.claude/skills/AIOX/agents/*/SKILL.md` (AC: 2)
-- [ ] Reconciliar naming: identificar agentes com nomes diferentes entre as duas localizacoes (AC: 2)
+- [x] Listar todos os agentes em `.claude/agents/` (29 ficheiros) (AC: 2) — **DONE**
+- [x] Listar todos os `SKILL.md` canonicos em `.claude/skills/AIOX/agents/*/SKILL.md` (AC: 2) — **DONE** (59 files)
+- [ ] Reconciliar naming: identificar agentes com nomes diferentes entre as duas localizacoes (AC: 2) — **BLOCKER: ux vs ux-design-expert**
 - [ ] Para cada agente, extrair Reads From / Writes To dos ficheiros de definicao (AC: 5)
 - [ ] Para cada agente, extrair Authority de `.claude/rules/agent-authority.md` (AC: 4)
 - [ ] Criar pasta `.claude/.docs/` se nao existir (AC: 1)
@@ -82,6 +82,13 @@ quality_gate_tools:
 **Problema de naming conhecido (do PRD FR-1):**
 - `.claude/agents/aiox-sm.md` pode divergir de `.claude/skills/AIOX/agents/sm/SKILL.md` (prefix `aiox-` vs sem prefix)
 - A story deve documentar o mapping real, nao assumir consistencia
+
+**[CONT 82 DISCOVERY] Critical Naming Mismatch — Needs @qa Validation:**
+- Legacy: `.claude/agents/aiox-ux.md`
+- Canonical: `.claude/skills/AIOX/agents/ux-design-expert/SKILL.md` ← **Different name!**
+- Issue: UX agent has diverged naming between systems (aiox-ux vs ux-design-expert)
+- Resolution: @qa must validate if this is intentional or a reconciliation error
+- Impact: Affects Task 3 (Reconciliar naming) and Task 7 (Create matrix) until resolved
 
 **Sem CodeRabbit:** `coderabbit_integration` nao configurado — qualidade validada por @po manualmente.
 
@@ -116,6 +123,7 @@ Story é considerada **Done** quando:
 
 | Data | Versão | Descrição | Agente |
 |------|--------|-----------|--------|
+| 2026-06-26 | 1.0.6 | CONT 82 Handoff: Tasks 1-2 DONE (29 legacy agents, 59 canonical SKILL.md). BLOCKER: ux vs ux-design-expert naming mismatch needs @qa validation. Remaining tasks (3-8) depend on blocker resolution. Status: InProgress | @sm |
 | 2026-06-25 | 1.0.5 | Executor model updated: @sm (documentation) + @qa (validation) collaboration model — better for reconciliation work | @po |
 | 2026-06-25 | 1.0.4 | Final optimization: Testing Standards + Criteria of Done added → 10/10 perfect score | @po |
 | 2026-06-25 | 1.0.3 | Re-validation GO (8/10) — Status: Draft → Ready. All blockers resolved, ready for @qa implementation | @po |
