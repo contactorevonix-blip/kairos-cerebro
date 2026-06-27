@@ -93,7 +93,9 @@ Once approved:
 
 ---
 
-**Status:** AWAITING RESPONSE  
-**Urgency:** HIGH (Story 82.1 blocked, ready to release)  
-**Timeline:** Same-day response requested if possible
+**Status:** ⏰ AWAITING RESPONSE — **URGENT**  
+**Urgency:** 🔴 CRITICAL (Story 82.1 blocked, ready to release, EPIC-82 roadmap stalled)  
+**SLA:** 24 hours (same-day preferred)  
+**Submitted:** 2026-06-27 (timestamp: see git log)  
+**Deadline:** 2026-06-28 (EOD)
 
