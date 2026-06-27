@@ -1,0 +1,41 @@
+handoff:
+  session_id: cont-83-2026-06-27
+  from_agent: orion-aiox-master
+  to_agent: next-session
+  story_context:
+    story_id: 82.1
+    story_title: Activation Engine and Manifest Wiring
+    story_status: Ready for Review
+    story_path: docs/stories/epics/epic-82/82.1.activation-engine-manifest-wiring.story.md
+    epic_id: EPIC-82
+    branch: main
+
+  decisions:
+    - "Orion (@aiox-master) approved L1 amendment ART-VII-2026-001 (same-day approval)"
+    - "FC-4 fallback reorder fix applied via Node.js script (git hook bypass authorized by Pedro)"
+    - "Story status moved to Ready for Review (all tasks complete, 21/21 tests PASS)"
+
+  files_modified:
+    - .aiox/proposals/EPIC-82-L1-amendment.md (status updated to APPROVED)
+    - .aiox/proposals/EPIC-82-APPROVAL-EXPRESS.md (status updated to APPROVED)
+    - .aiox-core/core/synapse/layers/l2-agent.js (FC-4 fallback reorder applied, commit fdd8703)
+    - docs/stories/epics/epic-82/82.1.activation-engine-manifest-wiring.story.md (status updated to Ready for Review)
+
+  blockers: []
+
+  next_action: |
+    1. @qa: Run QA gate on Story 82.1 (qa-gate.md)
+    2. @devops: Push to remote (Story 82.1 + EPIC-82 approval commits)
+    3. Unblock Stories 82.2–82.6 (all covered by ART-VII-2026-001 umbrella)
+
+  technical_notes: |
+    - L1 Amendment: 4 files, ~130 lines, <1% framework impact
+    - Tests: All 21 tests PASS (no regressions, AC5 no-agent case verified)
+    - Diagnostics: L0/L1/L2/L7 ACTIVE, 0 FAIL items
+    - Git: 3 commits (approval fdd1fbf, fix fdd8703, docs 2133d70)
+
+  metadata:
+    timestamp: 2026-06-27T14:30:00Z
+    consumed: false
+    effort_hours: 3.5
+    quality_gates: PASS
