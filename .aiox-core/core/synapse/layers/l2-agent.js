@@ -13,6 +13,7 @@
  */
 
 const path = require('path');
+const fs = require('fs');
 const { loadDomainFile } = require('../domain/domain-loader');
 const LayerProcessor = require('./layer-processor');
 
@@ -59,25 +60,24 @@ class L2AgentProcessor extends LayerProcessor {
     const domainKey = Object.keys(manifest.domains || {})
       .find(k => manifest.domains[k].agentTrigger === agentId);
 
-    // 3. Load domain file (if domain key found)
+    // 3. Resolve domain file path (FR-4):
+    //    - matched domain  → its declared file (or agent-{id} convention)
+    //    - no domain match → direct-file fallback to agent-{id}, which may
+    //      still exist on disk even when the manifest has no matching trigger.
+    //    Previous code fired early return before fallback could run.
+    let domainFile;
     if (domainKey) {
       const domain = manifest.domains[domainKey];
-      const domainFile = domain.file
+      domainFile = domain.file
         ? path.join(synapsePath, domain.file)
         : path.join(synapsePath, `agent-${agentId}`);
-      const rules = loadDomainFile(domainFile);
-      if (rules && rules.length > 0) {
-        return rules;
-      }
+    } else {
+      domainFile = path.join(synapsePath, `agent-${agentId}`);
     }
 
-    // 4. Fallback: direct-file load when domain key unresolved or file missing
-    const fallbackFile = path.join(synapsePath, `agent-${agentId}`);
-    if (fs.existsSync(fallbackFile)) {
-      const rules = loadDomainFile(fallbackFile);
-      if (rules && rules.length > 0) {
-        return rules;
-      }
+    const rules = loadDomainFile(domainFile);
+    if (!rules || rules.length === 0) {
+      return null;
     }
 
     // 4. Check for authority boundaries
