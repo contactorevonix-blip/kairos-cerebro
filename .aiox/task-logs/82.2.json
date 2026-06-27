@@ -1,7 +1,7 @@
 {
-  "storyId": "82.1",
+  "storyId": "82.2",
   "storyType": "bug",
-  "suggestedAt": "2026-06-27T10:04:25.328Z",
+  "suggestedAt": "2026-06-27T10:07:34.563Z",
   "suggestions": [
     {
       "id": "correct-course",
@@ -12,11 +12,27 @@
       "autoActivate": false
     },
     {
+      "id": "test-validation-task",
+      "name": "Test Validation Task",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/test-validation-task.md",
+      "score": 59,
+      "autoActivate": false
+    },
+    {
       "id": "github-devops-pre-push-quality-gate",
       "name": "pre-push-quality-gate.md",
       "category": "devops",
       "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
-      "score": 62,
+      "score": 54,
+      "autoActivate": false
+    },
+    {
+      "id": "dev-apply-qa-fixes",
+      "name": "Dev Apply Qa Fixes",
+      "category": "qa",
+      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
+      "score": 51,
       "autoActivate": false
     },
     {
@@ -24,22 +40,6 @@
       "name": "Create Fix Request Task",
       "category": "qa",
       "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
-      "score": 59,
-      "autoActivate": false
-    },
-    {
-      "id": "fast-path-gate",
-      "name": "Fast Path Gate",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/fast-path-gate.md",
-      "score": 51,
-      "autoActivate": false
-    },
-    {
-      "id": "qa-run-tests",
-      "name": "Run Tests (with Code Quality Gate)",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-run-tests.md",
       "score": 51,
       "autoActivate": false
     }

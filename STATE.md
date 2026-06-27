@@ -1,30 +1,31 @@
-# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 DRAFTED ✅
+# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 (canónica) EM VALIDAÇÃO @PO
 
-**Status: ✅ STORY 82.1 COMPLETE (READY FOR QA) | ✅ STORY 82.2 DRAFTED (READY FOR @PO VALIDATION) | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @PO VALIDATES 82.2 → @DEV IMPLEMENTS**
+**Status: ✅ STORY 82.1 COMPLETE (READY FOR QA) | ✅ STORIES 82.2–82.6 JÁ EXISTIAM (criadas 26 Jun) | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @PO VALIDA 82.2 canónica → @DEV IMPLEMENTA**
 
 ---
 
-## CONT 84 — Story 82.2 Drafted (2026-06-27)
+## CONT 84 — Correcção IDS + Story 82.2 canónica (2026-06-27)
 
-### ✅ Story 82.2 Created — L3-L7 Re-enablement
+### ⚠️ Erro IDS corrigido (Art. IV-A / NEVER-009)
 
-**Scope:** Closes gaps G2-G5 (manifest wiring, lazy activation, L7 parser, tests)  
-**Estimate:** 13 SP (manifest + L3-L7 triggers + command parser + integration tests)  
-**Status:** Draft → awaiting @po validation  
-**File:** `docs/stories/epics/EPIC-82/epic-82.story-2.story.md`  
-**Commit:** `afa0dea` → Story 82.2 drafted
+Foi criado um ficheiro **82.2 duplicado** (`epic-82.story-2.story.md`) sem verificar que a estrutura completa de stories EPIC-82 já existia desde 26 Jun. O @po deu **NO-GO (5/10)**: scope errado (duplicava FR-1/2/3 da 82.1 já Done, FR-11 da 82.5, FR-12 da 82.6) e omitia o scope real da 82.2 (FR-6, FR-7). Ficheiro **descartado** (`git rm`).
 
-**Key ACs:**
-- AC1: Manifest wiring to engine (parseManifest → engine context)
-- AC2: Lazy activation per layer (L3-L7 trigger evaluation instead of hard list)
-- AC3: L7 command parser fix (`[*command]` delimiters)
-- AC4: Session bridge extension (active_workflow + active_task)
-- AC5: Integration test suite (L2-L7 full pipeline + golden snapshots)
-- AC6: synapse-diagnostics acceptance gate
-- AC7: No regressions (backward compat)
-- AC8: Framework boundary compliance (CON-1)
+**Lição:** verificar `docs/stories/epics/` ANTES de `*draft` (REUSE > ADAPT > CREATE).
 
-**Next Step:** @po validates Story 82.2 (10-point checklist) → if Go, @dev implements
+### ✅ Estrutura EPIC-82 canónica (real, criada 26 Jun)
+
+| Story | Ficheiro | Scope | Status |
+|-------|----------|-------|--------|
+| 82.1 | `82.1.activation-engine-manifest-wiring.story.md` | FR-1/2/3 (activation + manifest) | ✅ Done |
+| **82.2** | `82.2.merge-logic-layer-reenablement.story.md` | FR-5/6/7 (lazy re-enable + merge + precedence) | 🟡 Draft → @po |
+| 82.3 | `82.3.cache-manager-session-persistence.story.md` | FR-8 (cache + TTL) | Draft |
+| 82.4 | `82.4.validation-graceful-degradation.story.md` | FR-9/10 (validation) | Draft |
+| 82.5 | `82.5.command-routing-l7-star-commands.story.md` | FR-11 (L7 parser) | Draft |
+| 82.6 | `82.6.integration-tests-diagnostics-gate.story.md` | FR-12 (tests + diagnostics) | Draft |
+
+Mais `implementation.yaml` (@architect, design + CON-1 amendment plan).
+
+**Next Step:** @po valida `82.2.merge-logic-layer-reenablement.story.md` (FR-5/6/7) → se GO, @dev implementa sob amendment ART-VII-2026-001.
 
 ---
 
@@ -8496,4 +8497,19 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 ## Checkpoint: a73d2a9 — 2026-06-27 01:26
 **Branch:** main
 **Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: fc21a3b — 2026-06-27 09:20
+**Branch:** main
+**Commit:** docs: Cont 84 checkpoint — Story 82.2 drafted, ready for @po validation [Story 82.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: fc21a3b — 2026-06-27 10:00
+**Branch:** main
+**Commit:** docs: Cont 84 checkpoint — Story 82.2 drafted, ready for @po validation [Story 82.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: fc21a3b — 2026-06-27 10:01
+**Branch:** main
+**Commit:** docs: Cont 84 checkpoint — Story 82.2 drafted, ready for @po validation [Story 82.2]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md

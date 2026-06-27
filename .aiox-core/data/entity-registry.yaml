@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-06-21T21:13:30.480Z'
+  lastUpdated: '2026-06-27T01:22:44.310Z'
   entityCount: 833
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -12974,8 +12974,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a8677dc58ae7927c5292a4b52883bbc905c8112573b8b8631f0b8bc01ea2b6e6
-      lastVerified: '2026-06-21T18:34:06.860Z'
+      checksum: sha256:9ee3df1626a827ed561de293e8b7c003eb927af65a7ca41b58b69e9f640a4d39
+      lastVerified: '2026-06-27T01:22:44.300Z'
     l3-workflow:
       path: .aiox-core/core/synapse/layers/l3-workflow.js
       layer: L1
