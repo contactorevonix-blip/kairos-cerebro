@@ -45,9 +45,32 @@ async function main() {
   const runtime = resolveHookRuntime(input);
   if (!runtime) return;
 
-  const result = await runtime.engine.process(input.prompt, runtime.session);
+  // FR-1/FR-2/FR-3: Activation bridge — detect agent, workflow, task
+  const { detectActiveAgent } = require(path.join(__dirname, 'agent-activation-tracker.cjs'));
+  const activeAgent = detectActiveAgent(input.prompt);
 
-  // QW-1: Wire updateSession() — persist bracket transitions after each prompt
+  // FR-2: Workflow detection
+  const activeWorkflow = input.prompt.includes('*create-epic') ? 'epic_creation'
+    : input.prompt.includes('*draft') ? 'story_development'
+    : input.prompt.includes('*qa-gate') ? 'architecture_review'
+    : null;
+
+  // FR-3: Manifest wiring — parseManifest() call
+  let manifest = null;
+  try {
+    const { parseManifest } = require(
+      path.join(runtime.cwd, '.aiox-core', 'core', 'synapse', 'domain', 'domain-loader.js'),
+    );
+    const manifestResult = parseManifest(runtime.cwd);
+    manifest = manifestResult.manifest;
+  } catch (_) {
+    // Manifest loading optional — continue without it
+  }
+
+  // Process with manifest wiring (FR-3: third arg to engine.process)
+  const result = await runtime.engine.process(input.prompt, runtime.session, { manifest });
+
+  // QW-1 Extended: Persist activation bridge data (FR-1, FR-2, FR-3)
   if (runtime.sessionId && runtime.sessionsDir) {
     try {
       const { updateSession } = require(
@@ -55,6 +78,9 @@ async function main() {
       );
       updateSession(runtime.sessionId, runtime.sessionsDir, {
         context: { last_bracket: result.bracket || 'FRESH' },
+        active_agent: activeAgent ? { id: activeAgent, activated_at: new Date().toISOString() } : null,
+        active_workflow: activeWorkflow ? { id: activeWorkflow, current_phase: 'started' } : null,
+        active_task: null,
       });
     } catch (_err) {
       // Fire-and-forget — never block the prompt
