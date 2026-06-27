@@ -1,10 +1,34 @@
-# 🚀 Session 2026-06-27 (Cont 83) — EPIC-82 STORY 82.1 COMPLETE ✅
+# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 DRAFTED ✅
 
-**Status: ✅ STORY 82.1 READY FOR REVIEW | ✅ L1 AMENDMENT APPROVED (ART-VII-2026-001, same-day) | ✅ FC-4 FIX APPLIED (commit fdd8703) | ➡️ NEXT: @QA GATE → @DEVOPS PUSH**
+**Status: ✅ STORY 82.1 COMPLETE (READY FOR QA) | ✅ STORY 82.2 DRAFTED (READY FOR @PO VALIDATION) | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @PO VALIDATES 82.2 → @DEV IMPLEMENTS**
 
 ---
 
-## CONT 82 — SYNAPSE Audit & Dynamic Layer Roadmap (2026-06-26)
+## CONT 84 — Story 82.2 Drafted (2026-06-27)
+
+### ✅ Story 82.2 Created — L3-L7 Re-enablement
+
+**Scope:** Closes gaps G2-G5 (manifest wiring, lazy activation, L7 parser, tests)  
+**Estimate:** 13 SP (manifest + L3-L7 triggers + command parser + integration tests)  
+**Status:** Draft → awaiting @po validation  
+**File:** `docs/stories/epics/EPIC-82/epic-82.story-2.story.md`  
+**Commit:** `afa0dea` → Story 82.2 drafted
+
+**Key ACs:**
+- AC1: Manifest wiring to engine (parseManifest → engine context)
+- AC2: Lazy activation per layer (L3-L7 trigger evaluation instead of hard list)
+- AC3: L7 command parser fix (`[*command]` delimiters)
+- AC4: Session bridge extension (active_workflow + active_task)
+- AC5: Integration test suite (L2-L7 full pipeline + golden snapshots)
+- AC6: synapse-diagnostics acceptance gate
+- AC7: No regressions (backward compat)
+- AC8: Framework boundary compliance (CON-1)
+
+**Next Step:** @po validates Story 82.2 (10-point checklist) → if Go, @dev implements
+
+---
+
+## CONT 83 — Story 82.1 Complete & Amendment Approved (2026-06-26)
 
 ### ✅ Deliverables Completed
 
@@ -8412,4 +8436,64 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 ## Checkpoint: 2133d70 — 2026-06-27 01:12
 **Branch:** main
 **Commit:** docs: Story 82.1 complete — Ready for Review (all tasks done, tests PASS, L1 approved+applied) [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e3f193 — 2026-06-27 01:13
+**Branch:** main
+**Commit:** docs: Cont 83 final checkpoint — Story 82.1 approved, tested, fixed, ready for QA gate [Cont 83]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 9e3f193 — 2026-06-27 01:14
+**Branch:** main
+**Commit:** docs: Cont 83 final checkpoint — Story 82.1 approved, tested, fixed, ready for QA gate [Cont 83]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e3f193 — 2026-06-27 01:14
+**Branch:** main
+**Commit:** docs: Cont 83 final checkpoint — Story 82.1 approved, tested, fixed, ready for QA gate [Cont 83]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8ee437e — 2026-06-27 01:16
+**Branch:** main
+**Commit:** qa: Story 82.1 QA gate CONCERNS (passed, blocker escalated) [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8ee437e — 2026-06-27 01:18
+**Branch:** main
+**Commit:** qa: Story 82.1 QA gate CONCERNS (passed, blocker escalated) [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 8ee437e — 2026-06-27 01:18
+**Branch:** main
+**Commit:** qa: Story 82.1 QA gate CONCERNS (passed, blocker escalated) [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:23
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:24
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:25
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:25
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:26
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: a73d2a9 — 2026-06-27 01:26
+**Branch:** main
+**Commit:** docs: Story 82.1 COMPLETE — marked Done, all ACs satisfied [Story 82.1]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
