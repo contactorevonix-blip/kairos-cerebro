@@ -61,8 +61,8 @@ async function main() {
     const { parseManifest } = require(
       path.join(runtime.cwd, '.aiox-core', 'core', 'synapse', 'domain', 'domain-loader.js'),
     );
-    const manifestResult = parseManifest(runtime.cwd);
-    manifest = manifestResult.manifest;
+    const manifestResult = parseManifest(path.join(runtime.cwd, '.synapse', 'manifest'));
+    manifest = manifestResult;
   } catch (_) {
     // Manifest loading optional — continue without it
   }
