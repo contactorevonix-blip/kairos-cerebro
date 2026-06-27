@@ -1,6 +1,6 @@
-# 🚀 Session 2026-06-26 (Cont 82) — SYNAPSE AUDIT + ROADMAP READY
+# 🚀 Session 2026-06-27 (Cont 83) — EPIC-82 SYNAPSE DYNAMIC INJECTION — AWAITING APPROVAL
 
-**Status: ✅ KARPATHY PRINCIPLES INTEGRATED | ✅ .SYNAPSE SYNCED OFFICIAL | ✅ LAYERS 2-7 ROADMAP | ⏳ READY FOR @PM PRD**
+**Status: ✅ STORY 82.1 COMPLETE (21/21 TESTS) | ✅ L1 AMENDMENT PROPOSAL FILED | ⏳ AWAITING @AIOX-MASTER APPROVAL | → NEXT: 82.2-82.6 UNBLOCK**
 
 ---
 
@@ -8268,3 +8268,73 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: Cont 84 checkpoint — EPIC-82 PRD validated (GO 10/10), CON-1 resolved, 6 stories drafted [Cont 84]
 **Files changed:** .aiox/handoffs/handoff-2026-06-24-ids-ops-cont75-to-76.yaml, .aiox/handoffs/handoff-epic8-phase3-4-complete.yaml, .aiox/handoffs/handoff-epic8-spec-to-stories.yaml, .claude/hooks/synapse-engine.cjs, .synapse/metrics/hook-metrics.json, STATE.md, docs/runlogs/unknown-RUN-LOG.md, docs/stories/epics/epic-82/82.1.activation-engine-manifest-wiring.story.md
+
+## Checkpoint: 767fac5 — 2026-06-27 00:07
+**Branch:** main
+**Commit:** test: validate story 82.1 — 21/21 tests PASS, L2 pipeline simulation OK [Story 82.1]
+**Files changed:** none
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:08
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:10
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:11
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:12
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:14
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:19
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:23
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:27
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:31
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:35
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:56
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 9e4bdd1 — 2026-06-27 00:57
+**Branch:** main
+**Commit:** docs: handoff checkpoint — 82.1 validations complete, awaiting amendment approval [Story 82.1]
+**Files changed:** .aiox/task-logs/82.1.json, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 66ddf5e — 2026-06-27 00:59
+**Branch:** main
+**Commit:** docs: create EPIC-82 L1 amendment approval express request — unblock 82.1 [Story 82.1]
+**Files changed:** .aiox/task-logs/82.1.json, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
