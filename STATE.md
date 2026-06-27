@@ -1,6 +1,6 @@
-# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 (canónica) EM VALIDAÇÃO @PO
+# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 READY (10/10 GO) ✅
 
-**Status: ✅ STORY 82.1 COMPLETE (READY FOR QA) | ✅ STORIES 82.2–82.6 JÁ EXISTIAM (criadas 26 Jun) | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @PO VALIDA 82.2 canónica → @DEV IMPLEMENTA**
+**Status: ✅ STORY 82.1 COMPLETE | ✅ STORY 82.2 canónica @po GO 10/10 → READY | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @DEV IMPLEMENTA 82.2 (FR-5/6/7)**
 
 ---
 
@@ -17,7 +17,7 @@ Foi criado um ficheiro **82.2 duplicado** (`epic-82.story-2.story.md`) sem verif
 | Story | Ficheiro | Scope | Status |
 |-------|----------|-------|--------|
 | 82.1 | `82.1.activation-engine-manifest-wiring.story.md` | FR-1/2/3 (activation + manifest) | ✅ Done |
-| **82.2** | `82.2.merge-logic-layer-reenablement.story.md` | FR-5/6/7 (lazy re-enable + merge + precedence) | 🟡 Draft → @po |
+| **82.2** | `82.2.merge-logic-layer-reenablement.story.md` | FR-5/6/7 (lazy re-enable + merge + precedence) | ✅ Ready (@po GO 10/10) |
 | 82.3 | `82.3.cache-manager-session-persistence.story.md` | FR-8 (cache + TTL) | Draft |
 | 82.4 | `82.4.validation-graceful-degradation.story.md` | FR-9/10 (validation) | Draft |
 | 82.5 | `82.5.command-routing-l7-star-commands.story.md` | FR-11 (L7 parser) | Draft |
@@ -25,7 +25,11 @@ Foi criado um ficheiro **82.2 duplicado** (`epic-82.story-2.story.md`) sem verif
 
 Mais `implementation.yaml` (@architect, design + CON-1 amendment plan).
 
-**Next Step:** @po valida `82.2.merge-logic-layer-reenablement.story.md` (FR-5/6/7) → se GO, @dev implementa sob amendment ART-VII-2026-001.
+**@po validação:** GO **10/10** (2026-06-27). AC1-6 todos rastreiam FR-5/6/7; precedence table exact-match PRD §3.2; CON-1 amendment ART-VII-2026-001 correctamente referenciado. Status Draft → Ready.
+
+**Notas @dev (não-bloqueantes):** (1) referenciar ID `ART-VII-2026-001` nas Dev Notes; (2) AC4 (L7-vs-L0) testar ao nível da merge-function com regras L7 sintéticas (parsing real de `.synapse/commands` é 82.5).
+
+**Next Step:** @dev `*develop 82.2` — implementar FR-5/6/7 sob amendment ART-VII-2026-001. Verificar median <100ms (AC6) após re-enable.
 
 ---
 
