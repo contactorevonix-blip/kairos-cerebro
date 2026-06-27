@@ -43,6 +43,7 @@
   "dependencies": {
     "ajv-formats": "^3.0.1",
     "dotenv": "^17.4.2",
+    "js-yaml": "^4.3.0",
     "resend": "^6.12.3",
     "stripe": "^16.0.0",
     "ws": "^8.21.0",
