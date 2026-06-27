@@ -1,0 +1,78 @@
+---
+handoff:
+  from_agent: "@dev (Dex)"
+  to_agent: "@orchestrator (or next session)"
+  timestamp: "2026-06-27T00:15:00Z"
+  session_id: "Cont 85"
+
+story_context:
+  story_id: "82.1"
+  story_path: "docs/stories/epics/epic-82/82.1.activation-engine-manifest-wiring.story.md"
+  story_status: "InProgress"
+  epic: "EPIC-82 — SYNAPSE Dynamic Injection (Layers 2-7)"
+  story_points: 13
+
+progress_summary:
+  completed_tasks:
+    - "Task 1: Governance — L1 Amendment filed"
+    - "Task 2: Test Scaffold — 21/21 tests GREEN"
+    - "Task 3: L4 Hook Extended — synapse-engine.cjs (lines 48-73)"
+    - "Task 5: G1-CLOSURE Validation — AC-1,3,4,5,6 PASS"
+    - "Task 6: No-agent Regression — L0/L1 unchanged"
+    - "Task 7: Diagnostics — L0/L1/L2/L7 ACTIVE"
+
+  blocked_task:
+    - "Task 4: L1 Fix (l2-agent.js) — AWAITING @aiox-master approval"
+
+governance_gate:
+  amendment_id: "ART-VII-2026-001"
+  amendment_file: ".aiox/proposals/EPIC-82-L1-amendment.md"
+  status: "PENDING_APPROVAL"
+  required_for: "Task 4 implementation (l2-agent.js FR-4 fallback reorder)"
+  estimated_time_after_approval: "~5 minutes"
+
+verification_checklist:
+  - "✅ Amendment proposal filed and documented"
+  - "✅ Test suite passes (21/21)"
+  - "✅ Manifest integrity verified"
+  - "✅ Pipeline simulation OK (L0/L1/L2/L7)"
+  - "✅ No regressions detected"
+  - "⏳ Awaiting @aiox-master signature"
+
+next_action:
+  step_1: "Check if `.aiox/proposals/EPIC-82-L1-amendment.md` has been approved"
+  step_2_if_approved: "Execute Task 4: Fix l2-agent.js lines 62-72 (reorder fallback logic)"
+  step_3: "Run validation tests again"
+  step_4: "Mark story 82.1 status: InProgress → InReview"
+  step_5: "Handoff to @qa for gate"
+
+decision_context:
+  - "Story is Ready per @po validation (v0.1.1 — GO 10/10)"
+  - "All implementation prerequisites validated"
+  - "Only governance gate blocks further progress"
+  - "No technical blockers remain"
+
+files_modified:
+  - "docs/stories/epics/epic-82/82.1.activation-engine-manifest-wiring.story.md (Change Log v0.4.0)"
+  - ".aiox/proposals/EPIC-82-L1-amendment.md (created)"
+  - "tests/hooks/synapse-activation.test.js (created, all passing)"
+  - ".claude/hooks/synapse-engine.cjs (extended, lines 48-73)"
+
+branch: "main"
+last_commit: "767fac5 — test: validate story 82.1 — 21/21 tests PASS, L2 pipeline simulation OK [Story 82.1]"
+
+blockers: []
+open_questions: []
+notes:
+  - "Amendment covers L1 changes for ALL of EPIC-82 (82.1–82.6), not just 82.1"
+  - "Once approved, stories 82.2, 82.4, 82.6 can reference the umbrella approval"
+  - "No per-story governance required after amendment approval"
+
+related_stories:
+  - "82.2 (Manifest Forward) — depends on 82.1 + amendment approval"
+  - "82.4 (Validation) — depends on 82.1 + amendment approval"
+  - "82.6 (Integration) — depends on 82.1 + amendment approval"
+
+recommended_follow_up:
+  - "Begin 82.2 parallel prep (artifact drafting) while awaiting 82.1 governance"
+  - "Or start on orthogonal EPIC-81 stories (governance optimization) if 82 is blocked"
