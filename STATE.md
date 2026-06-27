@@ -1,6 +1,14 @@
-# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 DONE/PASS + SYN-001 FIX ✅
+# 🚀 Session 2026-06-27 (Cont 84) — 82.2 PASS/pushed + SYN-001 fix + AUDITORIA INTEGRIDADE AIOX ✅
 
-**Status: ✅ STORY 82.2 @qa PASS (Done) | ✅ SYN-001 manifest-wiring bug corrigido (commit 3bbf446) | 🟡 L1 82.2 staged → @devops commit+push | ⚠️ deny LEVANTADO no settings.json (repor após commit) | ➡️ NEXT: @DEVOPS commit+push**
+**Status: ✅ STORY 82.2 PASS/pushed (71647ba) | ✅ SYN-001 fix (3bbf446) | ✅ deny reposto + settings.json válido | ✅ AUDITORIA integridade AIOX completa | ✅ ADR estratégia consumo AIOX (@architect) | ➡️ NEXT (próx sessão): FWSYNC.1a (npm test green) + re-enquadrar FWSYNC.1 conforme ADR**
+
+### Cont 84 — desfecho da auditoria de integridade (2026-06-27)
+- **82.2 fechada:** PASS/pushed (71647ba). SYN-001 (manifest wiring hook) corrigido (3bbf446). settings.json válido + deny reposto.
+- **Auditoria AIOX** (`docs/qa/audits/2026-06-27-aiox-framework-integrity-audit.md`): `.aiox-core/` é cópia INCOMPLETA do oficial `SynkraAI/aiox-core` v5.2.9. Faltam **27 deps npm** + **16 requires internos** + **5 testes órfãos** (Epic 5.3). ~85% de `core/` é DORMENTE.
+- **Achado crítico:** `js-yaml` em falta (temos `yaml`, pacote diferente) afeta código VIVO (synapse hook-runtime/context-tracker) → features config silenciosamente desligadas.
+- **ADR** (`docs/architecture/ADR-aiox-consumption-strategy.md`, @architect): **Option A — Vendored Runtime Subset**. Manter synapse(vivo) + errors + ide-sync; quarentenar ~85% dormente; adicionar SÓ js-yaml. Rejeitou B (npm dep, apagaria 82.x) e C (full sync, incha produto).
+- **FWSYNC.1** (story @sm, 5sp) está mal-direccionada (assume re-sync). Re-enquadrar conforme ADR → split: **1a** "npm test green" (~3sp: skip-guard órfãos + fix permissions/index.js + js-yaml) + **1b** "vendored boundary" (~5-8sp).
+- **npm test:** 380/385 pass; 5 falhas = testes órfãos (não product code). pre-push gate tropeça nisto (resolve em FWSYNC.1a).
 
 ### Cont 84 — resumo do fluxo
 - 82.2 duplicada descartada (IDS fix), 82.2 canónica @po GO 10/10
@@ -8547,3 +8555,8 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: SYNAPSE merge precedence table + test suite [Story 82.2]
 **Files changed:** .aiox/task-logs/82.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/project-epic82-synapse-dynamic-injection.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: 71647ba — 2026-06-27 22:34
+**Branch:** main
+**Commit:** feat: SYNAPSE L3-L7 lazy re-enable + merge/precedence (FR-5/6/7) [Story 82.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/settings.json, .synapse/metrics/hook-metrics.json

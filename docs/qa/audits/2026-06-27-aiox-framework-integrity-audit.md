@@ -57,6 +57,15 @@ Módulos `.synapse/context-engine/phases/*` e `.synapse/context-registry` (módu
 
 ---
 
+## Finding 3 — 27 dependências npm em falta (descoberto na comparação com oficial)
+
+Comparação `kairos-cerebro/package.json` vs `SynkraAI/aiox-core@5.2.9` (`@aiox-squads/core`):
+- **São projetos diferentes:** o oficial é o **framework** (test=jest, 20 deps: chalk/commander/fs-extra/glob/js-yaml/handlebars/inquirer/execa…); o nosso é o **produto** Kairos (test=`node --test`, 6 deps: stripe/resend/ws/dotenv/yaml/ajv-formats). Divergência é esperada.
+- **Mas:** o `.aiox-core/core/` + `infrastructure/` foi **copiado** para dentro do produto e requer **27 pacotes externos ausentes** do nosso package.json: `js-yaml`(72), `fs-extra`(39), `chalk`(39), `execa`(27), `inquirer`(8), `@babel/parser|traverse|types|generator`, `glob`, `ajv`, `semver`, `tar`, `prettier`, `playwright`, `marked`, `chokidar`, `proper-lockfile`, `fast-glob`, etc.
+- **Não rebenta** porque os hooks activos (SYNAPSE) são dependency-free; o código que precisa das 27 deps está **dormente**.
+
+**Conclusão:** o `.aiox-core/` é uma **cópia incompleta** do framework. O Kairos usa só uma fracção (hooks SYNAPSE + config). A questão é arquitectural — **como consumir o AIOX**: (A) slim/limpar para o mínimo usado · (B) instalar `@aiox-squads/core` como npm dep · (C) completar o sync (+27 deps +ficheiros). **Decisão delegada a @architect.**
+
 ## Recomendação
 
 Criar uma **story de auditoria & re-sync de integridade** (`@sm`) que:
