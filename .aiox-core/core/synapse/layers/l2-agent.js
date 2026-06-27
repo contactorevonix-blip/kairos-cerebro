@@ -59,21 +59,25 @@ class L2AgentProcessor extends LayerProcessor {
     const domainKey = Object.keys(manifest.domains || {})
       .find(k => manifest.domains[k].agentTrigger === agentId);
 
-    if (!domainKey) {
-      return null;
+    // 3. Load domain file (if domain key found)
+    if (domainKey) {
+      const domain = manifest.domains[domainKey];
+      const domainFile = domain.file
+        ? path.join(synapsePath, domain.file)
+        : path.join(synapsePath, `agent-${agentId}`);
+      const rules = loadDomainFile(domainFile);
+      if (rules && rules.length > 0) {
+        return rules;
+      }
     }
 
-    // 3. Load domain file
-    const domain = manifest.domains[domainKey];
-    const domainFile = domain.file
-      ? path.join(synapsePath, domain.file)
-      : path.join(synapsePath, `agent-${agentId}`);
-
-    const rules = loadDomainFile(domainFile);
-
-    // Graceful degradation: domain file missing or empty
-    if (!rules || rules.length === 0) {
-      return null;
+    // 4. Fallback: direct-file load when domain key unresolved or file missing
+    const fallbackFile = path.join(synapsePath, `agent-${agentId}`);
+    if (fs.existsSync(fallbackFile)) {
+      const rules = loadDomainFile(fallbackFile);
+      if (rules && rules.length > 0) {
+        return rules;
+      }
     }
 
     // 4. Check for authority boundaries
