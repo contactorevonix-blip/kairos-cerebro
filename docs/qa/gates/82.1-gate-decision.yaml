@@ -1,0 +1,70 @@
+storyId: '82.1'
+title: 'Activation Engine and Manifest Wiring'
+verdict: CONCERNS
+severity: pass_with_blocker_escalation
+timestamp: '2026-06-27T00:00:00Z'
+
+qa_checklist:
+  - check: Code Review
+    status: PASS
+    notes: L4 hook clean (synapse-engine.cjs lines 48-73). L1 diff prepared and ready for authorized apply.
+  - check: Unit Tests
+    status: PASS
+    notes: 21/21 tests PASS. G1-CLOSURE, parseManifest wiring, no-agent regression all validated.
+  - check: Acceptance Criteria
+    status: PASS
+    notes: AC-1 (session write), AC-3 (manifest), AC-5 (regression), AC-6 (diagnostics) ✅. AC-4 (fallback) pending L1 apply.
+  - check: No Regressions
+    status: PASS
+    notes: L0/L1 output byte-identical (AC-5 validated via test).
+  - check: Performance
+    status: PASS
+    notes: Activation bridge <1ms overhead. synapse-diagnostics <100ms.
+  - check: Security
+    status: PASS
+    notes: No secrets, no injection vectors. Session file already signed. IDS-governed.
+  - check: Documentation
+    status: PASS
+    notes: Dev Notes comprehensive. Change Log updated. Blocker clearly explained.
+
+critical_findings:
+  - severity: technical_blocker
+    category: enforcement_gap
+    title: 'Task 4 L1 Write Blocked by .claude/settings.json Deny Rules'
+    description: |
+      Amendment ART-VII-2026-001 (governance gate) is APPROVED (commit 5dd1fbf).
+      However, `.claude/settings.json` deny rules still block Edit/Write to `.aiox-core/core/**`.
+      In Claude Code, deny precedence > allow — no scoped allow can override.
+      The L1 fix (l2-agent.js reorder) is blocked by technical enforcement, not governance.
+    impact: AC-4 (fallback to direct-file load) requires the L1 change to be production-active.
+    status: escalated
+    assigned_to: '@aiox-master (apply diff) or @devops (lift deny rule)'
+    resolution_options:
+      - action: '@aiox-master applies L1 diff directly'
+        effort: minimal
+        risk: low
+        recommended: true
+      - action: '@devops lifts deny rule, @dev applies fix, @devops restores deny'
+        effort: moderate
+        risk: low
+    blocker_diff: |
+      File: .aiox-core/core/synapse/layers/l2-agent.js (lines ~58-72)
+      Change: Reorder fallback logic — domain-key match first, then direct-file fallback.
+      See Dev Agent Record § "Exact diff ready to apply" for full code block.
+
+recommendations:
+  - priority: high
+    action: '@aiox-master or @devops resolves Task 4 blocker before @devops push'
+    timeline: immediate
+  - priority: medium
+    action: 'Update amendment workflow to lift technical enforcement (deny rules) atomically with governance approval'
+    timeline: future (prevent recurrence)
+
+next_steps:
+  - Mark story InReview (✅ Done)
+  - Escalate Task 4 blocker to @aiox-master or @devops
+  - Upon Task 4 resolution, story ready for @devops push
+  - Change Log entry 0.6.0 updated with gate decision
+
+gate_authority: Quinn (QA Agent)
+gate_date: 2026-06-27
