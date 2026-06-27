@@ -1,0 +1,182 @@
+storyId: '82.2'
+title: 'Merge Logic, Layer Re-enablement and Conflict Resolution'
+verdict: PASS
+severity: pass
+reviewer: 'Quinn (Test Architect)'
+timestamp: '2026-06-27T00:00:00Z'
+revised: '2026-06-27T12:00:00Z'
+status_reason: >-
+  82.2 scoped deliverables (FR-5 triggers, FR-6 merge/dedup, FR-7 precedence) are
+  correctly implemented, unit-tested 11/11, regression-free, performant and secure.
+  AC1 (L3 injects) and AC6 (L0+L1+L2+L3+L7 active) — the two items that held the
+  first gate at CONCERNS — are NOW demonstrable end-to-end against the real engine
+  after defect SYN-001 was fixed (commit 3bbf446). L3 injects 9 rules; median
+  pipeline 1.575ms. All 7 quality checks PASS.
+
+revision_note: >-
+  REVISED CONCERNS → PASS (2026-06-27). The original CONCERNS rested entirely on
+  AC1/AC6 being non-demonstrable because L3 returned null. The first gate attributed
+  this to parseManifest() "returning 0 domains" (suspected manifest-parser / FR-3
+  defect). That root-cause attribution was WRONG. The parser is correct — it returns
+  19 domains when called with the manifest FILE path. The actual defect (SYN-001) was
+  a 2-line bug in the L4 hook .claude/hooks/synapse-engine.cjs (lines 64-65): it
+  passed parseManifest(runtime.cwd) — a DIRECTORY — and then unwrapped a non-existent
+  `.manifest` property, so the engine received manifest:undefined and L3-L6 had no
+  domains to resolve. Fixed and committed as 3bbf446 (attributed to Story 82.1's FR-3
+  hook wiring, where the regression originated). 82.2's own L1 code (engine.js,
+  formatter.js) was never the problem and is unchanged since the first review.
+
+reverification:
+  performed_by: 'Quinn (QA Agent)'
+  method: 'Ran every tool myself against the REAL engine — did not trust claims.'
+  ac1_l3_injection:
+    domains_parsed: 19
+    workflow_story_dev_present: true
+    workflow_trigger: 'story_development'
+    session: '{ active_agent: dev, active_workflow: story_development }, prompt "*develop ..."'
+    layers_loaded: 'L0 constitution=34, L1 global=25, L2 agent=11, L3 workflow=9'
+    l3_rules_injected: 9
+    xml_contains_workflow_section: true
+    result: PASS
+  ac6_timing:
+    runs: 51
+    median_ms: 1.575
+    p95_ms: 2.192
+    cap_ms: 100
+    triggers_firing: 'L0+L1+L2+L3 produce rules; L7 trigger fires (computeActiveLayers includes 7) but returns 0 rules — the .synapse/commands #-comment format bug, scoped OUT to 82.5'
+    result: PASS
+  nfr5_no_agent_path:
+    loaded_layers: 'constitution (L0), global (L1) only'
+    result: PASS
+  regression:
+    merge_precedence: '11/11 PASS'
+    synapse_activation: '21/21 PASS'
+    result: PASS
+  l1_code_status: >-
+    engine.js + formatter.js Modified (staged-uncommitted) — expected @devops commit
+    handoff state. L1 merge/dedup code unchanged since first review; SYN-001 fix lived
+    entirely in the L4 hook (committed 3bbf446). First gate's code-review / security /
+    no-regression conclusions therefore still hold.
+
+qa_checklist:
+  - check: Code Review
+    status: PASS
+    notes: >-
+      engine.js mergeResultsByPrecedence matches PRD §3.2 — precedence-desc sort,
+      dedup keeps higher-authority occurrence, L0-wins drops only L7 rules that
+      conflict with a constitutional rule (guarded by `layer === 7`). loadPrecedence
+      wraps fs.readFileSync+JSON.parse in try/catch, falls back to DEFAULT_PRECEDENCE
+      (graceful degradation, AC5). formatter.dedupResults mirrors the rank table.
+      Unchanged since first review.
+  - check: Unit Tests
+    status: PASS
+    notes: >-
+      node --test tests/synapse/merge-precedence.test.js → 11/11 PASS (88ms),
+      run against the REAL engine exports. Covers AC1/AC2 triggers, AC3(×2),
+      AC4(×2), AC5(×2 incl. swap), FR-5 L6/L7/lazy-default.
+  - check: Acceptance Criteria
+    status: PASS
+    notes: >-
+      AC1 ✅ E2E — real engine, story_development session: L3 `workflow` status ok,
+      9 rules injected (was 0). AC2 ✅ (L4/L5/L6 skipped, pipeline continues).
+      AC3 ✅, AC4 ✅, AC5 ✅ (unit-tested). AC6 ✅ — median 1.575ms / p95 2.192ms
+      over 51 runs with L0+L1+L2+L3(+L7 eligible) active, far under the 100ms cap.
+      SYN-001 resolution (commit 3bbf446) is what flipped AC1/AC6 from PARTIAL to PASS.
+  - check: No Regressions
+    status: PASS
+    notes: >-
+      No-agent path → only L0/L1 inject (NFR-5 backward-compat, re-confirmed).
+      tests/hooks/synapse-activation.test.js → 21/21 PASS. L0/L1/L2 output path
+      unchanged. SYN-001 fix is additive (corrects the hook's manifest argument).
+  - check: Performance
+    status: PASS
+    notes: >-
+      Real-engine median 1.575ms / p95 2.192ms (51 runs) with all triggers firing;
+      PIPELINE_TIMEOUT_MS=100 intact. Merge step median ~0.008ms.
+  - check: Security
+    status: PASS
+    notes: >-
+      No eval, no new npm deps (CON-3 — only fs/path). Rule strings normalized via
+      static regex, never executed. CONFLICT_NEGATION regex is flat (no catastrophic
+      backtracking). JSON.parse guarded. NFR-3 envelope sanitization is 82.4 scope.
+  - check: Documentation
+    status: PASS
+    notes: >-
+      File List accurate. Change Log current through 0.3.2. Dev Agent Record now
+      contains a full, honest "SYN-001 RESOLVED" section documenting the real root
+      cause (L4 hook, not parser) and the E2E results (L3=9 rules, AC6 median 0.855ms
+      dev / 1.575ms QA re-measure). DOC-001 resolved: AC1/AC6 are no longer
+      prototype-only claims — they match the demonstrated E2E behaviour.
+
+top_issues:
+  - id: 'SYN-001'
+    severity: high
+    category: requirements
+    status: RESOLVED
+    resolved_by: 'commit 3bbf446 (Story 82.1 — FR-3 hook wiring)'
+    finding: >-
+      L3 returned null end-to-end. ORIGINAL (first-gate) attribution — "parseManifest
+      returns 0 domains, a manifest-parser / FR-3 defect" — was incorrect. The parser
+      is correct (returns 19 domains with the right path). The real defect was the L4
+      hook .claude/hooks/synapse-engine.cjs (lines 64-65) calling parseManifest with
+      the cwd directory instead of the .synapse/manifest file path, then unwrapping a
+      non-existent `.manifest` field → engine got manifest:undefined → L3-L6 had no
+      domains.
+    resolution: >-
+      2-line fix in the L4 hook: parseManifest(path.join(runtime.cwd,'.synapse',
+      'manifest')) and manifest = manifestResult. Verified in working tree (lines
+      64-65) and in HEAD (commit 3bbf446). With the fix, L3 injects 9 rules E2E and
+      AC1/AC6 pass. 82.2's L1 code required no change.
+  - id: 'DOC-001'
+    severity: medium
+    category: docs
+    status: RESOLVED
+    finding: >-
+      Story previously marked AC1/AC6 fully met when validated only at prototype level.
+    resolution: >-
+      Dev Agent Record now carries the SYN-001 RESOLVED section with the true root
+      cause and E2E numbers; AC1/AC6 claims now match demonstrated behaviour.
+  - id: 'TEST-001'
+    severity: low
+    category: tests
+    status: OPEN
+    finding: >-
+      merge-precedence.test.js exercises AC1/AC2 by injecting a HAND-BUILT manifest
+      straight into engine.process — it never drives the L4 hook's manifest-LOADING
+      path, which is exactly where SYN-001 lived. That is why 11/11 stayed green while
+      the real hook was broken. Acceptable for 82.2 scope (integration is 82.6), but it
+      is the durable guard that would have caught SYN-001 in CI.
+    suggested_action: >-
+      82.6 MUST add an end-to-end assertion that drives the hook's manifest-loading
+      path (or a fixture-backed parseManifest → engine.process) and asserts L3 injects
+      > 0 rules when active_workflow is set. This is the only residual follow-up.
+
+out_of_scope_verified:
+  - id: 'L7-COMMANDS'
+    note: >-
+      L7 star-command returns 0 rules because .synapse/commands uses #-commented
+      headers stripped before parsing — the FR-11 format bug, EXPLICITLY scoped OUT to
+      Story 82.5. The L7 TRIGGER still fires (computeActiveLayers includes 7), so AC6's
+      "L0+L1+L2+L3+L7 active simultaneously" holds at the activation level and the
+      timing measurement genuinely exercises all five triggers. L7 rule injection is
+      82.5's concern, not a 82.2 defect.
+
+waiver: { active: false }
+
+decision_rationale: >-
+  PASS. The single high-severity issue from the first gate (SYN-001) is RESOLVED
+  (commit 3bbf446) and re-verified by me running the real engine: 19 domains parse,
+  L3 injects 9 rules end-to-end, AC6 median 1.575ms < 100ms, NFR-5 intact, both
+  regression suites green (11/11, 21/21). 82.2's merge/precedence engine is correct,
+  tested, and now demonstrably enables L3 injection. DOC-001 is resolved by the honest
+  Dev Agent Record. Only TEST-001 (low) remains as a durable-guard follow-up owned by
+  82.6 — it does not gate 82.2.
+
+next_steps:
+  - Story 82.2 → stays Done (PASS is Done).
+  - Carry TEST-001 into 82.6 acceptance (E2E L3-injection assertion driving the hook load path).
+  - @devops push authority: the L1 engine.js/formatter.js diffs remain staged-uncommitted (expected handoff) — commit/push is @devops's call; QA does not commit.
+
+gate_authority: Quinn (QA Agent)
+gate_date: 2026-06-27
+gate_revised_date: 2026-06-27

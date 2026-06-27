@@ -1,6 +1,16 @@
-# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 READY (10/10 GO) ✅
+# 🚀 Session 2026-06-27 (Cont 84) — EPIC-82 STORY 82.2 DONE/PASS + SYN-001 FIX ✅
 
-**Status: ✅ STORY 82.1 COMPLETE | ✅ STORY 82.2 canónica @po GO 10/10 → READY | ✅ AMENDMENT ART-VII-2026-001 APPROVED | ➡️ NEXT: @DEV IMPLEMENTA 82.2 (FR-5/6/7)**
+**Status: ✅ STORY 82.2 @qa PASS (Done) | ✅ SYN-001 manifest-wiring bug corrigido (commit 3bbf446) | 🟡 L1 82.2 staged → @devops commit+push | ⚠️ deny LEVANTADO no settings.json (repor após commit) | ➡️ NEXT: @DEVOPS commit+push**
+
+### Cont 84 — resumo do fluxo
+- 82.2 duplicada descartada (IDS fix), 82.2 canónica @po GO 10/10
+- @dev implementou FR-5/6/7 (engine.js + formatter.js L1 + precedence.json + 11 testes)
+- Deny L1 levantado manualmente pelo Pedro → @dev aplicou diffs L1 (staged; husky bloqueia commit → @devops)
+- @qa gate: CONCERNS (AC1/AC6 não-E2E) → descoberto **SYN-001**
+- **SYN-001:** bug 2 linhas no hook L4 `synapse-engine.cjs:64-65` (passava cwd em vez do ficheiro manifest + unwrap `.manifest` errado) → manifest chegava vazio → L3-L6 nunca injetavam. Da 82.1 (FR-3). Fix commitado `3bbf446`
+- @qa re-gate: **PASS** (L3=9 rules E2E, AC6=1.575ms, 11/11+21/21)
+- **Pendente:** @devops commita engine.js+formatter.js (staged) + push; NÃO commitar settings.json; Pedro repõe deny
+- **TEST-001 (low, p/ 82.6):** add assertion E2E que exercita o hook manifest-load (testes actuais injetam manifest hand-built, não apanharam SYN-001)
 
 ---
 
@@ -8517,3 +8527,23 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** docs: Cont 84 checkpoint — Story 82.2 drafted, ready for @po validation [Story 82.2]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/task-logs/82.1.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/scheduled_tasks.lock, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f4a6131 — 2026-06-27 10:39
+**Branch:** main
+**Commit:** feat: SYNAPSE merge precedence table + test suite [Story 82.2]
+**Files changed:** .aiox/task-logs/82.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/project-epic82-synapse-dynamic-injection.md, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: f4a6131 — 2026-06-27 10:40
+**Branch:** main
+**Commit:** feat: SYNAPSE merge precedence table + test suite [Story 82.2]
+**Files changed:** .aiox/task-logs/82.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/project-epic82-synapse-dynamic-injection.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f4a6131 — 2026-06-27 10:42
+**Branch:** main
+**Commit:** feat: SYNAPSE merge precedence table + test suite [Story 82.2]
+**Files changed:** .aiox/task-logs/82.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/project-epic82-synapse-dynamic-injection.md, .synapse/metrics/hook-metrics.json, STATE.md
+
+## Checkpoint: f4a6131 — 2026-06-27 10:44
+**Branch:** main
+**Commit:** feat: SYNAPSE merge precedence table + test suite [Story 82.2]
+**Files changed:** .aiox/task-logs/82.2.json, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-po/project-epic82-synapse-dynamic-injection.md, .synapse/metrics/hook-metrics.json, STATE.md

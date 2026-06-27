@@ -26,6 +26,7 @@ const { buildLayerContext } = require('./context/context-builder');
 
 const { formatSynapseRules } = require('./output/formatter');
 const { MemoryBridge } = require('./memory/memory-bridge');
+const { matchKeywords, isExcluded } = require('./domain/domain-loader');
 
 // ---------------------------------------------------------------------------
 // Layer Imports (graceful — layers from SYN-4/SYN-5 may not exist yet)
@@ -184,12 +185,112 @@ class PipelineMetrics {
 const PIPELINE_TIMEOUT_MS = 100;
 
 /**
- * NOG-18: Default active layers (L0-L2 only).
- * L3-L7 produced 0 rules in NOG-17 audit — disabled for performance.
- * Set SYNAPSE_LEGACY_MODE=true to re-enable full 8-layer processing.
+ * Set SYNAPSE_LEGACY_MODE=true to use bracket-based layer selection (NFR-5
+ * backward-compat escape hatch). Default path uses FR-5 lazy triggers below.
  */
-const DEFAULT_ACTIVE_LAYERS = [0, 1, 2];
 const LEGACY_MODE = process.env.SYNAPSE_LEGACY_MODE === 'true';
+
+/**
+ * Story 82.2 (FR-7): canonical precedence fallback. Authoritative source is
+ * .synapse/precedence.json (data-driven, AC5); this constant is graceful
+ * degradation only (missing/unreadable file).
+ */
+const DEFAULT_PRECEDENCE = { L0: 100, L2: 80, L3: 70, L4: 60, L5: 50, L6: 40, L1: 30, L7: 10 };
+
+/** Negation/override markers for L0-wins conflict detection (FR-7). */
+const CONFLICT_NEGATION = /\b(never|not|no|don'?t|do not|avoid|disallow|forbid|ignore|skip|disregard|override|cannot|without)\b/gi;
+
+function loadPrecedence(synapsePath) {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(path.join(synapsePath, 'precedence.json'), 'utf8'));
+    if (parsed && typeof parsed === 'object') return parsed;
+  } catch { /* graceful degradation */ }
+  return { ...DEFAULT_PRECEDENCE };
+}
+
+function precedenceScore(layerNum, precedence) {
+  const v = precedence[`L${layerNum}`];
+  return typeof v === 'number' ? v : 0;
+}
+
+function normalizeRule(rule) {
+  return String(rule).toLowerCase().replace(/\s+/g, ' ').trim().replace(/[.;,]+$/, '');
+}
+
+function _polarity(rule) {
+  const m = String(rule).toLowerCase().match(CONFLICT_NEGATION);
+  return ((m ? m.length : 0) % 2 === 0) ? 1 : -1;
+}
+
+function _subject(rule) {
+  return String(rule).toLowerCase()
+    .replace(CONFLICT_NEGATION, ' ')
+    .replace(/[^a-z0-9 ]+/g, ' ')
+    .replace(/\b(always|must|should|shall|the|a|an|to|of|in|on|for|is|are|be)\b/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function violatesConstitution(rule, constitutionRules) {
+  if (!Array.isArray(constitutionRules) || constitutionRules.length === 0) return false;
+  const subj = _subject(rule);
+  if (!subj) return false;
+  const pol = _polarity(rule);
+  for (const c of constitutionRules) {
+    if (_subject(c) === subj && _polarity(c) !== pol) return true;
+  }
+  return false;
+}
+
+function promptTriggersKeyword(prompt, manifest) {
+  if (!prompt || !manifest || !manifest.domains) return false;
+  const globalExclude = manifest.globalExclude || [];
+  for (const domain of Object.values(manifest.domains)) {
+    if (!domain || !domain.recall || domain.recall.length === 0) continue;
+    if (isExcluded(prompt, globalExclude, domain.exclude || [])) continue;
+    if (matchKeywords(prompt, domain.recall)) return true;
+  }
+  return false;
+}
+
+function computeActiveLayers(session, prompt, manifest) {
+  const s = session || {};
+  const layers = [0, 1];                                    // L0 + L1 always
+  if (s.active_agent && s.active_agent.id) layers.push(2);  // L2
+  if (s.active_workflow) layers.push(3);                    // L3
+  if (s.active_task) layers.push(4);                        // L4
+  if (s.active_squad) layers.push(5);                       // L5
+  if (promptTriggersKeyword(prompt, manifest || {})) layers.push(6); // L6
+  if (/\*\w+/.test(prompt || '')) layers.push(7);          // L7
+  return layers;
+}
+
+function mergeResultsByPrecedence(results, precedence) {
+  if (!Array.isArray(results) || results.length === 0) return results;
+  const constitutionRules = [];
+  for (const r of results) {
+    if (r && r.metadata && r.metadata.layer === 0 && Array.isArray(r.rules)) {
+      constitutionRules.push(...r.rules);
+    }
+  }
+  const order = results
+    .map((r, i) => ({ r, i, score: precedenceScore(r && r.metadata ? r.metadata.layer : -1, precedence) }))
+    .sort((a, b) => b.score - a.score || a.i - b.i);
+  const seen = new Set();
+  for (const { r } of order) {
+    if (!r || !Array.isArray(r.rules)) continue;
+    const layer = r.metadata ? r.metadata.layer : -1;
+    const kept = [];
+    for (const rule of r.rules) {
+      if (layer === 7 && violatesConstitution(rule, constitutionRules)) continue; // L0-wins: drop
+      const key = normalizeRule(rule);
+      if (seen.has(key)) continue;                                                 // dedup
+      seen.add(key);
+      kept.push(rule);
+    }
+    r.rules = kept;
+  }
+  return results;
+}
 
 /**
  * Safely read the last processing error exposed by a layer.
@@ -289,7 +390,7 @@ class SynapseEngine {
       // Bracket management replaced by native /compact.
       contextPercent = estimateContextPercent(promptCount);
       bracket = calculateBracket(contextPercent);
-      activeLayers = DEFAULT_ACTIVE_LAYERS;
+      activeLayers = computeActiveLayers(session, prompt, mergedConfig.manifest || {});
       tokenBudget = getTokenBudget(bracket);
     }
 
@@ -371,6 +472,9 @@ class SynapseEngine {
     // Persist hook metrics (fire-and-forget)
     this._persistHookMetrics(summary, bracket, mergedConfig);
 
+    // FR-6/FR-7: precedence-aware merge + dedup + constitution-wins (Story 82.2)
+    mergeResultsByPrecedence(results, loadPrecedence(this.synapsePath));
+
     // 4. Format output
     const xml = formatSynapseRules(
       results,
@@ -437,4 +541,12 @@ module.exports = {
   SynapseEngine,
   PipelineMetrics,
   PIPELINE_TIMEOUT_MS,
+  loadPrecedence,
+  precedenceScore,
+  normalizeRule,
+  violatesConstitution,
+  promptTriggersKeyword,
+  computeActiveLayers,
+  mergeResultsByPrecedence,
+  DEFAULT_PRECEDENCE,
 };

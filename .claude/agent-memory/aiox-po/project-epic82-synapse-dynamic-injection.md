@@ -41,3 +41,11 @@ Recommend @sm: discard epic-82.story-2.story.md and validate the canonical 82.2.
 - Real paths: `layers/l2-agent.js`, `layers/l7-star-command.js`, `domain/domain-loader.js`, `diagnostics/synapse-diagnostics.js`. Story File Lists use shorthand (omit layers/ and domain/ subdirs) — path-accuracy fail.
 - l7-star-command.js:139 `_parseCommandBlocks` already expects `[*command]` delimiters (this is FR-11 / Story 82.5 territory).
 - Approved L1 amendment ART-VII-2026-001 covers EXACTLY 4 files: l2-agent.js, engine.js, formatter.js, synapse-diagnostics.js. A NEW L1 file `layer-triggers.js` (proposed in epic-82.story-2 File List) is OUTSIDE that amendment → CON-1 gap. Trigger table should live in engine.js (already approved) — matches canonical 82.2 which uses `.synapse/precedence.json` data file.
+
+## CANONICAL 82.2 — GO 10/10 2026-06-27 (Cont 84), Draft→Ready
+`82.2.merge-logic-layer-reenablement.story.md` validated GO 10/10. Status set to Ready by @po. All 6 ACs trace to PRD §5 Story 82.2 + FR-5/6/7 + NFR-1 (no invention). Verified vs ground truth:
+- engine.js:191 `DEFAULT_ACTIVE_LAYERS=[0,1,2]` EXACT; :300-305 activeLayers bracket gate EXACT; :184 `PIPELINE_TIMEOUT_MS=100` EXACT.
+- `.synapse/workflow-story-dev` EXISTS (AC1 path real). `.synapse/precedence.json` correctly ABSENT (story creates it, AC5). Precedence values `{L0:100,L2:80,L3:70,L4:60,L5:50,L6:40,L1:30,L7:10}` EXACT-match PRD §3.2.
+- Amendment ART-VII-2026-001 = APPROVED by @aiox-master 2026-06-27 (`.aiox/proposals/EPIC-82-L1-amendment.md`), covers engine.js+formatter.js. 82.1 = Done. CON-1 dependency satisfied.
+- This canonical story (unlike the discarded epic-82.story-2) uses correct real paths in Scope/Key-Files and stays inside its FR-5/6/7 lane (OUT delegates L7-format→82.5, validation→82.4, cache→82.3, integration→82.6). No sibling overlap.
+- 3 NON-BLOCKING notes for @dev: (1) Dev Notes CON-1 cites amendment file but not ID "ART-VII-2026-001" — could tighten; (2) quality_gate=@qa (project SDC canonical) conflicts w/ Projeto Bob table in validate-next-story.md expecting @architect for code stories — legacy convention mismatch, consistent w/ 82.1, note only; (3) AC4 (L7-vs-L0 conflict) should be unit-tested at merge-function level w/ synthetic L7 rules — real `.synapse/commands` L7 parsing is 82.5 territory.

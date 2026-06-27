@@ -1,7 +1,7 @@
 {
   "storyId": "82.2",
   "storyType": "bug",
-  "suggestedAt": "2026-06-27T10:07:34.563Z",
+  "suggestedAt": "2026-06-27T10:38:59.896Z",
   "suggestions": [
     {
       "id": "correct-course",
@@ -9,6 +9,14 @@
       "category": "bug",
       "file": ".aiox-core/development/tasks/correct-course.md",
       "score": 65,
+      "autoActivate": false
+    },
+    {
+      "id": "github-devops-pre-push-quality-gate",
+      "name": "pre-push-quality-gate.md",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "score": 62,
       "autoActivate": false
     },
     {
@@ -20,27 +28,19 @@
       "autoActivate": false
     },
     {
-      "id": "github-devops-pre-push-quality-gate",
-      "name": "pre-push-quality-gate.md",
+      "id": "devops-pro-validate-login",
+      "name": "Task: DevOps Pro Validate Login",
       "category": "devops",
-      "file": ".aiox-core/development/tasks/github-devops-pre-push-quality-gate.md",
+      "file": ".aiox-core/development/tasks/devops-pro-validate-login.md",
       "score": 54,
       "autoActivate": false
     },
     {
-      "id": "dev-apply-qa-fixes",
-      "name": "Dev Apply Qa Fixes",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/dev-apply-qa-fixes.md",
-      "score": 51,
-      "autoActivate": false
-    },
-    {
-      "id": "qa-create-fix-request",
-      "name": "Create Fix Request Task",
-      "category": "qa",
-      "file": ".aiox-core/development/tasks/qa-create-fix-request.md",
-      "score": 51,
+      "id": "devops-pro-verify-status",
+      "name": "Task: DevOps Pro Verify Status",
+      "category": "devops",
+      "file": ".aiox-core/development/tasks/devops-pro-verify-status.md",
+      "score": 54,
       "autoActivate": false
     }
   ]

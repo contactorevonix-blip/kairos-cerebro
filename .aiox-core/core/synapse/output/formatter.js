@@ -52,6 +52,35 @@ const LAYER_TO_SECTION = {
   'star-command': 'STAR_COMMANDS',
 };
 
+/**
+ * Story 82.2 (FR-6): authority rank by layer number, mirroring FR-7 order
+ * (L0>L2>L3>L4>L5>L6>L1>L7). Authoritative table is .synapse/precedence.json
+ * (engine); this mirror is a formatter-local safety net for standalone use.
+ */
+const LAYER_PRECEDENCE_RANK = { 0: 100, 2: 80, 3: 70, 4: 60, 5: 50, 6: 40, 1: 30, 7: 10 };
+
+function dedupResults(results) {
+  if (!Array.isArray(results)) return results;
+  const order = results
+    .map((r, i) => ({
+      r, i,
+      score: (r && r.metadata && typeof LAYER_PRECEDENCE_RANK[r.metadata.layer] === 'number')
+        ? LAYER_PRECEDENCE_RANK[r.metadata.layer] : 0,
+    }))
+    .sort((a, b) => b.score - a.score || a.i - b.i);
+  const seen = new Set();
+  for (const { r } of order) {
+    if (!r || !Array.isArray(r.rules)) continue;
+    r.rules = r.rules.filter((rule) => {
+      const key = String(rule).toLowerCase().replace(/\s+/g, ' ').trim().replace(/[.;,]+$/, '');
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+  return results;
+}
+
 // ---------------------------------------------------------------------------
 // Section Formatters
 // ---------------------------------------------------------------------------
@@ -471,6 +500,9 @@ function formatSynapseRules(results, bracket, contextPercent, session, devmode, 
     return '';
   }
 
+  // FR-6: cross-layer dedup keeping highest-authority occurrence (Story 82.2)
+  dedupResults(results);
+
   // Categorize results by section
   const sectionResults = {};
   const globalResults = [];
@@ -558,4 +590,5 @@ module.exports = {
   estimateTokens,
   SECTION_ORDER,
   LAYER_TO_SECTION,
+  dedupResults,
 };
