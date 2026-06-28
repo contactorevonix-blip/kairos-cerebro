@@ -1,5 +1,13 @@
 # Story FWSYNC.1 — AIOX Core Sync Integrity: Triage & Repair
 
+> **SUPERSEDED-BY-ADR** — Esta story foi re-enquadrada pelo ADR `docs/architecture/ADR-aiox-consumption-strategy.md` v2.0 (Cont 84/85, 2026-06-28).
+> A direcção mudou de *"triage & repair por re-sync do oficial"* para *"completar o framework dev-isolated"*.
+> **Não apagar** — mantida como registo histórico do audit e das decisões de triagem.
+>
+> **Substituída por:**
+> - `FWSYNC.1a-npm-test-green.story.md` — testes órfãos + pre-push gate (ADR C5, ~2sp)
+> - `FWSYNC.1b-framework-completion-dev-isolated.story.md` — devDeps + restauro + fronteira (ADR C1–C4/C6, ~6sp)
+
 **ID:** FWSYNC.1 | **Epic:** Standalone (Framework Maintenance) | **Status:** Draft | **Points:** 5sp | **Type:** CREATE
 
 ---
@@ -283,6 +291,7 @@ Ver `STATE.md` + histórico de Story 82.1/82.2 para o procedimento de lift do de
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
 | 2026-06-27 | 1.0 | Story criada (Draft) — audit Cont 84, 5 falhas npm test | @sm (River) |
+| 2026-06-28 | 1.1 | **SUPERSEDED-BY-ADR** — ADR v2.0 mudou direcção de re-sync para dev-isolated completion. Re-draftar em FWSYNC.1a (ADR C5) + FWSYNC.1b (ADR C1–C4/C6). Ver `docs/architecture/ADR-aiox-consumption-strategy.md`. Mantida como registo histórico. | @sm (River) |
 
 ---
 
