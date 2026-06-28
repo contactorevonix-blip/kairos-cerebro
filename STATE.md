@@ -8560,3 +8560,8 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** main
 **Commit:** feat: SYNAPSE L3-L7 lazy re-enable + merge/precedence (FR-5/6/7) [Story 82.2]
 **Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/settings.json, .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 68871f3 — 2026-06-28 20:39
+**Branch:** claude/aiox-core-complete-course-gu5htr
+**Commit:** fix: npm test green — skip-guard phases dormant + remove orphan registry test [Story FWSYNC.1a]
+**Files changed:** .synapse/metrics/hook-metrics.json
