@@ -8565,3 +8565,13 @@ Cont 58 mapped EPIC-12 foundations (14 gaps → 12 ACs, architecture design comp
 **Branch:** claude/aiox-core-complete-course-gu5htr
 **Commit:** fix: npm test green — skip-guard phases dormant + remove orphan registry test [Story FWSYNC.1a]
 **Files changed:** .synapse/metrics/hook-metrics.json
+
+## Checkpoint: 45526d6 — 2026-06-28 20:40
+**Branch:** claude/aiox-core-complete-course-gu5htr
+**Commit:** chore: session state + hook metrics churn (no course work yet — awaiting GitHub access to SynkraAI/aiox-core)
+**Files changed:** none
+
+## Checkpoint: 45526d6 — 2026-06-28 20:40
+**Branch:** claude/aiox-core-complete-course-gu5htr
+**Commit:** chore: session state + hook metrics churn (no course work yet — awaiting GitHub access to SynkraAI/aiox-core)
+**Files changed:** .synapse/metrics/hook-metrics.json, STATE.md
