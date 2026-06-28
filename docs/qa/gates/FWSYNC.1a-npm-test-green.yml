@@ -1,0 +1,34 @@
+schema: 1
+story: 'FWSYNC.1a'
+gate: PASS
+status_reason: 'Skip-guard reversível e cirúrgico (t.skip via TestContext), git rm do órfão limpo, 0 fail confirmado por re-execução independente. Todas as 5 ACs cumpridas, sem regressões.'
+reviewer: 'Quinn'
+updated: '2026-06-28T00:00:00Z'
+
+evidence:
+  npm_test: 'node --test → 384 tests, 380 pass, 0 fail, 4 skipped (exit 0) + test:ws → 7 pass, 0 fail. Re-executado por @qa, confirma report @dev.'
+  enforcement_test: 'node tests/hooks/enforcement.test.js → 34 pass, 0 fail (exit 0). Sem regressões nos gates.'
+  git_status: 'tests/context-registry/registry.test.js → D (staged delete via git rm). engine.test.js → 11 inserções / 0 deleções (7 mocks intactos, só skip-guard adicionado).'
+  orphan_imports: 'grep por context-registry/registry: nenhum código vivo importa o módulo removido. Referências só em docs/handoffs/STATE.md/memória.'
+
+ac_traceability:
+  AC1: 'PASS — skip-guard reversível nos 4 test-cases (existsSync no topo + guard if(!phase4Exists||!phase5Exists)). 7 testes mock-based preservados (git diff: 0 deleções).'
+  AC2: 'PASS — tests/context-registry/registry.test.js removido via git rm (staged D). Pasta era órfã total.'
+  AC3: 'PASS — comentário de rastreabilidade (ref 69d6b50 + ADR C5) no topo de engine.test.js; entrada completa em docs/qa/framework-dormant.md.'
+  AC4: 'PASS — npm test → 0 fail, 380 pass (≥380). Re-executado por @qa.'
+  AC5: 'PASS — enforcement.test.js → 34 pass, 0 fail. Sem regressões.'
+
+quality_checks:
+  code_review: 'PASS — skip-guard limpo e reversível. t.skip() (TestContext API) é a implementação CORRECTA: o test.skip() literal da AC não saltaria o corpo do teste em execução, deixando o require() correr e a falha persistir. @dev fez a chamada certa.'
+  tests: 'PASS — re-executado independentemente; 0 fail confirmado.'
+  acceptance_criteria: 'PASS — 5/5 ACs cumpridas com evidência.'
+  no_regressions: 'PASS — 380 pass mantidos; nenhum código de produto Kairos Check tocado; L1 intacto.'
+  performance: 'N/A — test maintenance, sem runtime de produto.'
+  security: 'N/A — não toca runtime de produto nem secrets.'
+  documentation: 'PASS — framework-dormant.md adequado, com rastreabilidade ao 69d6b50 e ADR C5, e instruções de reversão.'
+
+skip_masking_verification: 'CONFIRMADO não-mascarante: os 4 testes saltam SÓ porque existsSync(.synapse/context-engine/phases/*) é false (módulos legitimamente removidos em 69d6b50, gitignored). Quando Epic 5.3 for revivida, existsSync→true e os testes correm de novo. Não esconde bug.'
+
+top_issues: []
+
+waiver: { active: false }

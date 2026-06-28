@@ -1,5 +1,12 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { existsSync } = require('fs');
+
+// Skip-guard: .synapse/context-engine/phases/* removidos em 69d6b50 (Epic 5.3 cleanup deliberado).
+// Reversível: remover estas guards quando Epic 5.3 for revivida.
+// Ref: docs/architecture/ADR-aiox-consumption-strategy.md C5
+const phase4Exists = existsSync('.synapse/context-engine/phases/phase4-validation.js');
+const phase5Exists = existsSync('.synapse/context-engine/phases/phase5-ids-check.js');
 
 // Mock engine class for testing
 class ContextEngine {
@@ -77,6 +84,7 @@ test('AC8: CodeRabbit compliance', async (t) => {
 });
 
 test('Phase 4: VALIDATION — 8-point completeness', async (t) => {
+  if (!phase4Exists || !phase5Exists) { t.skip('Epic 5.3 phases dormant (69d6b50)'); return; }
   const Phase4Validation = require('../../.synapse/context-engine/phases/phase4-validation.js');
   const phase = new Phase4Validation();
   const context = {
@@ -92,6 +100,7 @@ test('Phase 4: VALIDATION — 8-point completeness', async (t) => {
 });
 
 test('Phase 5: IDS-CHECK — REUSE/ADAPT/CREATE decision', async (t) => {
+  if (!phase4Exists || !phase5Exists) { t.skip('Epic 5.3 phases dormant (69d6b50)'); return; }
   const Phase5IdsCheck = require('../../.synapse/context-engine/phases/phase5-ids-check.js');
   const phase = new Phase5IdsCheck();
   const context = { 'engine-context': {} };
@@ -104,6 +113,7 @@ test('Phase 5: IDS-CHECK — REUSE/ADAPT/CREATE decision', async (t) => {
 });
 
 test('AC3: Phase 4 validation gates completion (fixed)', async (t) => {
+  if (!phase4Exists || !phase5Exists) { t.skip('Epic 5.3 phases dormant (69d6b50)'); return; }
   const Phase4Validation = require('../../.synapse/context-engine/phases/phase4-validation.js');
   const phase = new Phase4Validation();
   const result = await phase.execute({});
@@ -113,6 +123,7 @@ test('AC3: Phase 4 validation gates completion (fixed)', async (t) => {
 });
 
 test('AC4: Phase 5 IDS queries (fixed)', async (t) => {
+  if (!phase4Exists || !phase5Exists) { t.skip('Epic 5.3 phases dormant (69d6b50)'); return; }
   const Phase5IdsCheck = require('../../.synapse/context-engine/phases/phase5-ids-check.js');
   const phase = new Phase5IdsCheck();
   const result = await phase.execute({});
