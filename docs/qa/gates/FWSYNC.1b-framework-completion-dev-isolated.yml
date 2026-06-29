@@ -1,0 +1,72 @@
+schema: 1
+storyId: FWSYNC.1b
+story: 'FWSYNC.1b'
+gate: CONCERNS
+status_reason: >-
+  Todos os 6 AC cumpridos na intenção e todos os testes/gates passam (382/0,
+  enforcement 34/34, lint+typecheck limpos, L1 gates repostos). CONCERNS apenas
+  porque a redacção de 2 AC ficou desactualizada vs realidade verificada — a
+  reescrita é autoridade do @po, não bloqueia o gate.
+reviewer: 'Quinn'
+updated: '2026-06-29T00:00:00Z'
+
+verdict: CONCERNS
+
+evidence:
+  ac1_devdeps: '20 devDeps presentes; npm ls --omit=dev --depth=0 → só 7 prod deps (ajv-formats, dotenv, js-yaml, resend, stripe, ws, yaml); dependencies inalteradas'
+  ac2_path_fix: '5 requires nos 3 executors usam ../../../infrastructure/scripts/ ; require.resolve dos 5 scripts OK; os 3 executors carregam sem MODULE_NOT_FOUND'
+  ac3_dormant: '6 módulos dormentes documentados em docs/qa/framework-dormant.md com ref ADR C2/C3'
+  ac4_boundary_doc: 'docs/architecture/aiox-framework-consumption.md com 4+ secções; divergência bin/ documentada honestamente'
+  ac5_guard: 'tests/framework/dev-isolated-guard.test.js existe, no glob do script test, 2/2 PASS standalone e dentro de npm test'
+  ac6_consolidation: 'npm test 386 (382 pass / 0 fail / 4 skip pré-existentes FWSYNC.1a); enforcement.test.js 34/34 PASS'
+  l1_gates_restored: 'settings.json deny Edit/Write/MultiEdit(.aiox-core/core/**) presente; core-config.yaml frameworkProtection: true'
+  quality_gates: 'lint limpo; typecheck limpo; test:ws 7/7'
+
+quality_checks:
+  code_review: PASS
+  tests: PASS
+  acceptance_criteria: PASS
+  no_regressions: PASS
+  performance: PASS
+  security: PASS
+  documentation: PASS
+
+top_issues:
+  - id: 'REQ-001'
+    severity: low
+    category: requirements
+    finding: >-
+      AC2 redige "5 ficheiros obtidos do repositório oficial público via gh api",
+      mas os 5 scripts já existiam completos (4956 linhas) em
+      .aiox-core/infrastructure/scripts/. @dev aplicou só o path fix (No-Invention /
+      Surgical Changes) — a premissa de "restauro do oficial" estava desactualizada.
+      A intenção do AC (os executors resolvem os requires) está plenamente cumprida.
+    suggested_action: >-
+      @po reescrever AC2: trocar "5 ficheiros obtidos do oficial via gh api" por
+      "path fix nos requires dos executors (scripts já presentes)". Não bloqueia —
+      o resultado verificável (require.resolve OK + executors carregam) está atingido.
+  - id: 'REQ-002'
+    severity: low
+    category: requirements
+    finding: >-
+      AC4 ("Verificado por grep ... bin/ = vazio") e AC5 ("bin/** ... nenhum importa
+      .aiox-core") são factualmente incorrectos: 3 CLIs de framework
+      (bin/aiox-graph.js, aiox-delegate.js, aiox-ids.js) importam .aiox-core/ por
+      design. @dev escreveu o guard e o doc à realidade verificada — estrito em
+      packages/sniper-api/** (invariante load-bearing de produção) e allowlist dos
+      3 CLIs em bin/**. A invariante de produção (server.js nunca importa .aiox-core)
+      mantém-se protegida.
+    suggested_action: >-
+      @po reescrever AC4/AC5: a invariante load-bearing é packages/sniper-api/**,
+      não a totalidade de bin/. A divergência já está documentada honestamente em
+      aiox-framework-consumption.md §2 e no Dev Agent Record [AUTO-DECISION].
+
+dev_premise_divergences:
+  - 'Scripts já existiam → só path fix (No-Invention correcto, não defeito)'
+  - 'bin/ importa .aiox-core por 3 CLIs de dev → guard escrito à realidade, invariante de produção intacta'
+  recommendation: >-
+    Encaminhar REQ-001 e REQ-002 ao @po para re-redacção dos AC (autoridade
+    exclusiva do @po sobre o texto dos AC). NÃO bloqueia este gate — intenção dos
+    AC cumprida e todos os testes passam.
+
+waiver: { active: false }

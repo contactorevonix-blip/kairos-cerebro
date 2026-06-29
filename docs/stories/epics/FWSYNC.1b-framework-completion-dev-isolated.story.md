@@ -1,6 +1,6 @@
 # Story FWSYNC.1b — Framework Completion: dev-isolated
 
-**ID:** FWSYNC.1b | **Epic:** Standalone (Framework Maintenance) | **Status:** Ready | **Points:** 6sp | **Type:** ADAPT
+**ID:** FWSYNC.1b | **Epic:** Standalone (Framework Maintenance) | **Status:** Done | **Points:** 6sp | **Type:** ADAPT
 **Supersedes:** Parte de FWSYNC.1 (ver `FWSYNC.1-aiox-core-sync-integrity.story.md`, marcada superseded)
 **Source:** ADR `docs/architecture/ADR-aiox-consumption-strategy.md` v2.0 — decisões C1, C2, C3, C4, C6
 **Depende de:** FWSYNC.1a (pre-push gate desbloqueado primeiro)
@@ -56,16 +56,16 @@ Esta story executa as decisões C1–C4 e C6 do ADR: (a) adicionar as 20 devDepe
    - As 4-7 deps especulativas (playwright, `@babel/*`, marked, tar) NÃO são adicionadas (ADR C1: YAGNI — nem o oficial as declara como runtime).
    - `npm install` corre com sucesso após a alteração; `npm ci --omit=dev` (simulação do Railway) NÃO instala nenhuma das 20 novas deps.
 
-2. **AC2 — 5 ficheiros `infrastructure/scripts/` restaurados + path fix nos executors** *(ADR C3)*
-   - Os seguintes 5 ficheiros são obtidos do repositório oficial público (`gh api repos/SynkraAI/aiox-core/contents/{path}`) e escritos nos paths locais correctos:
+2. **AC2 — Path fix nos requires dos executors (5 scripts já presentes — REUSE)** *(ADR C3)*
+   - Os seguintes 5 ficheiros **JÁ EXISTEM completos** em `.aiox-core/infrastructure/scripts/` (4956 linhas, código dormente). São confirmados presentes — **não restaurar, não sobrescrever, não re-descarregar do oficial** (No-Invention / Art. IV — REUSE ≥90%; re-escrevê-los violaria Surgical Changes):
      - `.aiox-core/infrastructure/scripts/plan-tracker.js`
      - `.aiox-core/infrastructure/scripts/subtask-verifier.js`
      - `.aiox-core/infrastructure/scripts/stuck-detector.js`
      - `.aiox-core/infrastructure/scripts/rollback-manager.js`
      - `.aiox-core/infrastructure/scripts/qa-loop-orchestrator.js`
-   - Nos ficheiros `core/orchestration/executors/epic-4-executor.js`, `epic-5-executor.js`, `epic-6-executor.js`: os requires com profundidade errada (`../../infrastructure/scripts/{name}`) são corrigidos para `../../../infrastructure/scripts/{name}` (um nível a mais — os executors estão em `core/orchestration/executors/`, não em `core/orchestration/`).
-   - **Procedimento L1 obrigatório** (ver Constraints): @dev lista os ficheiros L1 a modificar → Pedro levanta deny rule em `.claude/settings.json` → @dev aplica diffs (staged) → Husky bloqueia commit → @devops faz commit + push → Pedro repõe deny rule.
-   - Após restauro: `require()` nos executors resolve sem erro (`node -e "require('./.aiox-core/core/orchestration/executors/epic-4-executor.js')"` não lança MODULE_NOT_FOUND para os scripts restaurados).
+   - O requisito real cumprido é o **path fix** nos executors: nos ficheiros `core/orchestration/executors/epic-4-executor.js`, `epic-5-executor.js`, `epic-6-executor.js`, os requires com profundidade errada (`../../infrastructure/scripts/{name}`) são corrigidos para `../../../infrastructure/scripts/{name}` (um nível a mais — os executors estão em `core/orchestration/executors/`, não em `core/orchestration/`).
+   - **Procedimento L1 obrigatório** (ver Constraints): @dev confirma a existência dos 5 scripts + lista os 3 executors L1 a modificar → Pedro levanta deny rule em `.claude/settings.json` → @dev aplica os path fixes (staged) → Husky bloqueia commit → @devops faz commit + push → Pedro repõe deny rule.
+   - Após o path fix: `require()` nos executors resolve sem erro (`node -e "require('./.aiox-core/core/orchestration/executors/epic-4-executor.js')"` não lança MODULE_NOT_FOUND para os 5 scripts).
 
 3. **AC3 — Módulos ausentes do público documentados como dormentes** *(ADR C2 + C3)*
    - Os seguintes módulos/paths são adicionados a `docs/qa/framework-dormant.md` como "ausente do oficial público — dormente/opcional":
@@ -81,17 +81,19 @@ Esta story executa as decisões C1–C4 e C6 do ADR: (a) adicionar as 20 devDepe
 4. **AC4 — `docs/architecture/aiox-framework-consumption.md` criado** *(ADR C6)*
    - Documento criado com pelo menos as seguintes secções:
      - **Modelo dev-isolated:** framework em `devDependencies`; `npm ci --omit=dev` (Railway) omite framework deps; `Dockerfile` COPY selectivo (`bin/`, `packages/` — sem `.aiox-core/`). Isolação dupla.
-     - **Invariante de produção:** `packages/sniper-api/server.js` e todos os entrypoints de `bin/` NUNCA importam `.aiox-core/`. Verificado por `grep -rn "aiox-core" packages/sniper-api/ bin/` = vazio.
+     - **Invariante de produção:** nenhum ficheiro em `packages/sniper-api/**` (CMD de produção = `node packages/sniper-api/server.js`) importa `.aiox-core/`. Verificado por `grep -rn "aiox-core" packages/sniper-api/` = vazio. Os CLIs de framework em `bin/` (`aiox-graph.js`, `aiox-delegate.js`, `aiox-ids.js`) importam `.aiox-core/` **por design** — são dev-tooling fora da fronteira de produção (não embarcam no runtime Railway); ver AC5 (allowlist do guard).
      - **Keep-list (superfície viva):** `core/synapse/**`, `core/errors/**`, `infrastructure/scripts/ide-sync/**`, `validate-claude-integration.js`, `core-config.yaml` — o que é efectivamente carregado por hooks activos e `npm scripts`.
      - **Módulos ausentes do público (dormente/opcional):** lista dos 6 paths do AC3.
      - **Como verificar a invariante:** comando de guard + referência ao teste de AC5.
 
 5. **AC5 — Guard de teste da invariante dev-isolated** *(ADR C6)*
    - Um ficheiro de teste é criado em `tests/framework/dev-isolated-guard.test.js` (pasta `tests/framework/` criada se necessária).
-   - O teste usa `glob` (ou `fs.readdirSync` recursivo) para listar todos os `.js` em `packages/sniper-api/**` e `bin/**`, e para cada ficheiro verifica que o conteúdo NÃO contém `require(` com path para `.aiox-core` nem `import` de `.aiox-core`.
+   - O teste usa `glob` (ou `fs.readdirSync` recursivo) para listar todos os `.js` em `packages/sniper-api/**` e `bin/**`, e valida a invariante com dois regimes (ignorando comentários `//` e `/* */` para evitar falsos positivos):
+     - **Estrito em `packages/sniper-api/**`:** nenhum ficheiro pode conter um `require(`/`import` activo de `.aiox-core` (invariante load-bearing — é o runtime de produção). Qualquer import falha o teste.
+     - **Allowlist em `bin/**`:** os 3 CLIs de framework que importam `.aiox-core/` por design (`aiox-graph.js`, `aiox-delegate.js`, `aiox-ids.js`) estão explicitamente na allowlist; qualquer ficheiro **NOVO** de `bin/` (fora da allowlist) que importe `.aiox-core` falha o teste.
    - O teste PASSA no estado actual do repositório.
    - O teste é adicionado ao script `test` no `package.json` (ou a um script `test:framework` separado, por decisão do @dev — documentar no Dev Agent Record).
-   - Intenção: se no futuro algum ficheiro de `packages/sniper-api/` ou `bin/` passar a importar `.aiox-core/`, este teste falha imediatamente.
+   - Intenção: se no futuro um ficheiro de `packages/sniper-api/` — ou um ficheiro **novo** de `bin/` — passar a importar `.aiox-core/`, este teste falha imediatamente.
 
 6. **AC6 — `npm test` continua 0 fail após esta story** *(consolidação)*
    - `npm test` (incluindo o novo teste de AC5) reporta 0 fail.
@@ -105,7 +107,7 @@ Esta story executa as decisões C1–C4 e C6 do ADR: (a) adicionar as 20 devDepe
 ### IN
 
 - Adição das 20 devDependencies ao `package.json` (secção `devDependencies`)
-- Restauro dos 5 ficheiros `infrastructure/scripts/` do oficial público via `gh api`
+- Confirmação da existência dos 5 ficheiros `infrastructure/scripts/` (já presentes, completos — REUSE; não restaurar/sobrescrever)
 - Correcção da profundidade dos `require()` nos 3 executor files (`epic-4/5/6-executor.js`)
 - Documentação dos 6 módulos dormentes em `docs/qa/framework-dormant.md`
 - Criação de `docs/architecture/aiox-framework-consumption.md`
@@ -190,55 +192,55 @@ Esta story executa as decisões C1–C4 e C6 do ADR: (a) adicionar as 20 devDepe
 
 ## Definition of Done
 
-- [ ] AC1: 20 devDependencies adicionadas; `npm ci --omit=dev` não as instala
-- [ ] AC2: 5 ficheiros restaurados do oficial + path fix nos executors (via procedimento L1)
-- [ ] AC3: 6 módulos dormentes documentados em `framework-dormant.md`
-- [ ] AC4: `docs/architecture/aiox-framework-consumption.md` criado (4 secções mínimas)
-- [ ] AC5: `tests/framework/dev-isolated-guard.test.js` criado + PASS
-- [ ] AC6: `npm test` → 0 fail; `enforcement.test.js` PASS (outputs no Dev Agent Record)
-- [ ] Story status: InReview → @qa gate
+- [x] AC1: 20 devDependencies adicionadas; `npm ci --omit=dev` não as instala
+- [x] AC2: 5 scripts já presentes em `infrastructure/scripts/` (restauro não necessário) + path fix nos 5 requires dos 3 executors aplicado (L1; gates baixados nesta sessão). Resolução verificada — executors carregam sem MODULE_NOT_FOUND
+- [x] AC3: 6 módulos dormentes documentados em `framework-dormant.md`
+- [x] AC4: `docs/architecture/aiox-framework-consumption.md` criado (4 secções mínimas)
+- [x] AC5: `tests/framework/dev-isolated-guard.test.js` criado + PASS *(scope ajustado — ver [AUTO-DECISION])*
+- [x] AC6: `npm test` → 0 fail; `enforcement.test.js` PASS (outputs no Dev Agent Record)
+- [x] Story status: Ready → InReview → @qa gate *(todas as Tasks 2-7 + 3 concluídas)*
 
 ---
 
 ## Tasks / Subtasks
 
 - [ ] **Task 1 — Preparação e confirmação de estado (pré-requisito)**
-  - [ ] 1.1 Confirmar que FWSYNC.1a está Done e `npm test` está a 0 fail
-  - [ ] 1.2 Ler `STATE.md` para confirmar o procedimento de lift do deny rule L1 (secção relevante)
-  - [ ] 1.3 Verificar autenticação `gh auth status` (necessário para `gh api` em Task 3)
+  - [x] 1.1 Confirmar que FWSYNC.1a está Done e `npm test` está a 0 fail
+  - [ ] 1.2 Ler `STATE.md` para confirmar o procedimento de lift do deny rule L1 (secção relevante) *(prep de Task 3 — L1, pendente)*
+  - [ ] 1.3 Verificar autenticação `gh auth status` (necessário para `gh api` em Task 3) *(prep de Task 3 — L1, pendente)*
 
-- [ ] **Task 2 — Adicionar 20 devDependencies (AC1)**
-  - [ ] 2.1 Editar `package.json` — adicionar as 20 packages à secção `devDependencies`
-  - [ ] 2.2 `npm install` — verificar sem erros críticos
-  - [ ] 2.3 Simular `npm ci --omit=dev` e confirmar que as 20 deps NÃO aparecem em `node_modules` (ou verificar via `npm ls --omit=dev`)
-  - [ ] 2.4 Registar versões instaladas no Dev Agent Record
+- [x] **Task 2 — Adicionar 20 devDependencies (AC1)**
+  - [x] 2.1 Editar `package.json` — adicionar as 20 packages à secção `devDependencies`
+  - [x] 2.2 `npm install` — verificar sem erros críticos *(0 vulnerabilidades, sem conflito peerDeps; `--legacy-peer-deps` NÃO foi necessário)*
+  - [x] 2.3 Simular `npm ci --omit=dev` e confirmar que as 20 deps NÃO aparecem em `node_modules` (verificado via `npm ls --omit=dev --depth=0` → só 7 deps de produção)
+  - [x] 2.4 Registar versões instaladas no Dev Agent Record
 
-- [ ] **Task 3 — Restaurar scripts do oficial + path fix nos executors (AC2) [L1 — requer lift]**
-  - [ ] 3.1 Listar os 8 ficheiros L1 a modificar/criar para comunicar a Pedro (5 scripts + 3 executors)
-  - [ ] 3.2 Pedro levanta deny rule em `.claude/settings.json`
-  - [ ] 3.3 Para cada um dos 5 scripts: `gh api repos/SynkraAI/aiox-core/contents/infrastructure/scripts/{name}.js` → base64 decode → Write ao path local `.aiox-core/infrastructure/scripts/{name}.js`
-  - [ ] 3.4 Para cada executor (`epic-4/5/6-executor.js`): ler o ficheiro local, corrigir `../../infrastructure/scripts/` para `../../../infrastructure/scripts/` nos requires relevantes
-  - [ ] 3.5 Verificar resolução: `node -e "require('./.aiox-core/core/orchestration/executors/epic-4-executor.js')"` não lança MODULE_NOT_FOUND para os scripts restaurados
-  - [ ] 3.6 Pedro repõe deny rule em `.claude/settings.json`
+- [x] **Task 3 — Confirmar existência dos 5 scripts + path fix nos executors (AC2) [L1 — requer lift]**
+  - [x] 3.1 Confirmar os 5 scripts já presentes em `infrastructure/scripts/` + listar os 3 executors L1 a modificar para comunicar a Pedro
+  - [x] 3.2 Pedro levanta deny rule em `.claude/settings.json` *(gates L1 baixados para esta sessão: deny core/** removido + frameworkProtection: false)*
+  - [x] 3.3 ~~Restaurar 5 scripts via `gh api`~~ — **NÃO necessário**: os 5 scripts já existem em `.aiox-core/infrastructure/scripts/` (completos, 4956 linhas). Premissa de restauro da story estava desactualizada — só path fix aplicado (No-Invention/Surgical Changes)
+  - [x] 3.4 Para cada executor (`epic-4/5/6-executor.js`): corrigido `../../infrastructure/scripts/` → `../../../infrastructure/scripts/` nos 5 requires relevantes
+  - [x] 3.5 Verificada resolução: os 3 executors carregam sem MODULE_NOT_FOUND; os 5 scripts resolvem via `require.resolve`
+  - [ ] 3.6 Pedro repõe deny rule em `.claude/settings.json` *(acção pós-sessão do Pedro)*
 
-- [ ] **Task 4 — Documentar módulos dormentes (AC3)**
-  - [ ] 4.1 Abrir/criar `docs/qa/framework-dormant.md`
-  - [ ] 4.2 Adicionar secção "FWSYNC.1b — Módulos ausentes do oficial público" com os 6 paths (AC3), ref ao ADR C2/C3
+- [x] **Task 4 — Documentar módulos dormentes (AC3)**
+  - [x] 4.1 Abrir/criar `docs/qa/framework-dormant.md`
+  - [x] 4.2 Adicionar secção "FWSYNC.1b — Módulos ausentes do oficial público" com os 6 paths (AC3), ref ao ADR C2/C3
 
-- [ ] **Task 5 — Criar documento de fronteira (AC4)**
-  - [ ] 5.1 Criar `docs/architecture/aiox-framework-consumption.md` com as 4 secções mínimas (modelo dev-isolated, invariante de produção, keep-list, módulos dormentes)
-  - [ ] 5.2 Incluir o comando de verificação da invariante e ref ao guard de AC5
+- [x] **Task 5 — Criar documento de fronteira (AC4)**
+  - [x] 5.1 Criar `docs/architecture/aiox-framework-consumption.md` com as 4 secções mínimas (modelo dev-isolated, invariante de produção, keep-list, módulos dormentes)
+  - [x] 5.2 Incluir o comando de verificação da invariante e ref ao guard de AC5
 
-- [ ] **Task 6 — Guard de teste da invariante (AC5)**
-  - [ ] 6.1 Criar `tests/framework/` (pasta) se necessário
-  - [ ] 6.2 Criar `tests/framework/dev-isolated-guard.test.js` usando `node:test` (nativo)
-  - [ ] 6.3 O teste lista recursivamente `packages/sniper-api/**/*.js` e `bin/**/*.js` e valida: nenhum ficheiro contém `require(` ou `import` com path `.aiox-core`
-  - [ ] 6.4 Confirmar que o teste PASSA no estado actual
-  - [ ] 6.5 Adicionar ao script `test` do `package.json` (ou criar `test:framework` — documentar decisão)
+- [x] **Task 6 — Guard de teste da invariante (AC5)**
+  - [x] 6.1 Criar `tests/framework/` (pasta) se necessário
+  - [x] 6.2 Criar `tests/framework/dev-isolated-guard.test.js` usando `node:test` (nativo)
+  - [x] 6.3 O teste lista recursivamente `packages/sniper-api/**/*.js` e `bin/**/*.js` e valida que nenhum ficheiro importa `.aiox-core` — **scope ajustado** (ver [AUTO-DECISION] no Dev Agent Record): estrito em `packages/sniper-api/**`; `bin/**` via allowlist dos 3 CLIs de framework existentes (AC4/AC5 sobre-generalizavam "bin/ nunca importa" — factualmente errado)
+  - [x] 6.4 Confirmar que o teste PASSA no estado actual *(2/2 pass)*
+  - [x] 6.5 Adicionar ao script `test` do `package.json` *(decisão: adicionado `tests/framework/*.test.js` ao glob do script `test` existente — não criar script separado)*
 
-- [ ] **Task 7 — Verificação final (AC6)**
-  - [ ] 7.1 `npm test` → confirmar 0 fail; registar output no Dev Agent Record
-  - [ ] 7.2 `node tests/hooks/enforcement.test.js` → confirmar PASS; registar output
+- [x] **Task 7 — Verificação final (AC6)**
+  - [x] 7.1 `npm test` → confirmar 0 fail; registar output no Dev Agent Record
+  - [x] 7.2 `node tests/hooks/enforcement.test.js` → confirmar PASS; registar output
 
 ---
 
@@ -309,39 +311,242 @@ Após AC1: `devDependencies` passa de 6 para 26.
 |------|---------|-------------|--------|
 | 2026-06-28 | 1.0 | Story criada (Draft) — split de FWSYNC.1 conforme ADR v2.0 (C1/C2/C3/C4/C6) | @sm (River) |
 | 2026-06-28 | 1.1 | Validada GO 10/10 → **Status Draft → Ready**. Confirmado vs ADR C1: 20 devDeps exactas (não 27, não especulativas), js-yaml/ajv não movidos. C3: 5 ficheiros restauráveis + dormentes documentados (não fabricados). Procedimento lift deny-rule L1 (82.x) presente. Depende de FWSYNC.1a Done. | @po (Pax) |
+| 2026-06-29 | 1.2 | **Tasks SEM L1 implementadas** (AC1/AC3/AC4/AC5/AC6 Done): 20 devDeps adicionadas (`npm ci --omit=dev` não as instala), 6 módulos dormentes documentados, doc de fronteira criado, guard de teste criado + PASS, `npm test` 0 fail (386: 382 pass/4 skip) + `enforcement.test.js` 34/34. **Task 3/AC2 (L1) PENDENTE** — requer lift do deny-rule + commit @devops. Status mantido **Ready**. Achado: AC4/AC5 sobre-generalizavam "bin/ nunca importa .aiox-core" — factualmente errado (3 CLIs de framework importam); guard ajustado + correcção documentada ([AUTO-DECISION], rever AC = autoridade @po). | @dev (Dex) |
+| 2026-06-29 | 1.3 | **Task 3 / AC2 concluída (path fix)** — gates L1 baixados para a sessão (deny `core/**` removido + `frameworkProtection: false`). Scope confirmado pelo Pedro: **SÓ path fix**, sem re-descarregar do oficial (os 5 scripts já existem completos, 4956 linhas — re-escrevê-los violaria No-Invention/Surgical Changes). Corrigidos 5 requires (`../../infrastructure/scripts/` → `../../../infrastructure/scripts/`) em epic-4/5/6-executor.js. 3 verificações PASS (grep `../../../`, `require.resolve` dos 5 scripts, carregamento dos 3 executors). **Status Ready → InReview** (todas as Tasks 2-7 + 3 feitas; pronta para @qa gate). Nenhum git commit/push (Art. II — @devops exclusivo). | @dev (Dex) |
+| 2026-06-29 | 1.4 | **QA Gate CONCERNS — Status: InReview → Done.** 6/6 AC cumpridos na intenção; npm test 382/0 (4 skip pré-existentes FWSYNC.1a), enforcement.test.js 34/34, lint+typecheck limpos, test:ws 7/7. L1 gates repostos confirmados (settings.json deny `core/**` + `frameworkProtection: true`). 2 concerns LOW (REQ-001, REQ-002) — redacção de AC2/AC4/AC5 desactualizada vs realidade verificada; encaminhado ao @po para re-redacção (não bloqueia). Gate: docs/qa/gates/FWSYNC.1b-framework-completion-dev-isolated.yml | @qa (Quinn) |
+| 2026-06-29 | 1.5 | **Re-redacção AC2/AC4/AC5 (REQ-001/REQ-002 do QA gate)** — texto alinhado à realidade verificada; **implementação inalterada**. AC2: "5 ficheiros obtidos do oficial via `gh api`" → "5 scripts já presentes (REUSE — não restaurar) + path fix nos executors" (No-Invention/Art. IV); Scope IN + Task 3 actualizados em coerência. AC4: invariante de produção redelimitada para `packages/sniper-api/**` (load-bearing); CLIs de framework em `bin/` (aiox-graph/delegate/ids) importam `.aiox-core/` por design, fora da fronteira de produção. AC5: guard descrito ao comportamento real — estrito em `packages/sniper-api/**`, allowlist dos 3 CLIs existentes em `bin/**`, falha se ficheiro novo importar `.aiox-core`. Status mantido **Done**; QA Results intocado; rastreabilidade ao ADR (C3/C6) preservada. | @po (Pax) |
 
 ---
 
 ## Dev Agent Record
 
-*(Preenchido por @dev durante implementação)*
+*(Preenchido por @dev (Dex) — sessão 2026-06-29)*
 
 ### Agent Model Used
 
-### Debug Log References
+claude-opus-4-8 (@dev / Dex), modo YOLO autónomo.
 
-### Completion Notes
+### Escopo desta sessão
+
+Executadas **apenas as Tasks SEM fricção L1**: Task 2 (AC1), Task 4 (AC3), Task 5 (AC4),
+Task 6 (AC5), Task 7 (AC6). **Task 3 (AC2 — restauro dos 5 scripts + path fix nos executors)
+NÃO foi executada** — toca `.aiox-core/core/**` e `.aiox-core/infrastructure/scripts/**` (L1) e
+requer o procedimento de lift do deny-rule (Pedro levanta deny rule → @dev aplica → @devops faz
+commit). Permanece PENDENTE. Story mantida em **Ready** (não promovida a InReview até AC2 L1 estar
+feita). Nenhum `git commit`/`push` executado (Art. II — @devops exclusivo).
+
+### [AUTO-DECISION] — Scope do guard AC5 (Task 6)
+
+**Questão:** AC4/AC5 especificam que o guard valide que `packages/sniper-api/**` **e** `bin/**`
+nunca importam `.aiox-core`, e que "o teste PASSA no estado actual".
+
+**Achado (grep real, não suposição):** `bin/` **NÃO** está limpo — 3 CLIs de framework importam
+`.aiox-core/` por design:
+- `bin/aiox-graph.js:4` → `require('../.aiox-core/core/graph-dashboard/cli')`
+- `bin/aiox-delegate.js` → `require(path.join(…, '.aiox-core', 'core', 'external-executors', 'delegate-cli'))`
+- `bin/aiox-ids.js` → `require(path.resolve(…, '.aiox-core', 'core', 'ids', …))`
+
+`packages/sniper-api/**` **está** limpo (zero imports de `.aiox-core` — invariante verificada).
+A premissa de AC4/AC5 ("entrypoints de `bin/` nunca importam") é uma **sobre-generalização** — a
+evidência da ADR v2.0 só verificou `server.js`/`packages/`, depois estendeu indevidamente a `bin/`.
+
+**Decisão (reason):** escrever o guard à realidade verificada, sem o enfraquecer:
+1. **Estrito** em `packages/sniper-api/**/*.js` → zero `.aiox-core` (invariante load-bearing: o
+   CMD de produção é `node packages/sniper-api/server.js`).
+2. `bin/**/*.js` → allowlist dos 3 CLIs de framework já existentes; falha se um ficheiro **NOVO**
+   (ou qualquer ficheiro de `sniper-api`) passar a importar `.aiox-core`. Honra a intenção
+   forward-looking de AC5 ("falha se no futuro um ficheiro importar") e PASSA no estado actual.
+
+A correcção factual está documentada em `docs/architecture/aiox-framework-consumption.md` §2. **Para
+@po/@qa:** AC4 ("Verificado por `grep ... bin/` = vazio") e AC5 ("`bin/**` … nenhum importa") estão
+factualmente incorrectos para `bin/`; recomenda-se rever a redacção dos AC (autoridade @po).
+
+### [DECISION] — Wiring do teste (Task 6.5)
+
+Adicionado `tests/framework/*.test.js` ao glob do script `test` existente no `package.json` (não
+criado script `test:framework` separado). Razão: o guard é parte do sinal de qualidade base e deve
+correr em todo `npm test`/pre-push sem comando extra.
 
 ### devDependencies instaladas — versões exactas (AC1)
 
-*(listar aqui as versões instaladas pelo `npm install`)*
+`npm install --save-dev` (added 162 packages, 0 vulnerabilities, **sem conflito peerDeps** →
+`--legacy-peer-deps` NÃO foi necessário). `dependencies` inalteradas (7). Versões instaladas:
+
+| Package | Versão | Package | Versão |
+|---------|--------|---------|--------|
+| @clack/prompts | ^1.6.0 | fs-extra | ^11.3.6 |
+| @kayvan/markdown-tree-parser | ^1.6.1 | glob | ^13.0.6 |
+| ansi-to-html | ^0.7.2 | handlebars | ^4.7.9 |
+| asciichart | ^1.5.25 | inquirer | ^14.0.2 |
+| chalk | ^5.6.2 | node-machine-id | ^1.1.12 |
+| chokidar | ^5.0.0 | ora | ^9.4.1 |
+| cli-progress | ^3.12.0 | picocolors | ^1.1.1 |
+| commander | ^15.0.0 | proper-lockfile | ^4.1.2 |
+| execa | ^9.6.1 | semver | ^7.8.5 |
+| fast-glob | ^3.3.3 | validator | ^13.15.35 |
+
+**Verificação AC1 (`npm ls --omit=dev --depth=0`):** produção mostra só `ajv-formats, dotenv,
+js-yaml, resend, stripe, ws, yaml` (7). Nenhuma das 20 novas devDeps aparece no tree de produção.
+`js-yaml`/`ajv`/`ajv-formats` não foram movidos (ficam em `dependencies`).
 
 ### Path fix — executors (AC2)
 
-*(confirmar os 3 requires corrigidos e o comando de verificação)*
+**EXECUTADO** (sessão 2026-06-29, gates L1 baixados para a sessão: deny `core/**` removido +
+`frameworkProtection: false`). Scope confirmado pelo Pedro: **SÓ path fix**, sem re-descarregar do
+oficial.
+
+**Nota:** os 5 scripts já existiam em `.aiox-core/infrastructure/scripts/` (completos, 4956 linhas).
+A premissa de restauro da story (AC2 "5 ficheiros obtidos do oficial via `gh api`") estava
+**desactualizada** — re-escrevê-los violaria No-Invention / Surgical Changes. Aplicado apenas o path
+fix.
+
+**3 requires corrigidos (5 ocorrências, `../../infrastructure/scripts/` → `../../../infrastructure/scripts/`):**
+- `core/orchestration/executors/epic-4-executor.js:38` → `plan-tracker`
+- `core/orchestration/executors/epic-4-executor.js:54` → `subtask-verifier`
+- `core/orchestration/executors/epic-5-executor.js:53` → `stuck-detector`
+- `core/orchestration/executors/epic-5-executor.js:68` → `rollback-manager`
+- `core/orchestration/executors/epic-6-executor.js:47` → `qa-loop-orchestrator`
+
+Razão (math dos paths): executors estão em `core/orchestration/executors/`; `../../` resolvia para
+`core/infrastructure/scripts` (inexistente); `../../../` resolve para `infrastructure/scripts` (onde
+os scripts estão).
+
+**Verificação 1 — grep `infrastructure/scripts` nos 3 ficheiros (todos `../../../`):**
+```
+epic-5-executor.js:53  ../../../infrastructure/scripts/stuck-detector
+epic-5-executor.js:68  ../../../infrastructure/scripts/rollback-manager
+epic-4-executor.js:38  ../../../infrastructure/scripts/plan-tracker
+epic-4-executor.js:54  ../../../infrastructure/scripts/subtask-verifier
+epic-6-executor.js:47  ../../../infrastructure/scripts/qa-loop-orchestrator
+```
+
+**Verificação 2 — `require.resolve` dos 5 scripts (sem MODULE_NOT_FOUND):**
+```
+OK -> .aiox-core\infrastructure\scripts\plan-tracker.js
+OK -> .aiox-core\infrastructure\scripts\subtask-verifier.js
+OK -> .aiox-core\infrastructure\scripts\stuck-detector.js
+OK -> .aiox-core\infrastructure\scripts\rollback-manager.js
+OK -> .aiox-core\infrastructure\scripts\qa-loop-orchestrator.js
+```
+
+**Verificação 3 — carregamento dos 3 executors:**
+```
+node -e "require(epic-4); require(epic-5); require(epic-6); console.log('executors carregam OK')"
+→ executors carregam OK
+```
+
+**Git:** nenhum `git commit`/`push` executado (Art. II — @devops exclusivo). Ficheiros deixados
+modificados/unstaged.
 
 ### `npm test` Final Output (AC6)
 
 ```
-# colar output aqui
+ℹ tests 386
+ℹ suites 0
+ℹ pass 382
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 4        (skip-guards reversíveis da FWSYNC.1a — engine.test.js)
+ℹ todo 0
+ℹ duration_ms 9932.8844
+--- test:ws (Broadcaster) ---
+ℹ tests 7
+ℹ pass 7
+ℹ fail 0
 ```
+Inclui os 2 novos testes de `tests/framework/dev-isolated-guard.test.js` (ambos pass).
 
 ### `enforcement.test.js` Output (AC6)
 
 ```
-# colar output aqui
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1122.5691
 ```
 
 ### File List
 
-*(ficheiros criados/modificados/removidos)*
+**Modificados:**
+- `package.json` — +20 devDependencies (AC1); +`tests/framework/*.test.js` no glob do script `test` (AC5)
+- `package-lock.json` — lockfile actualizado por `npm install`
+- `docs/qa/framework-dormant.md` — nova secção "FWSYNC.1b — Módulos ausentes do oficial público" (6 paths, AC3)
+- `docs/stories/epics/FWSYNC.1b-framework-completion-dev-isolated.story.md` — checkboxes + Dev Agent Record
+
+**Criados:**
+- `docs/architecture/aiox-framework-consumption.md` — doc de fronteira dev-isolated (AC4)
+- `tests/framework/dev-isolated-guard.test.js` — guard da invariante (AC5)
+
+**Modificados (Task 3 / AC2 — L1, sessão 2026-06-29, path fix):**
+- `.aiox-core/core/orchestration/executors/epic-4-executor.js` — 2 requires `../../` → `../../../` (plan-tracker, subtask-verifier)
+- `.aiox-core/core/orchestration/executors/epic-5-executor.js` — 2 requires `../../` → `../../../` (stuck-detector, rollback-manager)
+- `.aiox-core/core/orchestration/executors/epic-6-executor.js` — 1 require `../../` → `../../../` (qa-loop-orchestrator)
+
+**Não tocados (Task 3 / AC2):**
+- `.aiox-core/infrastructure/scripts/{plan-tracker,subtask-verifier,stuck-detector,rollback-manager,qa-loop-orchestrator}.js` — já existiam completos (4956 linhas); restauro não necessário
+
+---
+
+## QA Results
+
+### Review Date: 2026-06-29
+
+### Reviewed By: Quinn (Test Architect / Guardian)
+
+**Modo:** verificação read-only (sem alteração a código de produto/framework). Todos os comandos
+corridos e outputs registados abaixo.
+
+#### Verificação dos 6 AC
+
+| AC | Veredicto | Evidência verificada |
+|----|-----------|----------------------|
+| **AC1** — 20 devDeps | ✅ PASS | 20 packages presentes em `devDependencies`. `npm ls --omit=dev --depth=0` → só 7 prod deps (ajv-formats, dotenv, js-yaml, resend, stripe, ws, yaml); nenhuma das 20 framework devDeps no tree de produção. `dependencies` inalteradas (7). |
+| **AC2** — path fix executors | ✅ PASS (intenção) | Os 5 requires nos 3 executors usam `../../../infrastructure/scripts/` (grep confirmado). `require.resolve` dos 5 scripts → OK. `node -e require(epic-4/5/6)` → "executors load OK". **Divergência de premissa** (scripts já existiam; só path fix) — ver REQ-001. |
+| **AC3** — 6 módulos dormentes | ✅ PASS | `docs/qa/framework-dormant.md` secção "FWSYNC.1b" lista os 6 paths com refs ADR C2/C3 e disposição "não restaurar/não fabricar". |
+| **AC4** — doc de fronteira | ✅ PASS | `docs/architecture/aiox-framework-consumption.md` com 5 secções (modelo dev-isolated, invariante de produção, keep-list, módulos dormentes, como verificar). Divergência `bin/` documentada honestamente em §2 — ver REQ-002. |
+| **AC5** — guard de teste | ✅ PASS | `tests/framework/dev-isolated-guard.test.js` existe, no glob do script `test`, **2/2 PASS** standalone e dentro de `npm test`. Estrito em `packages/sniper-api/**`; allowlist dos 3 CLIs de framework em `bin/**`. Strip de comentários evita falso positivo. |
+| **AC6** — consolidação | ✅ PASS | `npm test` → 386 (382 pass / **0 fail** / 4 skip pré-existentes FWSYNC.1a) + `test:ws` 7/7. `node tests/hooks/enforcement.test.js` → **34/34 PASS**. |
+
+#### Gates L1 repostos (confirmado)
+
+- `.claude/settings.json` deny: `Edit/Write/MultiEdit(.aiox-core/core/**)` presente + `Edit/Write(.aiox-core/infrastructure/scripts/**)`.
+- `.aiox-core/core-config.yaml`: `boundary.frameworkProtection: true`.
+
+#### Quality gates (outputs)
+
+```
+npm test              → 382 pass / 0 fail / 4 skip   (+ test:ws 7/7)
+enforcement.test.js   → 34 pass / 0 fail
+npm run lint          → limpo (0 erros)
+npm run typecheck     → limpo (0 erros)
+guard standalone      → 2 pass / 0 fail
+```
+
+#### 7 Quality Checks (story-lifecycle)
+
+| Check | Veredicto | Nota |
+|-------|-----------|------|
+| 1. Code review | ✅ PASS | Path fix cirúrgico; guard bem escrito (strip de comentários, allowlist explícita, regex que distingue require real de string solta). |
+| 2. Tests | ✅ PASS | 382 + 7 + 34, 0 fail. 4 skip são skip-guards reversíveis pré-existentes da FWSYNC.1a (não introduzidos por esta story). |
+| 3. Acceptance criteria | ✅ PASS | 6/6 cumpridos na intenção; 2 com divergência de redacção (REQ-001/002). |
+| 4. No regressions | ✅ PASS | 0 fail em todas as suites; lint+typecheck limpos; executors carregam sem MODULE_NOT_FOUND. |
+| 5. Performance | ✅ PASS | Dev-tooling; guard 77ms. N/A para runtime de produção. |
+| 6. Security | ✅ PASS | Invariante supply-chain preservada por construção (devDeps + `--omit=dev` + COPY selectivo). Zero `.aiox-core/` no runtime de produção (`packages/sniper-api/**` limpo, guardado). Sem secrets. |
+| 7. Documentation | ✅ PASS | `framework-dormant.md` + `aiox-framework-consumption.md` ambos completos e honestos sobre as divergências. |
+
+#### Divergências de premissa (2) — encaminhar ao @po
+
+1. **REQ-001 (LOW)** — AC2 redige "5 ficheiros obtidos do oficial via `gh api`", mas os 5 scripts já existiam completos (4956 ln). @dev aplicou só path fix (No-Invention / Surgical Changes — comportamento correcto). A intenção do AC (executors resolvem) está cumprida. **@po:** reescrever AC2 para "path fix nos requires (scripts já presentes)".
+2. **REQ-002 (LOW)** — AC4 ("grep `bin/` = vazio") e AC5 ("`bin/**` nenhum importa") são factualmente incorrectos: 3 CLIs de framework (`aiox-graph.js`, `aiox-delegate.js`, `aiox-ids.js`) importam `.aiox-core/` por design. @dev escreveu guard+doc à realidade verificada — estrito em `packages/sniper-api/**` (invariante load-bearing), allowlist em `bin/**`. **@po:** reescrever AC4/AC5 — a invariante de produção é `packages/sniper-api/**`, não a totalidade de `bin/`. Já documentado em `aiox-framework-consumption.md §2` + Dev Agent Record [AUTO-DECISION].
+
+> Ambas as divergências são **@dev a lidar correctamente com AC de premissa desactualizada** (No-Invention + documentação honesta). Não são defeitos de qualidade e **não bloqueiam** o gate. Tracking via @po (autoridade exclusiva sobre texto dos AC).
+
+### Gate Status
+
+Gate: CONCERNS → docs/qa/gates/FWSYNC.1b-framework-completion-dev-isolated.yml
+
+✅ Story status updated: InReview → Done
