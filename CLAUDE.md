@@ -125,21 +125,34 @@ Combate a tendência de sobreengenharia:
 - Sem recursos especulativos além do solicitado
 - Sem abstrações para código de uso único
 - Sem tratamento de erros para cenários impossíveis
+- **Teste:** "Um engenheiro sénior diria que isto está sobrecomplicado?" Se sim, simplifica. "Se escreves 200 linhas e dava em 50, reescreve."
 
 ### 3. **Surgical Changes** (Mudanças Cirúrgicas)
 Toca apenas o necessário:
 - Não "melhora" código adjacente não solicitado
 - Não refatora código funcionando
-- Mantém o estilo existente
-- Remove apenas dependências órfãs criadas pelas tuas mudanças
+- Mantém o estilo existente (aspas, type hints, espaçamento — não derives)
+- Remove apenas dependências órfãs criadas pelas tuas mudanças; código morto pré-existente → menciona, não apagues
+- **Teste:** Cada linha alterada tem de rastrear directamente ao pedido do utilizador.
 
 ### 4. **Goal-Driven Execution** (Execução Orientada por Objetivos)
 Define critérios de sucesso verificáveis:
-- Transforma tarefas em metas mensuráveis
+- Transforma tarefas em metas mensuráveis ("corrige o bug" → "escreve teste que o reproduz, depois fá-lo passar")
 - Escreve testes antes da implementação
 - Confirma sucesso através de loops iterativos
+- **Teste:** Critérios fortes deixam-me fazer loop sozinho; critérios fracos ("faz funcionar") exigem clarificação constante.
 
 **Insight Principal:** "Modelos são excepcionalmente bons em fazer loops até atingir objetivos específicos... Não digas o que fazer, dá critérios de sucesso e observa funcionar." — Andrej Karpathy
+
+**Timing > Pattern:** Os exemplos "sobrecomplicados" não são errados — seguem design patterns. O problema é *timing*: adicionam complexidade antes de ser precisa. "Bom código resolve o problema de hoje de forma simples, não o de amanhã prematuramente."
+
+**Mapa → Constitution (os 4 pilares já vivem nas tuas regras):**
+| Pilar Karpathy | Regra AIOX |
+|----------------|------------|
+| Think Before Coding | ALWAYS-001/002 (opções 1/2/3 + AskUserQuestion), Art. IV No Invention |
+| Simplicity First | NEVER-004 (sem features não pedidas), Art. IV, IDS Art. IV-A |
+| Surgical Changes | NEVER-003 (não apagar sem perguntar), Art. VI-VII Framework Boundary |
+| Goal-Driven Execution | Art. V Quality First (lint/typecheck/test PASS), QA gate |
 
 ---
 
@@ -190,14 +203,14 @@ MUST PASS:
 
 ---
 
-## 📚 Reference — 20 Rule Files (Auto-Loaded)
+## 📚 Reference — 21 Rule Files (Auto-Loaded)
 
 Carregados automaticamente de `.claude/rules/` em cada sessão:
 
-**Agent & Authority:** agent-authority.md, agent-handoff.md, smart-routing.md, mcp-usage.md
-**Constitutional:** enforcement-gates.md, constitution-sync-guard.md, rule-escalation-protocol.md, feedback_never-rules.md, feedback_always-rules.md, ids-principles.md
+**Agent & Authority:** agent-authority.md, agent-handoff.md, smart-routing.md, mcp-usage.md, agent-memory-imports.md
+**Constitutional:** enforcement-gates.md, constitution-sync-guard.md, rule-escalation-protocol.md, feedback_never-rules.md, ids-principles.md
 **Workflows:** story-lifecycle.md, workflow-execution.md, planning-tracks.md, handoff-consolidation.md, immortality-lifecycle.md
-**Decision & Quality:** confidence-scoring.md, token-budget.md, tool-examples.md, coderabbit-integration.md
+**Decision & Quality:** confidence-scoring.md, token-budget.md, tool-examples.md, coderabbit-integration.md, karpathy-principles.md, tool-response-filtering.md
 
 ---
 
@@ -213,6 +226,7 @@ Carregados automaticamente de `.claude/rules/` em cada sessão:
 
 | Versão | Data | Mudanças |
 |--------|------|----------|
+| **v3.2** | 2026-06-29 | **KARPATHY refinado:** testes memoráveis por pilar (multica-ai/andrej-karpathy-skills) + "Timing > Pattern" + mapa dos 4 pilares → NEVER/ALWAYS/Constitution |
 | **v3.1** | 2026-06-26 | **KARPATHY:** Adicionado 4 Pilares de Desenvolvimento (Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution) |
 | **v3.0** | 2026-06-25 | **OPTIMIZED:** 359 → 105 linhas. Consolidado NEVER (11→7), removido escala/contexto (referências em `.claude/rules/`), adicionado Critical Commands, Routing Tree. High-signal focus. |
 | v2.4 | 2026-06-24 | Audit completo + 6 squads + 9 agentes + 20 rule files documentados |
@@ -220,6 +234,6 @@ Carregados automaticamente de `.claude/rules/` em cada sessão:
 
 ---
 
-*AIOX Framework Governance v3.1 — Constitution Full + Karpathy Principles*
-*Actualizado: 2026-06-26 | Pedro Leal | Kairos Check*
+*AIOX Framework Governance v3.2 — Constitution Full + Karpathy Principles*
+*Actualizado: 2026-06-29 | Pedro Leal | Kairos Check*
 *Leitura automática: ✅ Activada | Próxima: Cada nova sessão*
