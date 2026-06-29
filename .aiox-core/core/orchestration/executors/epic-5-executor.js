@@ -50,7 +50,7 @@ class Epic5Executor extends EpicExecutor {
   _getStuckDetector() {
     if (!this._stuckDetector) {
       try {
-        this._stuckDetector = require('../../infrastructure/scripts/stuck-detector');
+        this._stuckDetector = require('../../../infrastructure/scripts/stuck-detector');
       } catch (error) {
         this._log(`StuckDetector not available: ${error.message}`, 'warn');
       }
@@ -65,7 +65,7 @@ class Epic5Executor extends EpicExecutor {
   _getRollbackManager() {
     if (!this._rollbackManager) {
       try {
-        this._rollbackManager = require('../../infrastructure/scripts/rollback-manager');
+        this._rollbackManager = require('../../../infrastructure/scripts/rollback-manager');
       } catch (error) {
         this._log(`RollbackManager not available: ${error.message}`, 'warn');
       }
