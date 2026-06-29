@@ -19866,6 +19866,98 @@ entities:
         extensionPoints: []
       checksum: sha256:64eeb5ac0428977ac4beeae492fdb7e7fcf5d966e7eb4d076efcb781f727dd3f
       lastVerified: '2026-06-21T18:34:07.084Z'
+  skills:
+    kairos-youtube-transcribe:
+      path: .claude/skills/kairos-youtube-transcribe/SKILL.md
+      layer: L4
+      type: skill
+      purpose: >-
+        Extract and transcribe content from YouTube video URLs. Supports subtitle extraction via yt-dlp
+        (languages pt,en), browser DOM fallback for authenticated videos, and local Whisper transcription
+        for videos without subtitles. Output saved to docs/transcripts/ with metadata.
+      keywords:
+        - youtube
+        - transcribe
+        - transcript
+        - yt-dlp
+        - whisper
+        - legendas
+        - audio
+        - kairos
+      usedBy:
+        - pedro
+      dependencies:
+        - yt-dlp
+        - ffmpeg
+        - whisper-cpp
+      externalDeps:
+        - yt-dlp (CLI tool)
+        - ffmpeg (AC3 only)
+        - whisper.cpp or openai-whisper (AC3 only)
+      plannedDeps: []
+      lifecycle: active
+      adaptability:
+        score: 0.7
+        constraints:
+          - Windows-first (no WSL required for yt-dlp/ffmpeg)
+          - AC3 requires local Whisper installation
+        extensionPoints:
+          - v2-summarization
+          - v2-key-points
+          - v2-channel-playlist
+      ids:
+        action: ADAPT_INSPIRED_CREATE
+        source_repo: github.com/feiskyer/claude-code-settings
+        source_file: youtube-transcribe-skill/SKILL.md
+        source_license: MIT
+        relevance: 0.65
+        story: YT-TRANSCRIBE.1
+      registeredAt: '2026-06-29T00:00:00.000Z'
+      lastVerified: '2026-06-29T23:45:00.000Z'
+    skill-creator:
+      path: .claude/skills/skill-creator/SKILL.md
+      layer: L4
+      type: skill
+      purpose: >-
+        Official Anthropic skill-creator, synced from anthropics/skills (full version with the
+        evaluation/grading/benchmarking subsystem). Guides creation of new skills (SKILL.md authoring,
+        packaging, quick validation) and evaluating skill quality via trigger-eval, grader agent,
+        benchmark aggregation and an HTML eval-viewer.
+      keywords:
+        - skill
+        - skill-creator
+        - eval
+        - grader
+        - benchmark
+        - packaging
+        - anthropic
+        - skill-authoring
+      usedBy:
+        - pedro
+      dependencies:
+        - PyYAML
+      externalDeps:
+        - PyYAML (import yaml — only non-stdlib Python package)
+        - claude CLI (eval subsystem invokes 'claude -p' via subprocess; runtime prerequisite, not a pip package)
+      plannedDeps: []
+      lifecycle: active
+      adaptability:
+        score: 0.95
+        constraints:
+          - REUSE-pure — do not modify upstream file contents (sync only)
+          - eval scripts run as a package module (python -m scripts.run_eval), not as plain script
+        extensionPoints: []
+      ids:
+        action: ADAPT
+        source_repo: github.com/anthropics/skills
+        source_file: skills/skill-creator/
+        source_license: Apache-2.0
+        relevance: 0.95
+        story: SKILL-CREATOR.1
+      installedAt: '2026-05-31T00:00:00.000Z'
+      syncedFromUpstream: github.com/anthropics/skills
+      registeredAt: '2026-06-30T00:00:00.000Z'
+      lastVerified: '2026-06-30T00:00:00.000Z'
 categories:
   - id: tasks
     description: Executable task workflows for agent operations

@@ -1,0 +1,39 @@
+schema: 1
+story: 'YT-TRANSCRIBE.1'
+gate: CONCERNS
+status_reason: 'AC1/AC2/AC4 verificados com evidência real (transcript dQw4w9WgXcQ, 61 linhas); AC3 (fallback Whisper) está documentado mas NÃO verificado — deferred autorizado pelo Pedro para instalação on-demand.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-06-30T00:00:00Z'
+
+acceptance_criteria:
+  - id: AC1
+    desc: 'Extração base (yt-dlp + browser fallback, 3 formatos URL)'
+    status: PASS
+    evidence: 'SKILL.md Steps 1-3 documentam validação de URL (watch/youtu.be/shorts) + yt-dlp --write-subs --sub-langs pt,en + browser DOM fallback. Teste real: transcript extraído de youtube.com/watch?v=dQw4w9WgXcQ, formato Timestamp Texto.'
+  - id: AC2
+    desc: 'Output organizado em docs/transcripts/ com metadados'
+    status: PASS
+    evidence: 'docs/transcripts/2026-06-29-rick-astley-...md verificado — todos os campos presentes (URL, Data, Idioma=en, Método=yt-dlp-subtitles, Linhas=61) + corpo Timestamp Texto.'
+  - id: AC3
+    desc: 'Fallback Whisper local (vídeo sem legendas)'
+    status: DEFERRED
+    evidence: 'Cadeia Whisper totalmente documentada em SKILL.md Step 4 (yt-dlp extract-audio → ffmpeg WAV 16kHz → whisper.cpp/openai-whisper → Timestamp Texto). Motor Whisper NÃO instalado; teste NÃO executado. Deferral autorizado pelo Pedro (instalação on-demand).'
+  - id: AC4
+    desc: 'Formato AIOX SKILL.md (frontmatter + carregamento)'
+    status: PASS
+    evidence: 'grep encontra name: kairos-youtube-transcribe (1 match); frontmatter tem name + description. NOTA: campo triggers omitido por correção do @po (template skill-creator usa name+description; disparo via description) — discrepância com texto do AC4 que ainda menciona triggers.'
+
+top_issues:
+  - id: 'TEST-001'
+    severity: medium
+    finding: 'AC3 (fallback Whisper) documentado mas nunca executado — nenhum vídeo sem legendas foi transcrito via Whisper local. Não há prova funcional da cadeia áudio→Whisper→Timestamp Texto.'
+    suggested_action: 'Após instalação on-demand de ffmpeg + whisper.cpp/openai-whisper, executar a skill com 1 URL sem legendas e confirmar transcript gerado. Reabrir gate para AC3.'
+  - id: 'DOC-001'
+    severity: low
+    finding: 'Texto do AC4 exige campo triggers no frontmatter, mas a implementação (corretamente) usa só name+description por autoridade do @po. O texto do AC ficou desalinhado com a implementação.'
+    suggested_action: '@po atualizar o texto do AC4 para remover triggers (alinhar com template skill-creator real), eliminando a divergência de rastreabilidade.'
+
+security_review: 'Sem secrets expostos. Cookies (--cookies-from-browser) documentados como opt-in explícito com nota de privacidade; fallback Whisper 100% local (GDPR-native); SKILL.md instrui a nunca incluir tokens/cookies no output. OK.'
+boundary_review: 'Apenas L4 (.claude/skills/ + docs/transcripts/) e L3 autorizado (entity-registry.yaml). Sem toques em L1/L2. OK.'
+
+waiver: { active: false }
