@@ -1,0 +1,35 @@
+schema: 1
+story: 'SKILL-CREATOR.1'
+gate: PASS
+status_reason: 'Sync byte-idêntico ao anthropics/skills (diff MATCH) com todos os 4 ACs verificados: estrutura completa, init_skill removido, LICENSE preservado, scripts validados (imports confirmados).'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-06-30T00:00:00Z'
+
+acceptance_criteria:
+  - id: AC1
+    desc: 'Clonar/copiar skill-creator oficial completa'
+    status: PASS
+    evidence: 'Glob confirma agents/ (analyzer.md, comparator.md, grader.md), assets/eval_review.html, eval-viewer/ (viewer.html + generate_review.py), references/schemas.md e scripts/ com 9 .py (>=8). Estrutura completa do upstream presente.'
+  - id: AC2
+    desc: 'Remover referência órfã ao init_skill.py'
+    status: PASS
+    evidence: 'grep init_skill em todo .claude/skills/skill-creator/ → 0 matches (ficheiro apagado e referência ausente do SKILL.md oficial). Mais forte que o exigido pelo AC.'
+  - id: AC3
+    desc: 'Preservar LICENSE/amendments locais'
+    status: PASS
+    evidence: 'LICENSE.txt presente (preservado, não sobrescrito). Dev Record documenta: única diferença vs oficial = linha copyright (placeholder genérico vs Anthropic PBC); sem amendment AIOX/KAIROS perdido. init_skill.py apagado com justificação (upstream removeu).'
+  - id: AC4
+    desc: 'Scripts Python correm sem erro de import interno'
+    status: PASS
+    evidence: 'Imports inspecionados: única dep não-stdlib é PyYAML (yaml em quick_validate.py). run_eval/run_loop/package_skill/improve_description usam from scripts.X import Y → invocação por módulo (-m scripts.run_eval) confirmada. quick_validate.py standalone. @dev validou via WSL (host sem Python no PATH). Diff vs clone oficial = MATCH (integridade garantida).'
+
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'Uso runtime real do subsistema de eval requer PyYAML (pip install pyyaml) + claude CLI no PATH autenticado. Não instalados — corretamente documentado como Non-Goal (sync, não setup).'
+    suggested_action: 'Nenhuma ação para esta story (dentro de scope). Documentar pré-requisitos antes do primeiro uso do grader/run_eval em skills KAIROS.'
+
+security_review: 'Sync de conteúdo oficial Apache-2.0; sem secrets. Scripts invocam claude -p via subprocess (sem SDK/tokens embebidos). LICENSE preservado. OK.'
+boundary_review: 'Apenas L4 (.claude/skills/skill-creator/) e L3 autorizado (entity-registry.yaml). Confirmado sem deny rules em settings.json nem boundary.protected para .claude/skills/. Sem gate lift necessário. OK.'
+
+waiver: { active: false }
