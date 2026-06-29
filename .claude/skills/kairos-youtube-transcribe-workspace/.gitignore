@@ -1,0 +1,15 @@
+# Scratch artefacts do eval skill-creator (transitorios / duplicados).
+# Mantem-se versionada apenas a EVIDENCIA do grader: evals.json,
+# trigger-eval-set.json, eval_metadata.json e grading.json.
+
+# Draft de SKILL.md superseded pela versao canonica em ../kairos-youtube-transcribe/SKILL.md
+skill-v2-draft/
+
+# Output do eval duplica docs/transcripts/ (fonte canonica)
+**/outputs/
+
+# Ficheiros de trabalho intermedios (vtt, txt, script de parsing)
+**/work/
+
+# Cache Python
+**/__pycache__/

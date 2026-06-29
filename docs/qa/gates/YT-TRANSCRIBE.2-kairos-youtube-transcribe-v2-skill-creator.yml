@@ -1,0 +1,54 @@
+schema: 1
+story: 'YT-TRANSCRIBE.2'
+slug: 'kairos-youtube-transcribe-v2-skill-creator'
+gate: CONCERNS
+status_reason: 'AC1-AC4 cumpridos com prova dura (frontmatter sem triggers, paridade byte-idêntica v0, v0 em b5c86d5); CONCERNS por cobertura empírica limitada a 1 de 3 evals e AC3 ser grade qualitativo (trigger-eval confundido pela skill viva).'
+reviewer: 'Quinn'
+updated: '2026-06-30T00:00:00Z'
+
+acceptance_criteria:
+  AC1:
+    verdict: PASS
+    evidence: 'SKILL.md viva tem frontmatter name+description SEM triggers (grep=0); 279 linhas (<500); instruções imperativas + progressive disclosure; quick_validate.py oficial PASS. Anatomia skill-creator respeitada.'
+  AC2:
+    verdict: PASS
+    evidence: '3 fluxos presentes (yt-dlp Step 2, browser Step 3, Whisper Step 4); cookies opt-in (Steps 2/Privacidade); idiomas pt,en; output docs/transcripts/2026-06-30-rick-astley-...md com 6 metadados (Titulo/URL/Data/Idioma/Metodo/Linhas); 61 linhas, texto IDENTICO a v0 (sem regressao).'
+  AC3:
+    verdict: PASS
+    evidence: 'grading.json existe, pass_rate 1.0 (6/6 expectations da eval-0); quick_validate PASS; melhorias aplicadas (caminho VTT sem ffmpeg + troubleshooting 429). Caveat metodologico declarado pelo @dev (ver TEST-001/PROC-001).'
+  AC4:
+    verdict: PASS
+    evidence: 'Commit v0 confirmado no git history: b5c86d5 "feat: add kairos-youtube-transcribe skill v1 [Story YT-TRANSCRIBE.1]". Ficheiro vivo (v2) byte-identico ao draft (diff=0). Substituicao so apos AC1-AC3.'
+
+quality_checks:
+  code_review: PASS  # SKILL.md estruturada, progressive disclosure, imperativo. N/A codigo de app.
+  unit_tests: N/A    # skill pura NL; eval/grader substitui. AC3 cobre o executado.
+  acceptance_criteria: PASS  # 4/4 ACs cumpridos.
+  no_regressions: PASS  # paridade byte-identica com v0 (61 linhas, texto identico).
+  performance: N/A
+  security: PASS  # cookies opt-in, sem tokens/cookies no output, GDPR-native, sem secrets.
+  documentation: PASS  # SKILL.md auto-documentada + Dev Record completo.
+
+boundary_check:
+  verdict: PASS
+  note: 'L4 respeitado: .claude/skills/ (skill+workspace), docs/transcripts/. Unico toque L3 = entity-registry.yaml lastVerified (config exception autorizada). Sem escrita L1/L2.'
+
+no_invention_check:
+  verdict: PASS
+  note: 'Non-Goals respeitados — seccao "Fora de scope" exclui explicitamente resumo/key-points/search/analise/lotes/upload. Iteration mexeu so em robustez (VTT/429), nao features.'
+
+top_issues:
+  - id: 'TEST-001'
+    severity: medium
+    finding: 'Apenas eval-0 (watch+legendas) foi executado empiricamente. Evals 1 (youtu.be) e 2 (shorts) estao definidos mas nao corridos; fluxos browser-fallback e Whisper continuam documentados mas nao verificados nesta sessao.'
+    suggested_action: 'Correr eval-1/eval-2 e validar empiricamente browser/Whisper numa sessao futura com subagentes. Coverage gap, nao falha — paridade com a postura aceite da v1.'
+  - id: 'PROC-001'
+    severity: low
+    finding: 'AC3 pass_rate 1.0 e um grade QUALITATIVO (grader.md) do mesmo executor; o trigger-eval quantitativo ficou confundido porque a skill v0 viva coexistia em .claude/skills/. Declarado honestamente pelo @dev.'
+    suggested_action: 'Aceitavel pela guidance oficial no-subagent do skill-creator. Para benchmark quantitativo fiavel, correr o eval com a skill ainda nao instalada.'
+  - id: 'REL-001'
+    severity: low
+    finding: 'A faixa de legendas pt devolveu HTTP 429 (rate-limit transitorio); en (legendas manuais) resolveu — igual ao metodo da v0. Uma claim do grading marcada verified:false.'
+    suggested_action: 'Sem accao — transitorio e documentado no Step 2 troubleshooting; paridade com v0 mantida (v0 tambem usou en).'
+
+waiver: { active: false }

@@ -1,0 +1,39 @@
+{
+  "skill_name": "kairos-youtube-transcribe",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "transcreve o vídeo https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "expected_output": "Ficheiro docs/transcripts/{data}-{slug}.md com cabeçalho de metadados (URL, Data, Idioma, Método, Linhas) e corpo no formato HH:MM:SS Texto; método yt-dlp-subtitles; idioma en; >=61 linhas (paridade com a v0).",
+      "files": [],
+      "expectations": [
+        "O transcript é guardado em docs/transcripts/ com nome {YYYY-MM-DD}-{slug-do-titulo}.md",
+        "O cabeçalho inclui os metadados Título, URL, Data, Idioma, Método e Linhas",
+        "O Método registado é yt-dlp-subtitles (caminho preferido, não um fallback)",
+        "O corpo está no formato 'HH:MM:SS Texto' com uma linha por entrada de legenda",
+        "O número de linhas é >= 61 (baseline da v0 para este vídeo)",
+        "Nenhum cookie, token ou dado de sessão aparece no ficheiro de output"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "extrair legenda de https://youtu.be/dQw4w9WgXcQ",
+      "expected_output": "URL curto youtu.be reconhecido; mesmo VIDEO_ID; transcript equivalente ao eval 0.",
+      "files": [],
+      "expectations": [
+        "O formato youtu.be/ é aceite e o VIDEO_ID extraído do segmento de path",
+        "É produzido um transcript equivalente ao do formato watch"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "quero o transcript deste shorts https://www.youtube.com/shorts/abc123XYZ90",
+      "expected_output": "Formato shorts reconhecido; VIDEO_ID extraído do path; cadeia de extracção aplicada.",
+      "files": [],
+      "expectations": [
+        "O formato youtube.com/shorts/ é aceite e o VIDEO_ID extraído do segmento de path",
+        "A mesma cadeia yt-dlp -> browser -> Whisper é aplicada ao shorts"
+      ]
+    }
+  ]
+}

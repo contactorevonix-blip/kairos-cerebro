@@ -1,0 +1,15 @@
+{
+  "eval_id": 0,
+  "eval_name": "watch-legendas",
+  "prompt": "transcreve o vídeo https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "configuration": "with_skill",
+  "skill_version": "v2-draft",
+  "assertions": [
+    "O transcript é guardado em docs/transcripts/ com nome {YYYY-MM-DD}-{slug-do-titulo}.md",
+    "O cabeçalho inclui os metadados Título, URL, Data, Idioma, Método e Linhas",
+    "O Método registado é yt-dlp-subtitles (caminho preferido, não um fallback)",
+    "O corpo está no formato 'HH:MM:SS Texto' com uma linha por entrada de legenda",
+    "O número de linhas é >= 61 (baseline da v0 para este vídeo)",
+    "Nenhum cookie, token ou dado de sessão aparece no ficheiro de output"
+  ]
+}

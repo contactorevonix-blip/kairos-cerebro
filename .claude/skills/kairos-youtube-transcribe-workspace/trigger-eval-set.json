@@ -1,0 +1,10 @@
+[
+  {"query": "transcreve-me este vídeo do YouTube e guarda o texto no repo: https://www.youtube.com/watch?v=dQw4w9WgXcQ", "should_trigger": true},
+  {"query": "preciso das legendas em texto deste short https://www.youtube.com/shorts/abc123XYZ90 organizadas com timestamps", "should_trigger": true},
+  {"query": "podes extrair o que é dito neste vídeo? https://youtu.be/9bZkp7q19f0 — quero o transcript completo num ficheiro markdown", "should_trigger": true},
+  {"query": "tenho uma palestra de 40 min no youtube (link: https://www.youtube.com/watch?v=kJQP7kiw5Fk) e quero o texto todo para depois citar partes", "should_trigger": true},
+  {"query": "resume-me em 3 bullet points o vídeo que já transcrevi ontem para docs/transcripts/aula.md", "should_trigger": false},
+  {"query": "transcreve este ficheiro de áudio local C:\\Users\\lealp\\gravacoes\\reuniao.mp3 para texto", "should_trigger": false},
+  {"query": "encontra os 5 vídeos mais vistos do canal da Fireship no youtube e lista os títulos", "should_trigger": false},
+  {"query": "faz o download deste vídeo do youtube em 1080p para a pasta downloads https://www.youtube.com/watch?v=dQw4w9WgXcQ", "should_trigger": false}
+]

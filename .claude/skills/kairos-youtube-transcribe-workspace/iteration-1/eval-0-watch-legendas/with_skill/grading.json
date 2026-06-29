@@ -1,0 +1,88 @@
+{
+  "eval_id": 0,
+  "eval_name": "watch-legendas",
+  "configuration": "with_skill",
+  "skill_version": "v2-draft (iteration-1)",
+  "expectations": [
+    {
+      "text": "O transcript é guardado em docs/transcripts/ com nome {YYYY-MM-DD}-{slug-do-titulo}.md",
+      "passed": true,
+      "evidence": "Ficheiro criado: docs/transcripts/2026-06-30-rick-astley-never-gonna-give-you-up-official-video-4k-remast.md (slug truncado a ~60 chars, data de extracção 2026-06-30)."
+    },
+    {
+      "text": "O cabeçalho inclui os metadados Título, URL, Data, Idioma, Método e Linhas",
+      "passed": true,
+      "evidence": "Cabeçalho real: '# Transcript: Rick Astley - ...', '**URL:** https://www.youtube.com/watch?v=dQw4w9WgXcQ', '**Data:** 2026-06-30', '**Idioma:** en', '**Método:** yt-dlp-subtitles', '**Linhas:** 61'. Os 6 campos presentes."
+    },
+    {
+      "text": "O Método registado é yt-dlp-subtitles (caminho preferido, não um fallback)",
+      "passed": true,
+      "evidence": "Step 2 resolveu via 'yt-dlp --write-subs --sub-langs en,pt' (legendas manuais en). Nenhum fallback (browser/Whisper) foi necessário. Metadado Método=yt-dlp-subtitles."
+    },
+    {
+      "text": "O corpo está no formato 'HH:MM:SS Texto' com uma linha por entrada de legenda",
+      "passed": true,
+      "evidence": "Linhas reais: '00:00:01 [♪♪♪]', '00:00:18 ♪ We're no strangers to love ♪'. Cada cue VTT mapeado a uma linha com timestamp HH:MM:SS (segmento de início) + texto."
+    },
+    {
+      "text": "O número de linhas é >= 61 (baseline da v0 para este vídeo)",
+      "passed": true,
+      "evidence": "61 linhas no corpo (wc -l). diff de conteúdo (ignorando timestamps) contra o output da v0: TEXT IDENTICAL TO v0 — paridade exacta, sem regressão."
+    },
+    {
+      "text": "Nenhum cookie, token ou dado de sessão aparece no ficheiro de output",
+      "passed": true,
+      "evidence": "A flag --cookies-from-browser não foi usada (vídeo público). O output contém apenas título, metadados e linhas de legenda; sem tokens/cookies."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": { "Bash": 6, "Write": 3, "Read": 2 },
+    "total_steps": 5,
+    "errors_encountered": 1,
+    "output_chars": 3120,
+    "method_used": "yt-dlp-subtitles"
+  },
+  "claims": [
+    {
+      "claim": "O transcript v2 tem 61 linhas, igual ao baseline da v0",
+      "type": "factual",
+      "verified": true,
+      "evidence": "wc -l = 61; diff textual contra v0 = idêntico."
+    },
+    {
+      "claim": "A skill resolveu sem necessitar de ffmpeg para o caminho de legendas",
+      "type": "process",
+      "verified": true,
+      "evidence": "ffmpeg não estava no PATH durante o download das legendas; o VTT foi descarregado e parseado directamente. ffmpeg só seria preciso para --convert-subs srt ou para o fallback Whisper."
+    },
+    {
+      "claim": "O idioma pt foi obtido",
+      "type": "factual",
+      "verified": false,
+      "evidence": "O download de 'pt' devolveu HTTP 429 (rate-limit transitório do YouTube); 'en' (legendas manuais) foi obtido com sucesso. A v0 também usou en — paridade mantida."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": ["YouTube devolveu HTTP 429 para a faixa pt durante o teste (rate-limit transitório); en resolveu na mesma tentativa."],
+    "needs_review": [],
+    "workarounds": ["Legendas parseadas a partir de VTT em vez de SRT, evitando a dependência de ffmpeg no caminho comum de legendas."]
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "Só o caminho watch+legendas (eval 0) foi executado de facto. Os evals 1 (youtu.be) e 2 (shorts) estão definidos mas não executados neste run sem subagentes — os fluxos browser-fallback e Whisper continuam documentados mas não verificados empiricamente. Sinalizado como cobertura, não como falha."
+      },
+      {
+        "assertion": "O Método registado é yt-dlp-subtitles",
+        "reason": "A execução real revelou duas realidades operacionais que a v2-draft não mencionava: (1) '--convert-subs srt' exige ffmpeg, mas o VTT é directamente parseável sem ele; (2) o YouTube pode devolver HTTP 429 numa faixa de idioma. Melhorar a skill a documentar o caminho VTT e o 429 torna-a mais robusta — aplicado na iteration-2."
+      }
+    ],
+    "overall": "Output do happy-path correcto e em paridade exacta com a v0 (6/6 expectations PASS). A iteration sobre a skill foca-se em robustez operacional (VTT sem ffmpeg, 429), não em novas features."
+  }
+}
