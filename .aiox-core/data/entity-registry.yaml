@@ -19913,7 +19913,7 @@ entities:
         relevance: 0.65
         story: YT-TRANSCRIBE.1
       registeredAt: '2026-06-29T00:00:00.000Z'
-      lastVerified: '2026-06-30T00:00:00.000Z'
+      lastVerified: '2026-06-30T18:00:00.000Z'
     skill-creator:
       path: .claude/skills/skill-creator/SKILL.md
       layer: L4

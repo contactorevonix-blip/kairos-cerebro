@@ -27,8 +27,8 @@ resume nem analisa.
 Ativar quando o pedido envolve obter o texto de um vídeo YouTube a partir de um
 URL: "transcreve este vídeo", "extrai as legendas de {URL}", "dá-me o transcript
 deste short", ou quando o utilizador cola um link YouTube e claramente quer o
-conteúdo em texto. Os três formatos aceites são `youtube.com/watch?v=`,
-`youtu.be/` e `youtube.com/shorts/`.
+conteúdo em texto. Os quatro formatos aceites são `youtube.com/watch?v=`,
+`youtu.be/`, `youtube.com/shorts/` e `youtube.com/live/`.
 
 Não ativar para pedidos que partilham vocabulário mas precisam de outra coisa:
 transcrever um ficheiro de áudio local (sem URL YouTube), resumir um vídeo já
@@ -86,13 +86,18 @@ comando de instalação em vez de falhar em silêncio.
 
 ## Step 1 — Validar o URL e extrair o video ID
 
-Aceitar apenas os três formatos suportados e extrair o `VIDEO_ID` (11 caracteres):
+Aceitar apenas os quatro formatos suportados e extrair o `VIDEO_ID` (11 caracteres):
 
 | Formato | Exemplo | VIDEO_ID |
 |---------|---------|----------|
 | watch | `https://www.youtube.com/watch?v=VIDEO_ID` | parâmetro `v` |
 | curto | `https://youtu.be/VIDEO_ID` | segmento de path |
 | shorts | `https://www.youtube.com/shorts/VIDEO_ID` | segmento de path |
+| live | `https://www.youtube.com/live/VIDEO_ID` | segmento de path |
+
+Para URLs `/live/`, extrair o `VIDEO_ID` do segmento de path e normalizar para
+`https://www.youtube.com/watch?v=VIDEO_ID` antes de continuar — o URL canónico
+normalizado é o que se usa nos passos seguintes e nos metadados de output.
 
 Se o URL não corresponder a nenhum formato, parar e pedir um URL YouTube válido —
 adivinhar o formato leva a comandos errados e a transcrições do vídeo errado.
@@ -155,6 +160,23 @@ da letra/discurso):
 00:00:01 Primeira frase do vídeo.
 00:00:04 Segunda frase do vídeo.
 ```
+
+**Filtro de ruído de auto-legenda:** as legendas automáticas do YouTube inserem
+linhas de ruído nos segmentos sem fala (música, silêncio, transições). Remover do
+output qualquer cue cujo texto, depois de remover espaços, seja **exclusivamente**:
+
+- um marcador entre parênteses retos de música/aplausos — `[Música]`, `[Music]`,
+  `[Applause]` ou equivalente — incluindo quando o mesmo marcador se repete em
+  cues consecutivos (colapsar/remover, não duplicar);
+- um ou dois tokens compostos só por caracteres de scripts não-latinos, sem
+  nenhuma palavra em português/espanhol/inglês (ex.: `เ`, `เฮ`, `와`, `الله`) —
+  são artefactos da auto-detecção de idioma do YouTube em segmentos sem fala.
+
+**Guarda contra sobre-filtragem (nunca remover fala real):** o critério é o cue ser
+*exclusivamente* ruído. Não remover um cue que contenha texto real, mesmo que
+inclua acentos, um caractere especial isolado ou uma palavra estrangeira no meio
+de uma frase. O teste aplica-se ao conjunto de tokens do cue inteiro ("é só isto?"),
+não a caracteres individuais — fala latina/pt/en mantém-se sempre.
 
 Se o Step 2 produzir um transcript válido, avançar directamente para o Step 5.
 

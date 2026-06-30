@@ -1,0 +1,49 @@
+schema: 1
+story: 'YT-TRANSCRIBE.3'
+gate: CONCERNS
+status_reason: 'Os 3 AC estão satisfeitos no ficheiro real (suporte /live/ + filtro de ruído com guard anti-over-filter + diff aditivo sem regressão). Único residual: os passos Verify de rede live (AC2 re-conversão, AC3 baseline dQw4w9WgXcQ 61 linhas) foram deferred e validados por inspeção, não executados end-to-end.'
+reviewer: 'Quinn'
+updated: '2026-06-30T18:30:00.000Z'
+
+top_issues:
+  - id: 'TEST-001'
+    severity: low
+    finding: 'Os passos Verify de AC2 (re-conversão do vídeo flavio-augusto com v2.1) e AC3 (re-teste de rede do baseline dQw4w9WgXcQ → 61 linhas) não foram executados end-to-end; foram satisfeitos por inspeção/raciocínio. Skill é NL pura sem suite automática (secção Testing).'
+    suggested_action: 'Não-bloqueante: a evidência real do /live/ já existe (flavio-augusto), o filtro é determinístico contra os tokens reais e o diff é puramente aditivo (regressão estruturalmente impossível nos fluxos de output/timestamp/yt-dlp). Executar o re-teste de rede numa próxima invocação manual quando houver yt-dlp/rede disponível.'
+
+waiver: { active: false }
+
+# --- Evidência verificada (ficheiros reais) ---
+evidence:
+  ac1_live_support:
+    verdict: PASS
+    skill_file: '.claude/skills/kairos-youtube-transcribe/SKILL.md'
+    table_line: 'L96 — | live | `https://www.youtube.com/live/VIDEO_ID` | segmento de path |'
+    normalization: 'L98-100 — instrui extrair VIDEO_ID e normalizar /live/ para watch?v= antes de continuar; URL canónico usado nos metadados.'
+    prose_coherence: 'L30 e L89 dizem "quatro formatos" listando watch/youtu.be/shorts/live — sem contradição "três".'
+    real_evidence: 'docs/transcripts/2026-06-30-mba-vendas-marketing-ia-flavio-augusto-aula-3.md L3-7 — url=/live/6fUM11SWSgU normalizado para video_id=6fUM11SWSgU, metodo=yt-dlp-auto-subtitles (fluxo real sem intervenção manual documentada na skill).'
+  ac2_noise_filter:
+    verdict: PASS
+    filter_section: 'L164-173 — remove cues exclusivamente: (a) marcadores [Música]/[Music]/[Applause] incl. repetidos consecutivos; (b) 1-2 tokens só de scripts não-latinos sem palavra pt/es/en.'
+    over_filter_guard: 'L175-179 — guard explícito: critério "exclusivamente" ruído; nunca remover cue com texto real (acentos/char especial/palavra estrangeira no meio de frase); teste sobre o conjunto de tokens do cue, fala latina/pt/en mantém-se sempre.'
+    token_match: 'Tokens reais da evidência (L14-19): [Música] x3 (repetido consecutivo), เ, 와, เฮ → todos cobertos. [03:50] "Muito bem, boa noite. Como vai você?" (fala pt) → preservada pelo guard.'
+  ac3_no_regression:
+    verdict: PASS_BY_INSPECTION
+    additive_diff: 'Mudanças confinadas a Step 1 (1 linha tabela + parágrafo normalização) e Step 2 (secção filtro + guard) + prosa "três"→"quatro" (L30, L89).'
+    v2_flows_intact: 'yt-dlp pt,en (L122-133), browser fallback (Step 3), Whisper (Step 4), output HH:MM:SS (L155 truncado + L270 exemplo 00:00:00), metadados Step 5 (URL/Data/Idioma/Método/Linhas) — todos intactos.'
+    network_retest: 'DEFERRED — ver TEST-001.'
+
+boundary_check:
+  l4_runtime: 'PASS — SKILL.md em .claude/skills/ (runtime/consumer).'
+  l3_config: 'PASS — entity-registry.yaml lastVerified actualizado para 2026-06-30T18:00:00.000Z (L19918), modificação L3 autorizada.'
+
+quality_gates:
+  lint: 'N/A — ficheiro .md (skill NL), npm lint cobre TS/JS.'
+  typecheck: 'N/A — idem.'
+  tests: 'N/A — sem suite automática; verificação manual conforme secção Testing.'
+  coderabbit: 'DISABLED em core-config.yaml.'
+
+ids_compliance:
+  action: ADAPT
+  entity: kairos-youtube-transcribe
+  verdict: 'PASS — sem nova entity; mudanças aditivas <15% num ficheiro de ~302 linhas (< 30% limite ADAPT); registry lastVerified actualizado (G5).'
