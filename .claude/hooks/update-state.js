@@ -13,6 +13,33 @@ const path = require('path');
 
 const PROJECT_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const STATE_FILE = path.join(PROJECT_ROOT, 'STATE.md');
+const MAX_LINES = 400;
+
+/**
+ * Rotate STATE.md when it exceeds MAX_LINES: move the oldest lines (all but the
+ * last MAX_LINES) into docs/sessions/{YYYY-MM}/STATE-rolled.md (append) and
+ * rewrite STATE.md with only the last MAX_LINES. Fail-safe: never throws.
+ */
+function rotateIfNeeded() {
+  try {
+    if (!fs.existsSync(STATE_FILE)) return;
+    const lines = fs.readFileSync(STATE_FILE, 'utf8').split('\n');
+    if (lines.length <= MAX_LINES) return;
+
+    const overflow = lines.slice(0, lines.length - MAX_LINES);
+    const keep = lines.slice(lines.length - MAX_LINES);
+
+    const yyyyMM = new Date().toISOString().slice(0, 7);
+    const rolledDir = path.join(PROJECT_ROOT, 'docs', 'sessions', yyyyMM);
+    const rolledFile = path.join(rolledDir, 'STATE-rolled.md');
+
+    fs.mkdirSync(rolledDir, { recursive: true });
+    fs.appendFileSync(rolledFile, overflow.join('\n') + '\n', 'utf8');
+    fs.writeFileSync(STATE_FILE, keep.join('\n'), 'utf8');
+  } catch (_) {
+    // non-blocking — checkpoint was already written before this call
+  }
+}
 
 function git(cmd) {
   return execSync(cmd, { cwd: PROJECT_ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
@@ -52,6 +79,8 @@ function main() {
   if (fs.existsSync(STATE_FILE)) {
     fs.appendFileSync(STATE_FILE, entry, 'utf8');
   }
+
+  rotateIfNeeded();
 
   process.exit(0);
 }
