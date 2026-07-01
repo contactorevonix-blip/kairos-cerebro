@@ -1,35 +1,19 @@
-name: squad-creator
-version: "1.0.0"
-domain: meta
-purpose: "Criar, clonar, validar e orquestrar squads de agentes baseados em elite minds reais"
-philosophy: "Clone minds > create bots"
-orchestrator: squad-chief
+# ═══════════════════════════════════════════════════════════════════════════════
+# DEPRECATED STUB — squad.yaml is no longer the source of truth.
+# ═══════════════════════════════════════════════════════════════════════════════
+# SQUAD-FUSION.6 (AC3, Pedro's amendment 2026-07-01): squad.yaml and config.yaml were
+# the SAME concept → consolidated into a single source of truth: config.yaml.
+# Every field of the former squad.yaml was mapped into config.yaml; the mapping is
+# recorded field-by-field in docs/qa/squad-fusion/collision-resolution-log.md.
+#
+# This file is kept (not deleted) as a thin stub so any external reference to squad.yaml
+# does not break, and to keep the consolidation reversible. It carries NO authoritative
+# config. Canonical structural check SC_STRUCT_001 requires config.yaml (NOT squad.yaml);
+# a future cleanup story may remove this stub.
+#
+# → Read squads/squad-creator/config.yaml for the real configuration.
 
-agents:
-  - id: squad-chief
-    tier: orchestrator
-    file: ../../.claude/agents/squad-chief.md
-    role: "Orquestra criação completa de squads"
-  - id: oalanicolas
-    tier: 1
-    file: ../../.claude/agents/oalanicolas.md
-    role: "Mind cloning — Voice DNA + Thinking DNA"
-  - id: pedro-valerio
-    tier: 1
-    file: ../../.claude/agents/pedro-valerio.md
-    role: "Process absolutist — workflow validation + veto conditions"
-
-workflows:
-  - wf-create-squad.yaml
-  - mind-research-loop.md
-  - wf-clone-mind.yaml
-
-quality:
-  minimum_score: 7.0
-  smoke_tests: 3
-  fidelity_minimum: 85
-
-structure:
-  canonical_folders: 22
-  root_files: 5
-  total_components: 27
+deprecated: true
+superseded_by: squads/squad-creator/config.yaml
+consolidated_on: "2026-07-01"
+mapping_log: docs/qa/squad-fusion/collision-resolution-log.md

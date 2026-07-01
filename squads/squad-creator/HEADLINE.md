@@ -2,19 +2,27 @@
 
 > **Clone minds > create bots.**
 
-O único squad que sabe criar outros squads. Pesquisa elite minds reais, extrai DNA, valida com quality gates, entrega agentes com fidelidade 85-95%.
+O squad que cria outros squads — **duas capacidades numa só base**:
+
+1. **Criação de squads genéricos** (base canónica AIOX): template-driven, 24 tasks, validação
+   estrutural, `@squad-chief` orquestra.
+2. **Mind-cloning de elite minds reais** (diferenciador): pesquisa fontes, extrai DNA (Voice + Thinking)
+   com `[SOURCE:]`, valida com quality gates, entrega agentes com fidelidade 85-95%.
+
+> Eu clono qualquer mente de elite e monto um time de IA especializado para a sua empresa —
+> sem meses de desenvolvimento e sem orçamento milionário de P&D.
 
 ---
 
-**Pipeline:**
+**Pipeline (mind-cloning):**
 ```
-Pedido → mind-research-loop (3-5 iter.) → @oalanicolas clone DNA → 
-squad-chief cria estrutura → @pedro-valerio valida → SC_AGT_004 PASS
+Pedido → mind-research-loop (3-5 iter.) → @oalanicolas clona DNA →
+squad-chief cria estrutura → @pedro-valerio valida → quality gate PASS
 ```
 
 **Activar:**
 ```
-/Chiefs:agents:squad-chief
+@squad-chief   ·   /Chiefs:agents:squad-chief
 ```
 
-*Squad Creator v1.0.0 — "Se entrar cocô, sai cocô"*
+*Squad Creator v4.0.0 (fusão base-C + mind-cloning local, 2026-07-01)*
