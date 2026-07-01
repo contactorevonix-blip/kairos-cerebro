@@ -1,5 +1,33 @@
 > 🗂️ Histórico completo (sessões anteriores a Cont 85) arquivado em `docs/sessions/2026-07/STATE-archive-2026-07-01.md` — truncado em 2026-07-01 por [Story REPO-HYGIENE.1].
 
+# 🚀 Session 2026-07-01/02 (Cont 87) — Squad-Creator Fusion RELEASED + Pro Recreation kickoff ✅
+
+**Status: ✅ EPIC-SQUAD-FUSION completo e em `main` (e4aa891..7735203) | ✅ PRD recriação do Pro APROVADO | ✅ EPIC-SCP-MVP Fase 1 = 7 stories Ready (41 SP) | ➡️ NEXT: @dev `*develop SCP-MVP.1` → .7 (Fase 1 MVP) em sessão fresca**
+
+### Cont 87 — Origem
+- Pedro colou `cp -r squads/squad-creator-pro ...` (comando de doc). Investigação: `squad-creator-pro` no repo `SynkraAI/aiox-squads` é **só README** (produto pago). O `squads/squad-creator` LOCAL era a variante mind-cloning com **cablagem errada** (formato Claude Code subagent, não o canónico AIOX).
+
+### Cont 87 — EPIC-SQUAD-FUSION (7 stories, RELEASED em `main`)
+- **Objectivo:** fundir a base bem-cablada do remoto C (`aiox-squads/squads/squad-creator`) com o mind-cloning local. Resultado: `squads/squad-creator/` com cablagem canónica AIOX (bloco yaml + IDE-FILE-RESOLUTION `{root}` + activation-instructions + commands + dependencies) **+** mind-cloning preservado (voice-dna.js, thinking-dna.js, @oalanicolas, @pedro-valerio, `outputs/minds/` byte-idêntico).
+- **SDC completo:** @sm→@po (7/7 GO)→@dev (wave base .3/.1/.2 + wave 2 .4/.5/.6/.7)→@qa (CONCERNS aprovado, Constraint #1 provado 2×: checksums 8/8)→@devops push.
+- **Commits em `main`:** `e4aa891` (fusion 134 files) · `38045e9` (stories) · `9cdc2cd` (QA gates + provenance `docs/qa/squad-fusion/`) · `7735203` (brief). Quality gate: lint✅ npm test 382 pass✅ typecheck✅.
+- **Verificações funcionais:** cablagem 72/72 deps resolvem; degradação sem pro OK (pro_detection guard); greeting script corre; **mind-cloning REAL testado** — @oalanicolas clonou Gary Halbert (6 fontes, fidelity 87, amostra "à Halbert" aplicada ao Kairos). Artefactos no scratchpad (não commitado).
+- **CORRECÇÃO:** os 4 commits do Cont 86 (b5c86d5, 49e4aae, 142b955, a9188c4) **já estavam em `origin/main`** — o STATE.md do Cont 86 estava desactualizado ("NÃO pushed" era falso).
+
+### Cont 87 — Pro Recreation (Enterprise, PRD aprovado, Fase 1 Ready)
+- **Objectivo do Pedro:** "criar o Pro nós mesmos, tudo nosso mas bem feito — se o Alan Nicolas conseguiu só com AIOX, nós também". O Pro é pago; o README público é a spec (No Invention).
+- **Alavanca-chave:** o **socket de auto-detecção já existe** no `squad-chief.md` fundido (`pro_detection` check_path `squads/squad-creator-pro/config.yaml` + `on_detected` carrega pro agents/tasks/workflows). Construir `squads/squad-creator-pro/` **auto-integra** (flip `pro_mode=true`).
+- **PRD:** `docs/prd/squad-creator-pro-recreation-PRD.md` (APROVADO 2026-07-02) — 17 FR, 3 fases, ~125-165 SP. Decisões: **D1** faseamento recomendado; **D2** @thiago_finch clonado de fontes reais mas ADIADO (Fase 2); **D3** suite testes completa (17+19) na Fase 3.
+- **EPIC-SCP-MVP (Fase 1, 7 stories Ready, 41 SP):** SCP-MVP.1 scaffold pro → .2 encarnar @oalanicolas (DNA 370L) → .3 encarnar @pedro-valerio → .4 10 meta-axiomas → .5 scoring+veto engine → .6 flip socket → .7 degradação limpa. @po 7/7 GO (8.6/10 média).
+- **DECISÃO #1 (crítica) travada:** agentes encarnados = ficheiros NOVOS em `squads/squad-creator-pro/agents/`; o base (casca 106L) fica INTOCADO; completo ativa só em `pro_mode`. (Segue PRD CON-1/NFR-4/NFR-6.)
+
+### Cont 87 — Incidente resolvido + backlog
+- **Hook error (Stop) resolvido:** 2 hooks Stop em `settings.json` usavam caminho relativo → falhavam quando o cwd derivava para `squads/squad-creator/`. config-engineer endureceu-os para caminho absoluto (JSON válido). cwd reposto; `squads/squad-creator/.claude/` (pastas vazias do drift) removido.
+- **Backlog:** `MIND-DNA-YAML-FIX.1` (Draft) — `mind_dna_complete.yaml` falha YAML estrito (4 problemas reais: L65, L315, L319-320, chave `source:` duplicada). Pré-existente, consumido via regex. Story separada aprovada; fora do scope da fusão.
+- **UNCOMMITTED no handoff (vai para @devops):** PRD, EPIC-SCP-MVP + SCP-MVP.1-7 stories, `settings.json` (hook fix). Ruído de sessão (hook-metrics, entity-registry, agent MEMORY, STATE.md se aplicável) EXCLUÍDO.
+
+---
+
 # 🚀 Session 2026-06-30 (Cont 86) — kairos-youtube-transcribe skill + skill-creator sync ✅
 
 **Status: ✅ 4 stories Done (commits LOCAIS, NÃO pushed) | skill `kairos-youtube-transcribe` viva e testada ao vivo | skill-creator sincronizada c/ oficial Anthropic | ➡️ NEXT: push dos 4 commits quando Pedro autorizar (@devops) + correr re-testes deferred (TEST-001)**
@@ -41,3 +69,53 @@
 - **Ruído de sessão deixado fora do commit:** entity-registry.yaml, registry-update-log.jsonl, hook-metrics.json, STATE.md, 3× agent MEMORY.md, .aiox/task-logs.
 
 ---
+
+## Checkpoint: dac3396 — 2026-07-01 22:46
+**Branch:** main
+**Commit:** docs: REPO-HYGIENE.1 dev record + checkboxes, status InReview [Story REPO-HYGIENE.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .claude/agent-memory/oalanicolas/MEMORY.md
+
+## Checkpoint: dac3396 — 2026-07-01 22:54
+**Branch:** main
+**Commit:** docs: REPO-HYGIENE.1 dev record + checkboxes, status InReview [Story REPO-HYGIENE.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .claude/agent-memory/oalanicolas/MEMORY.md
+
+## Checkpoint: dac3396 — 2026-07-01 22:57
+**Branch:** main
+**Commit:** docs: REPO-HYGIENE.1 dev record + checkboxes, status InReview [Story REPO-HYGIENE.1]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .claude/agent-memory/oalanicolas/MEMORY.md
+
+## Checkpoint: bfdef4a — 2026-07-01 22:59
+**Branch:** main
+**Commit:** docs: mark REPO-HYGIENE.2 InReview + Dev Agent Record [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md, .claude/agent-memory/oalanicolas/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:07
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:07
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:12
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:16
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:22
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md, .claude/agent-memory/aiox-sm/MEMORY.md
+
+## Checkpoint: 3409529 — 2026-07-01 23:29
+**Branch:** main
+**Commit:** fix: derive immortality agentId from agent_type payload field [Story REPO-HYGIENE.2]
+**Files changed:** .aiox-core/data/entity-registry.yaml, .aiox-core/data/registry-update-log.jsonl, .aiox/project-status.yaml, .aiox/task-logs/unknown.json, .claude/agent-memory/aiox-architect/MEMORY.md, .claude/agent-memory/aiox-dev/MEMORY.md, .claude/agent-memory/aiox-devops/MEMORY.md, .claude/agent-memory/aiox-pm/MEMORY.md, .claude/agent-memory/aiox-po/MEMORY.md, .claude/agent-memory/aiox-qa/MEMORY.md
