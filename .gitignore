@@ -30,6 +30,10 @@ node_modules/
 # TypeScript incremental build cache
 .tsbuildinfo
 
+# Backups / archives
+*.tar.gz
+.synapse-backup-*
+
 # PM2
 .pm2/
 
