@@ -19,7 +19,7 @@ process.stdin.on('end', () => {
     const input = JSON.parse(raw || '{}');
     const logger = require('../../packages/immortality-logger/logger.cjs');
     const snap = logger.captureSnapshot({
-      agentId: input.agent || input.subagent_type || 'unknown',
+      agentId: input.agent_type || input.subagent_type || input.agent || 'unknown',
       context: { event: 'SubagentStop', ...input },
     });
     logger.logSession(snap, done);

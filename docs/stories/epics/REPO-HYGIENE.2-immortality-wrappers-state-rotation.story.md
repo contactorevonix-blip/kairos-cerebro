@@ -1,6 +1,6 @@
 # Story REPO-HYGIENE.2 — Recriar wrappers immortality hooks + rotação de STATE.md
 
-**ID:** REPO-HYGIENE.2 | **Epic:** Standalone (Repo Maintenance) | **Status:** InReview | **Points:** 3sp | **Type:** CHORE
+**ID:** REPO-HYGIENE.2 | **Epic:** Standalone (Repo Maintenance) | **Status:** Done | **Points:** 3sp | **Type:** CHORE
 **Track:** Quick Flow (2 AC, < 2h, risco zero ao runtime do produto)
 **Source:** Contexto já validado pelo coordenador (não re-auditar nesta story) — ver secção "Verificação já feita" em Dev Notes
 
@@ -291,6 +291,8 @@ Registar o output de cada verificação no Dev Agent Record antes de marcar `Don
 | 2026-07-01 | 1.0 | Story criada (Draft) a partir de contexto já validado pelo coordenador (não re-auditado nesta story). 2 AC: recriar 3 wrappers immortality (motor `logger.cjs` já existente) + rotação automática de `STATE.md` a 400 linhas em `update-state.js`. Âmbito confinado a `.claude/hooks/` (allow-listed, não deny-listed). | @sm (River) |
 | 2026-07-01 | 1.0.1 | Validated GO (8/10) — Status: Draft → Ready. Should-fix crítico anexado às Dev Notes: recipe AC1 chama `process.exit(0)` síncrono a seguir a `logSession()`, mas `logSession` difere o `fs.appendFile` via `setImmediate` → a linha `.jsonl` é descartada e o Verify da AC1 falha. Corrigir: sair dentro do callback do `logSession`. | @po (Pax) |
 | 2026-07-01 | 1.1 | Implementada — Status: Ready → InProgress → InReview. AC1: 3 wrappers criados (exit=0 + 3 linhas `.jsonl`, correcção @po da race condition aplicada). AC2: `rotateIfNeeded()` a 400 linhas em `update-state.js` (fixture 500→399, 106 overflow). `npm run lint` + `npm run typecheck` exit 0. Sem `git push` (fica @devops). | @dev (Dex) |
+| 2026-07-02 | 1.2 | QA Gate CONCERNS — Status: InReview → Done. AC1/AC2 verificados independentemente (PASS): 3 wrappers exit 0 + delta 3 linhas `.jsonl` sem race; rotação 500→399 + 106 overflow. Scope guard limpo, lint+typecheck exit 0. Achado MNT-001 (medium, não-bloqueante): payload real usa `agent_type` (não `agent`/`subagent_type`) → eventos reais registam `agentId:"unknown"` (evidência empírica no log). Rastreado no gate. | @qa (Quinn) |
+| 2026-07-02 | 1.3 | MNT-001 resolvido (follow-up cirúrgico, Status mantém-se Done). Cadeia de fallback do `agentId` nos 3 wrappers alterada de `input.agent \|\| input.subagent_type \|\| 'unknown'` para `input.agent_type \|\| input.subagent_type \|\| input.agent \|\| 'unknown'`, alinhada com o hook irmão `subagent-stop-observer.cjs:32`. Verify: `echo '{"agent_type":"aiox-dev"}' \| node <wrapper>` → exit 0 nos 3 + 3 linhas novas no `.jsonl` do dia com `agentId:"aiox-dev"` (não "unknown"). `npm run lint` + `npm run typecheck` exit 0. Nenhuma outra alteração (event/logSession/exit-no-callback+timer 1s intactos). Sem `git push`. | @dev (Dex) |
 
 ---
 
@@ -337,6 +339,13 @@ update-state exit=0
 - **AC2 (Surgical):** `rotateIfNeeded()` adicionada; chamada depois do `appendFileSync` existente e antes do `process.exit(0)` final. Early-return se `≤ MAX_LINES` (400). Toda a lógica em try/catch fail-safe. Formato do checkpoint inalterado.
 - Sem `git push` (fica para @devops). Story em `InReview` → aguarda gate @qa para `Done`.
 
+### MNT-001 — Fallback do agentId corrigido (follow-up, 2026-07-02)
+
+- **Problema (QA MNT-001):** os 3 wrappers derivavam `agentId` de `input.agent || input.subagent_type || 'unknown'`, mas o payload real dos hooks `Subagent*` do Claude Code traz `agent_type` → spawns reais registavam `agentId:"unknown"` (hook irmão `subagent-stop-observer.cjs:32` já usa `event.agent_type || event.subagent_type`).
+- **Fix (cirúrgico, só isto):** cadeia alterada para `input.agent_type || input.subagent_type || input.agent || 'unknown'` nos 3 ficheiros. Resto intacto (event, `logSession`, exit dentro do callback + `setTimeout(done,1000).unref()`).
+- **Verify:** `echo '{"agent_type":"aiox-dev"}' | node <wrapper>` → exit 0 nos 3; `.aiox/agent-memory/logs/agent-memory-2026-07-01.jsonl` (data UTC do logger) ganhou 3 linhas novas, cada uma `agentId:"aiox-dev"` (não "unknown") com `event` `SubagentStart` / `SubagentStateChange` / `SubagentStop`.
+- `npm run lint` → exit 0; `npm run typecheck` → exit 0. Sem `git push`.
+
 ### File List
 
 - `.claude/hooks/activate-immortality-logger.cjs` — **criado** (AC1, SubagentStart)
@@ -349,4 +358,33 @@ update-state exit=0
 
 ## QA Results
 
-_A preencher pelo @qa após implementação._
+### Review Date: 2026-07-02
+
+### Reviewed By: Quinn (Test Architect)
+
+**Método:** verificação independente (não confiei apenas no Dev Agent Record). Reexecutei ambos os AC, o scope guard e os quality gates.
+
+**AC1 — 3 wrappers immortality — PASS**
+- Os 3 ficheiros existem em `.claude/hooks/`. `echo '{"agent":"qa-gate"}' | node <wrapper>` → `exit=0` nos 3.
+- Log `.aiox/agent-memory/logs/agent-memory-2026-07-01.jsonl`: 21 → 22 → 23 → 24 linhas (delta exacto de 3). Cada linha com `agentId:"qa-gate"` e o `context.event` correcto: `SubagentStart` / `SubagentStateChange` / `SubagentStop`.
+- **Sem race condition:** a contagem de linhas incrementou imediatamente após cada processo retornar (22, 23, 24), provando que a linha é escrita **antes** do `exit`. A correcção @po está aplicada e verificada em `logger.cjs:106-132` (`logSession` só chama o callback `done` após o `fs.appendFile` completar; `setTimeout(done,1000).unref()` é só fallback de segurança).
+
+**AC2 — rotação de STATE.md — PASS**
+- Fixture isolada (scratchpad + `CLAUDE_PROJECT_DIR`, `STATE.md` real nunca tocado): 500 linhas → após `update-state.js`: `STATE.md` = **399** (≤ 400) + `docs/sessions/2026-07/STATE-rolled.md` = **106** linhas de overflow.
+- Fronteira contígua (STATE.md começa em "linha 107", rolled termina em "linha 106") — zero perda / zero duplicação. Formato do checkpoint (`## Checkpoint: …`) intacto.
+
+**Scope guard — PASS**
+- Commits `1f057ac` + `e17d449` + `bfdef4a` tocam só os 4 ficheiros em `.claude/hooks/` + o story file. Zero `packages/**`, zero `.aiox-core/**` (L1/L2). Bate exactamente com a File List.
+
+**Quality gates — PASS**
+- `npm run lint` → exit 0 (cobre `.claude/hooks`, incluindo os novos wrappers).
+- `npm run typecheck` (tsc --noEmit) → exit 0.
+
+**Achado — MNT-001 (medium, não-bloqueante)**
+- Os wrappers derivam `agentId` de `input.agent || input.subagent_type || 'unknown'`. O payload real dos hooks `Subagent*` do Claude Code traz `agent_type` (confirmado: hook irmão `subagent-stop-observer.cjs:32` usa `event.agent_type || event.subagent_type`). Evidência empírica no log de 2026-07-01: 2× `SubagentStart/StateChange/Stop` com `agentId:"unknown"` — os spawns reais **estão** a ser registados, mas com a atribuição de agente perdida. O Verify literal da AC1 só passa por injectar `{"agent":…}` à mão.
+- **Impacto:** objectivo Fase 1 (logs voltam a ser escritos; `node <ficheiro inexistente>` deixa de correr) está cumprido; a lacuna afecta a *utilidade* dos dados para a Fase 2 (resurrection consulta por `agentId`). Não bloqueia.
+- **Correcção sugerida:** acrescentar `input.agent_type` à cadeia de fallback, alinhando com o hook irmão. É lacuna de recipe/spec (não erro do @dev — seguiu o contrato explícito da story, Art. IV) → encaminhar via amendment @sm/@po ou follow-up story antes da Fase 2.
+
+### Gate Status
+
+Gate: CONCERNS → docs/qa/gates/REPO-HYGIENE.2-immortality-wrappers-state-rotation.yml
