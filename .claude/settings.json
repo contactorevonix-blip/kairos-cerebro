@@ -340,7 +340,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "node \".claude/hooks/update-state.js\"",
+                        "command": "node \"C:\\Users\\lealp\\KAIROS_CEREBRO\\.claude\\hooks\\update-state.js\"",
                         "timeout": 10,
                         "statusMessage": "A actualizar STATE.md..."
                     }
@@ -350,7 +350,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "node \".claude/hooks/post-push-handoff-consolidate.js\"",
+                        "command": "node \"C:\\Users\\lealp\\KAIROS_CEREBRO\\.claude\\hooks\\post-push-handoff-consolidate.js\"",
                         "timeout": 30,
                         "async": true,
                         "statusMessage": "A consolidar handoffs..."
