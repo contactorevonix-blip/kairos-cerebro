@@ -1,0 +1,60 @@
+schema: 1
+story: 'SQUAD-FUSION.7'
+gate: CONCERNS
+status_reason: 'Gate de validação com execução REAL. @qa reproduziu independentemente: naming PASS, smoke refs resolvem, checksums 8/8 OK. Os "7 security issues" e "14 orphans" do validate-squad-structure são falsos-positivos / threshold não-aplicável a squad meta fundido — classificação do @dev é SÓLIDA e confirmada, NÃO são defeitos da fusão. Residual menor: pasta _fusion-baseline/ (artefactos QA) vive dentro da árvore validada do squad.'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+
+top_issues:
+  - id: 'SEC-001'
+    severity: low
+    finding: 'validate-squad-structure.py reporta 7 "security issues" — @qa confirmou serem FALSOS-POSITIVOS: valores de exemplo dentro de definições de pattern SEC-001/002/003 em docs canónicos de C (checklists/squad-checklist.md L167/175/254/331 examples:, data/squad-kb.md, tasks/qa-after-creation.md, tasks/validate-squad.md). O scanner MADURO do próprio squad (security_scanner.py, com exclude regex sk-1234|example|placeholder|pattern) EXCLUI todos eles — prova adicional. Zero segredos reais.'
+    suggested_action: 'Aceitar como não-defeito. Vieram da base C (canónico), não do enxerto mind-cloning. "C vence formato" — não editar docs canónicos de C.'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'validate-squad-structure.py reporta 14 orphan tasks (threshold max 2) e classifica type="pipeline" (7/10). @qa concorda: threshold desenhado para squads pequenos/operacionais; squad meta fundido tem legitimamente 31 tasks (24 C + 7 mind), muitas utilitárias/mind não referenciadas por checklists. Má-classificação de tipo enviesa checks.'
+    suggested_action: 'Aceitar — expectativa do validador não aplicável a este squad híbrido. Follow-up opcional: afinar type-detector ou anotar squad como meta/expert.'
+  - id: 'MNT-002'
+    severity: low
+    finding: 'ACHADO NOVO @qa: a pasta _fusion-baseline/ (FUSION-REPORT.md, collision-resolution-log.md, checksums) vive DENTRO de squads/squad-creator/ e é varrida pelos validadores. security_scanner.py apanha SEC-005 na própria prosa do FUSION-REPORT.md L72 (que cita "-----BEGIN...PRIVATE KEY-----" ao descrever os falsos-positivos). Auto-referência de artefacto QA, não segredo real.'
+    suggested_action: 'Não-bloqueante. Follow-up de limpeza: mover _fusion-baseline/ para docs/qa/ ou adicionar à ignore-list dos validadores antes de shipping público, para não poluir scans do squad.'
+
+waiver: { active: false }
+
+validators_reverified_by_qa:
+  naming_validator:
+    verdict: PASS
+    detail: '@qa reproduziu: exit 0, 0 errors quando invocado com nome de dir resolvido (python scripts/naming_validator.py squad-creator). Confirma integridade estrutural da conversão .4.'
+  security_scanner:
+    verdict: 'FALSE_POSITIVES_CONFIRMED'
+    detail: 'Scanner maduro (com exclusões) só tropeça na prosa descritiva do FUSION-REPORT — todos os exemplos de checklist são excluídos. Reforça a classificação de falso-positivo.'
+  coherence_validator:
+    verdict: 'SKIPPED_PRO_ONLY (esperado)'
+    detail: 'Só valida com squad-creator-pro instalado (ausente). Comportamento esperado, não falha.'
+  smoke_test:
+    verdict: PASS
+    detail: '@qa resolveu independentemente as referências do ciclo squad-chief→@oalanicolas→@pedro-valerio: 13/13 refs de mind-cloning existem (@dev reportou 20/20 no conjunto completo). Delegação resolve; fluxo unidireccional.'
+  constraint1_checksums:
+    verdict: PASS
+    detail: 'sha256sum -c re-executado por @qa: 8/8 OK. Byte-idêntico.'
+
+ac2_decision:
+  verdict: 'ACEITE — não é FAIL real, não requer WAIVER formal'
+  rationale: |
+    O FAIL de validate-squad-structure.py NÃO é um defeito introduzido pela fusão. Os 7 "security
+    issues" são valores de exemplo/regex de detecção em documentação canónica de C (confirmado por
+    @qa: o scanner maduro do próprio squad exclui-os todos). Os 14 orphans + má-classificação "pipeline"
+    são uma expectativa de threshold desenhada para squads pequenos que não se aplica a um squad meta
+    fundido (31 tasks legítimas). Não há um problema real a "dispensar" (waiver) — a expectativa do
+    validador simplesmente não corresponde a este tipo de squad. Classificado como CONCERNS (não FAIL,
+    não WAIVED): rastreável, não-bloqueante, sem correcção da fusão exigida.
+
+quality_gates:
+  lint: 'N/A — validadores Python de squad L4; produto TS/JS não tocado.'
+  typecheck: 'N/A.'
+  tests: 'N/A — root npm test corre suites de produto; git diff de produto vazio (zero regressão possível).'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — gate de validação sobre squad fundido; sem nova entity de produto.'

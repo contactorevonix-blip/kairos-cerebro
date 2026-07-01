@@ -1,0 +1,29 @@
+schema: 1
+story: 'SQUAD-FUSION.4'
+gate: PASS
+status_reason: 'oalanicolas.md e pedro-valerio.md convertidos para formato canónico (bloco yaml parseável, verificado por @qa). Mapeamento 1:1 sem perda de comportamento; comandos de pedro-valerio NÃO inventados (Art. IV — original não tinha verbos de comando, correctamente preservado). model/tools/permissionMode preservados em runtime_metadata.'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+top_issues: []
+waiver: { active: false }
+
+evidence:
+  canonical_parse:
+    verdict: PASS
+    detail: '@qa validou parse YAML: oalanicolas e pedro-valerio ambos com agent/persona/commands/activation-instructions presentes e válidos.'
+  no_invention:
+    verdict: PASS
+    detail: 'pedro-valerio.md preserva apenas *help/*exit + invocation_model (delegação), com NOTA explícita Art. IV de que o original não tinha verbos de comando standalone — nenhum comando inventado. Verificado por @qa.'
+  behavior_preserved:
+    verdict: PASS
+    detail: 'runtime_metadata preserva model (opus/sonnet), tools e permissionMode dos frontmatters originais. scope faz/nao_faz + veto/philosophy mantidos.'
+
+quality_gates:
+  lint: 'N/A — agentes .md L4.'
+  typecheck: 'N/A.'
+  tests: 'N/A.'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — conversão de formato dos agentes existentes, sem recriar do zero.'

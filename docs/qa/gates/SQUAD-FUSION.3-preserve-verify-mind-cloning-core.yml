@@ -1,0 +1,35 @@
+schema: 1
+story: 'SQUAD-FUSION.3'
+gate: CONCERNS
+status_reason: 'Baseline criada e assets mind-cloning preservados byte-idênticos (Constraint #1 re-verificado por @qa: 8/8 checksums OK). Único residual: AC4 PARTIAL — mind_dna_complete.yaml falha parse YAML estrito (pré-existente, protegido pelo Constraint #1, encaminhado para story dedicada). Não é regressão da fusão.'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+
+top_issues:
+  - id: 'MNT-001'
+    severity: low
+    finding: 'outputs/minds/alan-nicolas/mind_dna_complete.yaml falha parse YAML estrito na linha 65 (confirmado por @qa em PyYAML E js-yaml: "bad indentation of a sequence entry"). Pré-existente ao fusion — checksum byte-idêntico à baseline prova que não foi introduzido/tocado.'
+    suggested_action: 'Não-bloqueante e correcto NÃO corrigir aqui (Constraint #1 proíbe tocar em outputs/minds/). Consumo real usa regex, não strict-load. Encaminhado para story dedicada fora desta epic (FUSION-REPORT §8).'
+
+waiver: { active: false }
+
+evidence:
+  constraint1_checksums:
+    verdict: PASS
+    detail: '@qa re-executou sha256sum -c contra _fusion-baseline/core-checksums.txt e minds-checksums.txt: 7 core/*.js OK + mind_dna_complete.yaml OK. Diff vazio — byte-idêntico ao HEAD pré-fusão.'
+  baseline_created:
+    verdict: PASS
+    detail: '_fusion-baseline/ contém core-checksums.txt + minds-checksums.txt (baseline pré-fusão para Constraint #1).'
+  ac4_yaml_debt:
+    verdict: PARTIAL
+    detail: 'Reproduzido por @qa: parse estrito falha linha 65 em ambos os parsers. Pré-existente, não tocado, encaminhado. Documentação honesta.'
+
+quality_gates:
+  lint: 'N/A — story de verificação, sem escrita de produto.'
+  typecheck: 'N/A.'
+  tests: 'N/A.'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — verificação pura, preserva REUSE do mind-cloning (zero escrita nos assets).'

@@ -1,0 +1,32 @@
+schema: 1
+story: 'SQUAD-FUSION.5'
+gate: PASS
+status_reason: 'squad-chief cablado para delegar a @oalanicolas/@pedro-valerio via bloco mind_cloning_delegation (local, não pro-gated). Achado C-[PRO]-gate resolvido cirurgicamente com pro_command_handler.local_override. Aliases legados preservados (mitiga risco da epic). Agentes .4 intocados; YAML válido.'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+top_issues: []
+waiver: { active: false }
+
+evidence:
+  delegation_wired:
+    verdict: PASS
+    detail: '@qa confirmou bloco mind_cloning_delegation em squad-chief.md com local_available=true, delegates para @oalanicolas (7 tasks + output path) e @pedro-valerio (mind-validation.md), commands (*clone-mind/*extract-*/*validate-process) e flow unidireccional.'
+  pro_wall_resolved:
+    verdict: PASS
+    detail: 'pro_command_handler.local_override (L104-109) isenta *clone-mind/*extract-voice-dna/*extract-thinking-dna da parede [PRO] quando local_available=true; [PRO] mantém-se para comandos sem implementação local. Cirúrgico, correcto.'
+  reference_resolution:
+    verdict: PASS
+    detail: '@qa resolveu 13 referências de mind-cloning (agentes + 7 tasks + mind-validation.md + outputs + wf-clone-mind.yaml + model-routing.yaml): TODAS existem nos paths declarados.'
+  legacy_aliases:
+    verdict: PASS
+    detail: 'activation_aliases preserva @squad-chief e /Chiefs:agents:squad-chief (mitiga risco "squad-chief re-cablado quebra comandos do Pedro").'
+
+quality_gates:
+  lint: 'N/A — agente .md L4.'
+  typecheck: 'N/A.'
+  tests: 'N/A.'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — cablagem aditiva sobre squad-chief canónico existente.'

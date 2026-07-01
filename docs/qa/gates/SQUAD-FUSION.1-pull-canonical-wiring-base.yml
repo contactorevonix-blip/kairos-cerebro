@@ -1,0 +1,32 @@
+schema: 1
+story: 'SQUAD-FUSION.1'
+gate: PASS
+status_reason: 'Base canónica de C puxada (squad-chief.md canónico + 9 checklists + config + docs + protocols). Contagem real docs=26 (não 30 do brief) é correcção honesta fiel ao remoto (Art. IV), não invenção. Zero toques em .aiox-core/; assets mind-cloning intactos.'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+top_issues: []
+waiver: { active: false }
+
+evidence:
+  squad_chief_canonical:
+    verdict: PASS
+    detail: 'squads/squad-creator/agents/squad-chief.md tem bloco yaml canónico (ACTIVATION-NOTICE + IDE-FILE-RESOLUTION + activation-instructions + agent/persona/commands/dependencies) — parse YAML válido confirmado independentemente por @qa.'
+  no_invention_counts:
+    verdict: PASS
+    detail: 'Contagem real verificada por @qa: docs=26 (brief estimava 30). Desvio é correcção honesta, ficheiros puxados fiéis ao remoto via gh api.'
+  boundary:
+    verdict: PASS
+    detail: 'git status: nenhum ficheiro escrito em .aiox-core/ (L1/L2). Trabalho contido em squads/squad-creator/ (L4).'
+  constraint1_preserve:
+    verdict: PASS
+    detail: 'sha256sum -c vs _fusion-baseline/: core/*.js 7/7 OK + mind_dna_complete.yaml OK (re-verificado por @qa, diff vazio).'
+
+quality_gates:
+  lint: 'N/A — assets .md/.yaml/.py de squad L4; npm lint cobre TS/JS de produto (não tocado).'
+  typecheck: 'N/A — idem.'
+  tests: 'N/A — root npm test corre suites de produto (sniper-api/hooks/ids); fusão não tocou produto (git diff de produto vazio).'
+  coderabbit: 'DISABLED em core-config.yaml.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — puxa base existente de C em vez de recriar cablagem; sem overwrite de assets preservados.'

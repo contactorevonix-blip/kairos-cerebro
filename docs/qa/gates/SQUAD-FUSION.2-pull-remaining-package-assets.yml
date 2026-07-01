@@ -1,0 +1,29 @@
+schema: 1
+story: 'SQUAD-FUSION.2'
+gate: PASS
+status_reason: 'Restantes assets de C puxados (tasks, templates, scripts, workflows, package manifests). Contagens reais (templates=21, scripts=28/21-top-level) são correcções honestas (Art. IV). Zero deps instaladas (Constraint #5 respeitado — package.json/requirements.txt copiados mas não instalados).'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+top_issues: []
+waiver: { active: false }
+
+evidence:
+  no_invention_counts:
+    verdict: PASS
+    detail: '@qa contou independentemente: templates=24 (final; 21 de C + colisões), scripts=28 ficheiros (21 top-level + lib/tests), tasks=31. Batem exactamente com FUSION-REPORT. Desvios face ao brief (templates 22→21) são correcções honestas.'
+  zero_deps:
+    verdict: PASS
+    detail: 'Constraint #5: package.json + requirements.txt copiados como artefactos mas NÃO instalados. @qa confirmou que a fusão não introduziu deps novas ao root Kairos.'
+  boundary:
+    verdict: PASS
+    detail: 'Nenhuma escrita em .aiox-core/ (L1/L2); assets mind-cloning byte-idênticos (checksums OK).'
+
+quality_gates:
+  lint: 'N/A — assets de squad L4; produto não tocado.'
+  typecheck: 'N/A.'
+  tests: 'N/A — git diff de produto vazio.'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — substituição de genéricos por versões canónicas de C; lógica local capturada para .6.'

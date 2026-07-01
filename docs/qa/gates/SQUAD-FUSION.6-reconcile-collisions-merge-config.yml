@@ -1,0 +1,29 @@
+schema: 1
+story: 'SQUAD-FUSION.6'
+gate: PASS
+status_reason: '9 colisões resolvidas com log campo-a-campo (base C vence formato; lógica mind re-anexada a create-agent/validate-squad; nada desaparece em silêncio). config.yaml consolidado (squad.yaml→stub deprecado, mapeamento explícito). CHANGELOG/README/HEADLINE unificados. Checksums OK vs baseline (Constraint #1 re-verificado por @qa).'
+reviewer: 'Quinn'
+updated: '2026-07-01T12:00:00.000Z'
+top_issues: []
+waiver: { active: false }
+
+evidence:
+  collision_log:
+    verdict: PASS
+    detail: 'collision-resolution-log.md documenta as 9 colisões do brief §3.3 com resolução + lógica perdida/anotada por linha. create-agent.md e validate-squad.md têm secções "Mind-Cloning Mode (LOCAL)" / "DNA Quality (LOCAL)" re-anexadas.'
+  config_consolidation:
+    verdict: PASS
+    detail: 'squad.yaml → config.yaml mapeado campo-a-campo (§3 do log); squad.yaml mantido como stub deprecado (NEVER-003 + reversibilidade), não apagado. Decisão agents[].file (.claude/agents/ fonte-de-verdade + local_copy) registada.'
+  constraint1:
+    verdict: PASS
+    detail: '@qa re-verificou sha256sum: core/*.js + mind_dna_complete.yaml byte-idênticos apesar dos merges de config.'
+
+quality_gates:
+  lint: 'N/A — config .yaml + docs .md L4.'
+  typecheck: 'N/A.'
+  tests: 'N/A.'
+  coderabbit: 'DISABLED.'
+
+ids_compliance:
+  action: ADAPT
+  verdict: 'PASS — merge (não overwrite) de config; wf-create-squad NÃO duplica lógica mind (vive em wf-clone-mind.yaml preservado) — Simplicity/No-Invention respeitados.'

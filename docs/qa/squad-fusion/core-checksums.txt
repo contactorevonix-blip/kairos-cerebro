@@ -1,0 +1,7 @@
+30b3381560185d7889db7d73ceeb8fd12ac1bc95bc4a1f66b1443bd56ef848d5 *squads/squad-creator/core/authority-matrix.js
+277e942cc87270b80c052b55dad2fb3c530643b3e5798f105df7cd9462cbeabb *squads/squad-creator/core/kb-assembler.js
+790a2f624012e8ad26c7e826b42078d50dffd4da39d4c3717f173a1e9e3639a8 *squads/squad-creator/core/rules-inheritor.js
+37790fb7e989f6a9a617f8cdfed1b047e025308d668f3f873ca423a142963293 *squads/squad-creator/core/skill-validator.js
+accacb1c3b67987020483c23ae5a8dd4569428f7e71859c1b6f6d16a3ce9c19a *squads/squad-creator/core/squad-template-generator.js
+ef1bc2c6c11f92f7fff62ba5f6af7f77dc713de4c82f757abbe1c386dbd20437 *squads/squad-creator/core/thinking-dna.js
+c2fd57731b60a2123420bae0657d9479d1e3e62af730f8d10f519ed1a1b5931f *squads/squad-creator/core/voice-dna.js
